@@ -3,7 +3,8 @@ __docformat__ = "reStructuredText"
 import math
 import operator
 
-__all__ = ["Vec2d"]
+
+# TODO: Clean up Vec2d (make similar to Line2d!)
 
 
 class Vec2d(object):
@@ -481,3 +482,13 @@ class Vec2d(object):
         callable = Vec2d
         args = (self.x, self.y)
         return (callable, args)
+
+
+def angle_to_vec(angle: float):
+    """
+    Transform an angle to a normalized vector.
+
+    :param angle: Float
+    :return: Vec2d
+    """
+    return Vec2d(np.cos(angle), np.sin(angle))
