@@ -128,4 +128,6 @@ dmypy.json
 # ------------------------------------------------> PROJECT SPECIFIC <------------------------------------------------ #
 .idea/
 **/test*
-!tests/
+!tests/*.py
+!tests/games_db/
+tests/games_db/game*
