@@ -1,7 +1,5 @@
 """
-Test the intersection methods
-
-Note that each test must start with "test_"
+Test of all the intersection methods.
 """
 
 import unittest
@@ -12,6 +10,10 @@ from utils.vec2d import Vec2d
 
 
 class Line2dLine2dIntersection(unittest.TestCase):
+    """
+    Test the intersection formula between two lines.
+    """
+    
     def test_intersect(self):
         l1 = Line2d(Vec2d(1, 0), Vec2d(-1, 0))
         l2 = Line2d(Vec2d(0, 1), Vec2d(0, -1))
@@ -29,6 +31,10 @@ class Line2dLine2dIntersection(unittest.TestCase):
 
 
 class PointCircleIntersection(unittest.TestCase):
+    """
+    Test the intersection formula between a point and a circle.
+    """
+    
     def test_intersect(self):
         c = Vec2d(0, 0)
         r = 1
@@ -49,6 +55,10 @@ class PointCircleIntersection(unittest.TestCase):
 
 
 class PointLine2dIntersection(unittest.TestCase):
+    """
+    Test the intersection formula between a point and a line.
+    """
+    
     def test_intersect(self):
         l = Line2d(Vec2d(1, 0), Vec2d(-1, 0))
         p = Vec2d(0, 0)
@@ -66,6 +76,10 @@ class PointLine2dIntersection(unittest.TestCase):
 
 
 class CircleLine2dIntersection(unittest.TestCase):
+    """
+    Test the intersection formula between a circle and a line.
+    """
+    
     def test_intersect(self):
         c = Vec2d(0, 0.5)
         r = 1

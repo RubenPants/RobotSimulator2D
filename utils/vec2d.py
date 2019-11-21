@@ -3,6 +3,8 @@ __docformat__ = "reStructuredText"
 import math
 import operator
 
+import numpy as np
+
 
 # TODO: Clean up Vec2d (make similar to Line2d!)
 

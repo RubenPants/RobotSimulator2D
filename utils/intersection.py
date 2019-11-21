@@ -13,10 +13,10 @@ def line_line_intersection(l1: Line2d, l2: Line2d):
     :param l2: Line2d
     :return: Bool, Intersection: Vec2d
     """
-    a = ((l2.y.x - l2.x.x) * (l1.x.y - l2.x.y) - (l2.y.y - l2.x.y) * (l1.x.x - l2.x.x)) / (
-            (l2.y.y - l2.x.y) * (l1.y.x - l1.x.x) - (l2.y.x - l2.x.x) * (l1.y.y - l1.x.y))
-    b = ((l1.y.x - l1.x.x) * (l1.x.y - l2.x.y) - (l1.y.y - l1.x.y) * (l1.x.x - l2.x.x)) / (
-            (l2.y.y - l2.x.y) * (l1.y.x - l1.x.x) - (l2.y.x - l2.x.x) * (l1.y.y - l1.x.y))
+    a = ((l2.y.x - l2.x.x) * (l1.x.y - l2.x.y) - (l2.y.y - l2.x.y) * (l1.x.x - l2.x.x)) / max(
+            ((l2.y.y - l2.x.y) * (l1.y.x - l1.x.x) - (l2.y.x - l2.x.x) * (l1.y.y - l1.x.y)), 1e-9)
+    b = ((l1.y.x - l1.x.x) * (l1.x.y - l2.x.y) - (l1.y.y - l1.x.y) * (l1.x.x - l2.x.x)) / max(
+            ((l2.y.y - l2.x.y) * (l1.y.x - l1.x.x) - (l2.y.x - l2.x.x) * (l1.y.y - l1.x.y)), 1e-9)
     
     # Check if not intersecting
     if 0 <= a <= 1 and 0 <= b <= 1:

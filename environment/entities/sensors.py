@@ -8,7 +8,8 @@ Sensor classes used by the bots. The different types of sensors are:
 """
 import random
 
-from environment.entities.game import Game
+import numpy as np
+
 from utils.config import NOISE_SENSOR_ANGLE, NOISE_SENSOR_DIST, NOISE_SENSOR_PROXY, SENSOR_RAY_DISTANCE
 from utils.dictionary import *
 from utils.intersection import line_line_intersection
@@ -22,7 +23,7 @@ class Sensor:
     """
     
     def __init__(self,
-                 game: Game,
+                 game,  # Type not specified due to circular imports
                  sensor_id: int = 0,
                  angle: float = 0,
                  pos_offset: float = 0,
@@ -67,7 +68,7 @@ class AngularSensor(Sensor):
     """
     
     def __init__(self,
-                 game: Game,
+                 game,  # Type not specified due to circular imports
                  sensor_id: int = 0,
                  clockwise: bool = True):
         """
@@ -88,8 +89,8 @@ class AngularSensor(Sensor):
         :return: Float between 0 and 2*PI
         """
         # Get relative angle
-        start_a = self.game.bot.angle
-        req_a = (self.game.target.pos - self.game.bot.pos).get_angle()
+        start_a = self.game.player.angle
+        req_a = (self.game.target - self.game.player.pos).get_angle()
         
         # Normalize
         diff = 2 * np.pi + start_a - req_a
@@ -112,7 +113,7 @@ class DistanceSensor(Sensor):
     """
     
     def __init__(self,
-                 game: Game,
+                 game,  # Type not specified due to circular imports
                  sensor_id: int = 0):
         """
         :param game: Reference to the game in which the sensor is used
@@ -128,8 +129,8 @@ class DistanceSensor(Sensor):
         """
         :return: Distance between target and robot's center coordinate, which is a float
         """
-        start_p = self.game.bot.pos
-        end_p = self.game.target.pos
+        start_p = self.game.player.pos
+        end_p = self.game.target
         distance = (start_p - end_p).get_length()
         if self.game.noise:
             distance += random.gauss(0, NOISE_SENSOR_DIST)
@@ -144,7 +145,7 @@ class ProximitySensor(Sensor):
     """
     
     def __init__(self,
-                 game: Game,
+                 game,  # Type not specified due to circular imports
                  sensor_id: int = 0,
                  angle: float = 0,
                  pos_offset: float = 0,
@@ -161,9 +162,7 @@ class ProximitySensor(Sensor):
                          angle=angle,
                          pos_offset=pos_offset,
                          max_dist=max_dist)
-        normalized_offset = Vec2d(np.cos(self.bot.angle + self.angle),
-                                  np.sin(self.bot.angle + self.angle))
-        self.end_pos = self.bot.pos + (self.pos_offset + self.max_dist) * normalized_offset
+        self.end_pos = None  # Placeholder for end-point of proximity sensor
     
     def __str__(self):
         return "{sensor}_{id:02d}".format(sensor=D_SENSOR_PROXIMITY, id=self.id)
@@ -176,10 +175,10 @@ class ProximitySensor(Sensor):
         :return: Float expressing the distance to the closest wall, if there is any
         """
         # Start and end point of ray
-        normalized_offset = Vec2d(np.cos(self.game.bot.angle + self.angle),
-                                  np.sin(self.game.bot.angle + self.angle))
-        self.end_pos = self.game.bot.pos + (self.pos_offset + self.max_dist) * normalized_offset
-        sensor_line = Line2d(x=self.game.bot.pos,
+        normalized_offset = Vec2d(np.cos(self.game.player.angle + self.angle),
+                                  np.sin(self.game.player.angle + self.angle))
+        self.end_pos = self.game.player.pos + (self.pos_offset + self.max_dist) * normalized_offset
+        sensor_line = Line2d(x=self.game.player.pos,
                              y=self.end_pos)
         
         # Check if there is a wall intersecting with the sensor and return the closest distance to a wall
@@ -187,7 +186,7 @@ class ProximitySensor(Sensor):
         for wall in self.game.walls:
             inter, pos = line_line_intersection(sensor_line, wall)
             if inter:
-                new_dist = (pos - self.game.bot.pos).get_length()
+                new_dist = (pos - self.game.player.pos).get_length()
                 if closest_dist > new_dist:
                     self.end_pos = pos
                     closest_dist = new_dist

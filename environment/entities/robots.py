@@ -3,7 +3,6 @@ robots.py
 
 Robots used to manoeuvre around in the Game-environment.
 """
-from environment.entities.game import Game
 from environment.entities.sensors import AngularSensor, DistanceSensor, ProximitySensor
 from utils.config import *
 from utils.dictionary import *
@@ -16,7 +15,8 @@ class FootBot:
     The FootBot is the main bot used in this project. It is a simple circular robot with two wheels on its sides.
     """
     
-    def __init__(self, game: Game,
+    def __init__(self,
+                 game,  # Type not specified due to circular imports
                  init_pos: Vec2d = None,
                  init_orient: float = None,
                  r: int = None):
@@ -32,9 +32,16 @@ class FootBot:
         self.game = game  # Game in which robot runs
         
         # Robot specific parameters
-        self.init_pos = init_pos if init_pos else Vec2d(0, 0)  # Initial position
-        self.pos = init_pos if init_pos else Vec2d(0, 0)  # Current position
-        self.prev_pos = self.pos  # Previous current position
+        self.pos = Vec2d(0, 0)  # Current position
+        self.prev_pos = Vec2d(0, 0)  # Previous current position
+        if init_pos:
+            self.init_pos = init_pos  # Initial position
+            self.pos.x = init_pos.x
+            self.pos.y = init_pos.y
+            self.prev_pos.x = init_pos.x
+            self.prev_pos.y = init_pos.y
+        else:
+            self.init_pos = Vec2d(0, 0)
         self.init_angle = init_orient if init_orient else 0  # Initial angle
         self.angle = init_orient if init_orient else 0  # Current angle
         self.radius = r if r else BOT_RADIUS  # Radius of the bot
@@ -70,7 +77,7 @@ class FootBot:
         rw = max(min(rw, 1), -1)
         
         # Update previous position
-        self.prev_pos = self.pos
+        self.prev_pos.x, self.prev_pos.y = self.pos.x, self.pos.y
         
         # Update angle is determined by the speed of both wheels
         self.angle += (rw - lw) * BOT_TURNING_SPEED * dt
@@ -103,8 +110,10 @@ class FootBot:
         """
         Put the robot back to its initial parameters.
         """
-        self.pos = self.init_pos
-        self.prev_pos = self.init_pos
+        self.pos.x = self.init_pos.x
+        self.pos.y = self.init_pos.y
+        self.prev_pos.x = self.init_pos.x
+        self.prev_pos.y = self.init_pos.y
         self.angle = self.init_angle
     
     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #

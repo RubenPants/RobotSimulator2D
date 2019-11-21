@@ -37,6 +37,7 @@ BOT_TURNING_SPEED = 3 * np.pi / 4  # Speed of bot when turning expressed in radi
 
 # --> TARGET SPECIFIC <-- #
 TARGET_RADIUS = 0.065  # Radius of the target expressed in meters [def=0.05]
+TARGET_REACHED = 0.1  # Target is reached when within this range, expressed in meters [def=0.1]
 
 # --> WALL SPECIFIC <-- #
 WALL_THICKNESS = 0.1  # Thickness of the wall expressed in meters [def=0.1]
@@ -52,6 +53,6 @@ FILLED_ROOM_RATIO = 0.2  # The maximum percentage of tiles one room may contain
 
 # --> NOISE <-- #
 NOISE_TIME = 0.02  # Alpha for Gaussian distribution concerning the time noise during game-progress [def=0.02]
-NOISE_SENSOR_ANGLE = 0.002  # Alpha for the Gaussian distribution concerning the distance sensor [def=0.002]  # TODO: Check this
+NOISE_SENSOR_ANGLE = 0.002  # Alpha for the Gaussian distribution concerning the distance sensor [def=0.002]
 NOISE_SENSOR_DIST = 0.2  # Alpha for the Gaussian distribution concerning the distance sensor [def=0.2]
 NOISE_SENSOR_PROXY = 0.2  # Alpha for the Gaussian distribution concerning the proximity sensor [def=0.2]

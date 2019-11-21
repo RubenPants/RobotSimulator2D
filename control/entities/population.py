@@ -169,8 +169,8 @@ class Population(object):
         
         # Get all the final positions of the agents
         positions = [o[D_POS] for o in observation_list]
-        dot_x = [p[0] / PTM for p in positions]
-        dot_y = [p[1] / PTM for p in positions]
+        dot_x = [p[0] for p in positions]
+        dot_y = [p[1] for p in positions]
         plt.plot(dot_x, dot_y, 'ro')
         
         # Add target again to map
