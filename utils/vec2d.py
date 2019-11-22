@@ -1,4 +1,5 @@
 import math
+import operator
 
 import numpy as np
 
@@ -123,6 +124,73 @@ class Vec2d(object):
             self.y *= other
         return self
     
+    def _operator_handler(self, other, f):
+        if isinstance(other, Vec2d):
+            return Vec2d(f(self.x, other.x),
+                         f(self.y, other.y))
+        elif hasattr(other, "__getitem__"):
+            return Vec2d(f(self.x, other[0]),
+                         f(self.y, other[1]))
+        else:
+            return Vec2d(f(self.x, other),
+                         f(self.y, other))
+    
+    def _right_operator_handler(self, other, f):
+        if hasattr(other, "__getitem__"):
+            return Vec2d(f(other[0], self.x),
+                         f(other[1], self.y))
+        else:
+            return Vec2d(f(other, self.x),
+                         f(other, self.y))
+    
+    def _inplace_operator_handler(self, other, f):
+        if hasattr(other, "__getitem__"):
+            self.x = f(self.x, other[0])
+            self.y = f(self.y, other[1])
+        else:
+            self.x = f(self.x, other)
+            self.y = f(self.y, other)
+        return self
+    
+    def __div__(self, other):
+        return self._operator_handler(other, operator.div)
+    
+    def __rdiv__(self, other):
+        return self._right_operator_handler(other, operator.div)
+    
+    def __idiv__(self, other):
+        return self._inplace_operator_handler(other, operator.div)
+    
+    def __floordiv__(self, other):
+        return self._operator_handler(other, operator.floordiv)
+    
+    def __rfloordiv__(self, other):
+        return self._right_operator_handler(other, operator.floordiv)
+    
+    def __ifloordiv__(self, other):
+        return self._inplace_operator_handler(other, operator.floordiv)
+    
+    def __truediv__(self, other):
+        return self._operator_handler(other, operator.truediv)
+    
+    def __rtruediv__(self, other):
+        return self._right_operator_handler(other, operator.truediv)
+    
+    def __itruediv__(self, other):
+        return self._inplace_operator_handler(other, operator.truediv)
+    
+    def __neg__(self):
+        return Vec2d(operator.neg(self.x), operator.neg(self.y))
+    
+    def __pos__(self):
+        return Vec2d(operator.pos(self.x), operator.pos(self.y))
+    
+    def __abs__(self):
+        return Vec2d(abs(self.x), abs(self.y))
+    
+    def __invert__(self):
+        return Vec2d(-self.x, -self.y)
+    
     def get_angle(self):
         if self.get_length() == 0:
             return 0
@@ -130,6 +198,12 @@ class Vec2d(object):
     
     def get_length(self):
         return math.sqrt(self.x ** 2 + self.y ** 2)
+    
+    def normalized(self):
+        length = self.get_length()
+        if length != 0:
+            return self / length
+        return Vec2d(self)
 
 
 def angle_to_vec(angle: float):
