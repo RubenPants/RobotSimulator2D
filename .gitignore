@@ -126,7 +126,16 @@ dmypy.json
 
 
 # ------------------------------------------------> PROJECT SPECIFIC <------------------------------------------------ #
+# Ignore environment
 .idea/
+
+# Ignore all experimental folders and files, but do include the 'tests' (unittest) folder
 **/test.py
 **/test/
+
+# Ignore games made during testing
 tests/games_db/game*
+
+# Ignore deprecated files
+**_dep.*
+
