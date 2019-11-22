@@ -124,6 +124,8 @@ class Maze:
             for y in range(1, self.y_width - 1, 2):
                 if self.maze[y, x] == -1:
                     wall_list.append(Line2d(Vec2d(x // 2, (y - 1) // 2), Vec2d(x // 2, (y + 1) // 2)))
+        
+        combine_walls(wall_list)
         return wall_list
     
     # -------------------------------------------> MAIN SECONDARY METHODS <------------------------------------------- #
@@ -400,6 +402,61 @@ class Maze:
                     (self.in_maze((x, y)) and self.maze[y, x] >= 0)])
 
 
+def combine_walls(wall_list):
+    """
+    Combine every two wall-segments (Line2d) together that can be represented by only one line segment. This will
+    increase the performance later on, since the intersection methods must loop over less wall-segments.
+
+    :param wall_list: List<Line2d>
+    :return: List<Line2d>
+    """
+    i = 0
+    while i < len(wall_list) - 1:
+        concat = False
+        # Check if wall at i can be concatenated with wall after i
+        for w in wall_list[i + 1:]:
+            # Check if in same horizontal line
+            if wall_list[i].x.y == wall_list[i].y.y == w.x.y == w.y.y:
+                # Check if at least one point collides
+                if wall_list[i].x.x == w.x.x:
+                    wall_list[i] = Line2d(Vec2d(wall_list[i].y.x, w.x.y), Vec2d(w.y.x, w.x.y))
+                    concat = True
+                elif wall_list[i].y.x == w.x.x:
+                    wall_list[i] = Line2d(Vec2d(wall_list[i].x.x, w.x.y), Vec2d(w.y.x, w.x.y))
+                    concat = True
+                elif wall_list[i].y.x == w.y.x:
+                    wall_list[i] = Line2d(Vec2d(wall_list[i].x.x, w.x.y), Vec2d(w.x.x, w.x.y))
+                    concat = True
+                elif wall_list[i].x.x == w.y.x:
+                    wall_list[i] = Line2d(Vec2d(wall_list[i].y.x, w.x.y), Vec2d(w.x.x, w.x.y))
+                    concat = True
+            
+            # Check if in same vertical line
+            elif wall_list[i].x.x == wall_list[i].y.x == w.x.x == w.y.x:
+                # Check if at least one point collides
+                if wall_list[i].x.y == w.x.y:
+                    wall_list[i] = Line2d(Vec2d(w.x.x, wall_list[i].y.y), Vec2d(w.x.x, w.y.y))
+                    concat = True
+                elif wall_list[i].y.y == w.x.y:
+                    wall_list[i] = Line2d(Vec2d(w.x.x, wall_list[i].x.y), Vec2d(w.x.x, w.y.y))
+                    concat = True
+                elif wall_list[i].y.y == w.y.y:
+                    wall_list[i] = Line2d(Vec2d(w.x.x, wall_list[i].x.y), Vec2d(w.x.x, w.x.y))
+                    concat = True
+                elif wall_list[i].x.y == w.y.y:
+                    wall_list[i] = Line2d(Vec2d(w.x.x, wall_list[i].y.y), Vec2d(w.x.x, w.x.y))
+                    concat = True
+            
+            # If w concatenated with i'th wall in wall_list, then remove w from list and break for-loop
+            if concat:
+                wall_list.remove(w)
+                break
+        
+        # Current wall cannot be extended, go to next wall
+        if not concat:
+            i += 1
+
+
 def create_custom_game(overwrite=False):
     # Initial parameters
     game_id = 0
@@ -465,11 +522,11 @@ if __name__ == '__main__':
     if args.custom:
         create_custom_game(overwrite=args.overwrite)
     else:
-        for i in tqdm(range(1, args.nr_games + 1), desc="Generating Mazes"):
+        for game in tqdm(range(1, args.nr_games + 1), desc="Generating Mazes"):
             maze = None
             while not maze:
                 try:
                     maze = Maze(AXIS_X, AXIS_Y, visualize=args.visualize)
                 except (IndexError, Exception):
                     maze = None  # Reset and try again
-            create_game(game_id=i, wall_list=maze.get_wall_coordinates(), overwrite=args.overwrite)
+            create_game(game_id=game, wall_list=maze.get_wall_coordinates(), overwrite=args.overwrite)
