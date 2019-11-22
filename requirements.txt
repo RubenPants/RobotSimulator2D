@@ -8,3 +8,4 @@ pyglet
 neat
 neat-python
 pytest
+cython
