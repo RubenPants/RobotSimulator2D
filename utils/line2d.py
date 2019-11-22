@@ -1,12 +1,23 @@
-import math
-
 from utils.vec2d import Vec2d
 
 
 class Line2d(object):
+    """
+    Create a two dimensional line setup of the connection between two 2D vectors.
+    """
+    
+    __slots__ = ("x", "y")
+    
     def __init__(self, x: Vec2d = None, y: Vec2d = None):
         self.x = x if x else Vec2d(0, 0)
         self.y = y if y else Vec2d(0, 0)
+    
+    def __getitem__(self, i):
+        if i == 0:
+            return self.x
+        elif i == 1:
+            return self.y
+        raise IndexError()
     
     def __setitem__(self, i, value):
         if i == 0:
@@ -16,11 +27,27 @@ class Line2d(object):
         else:
             raise IndexError()
     
+    def __iter__(self):
+        yield self.x
+        yield self.y
+    
+    def __len__(self):
+        return 2
+    
+    def __repr__(self):
+        return 'Line2d(%s, %s)' % (self.x, self.y)
+    
     def __eq__(self, other):
         if hasattr(other, "__getitem__") and len(other) == 2:
             return self.x == other[0] and self.y == other[1]
         else:
             return False
+    
+    def __ne__(self, other):
+        if hasattr(other, "__getitem__") and len(other) == 2:
+            return self.x != other[0] or self.y != other[1]
+        else:
+            return True
     
     def __add__(self, other):
         if isinstance(other, Line2d):
@@ -44,7 +71,6 @@ class Line2d(object):
             self.y += other
         return self
     
-    # Subtraction
     def __sub__(self, other):
         if isinstance(other, Line2d):
             return Line2d(self.x - other.x, self.y - other.y)
@@ -74,4 +100,10 @@ class Line2d(object):
         return self
     
     def get_length(self):
-        return math.sqrt((self.x.x - self.y.x) ** 2 + (self.x.y - self.y.y) ** 2)
+        return (self.x - self.y).get_length()
+    
+    def get_orientation(self):
+        """
+        Get the orientation from start to end.
+        """
+        return (self.x - self.y).get_angle()

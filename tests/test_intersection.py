@@ -19,6 +19,16 @@ class Line2dLine2dIntersection(unittest.TestCase):
         l2 = Line2d(Vec2d(0, 1), Vec2d(0, -1))
         self.assertEqual(line_line_intersection(l1, l2), (True, Vec2d(0, 0)))
     
+    def test_intersect_small(self):
+        l1 = Line2d(Vec2d(1, 0), Vec2d(-1, 0))
+        l2 = Line2d(Vec2d(0, 1e-5), Vec2d(0, -1e-5))
+        self.assertEqual(line_line_intersection(l1, l2), (True, Vec2d(0, 0)))
+    
+    def test_intersect_cross(self):
+        l1 = Line2d(Vec2d(1, 1), Vec2d(-1, -1))
+        l2 = Line2d(Vec2d(1, -1), Vec2d(-1, 1))
+        self.assertEqual(line_line_intersection(l1, l2), (True, Vec2d(0, 0)))
+    
     def test_intersect_edge(self):
         l1 = Line2d(Vec2d(1, 0), Vec2d(-1, 0))
         l2 = Line2d(Vec2d(0, 1), Vec2d(0, 0))

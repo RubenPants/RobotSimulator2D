@@ -169,6 +169,24 @@ class Game:
         result.append(distance)
         return result
     
+    def set_player_angle(self, a: float):
+        """
+        Set a new initial angle for the player.
+        """
+        self.player.init_angle = a
+        self.player.angle = a
+    
+    def set_player_pos(self, p: Vec2d):
+        """
+        Set a new initial position for the player.
+        """
+        self.player.init_pos.x = p.x
+        self.player.init_pos.y = p.y
+        self.player.pos.x = p.x
+        self.player.pos.y = p.y
+        self.player.prev_pos.x = p.x
+        self.player.prev_pos.y = p.y
+    
     # ---------------------------------------------> FUNCTIONAL METHODS <--------------------------------------------- #
     
     def save(self):
@@ -213,7 +231,7 @@ class Game:
         # Draw all the walls
         walls = []
         for w in self.walls:
-            walls.append([(w.start.x, w.start.y), (w.end.x, w.end.y)])
+            walls.append([(w.x.x, w.x.y), (w.y.x, w.y.y)])
         lc = mc.LineCollection(walls, linewidths=2)
         ax.add_collection(lc)
         
