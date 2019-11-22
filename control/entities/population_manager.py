@@ -8,7 +8,6 @@ population (saved as populations themselves).
 import pickle
 import re
 import shutil
-# noinspection PyCompatibility
 from configparser import ConfigParser
 from glob import glob
 
@@ -55,7 +54,7 @@ class PopulationManager:
         get_subfolder('{}populations/'.format(self.rel_path), str(self))
         
         # Environment specific
-        self.environment = None
+        self.environment: Environment = None
         
         # Network methods
         self.make_net_method = make_net_method
@@ -178,6 +177,7 @@ class PopulationManager:
         genome = self.population.population[genome_key] if genome_key else self.population.best_genome
         
         # Run the game
+        raise NotImplemented  # TODO: Create visualization!
         self.environment.visualize_genome(genome, self.config, debug=debug)
     
     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
