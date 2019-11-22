@@ -14,7 +14,7 @@ from glob import glob
 import neat
 
 from control.entities.population import Population
-from environment.environment import Environment
+from environment.environment_evaluator import EnvironmentEvaluator
 from pytorch_neat.neat_reporter import LogReporter
 from utils.config import *
 from utils.dictionary import *
@@ -54,7 +54,7 @@ class PopulationManager:
         get_subfolder('{}populations/'.format(self.rel_path), str(self))
         
         # Environment specific
-        self.environment: Environment = None
+        self.environment: EnvironmentEvaluator = None
         
         # Network methods
         self.make_net_method = make_net_method
@@ -106,7 +106,7 @@ class PopulationManager:
             D_K:        int(cfg['EVALUATION']['nn_k']),
             D_TAG:      cfg['EVALUATION']['fitness'],
         }
-        self.environment = Environment(
+        self.environment = EnvironmentEvaluator(
                 fitness_config=fitness_config,
                 make_net=self.make_net,
                 max_duration=int(cfg['EVALUATION']['game_duration']),

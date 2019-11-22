@@ -50,3 +50,7 @@ D_SENSOR_PROXIMITY = 'proximity_sensor'
 
 # T
 D_TAG = 'tag'
+D_TARGET = 'target'
+
+# W
+D_WALLS = 'walls'

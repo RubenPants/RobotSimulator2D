@@ -14,7 +14,7 @@ from utils.config import FPS
 from utils.dictionary import D_SENSOR_LIST
 
 
-class Environment:
+class EnvironmentEvaluator:
     """
     Environment which supports the evaluation of multiple games in parallel. The batch_size defines the number of
     environments on which one single candidate is trained.

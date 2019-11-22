@@ -193,8 +193,12 @@ class Game:
         if TIME_ALL:
             prep(key='load_save', silent=True)
         try:
+            persist_dict = dict()
+            persist_dict[D_PLAYER] = self.player
+            persist_dict[D_TARGET] = self.target
+            persist_dict[D_WALLS] = self.walls
             with open('{p}games_db/{g}'.format(p=self.rel_path, g=self), 'wb') as f:
-                pickle.dump(self, f)
+                pickle.dump(persist_dict, f)
         finally:
             if TIME_ALL:
                 drop(key='load_save', silent=True)
@@ -210,9 +214,9 @@ class Game:
         try:
             with open('{p}games_db/{g}'.format(p=self.rel_path, g=self), 'rb') as f:
                 game = pickle.load(f)
-            self.player = game.player
-            self.target = game.target
-            self.walls = game.walls
+            self.player = game[D_PLAYER]
+            self.target = game[D_TARGET]
+            self.walls = game[D_WALLS]
             if not self.silent:
                 print("Existing game loaded with id: {}".format(self.id))
             return True

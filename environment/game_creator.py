@@ -516,7 +516,7 @@ if __name__ == '__main__':
     parser.add_argument('--custom', type=bool, default=False)
     parser.add_argument('--overwrite', type=bool, default=True)
     parser.add_argument('--nr_games', type=int, default=GAMES_AMOUNT)
-    parser.add_argument('--visualize', type=bool, default=True)
+    parser.add_argument('--visualize', type=bool, default=False)
     args = parser.parse_args()
     
     if args.custom:
