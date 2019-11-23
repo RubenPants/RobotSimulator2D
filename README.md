@@ -42,8 +42,6 @@ The whole process gets started by calling `reset`,which returns an initial `obse
 
 ## Urgent
 
-* Error in game-intersection, for the moment, checked on center and line collision, NOT line circle (i.e. robot) 
-collision
 * Test the sensor-values (make new test-set)
 
 ### Other

@@ -19,7 +19,7 @@ class FootBot:
                  game,  # Type not specified due to circular imports
                  init_pos: Vec2d = None,
                  init_orient: float = 0,
-                 r: int = BOT_RADIUS):
+                 r: float = BOT_RADIUS):
         """
         Create a new FootBot object.
         

@@ -12,7 +12,7 @@ from matplotlib import collections as mc
 from environment.entities.robots import FootBot
 from utils.config import *
 from utils.dictionary import *
-from utils.intersection import line_line_intersection
+from utils.intersection import line_line_intersection, circle_line_intersection
 from utils.line2d import Line2d
 from utils.myutils import drop, prep
 from utils.vec2d import Vec2d
@@ -96,9 +96,8 @@ class Game:
         self.player.drive(dt, lw=l, rw=r)
         
         # Check if intersected with a wall, if so then set player back to old position
-        line = Line2d(self.player.prev_pos, self.player.pos)
         for wall in self.walls:
-            inter, _ = line_line_intersection(line, wall)
+            inter, _ = circle_line_intersection(c=self.player.pos, r=self.player.radius, l=wall)
             if inter:
                 self.player.pos.x = self.player.prev_pos.x
                 self.player.pos.y = self.player.prev_pos.y

@@ -422,7 +422,7 @@ cpdef circle_line_intersection_cy(Vec2dCy c, float r, Line2dCy l):
         return False, None
     
     # Check if in circle
-    return (True, closest) if (closest - c).get_length() < r + EPSILON else (False, None)
+    return (True, closest) if (closest - c).get_length() <= (r + EPSILON) else (False, None)
 
 # -----------------------------------------------------> SENSORS <---------------------------------------------------- #
 
@@ -639,7 +639,7 @@ cdef class FootBotCy:
     cdef public Vec2dCy init_pos
     cdef public float init_angle
     cdef public float angle
-    cdef public int radius
+    cdef public float radius
     cdef public set angular_sensors
     cdef public DistanceSensorCy distance_sensor
     cdef public set proximity_sensors
@@ -648,7 +648,7 @@ cdef class FootBotCy:
                  GameCy game,  # Type not specified due to circular imports
                  Vec2dCy init_pos=None,
                  float init_orient=0,
-                 int r=BOT_RADIUS):
+                 float r=BOT_RADIUS):
         """
         Create a new FootBot object.
         
@@ -893,7 +893,6 @@ cdef class GameCy:
         """
         # Define used parameters
         cdef float dt
-        cdef Line2dCy line
         cdef Line2dCy wall
         cdef bint inter
         cdef dict obs
@@ -903,9 +902,8 @@ cdef class GameCy:
         self.player.drive(dt, lw=l, rw=r)
         
         # Check if intersected with a wall, if so then set player back to old position
-        line = Line2dCy(self.player.prev_pos, self.player.pos)
         for wall in self.walls:
-            inter, _ = line_line_intersection_cy(line, wall)
+            inter, _ = circle_line_intersection_cy(c=self.player.pos, r=self.player.radius, l=wall)
             if inter:
                 self.player.pos.x = self.player.prev_pos.x
                 self.player.pos.y = self.player.prev_pos.y

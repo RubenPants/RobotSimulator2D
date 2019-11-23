@@ -1,23 +1,18 @@
-"""
-Tests concerning the game mechanics.
-"""
 import unittest
 from random import random
 
-from environment.entities.game import Game
+from environment.cy_entities.god_class_cy import GameCy, Line2dCy, Vec2dCy
 from utils.config import *
-from utils.line2d import Line2d
-from utils.vec2d import Vec2d
 
 
-class GameWallCollision(unittest.TestCase):
+class GameWallCollisionCy(unittest.TestCase):
     """
     Test the collision mechanism of the game.
     """
     
     def test_wall_force(self, rel_path=""):
         # Create empty game
-        game = Game(game_id=0, rel_path=rel_path, silent=True)
+        game = GameCy(game_id=0, rel_path=rel_path, silent=True, overwrite=True)
         
         # Drive forward for 100 seconds
         for _ in range(50 * FPS):
@@ -26,11 +21,11 @@ class GameWallCollision(unittest.TestCase):
         # Check if robot in fixed position
         eps = 0.05  # Meter offset allowed
         self.assertAlmostEqual(game.player.pos.x, AXIS_X - 0.5, delta=eps)
-        self.assertAlmostEqual(game.player.pos.y, AXIS_Y, delta=eps)
+        self.assertAlmostEqual(game.player.pos.y, AXIS_Y - BOT_RADIUS, delta=eps)
     
     def test_wall_force_reverse(self, rel_path=""):
         # Create empty game
-        game = Game(game_id=0, rel_path=rel_path, silent=True)
+        game = GameCy(game_id=0, rel_path=rel_path, silent=True, overwrite=True)
         
         # Drive forward for 100 seconds
         for _ in range(10 * FPS):
@@ -39,17 +34,17 @@ class GameWallCollision(unittest.TestCase):
         # Check if robot in fixed position
         eps = 0.05  # Meter offset allowed
         self.assertAlmostEqual(game.player.pos.x, AXIS_X - 0.5, delta=eps)
-        self.assertAlmostEqual(game.player.pos.y, 0, delta=eps)
+        self.assertAlmostEqual(game.player.pos.y, BOT_RADIUS, delta=eps)
 
 
-class GameDrive(unittest.TestCase):
+class GameDriveCy(unittest.TestCase):
     """
     Test the robot's drive mechanics.
     """
     
     def test_360(self, rel_path=""):
         # Create empty game
-        game = Game(game_id=0, rel_path=rel_path, silent=True)
+        game = GameCy(game_id=0, rel_path=rel_path, silent=True, overwrite=True)
         
         # Keep spinning around
         for _ in range(10 * FPS):
@@ -64,16 +59,16 @@ class GameDrive(unittest.TestCase):
         """
         Set drone in small box in the middle of the game to check if it stays here in.
         """
-        game = Game(game_id=1, rel_path=rel_path, overwrite=True, silent=True)
+        game = GameCy(game_id=1, rel_path=rel_path, silent=True, overwrite=True)
         
         # Create inner box
-        a, b, c, d = Vec2d(4, 5), Vec2d(5, 5), Vec2d(5, 4), Vec2d(4, 4)
-        game.walls += [Line2d(a, b), Line2d(b, c), Line2d(c, d), Line2d(d, a)]
+        a, b, c, d = Vec2dCy(4, 5), Vec2dCy(5, 5), Vec2dCy(5, 4), Vec2dCy(4, 4)
+        game.walls += [Line2dCy(a, b), Line2dCy(b, c), Line2dCy(c, d), Line2dCy(d, a)]
         
         # Do 10 different initialized tests
         for _ in range(10):
             # Set player init positions
-            game.set_player_pos(Vec2d(4.5, 4.5))
+            game.set_player_pos(Vec2dCy(4.5, 4.5))
             game.player.angle = random() * np.pi
             
             # Run for one twenty seconds
@@ -88,15 +83,15 @@ class GameDrive(unittest.TestCase):
 
 
 def main():
-    rel_path = "tests/"
+    rel_path = "environment/cy_entities/"
     
     # Test wall collision
-    gwc = GameWallCollision()
+    gwc = GameWallCollisionCy()
     gwc.test_wall_force(rel_path=rel_path)
     gwc.test_wall_force_reverse(rel_path=rel_path)
     
     # Test driving mechanics
-    gd = GameDrive()
+    gd = GameDriveCy()
     gd.test_360(rel_path=rel_path)
     gd.test_remain_in_box(rel_path=rel_path)
 
