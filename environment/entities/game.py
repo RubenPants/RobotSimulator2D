@@ -12,7 +12,7 @@ from matplotlib import collections as mc
 from environment.entities.robots import FootBot
 from utils.config import *
 from utils.dictionary import *
-from utils.intersection import line_line_intersection, circle_line_intersection
+from utils.intersection import circle_line_intersection
 from utils.line2d import Line2d
 from utils.myutils import drop, prep
 from utils.vec2d import Vec2d
@@ -193,9 +193,10 @@ class Game:
             prep(key='load_save', silent=True)
         try:
             persist_dict = dict()
-            persist_dict[D_PLAYER] = self.player
-            persist_dict[D_TARGET] = self.target
-            persist_dict[D_WALLS] = self.walls
+            persist_dict[D_ANGLE] = self.player.init_angle  # Initial angle of player
+            persist_dict[D_POS] = (self.player.init_pos.x, self.player.init_pos.y)  # Initial position of player
+            persist_dict[D_TARGET] = (self.target.x, self.target.y)
+            persist_dict[D_WALLS] = [((w.x.x, w.x.y), (w.y.x, w.y.y)) for w in self.walls]
             with open('{p}games_db/{g}'.format(p=self.rel_path, g=self), 'wb') as f:
                 pickle.dump(persist_dict, f)
         finally:
@@ -213,9 +214,11 @@ class Game:
         try:
             with open('{p}games_db/{g}'.format(p=self.rel_path, g=self), 'rb') as f:
                 game = pickle.load(f)
-            self.player = game[D_PLAYER]
-            self.target = game[D_TARGET]
-            self.walls = game[D_WALLS]
+            self.player = FootBot(game=self)  # Create a dummy-player to set values on
+            self.set_player_angle(game[D_ANGLE])
+            self.set_player_pos(Vec2d(game[D_POS][0], game[D_POS][1]))
+            self.target = Vec2d(game[D_TARGET][0], game[D_TARGET][1])
+            self.walls = [Line2d(Vec2d(w[0][0], w[0][1]), Vec2d(w[1][0], w[1][1])) for w in game[D_WALLS]]
             if not self.silent:
                 print("Existing game loaded with id: {}".format(self.id))
             return True

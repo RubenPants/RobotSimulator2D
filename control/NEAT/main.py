@@ -3,7 +3,6 @@ main.py
 
 TODO
 """
-
 from control.entities.population_manager import PopulationManager
 from pytorch_neat.recurrent_net import RecurrentNet
 
@@ -30,13 +29,17 @@ def query_net(net, states):
     return outputs
 
 
-if __name__ == "__main__":
+def main(name='test', rel_path='', silent=False):
     # Load in or create the population
     pop = PopulationManager(make_net_method=make_net,
-                            name="test",
+                            name=name,
                             query_net_method=query_net,
-                            rel_path='',
-                            silent=False)
+                            rel_path=rel_path,
+                            silent=silent)
     pop.evaluate_random_mazes(n_generations=1)
     # pop.evaluate_chosen_maze(n_generations=20, maze_id=0)
     # pop.visualize(game_id=0, speedup=5, debug=False)
+
+
+if __name__ == "__main__":
+    main()

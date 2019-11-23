@@ -112,7 +112,7 @@ class PopulationManager:
                 max_duration=int(cfg['EVALUATION']['game_duration']),
                 max_batch_size=int(cfg['EVALUATION']['batch_size']),
                 query_net=self.query_net,
-                rel_path='../../environment/'
+                rel_path='{}../../environment/'.format(self.rel_path)
         )
         
         # The population represents the core of evolution algorithm:

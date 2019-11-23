@@ -4,14 +4,20 @@ environment.py
 Handle the communication between the population and the game. The environment is used to evaluate multiple games in
 parallel for each of the agents.
 """
+import sys
 from random import sample
 
 from tqdm import tqdm
 
 from control.entities.fitness_functions import fitness
-from environment.entities.game import Game
 from utils.config import FPS
 from utils.dictionary import D_SENSOR_LIST
+
+# Selective import
+if sys.platform == 'linux':
+    from environment.cy_entities.god_class_cy import GameCy
+else:
+    from environment.entities.game import Game
 
 
 class EnvironmentEvaluator:
@@ -153,9 +159,16 @@ class EnvironmentEvaluator:
         :param i: Game-ID
         :return: Game object
         """
-        return Game(game_id=i,
-                    rel_path=self.rel_path,
-                    silent=True)
+        if sys.platform == 'linux':
+            print("Running in Linux")
+            return GameCy(game_id=i,
+                          rel_path=self.rel_path,
+                          silent=True)
+        else:
+            print("Running in windows")
+            return Game(game_id=i,
+                        rel_path=self.rel_path,
+                        silent=True)
     
     def set_game_list(self, game_list: list = None):
         """
