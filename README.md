@@ -40,6 +40,14 @@ The whole process gets started by calling `reset`,which returns an initial `obse
 
 ## TODO
 
+## Urgent
+
+* Error in game-intersection, for the moment, checked on center and line collision, NOT line circle (i.e. robot) 
+collision
+* Test the sensor-values (make new test-set)
+
+### Other
+
 * Timing mechanics in `main.py`, possible to visualize this as well?
 * Automatic trigger to reset game and algorithm (e.g. also trigger training of algorithm) via control in main
 * NEAT and variants implementation:
