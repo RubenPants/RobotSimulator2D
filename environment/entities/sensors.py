@@ -178,7 +178,7 @@ class ProximitySensor(Sensor):
         # Start and end point of ray
         normalized_offset = Vec2d(np.cos(self.game.player.angle + self.angle),
                                   np.sin(self.game.player.angle + self.angle))
-        self.start_pos = self.game.player.pos + self.pos_offset * normalized_offset
+        self.start_pos = self.game.player.pos + normalized_offset * self.pos_offset
         self.end_pos = self.game.player.pos + normalized_offset * (self.pos_offset + self.max_dist)
         sensor_line = Line2d(x=self.game.player.pos,
                              y=self.end_pos)

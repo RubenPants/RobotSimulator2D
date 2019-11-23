@@ -617,7 +617,7 @@ cdef class ProximitySensorCy(SensorCy):
         # Start and end point of ray
         normalized_offset = Vec2dCy(np.cos(self.game.player.angle + self.angle),
                                     np.sin(self.game.player.angle + self.angle))
-        self.start_pos = self.game.player.pos + self.pos_offset * normalized_offset
+        self.start_pos = self.game.player.pos + normalized_offset * self.pos_offset
         self.end_pos = self.game.player.pos + normalized_offset * (self.pos_offset + self.max_dist)
         sensor_line = Line2dCy(x=self.game.player.pos,
                                y=self.end_pos)
@@ -744,7 +744,7 @@ cdef class FootBotCy:
     
     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
     
-    cdef dict get_sensor_reading_angle(self):
+    cpdef dict get_sensor_reading_angle(self):
         """
         :return: The current values of the proximity sensors
         """
@@ -755,13 +755,13 @@ cdef class FootBotCy:
             readings[a.id] = a.get_measure()
         return readings
     
-    cdef float get_sensor_reading_distance(self):
+    cpdef float get_sensor_reading_distance(self):
         """
         :return: The current distance to the target
         """
         return self.distance_sensor.get_measure()
     
-    cdef dict get_sensor_reading_proximity(self):
+    cpdef dict get_sensor_reading_proximity(self):
         """
         :return: The current values of the proximity sensors
         """
@@ -774,7 +774,7 @@ cdef class FootBotCy:
     
     # -----------------------------------------------> SENSOR METHODS <----------------------------------------------- #
     
-    cdef void add_angular_sensors(self, bint clockwise=True):
+    cpdef void add_angular_sensors(self, bint clockwise=True):
         """
         Add an angular sensor to the agent and give it an idea one greater than the last sensor added, or 0 if it is the
         first sensor that is added.
@@ -783,7 +783,7 @@ cdef class FootBotCy:
                                                  game=self.game,
                                                  clockwise=clockwise))
     
-    cdef void add_proximity_sensor(self, float angle):
+    cpdef void add_proximity_sensor(self, float angle):
         """
         Add an proximity sensor to the agent and give it an id one greater than the last sensor added, or 0 if it is
         the first sensor that is added.

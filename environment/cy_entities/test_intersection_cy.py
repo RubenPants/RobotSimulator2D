@@ -104,8 +104,6 @@ class CircleLineIntersectionCy(unittest.TestCase):
 
 
 def main():
-    rel_path = "tests/"
-    
     # Test line line intersections
     lli = LineLineIntersectionCy()
     lli.test_intersect()
