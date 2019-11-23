@@ -776,8 +776,13 @@ cdef class FootBotCy:
     
     cdef void add_proximity_sensor(self, float angle):
         """
-        Add an proximity sensor to the agent and give it an idea one greater than the last sensor added, or 0 if it is
+        Add an proximity sensor to the agent and give it an id one greater than the last sensor added, or 0 if it is
         the first sensor that is added.
+        
+        :param angle: Relative angle to the robot's facing-direction
+                        * np.pi / 2 = 90° to the left of the robot
+                        * 0 = the same direction as the robot is facing
+                        * -np.pi / 2 = 90° to the right of the robot
         """
         self.proximity_sensors.add(ProximitySensorCy(sensor_id=len(self.proximity_sensors),
                                                      game=self.game,
