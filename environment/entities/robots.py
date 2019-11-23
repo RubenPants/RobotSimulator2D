@@ -61,7 +61,7 @@ class FootBot:
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     
-    def drive(self, dt, lw, rw):
+    def drive(self, dt: float, lw: float, rw: float):
         """
         Update the robot's position and orientation based on the action of the wheels.
         

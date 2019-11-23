@@ -99,6 +99,7 @@ class EnvironmentEvaluator:
     
         :param gen: The genome of the candidate
         :param cfg: The main configuration of the population
+        :param debug: Save intermediate checkpoints during evaluation
         :return: Final game statistics
         """
         # Setup game

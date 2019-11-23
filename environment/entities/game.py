@@ -163,7 +163,7 @@ class Game:
         # Add sensory-readings in one list
         result = []
         for i in range(len(proximity)):  # Proximity IDs go from 0 to proximity_length
-            result.append(proximity[0])
+            result.append(proximity[i])
         for i in range(len(angular)):  # Angular IDs go from 0 to angular_length
             result.append(angular[i])
         result.append(distance)
