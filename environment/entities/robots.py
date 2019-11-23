@@ -18,8 +18,8 @@ class FootBot:
     def __init__(self,
                  game,  # Type not specified due to circular imports
                  init_pos: Vec2d = None,
-                 init_orient: float = None,
-                 r: int = None):
+                 init_orient: float = 0,
+                 r: int = BOT_RADIUS):
         """
         Create a new FootBot object.
         
@@ -42,9 +42,9 @@ class FootBot:
             self.prev_pos.y = init_pos.y
         else:
             self.init_pos = Vec2d(0, 0)
-        self.init_angle = init_orient if init_orient else 0  # Initial angle
-        self.angle = init_orient if init_orient else 0  # Current angle
-        self.radius = r if r else BOT_RADIUS  # Radius of the bot
+        self.init_angle = init_orient  # Initial angle
+        self.angle = init_orient  # Current angle
+        self.radius = r  # Radius of the bot
         
         # Placeholders for sensors
         self.angular_sensors = set()

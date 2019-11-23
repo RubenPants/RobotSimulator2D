@@ -9,7 +9,7 @@ from utils.line2d import Line2d
 from utils.vec2d import Vec2d
 
 
-class Line2dLine2dIntersection(unittest.TestCase):
+class LineLineIntersection(unittest.TestCase):
     """
     Test the intersection formula between two lines.
     """
@@ -64,7 +64,7 @@ class PointCircleIntersection(unittest.TestCase):
         self.assertEqual(point_circle_intersection(p, c, r), False)
 
 
-class PointLine2dIntersection(unittest.TestCase):
+class PointLineIntersection(unittest.TestCase):
     """
     Test the intersection formula between a point and a line.
     """
@@ -85,7 +85,7 @@ class PointLine2dIntersection(unittest.TestCase):
         self.assertEqual(point_line_intersection(p, l), False)
 
 
-class CircleLine2dIntersection(unittest.TestCase):
+class CircleLineIntersection(unittest.TestCase):
     """
     Test the intersection formula between a circle and a line.
     """
@@ -107,6 +107,36 @@ class CircleLine2dIntersection(unittest.TestCase):
         r = 1
         l = Line2d(Vec2d(1, 0), Vec2d(-1, 0))
         self.assertEqual(circle_line_intersection(c, r, l), (False, None))
+
+
+def main():
+    rel_path = "tests/"
+    
+    # Test line line intersections
+    lli = LineLineIntersection()
+    lli.test_intersect()
+    lli.test_intersect_cross()
+    lli.test_intersect_edge()
+    lli.test_intersect_small()
+    lli.test_no_intersect()
+    
+    # Test point circle intersections
+    pci = PointCircleIntersection()
+    pci.test_intersect()
+    pci.test_intersect_edge()
+    pci.test_no_intersect()
+    
+    # Test point line intersections
+    pli = PointLineIntersection()
+    pli.test_intersect()
+    pli.test_intersect_edge()
+    pli.test_no_intersect()
+    
+    # Test circle line intersections
+    cli = CircleLineIntersection()
+    cli.test_intersect()
+    cli.test_intersect_edge()
+    cli.test_no_intersect()
 
 
 if __name__ == '__main__':
