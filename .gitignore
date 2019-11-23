@@ -135,6 +135,7 @@ dmypy.json
 
 # Ignore games made during testing
 tests/games_db/game*
+environment/cy_entities/games_db/game*
 
 # Ignore deprecated files
 **_dep.*
