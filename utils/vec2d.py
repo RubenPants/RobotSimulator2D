@@ -191,6 +191,9 @@ class Vec2d(object):
     def __invert__(self):
         return Vec2d(-self.x, -self.y)
     
+    def __round__(self, n=0):
+        return Vec2d(round(self.x, n), round(self.y, n))
+    
     def get_angle(self):
         if self.get_length() == 0:
             return 0

@@ -99,6 +99,9 @@ class Line2d(object):
             self.y -= other
         return self
     
+    def __round__(self, n=0):
+        return Line2d(round(self.x, n), round(self.y, n))
+    
     def get_length(self):
         return (self.x - self.y).get_length()
     

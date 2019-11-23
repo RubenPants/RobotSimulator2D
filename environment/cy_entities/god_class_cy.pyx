@@ -209,6 +209,9 @@ cdef class Vec2dCy:
     def __invert__(self):
         return Vec2dCy(-self.x, -self.y)
     
+    def __round__(self, n=0):
+        return Vec2dCy(round(self.x, n), round(self.y, n))
+    
     cpdef float get_angle(self):
         if self.get_length() == 0:
             return 0
@@ -332,6 +335,9 @@ cdef class Line2dCy:
             self.x -= other
             self.y -= other
         return self
+    
+    def __round__(self, n=0):
+        return Line2dCy(round(self.x, n), round(self.y, n))
     
     cpdef float get_length(self):
         return (self.x - self.y).get_length()
