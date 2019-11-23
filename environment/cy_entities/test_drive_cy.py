@@ -4,6 +4,8 @@ from random import random
 from environment.cy_entities.god_class_cy import GameCy, Line2dCy, Vec2dCy
 from utils.config import *
 
+EPSILON = 0.05  # 5 centimeter offset allowed
+
 
 class GameWallCollisionCy(unittest.TestCase):
     """
@@ -12,29 +14,27 @@ class GameWallCollisionCy(unittest.TestCase):
     
     def test_wall_force(self, rel_path=""):
         # Create empty game
-        game = GameCy(game_id=0, rel_path=rel_path, silent=True, overwrite=True)
+        game = GameCy(rel_path=rel_path, silent=True, overwrite=True)
         
         # Drive forward for 100 seconds
         for _ in range(50 * FPS):
             game.step(l=1, r=1)
         
         # Check if robot in fixed position
-        eps = 0.05  # Meter offset allowed
-        self.assertAlmostEqual(game.player.pos.x, AXIS_X - 0.5, delta=eps)
-        self.assertAlmostEqual(game.player.pos.y, AXIS_Y - BOT_RADIUS, delta=eps)
+        self.assertAlmostEqual(game.player.pos.x, AXIS_X - 0.5, delta=EPSILON)
+        self.assertAlmostEqual(game.player.pos.y, AXIS_Y - BOT_RADIUS, delta=EPSILON)
     
     def test_wall_force_reverse(self, rel_path=""):
         # Create empty game
-        game = GameCy(game_id=0, rel_path=rel_path, silent=True, overwrite=True)
+        game = GameCy(rel_path=rel_path, silent=True, overwrite=True)
         
         # Drive forward for 100 seconds
         for _ in range(10 * FPS):
             game.step(l=-1, r=-1)
         
         # Check if robot in fixed position
-        eps = 0.05  # Meter offset allowed
-        self.assertAlmostEqual(game.player.pos.x, AXIS_X - 0.5, delta=eps)
-        self.assertAlmostEqual(game.player.pos.y, BOT_RADIUS, delta=eps)
+        self.assertAlmostEqual(game.player.pos.x, AXIS_X - 0.5, delta=EPSILON)
+        self.assertAlmostEqual(game.player.pos.y, BOT_RADIUS, delta=EPSILON)
 
 
 class GameDriveCy(unittest.TestCase):
@@ -44,22 +44,21 @@ class GameDriveCy(unittest.TestCase):
     
     def test_360(self, rel_path=""):
         # Create empty game
-        game = GameCy(game_id=0, rel_path=rel_path, silent=True, overwrite=True)
+        game = GameCy(rel_path=rel_path, silent=True, overwrite=True)
         
         # Keep spinning around
         for _ in range(10 * FPS):
             game.step(l=-1, r=1)
         
         # Check if robot in fixed position
-        eps = 0.05  # Meter offset allowed
-        self.assertAlmostEqual(game.player.pos.x, AXIS_X - 0.5, delta=eps)
-        self.assertAlmostEqual(game.player.pos.y, 0.5, delta=eps)
+        self.assertAlmostEqual(game.player.pos.x, AXIS_X - 0.5, delta=EPSILON)
+        self.assertAlmostEqual(game.player.pos.y, 0.5, delta=EPSILON)
     
     def test_remain_in_box(self, rel_path=""):
         """
         Set drone in small box in the middle of the game to check if it stays here in.
         """
-        game = GameCy(game_id=1, rel_path=rel_path, silent=True, overwrite=True)
+        game = GameCy(rel_path=rel_path, silent=True, overwrite=True)
         
         # Create inner box
         a, b, c, d = Vec2dCy(4, 5), Vec2dCy(5, 5), Vec2dCy(5, 4), Vec2dCy(4, 4)
