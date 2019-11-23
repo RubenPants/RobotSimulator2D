@@ -566,6 +566,7 @@ cdef class ProximitySensorCy(SensorCy):
     other words, it returns the distance to an object in its path (only a straight line) if this distance is within a
     certain threshold, otherwise the maximum value will be returned.
     """
+    cdef public Vec2dCy start_pos
     cdef public Vec2dCy end_pos
     
     def __init__(self,
@@ -577,8 +578,8 @@ cdef class ProximitySensorCy(SensorCy):
         """
         :param game: Reference to the game in which the sensor is used
         :param sensor_id: Identification number for the sensor
-        :param angle: Relative angle to the agent's center of mass
-        :param pos_offset: Distance to the agent's center of mass
+        :param angle: Relative angle to the agent's center of mass and orientation
+        :param pos_offset: Distance to the agent's center of mass and orientation
         :param max_dist: Maximum distance the sensor can reach, infinite if set to zero
         """
         super().__init__(game=game,
@@ -586,6 +587,7 @@ cdef class ProximitySensorCy(SensorCy):
                          angle=angle,
                          pos_offset=pos_offset,
                          max_dist=max_dist)
+        self.start_pos = None  # Placeholder for start-point of proximity sensor
         self.end_pos = None  # Placeholder for end-point of proximity sensor
     
     def __str__(self):
@@ -609,6 +611,7 @@ cdef class ProximitySensorCy(SensorCy):
         # Start and end point of ray
         normalized_offset = Vec2dCy(np.cos(self.game.player.angle + self.angle),
                                     np.sin(self.game.player.angle + self.angle))
+        self.start_pos = self.game.player.pos + self.pos_offset * normalized_offset
         self.end_pos = self.game.player.pos + normalized_offset * (self.pos_offset + self.max_dist)
         sensor_line = Line2dCy(x=self.game.player.pos,
                                y=self.end_pos)
@@ -618,7 +621,7 @@ cdef class ProximitySensorCy(SensorCy):
         for wall in self.game.walls:
             inter, pos = line_line_intersection_cy(sensor_line, wall)
             if inter:
-                new_dist = (pos - self.game.player.pos).get_length()
+                new_dist = (pos - self.start_pos).get_length()
                 if closest_dist > new_dist:
                     self.end_pos = pos
                     closest_dist = new_dist
