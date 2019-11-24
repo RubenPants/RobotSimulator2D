@@ -47,7 +47,7 @@ SENSOR_RAY_DISTANCE = 1.5  # Distance a ray-sensor reaches, expressed in meters 
 # --> GAME CREATION SPECIFIC <-- #
 MIN_ROOM_WIDTH = int((2 * AXIS_X + 1) / 5)  # Minimal width for one room
 ROOM_ATTEMPTS = 8  # Number of times a room is tried to be added to the room [def=8]
-GAMES_AMOUNT = 20  # 000  # Number of games created  [def=1000]  TODO
+GAMES_AMOUNT = 1000  # Number of games created  [def=1000]
 FILLED_ROOM_RATIO = 0.2  # The maximum percentage of tiles one room may contain
 
 # --> NOISE <-- #
