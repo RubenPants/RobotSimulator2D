@@ -101,7 +101,9 @@ class Visualizer:
             dt = dt * self.speedup
             action = self.query_net(network, [self.state])
             if self.debug:
+                print("Passed time:", round(dt, 2))
                 print("Action: lw={l}, rw={r}".format(l=round(action[0][0], 2), r=round(action[0][1], 2)))
+                print("Observation:", [round(s, 2) for s in self.state])
             
             # Progress game by one step
             obs, _ = game.step_dt(dt=dt, l=action[0][0], r=action[0][1])
