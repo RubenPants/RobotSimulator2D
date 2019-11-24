@@ -49,6 +49,7 @@ if __name__ == '__main__':
     visualizer = Visualizer(
             query_net=query_net,
             rel_path='environment/',
+            debug=False,
     )
     
     visualizer.visualize(net, 1)

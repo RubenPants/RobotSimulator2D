@@ -91,9 +91,25 @@ class Visualizer:
         player_shape = pymunk.Circle(body=player_body, radius=BOT_RADIUS * PTM)
         space.add(player_body, player_shape)
         
+        # Draw the robot's sensors
+        def draw_sensors():
+            [space.remove(s) for s in space.shapes if s.sensor and type(s) == pymunk.Segment]
+            for s in game.player.proximity_sensors:
+                line = pymunk.Segment(space.static_body,
+                                      a=s.start_pos * PTM,
+                                      b=s.end_pos * PTM,
+                                      radius=1)
+                line.sensor = True
+                touch = ((s.start_pos - s.end_pos).get_length() < SENSOR_RAY_DISTANCE - 0.05)
+                line.color = (250, 250, 250) if touch else (100, 100, 100)  # Brighten up ray if it makes contact
+                space.add(line)
+        
+        draw_sensors()
+        
         @window.event
         def on_draw():
             window.clear()
+            draw_sensors()
             space.debug_draw(options=options)
         
         def update_method(dt):
@@ -112,6 +128,7 @@ class Visualizer:
             # Update space's player coordinates and angle
             player_body.position = game.player.pos * PTM
             player_body.angle = game.player.angle
+            # draw_sensors()
             space.step(dt)
         
         # Run the game
