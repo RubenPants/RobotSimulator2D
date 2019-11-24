@@ -12,7 +12,7 @@ from control.entities.fitness_functions import fitness
 from utils.config import FPS
 from utils.dictionary import D_SENSOR_LIST
 # Selective import
-from utils.myutils import drop, prep, get_fancy_time
+from utils.myutils import drop, get_fancy_time, prep
 
 if sys.platform == 'linux':
     from environment.cy_entities.god_class_cy import GameCy

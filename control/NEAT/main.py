@@ -4,6 +4,7 @@ main.py
 TODO
 """
 from control.entities.population_manager import PopulationManager
+
 from pytorch_neat.recurrent_net import RecurrentNet
 
 
