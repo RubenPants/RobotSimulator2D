@@ -4,16 +4,16 @@ environment.py
 Handle the communication between the population and the game. The environment is used to evaluate multiple games in
 parallel for each of the agents.
 """
+import multiprocessing as mp
 import sys
 from random import sample
-
-from tqdm import tqdm
 
 from control.entities.fitness_functions import fitness
 from utils.config import FPS
 from utils.dictionary import D_SENSOR_LIST
-
 # Selective import
+from utils.myutils import drop, prep, get_fancy_time
+
 if sys.platform == 'linux':
     from environment.cy_entities.god_class_cy import GameCy
 else:
@@ -93,9 +93,15 @@ class EnvironmentEvaluator:
         self.eval_game_ids = sample(self.game_id_list, self.batch_size)
         
         # Evaluate the generation
+        prep("Started", key='eval')
+        pool = mp.Pool(mp.cpu_count())
+        results = pool.starmap(self.eval_genome, ((genome, config) for _, genome in genomes))
         observations = dict()
-        for i, genome in tqdm(genomes, desc="Evaluating genomes"):
-            observations[i] = self.eval_genome(genome, config)
+        for (i, _), obs in zip(genomes, results):
+            observations[i] = obs
+        print(get_fancy_time(drop(key='drop')))
+        # for i, genome in tqdm(genomes, desc="Evaluating genomes"):
+        #     observations[i] = self.eval_genome(genome, config)
         
         return observations, self.eval_game_ids
     
