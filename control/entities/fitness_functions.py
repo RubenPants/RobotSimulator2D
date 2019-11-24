@@ -69,8 +69,6 @@ def fitness_per_game(fitness_config: dict, game_observations):
     
     if tag == 'distance':
         return fitness_distance(game_observations)
-    elif tag == 'distance_norm':
-        return fitness_distance_normalized(game_observations)
     elif tag == 'novelty':
         return novelty_search(game_observations=game_observations,
                               k=fitness_config[D_K])
@@ -92,21 +90,6 @@ def fitness_distance(game_observations):
     fitness_dict = dict()
     for k, v in game_observations.items():  # Iterate over the candidates
         fitness_dict[k] = [1 / o[D_DIST_TO_TARGET] for o in v]
-    return fitness_dict
-
-
-def fitness_distance_normalized(game_observations):
-    """
-    Determine the fitness based on the normalized average distance to the target (crows flight). The difference with the
-    default 'fitness_distance' is that in this case, the distance is normalized over the diagonal of the maze (i.e.
-    maximum distance). which is (roughly) 1000.
-    
-    :param game_observations: List of game.close() results (Dictionary)
-    :return: Dictionary: key=genome_id, val=average fitness as a float
-    """
-    fitness_dict = dict()
-    for k, v in game_observations.items():  # Iterate over the candidates
-        fitness_dict[k] = [1 - o[D_DIST_TO_TARGET] / 1000 for o in v]
     return fitness_dict
 
 
