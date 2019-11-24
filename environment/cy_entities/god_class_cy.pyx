@@ -816,11 +816,13 @@ cdef class FootBotCy:
         """
         24 equally spaced proximity sensors, which measure the distance between the agent and an object, if this object
         is within 1.5 meters of distance.
+        
+        Sensors are added from the left-side of the drone to the right
         """
         cdef int i
         
-        for i in range(7):
-            self.add_proximity_sensor(angle=-np.pi / 2 + i * np.pi / 6)
+        for i in range(5):
+            self.add_proximity_sensor(angle=np.pi / 2 - i * np.pi / 4)
 
 # ------------------------------------------------------> GAME <------------------------------------------------------ #
 
