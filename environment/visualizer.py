@@ -84,7 +84,7 @@ class Visualizer:
         space.add(target_body, target_shape)
         
         # Init player
-        m = pymunk.moment_for_circle(mass=1, inner_radius=0, outer_radius=BOT_RADIUS * PTM)
+        m = pymunk.moment_for_circle(mass=BOT_MASS, inner_radius=0, outer_radius=BOT_RADIUS * PTM)
         player_body = pymunk.Body(mass=1, moment=m)
         player_body.position = game.player.pos * PTM
         player_body.angle = game.player.angle
@@ -101,9 +101,9 @@ class Visualizer:
             dt = dt * self.speedup
             action = self.query_net(network, [self.state])
             if self.debug:
-                print("Passed time:", round(dt, 2))
-                print("Action: lw={l}, rw={r}".format(l=round(action[0][0], 2), r=round(action[0][1], 2)))
-                print("Observation:", [round(s, 2) for s in self.state])
+                print("Passed time:", round(dt, 3))
+                print("Action: lw={l}, rw={r}".format(l=round(action[0][0], 3), r=round(action[0][1], 3)))
+                print("Observation:", [round(s, 3) for s in self.state])
             
             # Progress game by one step
             obs, _ = game.step_dt(dt=dt, l=action[0][0], r=action[0][1])

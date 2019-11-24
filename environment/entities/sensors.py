@@ -195,4 +195,5 @@ class ProximitySensor(Sensor):
         
         if self.game.noise:
             closest_dist += random.gauss(0, NOISE_SENSOR_PROXY)
+            closest_dist = max(0, min(closest_dist, self.max_dist))
         return closest_dist

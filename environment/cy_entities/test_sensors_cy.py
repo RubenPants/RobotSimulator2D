@@ -78,8 +78,15 @@ class ProximitySensorTestCy(unittest.TestCase):
     def test_no_walls(self, rel_path=""):
         game = GameCy(game_id=0, rel_path=rel_path, silent=True, overwrite=True, noise=False)
         
+        # Add walls to maze that are far enough from agent
+        a = Vec2dCy(2, 2)
+        b = Vec2dCy(2, 6)
+        c = Vec2dCy(6, 6)
+        d = Vec2dCy(6, 2)
+        game.walls += [Line2dCy(a, b), Line2dCy(b, c), Line2dCy(c, d), Line2dCy(d, a)]
+        
         # Update player and target position
-        game.set_player_pos(Vec2dCy(AXIS_X / 2, AXIS_Y / 2))  # Center of empty maze
+        game.set_player_pos(Vec2dCy(4, 4))  # Center of empty maze
         game.set_player_angle(0)
         
         sensors = game.player.get_sensor_reading_proximity()
