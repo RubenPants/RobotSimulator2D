@@ -149,7 +149,6 @@ class ProximitySensorTest(unittest.TestCase):
         # Flat facing the wall, so upper sensor must always (approximately) equal zero
         for _ in range(50):
             sensors = game.player.get_sensor_reading_proximity()
-            print(sensors[0])
             self.assertAlmostEqual(sensors[0], 0, delta=EPSILON_DISTANCE_L)
 
 

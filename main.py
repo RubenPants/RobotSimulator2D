@@ -32,7 +32,7 @@ if __name__ == '__main__':
             make_net_method=make_net,
             query_net_method=query_net,
     )
-    """
+    # """
     # Evaluation
     from environment.evaluator import Evaluator
     evaluator = Evaluator(
