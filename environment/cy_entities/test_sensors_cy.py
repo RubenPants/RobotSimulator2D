@@ -9,6 +9,7 @@ from utils.config import *
 
 EPSILON_ANGLE = 0.0001  # 0.0001 radian offset allowed (~0.02 degrees)
 EPSILON_DISTANCE = 0.001  # 1 millimeter offset allowed
+EPSILON_DISTANCE_L = 0.1  # 10 centimeter offset allowed
 
 
 class AngularSensorTestCy(unittest.TestCase):
@@ -123,6 +124,30 @@ class ProximitySensorTestCy(unittest.TestCase):
         self.assertAlmostEqual(sensors[3], np.sqrt(2) - BOT_RADIUS, delta=EPSILON_DISTANCE)
         self.assertAlmostEqual(sensors[4], 1 - BOT_RADIUS, delta=EPSILON_DISTANCE)
         self.assertAlmostEqual(sensors[5], SENSOR_RAY_DISTANCE, delta=EPSILON_DISTANCE)
+    
+    def test_force(self, rel_path=""):
+        game = GameCy(game_id=0, rel_path=rel_path, silent=True, overwrite=True, noise=True)
+        
+        # Add walls to maze
+        b = Vec2dCy(5, 5)
+        c = Vec2dCy(5, 3)
+        game.walls += [Line2dCy(b, c)]
+        
+        # Update player position and angle
+        game.set_player_pos(Vec2dCy(4, 4))
+        game.set_player_angle(0)
+        
+        # Update sensors
+        game.player.proximity_sensors = set()
+        game.player.add_proximity_sensor(0)  # 0°
+        
+        for _ in range(100):
+            game.step(l=1, r=1)
+            
+        # Flat facing the wall, so upper sensor must always (approximately) equal zero
+        for _ in range(50):
+            sensors = game.player.get_sensor_reading_proximity()
+            self.assertAlmostEqual(sensors[0], 0, delta=EPSILON_DISTANCE_L)
 
 
 def main():
@@ -142,6 +167,7 @@ def main():
     pst = ProximitySensorTestCy()
     pst.test_no_walls(rel_path=rel_path)
     pst.test_cubed(rel_path=rel_path)
+    pst.test_force(rel_path=rel_path)
 
 
 if __name__ == '__main__':
