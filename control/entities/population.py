@@ -186,8 +186,11 @@ class Population:
             
             # Add title
             plt.title("Blueprint - Game {id:05d} - Generation {gen:05d}".format(id=g.id, gen=self.generation))
+            
+            # Save figure
             game_path = get_subfolder(save_path, 'game{id:05d}'.format(id=g.id))
             plt.savefig('{gp}gen{gen:05d}'.format(gp=game_path, gen=self.generation))
+            plt.close()
     
     # ---------------------------------------------> FUNCTIONAL METHODS <--------------------------------------------- #
     
