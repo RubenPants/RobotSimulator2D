@@ -27,7 +27,7 @@ def query_net(net, states):
 
 if __name__ == '__main__':
     pop = Population(
-            name='distance_first_10_mazes',
+            name='distance',
             rel_path='control/NEAT/',
             make_net_method=make_net,
             query_net_method=query_net,
@@ -41,7 +41,7 @@ if __name__ == '__main__':
             rel_path='environment/',
     )
     
-    for _ in range(20):
+    for _ in range(10):
         evaluator.single_evaluation(pop)
     """
     # Visualization

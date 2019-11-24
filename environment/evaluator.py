@@ -13,11 +13,12 @@ class Evaluator:
     The evaluator is responsible evaluating the population across a set of games.
     """
     
-    def __init__(self, blueprint_mazes: list = None, rel_path=''):
+    def __init__(self, blueprint_mazes: list = None, blueprint_steps: int = 5, rel_path=''):
         """
         The evaluator is given a population which it then evaluates using the MultiEnvironment.
         
         :param blueprint_mazes: List of game-IDs for which a blueprint will be created after each generation
+        :param blueprint_steps: Denotes how often blueprints will be created
         :param rel_path: Relative path pointing to the 'environment/' folder
         """
         # Set relative path
@@ -31,8 +32,9 @@ class Evaluator:
         self.games = [i + 1 for i in range(int(self.config['GAME']['max_id']))]
         self.batch_size = min(len(self.games), int(self.config['GAME']['game_batch']))
         
-        # Persist the games for which blueprints must be created
+        # Blueprint functionality
         self.blueprint_mazes = blueprint_mazes
+        self.blueprint_steps = max(blueprint_steps, 1)
     
     def single_evaluation(self, pop):
         """
@@ -78,7 +80,8 @@ class Evaluator:
         eval_genomes(list(iteritems(pop.population)), pop.config)
         
         # Create blueprint for selected games
-        self.blueprint_genomes(population=pop)
+        if self.blueprint_mazes and pop.generation % self.blueprint_steps == 0:
+            self.blueprint_genomes(population=pop)
         
         # Gather and report statistics
         best = None
@@ -107,7 +110,7 @@ class Evaluator:
         :param multi_env: The environment on which the game-id list will be set
         """
         s = sample(self.games, self.batch_size)
-        print("Sample chose:", s)
+        # print("Sample chosen:", s)
         multi_env.set_games(s)
         return s
     
