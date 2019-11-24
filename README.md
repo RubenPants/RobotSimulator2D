@@ -40,6 +40,12 @@ The whole process gets started by calling `reset`,which returns an initial `obse
 
 ## TODO
 
+### Urgent
+
+* Create visualizations as done in previous project
+
+### Others
+
 * Timing mechanics in `main.py`, possible to visualize this as well?
 * Automatic trigger to reset game and algorithm (e.g. also trigger training of algorithm) via control in main
 * NEAT and variants implementation:

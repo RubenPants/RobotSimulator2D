@@ -21,8 +21,8 @@ class CompleteExtinctionException(Exception):
 
 class Population:
     def __init__(self,
-                 name,
-                 rel_path="",
+                 name: str,
+                 rel_path: str = "",
                  config=None,
                  make_net_method=None,
                  query_net_method=None):
@@ -64,7 +64,11 @@ class Population:
     
     def create_population(self, config, make_net_method, query_net_method):
         """
-        Create a new population.
+        Create a new population based on the given config file.
+        
+        :param config: Configuration file specifying how the population must be made
+        :param make_net_method: Method used to create the genome-specific network
+        :param query_net_method: Method used to query actions of the genome-specific network
         """
         # Init the population's configuration
         self.config = config

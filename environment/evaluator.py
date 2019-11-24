@@ -14,7 +14,7 @@ class Evaluator:
     
     def __init__(self, rel_path=''):
         """
-        TODO
+        The evaluator is given a population which it then evaluates using the MultiEnvironment.
         
         :param rel_path: Relative path pointing to the 'environment/' folder
         """
@@ -32,7 +32,10 @@ class Evaluator:
     def single_evaluation(self, pop):
         """
         Evaluate the population for a single evaluation-process.
+        
+        :param pop: Population object
         """
+        # Create the environment which is responsible for evaluating the genomes
         multi_env = MultiEnvironment(
                 make_net=pop.make_net,
                 query_net=pop.query_net,
