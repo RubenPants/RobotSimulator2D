@@ -1,9 +1,5 @@
-import os
-
-import neat
-
 from control.entities.population import Population
-from environment.evaluator import Evaluator
+from environment.visualizer import Visualizer
 from pytorch_neat.recurrent_net import RecurrentNet
 
 
@@ -37,8 +33,20 @@ if __name__ == '__main__':
             query_net_method=query_net,
     )
     
+    """
+    # Evaluation
     evaluator = Evaluator(
             rel_path='environment/'
     )
     
     evaluator.single_evaluation(pop)
+    """
+    
+    # Visualization
+    net = make_net(pop.best_genome, pop.config, 1)
+    visualizer = Visualizer(
+            query_net=query_net,
+            rel_path='environment/',
+    )
+    
+    visualizer.visualize(net, 1)

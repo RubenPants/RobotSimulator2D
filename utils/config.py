@@ -32,12 +32,11 @@ ID_WALL = 1
 # --> BOT SPECIFIC <-- #
 BOT_DRIVING_SPEED = 0.3  # Speed of bot when driving straight expressed in m/s [def=0.3]
 BOT_MASS = 1.8  # Mass of the bot expressed in kg [def=1.8]
-BOT_RADIUS = 0.065  # Radius of the bot expressed in meters [def=0.085]
+BOT_RADIUS = 0.1  # Radius of the bot expressed in meters [def=0.085]
 BOT_TURNING_SPEED = 3 * np.pi / 4  # Speed of bot when turning expressed in radians per second [def=3*pi/4]
 
 # --> TARGET SPECIFIC <-- #
-TARGET_RADIUS = 0.065  # Radius of the target expressed in meters [def=0.05]
-TARGET_REACHED = 0.1  # Target is reached when within this range, expressed in meters [def=0.1]
+TARGET_REACHED = 0.1  # Target is reached when within this range, expressed in meters [def=0.1]  TODO: implement
 
 # --> WALL SPECIFIC <-- #
 WALL_THICKNESS = 0.1  # Thickness of the wall expressed in meters [def=0.1]

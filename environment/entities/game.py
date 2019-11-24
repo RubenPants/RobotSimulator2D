@@ -93,6 +93,18 @@ class Game:
         """
         # Progress the game
         dt = 1.0 / FPS + abs(random.gauss(0, NOISE_TIME)) if self.noise else 1.0 / FPS
+        return self.step_dt(dt=dt, l=l, r=r)
+    
+    def step_dt(self, dt: float, l: float, r: float):
+        """
+        Progress one step in the game based on a predefined delta-time. This method should only be used for debugging or
+        visualization purposes.
+
+        :param dt: Delta time
+        :param l: Left wheel speed [-1..1]
+        :param r: Right wheel speed [-1..1]
+        :return: Observation (Dictionary), target_reached (Boolean)
+        """
         self.player.drive(dt, lw=l, rw=r)
         
         # Check if intersected with a wall, if so then set player back to old position
