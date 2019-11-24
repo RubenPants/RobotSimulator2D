@@ -14,7 +14,7 @@ from utils.dictionary import *
 
 # --------------------------------------------------> MAIN METHODS <-------------------------------------------------- #
 
-def fitness(fitness_config: dict, game_observations):
+def calc_pop_fitness(fitness_config, game_observations):
     """
     Determine the fitness out of the given game_observation dictionary. This happens in two stages:
       1) Evaluate the candidate's fitness for each of the games individually, thus resolving in a list of floats

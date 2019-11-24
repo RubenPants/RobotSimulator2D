@@ -88,7 +88,7 @@ class MultiEnvironment:
                 break
         
         # Return the final observations
-        if return_dict:
+        if return_dict is not None:
             return_dict[genome_id] = [g.close() for g in games]
     
     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #

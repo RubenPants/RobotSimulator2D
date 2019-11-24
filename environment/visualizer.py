@@ -45,7 +45,7 @@ class Visualizer:
         # Debug options
         self.debug = debug
     
-    def visualize(self, network, game_id):
+    def visualize(self, network, game_id):  # TODO: Possibility to generalize and use multiple robots?
         """
         Visualize the performance of a single genome.
         

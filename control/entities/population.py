@@ -6,12 +6,14 @@ functionality such as its configuration and methods used to persist the populati
 """
 import pickle
 import re
+from configparser import ConfigParser
 from glob import glob
 
 import neat
 from neat.math_util import mean
 from neat.reporting import ReporterSet
 
+from utils.dictionary import D_FIT_COMB, D_K, D_TAG
 from utils.myutils import get_subfolder
 
 
@@ -23,7 +25,6 @@ class Population:
     def __init__(self,
                  name: str,
                  rel_path: str = "",
-                 config=None,
                  make_net_method=None,
                  query_net_method=None):
         """
@@ -31,7 +32,6 @@ class Population:
         reporters, persisting methods, evolution and more.
         
         :param rel_path: Relative path to folder in which population must be stored
-        :param config: Configuration specifying the population
         :param make_net_method: Method used to create a network based on a given genome
         :param query_net_method: Method used to query the action on the network, given a current state
         """
@@ -43,6 +43,7 @@ class Population:
         # Placeholders
         self.best_genome = None
         self.config = None
+        self.fitness_config = None
         self.fitness_criterion = None
         self.generation = 0
         self.make_net = None
@@ -56,51 +57,60 @@ class Population:
         if not self.load():
             # net-methods must be provided
             assert (make_net_method is not None) and (query_net_method is not None)
-            
-            # Create config file if not given
-            if not config:
-                config_path = '{}config.cfg'.format(self.rel_path)
-                config = neat.Config(
-                        neat.DefaultGenome,
-                        neat.DefaultReproduction,
-                        neat.DefaultSpeciesSet,
-                        neat.DefaultStagnation,
-                        config_path,
-                )
-            self.create_population(config=config, make_net_method=make_net_method, query_net_method=query_net_method)
+            self.create_population(make_net_method=make_net_method, query_net_method=query_net_method)
     
     def __str__(self):
         return self.name
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     
-    def create_population(self, config, make_net_method, query_net_method):
+    def create_population(self, make_net_method, query_net_method):
         """
         Create a new population based on the given config file.
         
-        :param config: Configuration file specifying how the population must be made
         :param make_net_method: Method used to create the genome-specific network
         :param query_net_method: Method used to query actions of the genome-specific network
         """
         # Init the population's configuration
-        self.config = config
+        config_path = '{}config.cfg'.format(self.rel_path)
+        config = neat.Config(
+                neat.DefaultGenome,
+                neat.DefaultReproduction,
+                neat.DefaultSpeciesSet,
+                neat.DefaultStagnation,
+                config_path,
+        )
         self.reporters = ReporterSet()
-        self.set_config(cfg=config)
+        self.set_config(config)
         
         # Fitness evaluation
-        if config.fitness_criterion == 'max':
+        if self.config.fitness_criterion == 'max':
             self.fitness_criterion = max
-        elif config.fitness_criterion == 'min':
+        elif self.config.fitness_criterion == 'min':
             self.fitness_criterion = min
-        elif config.fitness_criterion == 'mean':
+        elif self.config.fitness_criterion == 'mean':
             self.fitness_criterion = mean
-        elif not config.no_fitness_termination:
-            raise RuntimeError("Unexpected fitness_criterion: {0!r}".format(config.fitness_criterion))
+        elif not self.config.no_fitness_termination:
+            raise RuntimeError("Unexpected fitness_criterion: {0!r}".format(self.config.fitness_criterion))
+        
+        # Config specific for fitness
+        cfg = ConfigParser()
+        cfg.read(config_path)
+        self.fitness_config = {
+            D_FIT_COMB: cfg['EVALUATION']['fitness_comb'],
+            D_K:        int(cfg['EVALUATION']['nn_k']),
+            D_TAG:      cfg['EVALUATION']['fitness'],
+        }
         
         # Create a population from scratch, then partition into species
-        self.population = self.reproduction.create_new(config.genome_type, config.genome_config, config.pop_size)
-        self.species = config.species_set_type(config.species_set_config, self.reporters)
-        self.species.speciate(config, self.population, self.generation)
+        self.population = self.reproduction.create_new(self.config.genome_type,
+                                                       self.config.genome_config,
+                                                       self.config.pop_size)
+        self.species = self.config.species_set_type(self.config.species_set_config,
+                                                    self.reporters)
+        self.species.speciate(self.config,
+                              self.population,
+                              self.generation)
         
         # Create network method containers
         self.make_net = make_net_method
@@ -212,6 +222,7 @@ class Population:
                     gen=gen), 'rb'))
             self.best_genome = pop.best_genome
             self.config = pop.config
+            self.fitness_config = pop.fitness_config
             self.fitness_criterion = pop.fitness_criterion
             self.generation = pop.generation
             self.make_net = pop.make_net

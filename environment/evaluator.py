@@ -4,6 +4,7 @@ from random import sample
 
 from neat.six_util import iteritems, itervalues
 
+from control.entities.fitness_functions import calc_pop_fitness
 from environment.multi_env import MultiEnvironment
 
 
@@ -61,9 +62,10 @@ class Evaluator:
             for p in processes:
                 p.join()
             
-            # TODO: Check return_dict to obtain fitness scores
-            for (_, genome) in genomes:
-                genome.fitness = 0.5
+            # Calculate the fitness from the given return_dict
+            fitness = calc_pop_fitness(fitness_config=pop.fitness_config, game_observations=return_dict)
+            for i, genome in genomes:
+                genome.fitness = fitness[i]
         
         # Prepare the generation's reporters for the generation
         pop.reporters.start_generation(pop.generation)

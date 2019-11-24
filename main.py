@@ -1,5 +1,5 @@
 from control.entities.population import Population
-from environment.visualizer import Visualizer
+
 from pytorch_neat.recurrent_net import RecurrentNet
 
 
@@ -32,17 +32,19 @@ if __name__ == '__main__':
             make_net_method=make_net,
             query_net_method=query_net,
     )
-    
     """
     # Evaluation
+    from environment.evaluator import Evaluator
     evaluator = Evaluator(
             rel_path='environment/'
     )
     
-    evaluator.single_evaluation(pop)
+    for _ in range(10):
+        evaluator.single_evaluation(pop)
     """
-    
     # Visualization
+    from environment.visualizer import Visualizer
+    
     net = make_net(pop.best_genome, pop.config, 1)
     visualizer = Visualizer(
             query_net=query_net,
@@ -50,3 +52,4 @@ if __name__ == '__main__':
     )
     
     visualizer.visualize(net, 1)
+    # """
