@@ -44,6 +44,7 @@ class FootBot:
             self.init_pos = Vec2d(0, 0)
         self.init_angle = init_orient  # Initial angle
         self.angle = init_orient  # Current angle
+        self.prev_angle = init_orient  # Previous angle
         self.radius = r  # Radius of the bot
         
         # Placeholders for sensors
@@ -76,8 +77,9 @@ class FootBot:
         lw = max(min(lw, 1), -1)
         rw = max(min(rw, 1), -1)
         
-        # Update previous position
+        # Update previous state
         self.prev_pos.x, self.prev_pos.y = self.pos.x, self.pos.y
+        self.prev_angle = self.angle
         
         # Update angle is determined by the speed of both wheels
         self.angle += (rw - lw) * BOT_TURNING_SPEED * dt

@@ -113,6 +113,7 @@ class Game:
             if inter:
                 self.player.pos.x = self.player.prev_pos.x
                 self.player.pos.y = self.player.prev_pos.y
+                self.player.angle = self.player.prev_angle
                 break
         
         # Get the current observations

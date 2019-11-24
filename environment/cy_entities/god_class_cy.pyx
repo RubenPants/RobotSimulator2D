@@ -646,8 +646,9 @@ cdef class FootBotCy:
     cdef public Vec2dCy pos
     cdef public Vec2dCy prev_pos
     cdef public Vec2dCy init_pos
-    cdef public float init_angle
     cdef public float angle
+    cdef public float prev_angle
+    cdef public float init_angle
     cdef public float radius
     cdef public set angular_sensors
     cdef public DistanceSensorCy distance_sensor
@@ -682,6 +683,7 @@ cdef class FootBotCy:
             self.init_pos = Vec2dCy(0, 0)
         self.init_angle = init_orient  # Initial angle
         self.angle = init_orient  # Current angle
+        self.prev_angle = init_orient  # Previous angle
         self.radius = r  # Radius of the bot
         
         # Placeholders for sensors
@@ -711,8 +713,9 @@ cdef class FootBotCy:
         lw = max(min(lw, 1), -1)
         rw = max(min(rw, 1), -1)
         
-        # Update previous position
+        # Update previous state
         self.prev_pos.x, self.prev_pos.y = self.pos.x, self.pos.y
+        self.prev_angle = self.angle
         
         # Update angle is determined by the speed of both wheels
         self.angle += (rw - lw) * BOT_TURNING_SPEED * dt
@@ -923,6 +926,7 @@ cdef class GameCy:
             if inter:
                 self.player.pos.x = self.player.prev_pos.x
                 self.player.pos.y = self.player.prev_pos.y
+                self.player.angle = self.player.prev_angle
                 break
         
         # Get the current observations
