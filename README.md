@@ -42,7 +42,8 @@ The whole process gets started by calling `reset`,which returns an initial `obse
 
 ### Urgent
 
-* Create visualizations as done in previous project
+* Create visualizations to show separate networks --> When saving blueprints, save network-image as well
+* Create visualization to show species-distribution together with averaged fitness
 
 ### Others
 
