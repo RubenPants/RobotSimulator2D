@@ -13,10 +13,11 @@ class Evaluator:
     The evaluator is responsible evaluating the population across a set of games.
     """
     
-    def __init__(self, rel_path=''):
+    def __init__(self, blueprint_mazes: list = None, rel_path=''):
         """
         The evaluator is given a population which it then evaluates using the MultiEnvironment.
         
+        :param blueprint_mazes: List of game-IDs for which a blueprint will be created after each generation
         :param rel_path: Relative path pointing to the 'environment/' folder
         """
         # Set relative path
@@ -29,6 +30,9 @@ class Evaluator:
         #  Create a list of all the possible games
         self.games = [i + 1 for i in range(int(self.config['GAME']['max_id']))]
         self.batch_size = min(len(self.games), int(self.config['GAME']['game_batch']))
+        
+        # Persist the games for which blueprints must be created
+        self.blueprint_mazes = blueprint_mazes
     
     def single_evaluation(self, pop):
         """
@@ -45,7 +49,7 @@ class Evaluator:
         )
         
         # Set random set of games
-        games = self.sample_games(multi_env)
+        self.sample_games(multi_env)
         
         # Initialize the evaluation-pool
         processes = []
@@ -66,16 +70,15 @@ class Evaluator:
             fitness = calc_pop_fitness(fitness_config=pop.fitness_config, game_observations=return_dict)
             for i, genome in genomes:
                 genome.fitness = fitness[i]
-            
-            # Create blueprint of final result
-            game_objects = [multi_env.create_game(g) for g in games]
-            pop.create_blueprints(final_observations=return_dict, games=game_objects)
         
         # Prepare the generation's reporters for the generation
         pop.reporters.start_generation(pop.generation)
         
         # Evaluate the current population
         eval_genomes(list(iteritems(pop.population)), pop.config)
+        
+        # Create blueprint for selected games
+        self.blueprint_genomes(population=pop)
         
         # Gather and report statistics
         best = None
@@ -107,3 +110,37 @@ class Evaluator:
         print("Sample chose:", s)
         multi_env.set_games(s)
         return s
+    
+    def blueprint_genomes(self, population):
+        """
+        Create blueprints for all the requested mazes.
+        
+        :param population: Population that will be evaluated on the games
+        :return:
+        """
+        multi_env = MultiEnvironment(
+                make_net=population.make_net,
+                query_net=population.query_net,
+                rel_path=self.rel_path,
+                max_duration=int(self.config['GAME']['duration'])
+        )
+        multi_env.set_games(self.blueprint_mazes)
+        
+        # Initialize the evaluation-pool
+        processes = []
+        manager = mp.Manager()
+        return_dict = manager.dict()
+        
+        # Evaluate the genomes
+        for genome in list(iteritems(population.population)):
+            processes.append(mp.Process(target=multi_env.eval_genome, args=(genome, population.config, return_dict)))
+        
+        for p in processes:
+            p.start()
+        
+        for p in processes:
+            p.join()
+        
+        # Create blueprint of final result
+        game_objects = [multi_env.create_game(g) for g in self.blueprint_mazes]
+        population.create_blueprints(final_observations=return_dict, games=game_objects)
