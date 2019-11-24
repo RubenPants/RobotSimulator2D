@@ -16,7 +16,7 @@ TIME_ALL = False  # Time every component in the full pipeline (only used to find
 # ------------------------------------------------- GAME ENVIRONMENT ------------------------------------------------- #
 
 # --> MAIN CONTROL <-- #
-FPS = 24  # Number of frames each second  [def=24]
+FPS = 20  # Number of frames each second  [def=20]
 HUMAN_INPUT = False  # Control the player by hand instead of by an algorithm [def=True]
 
 # --> WINDOW SPECIFIC <-- #

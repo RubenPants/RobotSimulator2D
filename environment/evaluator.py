@@ -99,4 +99,6 @@ class Evaluator:
         
         :param multi_env: The environment on which the game-id list will be set
         """
-        multi_env.set_games(sample(self.games, self.batch_size))
+        s = sample(self.games, self.batch_size)
+        print("Sample chose:", s)
+        multi_env.set_games(s)
