@@ -9,34 +9,44 @@ else:
     from environment.entities.game import Game
 
 
+# TODO: Create Cython MultiEnvironment, since this environment communicates a lot with god_class
 class MultiEnvironment:
     """
     This class provides an environment to evaluate a single genome on multiple games.
     """
     
-    def __init__(self, make_net, query_net, max_duration=100, rel_path=''):
+    def __init__(self,
+                 make_net,
+                 query_net,
+                 max_duration: int = 100,
+                 rel_path: str = ''):
         """
         Create an environment in which the genomes get evaluated across different games.
         
         :param make_net: Method to create a network based on the given genome
         :param query_net: Method to evaluate the network given the current state
         :param max_duration: Maximum number of seconds a candidate drives around in a single environment
+        :param rel_path: Relative path pointing to the 'environment/' folder
         """
-        self.rel_path = rel_path  # TODO
         self.batch_size = None
         self.games = None
         self.make_net = make_net
         self.max_steps = max_duration * FPS
         self.query_net = query_net
+        self.rel_path = rel_path
     
-    def eval_genome(self, genome, config, return_dict=None, debug=False):
+    def eval_genome(self,
+                    genome,
+                    config,
+                    return_dict: dict = None,
+                    debug: bool = False):
         """
-        TODO
+        Evaluate a single genome in a pre-defined game-environment.
         
-        :param genome:
-        :param config:
-        :param return_dict:
-        :param debug:
+        :param genome: Tuple (genome_id, genome_class)
+        :param config: Config file specifying how genome's network will be made
+        :param return_dict: Dictionary used to return observations corresponding the genome
+        :param debug: Boolean specifying if debugging is enabled or not
         """
         genome_id, genome = genome  # Split up genome by id and genome itself
         net = self.make_net(genome, config, self.batch_size)
@@ -86,7 +96,7 @@ class MultiEnvironment:
     def create_game(self, i):
         """
         :param i: Game-ID
-        :return: Game object
+        :return: Game or GameCy object
         """
         if sys.platform == 'linux':
             return GameCy(game_id=i,

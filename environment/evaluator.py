@@ -1,4 +1,6 @@
+import configparser
 import multiprocessing as mp
+from random import sample
 
 from neat.six_util import iteritems, itervalues
 
@@ -10,18 +12,22 @@ class Evaluator:
     The evaluator is responsible evaluating the population across a set of games.
     """
     
-    def __init__(self,
-                 config=None,
-                 rel_path=''):
+    def __init__(self, rel_path=''):
         """
         TODO
         
-        :param config:
-        :param rel_path:
+        :param rel_path: Relative path pointing to the 'environment/' folder
         """
-        self.rel_path = rel_path
-        self.config = config  # TODO: Needed? For what? Separate game-config perhaps?
-        self.games = [1, 2, 3, 4]  # TODO: init list of all possible game-ids
+        # Set relative path
+        self.rel_path = '{rp}{x}'.format(rp=rel_path, x='/' if (rel_path and rel_path[-1] not in ['/', '\\']) else '')
+        
+        # Load in current configuration
+        self.config = configparser.ConfigParser()
+        self.config.read('{}config.cfg'.format(self.rel_path))
+        
+        #  Create a list of all the possible games
+        self.games = [i + 1 for i in range(int(self.config['GAME']['max_id']))]
+        self.batch_size = min(len(self.games), int(self.config['GAME']['game_batch']))
     
     def single_evaluation(self, pop):
         """
@@ -29,15 +35,15 @@ class Evaluator:
         """
         multi_env = MultiEnvironment(
                 make_net=pop.make_net,
-                query_net=pop.query_net,  # TODO: Parse duration from config!
+                query_net=pop.query_net,
                 rel_path=self.rel_path,
+                max_duration=int(self.config['GAME']['duration'])
         )
         
         # Set random set of games
         self.sample_games(multi_env)
         
         # Initialize the evaluation-pool
-        # pool = mp.Pool(mp.cpu_count())
         processes = []
         manager = mp.Manager()
         return_dict = manager.dict()
@@ -81,9 +87,8 @@ class Evaluator:
     
     def sample_games(self, multi_env):
         """
-        TODO: Sample random subset of game-ids and create game-objects
-        :param multi_env:
-        :return:
+        Set the list on which the agents will be trained.
+        
+        :param multi_env: The environment on which the game-id list will be set
         """
-        # TODO: Sample first on self.games!
-        multi_env.set_games(self.games)  # TODO
+        multi_env.set_games(sample(self.games, self.batch_size))
