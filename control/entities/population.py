@@ -54,7 +54,19 @@ class Population:
         
         # Try to load the population, create new if not possible
         if not self.load():
-            assert (config is not None) and (make_net_method is not None) and (query_net_method is not None)
+            # net-methods must be provided
+            assert (make_net_method is not None) and (query_net_method is not None)
+            
+            # Create config file if not given
+            if not config:
+                config_path = '{}config.cfg'.format(self.rel_path)
+                config = neat.Config(
+                        neat.DefaultGenome,
+                        neat.DefaultReproduction,
+                        neat.DefaultSpeciesSet,
+                        neat.DefaultStagnation,
+                        config_path,
+                )
             self.create_population(config=config, make_net_method=make_net_method, query_net_method=query_net_method)
     
     def __str__(self):

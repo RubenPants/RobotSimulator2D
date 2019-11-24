@@ -87,6 +87,9 @@ class Evaluator:
         
         # End generation
         pop.reporters.end_generation(pop.config, pop.population, pop.species)
+        
+        # Save the population
+        pop.save()
     
     def sample_games(self, multi_env):
         """

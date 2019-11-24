@@ -30,21 +30,11 @@ def query_net(net, states):
 
 
 if __name__ == '__main__':
-    config_path = os.path.join(os.path.dirname(__file__), "control/NEAT/config.cfg")
-    config = neat.Config(
-            neat.DefaultGenome,
-            neat.DefaultReproduction,
-            neat.DefaultSpeciesSet,
-            neat.DefaultStagnation,
-            config_path,
-    )
-    
     pop = Population(
             name='test',
-            rel_path='',
+            rel_path='control/NEAT/',
             make_net_method=make_net,
             query_net_method=query_net,
-            config=config
     )
     
     evaluator = Evaluator(
