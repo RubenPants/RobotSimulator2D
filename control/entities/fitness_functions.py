@@ -72,8 +72,10 @@ def fitness_per_game(fitness_config: dict, game_observations):
     elif tag == 'novelty':
         return novelty_search(game_observations=game_observations,
                               k=fitness_config[D_K])
-    else:  # quality_diversity
+    elif tag == 'quality_diversity':
         raise NotImplemented
+    else:
+        raise Exception("{} is not suported".format(tag))
 
 
 # -------------------------------------------------> HELPER METHODS <------------------------------------------------- #
@@ -89,7 +91,7 @@ def fitness_distance(game_observations):
     """
     fitness_dict = dict()
     for k, v in game_observations.items():  # Iterate over the candidates
-        fitness_dict[k] = [1 / o[D_DIST_TO_TARGET] for o in v]
+        fitness_dict[k] = [min(100 / o[D_DIST_TO_TARGET], 100) for o in v]  # Highest fitness of 100
     return fitness_dict
 
 
