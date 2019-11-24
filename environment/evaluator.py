@@ -45,7 +45,7 @@ class Evaluator:
         )
         
         # Set random set of games
-        self.sample_games(multi_env)
+        games = self.sample_games(multi_env)
         
         # Initialize the evaluation-pool
         processes = []
@@ -66,6 +66,10 @@ class Evaluator:
             fitness = calc_pop_fitness(fitness_config=pop.fitness_config, game_observations=return_dict)
             for i, genome in genomes:
                 genome.fitness = fitness[i]
+            
+            # Create blueprint of final result
+            game_objects = [multi_env.create_game(g) for g in games]
+            pop.create_blueprints(final_observations=return_dict, games=game_objects)
         
         # Prepare the generation's reporters for the generation
         pop.reporters.start_generation(pop.generation)
@@ -102,3 +106,4 @@ class Evaluator:
         s = sample(self.games, self.batch_size)
         print("Sample chose:", s)
         multi_env.set_games(s)
+        return s
