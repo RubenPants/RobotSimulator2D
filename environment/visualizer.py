@@ -59,6 +59,7 @@ class Visualizer:
                                       resizable=False,
                                       visible=True)
         window.set_location(100, 100)
+        pyglet.gl.glClearColor(1, 1, 1, 1)
         
         # Setup the requested game
         game = self.create_game(game_id)
@@ -74,6 +75,7 @@ class Visualizer:
                                         a=wall.x * PTM,
                                         b=wall.y * PTM,
                                         radius=0.05 * PTM)  # 5cm walls
+            wall_shape.color = (35, 121, 181)
             space.add(wall_shape)
         
         # Draw static objects - target
@@ -81,6 +83,7 @@ class Visualizer:
         target_body.position = game.target * PTM
         target_shape = pymunk.Circle(body=target_body, radius=BOT_RADIUS * PTM)  # Circle with 5cm radius
         target_shape.sensor = True
+        target_shape.color = (0, 128, 0)
         space.add(target_body, target_shape)
         
         # Init player
@@ -89,6 +92,7 @@ class Visualizer:
         player_body.position = game.player.pos * PTM
         player_body.angle = game.player.angle
         player_shape = pymunk.Circle(body=player_body, radius=BOT_RADIUS * PTM)
+        player_shape.color = (255, 0, 0)
         space.add(player_body, player_shape)
         
         # Draw the robot's sensors
@@ -98,10 +102,10 @@ class Visualizer:
                 line = pymunk.Segment(space.static_body,
                                       a=s.start_pos * PTM,
                                       b=s.end_pos * PTM,
-                                      radius=1)
+                                      radius=0.5)
                 line.sensor = True
                 touch = ((s.start_pos - s.end_pos).get_length() < SENSOR_RAY_DISTANCE - 0.05)
-                line.color = (250, 250, 250) if touch else (100, 100, 100)  # Brighten up ray if it makes contact
+                line.color = (50, 50, 50) if touch else (150, 150, 150)  # Brighten up ray if it makes contact
                 space.add(line)
         
         draw_sensors()
