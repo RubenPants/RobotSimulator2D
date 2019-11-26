@@ -33,7 +33,7 @@ if __name__ == '__main__':
             query_net_method=query_net,
     )
     
-    # """
+    """
     # Evaluation
     from environment.evaluator import Evaluator
     
@@ -56,6 +56,6 @@ if __name__ == '__main__':
             debug=False,
     )
     
-    visualizer.visualize(net, 1)
+    visualizer.visualize(net, 6)
     
     # """

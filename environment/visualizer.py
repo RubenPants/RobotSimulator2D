@@ -38,6 +38,7 @@ class Visualizer:
         # Visualizer specific parameters
         self.speedup = speedup
         self.state = None
+        self.finished = False
         
         # Network specific parameters
         self.query_net = query_net
@@ -64,6 +65,7 @@ class Visualizer:
         # Setup the requested game
         game = self.create_game(game_id)
         self.state = game.reset()[D_SENSOR_LIST]
+        self.finished = False
         
         # Create the visualize-environment
         space = pymunk.Space()
@@ -108,8 +110,6 @@ class Visualizer:
                 line.color = (50, 50, 50) if touch else (150, 150, 150)  # Brighten up ray if it makes contact
                 space.add(line)
         
-        draw_sensors()
-        
         @window.event
         def on_draw():
             window.clear()
@@ -117,22 +117,24 @@ class Visualizer:
             space.debug_draw(options=options)
         
         def update_method(dt):
-            # Query the game for the next action
             dt = dt * self.speedup
-            action = self.query_net(network, [self.state])
-            if self.debug:
-                print("Passed time:", round(dt, 3))
-                print("Action: lw={l}, rw={r}".format(l=round(action[0][0], 3), r=round(action[0][1], 3)))
-                print("Observation:", [round(s, 3) for s in self.state])
             
-            # Progress game by one step
-            obs, _ = game.step_dt(dt=dt, l=action[0][0], r=action[0][1])
-            self.state = obs[D_SENSOR_LIST]
-            
-            # Update space's player coordinates and angle
-            player_body.position = game.player.pos * PTM
-            player_body.angle = game.player.angle
-            # draw_sensors()
+            # Stop when target is reached
+            if not self.finished:
+                # Query the game for the next action
+                action = self.query_net(network, [self.state])
+                if self.debug:
+                    print("Passed time:", round(dt, 3))
+                    print("Action: lw={l}, rw={r}".format(l=round(action[0][0], 3), r=round(action[0][1], 3)))
+                    print("Observation:", [round(s, 3) for s in self.state])
+                
+                # Progress game by one step
+                obs, self.finished = game.step_dt(dt=dt, l=action[0][0], r=action[0][1])
+                self.state = obs[D_SENSOR_LIST]
+                
+                # Update space's player coordinates and angle
+                player_body.position = game.player.pos * PTM
+                player_body.angle = game.player.angle
             space.step(dt)
         
         # Run the game

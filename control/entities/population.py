@@ -230,7 +230,7 @@ class Population:
                 rp=self.rel_path,
                 pop=self,
                 gen=self.generation), 'wb'))
-        print("Population '{}' saved!".format(self))
+        print("Population '{}' saved! Current generation: {}".format(self, self.generation))
     
     def load(self, gen=None):
         """
