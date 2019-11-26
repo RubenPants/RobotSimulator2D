@@ -32,18 +32,20 @@ if __name__ == '__main__':
             make_net_method=make_net,
             query_net_method=query_net,
     )
-    """
+    
+    # """
     # Evaluation
     from environment.evaluator import Evaluator
     
     evaluator = Evaluator(
-            blueprint_mazes=[1],
             rel_path='environment/',
     )
     
-    for _ in range(10):
-        evaluator.single_evaluation(pop)
+    # Train for 100 generations
+    evaluator.evaluate_and_evolve(pop, n=100)
+    
     """
+    
     # Visualization
     from environment.visualizer import Visualizer
     
@@ -55,4 +57,5 @@ if __name__ == '__main__':
     )
     
     visualizer.visualize(net, 1)
+    
     # """
