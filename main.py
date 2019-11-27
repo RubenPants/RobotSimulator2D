@@ -27,7 +27,7 @@ def query_net(net, states):
 
 if __name__ == '__main__':
     pop = Population(
-            name='distance',
+            name='novelty',
             rel_path='control/NEAT/',
             make_net_method=make_net,
             query_net_method=query_net,
@@ -42,9 +42,9 @@ if __name__ == '__main__':
     )
     
     # Train for 100 generations
-    # evaluator.evaluate_and_evolve(pop, n=100)
+    evaluator.evaluate_and_evolve(pop, n=100)
     
-    # Create the blueprints
+    # Create the blueprints for first 5 games
     for g in range(1, 6):
         print("Evaluate on game {}".format(g))
         evaluator.set_games([g])
