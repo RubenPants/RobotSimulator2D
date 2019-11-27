@@ -33,7 +33,7 @@ if __name__ == '__main__':
             query_net_method=query_net,
     )
     
-    """
+    # """
     # Evaluation
     from environment.evaluator import Evaluator
     
@@ -45,10 +45,12 @@ if __name__ == '__main__':
     # evaluator.evaluate_and_evolve(pop, n=100)
     
     # Create the blueprints
-    evaluator.set_games([1])
-    for i in range(11):
-        pop.load(gen=int(i * 10))
-        evaluator.blueprint_genomes(pop)
+    for g in range(1, 6):
+        print("Evaluate on game {}".format(g))
+        evaluator.set_games([g])
+        for i in range(11):
+            pop.load(gen=int(i * 10))
+            evaluator.blueprint_genomes(pop)
     
     """
     
@@ -59,7 +61,7 @@ if __name__ == '__main__':
     visualizer = Visualizer(
             query_net=query_net,
             rel_path='environment/',
-            debug=True,
+            debug=False,
             # speedup=1,
     )
     
