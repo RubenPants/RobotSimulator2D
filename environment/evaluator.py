@@ -135,6 +135,10 @@ class Evaluator:
                 rel_path=self.rel_path,
                 max_duration=int(self.config['GAME']['duration'])
         )
+        
+        if len(self.games) > 20:
+            raise Exception("It is not advised to evaluate on more than 20 at once")
+        
         multi_env.set_games(self.games)
         
         # Initialize the evaluation-pool
