@@ -239,7 +239,7 @@ class Population:
         :return: True: game successfully loaded | False: otherwise
         """
         try:
-            if not gen:
+            if gen is None:
                 # Load in all previous populations
                 populations = glob('{rp}populations/{pop}/generations/gen_*'.format(rp=self.rel_path, pop=self))
                 if not populations: raise FileNotFoundError

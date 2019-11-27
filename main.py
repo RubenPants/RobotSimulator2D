@@ -33,7 +33,7 @@ if __name__ == '__main__':
             query_net_method=query_net,
     )
     
-    """
+    # """
     # Evaluation
     from environment.evaluator import Evaluator
     
@@ -42,7 +42,11 @@ if __name__ == '__main__':
     )
     
     # Train for 100 generations
-    evaluator.evaluate_and_evolve(pop, n=100)
+    # evaluator.evaluate_and_evolve(pop, n=100)
+    # evaluator.set_games([1])
+    for i in range(11):
+        pop.load(gen=int(i * 10))
+        evaluator.blueprint_genomes(pop)
     
     """
     

@@ -27,8 +27,23 @@ class Evaluator:
         self.config.read('{}config.cfg'.format(self.rel_path))
         
         #  Create a list of all the possible games
+        self.set_games()
         self.games = [i + 1 for i in range(int(self.config['GAME']['max_id']))]
         self.batch_size = min(len(self.games), int(self.config['GAME']['game_batch']))
+    
+    def set_games(self, games: list = None):
+        """
+        Set the game-IDs that will be used to evaluate the population. The full game-set as defined by the configuration
+        file will be used if games=None.
+        
+        :param games: List of integers
+        """
+        if not games:
+            self.games = [i + 1 for i in range(int(self.config['GAME']['max_id']))]
+            self.batch_size = min(len(self.games), int(self.config['GAME']['game_batch']))
+        else:
+            self.games = games
+            self.batch_size = len(games)
     
     def evaluate_and_evolve(self, pop, n: int = 1, save_interval: int = 1):
         """
