@@ -3,6 +3,8 @@ from timeit import timeit
 
 
 def test_intersection():
+    print("--> Running the intersection test <--")
+    
     # Do measures
     time_cy = timeit('test_intersection_cy.main()',
                      setup='from environment.cy_entities import test_intersection_cy',
@@ -18,6 +20,8 @@ def test_intersection():
 
 
 def test_drive():
+    print("--> Running the drive test <--")
+    
     # Do measures
     time_cy = timeit('test_drive_cy.main()',
                      setup='from environment.cy_entities import test_drive_cy',
@@ -29,10 +33,12 @@ def test_drive():
     # Print results
     print("Time Python:", time_py)
     print("Time Cython:", time_cy)
-    print("Cython is {} times faster on the game test".format(round(time_py / time_cy, 2)))
+    print("Cython is {} times faster on the drive test".format(round(time_py / time_cy, 2)))
 
 
 def test_sensors():
+    print("--> Running the sensor test <--")
+    
     # Do measures
     time_cy = timeit('test_sensors_cy.main()',
                      setup='from environment.cy_entities import test_sensors_cy',
@@ -44,7 +50,7 @@ def test_sensors():
     # Print results
     print("Time Python:", time_py)
     print("Time Cython:", time_cy)
-    print("Cython is {} times faster on the game test".format(round(time_py / time_cy, 2)))
+    print("Cython is {} times faster on the sensor test".format(round(time_py / time_cy, 2)))
 
 
 if __name__ == '__main__':
