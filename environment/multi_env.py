@@ -59,8 +59,6 @@ class MultiEnvironment:
         # Start iterating the environments
         step_num = 0
         while True:
-            step_num += 1
-            
             # Check if maximum iterations is reached
             if self.max_steps is not None and step_num == self.max_steps:
                 break
@@ -86,6 +84,7 @@ class MultiEnvironment:
             # Stop if agent reached target in all the games
             if all(finished):
                 break
+            step_num += 1
         
         # Return the final observations
         if return_dict is not None:

@@ -27,7 +27,7 @@ def query_net(net, states):
 
 if __name__ == '__main__':
     pop = Population(
-            name='novelty',
+            name='step_distance',
             rel_path='control/NEAT/',
             make_net_method=make_net,
             query_net_method=query_net,

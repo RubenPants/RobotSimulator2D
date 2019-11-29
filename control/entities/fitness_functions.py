@@ -63,15 +63,14 @@ def fitness_per_game(fitness_config: dict, game_observations):
     :param game_observations: List of game.close() results (Dictionary)
     :return: Dictionary: { genome_key: [fitness_floats] }
     """
-    # Check if valid tag is given
     tag = fitness_config[D_TAG]
-    assert (tag in ['distance', 'distance_norm', 'novelty', 'quality_diversity'])
-    
     if tag == 'distance':
-        return fitness_distance(game_observations)
+        return fitness_distance(game_observations=game_observations)
     elif tag == 'novelty':
         return novelty_search(game_observations=game_observations,
                               k=fitness_config[D_K])
+    elif tag == 'step_distance':
+        return fitness_step_distance(game_observations=game_observations)
     elif tag == 'quality_diversity':
         raise NotImplemented
     else:
@@ -102,7 +101,7 @@ def novelty_search(game_observations, k: int = 5):
     
     :param game_observations: List of game.close() results (Dictionary)
     :param k: The number of neighbours taken into account
-    :return: Dictionary: key=genome_id, val=average fitness as a float
+    :return: { genome_id, [fitness_floats] }
     """
     # Get base attributes
     candidates = list(game_observations.keys())
@@ -125,6 +124,30 @@ def novelty_search(game_observations, k: int = 5):
         for c in candidates:
             cum_novelty[c].append(ns[c])
     return cum_novelty
+
+
+def fitness_step_distance(game_observations):
+    """
+    This metric will combine both the distance of the agent towards the goal, as well as the time it took to reach the
+    goal relative to its peers (if the agent did in fact reach the goal). The fitness is calculated as the sum of the
+    relative distance to target (1-distance/max_distance) and the steps it took to reach the target (1-steps/max_steps).
+    Both are multiplied by 50 with a soul reason to have a total score on 100.
+    
+    :param game_observations: List of game.close() results (Dictionary)
+    :return: { genome_id, [fitness_floats] }
+    """
+    # Get maximum values for each of the games
+    n_games = len(list(game_observations.values())[0])  # Number of games
+    max_s, max_d = [], []  # Maximum steps and distance for each game respectively
+    for n in range(n_games):
+        max_s.append(max([o[n][D_STEPS] for o in game_observations.values()]))
+        max_d.append(max([o[n][D_DIST_TO_TARGET] for o in game_observations.values()]))
+    
+    # Calculate the score
+    fitness_dict = dict()
+    for k, v in game_observations.items():  # Iterate over the candidates
+        fitness_dict[k] = [100 - 50 * (o[D_DIST_TO_TARGET] / max_d[i] + o[D_STEPS] / max_s[i]) for i, o in enumerate(v)]
+    return fitness_dict
 
 
 def novelty_search_game(game_observations, k: int = 5):  # TODO: Not sure if properly Novelty Function (add one by one?)
