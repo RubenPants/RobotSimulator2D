@@ -76,7 +76,7 @@ class MultiEnvironment:
             
             for i, (g, a, f) in enumerate(zip(games, actions, finished)):
                 # Ignore if game has finished
-                if not f:  # TODO: Create else that gets drone closer to finish (-->faster to finish is higher reward)
+                if not f:
                     # Proceed the game with one step, based on the predicted action
                     obs, finished[i] = g.step(l=a[0], r=a[1])
                     

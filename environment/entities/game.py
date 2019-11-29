@@ -54,6 +54,7 @@ class Game:
         self.target: Vec2d = None  # Target-robot
         self.walls: list = None  # List of all walls in the game
         self.done: bool = False  # Game has finished
+        self.steps_taken: int = 0  # Number of steps taken by the agent
         
         # Check if game already exists, if not create new game
         if overwrite or not self.load():
@@ -72,6 +73,7 @@ class Game:
             D_GAME_ID:        self.id,
             D_POS:            self.player.pos,
             D_DIST_TO_TARGET: self.player.get_sensor_reading_distance(),
+            D_STEPS:          self.steps_taken,
         }
     
     def reset(self):
@@ -80,6 +82,7 @@ class Game:
 
         :return: Observation
         """
+        self.steps_taken = 0
         self.player.reset()
         return self.get_observation()
     
@@ -105,6 +108,8 @@ class Game:
         :param r: Right wheel speed [-1..1]
         :return: Observation (Dictionary), target_reached (Boolean)
         """
+        # Progress the game
+        self.steps_taken += 1
         self.player.drive(dt, lw=l, rw=r)
         
         # Check if intersected with a wall, if so then set player back to old position
@@ -159,6 +164,7 @@ class Game:
             D_GAME_ID:        self.id,
             D_POS:            self.player.pos,
             D_SENSOR_LIST:    self.get_sensor_list(),
+            D_STEPS:          self.steps_taken,
         }
     
     def get_sensor_list(self):

@@ -47,6 +47,7 @@ D_SENSORS = 'sensors'
 D_SENSOR_ANGLE = 'angular_sensor'
 D_SENSOR_DISTANCE = 'distance_sensor'
 D_SENSOR_PROXIMITY = 'proximity_sensor'
+D_STEPS = "steps"
 
 # T
 D_TAG = 'tag'

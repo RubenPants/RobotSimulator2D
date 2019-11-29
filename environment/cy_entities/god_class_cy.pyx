@@ -844,6 +844,7 @@ cdef class GameCy:
     cdef public Vec2dCy target
     cdef public list walls
     cdef public bint done
+    cdef public int steps_taken
     
     def __init__(self,
                  int game_id=0,
@@ -873,6 +874,7 @@ cdef class GameCy:
         self.target = None  # Target-robot
         self.walls = None  # List of all walls in the game
         self.done = False  # Game has finished
+        self.steps_taken = 0  # Number of steps taken by the agent
         
         # Check if game already exists, if not create new game
         if overwrite or not self.load():
@@ -891,6 +893,7 @@ cdef class GameCy:
             D_GAME_ID:        self.id,
             D_POS:            self.player.pos,
             D_DIST_TO_TARGET: self.player.get_sensor_reading_distance(),
+            D_STEPS:          self.steps_taken,
         }
     
     cpdef dict reset(self):
@@ -899,6 +902,7 @@ cdef class GameCy:
 
         :return: Observation
         """
+        self.steps_taken = 0
         self.player.reset()
         return self.get_observation()
     
@@ -918,6 +922,7 @@ cdef class GameCy:
         
         # Progress the game
         dt = 1.0 / FPS + abs(random.gauss(0, NOISE_TIME)) if self.noise else 1.0 / FPS
+        self.steps_taken += 1
         self.player.drive(dt, lw=l, rw=r)
         
         # Check if intersected with a wall, if so then set player back to old position
@@ -972,6 +977,7 @@ cdef class GameCy:
             D_GAME_ID:        self.id,
             D_POS:            self.player.pos,
             D_SENSOR_LIST:    self.get_sensor_list(),
+            D_STEPS:          self.steps_taken,
         }
     
     cpdef list get_sensor_list(self):
