@@ -14,6 +14,7 @@ import neat
 from neat.math_util import mean
 from neat.reporting import ReporterSet
 
+from control.entities.visualizer import draw_net
 from utils.config import AXIS_Y
 from utils.dictionary import D_FIT_COMB, D_GAME_ID, D_K, D_POS, D_TAG
 from utils.myutils import get_subfolder
@@ -191,6 +192,25 @@ class Population:
             game_path = get_subfolder(save_path, 'game{id:05d}'.format(id=g.id))
             plt.savefig('{gp}gen{gen:05d}'.format(gp=game_path, gen=self.generation))
             plt.close()
+    
+    def visualize_genome(self, genome=None, name: str = '', show: bool = True):
+        """
+        Visualize the architecture of the given genome.
+        
+        :param genome: Genome that must be visualized, best genome is chosen if none
+        :param name: Name of the image, excluding the population's generation (auto concatenated)
+        :param show: Directly visualize the architecture
+        """
+        if not genome:
+            genome = self.best_genome
+            if not name:
+                name = 'best_genome_'
+        name += 'gen_{gen:05d}'.format(gen=self.generation)
+        sf = get_subfolder('{}populations/{}/images/'.format(self.rel_path, self), 'architectures')
+        draw_net(self.config,
+                 genome,
+                 filename='{sf}{name}'.format(sf=sf, name=name),
+                 view=show)
     
     # ---------------------------------------------> FUNCTIONAL METHODS <--------------------------------------------- #
     

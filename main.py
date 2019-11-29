@@ -27,13 +27,13 @@ def query_net(net, states):
 
 if __name__ == '__main__':
     pop = Population(
-            name='step_distance',
+            name='distance',
             rel_path='control/NEAT/',
             make_net_method=make_net,
             query_net_method=query_net,
     )
     
-    # """
+    """
     # Evaluation
     from environment.evaluator import Evaluator
     
@@ -55,6 +55,9 @@ if __name__ == '__main__':
     """
     
     # Visualization
+    pop.visualize_genome()
+    
+    # """
     from environment.visualizer import Visualizer
     
     net = make_net(pop.best_genome, pop.config, 1)

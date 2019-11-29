@@ -171,6 +171,8 @@ class Game:
         """
         Return a list of sensory-readings, with first the proximity sensors, then the angular sensors and at the end the
         distance-sensor.
+        
+        :return: [proximity_sensors, angular_sensors, distance_sensor]
         """
         # Read the sensors
         sensor_readings = self.player.get_sensor_readings()
