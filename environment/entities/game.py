@@ -49,12 +49,13 @@ class Game:
         self.noise: bool = noise  # Add noise to the game-environment
         
         # Placeholders for parameters
+        self.done: bool = False  # Game has finished
         self.id: int = game_id  # Game's ID-number
+        self.path: dict = None  # Coordinates together with distance to target
         self.player: FootBot = None  # Candidate-robot
+        self.steps_taken: int = 0  # Number of steps taken by the agent
         self.target: Vec2d = None  # Target-robot
         self.walls: list = None  # List of all walls in the game
-        self.done: bool = False  # Game has finished
-        self.steps_taken: int = 0  # Number of steps taken by the agent
         
         # Check if game already exists, if not create new game
         if overwrite or not self.load():

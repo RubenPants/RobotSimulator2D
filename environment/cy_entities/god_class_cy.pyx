@@ -836,15 +836,16 @@ cdef class GameCy:
         * robot: The player manoeuvring in the environment
         * target: Robot that must be reached by the robot
     """
+    cdef public bint done
+    cdef public int id
+    cdef public bint noise
+    cdef public dict path
+    cdef public FootBotCy player
     cdef public str rel_path
     cdef public bint silent
-    cdef public bint noise
-    cdef public int id
-    cdef public FootBotCy player
+    cdef public int steps_taken
     cdef public Vec2dCy target
     cdef public list walls
-    cdef public bint done
-    cdef public int steps_taken
     
     def __init__(self,
                  int game_id=0,
@@ -869,12 +870,13 @@ cdef class GameCy:
         self.noise = noise  # Add noise to the game-environment
         
         # Placeholders for parameters
+        self.done = False  # Game has finished
         self.id = game_id  # Game's ID-number
+        self.path = None  # Coordinates together with distance to target
         self.player = None  # Candidate-robot
+        self.steps_taken = 0  # Number of steps taken by the agent
         self.target = None  # Target-robot
         self.walls = None  # List of all walls in the game
-        self.done = False  # Game has finished
-        self.steps_taken = 0  # Number of steps taken by the agent
         
         # Check if game already exists, if not create new game
         if overwrite or not self.load():
