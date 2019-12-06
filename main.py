@@ -64,7 +64,7 @@ if __name__ == '__main__':
     visualizer = Visualizer(
             query_net=query_net,
             rel_path='environment/',
-            debug=False,
+            debug=True,
             # speedup=1,
     )
     

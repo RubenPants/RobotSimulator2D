@@ -160,14 +160,16 @@ class Maze:
             for y in range(1, self.y_width - 1):
                 if self.maze[x, y] > -1:
                     self.maze[x, y] = (self.maze[x, y] - min_value) / (100 - min_value)
-        if visualize:
-            self.visualize(clip=False)
         
         # Put values in list
         values = []
         for x in range(1, self.x_width - 1, 2):
             for y in range(1, self.y_width - 1, 2):
                 values.append(((x / 2, y / 2), self.maze[y, x]))
+        if visualize:
+            self.visualize(clip=False)
+            for v in values:
+                print(v)
         return values
     
     # -------------------------------------------> MAIN SECONDARY METHODS <------------------------------------------- #

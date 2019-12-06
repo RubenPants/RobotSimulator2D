@@ -125,6 +125,8 @@ class Visualizer:
                 action = self.query_net(network, [self.state])
                 if self.debug:
                     print("Passed time:", round(dt, 3))
+                    print("Location: x={}, y={}".format(round(player_body.position.x / PTM, 2),
+                                                        round(player_body.position.y / PTM, 2)))
                     print("Action: lw={l}, rw={r}".format(l=round(action[0][0], 3), r=round(action[0][1], 3)))
                     print("Observation:", [round(s, 3) for s in self.state])
                 
