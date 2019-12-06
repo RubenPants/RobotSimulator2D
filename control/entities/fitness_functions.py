@@ -170,13 +170,13 @@ def fitness_path_time(game_observations):
     
     # Calculate worst time to reach the target
     n_games = len(list(game_observations.values())[0])  # Number of games
-    max_steps = [max([o[g][D_POS] for o in game_observations.values()]) for g in range(n_games)]
+    max_steps = [max([o[g][D_STEPS] for o in game_observations.values()]) for g in range(n_games)]
     
     # Calculate the score
     fitness_dict = dict()
     for k, v in game_observations.items():  # Iterate over the candidates
         fitness_dict[k] = [50 * (get_value(path=o[D_PATH], pos=o[D_POS]) +
-                                 o[D_STEPS] / max_steps[i]) for i, o in enumerate(v)]
+                                 (max_steps[i] - o[D_STEPS]) / max_steps[i]) for i, o in enumerate(v)]
     return fitness_dict
 
 
