@@ -40,13 +40,6 @@ The whole process gets started by calling `reset`,which returns an initial `obse
 
 ## TODO
 
-### Urgent
-
-* Create visualizations to show separate networks --> When saving blueprints, save network-image as well
-* Create visualization to show species-distribution together with averaged fitness
-
-### Others
-
 * Timing mechanics in `main.py`, possible to visualize this as well?
 * Automatic trigger to reset game and algorithm (e.g. also trigger training of algorithm) via control in main
 * NEAT and variants implementation:
