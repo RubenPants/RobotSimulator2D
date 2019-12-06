@@ -155,10 +155,8 @@ def fitness_path(game_observations):
 
 def fitness_path_time(game_observations):
     """
-    This metric uses the game-specific "path" values. This values indicate the quality for each for the tiles,
-    indicating how far away this current tile is from target. Note that these values are normalized and transformed to
-    fitness values, where the tile of the target has value 1 and the value of the tile with the longest path towards the
-    target has value 0.
+    This fitness score is based on both the fitness calculated by fitness_path and the time it takes to reach the target
+    (calculated in number of steps).
     
     :param game_observations: List of game.close() results (Dictionary)
     :return: { genome_id, [fitness_floats] }
@@ -170,10 +168,15 @@ def fitness_path_time(game_observations):
         """
         return path[min(path.keys(), key=lambda key: (pos - Vec2d(key[0], key[1])).get_length())]
     
+    # Calculate worst time to reach the target
+    n_games = len(list(game_observations.values())[0])  # Number of games
+    max_steps = [max([o[g][D_POS] for o in game_observations.values()]) for g in range(n_games)]
+    
     # Calculate the score
     fitness_dict = dict()
     for k, v in game_observations.items():  # Iterate over the candidates
-        fitness_dict[k] = [100 * get_value(path=o[D_PATH], pos=o[D_POS]) for o in v]
+        fitness_dict[k] = [50 * (get_value(path=o[D_PATH], pos=o[D_POS]) +
+                                 o[D_STEPS] / max_steps[i]) for i, o in enumerate(v)]
     return fitness_dict
 
 
