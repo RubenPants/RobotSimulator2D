@@ -57,9 +57,7 @@ if __name__ == '__main__':
     # Visualization
     pop.visualize_genome()
     
-    # """
     from environment.visualizer import Visualizer
-    
     net = make_net(pop.best_genome, pop.config, 1)
     visualizer = Visualizer(
             query_net=query_net,
