@@ -128,6 +128,48 @@ class Maze:
         combine_walls(wall_list)
         return wall_list
     
+    def get_path_coordinates(self, visualize=False):
+        """
+        :return: All free-positions together with their distance to the target
+        """
+        
+        def get_neighbour_values(p):
+            neighbours = [self.maze[p[0], p[1]]]
+            if self.in_maze([p[0] + 1, p[1]]): neighbours.append(self.maze[p[0] + 1, p[1]] - 1)
+            if self.in_maze([p[0] - 1, p[1]]): neighbours.append(self.maze[p[0] - 1, p[1]] - 1)
+            if self.in_maze([p[0], p[1] + 1]): neighbours.append(self.maze[p[0], p[1] + 1] - 1)
+            if self.in_maze([p[0], p[1] - 1]): neighbours.append(self.maze[p[0], p[1] - 1] - 1)
+            return neighbours
+        
+        # Find distance to target
+        if visualize:
+            self.visualize(clip=False)
+        self.maze[self.y_width - 2, 1] = 100
+        for _ in range(50):  # Definitely enough time to cover all non-wall tiles
+            for x in range(1, self.x_width - 1):
+                for y in range(1, self.y_width - 1):
+                    if self.maze[x, y] > -1:
+                        self.maze[x, y] = max(get_neighbour_values([x, y]))
+        if visualize:
+            self.visualize(clip=False)
+        
+        # Normalize on 100-scale
+        min_value = min([self.maze[x, y] for x in range(1, self.x_width - 2) for y in range(1, self.y_width - 2)
+                         if self.maze[x, y] >= 1])
+        for x in range(1, self.x_width - 1):
+            for y in range(1, self.y_width - 1):
+                if self.maze[x, y] > -1:
+                    self.maze[x, y] = (self.maze[x, y] - min_value) / (100 - min_value)
+        if visualize:
+            self.visualize(clip=False)
+        
+        # Put values in list
+        values = []
+        for x in range(1, self.x_width - 1, 2):
+            for y in range(1, self.y_width - 1, 2):
+                values.append(((x / 2, y / 2), self.maze[y, x]))
+        return values
+    
     # -------------------------------------------> MAIN SECONDARY METHODS <------------------------------------------- #
     
     def add_room(self):
@@ -374,12 +416,13 @@ class Maze:
                 if self.maze[y, x] > 0:
                     self.maze[y, x] = 0
     
-    def visualize(self):
+    def visualize(self, clip=True):
         c = self.maze.copy()
-        c = np.clip(c, a_min=-1, a_max=0)
+        if clip:
+            c = np.clip(c, a_min=-1, a_max=0)
         for x in range(self.x_width):
             for y in range(self.y_width):
-                if (x % 2 == 1) and (y % 2 == 1):
+                if (x % 2 == 1) and (y % 2 == 1) and clip:
                     c[y, x] = 0.1
                 elif (x % 2 == 0) and (y % 2 == 0):
                     if c[y, x - 1] >= 0 and c[y - 1, x] >= 0 and c[y, x + 1] >= 0 and c[y + 1, x] >= 0:
@@ -478,11 +521,12 @@ def create_custom_game(overwrite=False):
     game.save()
 
 
-def create_game(game_id=0, rel_path='', wall_list=None, overwrite=False):
+def create_game(game_id=0, path_list=None, rel_path='', wall_list=None, overwrite=False):
     """
     Create a game based on a list of walls.
     
     :param game_id: ID of the game (Integer)
+    :param path_list: List of paths together with value [0..1] indicating how close the tile is to the target
     :param rel_path: Relative path to the 'games'-folder
     :param wall_list: List of tuples containing the begin and end coordinate of a wall, excluding boundary walls
     :param overwrite: Overwrite pre-existing games
@@ -495,6 +539,9 @@ def create_game(game_id=0, rel_path='', wall_list=None, overwrite=False):
     
     # Add additional walls to the game
     game.walls += wall_list
+    
+    # App path to the game
+    game.path = {p[0]: p[1] for p in path_list}
     
     # Put the target on a fixed position
     game.target = Vec2d(0.5, AXIS_Y - 0.5)
@@ -515,7 +562,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('--custom', type=bool, default=False)
     parser.add_argument('--overwrite', type=bool, default=True)
-    parser.add_argument('--nr_games', type=int, default=GAMES_AMOUNT)
+    parser.add_argument('--nr_games', type=int, default=1)  # GAMES_AMOUNT)  TODO
     parser.add_argument('--visualize', type=bool, default=False)
     args = parser.parse_args()
     
@@ -529,4 +576,7 @@ if __name__ == '__main__':
                     maze = Maze(AXIS_X, AXIS_Y, visualize=args.visualize)
                 except (IndexError, Exception):
                     maze = None  # Reset and try again
-            create_game(game_id=game, wall_list=maze.get_wall_coordinates(), overwrite=args.overwrite)
+            create_game(game_id=game,
+                        path_list=maze.get_path_coordinates(),
+                        wall_list=maze.get_wall_coordinates(),
+                        overwrite=args.overwrite)

@@ -216,7 +216,7 @@ class Game:
         try:
             persist_dict = dict()
             persist_dict[D_ANGLE] = self.player.init_angle  # Initial angle of player
-            persist_dict[D_PATH] = [((p[0].x, p[0].y), p[1]) for p in self.path.values()]
+            if self.path: persist_dict[D_PATH] = [(p[0], p[1]) for p in self.path.items()]
             persist_dict[D_POS] = (self.player.init_pos.x, self.player.init_pos.y)  # Initial position of player
             persist_dict[D_TARGET] = (self.target.x, self.target.y)
             persist_dict[D_WALLS] = [((w.x.x, w.x.y), (w.y.x, w.y.y)) for w in self.walls]
@@ -240,7 +240,7 @@ class Game:
             self.player = FootBot(game=self)  # Create a dummy-player to set values on
             self.set_player_angle(game[D_ANGLE])
             self.set_player_pos(Vec2d(game[D_POS][0], game[D_POS][1]))
-            self.path = {Vec2d(p[0][0], p[0][1]): p[1] for p in game[D_PATH]}
+            self.path = {p[0]: p[1] for p in game[D_PATH]}
             self.target = Vec2d(game[D_TARGET][0], game[D_TARGET][1])
             self.walls = [Line2d(Vec2d(w[0][0], w[0][1]), Vec2d(w[1][0], w[1][1])) for w in game[D_WALLS]]
             if not self.silent:
