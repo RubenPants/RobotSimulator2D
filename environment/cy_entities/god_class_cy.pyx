@@ -893,6 +893,7 @@ cdef class GameCy:
         """
         return {
             D_GAME_ID:        self.id,
+            D_PATH:           self.path,
             D_POS:            self.player.pos,
             D_DIST_TO_TARGET: self.player.get_sensor_reading_distance(),
             D_STEPS:          self.steps_taken,

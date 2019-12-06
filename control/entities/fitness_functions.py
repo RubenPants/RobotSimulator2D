@@ -10,9 +10,9 @@ from scipy import stats
 from sklearn.neighbors import NearestNeighbors
 
 from utils.dictionary import *
-
-
 # --------------------------------------------------> MAIN METHODS <-------------------------------------------------- #
+from utils.vec2d import Vec2d
+
 
 def calc_pop_fitness(fitness_config, game_observations):
     """
@@ -67,10 +67,11 @@ def fitness_per_game(fitness_config: dict, game_observations):
     if tag == 'distance':
         return fitness_distance(game_observations=game_observations)
     elif tag == 'novelty':
-        return novelty_search(game_observations=game_observations,
-                              k=fitness_config[D_K])
-    elif tag == 'step_distance':
-        return fitness_step_distance(game_observations=game_observations)
+        return novelty_search(game_observations=game_observations, k=fitness_config[D_K])
+    elif tag == 'time_distance':
+        return fitness_time_distance(game_observations=game_observations)
+    elif tag == 'path':
+        return fitness_path(game_observations=game_observations)
     elif tag == 'quality_diversity':
         raise NotImplemented
     else:
@@ -126,7 +127,31 @@ def novelty_search(game_observations, k: int = 5):
     return cum_novelty
 
 
-def fitness_step_distance(game_observations):
+def fitness_path(game_observations):
+    """
+    This metric uses the game-specific "path" values. This values indicate the quality for each for the tiles,
+    indicating how far away this current tile is from target. Note that these values are normalized and transformed to
+    fitness values, where the tile of the target has value 1 and the value of the tile with the longest path towards the
+    target has value 0.
+    
+    :param game_observations: List of game.close() results (Dictionary)
+    :return: { genome_id, [fitness_floats] }
+    """
+    
+    def get_value(path, pos):
+        """
+        Get the value of the given position in the given game.
+        """
+        return path[min(path.keys(), key=lambda key: (pos - Vec2d(key[0], key[1])).get_length())]
+    
+    # Calculate the score
+    fitness_dict = dict()
+    for k, v in game_observations.items():  # Iterate over the candidates
+        fitness_dict[k] = [100 * get_value(path=o[D_PATH], pos=o[D_POS]) for o in v]
+    return fitness_dict
+
+
+def fitness_time_distance(game_observations):
     """
     This metric will combine both the distance of the agent towards the goal, as well as the time it took to reach the
     goal relative to its peers (if the agent did in fact reach the goal). The fitness is calculated as the sum of the
