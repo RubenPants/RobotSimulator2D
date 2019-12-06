@@ -35,6 +35,7 @@ D_K = 'k'
 D_NUMBER_OF_AGENTS = 'number_of_agents'
 
 # P
+D_PATH = 'path'
 D_PLAYER = 'player'
 D_POS = 'position'
 
