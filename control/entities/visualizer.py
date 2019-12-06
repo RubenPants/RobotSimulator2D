@@ -32,6 +32,7 @@ def draw_net(config, genome, view=True, filename=None):
     node_colors = dict()
     
     dot = Digraph(format='png', engine="neato")
+    dot.attr(overlap='false')
     
     # Visualize input nodes
     inputs = set()

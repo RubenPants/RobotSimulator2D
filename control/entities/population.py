@@ -206,6 +206,7 @@ class Population:
             if not name:
                 name = 'best_genome_'
         name += 'gen_{gen:05d}'.format(gen=self.generation)
+        get_subfolder('{}/populations/{}/'.format(self.rel_path, self), 'images')
         sf = get_subfolder('{}populations/{}/images/'.format(self.rel_path, self), 'architectures')
         draw_net(self.config,
                  genome,
