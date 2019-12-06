@@ -4,7 +4,7 @@ from utils.config import FPS
 from utils.dictionary import D_SENSOR_LIST
 
 if sys.platform == 'linux':
-    from environment.cy_entities.god_class_cy import GameCy
+    from environment.cy_entities.game_cy import GameCy
 else:
     from environment.entities.game import Game
 

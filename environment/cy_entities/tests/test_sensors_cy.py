@@ -4,7 +4,9 @@ Test of all the sensors.
 
 import unittest
 
-from environment.cy_entities.god_class_cy import GameCy, Line2dCy, Vec2dCy
+from environment.cy_entities.game_cy import GameCy
+from environment.cy_entities.line2d_cy import Line2dCy
+from environment.cy_entities.vec2d_cy import Vec2dCy
 from utils.config import *
 
 EPSILON_ANGLE = 0.0001  # 0.0001 radian offset allowed (~0.02 degrees)
@@ -143,7 +145,7 @@ class ProximitySensorTestCy(unittest.TestCase):
         
         for _ in range(100):
             game.step(l=1, r=1)
-            
+        
         # Flat facing the wall, so upper sensor must always (approximately) equal zero
         for _ in range(50):
             sensors = game.player.get_sensor_reading_proximity()
