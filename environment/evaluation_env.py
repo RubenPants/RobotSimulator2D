@@ -3,15 +3,14 @@ evaluation_env.py
 
 Evaluate a certain set of genomes on the evaluation mazes.
 """
-import json
 import configparser
 import multiprocessing as mp
 
 from neat.six_util import iteritems
 
-from control.entities.fitness_functions import calc_pop_fitness
 from environment.multi_env import MultiEnvironment
-from utils.dictionary import D_DONE
+from utils.config import FPS
+from utils.dictionary import D_DIST_TO_TARGET, D_DONE, D_STEPS
 
 
 class EvaluationEnv:
@@ -94,8 +93,7 @@ class EvaluationEnv:
         
         eval_result = dict()
         for k in result_dict.keys():
-            games = result_dict[k]
-            eval_result[str(genome_list[k].key)] = 100 * len([g for g in games if g[D_DONE]]) / len(games)
+            eval_result[str(genome_list[k].key)] = create_answer(result_dict[k])
         pop.add_evaluation_result(eval_result)
     
     def evaluate_population(self, pop, game_ids=None):
@@ -136,3 +134,18 @@ class EvaluationEnv:
         # Create blueprint of final result
         game_objects = [multi_env.create_game(g) for g in self.games]
         pop.create_blueprints(final_observations=return_dict, games=game_objects)
+
+
+def create_answer(games):
+    answer = ""
+    answer += "Percentage finished: {p:.1f}".format(
+            p=100 * len([g for g in games if g[D_DONE]]) / len(games))
+    answer += " - Average distance to target {d:.1f}".format(
+            d=sum([g[D_DIST_TO_TARGET] for g in games]) / len(games))
+    answer += " - Max distance to target {d:.1f}".format(
+            d=max([g[D_DIST_TO_TARGET] for g in games]))
+    answer += " - Average time taken {t:.1f}".format(
+            t=sum([g[D_STEPS] / FPS for g in games]) / len(games))
+    answer += " - Max time taken {t:.1f}".format(
+            t=max([g[D_STEPS] / FPS for g in games]))
+    return answer
