@@ -17,7 +17,7 @@ from neat.reporting import ReporterSet
 from control.entities.visualizer import draw_net
 from utils.config import AXIS_Y
 from utils.dictionary import D_FIT_COMB, D_GAME_ID, D_K, D_POS, D_TAG
-from utils.myutils import get_subfolder
+from utils.myutils import get_subfolder, append_dict
 
 
 class CompleteExtinctionException(Exception):
@@ -214,6 +214,16 @@ class Population:
                  view=show)
     
     # ---------------------------------------------> FUNCTIONAL METHODS <--------------------------------------------- #
+    
+    def add_evaluation_result(self, eval_result):
+        """
+        Append the result of the evaluation.
+        
+        :param eval_result: Dictionary
+        """
+        sf = get_subfolder('{}/populations/{}/'.format(self.rel_path, self), 'evaluation')
+        sf = get_subfolder(sf, "{gen:05d}".format(gen=self.generation))
+        append_dict('{}results'.format(sf), eval_result)
     
     def add_reporter(self, reporter):
         """

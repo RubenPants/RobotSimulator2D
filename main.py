@@ -1,5 +1,6 @@
-from control.entities.population import Population
+import argparse
 
+from control.entities.population import Population
 from pytorch_neat.recurrent_net import RecurrentNet
 
 
@@ -26,46 +27,58 @@ def query_net(net, states):
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='')
+    parser.add_argument('--train', type=bool, default=False)
+    parser.add_argument('--evaluate', type=bool, default=True)
+    parser.add_argument('--visualize', type=bool, default=False)
+    args = parser.parse_args()
+    
     pop = Population(
             name='path_time',
             rel_path='control/NEAT/',
             make_net_method=make_net,
             query_net_method=query_net,
     )
+    if args.train:
+        print("\n===> TRAINING <===\n")
+        from environment.training_env import TrainingEnv
+        
+        trainer = TrainingEnv(
+                rel_path='environment/',
+        )
+        
+        # Train for 100 generations
+        trainer.evaluate_and_evolve(pop, n=100)
+        
+        # Create the blueprints for first 5 games
+        for g in range(1, 6):
+            print("Evaluate on game {}".format(g))
+            trainer.set_games([g])
+            for i in range(11):
+                pop.load(gen=int(i * 10))
+                trainer.blueprint_genomes(pop)
     
-    # """
-    # Evaluation
-    from environment.training_env import TrainingEnv
-    
-    trainer = TrainingEnv(
-            rel_path='environment/',
-    )
-    
-    # Train for 100 generations
-    trainer.evaluate_and_evolve(pop, n=100)
-    
-    # Create the blueprints for first 5 games
-    for g in range(1, 6):
-        print("Evaluate on game {}".format(g))
-        trainer.set_games([g])
-        for i in range(11):
-            pop.load(gen=int(i * 10))
-            trainer.blueprint_genomes(pop)
-    
-    """
-    
-    # Visualization
-    pop.visualize_genome()
-    
-    from environment.visualizer import Visualizer
-    net = make_net(pop.best_genome, pop.config, 1)
-    visualizer = Visualizer(
-            query_net=query_net,
-            rel_path='environment/',
-            debug=False,
-            # speedup=1,
-    )
-    
-    visualizer.visualize(net, 1)
-    
-    # """
+    if args.evaluate:
+        print("\n===> EVALUATING <===\n")
+        from environment.evaluation_env import EvaluationEnv
+        
+        evaluator = EvaluationEnv(
+                rel_path='environment/',
+        )
+        evaluator.evaluate_genome_list(genome_list=[pop.best_genome], pop=pop)
+        
+    if args.visualize:
+        print("\n===> VISUALIZING <===\n")
+        pop.visualize_genome()
+        
+        from environment.visualizer import Visualizer
+        
+        net = make_net(pop.best_genome, pop.config, 1)
+        visualizer = Visualizer(
+                query_net=query_net,
+                rel_path='environment/',
+                debug=False,
+                # speedup=1,
+        )
+        
+        visualizer.visualize(net, 1)

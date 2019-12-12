@@ -1,3 +1,8 @@
+"""
+training_env.py
+
+Train and evaluate the population on a random batch of training games.
+"""
 import configparser
 import multiprocessing as mp
 from random import sample
@@ -10,7 +15,7 @@ from environment.multi_env import MultiEnvironment
 
 class TrainingEnv:
     """
-    The evaluator is responsible evaluating the population across a set of games.
+    The class is responsible evaluating and evolving the population across a set of games.
     """
     
     def __init__(self, rel_path=''):
@@ -27,9 +32,9 @@ class TrainingEnv:
         self.config.read('{}config.cfg'.format(self.rel_path))
         
         #  Create a list of all the possible games
+        self.games = None
+        self.batch_size = 0
         self.set_games()
-        self.games = [i + 1 for i in range(int(self.config['GAME']['max_id']))]
-        self.batch_size = min(len(self.games), int(self.config['GAME']['game_batch']))
     
     def set_games(self, games: list = None):
         """

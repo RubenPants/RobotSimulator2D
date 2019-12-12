@@ -110,7 +110,7 @@ class MultiEnvironment:
         """
         Set the games-set with new games.
         
-        :param games: List of Game (or GameCy) objects
+        :param games: List of Game-IDs
         """
         self.games = games
         self.batch_size = len(games)
