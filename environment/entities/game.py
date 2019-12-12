@@ -253,18 +253,19 @@ class Game:
             if TIME_ALL:
                 drop(key='load_save', silent=True)
     
-    def get_blueprint(self):
+    def get_blueprint(self, ax=None):
         """
         :return: The blue-print map of the board (matplotlib Figure)
         """
-        fig, ax = pl.subplots()
+        if not ax:
+            fig, ax = pl.subplots()
         
         # Draw all the walls
         walls = []
         for w in self.walls:
             walls.append([(w.x.x, w.x.y), (w.y.x, w.y.y)])
-        lc = mc.LineCollection(walls, linewidths=2)
-        ax.add_collection(lc)
+        lc = mc.LineCollection(walls, linewidths=2, colors='k')
+        ax.add_collection(lc, 'b')
         
         # Add target to map
         pl.plot(0.5, AXIS_Y - 0.5, 'go')

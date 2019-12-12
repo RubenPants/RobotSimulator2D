@@ -34,7 +34,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     pop = Population(
-            name='distance',
+            name='novelty',
             rel_path='control/NEAT/',
             make_net_method=make_net,
             query_net_method=query_net,
@@ -78,7 +78,7 @@ if __name__ == '__main__':
                 query_net=query_net,
                 rel_path='environment/',
                 debug=False,
-                speedup=1,
+                # speedup=1,
         )
         
         visualizer.visualize(net, 1)
