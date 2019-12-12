@@ -29,8 +29,8 @@ def query_net(net, states):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('--train', type=bool, default=False)
-    parser.add_argument('--evaluate', type=bool, default=True)
-    parser.add_argument('--visualize', type=bool, default=False)
+    parser.add_argument('--evaluate', type=bool, default=False)
+    parser.add_argument('--visualize', type=bool, default=True)
     args = parser.parse_args()
     
     pop = Population(
@@ -81,4 +81,4 @@ if __name__ == '__main__':
                 # speedup=1,
         )
         
-        visualizer.visualize(net, 1)
+        visualizer.visualize(net, 1001)
