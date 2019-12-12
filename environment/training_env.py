@@ -8,7 +8,7 @@ from control.entities.fitness_functions import calc_pop_fitness
 from environment.multi_env import MultiEnvironment
 
 
-class Evaluator:
+class TrainingEnv:
     """
     The evaluator is responsible evaluating the population across a set of games.
     """

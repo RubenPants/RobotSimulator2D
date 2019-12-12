@@ -35,22 +35,22 @@ if __name__ == '__main__':
     
     # """
     # Evaluation
-    from environment.evaluator import Evaluator
+    from environment.training_env import TrainingEnv
     
-    evaluator = Evaluator(
+    trainer = TrainingEnv(
             rel_path='environment/',
     )
     
     # Train for 100 generations
-    evaluator.evaluate_and_evolve(pop, n=100)
+    trainer.evaluate_and_evolve(pop, n=100)
     
     # Create the blueprints for first 5 games
     for g in range(1, 6):
         print("Evaluate on game {}".format(g))
-        evaluator.set_games([g])
+        trainer.set_games([g])
         for i in range(11):
             pop.load(gen=int(i * 10))
-            evaluator.blueprint_genomes(pop)
+            trainer.blueprint_genomes(pop)
     
     """
     
