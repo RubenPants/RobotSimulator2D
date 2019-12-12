@@ -29,12 +29,12 @@ def query_net(net, states):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('--train', type=bool, default=False)
-    parser.add_argument('--evaluate', type=bool, default=True)
-    parser.add_argument('--visualize', type=bool, default=False)
+    parser.add_argument('--evaluate', type=bool, default=False)
+    parser.add_argument('--visualize', type=bool, default=True)
     args = parser.parse_args()
     
     pop = Population(
-            name='path_time',
+            name='distance',
             rel_path='control/NEAT/',
             make_net_method=make_net,
             query_net_method=query_net,
