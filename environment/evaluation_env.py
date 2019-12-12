@@ -11,6 +11,7 @@ from neat.six_util import iteritems
 
 from control.entities.fitness_functions import calc_pop_fitness
 from environment.multi_env import MultiEnvironment
+from utils.dictionary import D_DONE
 
 
 class EvaluationEnv:
@@ -85,17 +86,16 @@ class EvaluationEnv:
             for p in processes:
                 p.join()
             
-            # Calculate the fitness from the given return_dict
-            fitness = calc_pop_fitness(fitness_config=pop.fitness_config, game_observations=return_dict)
-            for i, genome in genomes:
-                genome.fitness = fitness[i]
+            # No need to validate the fitness in this scenario
+            return return_dict
         
         # Evaluate the current population
-        eval_genomes(list(zip(range(len(genome_list)), genome_list)), pop.config)
+        result_dict = eval_genomes(list(zip(range(len(genome_list)), genome_list)), pop.config)
         
         eval_result = dict()
-        for g in genome_list:
-            eval_result[g.key] = g.fitness
+        for k in result_dict.keys():
+            games = result_dict[k]
+            eval_result[str(genome_list[k].key)] = 100 * len([g for g in games if g[D_DONE]]) / len(games)
         pop.add_evaluation_result(eval_result)
     
     def evaluate_population(self, pop, game_ids=None):

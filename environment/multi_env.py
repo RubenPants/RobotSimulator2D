@@ -1,7 +1,7 @@
 import sys
 
 from utils.config import FPS
-from utils.dictionary import D_SENSOR_LIST
+from utils.dictionary import D_SENSOR_LIST, D_DONE
 
 if sys.platform == 'linux':
     from environment.cy_entities.game_cy import GameCy
@@ -76,7 +76,8 @@ class MultiEnvironment:
                 # Ignore if game has finished
                 if not f:
                     # Proceed the game with one step, based on the predicted action
-                    obs, finished[i] = g.step(l=a[0], r=a[1])
+                    obs = g.step(l=a[0], r=a[1])
+                    finished[i] = obs[D_DONE]
                     
                     # Update the candidate's current state
                     states[i] = obs[D_SENSOR_LIST]

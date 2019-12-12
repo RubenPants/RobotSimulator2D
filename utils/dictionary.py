@@ -15,6 +15,7 @@ D_CONTROL_ENV = 'control_environment'
 
 # D
 D_DIST_TO_TARGET = 'distance_to_target'
+D_DONE = 'done'
 
 # F
 D_FIT_COMB = 'fitness_combination'

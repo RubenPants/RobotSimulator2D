@@ -10,7 +10,7 @@ from pymunk.pyglet_util import DrawOptions
 
 from environment.entities.game import Game
 from utils.config import *
-from utils.dictionary import D_SENSOR_LIST
+from utils.dictionary import D_SENSOR_LIST, D_DONE
 
 
 class Visualizer:
@@ -131,7 +131,8 @@ class Visualizer:
                     print("Observation:", [round(s, 3) for s in self.state])
                 
                 # Progress game by one step
-                obs, self.finished = game.step_dt(dt=dt, l=action[0][0], r=action[0][1])
+                obs = game.step_dt(dt=dt, l=action[0][0], r=action[0][1])
+                self.finished = obs[D_DONE]
                 self.state = obs[D_SENSOR_LIST]
                 
                 # Update space's player coordinates and angle

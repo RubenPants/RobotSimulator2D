@@ -71,10 +71,11 @@ class Game:
         :return: Final state and useful statistics
         """
         return {
+            D_DIST_TO_TARGET: self.player.get_sensor_reading_distance(),
+            D_DONE:           self.done,
             D_GAME_ID:        self.id,
             D_PATH:           self.path,
             D_POS:            self.player.pos,
-            D_DIST_TO_TARGET: self.player.get_sensor_reading_distance(),
             D_STEPS:          self.steps_taken,
         }
     
@@ -123,14 +124,12 @@ class Game:
                 self.player.angle = self.player.prev_angle
                 break
         
-        # Get the current observations
-        obs = self.get_observation()
-        
         # Check if target reached
-        if obs[D_DIST_TO_TARGET] <= TARGET_REACHED:
+        if self.player.get_sensor_reading_distance() <= TARGET_REACHED:
             self.done = True
         
-        return obs, self.done
+        # Return the current observations
+        return self.get_observation()
     
     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
     
@@ -163,6 +162,7 @@ class Game:
         return {
             D_ANGLE:          self.player.angle,
             D_DIST_TO_TARGET: self.player.get_sensor_reading_distance(),
+            D_DONE:           self.done,
             D_GAME_ID:        self.id,
             D_POS:            self.player.pos,
             D_SENSOR_LIST:    self.get_sensor_list(),

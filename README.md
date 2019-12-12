@@ -36,7 +36,9 @@ The `step` call returns four values:
 
 The whole process gets started by calling `reset`,which returns an initial `observation`.
 
+## CyEntities
 
+Do the build inside of each cy-folder. This build file is responsible for moving all the cy-files to the correct folder!
 
 ## TODO
 
