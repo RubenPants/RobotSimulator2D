@@ -29,12 +29,12 @@ def query_net(net, states):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('--train', type=bool, default=False)
-    parser.add_argument('--evaluate', type=bool, default=False)
-    parser.add_argument('--visualize', type=bool, default=True)
+    parser.add_argument('--evaluate', type=bool, default=True)
+    parser.add_argument('--visualize', type=bool, default=False)
     args = parser.parse_args()
     
     pop = Population(
-            name='distance',
+            name='novelty',
             rel_path='control/NEAT/',
             make_net_method=make_net,
             query_net_method=query_net,
@@ -56,9 +56,10 @@ if __name__ == '__main__':
         for g in range(1, 6):
             print("Evaluate on game {}".format(g))
             trainer.set_games([g])
-            for i in range(11):
-                pop.load(gen=int(i * 10))
-                trainer.blueprint_genomes(pop)
+            # for i in range(11):
+            #     pop.load(gen=int(i * 10))
+            #     trainer.blueprint_genomes(pop)
+            trainer.blueprint_genomes(pop)
     
     if args.evaluate:
         print("\n===> EVALUATING <===\n")

@@ -255,7 +255,7 @@ cdef class GameCy:
         walls = []
         for w in self.walls:
             walls.append([(w.x.x, w.x.y), (w.y.x, w.y.y)])
-        lc = mc.LineCollection(walls, linewidths=2)
+        lc = mc.LineCollection(walls, linewidths=2, colors='k')
         ax.add_collection(lc)
         
         # Add target to map

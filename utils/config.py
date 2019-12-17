@@ -32,7 +32,6 @@ ID_WALL = 1
 
 # --> BOT SPECIFIC <-- #
 BOT_DRIVING_SPEED = 0.5  # Speed of bot when driving straight expressed in m/s [def=0.5]
-BOT_MASS = 2  # Mass of the bot expressed in kg [def=2]  TODO: Remove since no influence
 BOT_RADIUS = 0.1  # Radius of the bot expressed in meters [def=0.1]
 BOT_TURNING_SPEED = 13 * np.pi / 16  # Speed of bot when turning expressed in radians per second [def=3*pi/4]
 

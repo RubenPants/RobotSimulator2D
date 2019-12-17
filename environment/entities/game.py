@@ -265,7 +265,7 @@ class Game:
         for w in self.walls:
             walls.append([(w.x.x, w.x.y), (w.y.x, w.y.y)])
         lc = mc.LineCollection(walls, linewidths=2, colors='k')
-        ax.add_collection(lc, 'b')
+        ax.add_collection(lc)
         
         # Add target to map
         pl.plot(0.5, AXIS_Y - 0.5, 'go')
