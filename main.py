@@ -29,12 +29,13 @@ def query_net(net, states):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('--train', type=bool, default=False)
-    parser.add_argument('--evaluate', type=bool, default=True)
+    parser.add_argument('--blueprint', type=bool, default=True)
+    parser.add_argument('--evaluate', type=bool, default=False)
     parser.add_argument('--visualize', type=bool, default=False)
     args = parser.parse_args()
     
     pop = Population(
-            name='novelty',
+            name='distance',
             rel_path='control/NEAT/',
             make_net_method=make_net,
             query_net_method=query_net,
@@ -52,9 +53,16 @@ if __name__ == '__main__':
         # Train for 100 generations
         trainer.evaluate_and_evolve(pop, n=100)
         
+    if args.blueprint:
+        print("\n===> CREATING BLUEPRINTS <===\n")
+        from environment.training_env import TrainingEnv
+    
+        trainer = TrainingEnv(
+                rel_path='environment/',
+        )
         # Create the blueprints for first 5 games
         for g in range(1, 6):
-            print("Evaluate on game {}".format(g))
+            print("Creating blueprints for  game {}".format(g))
             trainer.set_games([g])
             # for i in range(11):
             #     pop.load(gen=int(i * 10))
