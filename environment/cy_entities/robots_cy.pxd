@@ -12,16 +12,10 @@ cdef class FootBotCy:
     The FootBot is the main bot used in this project. It is a simple circular robot with two wheels on its sides.
     """
     cdef public GameCy game
-    cdef public Vec2dCy pos
-    cdef public Vec2dCy prev_pos
-    cdef public Vec2dCy init_pos
-    cdef public float angle
-    cdef public float prev_angle
-    cdef public float init_angle
-    cdef public float radius
-    cdef public set angular_sensors
+    cdef public Vec2dCy pos, prev_pos, init_pos
+    cdef public float angle, prev_angle, init_angle, radius
+    cdef public set angular_sensors, proximity_sensors
     cdef public DistanceSensorCy distance_sensor
-    cdef public set proximity_sensors
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     

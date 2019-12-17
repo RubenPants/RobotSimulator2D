@@ -565,7 +565,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('--custom', type=bool, default=False)
     parser.add_argument('--overwrite', type=bool, default=True)
-    parser.add_argument('--nr_games', type=int, default=GAMES_AMOUNT)
+    parser.add_argument('--nr_games', type=int, default=1)#GAMES_AMOUNT)
     parser.add_argument('--visualize', type=bool, default=False)
     args = parser.parse_args()
     

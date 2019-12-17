@@ -23,6 +23,7 @@ HUMAN_INPUT = False  # Control the player by hand instead of by an algorithm [de
 PTM = 50  # Pixel-to-meters: number of pixels that represent one meter  [def=50]
 AXIS_X = 14  # Number of meters the x-axis represents [def=14]
 AXIS_Y = 14  # Number of meters the y-axis represents [def=14]
+AXIS_DIAG = (AXIS_X ** 2 + AXIS_Y ** 2) ** (1 / 2)  # Diagonal of maze expressed in meters
 
 # --> IDs <-- #
 ID_TARGET = -1

@@ -13,16 +13,13 @@ cdef class GameCy:
         * robot: The player manoeuvring in the environment
         * target: Robot that must be reached by the robot
     """
-    cdef public bint done
-    cdef public int id
-    cdef public bint noise
+    cdef public bint done, noise, silent
+    cdef public int id, steps_taken
     cdef public dict path
-    cdef public FootBotCy player
     cdef public str rel_path
-    cdef public bint silent
-    cdef public int steps_taken
-    cdef public Vec2dCy target
     cdef public list walls
+    cdef public FootBotCy player
+    cdef public Vec2dCy target
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     

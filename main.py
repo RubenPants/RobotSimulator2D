@@ -34,11 +34,13 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     pop = Population(
-            name='novelty',
+            name='distance',
             rel_path='control/NEAT/',
             make_net_method=make_net,
             query_net_method=query_net,
     )
+    # pop.load(gen=1)
+    
     if args.train:
         print("\n===> TRAINING <===\n")
         from environment.training_env import TrainingEnv

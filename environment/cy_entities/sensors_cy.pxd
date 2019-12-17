@@ -9,9 +9,7 @@ from vec2d_cy cimport Vec2dCy
 cdef class SensorCy:
     cdef public GameCy game
     cdef public int id
-    cdef public float angle
-    cdef public float pos_offset
-    cdef public float max_dist
+    cdef public float angle, pos_offset, max_dist
     
     cdef float get_measure(self)
 

@@ -10,8 +10,10 @@ from scipy import stats
 from sklearn.neighbors import NearestNeighbors
 
 from utils.dictionary import *
-# --------------------------------------------------> MAIN METHODS <-------------------------------------------------- #
 from utils.vec2d import Vec2d
+
+
+# --------------------------------------------------> MAIN METHODS <-------------------------------------------------- #
 
 
 def calc_pop_fitness(fitness_config, game_observations):
@@ -77,7 +79,7 @@ def fitness_per_game(fitness_config: dict, game_observations):
     elif tag == 'quality_diversity':
         raise NotImplemented
     else:
-        raise Exception("{} is not suported".format(tag))
+        raise Exception("{} is not supported".format(tag))
 
 
 # -------------------------------------------------> HELPER METHODS <------------------------------------------------- #
@@ -87,6 +89,8 @@ def fitness_distance(game_observations):
     """
     Determine the fitness based on the average distance to target in crows flight. This fitness is calculated as the
     inverted average distance, times one hundred.
+    
+    TODO: Inspired by James' paper page --> Still need to implement it though!
     
     :param game_observations: List of game.close() results (Dictionary)
     :return: { genome_id, [fitness_floats] }

@@ -16,7 +16,7 @@ The game environment is heavily inspired by OpenAI's *gym* environments. Each Op
 These are translated to my implementation as follows (respectively):
 
 * `__init__` The game initialization functions as the `make` method.
-* `reset` Same functionality.
+* `reset` Same functionality.````````
 * `render` Sequentially update the game whilst visualizing it. Since Pyglet doesn't handle Threads well, the agent must be given to the game.
 * `step` Same functionality.
 * `close` Unused.
@@ -42,6 +42,9 @@ Do the build inside of each cy-folder. This build file is responsible for moving
 
 ## TODO
 
+* Express path of maze in terms of meters (do not normalize yet during creation! Perhaps introduce a max_path parameter as well?)
+* Update fitness functions to be more conform to that of James
+* Add obstacles to the maze (perhaps in an empty room adding a cube?)
 * Timing mechanics in `main.py`, possible to visualize this as well?
 * Automatic trigger to reset game and algorithm (e.g. also trigger training of algorithm) via control in main
 * NEAT and variants implementation:
