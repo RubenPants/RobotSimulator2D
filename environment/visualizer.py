@@ -89,7 +89,7 @@ class Visualizer:
         space.add(target_body, target_shape)
         
         # Init player
-        m = pymunk.moment_for_circle(mass=BOT_MASS, inner_radius=0, outer_radius=BOT_RADIUS * PTM)
+        m = pymunk.moment_for_circle(mass=1, inner_radius=0, outer_radius=BOT_RADIUS * PTM)
         player_body = pymunk.Body(mass=1, moment=m)
         player_body.position = game.player.pos * PTM
         player_body.angle = game.player.angle
