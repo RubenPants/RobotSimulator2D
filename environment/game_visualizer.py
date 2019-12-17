@@ -48,7 +48,7 @@ def path_heatmap(game):
         for y in range(14):
             fill(x, x + 1, y, y + 1)
     game.get_blueprint(ax)
-    plt.title("Blueprint - Game {id:05d}".format(id=game.id))
+    plt.title("Heatmap - Game {id:05d}".format(id=game.id))
     plt.savefig('visualizations/heatmap_game{g:05d}'.format(g=game.id))
 
 
