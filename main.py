@@ -29,9 +29,10 @@ def query_net(net, states):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('--train', type=bool, default=False)
-    parser.add_argument('--blueprint', type=bool, default=True)
+    parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
-    parser.add_argument('--visualize', type=bool, default=False)
+    parser.add_argument('--genome', type=bool, default=False)
+    parser.add_argument('--live', type=bool, default=True)
     args = parser.parse_args()
     
     pop = Population(
@@ -60,14 +61,14 @@ if __name__ == '__main__':
         trainer = TrainingEnv(
                 rel_path='environment/',
         )
+        
         # Create the blueprints for first 5 games
         for g in range(1, 6):
             print("Creating blueprints for  game {}".format(g))
             trainer.set_games([g])
-            # for i in range(11):
-            #     pop.load(gen=int(i * 10))
-            #     trainer.blueprint_genomes(pop)
-            trainer.blueprint_genomes(pop)
+            for i in range(11):
+                pop.load(gen=int(i * 10))
+                trainer.blueprint_genomes(pop)
     
     if args.evaluate:
         print("\n===> EVALUATING <===\n")
@@ -78,10 +79,12 @@ if __name__ == '__main__':
         )
         evaluator.evaluate_genome_list(genome_list=[pop.best_genome], pop=pop)
         
-    if args.visualize:
-        print("\n===> VISUALIZING <===\n")
+    if args.genome:
+        print("\n===> VISUALIZING GENOME <===\n")
         pop.visualize_genome()
         
+    if args.live:
+        print("\n===> STARTING LIVE DEMO <===\n")
         from environment.visualizer import Visualizer
         
         net = make_net(pop.best_genome, pop.config, 1)
