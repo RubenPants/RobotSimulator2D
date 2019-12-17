@@ -77,7 +77,7 @@ class Visualizer:
                                         a=wall.x * PTM,
                                         b=wall.y * PTM,
                                         radius=0.05 * PTM)  # 5cm walls
-            wall_shape.color = (35, 121, 181)
+            wall_shape.color = (0, 0, 0)
             space.add(wall_shape)
         
         # Draw static objects - target
@@ -107,7 +107,7 @@ class Visualizer:
                                       radius=0.5)
                 line.sensor = True
                 touch = ((s.start_pos - s.end_pos).get_length() < SENSOR_RAY_DISTANCE - 0.05)
-                line.color = (50, 50, 50) if touch else (150, 150, 150)  # Brighten up ray if it makes contact
+                line.color = (100, 100, 100) if touch else (200, 200, 200)  # Brighten up ray if it makes contact
                 space.add(line)
         
         @window.event

@@ -95,4 +95,4 @@ if __name__ == '__main__':
                 # speedup=1,
         )
         
-        visualizer.visualize(net, 1)
+        visualizer.visualize(net, 2)
