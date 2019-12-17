@@ -28,9 +28,9 @@ def game_blueprint(game):
     
     :param game: Game object
     """
-    g.get_blueprint()
-    plt.title("Blueprint - Game {id:05d}".format(id=g.id))
-    plt.savefig('visualizations/blueprint_game{g:05d}'.format(g=g.id))
+    game.get_blueprint()
+    plt.title("Blueprint - Game {id:05d}".format(id=game.id))
+    plt.savefig('visualizations/blueprint_game{g:05d}'.format(g=game.id))
     plt.close()
 
 
@@ -43,13 +43,13 @@ def path_heatmap(game):
         c = clr.to_hex([1, path[(x12, y12)] * 2 / 3 + 0.33, 0])
         plt.fill([x1, x1, x2, x2], [y1, y2, y2, y1], c)
     
-    ax = g.get_blueprint()
+    ax = game.get_blueprint()
     for x in range(14):
         for y in range(14):
             fill(x, x + 1, y, y + 1)
-    g.get_blueprint(ax)
-    plt.title("Blueprint - Game {id:05d}".format(id=g.id))
-    plt.savefig('visualizations/heatmap_game{g:05d}'.format(g=g.id))
+    game.get_blueprint(ax)
+    plt.title("Blueprint - Game {id:05d}".format(id=game.id))
+    plt.savefig('visualizations/heatmap_game{g:05d}'.format(g=game.id))
 
 
 if __name__ == '__main__':
