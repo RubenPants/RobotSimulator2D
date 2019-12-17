@@ -1726,6 +1726,7 @@ int __pyx_module_is_main_environment__cy_entities__game_cy = 0;
 static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_open;
 static const char __pyx_k_g[] = "g";
+static const char __pyx_k_k[] = "k";
 static const char __pyx_k_l[] = "l";
 static const char __pyx_k_p[] = "p";
 static const char __pyx_k_r[] = "r";
@@ -1773,6 +1774,7 @@ static const char __pyx_k_AXIS_Y[] = "AXIS_Y";
 static const char __pyx_k_D_DONE[] = "D_DONE";
 static const char __pyx_k_D_PATH[] = "D_PATH";
 static const char __pyx_k_GameCy[] = "GameCy";
+static const char __pyx_k_colors[] = "colors";
 static const char __pyx_k_format[] = "format";
 static const char __pyx_k_import[] = "__import__";
 static const char __pyx_k_pickle[] = "pickle";
@@ -1865,6 +1867,7 @@ static PyObject *__pyx_n_s_add_collection;
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_close;
 static PyObject *__pyx_n_s_collections;
+static PyObject *__pyx_n_s_colors;
 static PyObject *__pyx_n_s_create_empty_game;
 static PyObject *__pyx_n_s_dict;
 static PyObject *__pyx_n_s_dump;
@@ -1890,6 +1893,7 @@ static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_init_orient;
 static PyObject *__pyx_n_s_init_pos;
 static PyObject *__pyx_n_s_items;
+static PyObject *__pyx_n_s_k;
 static PyObject *__pyx_n_s_l;
 static PyObject *__pyx_n_s_linewidths;
 static PyObject *__pyx_n_s_load;
@@ -6079,7 +6083,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_bluepr
  *         walls = []
  *         for w in self.walls:             # <<<<<<<<<<<<<<
  *             walls.append([(w.x.x, w.x.y), (w.y.x, w.y.y)])
- *         lc = mc.LineCollection(walls, linewidths=2)
+ *         lc = mc.LineCollection(walls, linewidths=2, colors='k')
  */
   if (unlikely(__pyx_v_self->walls == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
@@ -6102,7 +6106,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_bluepr
  *         walls = []
  *         for w in self.walls:
  *             walls.append([(w.x.x, w.x.y), (w.y.x, w.y.y)])             # <<<<<<<<<<<<<<
- *         lc = mc.LineCollection(walls, linewidths=2)
+ *         lc = mc.LineCollection(walls, linewidths=2, colors='k')
  *         ax.add_collection(lc)
  */
     __pyx_t_2 = PyFloat_FromDouble(__pyx_v_w->x->x); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 257, __pyx_L1_error)
@@ -6145,7 +6149,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_bluepr
  *         walls = []
  *         for w in self.walls:             # <<<<<<<<<<<<<<
  *             walls.append([(w.x.x, w.x.y), (w.y.x, w.y.y)])
- *         lc = mc.LineCollection(walls, linewidths=2)
+ *         lc = mc.LineCollection(walls, linewidths=2, colors='k')
  */
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -6153,7 +6157,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_bluepr
   /* "environment/cy_entities/game_cy.pyx":258
  *         for w in self.walls:
  *             walls.append([(w.x.x, w.x.y), (w.y.x, w.y.y)])
- *         lc = mc.LineCollection(walls, linewidths=2)             # <<<<<<<<<<<<<<
+ *         lc = mc.LineCollection(walls, linewidths=2, colors='k')             # <<<<<<<<<<<<<<
  *         ax.add_collection(lc)
  * 
  */
@@ -6167,9 +6171,10 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_bluepr
   __Pyx_INCREF(__pyx_v_walls);
   __Pyx_GIVEREF(__pyx_v_walls);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_walls);
-  __pyx_t_7 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 258, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_linewidths, __pyx_int_2) < 0) __PYX_ERR(0, 258, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_colors, __pyx_n_s_k) < 0) __PYX_ERR(0, 258, __pyx_L1_error)
   __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 258, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -6180,7 +6185,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_bluepr
 
   /* "environment/cy_entities/game_cy.pyx":259
  *             walls.append([(w.x.x, w.x.y), (w.y.x, w.y.y)])
- *         lc = mc.LineCollection(walls, linewidths=2)
+ *         lc = mc.LineCollection(walls, linewidths=2, colors='k')
  *         ax.add_collection(lc)             # <<<<<<<<<<<<<<
  * 
  *         # Add target to map
@@ -8964,6 +8969,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_n_s_close, __pyx_k_close, sizeof(__pyx_k_close), 0, 0, 1, 1},
   {&__pyx_n_s_collections, __pyx_k_collections, sizeof(__pyx_k_collections), 0, 0, 1, 1},
+  {&__pyx_n_s_colors, __pyx_k_colors, sizeof(__pyx_k_colors), 0, 0, 1, 1},
   {&__pyx_n_s_create_empty_game, __pyx_k_create_empty_game, sizeof(__pyx_k_create_empty_game), 0, 0, 1, 1},
   {&__pyx_n_s_dict, __pyx_k_dict, sizeof(__pyx_k_dict), 0, 0, 1, 1},
   {&__pyx_n_s_dump, __pyx_k_dump, sizeof(__pyx_k_dump), 0, 0, 1, 1},
@@ -8989,6 +8995,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_init_orient, __pyx_k_init_orient, sizeof(__pyx_k_init_orient), 0, 0, 1, 1},
   {&__pyx_n_s_init_pos, __pyx_k_init_pos, sizeof(__pyx_k_init_pos), 0, 0, 1, 1},
   {&__pyx_n_s_items, __pyx_k_items, sizeof(__pyx_k_items), 0, 0, 1, 1},
+  {&__pyx_n_s_k, __pyx_k_k, sizeof(__pyx_k_k), 0, 0, 1, 1},
   {&__pyx_n_s_l, __pyx_k_l, sizeof(__pyx_k_l), 0, 0, 1, 1},
   {&__pyx_n_s_linewidths, __pyx_k_linewidths, sizeof(__pyx_k_linewidths), 0, 0, 1, 1},
   {&__pyx_n_s_load, __pyx_k_load, sizeof(__pyx_k_load), 0, 0, 1, 1},
