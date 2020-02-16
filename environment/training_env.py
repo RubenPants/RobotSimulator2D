@@ -14,9 +14,7 @@ from environment.multi_env import MultiEnvironment
 
 
 class TrainingEnv:
-    """
-    The class is responsible evaluating and evolving the population across a set of games.
-    """
+    """ This class is responsible evaluating and evolving the population across a set of games. """
     
     def __init__(self, rel_path=''):
         """

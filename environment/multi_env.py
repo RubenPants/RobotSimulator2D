@@ -11,9 +11,7 @@ else:
 
 # TODO: Create Cython MultiEnvironment, since this environment communicates a lot with god_class
 class MultiEnvironment:
-    """
-    This class provides an environment to evaluate a single genome on multiple games.
-    """
+    """ This class provides an environment to evaluate a single genome on multiple games. """
     
     def __init__(self,
                  make_net,
