@@ -24,6 +24,8 @@ cdef class GameCy:
         * target: Robot that must be reached by the robot
     """
     
+    __slots__ = ("rel_path", "silent", "noise", "done", "id", "path", "player", "steps_taken", "target", "walls")
+    
     def __init__(self,
                  int game_id=0,
                  bint noise=True,

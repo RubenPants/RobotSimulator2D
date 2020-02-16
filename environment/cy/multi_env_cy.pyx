@@ -3,25 +3,22 @@ multi_env.py
 
 TODO
 """
-import sys
-
+import numpy as np
+cimport numpy as np
+from environment.entities.cy.game_cy cimport GameCy
 from utils.config import FPS
-from utils.dictionary import D_SENSOR_LIST, D_DONE
+from utils.dictionary import D_DONE, D_SENSOR_LIST
 
-if sys.platform == 'linux':
-    from environment.entities.cy.game_cy import GameCy
-else:
-    from environment.entities.game import Game
-
-
-class MultiEnvironment:
+cdef class MultiEnvironmentCy:
     """ This class provides an environment to evaluate a single genome on multiple games. """
+    
+    __slots__ = ("batch_size", "max_steps", "games", "rel_path", "make_net", "query_net")
     
     def __init__(self,
                  make_net,
                  query_net,
-                 max_duration: int = 100,
-                 rel_path: str = ''):
+                 int max_duration=100,
+                 str rel_path=''):
         """
         Create an environment in which the genomes get evaluated across different games.
         
@@ -30,18 +27,14 @@ class MultiEnvironment:
         :param max_duration: Maximum number of seconds a candidate drives around in a single environment
         :param rel_path: Relative path pointing to the 'environment/' folder
         """
-        self.batch_size = None
+        self.batch_size = 0
         self.games = None
         self.make_net = make_net
         self.max_steps = max_duration * FPS
         self.query_net = query_net
         self.rel_path = rel_path
     
-    def eval_genome(self,
-                    genome,
-                    config,
-                    return_dict: dict = None,
-                    debug: bool = False):
+    cpdef void eval_genome(self, genome, config, return_dict=None, bint debug=False):
         """
         Evaluate a single genome in a pre-defined game-environment.
         
@@ -50,7 +43,18 @@ class MultiEnvironment:
         :param return_dict: Dictionary used to return observations corresponding the genome
         :param debug: Boolean specifying if debugging is enabled or not
         """
-        genome_id, genome = genome  # Split up genome by id and genome itself
+        cdef int genome_id
+        cdef list games
+        cdef list states
+        cdef list finished
+        cdef int step_num
+        cdef np.ndarray actions
+        # cdef GameCy g  # TODO: Apparently an int?
+        cdef np.ndarray a
+        cdef bint f
+        
+        # Split up genome by id and genome itself
+        genome_id, genome = genome
         net = self.make_net(genome, config, self.batch_size)
         
         # Placeholders
@@ -95,21 +99,16 @@ class MultiEnvironment:
     
     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
     
-    def create_game(self, i):
+    cpdef GameCy create_game(self, int i):
         """
         :param i: Game-ID
         :return: Game or GameCy object
         """
-        if sys.platform == 'linux':
-            return GameCy(game_id=i,
-                          rel_path=self.rel_path,
-                          silent=True)
-        else:
-            return Game(game_id=i,
-                        rel_path=self.rel_path,
-                        silent=True)
+        return GameCy(game_id=i,
+                      rel_path=self.rel_path,
+                      silent=True)
     
-    def set_games(self, games):
+    cpdef void set_games(self, list games):
         """
         Set the games-set with new games.
         
