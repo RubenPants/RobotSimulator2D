@@ -1,9 +1,9 @@
 import unittest
 from random import random
 
-from environment.entities.cy_entities.game_cy import GameCy
-from utils.cy_utils.line2d_cy import Line2dCy
-from utils.cy_utils.vec2d_cy import Vec2dCy
+from environment.entities.cy.game_cy import GameCy
+from utils.cy.line2d_cy import Line2dCy
+from utils.cy.vec2d_cy import Vec2dCy
 from utils.config import *
 
 EPSILON = 0.05  # 5 centimeter offset allowed

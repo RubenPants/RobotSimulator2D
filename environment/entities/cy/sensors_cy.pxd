@@ -3,8 +3,8 @@ sensors_cy.pxd
 
 Used to declare all the methods and classes inside of sensors_cy that must be callable from outside of other objects.
 """
-from environment.entities.cy_entities.game_cy cimport GameCy
-from utils.cy_utils.vec2d_cy cimport Vec2dCy
+from environment.entities.cy.game_cy cimport GameCy
+from utils.cy.vec2d_cy cimport Vec2dCy
 
 cdef class SensorCy:
     cdef public GameCy game
