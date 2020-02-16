@@ -9,6 +9,7 @@ import sys
 from random import sample
 
 from neat.six_util import iteritems, itervalues
+from tqdm import tqdm
 
 from control.entities.fitness_functions import calc_pop_fitness
 
@@ -90,7 +91,7 @@ class TrainingEnv:
                 for genome in genomes:
                     processes.append(mp.Process(target=multi_env.eval_genome, args=(genome, config, return_dict)))
                 
-                for p in processes:
+                for p in tqdm(processes):
                     p.start()
                 
                 for p in processes:
