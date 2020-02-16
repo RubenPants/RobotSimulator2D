@@ -51,18 +51,15 @@ class Maze:
         
         # Generate rooms
         self.generate_rooms()
-        if visualize:
-            self.visualize()
+        if visualize: self.visualize()
         
         # Add division-walls
         self.generate_division_walls()
-        if visualize:
-            self.visualize()
+        if visualize: self.visualize()
         
         # Add doors in walls such that every room is connected
         self.connect_rooms()
-        if visualize:
-            self.visualize()
+        if visualize: self.visualize()
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     
@@ -129,37 +126,42 @@ class Maze:
         return wall_list
     
     def get_path_coordinates(self, visualize=False):
-        """
-        :return: All free-positions together with their distance to the target
-        """
+        """ Define all free-positions together with their distance to the target """
         
         def get_neighbour_values(p):
             neighbours = [self.maze[p[0], p[1]]]
+            # Direct neighbours
             if self.in_maze([p[0] + 1, p[1]]): neighbours.append(self.maze[p[0] + 1, p[1]] - 1)
             if self.in_maze([p[0] - 1, p[1]]): neighbours.append(self.maze[p[0] - 1, p[1]] - 1)
             if self.in_maze([p[0], p[1] + 1]): neighbours.append(self.maze[p[0], p[1] + 1] - 1)
             if self.in_maze([p[0], p[1] - 1]): neighbours.append(self.maze[p[0], p[1] - 1] - 1)
+            # Indirect neighbours
+            if self.in_maze([p[0] + 1, p[1] + 1]): neighbours.append(self.maze[p[0] + 1, p[1] + 1] - 1)
+            if self.in_maze([p[0] + 1, p[1] - 1]): neighbours.append(self.maze[p[0] + 1, p[1] - 1] - 1)
+            if self.in_maze([p[0] - 1, p[1] + 1]): neighbours.append(self.maze[p[0] - 1, p[1] + 1] - 1)
+            if self.in_maze([p[0] - 1, p[1] - 1]): neighbours.append(self.maze[p[0] - 1, p[1] - 1] - 1)
             return neighbours
+        
+        # Constant
+        VALUE_START = 100
         
         # Find distance to target
         if visualize:
             self.visualize(clip=False)
-        self.maze[self.y_width - 2, 1] = 100
+        self.maze[self.y_width - 2, 1] = VALUE_START
         for _ in range(50):  # Definitely enough time to cover all non-wall tiles
             for x in range(1, self.x_width - 1):
                 for y in range(1, self.y_width - 1):
                     if self.maze[x, y] > -1:
                         self.maze[x, y] = max(get_neighbour_values([x, y]))
-        if visualize:
-            self.visualize(clip=False)
+        if visualize: self.visualize(clip=False)
         
-        # Normalize on 100-scale
-        min_value = min([self.maze[x, y] for x in range(1, self.x_width - 2) for y in range(1, self.y_width - 2)
-                         if self.maze[x, y] >= 1])
+        # Invert values such that distance to target @target equals 0, and distance at start equals |X-VALUE_START| / 2
+        # Note the /2 since 1m in-game is 2 squared here
         for x in range(1, self.x_width - 1):
             for y in range(1, self.y_width - 1):
                 if self.maze[x, y] > -1:
-                    self.maze[x, y] = (self.maze[x, y] - min_value) / (100 - min_value)
+                    self.maze[x, y] = abs(self.maze[x, y] - VALUE_START) / 2
         
         # Put values in list
         values = []
@@ -565,7 +567,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('--custom', type=bool, default=False)
     parser.add_argument('--overwrite', type=bool, default=True)
-    parser.add_argument('--nr_games', type=int, default=1)#GAMES_AMOUNT)
+    parser.add_argument('--nr_games', type=int, default=GAMES_AMOUNT)
     parser.add_argument('--visualize', type=bool, default=False)
     args = parser.parse_args()
     
@@ -579,6 +581,7 @@ if __name__ == '__main__':
                     maze = Maze(AXIS_X, AXIS_Y, visualize=args.visualize)
                 except (IndexError, Exception):
                     maze = None  # Reset and try again
+            maze.get_path_coordinates(visualize=True)
             create_game(game_id=game,
                         path_list=maze.get_path_coordinates(),
                         wall_list=maze.get_wall_coordinates(),
