@@ -3,12 +3,12 @@
 /* BEGIN: Cython Metadata
 {
     "distutils": {
-        "name": "environment.cy_entities.game_cy",
+        "name": "environment.entities.cy.game_cy",
         "sources": [
-            "game_cy.pyx"
+            "environment/entities/cy/game_cy.pyx"
         ]
     },
-    "module_name": "environment.cy_entities.game_cy"
+    "module_name": "environment.entities.cy.game_cy"
 }
 END: Cython Metadata */
 
@@ -602,8 +602,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #endif
 #endif
 
-#define __PYX_HAVE__environment__cy_entities__game_cy
-#define __PYX_HAVE_API__environment__cy_entities__game_cy
+#define __PYX_HAVE__environment__entities__cy__game_cy
+#define __PYX_HAVE_API__environment__entities__cy__game_cy
 /* Early includes */
 #ifdef _OPENMP
 #include <omp.h>
@@ -813,64 +813,64 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "game_cy.pyx",
-  "game_cy.pxd",
+  "environment/entities/cy/game_cy.pyx",
+  "environment/entities/cy/game_cy.pxd",
   "stringsource",
-  "vec2d_cy.pxd",
-  "sensors_cy.pxd",
-  "robots_cy.pxd",
-  "line2d_cy.pxd",
+  "utils/cy/vec2d_cy.pxd",
+  "environment/entities/cy/sensors_cy.pxd",
+  "environment/entities/cy/robots_cy.pxd",
+  "utils/cy/line2d_cy.pxd",
 };
 
 /*--- Type declarations ---*/
-struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy;
-struct __pyx_obj_11environment_11cy_entities_10sensors_cy_SensorCy;
-struct __pyx_obj_11environment_11cy_entities_10sensors_cy_AngularSensorCy;
-struct __pyx_obj_11environment_11cy_entities_10sensors_cy_DistanceSensorCy;
-struct __pyx_obj_11environment_11cy_entities_10sensors_cy_ProximitySensorCy;
-struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy;
-struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy;
-struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy;
-struct __pyx_opt_args_11environment_11cy_entities_9robots_cy_9FootBotCy_add_angular_sensors;
+struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy;
+struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_SensorCy;
+struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_AngularSensorCy;
+struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_DistanceSensorCy;
+struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_ProximitySensorCy;
+struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy;
+struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy;
+struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy;
+struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9FootBotCy_add_angular_sensors;
 
-/* "robots_cy.pxd":36
+/* "environment/entities/cy/robots_cy.pxd":36
  *     # -----------------------------------------------> SENSOR METHODS <----------------------------------------------- #
  * 
  *     cpdef void add_angular_sensors(self, bint clockwise=?)             # <<<<<<<<<<<<<<
  * 
  *     cpdef void add_proximity_sensor(self, float angle)
  */
-struct __pyx_opt_args_11environment_11cy_entities_9robots_cy_9FootBotCy_add_angular_sensors {
+struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9FootBotCy_add_angular_sensors {
   int __pyx_n;
   int clockwise;
 };
 
-/* "vec2d_cy.pxd":7
+/* "utils/cy/vec2d_cy.pxd":7
  * """
  * 
  * cdef class Vec2dCy:             # <<<<<<<<<<<<<<
  *     cdef public float x, y
  * 
  */
-struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy {
+struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy {
   PyObject_HEAD
-  struct __pyx_vtabstruct_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_vtab;
+  struct __pyx_vtabstruct_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_vtab;
   float x;
   float y;
 };
 
 
-/* "sensors_cy.pxd":9
- * from vec2d_cy cimport Vec2dCy
+/* "environment/entities/cy/sensors_cy.pxd":9
+ * from utils.cy.vec2d_cy cimport Vec2dCy
  * 
  * cdef class SensorCy:             # <<<<<<<<<<<<<<
  *     cdef public GameCy game
  *     cdef public int id
  */
-struct __pyx_obj_11environment_11cy_entities_10sensors_cy_SensorCy {
+struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_SensorCy {
   PyObject_HEAD
-  struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_SensorCy *__pyx_vtab;
-  struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *game;
+  struct __pyx_vtabstruct_11environment_8entities_2cy_10sensors_cy_SensorCy *__pyx_vtab;
+  struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *game;
   int id;
   float angle;
   float pos_offset;
@@ -878,94 +878,94 @@ struct __pyx_obj_11environment_11cy_entities_10sensors_cy_SensorCy {
 };
 
 
-/* "sensors_cy.pxd":16
+/* "environment/entities/cy/sensors_cy.pxd":16
  *     cdef float get_measure(self)
  * 
  * cdef class AngularSensorCy(SensorCy):             # <<<<<<<<<<<<<<
  *     """
  *     Angle deviation between bot and wanted direction in 'crow flight'.
  */
-struct __pyx_obj_11environment_11cy_entities_10sensors_cy_AngularSensorCy {
-  struct __pyx_obj_11environment_11cy_entities_10sensors_cy_SensorCy __pyx_base;
+struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_AngularSensorCy {
+  struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_SensorCy __pyx_base;
   int clockwise;
 };
 
 
-/* "sensors_cy.pxd":24
+/* "environment/entities/cy/sensors_cy.pxd":24
  *     cdef float get_measure(self)
  * 
  * cdef class DistanceSensorCy(SensorCy):             # <<<<<<<<<<<<<<
  *     """
  *     Distance from bot to the target in 'crows flight'.
  */
-struct __pyx_obj_11environment_11cy_entities_10sensors_cy_DistanceSensorCy {
-  struct __pyx_obj_11environment_11cy_entities_10sensors_cy_SensorCy __pyx_base;
+struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_DistanceSensorCy {
+  struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_SensorCy __pyx_base;
 };
 
 
-/* "sensors_cy.pxd":31
+/* "environment/entities/cy/sensors_cy.pxd":31
  *     cdef float get_measure(self)
  * 
  * cdef class ProximitySensorCy(SensorCy):             # <<<<<<<<<<<<<<
  *     """
  *     The proximity sensor is attached to a bot's edge and measures the distance min(max_distance, object_distance). In
  */
-struct __pyx_obj_11environment_11cy_entities_10sensors_cy_ProximitySensorCy {
-  struct __pyx_obj_11environment_11cy_entities_10sensors_cy_SensorCy __pyx_base;
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *start_pos;
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *end_pos;
+struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_ProximitySensorCy {
+  struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_SensorCy __pyx_base;
+  struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *start_pos;
+  struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *end_pos;
 };
 
 
-/* "robots_cy.pxd":10
- * from vec2d_cy cimport Vec2dCy
+/* "environment/entities/cy/robots_cy.pxd":10
+ * from utils.cy.vec2d_cy cimport Vec2dCy
  * 
  * cdef class FootBotCy:             # <<<<<<<<<<<<<<
  *     """
  *     The FootBot is the main bot used in this project. It is a simple circular robot with two wheels on its sides.
  */
-struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy {
+struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy {
   PyObject_HEAD
-  struct __pyx_vtabstruct_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_vtab;
-  struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *game;
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *pos;
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *prev_pos;
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *init_pos;
+  struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy *__pyx_vtab;
+  struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *game;
+  struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *pos;
+  struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *prev_pos;
+  struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *init_pos;
   float angle;
   float prev_angle;
   float init_angle;
   float radius;
   PyObject *angular_sensors;
   PyObject *proximity_sensors;
-  struct __pyx_obj_11environment_11cy_entities_10sensors_cy_DistanceSensorCy *distance_sensor;
+  struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_DistanceSensorCy *distance_sensor;
 };
 
 
-/* "line2d_cy.pxd":8
- * from vec2d_cy cimport Vec2dCy
+/* "utils/cy/line2d_cy.pxd":8
+ * from utils.cy.vec2d_cy cimport Vec2dCy
  * 
  * cdef class Line2dCy:             # <<<<<<<<<<<<<<
  *     cdef public Vec2dCy x, y
  * 
  */
-struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy {
+struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy {
   PyObject_HEAD
-  struct __pyx_vtabstruct_11environment_11cy_entities_9line2d_cy_Line2dCy *__pyx_vtab;
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *x;
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *y;
+  struct __pyx_vtabstruct_5utils_2cy_9line2d_cy_Line2dCy *__pyx_vtab;
+  struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *x;
+  struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *y;
 };
 
 
-/* "environment/cy_entities/game_cy.pxd":9
- * from vec2d_cy cimport Vec2dCy
+/* "environment/entities/cy/game_cy.pxd":9
+ * from utils.cy.vec2d_cy cimport Vec2dCy
  * 
  * cdef class GameCy:             # <<<<<<<<<<<<<<
  *     """
  *     A game environment is built up from the following segments:
  */
-struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy {
+struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy {
   PyObject_HEAD
-  struct __pyx_vtabstruct_11environment_11cy_entities_7game_cy_GameCy *__pyx_vtab;
+  struct __pyx_vtabstruct_11environment_8entities_2cy_7game_cy_GameCy *__pyx_vtab;
   int done;
   int noise;
   int silent;
@@ -974,13 +974,13 @@ struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy {
   PyObject *path;
   PyObject *rel_path;
   PyObject *walls;
-  struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *player;
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *target;
+  struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *player;
+  struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *target;
 };
 
 
 
-/* "vec2d_cy.pxd":7
+/* "utils/cy/vec2d_cy.pxd":7
  * """
  * 
  * cdef class Vec2dCy:             # <<<<<<<<<<<<<<
@@ -988,32 +988,32 @@ struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy {
  * 
  */
 
-struct __pyx_vtabstruct_11environment_11cy_entities_8vec2d_cy_Vec2dCy {
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *(*_operator_handler)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch);
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *(*_right_operator_handler)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch);
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *(*_inplace_operator_handler)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch);
-  float (*get_angle)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
-  float (*get_length)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *(*normalized)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
+struct __pyx_vtabstruct_5utils_2cy_8vec2d_cy_Vec2dCy {
+  struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *(*_operator_handler)(struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch);
+  struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *(*_right_operator_handler)(struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch);
+  struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *(*_inplace_operator_handler)(struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch);
+  float (*get_angle)(struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
+  float (*get_length)(struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
+  struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *(*normalized)(struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
 };
-static struct __pyx_vtabstruct_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_vtabptr_11environment_11cy_entities_8vec2d_cy_Vec2dCy;
+static struct __pyx_vtabstruct_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_vtabptr_5utils_2cy_8vec2d_cy_Vec2dCy;
 
 
-/* "sensors_cy.pxd":9
- * from vec2d_cy cimport Vec2dCy
+/* "environment/entities/cy/sensors_cy.pxd":9
+ * from utils.cy.vec2d_cy cimport Vec2dCy
  * 
  * cdef class SensorCy:             # <<<<<<<<<<<<<<
  *     cdef public GameCy game
  *     cdef public int id
  */
 
-struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_SensorCy {
-  float (*get_measure)(struct __pyx_obj_11environment_11cy_entities_10sensors_cy_SensorCy *);
+struct __pyx_vtabstruct_11environment_8entities_2cy_10sensors_cy_SensorCy {
+  float (*get_measure)(struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_SensorCy *);
 };
-static struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_SensorCy *__pyx_vtabptr_11environment_11cy_entities_10sensors_cy_SensorCy;
+static struct __pyx_vtabstruct_11environment_8entities_2cy_10sensors_cy_SensorCy *__pyx_vtabptr_11environment_8entities_2cy_10sensors_cy_SensorCy;
 
 
-/* "sensors_cy.pxd":16
+/* "environment/entities/cy/sensors_cy.pxd":16
  *     cdef float get_measure(self)
  * 
  * cdef class AngularSensorCy(SensorCy):             # <<<<<<<<<<<<<<
@@ -1021,13 +1021,13 @@ static struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_SensorCy
  *     Angle deviation between bot and wanted direction in 'crow flight'.
  */
 
-struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_AngularSensorCy {
-  struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_SensorCy __pyx_base;
+struct __pyx_vtabstruct_11environment_8entities_2cy_10sensors_cy_AngularSensorCy {
+  struct __pyx_vtabstruct_11environment_8entities_2cy_10sensors_cy_SensorCy __pyx_base;
 };
-static struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_AngularSensorCy *__pyx_vtabptr_11environment_11cy_entities_10sensors_cy_AngularSensorCy;
+static struct __pyx_vtabstruct_11environment_8entities_2cy_10sensors_cy_AngularSensorCy *__pyx_vtabptr_11environment_8entities_2cy_10sensors_cy_AngularSensorCy;
 
 
-/* "sensors_cy.pxd":24
+/* "environment/entities/cy/sensors_cy.pxd":24
  *     cdef float get_measure(self)
  * 
  * cdef class DistanceSensorCy(SensorCy):             # <<<<<<<<<<<<<<
@@ -1035,13 +1035,13 @@ static struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_AngularS
  *     Distance from bot to the target in 'crows flight'.
  */
 
-struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_DistanceSensorCy {
-  struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_SensorCy __pyx_base;
+struct __pyx_vtabstruct_11environment_8entities_2cy_10sensors_cy_DistanceSensorCy {
+  struct __pyx_vtabstruct_11environment_8entities_2cy_10sensors_cy_SensorCy __pyx_base;
 };
-static struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_DistanceSensorCy *__pyx_vtabptr_11environment_11cy_entities_10sensors_cy_DistanceSensorCy;
+static struct __pyx_vtabstruct_11environment_8entities_2cy_10sensors_cy_DistanceSensorCy *__pyx_vtabptr_11environment_8entities_2cy_10sensors_cy_DistanceSensorCy;
 
 
-/* "sensors_cy.pxd":31
+/* "environment/entities/cy/sensors_cy.pxd":31
  *     cdef float get_measure(self)
  * 
  * cdef class ProximitySensorCy(SensorCy):             # <<<<<<<<<<<<<<
@@ -1049,72 +1049,72 @@ static struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_Distance
  *     The proximity sensor is attached to a bot's edge and measures the distance min(max_distance, object_distance). In
  */
 
-struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_ProximitySensorCy {
-  struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_SensorCy __pyx_base;
+struct __pyx_vtabstruct_11environment_8entities_2cy_10sensors_cy_ProximitySensorCy {
+  struct __pyx_vtabstruct_11environment_8entities_2cy_10sensors_cy_SensorCy __pyx_base;
 };
-static struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_ProximitySensorCy *__pyx_vtabptr_11environment_11cy_entities_10sensors_cy_ProximitySensorCy;
+static struct __pyx_vtabstruct_11environment_8entities_2cy_10sensors_cy_ProximitySensorCy *__pyx_vtabptr_11environment_8entities_2cy_10sensors_cy_ProximitySensorCy;
 
 
-/* "robots_cy.pxd":10
- * from vec2d_cy cimport Vec2dCy
+/* "environment/entities/cy/robots_cy.pxd":10
+ * from utils.cy.vec2d_cy cimport Vec2dCy
  * 
  * cdef class FootBotCy:             # <<<<<<<<<<<<<<
  *     """
  *     The FootBot is the main bot used in this project. It is a simple circular robot with two wheels on its sides.
  */
 
-struct __pyx_vtabstruct_11environment_11cy_entities_9robots_cy_FootBotCy {
-  void (*drive)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *, float, float, float);
-  PyObject *(*get_sensor_readings)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *);
-  PyObject *(*get_sensor_reading_angle)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
-  float (*get_sensor_reading_distance)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
-  PyObject *(*get_sensor_reading_proximity)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
-  void (*add_angular_sensors)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *, int __pyx_skip_dispatch, struct __pyx_opt_args_11environment_11cy_entities_9robots_cy_9FootBotCy_add_angular_sensors *__pyx_optional_args);
-  void (*add_proximity_sensor)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *, float, int __pyx_skip_dispatch);
-  void (*create_angular_sensors)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *);
-  void (*create_distance_sensor)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *);
-  void (*create_proximity_sensors)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *);
+struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy {
+  void (*drive)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, float, float, float);
+  PyObject *(*get_sensor_readings)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *);
+  PyObject *(*get_sensor_reading_angle)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
+  float (*get_sensor_reading_distance)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
+  PyObject *(*get_sensor_reading_proximity)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
+  void (*add_angular_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch, struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9FootBotCy_add_angular_sensors *__pyx_optional_args);
+  void (*add_proximity_sensor)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, float, int __pyx_skip_dispatch);
+  void (*create_angular_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *);
+  void (*create_distance_sensor)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *);
+  void (*create_proximity_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *);
 };
-static struct __pyx_vtabstruct_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_vtabptr_11environment_11cy_entities_9robots_cy_FootBotCy;
+static struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy *__pyx_vtabptr_11environment_8entities_2cy_9robots_cy_FootBotCy;
 
 
-/* "line2d_cy.pxd":8
- * from vec2d_cy cimport Vec2dCy
+/* "utils/cy/line2d_cy.pxd":8
+ * from utils.cy.vec2d_cy cimport Vec2dCy
  * 
  * cdef class Line2dCy:             # <<<<<<<<<<<<<<
  *     cdef public Vec2dCy x, y
  * 
  */
 
-struct __pyx_vtabstruct_11environment_11cy_entities_9line2d_cy_Line2dCy {
-  float (*get_length)(struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch);
-  float (*get_orientation)(struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch);
+struct __pyx_vtabstruct_5utils_2cy_9line2d_cy_Line2dCy {
+  float (*get_length)(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch);
+  float (*get_orientation)(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch);
 };
-static struct __pyx_vtabstruct_11environment_11cy_entities_9line2d_cy_Line2dCy *__pyx_vtabptr_11environment_11cy_entities_9line2d_cy_Line2dCy;
+static struct __pyx_vtabstruct_5utils_2cy_9line2d_cy_Line2dCy *__pyx_vtabptr_5utils_2cy_9line2d_cy_Line2dCy;
 
 
-/* "environment/cy_entities/game_cy.pyx":19
- * from line2d_cy cimport Line2dCy
+/* "environment/entities/cy/game_cy.pyx":19
+ * from utils.cy.line2d_cy cimport Line2dCy
  * 
  * cdef class GameCy:             # <<<<<<<<<<<<<<
  *     """
  *     A game environment is built up from the following segments:
  */
 
-struct __pyx_vtabstruct_11environment_11cy_entities_7game_cy_GameCy {
-  PyObject *(*close)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch);
-  PyObject *(*reset)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch);
-  PyObject *(*step)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, float, float, int __pyx_skip_dispatch);
-  void (*create_empty_game)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch);
-  PyObject *(*get_observation)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch);
-  PyObject *(*get_sensor_list)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch);
-  void (*set_player_angle)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, float, int __pyx_skip_dispatch);
-  void (*set_player_pos)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
-  void (*save)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch);
-  int (*load)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch);
-  PyObject *(*get_blueprint)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch);
+struct __pyx_vtabstruct_11environment_8entities_2cy_7game_cy_GameCy {
+  PyObject *(*close)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
+  PyObject *(*reset)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
+  PyObject *(*step)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, float, float, int __pyx_skip_dispatch);
+  void (*create_empty_game)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
+  PyObject *(*get_observation)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
+  PyObject *(*get_sensor_list)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
+  void (*set_player_angle)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, float, int __pyx_skip_dispatch);
+  void (*set_player_pos)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
+  void (*save)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
+  int (*load)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
+  PyObject *(*get_blueprint)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
 };
-static struct __pyx_vtabstruct_11environment_11cy_entities_7game_cy_GameCy *__pyx_vtabptr_11environment_11cy_entities_7game_cy_GameCy;
+static struct __pyx_vtabstruct_11environment_8entities_2cy_7game_cy_GameCy *__pyx_vtabptr_11environment_8entities_2cy_7game_cy_GameCy;
 
 /* --- Runtime support code (head) --- */
 /* Refnanny.proto */
@@ -1684,45 +1684,45 @@ static int __Pyx_ImportFunction(PyObject *module, const char *funcname, void (**
 /* InitStrings.proto */
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
-static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_close(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
-static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_reset(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
-static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_step(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, float __pyx_v_l, float __pyx_v_r, int __pyx_skip_dispatch); /* proto*/
-static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_create_empty_game(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
-static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_observation(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
-static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_sensor_list(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
-static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_set_player_angle(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, float __pyx_v_a, int __pyx_skip_dispatch); /* proto*/
-static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_set_player_pos(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_p, int __pyx_skip_dispatch); /* proto*/
-static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_save(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
-static int __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
-static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_blueprint(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
+static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_close(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
+static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_reset(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
+static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_step(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, float __pyx_v_l, float __pyx_v_r, int __pyx_skip_dispatch); /* proto*/
+static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_create_empty_game(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
+static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_observation(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
+static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_sensor_list(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
+static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_angle(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, float __pyx_v_a, int __pyx_skip_dispatch); /* proto*/
+static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_pos(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_p, int __pyx_skip_dispatch); /* proto*/
+static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_save(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
+static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
+static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_blueprint(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
 
-/* Module declarations from 'environment.cy_entities.vec2d_cy' */
-static PyTypeObject *__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy = 0;
+/* Module declarations from 'utils.cy.vec2d_cy' */
+static PyTypeObject *__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy = 0;
 
-/* Module declarations from 'environment.cy_entities.sensors_cy' */
-static PyTypeObject *__pyx_ptype_11environment_11cy_entities_10sensors_cy_SensorCy = 0;
-static PyTypeObject *__pyx_ptype_11environment_11cy_entities_10sensors_cy_AngularSensorCy = 0;
-static PyTypeObject *__pyx_ptype_11environment_11cy_entities_10sensors_cy_DistanceSensorCy = 0;
-static PyTypeObject *__pyx_ptype_11environment_11cy_entities_10sensors_cy_ProximitySensorCy = 0;
+/* Module declarations from 'environment.entities.cy.sensors_cy' */
+static PyTypeObject *__pyx_ptype_11environment_8entities_2cy_10sensors_cy_SensorCy = 0;
+static PyTypeObject *__pyx_ptype_11environment_8entities_2cy_10sensors_cy_AngularSensorCy = 0;
+static PyTypeObject *__pyx_ptype_11environment_8entities_2cy_10sensors_cy_DistanceSensorCy = 0;
+static PyTypeObject *__pyx_ptype_11environment_8entities_2cy_10sensors_cy_ProximitySensorCy = 0;
 
-/* Module declarations from 'environment.cy_entities.robots_cy' */
-static PyTypeObject *__pyx_ptype_11environment_11cy_entities_9robots_cy_FootBotCy = 0;
+/* Module declarations from 'environment.entities.cy.robots_cy' */
+static PyTypeObject *__pyx_ptype_11environment_8entities_2cy_9robots_cy_FootBotCy = 0;
 
-/* Module declarations from 'environment.cy_entities.line2d_cy' */
-static PyTypeObject *__pyx_ptype_11environment_11cy_entities_9line2d_cy_Line2dCy = 0;
+/* Module declarations from 'utils.cy.line2d_cy' */
+static PyTypeObject *__pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy = 0;
 
-/* Module declarations from 'environment.cy_entities.intersection_cy' */
-static PyObject *(*__pyx_f_11environment_11cy_entities_15intersection_cy_circle_line_intersection_cy)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, float, struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch); /*proto*/
+/* Module declarations from 'utils.cy.intersection_cy' */
+static PyObject *(*__pyx_f_5utils_2cy_15intersection_cy_circle_line_intersection_cy)(struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, float, struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch); /*proto*/
 
-/* Module declarations from 'environment.cy_entities.game_cy' */
-static PyTypeObject *__pyx_ptype_11environment_11cy_entities_7game_cy_GameCy = 0;
-static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_get_boundary_walls(int __pyx_skip_dispatch); /*proto*/
-static PyObject *__pyx_f_11environment_11cy_entities_7game_cy___pyx_unpickle_GameCy__set_state(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, PyObject *); /*proto*/
-#define __Pyx_MODULE_NAME "environment.cy_entities.game_cy"
-extern int __pyx_module_is_main_environment__cy_entities__game_cy;
-int __pyx_module_is_main_environment__cy_entities__game_cy = 0;
+/* Module declarations from 'environment.entities.cy.game_cy' */
+static PyTypeObject *__pyx_ptype_11environment_8entities_2cy_7game_cy_GameCy = 0;
+static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_get_boundary_walls(int __pyx_skip_dispatch); /*proto*/
+static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy___pyx_unpickle_GameCy__set_state(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, PyObject *); /*proto*/
+#define __Pyx_MODULE_NAME "environment.entities.cy.game_cy"
+extern int __pyx_module_is_main_environment__entities__cy__game_cy;
+int __pyx_module_is_main_environment__entities__cy__game_cy = 0;
 
-/* Implementation of 'environment.cy_entities.game_cy' */
+/* Implementation of 'environment.entities.cy.game_cy' */
 static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_open;
 static const char __pyx_k_g[] = "g";
@@ -1834,7 +1834,7 @@ static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_pyx_unpickle_GameCy[] = "__pyx_unpickle_GameCy";
 static const char __pyx_k_New_game_created_under_id[] = "New game created under id: {}";
 static const char __pyx_k_Existing_game_loaded_with_id[] = "Existing game loaded with id: {}";
-static const char __pyx_k_environment_cy_entities_game_cy[] = "environment.cy_entities.game_cy";
+static const char __pyx_k_environment_entities_cy_game_cy[] = "environment.entities.cy.game_cy";
 static const char __pyx_k_game_cy_pyx_Cython_version_of_t[] = "\ngame_cy.pyx\n\nCython version of the game.py file. Note that this file co-exists with a .pxd file (needed to import the game methods\nin other files).\n";
 static const char __pyx_k_Incompatible_checksums_s_vs_0xb4[] = "Incompatible checksums (%s vs 0xb4a89cd = (done, id, noise, path, player, rel_path, silent, steps_taken, target, walls))";
 static PyObject *__pyx_n_s_AXIS_X;
@@ -1874,7 +1874,7 @@ static PyObject *__pyx_n_s_dump;
 static PyObject *__pyx_n_s_end;
 static PyObject *__pyx_n_s_enter;
 static PyObject *__pyx_kp_s_environment;
-static PyObject *__pyx_n_s_environment_cy_entities_game_cy;
+static PyObject *__pyx_n_s_environment_entities_cy_game_cy;
 static PyObject *__pyx_n_s_exit;
 static PyObject *__pyx_n_s_file;
 static PyObject *__pyx_n_s_format;
@@ -1948,49 +1948,49 @@ static PyObject *__pyx_n_s_x;
 static PyObject *__pyx_n_s_xlim;
 static PyObject *__pyx_n_s_y;
 static PyObject *__pyx_n_s_ylim;
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy___init__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, int __pyx_v_game_id, int __pyx_v_noise, int __pyx_v_overwrite, PyObject *__pyx_v_rel_path, int __pyx_v_silent); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_2__str__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4close(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6reset(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_8step(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, float __pyx_v_l, float __pyx_v_r); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_10create_empty_game(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_12get_observation(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_14get_sensor_list(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_16set_player_angle(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, float __pyx_v_a); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_18set_player_pos(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_p); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_20save(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_22load(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_24get_blueprint(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4done___get__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self); /* proto */
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4done_2__set__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_5noise___get__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self); /* proto */
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_5noise_2__set__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6silent___get__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self); /* proto */
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6silent_2__set__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_2id___get__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self); /* proto */
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_2id_2__set__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_11steps_taken___get__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self); /* proto */
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_11steps_taken_2__set__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4path___get__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self); /* proto */
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4path_2__set__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4path_4__del__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_8rel_path___get__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self); /* proto */
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_8rel_path_2__set__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_8rel_path_4__del__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_5walls___get__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self); /* proto */
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_5walls_2__set__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_5walls_4__del__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6player___get__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self); /* proto */
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6player_2__set__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6player_4__del__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6target___get__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self); /* proto */
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6target_2__set__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6target_4__del__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_26__reduce_cython__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_28__setstate_cython__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_get_boundary_walls(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_2__pyx_unpickle_GameCy(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
-static PyObject *__pyx_tp_new_11environment_11cy_entities_7game_cy_GameCy(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy___init__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, int __pyx_v_game_id, int __pyx_v_noise, int __pyx_v_overwrite, PyObject *__pyx_v_rel_path, int __pyx_v_silent); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_2__str__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_4close(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6reset(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_8step(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, float __pyx_v_l, float __pyx_v_r); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_10create_empty_game(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_12get_observation(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_14get_sensor_list(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_16set_player_angle(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, float __pyx_v_a); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_18set_player_pos(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_p); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_20save(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_22load(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_24get_blueprint(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_4done___get__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_4done_2__set__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_5noise___get__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_5noise_2__set__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6silent___get__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6silent_2__set__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_2id___get__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_2id_2__set__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_11steps_taken___get__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_11steps_taken_2__set__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_4path___get__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_4path_2__set__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_4path_4__del__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_8rel_path___get__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_8rel_path_2__set__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_8rel_path_4__del__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_5walls___get__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_5walls_2__set__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_5walls_4__del__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6player___get__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6player_2__set__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6player_4__del__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6target___get__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6target_2__set__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6target_4__del__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_26__reduce_cython__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_28__setstate_cython__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_get_boundary_walls(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_2__pyx_unpickle_GameCy(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_tp_new_11environment_8entities_2cy_7game_cy_GameCy(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static __Pyx_CachedCFunction __pyx_umethod_PyDict_Type_items = {0, &__pyx_n_s_items, 0, 0, 0};
 static PyObject *__pyx_float_0_5;
 static PyObject *__pyx_float_1_0;
@@ -2003,7 +2003,7 @@ static PyObject *__pyx_tuple__4;
 static PyObject *__pyx_codeobj__5;
 /* Late includes */
 
-/* "environment/cy_entities/game_cy.pyx":27
+/* "environment/entities/cy/game_cy.pyx":27
  *     """
  * 
  *     def __init__(self,             # <<<<<<<<<<<<<<
@@ -2012,12 +2012,12 @@ static PyObject *__pyx_codeobj__5;
  */
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_11environment_11cy_entities_7game_cy_6GameCy___init__[] = "\n        Define a new game.\n\n        :param game_id: Game id\n        :param noise: Add noise when progressing the game\n        :param overwrite: Overwrite pre-existing games\n        :param rel_path: Relative path where Game object is stored or will be stored\n        :param silent: Do not print anything\n        ";
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy___init__[] = "\n        Define a new game.\n\n        :param game_id: Game id\n        :param noise: Add noise when progressing the game\n        :param overwrite: Overwrite pre-existing games\n        :param rel_path: Relative path where Game object is stored or will be stored\n        :param silent: Do not print anything\n        ";
 #if CYTHON_COMPILING_IN_CPYTHON
-struct wrapperbase __pyx_wrapperbase_11environment_11cy_entities_7game_cy_6GameCy___init__;
+struct wrapperbase __pyx_wrapperbase_11environment_8entities_2cy_7game_cy_6GameCy___init__;
 #endif
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   int __pyx_v_game_id;
   int __pyx_v_noise;
   int __pyx_v_overwrite;
@@ -2107,7 +2107,7 @@ static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_1__init__(PyObj
       __pyx_v_noise = __Pyx_PyObject_IsTrue(values[1]); if (unlikely((__pyx_v_noise == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 29, __pyx_L3_error)
     } else {
 
-      /* "environment/cy_entities/game_cy.pyx":29
+      /* "environment/entities/cy/game_cy.pyx":29
  *     def __init__(self,
  *                  int game_id=0,
  *                  bint noise=True,             # <<<<<<<<<<<<<<
@@ -2120,7 +2120,7 @@ static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_1__init__(PyObj
       __pyx_v_overwrite = __Pyx_PyObject_IsTrue(values[2]); if (unlikely((__pyx_v_overwrite == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 30, __pyx_L3_error)
     } else {
 
-      /* "environment/cy_entities/game_cy.pyx":30
+      /* "environment/entities/cy/game_cy.pyx":30
  *                  int game_id=0,
  *                  bint noise=True,
  *                  bint overwrite=False,             # <<<<<<<<<<<<<<
@@ -2134,7 +2134,7 @@ static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_1__init__(PyObj
       __pyx_v_silent = __Pyx_PyObject_IsTrue(values[4]); if (unlikely((__pyx_v_silent == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 32, __pyx_L3_error)
     } else {
 
-      /* "environment/cy_entities/game_cy.pyx":32
+      /* "environment/entities/cy/game_cy.pyx":32
  *                  bint overwrite=False,
  *                  str rel_path='environment/',
  *                  bint silent=False):             # <<<<<<<<<<<<<<
@@ -2148,14 +2148,14 @@ static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_1__init__(PyObj
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("__init__", 0, 0, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 27, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_rel_path), (&PyString_Type), 1, "rel_path", 1))) __PYX_ERR(0, 31, __pyx_L1_error)
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy___init__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self), __pyx_v_game_id, __pyx_v_noise, __pyx_v_overwrite, __pyx_v_rel_path, __pyx_v_silent);
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy___init__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self), __pyx_v_game_id, __pyx_v_noise, __pyx_v_overwrite, __pyx_v_rel_path, __pyx_v_silent);
 
-  /* "environment/cy_entities/game_cy.pyx":27
+  /* "environment/entities/cy/game_cy.pyx":27
  *     """
  * 
  *     def __init__(self,             # <<<<<<<<<<<<<<
@@ -2172,14 +2172,14 @@ static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_1__init__(PyObj
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy___init__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, int __pyx_v_game_id, int __pyx_v_noise, int __pyx_v_overwrite, PyObject *__pyx_v_rel_path, int __pyx_v_silent) {
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy___init__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, int __pyx_v_game_id, int __pyx_v_noise, int __pyx_v_overwrite, PyObject *__pyx_v_rel_path, int __pyx_v_silent) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   int __pyx_t_2;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "environment/cy_entities/game_cy.pyx":43
+  /* "environment/entities/cy/game_cy.pyx":43
  *         """
  *         # Set path correct
  *         self.rel_path = rel_path  # Relative path to the 'environment' folder             # <<<<<<<<<<<<<<
@@ -2192,7 +2192,7 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy___init__(struct
   __Pyx_DECREF(__pyx_v_self->rel_path);
   __pyx_v_self->rel_path = __pyx_v_rel_path;
 
-  /* "environment/cy_entities/game_cy.pyx":44
+  /* "environment/entities/cy/game_cy.pyx":44
  *         # Set path correct
  *         self.rel_path = rel_path  # Relative path to the 'environment' folder
  *         self.silent = silent  # True: Do not print out statistics             # <<<<<<<<<<<<<<
@@ -2201,7 +2201,7 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy___init__(struct
  */
   __pyx_v_self->silent = __pyx_v_silent;
 
-  /* "environment/cy_entities/game_cy.pyx":47
+  /* "environment/entities/cy/game_cy.pyx":47
  * 
  *         # Environment specific parameters
  *         self.noise = noise  # Add noise to the game-environment             # <<<<<<<<<<<<<<
@@ -2210,7 +2210,7 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy___init__(struct
  */
   __pyx_v_self->noise = __pyx_v_noise;
 
-  /* "environment/cy_entities/game_cy.pyx":50
+  /* "environment/entities/cy/game_cy.pyx":50
  * 
  *         # Placeholders for parameters
  *         self.done = False  # Game has finished             # <<<<<<<<<<<<<<
@@ -2219,7 +2219,7 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy___init__(struct
  */
   __pyx_v_self->done = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":51
+  /* "environment/entities/cy/game_cy.pyx":51
  *         # Placeholders for parameters
  *         self.done = False  # Game has finished
  *         self.id = game_id  # Game's ID-number             # <<<<<<<<<<<<<<
@@ -2228,7 +2228,7 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy___init__(struct
  */
   __pyx_v_self->id = __pyx_v_game_id;
 
-  /* "environment/cy_entities/game_cy.pyx":52
+  /* "environment/entities/cy/game_cy.pyx":52
  *         self.done = False  # Game has finished
  *         self.id = game_id  # Game's ID-number
  *         self.path = None  # Coordinates together with distance to target             # <<<<<<<<<<<<<<
@@ -2241,7 +2241,7 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy___init__(struct
   __Pyx_DECREF(__pyx_v_self->path);
   __pyx_v_self->path = ((PyObject*)Py_None);
 
-  /* "environment/cy_entities/game_cy.pyx":53
+  /* "environment/entities/cy/game_cy.pyx":53
  *         self.id = game_id  # Game's ID-number
  *         self.path = None  # Coordinates together with distance to target
  *         self.player = None  # Candidate-robot             # <<<<<<<<<<<<<<
@@ -2252,9 +2252,9 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy___init__(struct
   __Pyx_GIVEREF(Py_None);
   __Pyx_GOTREF(__pyx_v_self->player);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->player));
-  __pyx_v_self->player = ((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)Py_None);
+  __pyx_v_self->player = ((struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *)Py_None);
 
-  /* "environment/cy_entities/game_cy.pyx":54
+  /* "environment/entities/cy/game_cy.pyx":54
  *         self.path = None  # Coordinates together with distance to target
  *         self.player = None  # Candidate-robot
  *         self.steps_taken = 0  # Number of steps taken by the agent             # <<<<<<<<<<<<<<
@@ -2263,7 +2263,7 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy___init__(struct
  */
   __pyx_v_self->steps_taken = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":55
+  /* "environment/entities/cy/game_cy.pyx":55
  *         self.player = None  # Candidate-robot
  *         self.steps_taken = 0  # Number of steps taken by the agent
  *         self.target = None  # Target-robot             # <<<<<<<<<<<<<<
@@ -2274,9 +2274,9 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy___init__(struct
   __Pyx_GIVEREF(Py_None);
   __Pyx_GOTREF(__pyx_v_self->target);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->target));
-  __pyx_v_self->target = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)Py_None);
+  __pyx_v_self->target = ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)Py_None);
 
-  /* "environment/cy_entities/game_cy.pyx":56
+  /* "environment/entities/cy/game_cy.pyx":56
  *         self.steps_taken = 0  # Number of steps taken by the agent
  *         self.target = None  # Target-robot
  *         self.walls = None  # List of all walls in the game             # <<<<<<<<<<<<<<
@@ -2289,7 +2289,7 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy___init__(struct
   __Pyx_DECREF(__pyx_v_self->walls);
   __pyx_v_self->walls = ((PyObject*)Py_None);
 
-  /* "environment/cy_entities/game_cy.pyx":59
+  /* "environment/entities/cy/game_cy.pyx":59
  * 
  *         # Check if game already exists, if not create new game
  *         if overwrite or not self.load():             # <<<<<<<<<<<<<<
@@ -2302,21 +2302,21 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy___init__(struct
     __pyx_t_1 = __pyx_t_2;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_2 = ((!(((struct __pyx_vtabstruct_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self->__pyx_vtab)->load(__pyx_v_self, 0) != 0)) != 0);
+  __pyx_t_2 = ((!(((struct __pyx_vtabstruct_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self->__pyx_vtab)->load(__pyx_v_self, 0) != 0)) != 0);
   __pyx_t_1 = __pyx_t_2;
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "environment/cy_entities/game_cy.pyx":60
+    /* "environment/entities/cy/game_cy.pyx":60
  *         # Check if game already exists, if not create new game
  *         if overwrite or not self.load():
  *             self.create_empty_game()             # <<<<<<<<<<<<<<
  * 
  *     def __str__(self):
  */
-    ((struct __pyx_vtabstruct_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self->__pyx_vtab)->create_empty_game(__pyx_v_self, 0);
+    ((struct __pyx_vtabstruct_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self->__pyx_vtab)->create_empty_game(__pyx_v_self, 0);
 
-    /* "environment/cy_entities/game_cy.pyx":59
+    /* "environment/entities/cy/game_cy.pyx":59
  * 
  *         # Check if game already exists, if not create new game
  *         if overwrite or not self.load():             # <<<<<<<<<<<<<<
@@ -2325,7 +2325,7 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy___init__(struct
  */
   }
 
-  /* "environment/cy_entities/game_cy.pyx":27
+  /* "environment/entities/cy/game_cy.pyx":27
  *     """
  * 
  *     def __init__(self,             # <<<<<<<<<<<<<<
@@ -2339,7 +2339,7 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy___init__(struct
   return __pyx_r;
 }
 
-/* "environment/cy_entities/game_cy.pyx":62
+/* "environment/entities/cy/game_cy.pyx":62
  *             self.create_empty_game()
  * 
  *     def __str__(self):             # <<<<<<<<<<<<<<
@@ -2348,19 +2348,19 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy___init__(struct
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_3__str__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_3__str__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_3__str__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_3__str__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__str__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_2__str__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_2__str__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_2__str__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_2__str__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2368,7 +2368,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_2__str__(
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("__str__", 0);
 
-  /* "environment/cy_entities/game_cy.pyx":63
+  /* "environment/entities/cy/game_cy.pyx":63
  * 
  *     def __str__(self):
  *         return "game_{id:05d}".format(id=self.id)             # <<<<<<<<<<<<<<
@@ -2392,7 +2392,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_2__str__(
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/game_cy.pyx":62
+  /* "environment/entities/cy/game_cy.pyx":62
  *             self.create_empty_game()
  * 
  *     def __str__(self):             # <<<<<<<<<<<<<<
@@ -2405,7 +2405,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_2__str__(
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.__str__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.__str__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2413,7 +2413,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_2__str__(
   return __pyx_r;
 }
 
-/* "environment/cy_entities/game_cy.pyx":67
+/* "environment/entities/cy/game_cy.pyx":67
  *     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
  * 
  *     cpdef dict close(self):             # <<<<<<<<<<<<<<
@@ -2421,8 +2421,8 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_2__str__(
  *         :return: Final state and useful statistics
  */
 
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_5close(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_close(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_5close(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_close(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2441,7 +2441,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_close(stru
       #endif
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_close); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 67, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_5close)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_5close)) {
         __Pyx_XDECREF(__pyx_r);
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
@@ -2478,7 +2478,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_close(stru
     #endif
   }
 
-  /* "environment/cy_entities/game_cy.pyx":71
+  /* "environment/entities/cy/game_cy.pyx":71
  *         :return: Final state and useful statistics
  *         """
  *         return {             # <<<<<<<<<<<<<<
@@ -2487,7 +2487,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_close(stru
  */
   __Pyx_XDECREF(__pyx_r);
 
-  /* "environment/cy_entities/game_cy.pyx":72
+  /* "environment/entities/cy/game_cy.pyx":72
  *         """
  *         return {
  *             D_DIST_TO_TARGET: self.player.get_sensor_reading_distance(),             # <<<<<<<<<<<<<<
@@ -2498,13 +2498,13 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_close(stru
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_DIST_TO_TARGET); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 72, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyFloat_FromDouble(((struct __pyx_vtabstruct_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self->player->__pyx_vtab)->get_sensor_reading_distance(__pyx_v_self->player, 0)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __pyx_t_3 = PyFloat_FromDouble(((struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy *)__pyx_v_self->player->__pyx_vtab)->get_sensor_reading_distance(__pyx_v_self->player, 0)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 72, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_t_1, __pyx_t_2, __pyx_t_3) < 0) __PYX_ERR(0, 72, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":73
+  /* "environment/entities/cy/game_cy.pyx":73
  *         return {
  *             D_DIST_TO_TARGET: self.player.get_sensor_reading_distance(),
  *             D_DONE:           self.done,             # <<<<<<<<<<<<<<
@@ -2519,7 +2519,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_close(stru
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":74
+  /* "environment/entities/cy/game_cy.pyx":74
  *             D_DIST_TO_TARGET: self.player.get_sensor_reading_distance(),
  *             D_DONE:           self.done,
  *             D_GAME_ID:        self.id,             # <<<<<<<<<<<<<<
@@ -2534,7 +2534,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_close(stru
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":75
+  /* "environment/entities/cy/game_cy.pyx":75
  *             D_DONE:           self.done,
  *             D_GAME_ID:        self.id,
  *             D_PATH:           self.path,             # <<<<<<<<<<<<<<
@@ -2546,7 +2546,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_close(stru
   if (PyDict_SetItem(__pyx_t_1, __pyx_t_3, __pyx_v_self->path) < 0) __PYX_ERR(0, 72, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":76
+  /* "environment/entities/cy/game_cy.pyx":76
  *             D_GAME_ID:        self.id,
  *             D_PATH:           self.path,
  *             D_POS:            self.player.pos,             # <<<<<<<<<<<<<<
@@ -2558,7 +2558,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_close(stru
   if (PyDict_SetItem(__pyx_t_1, __pyx_t_3, ((PyObject *)__pyx_v_self->player->pos)) < 0) __PYX_ERR(0, 72, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":77
+  /* "environment/entities/cy/game_cy.pyx":77
  *             D_PATH:           self.path,
  *             D_POS:            self.player.pos,
  *             D_STEPS:          self.steps_taken,             # <<<<<<<<<<<<<<
@@ -2576,7 +2576,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_close(stru
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/game_cy.pyx":67
+  /* "environment/entities/cy/game_cy.pyx":67
  *     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
  * 
  *     cpdef dict close(self):             # <<<<<<<<<<<<<<
@@ -2590,7 +2590,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_close(stru
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.close", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.close", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2599,26 +2599,26 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_close(stru
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_5close(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_11environment_11cy_entities_7game_cy_6GameCy_4close[] = "\n        :return: Final state and useful statistics\n        ";
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_5close(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_5close(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_4close[] = "\n        :return: Final state and useful statistics\n        ";
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_5close(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("close (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4close(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_4close(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4close(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_4close(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("close", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_close(__pyx_v_self, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 67, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_close(__pyx_v_self, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 67, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -2627,7 +2627,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4close(st
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.close", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.close", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2635,7 +2635,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4close(st
   return __pyx_r;
 }
 
-/* "environment/cy_entities/game_cy.pyx":80
+/* "environment/entities/cy/game_cy.pyx":80
  *         }
  * 
  *     cpdef dict reset(self):             # <<<<<<<<<<<<<<
@@ -2643,8 +2643,8 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4close(st
  *         Reset the game.
  */
 
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_7reset(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_reset(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_7reset(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_reset(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2663,7 +2663,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_reset(stru
       #endif
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_reset); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_7reset)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_7reset)) {
         __Pyx_XDECREF(__pyx_r);
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
@@ -2700,7 +2700,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_reset(stru
     #endif
   }
 
-  /* "environment/cy_entities/game_cy.pyx":86
+  /* "environment/entities/cy/game_cy.pyx":86
  *         :return: Observation
  *         """
  *         self.steps_taken = 0             # <<<<<<<<<<<<<<
@@ -2709,7 +2709,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_reset(stru
  */
   __pyx_v_self->steps_taken = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":87
+  /* "environment/entities/cy/game_cy.pyx":87
  *         """
  *         self.steps_taken = 0
  *         self.player.reset()             # <<<<<<<<<<<<<<
@@ -2735,7 +2735,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_reset(stru
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":88
+  /* "environment/entities/cy/game_cy.pyx":88
  *         self.steps_taken = 0
  *         self.player.reset()
  *         return self.get_observation()             # <<<<<<<<<<<<<<
@@ -2743,13 +2743,13 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_reset(stru
  *     cpdef step(self, float l, float r):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = ((struct __pyx_vtabstruct_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self->__pyx_vtab)->get_observation(__pyx_v_self, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_1 = ((struct __pyx_vtabstruct_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self->__pyx_vtab)->get_observation(__pyx_v_self, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/game_cy.pyx":80
+  /* "environment/entities/cy/game_cy.pyx":80
  *         }
  * 
  *     cpdef dict reset(self):             # <<<<<<<<<<<<<<
@@ -2763,7 +2763,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_reset(stru
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.reset", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.reset", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2772,26 +2772,26 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_reset(stru
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_7reset(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_11environment_11cy_entities_7game_cy_6GameCy_6reset[] = "\n        Reset the game.\n\n        :return: Observation\n        ";
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_7reset(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_7reset(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_6reset[] = "\n        Reset the game.\n\n        :return: Observation\n        ";
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_7reset(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("reset (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6reset(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6reset(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6reset(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6reset(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("reset", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_reset(__pyx_v_self, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_reset(__pyx_v_self, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -2800,7 +2800,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6reset(st
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.reset", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.reset", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2808,7 +2808,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6reset(st
   return __pyx_r;
 }
 
-/* "environment/cy_entities/game_cy.pyx":90
+/* "environment/entities/cy/game_cy.pyx":90
  *         return self.get_observation()
  * 
  *     cpdef step(self, float l, float r):             # <<<<<<<<<<<<<<
@@ -2816,10 +2816,10 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6reset(st
  *         Progress one step in the game.
  */
 
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_9step(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_step(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, float __pyx_v_l, float __pyx_v_r, int __pyx_skip_dispatch) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_9step(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_step(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, float __pyx_v_l, float __pyx_v_r, int __pyx_skip_dispatch) {
   float __pyx_v_dt;
-  struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *__pyx_v_wall = 0;
+  struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_wall = 0;
   int __pyx_v_inter;
   CYTHON_UNUSED PyObject *__pyx_v__ = NULL;
   PyObject *__pyx_r = NULL;
@@ -2848,7 +2848,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_step(struc
       #endif
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_step); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 90, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_9step)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_9step)) {
         __Pyx_XDECREF(__pyx_r);
         __pyx_t_3 = PyFloat_FromDouble(__pyx_v_l); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 90, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
@@ -2922,7 +2922,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_step(struc
     #endif
   }
 
-  /* "environment/cy_entities/game_cy.pyx":105
+  /* "environment/entities/cy/game_cy.pyx":105
  * 
  *         # Progress the game
  *         dt = 1.0 / FPS + abs(random.gauss(0, NOISE_TIME)) if self.noise else 1.0 / FPS             # <<<<<<<<<<<<<<
@@ -3011,7 +3011,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_step(struc
   }
   __pyx_v_dt = __pyx_t_9;
 
-  /* "environment/cy_entities/game_cy.pyx":106
+  /* "environment/entities/cy/game_cy.pyx":106
  *         # Progress the game
  *         dt = 1.0 / FPS + abs(random.gauss(0, NOISE_TIME)) if self.noise else 1.0 / FPS
  *         self.steps_taken += 1             # <<<<<<<<<<<<<<
@@ -3020,16 +3020,16 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_step(struc
  */
   __pyx_v_self->steps_taken = (__pyx_v_self->steps_taken + 1);
 
-  /* "environment/cy_entities/game_cy.pyx":107
+  /* "environment/entities/cy/game_cy.pyx":107
  *         dt = 1.0 / FPS + abs(random.gauss(0, NOISE_TIME)) if self.noise else 1.0 / FPS
  *         self.steps_taken += 1
  *         self.player.drive(dt, lw=l, rw=r)             # <<<<<<<<<<<<<<
  * 
  *         # Check if intersected with a wall, if so then set player back to old position
  */
-  ((struct __pyx_vtabstruct_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self->player->__pyx_vtab)->drive(__pyx_v_self->player, __pyx_v_dt, __pyx_v_l, __pyx_v_r);
+  ((struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy *)__pyx_v_self->player->__pyx_vtab)->drive(__pyx_v_self->player, __pyx_v_dt, __pyx_v_l, __pyx_v_r);
 
-  /* "environment/cy_entities/game_cy.pyx":110
+  /* "environment/entities/cy/game_cy.pyx":110
  * 
  *         # Check if intersected with a wall, if so then set player back to old position
  *         for wall in self.walls:             # <<<<<<<<<<<<<<
@@ -3049,11 +3049,11 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_step(struc
     __pyx_t_1 = PySequence_ITEM(__pyx_t_8, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 110, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     #endif
-    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_11environment_11cy_entities_9line2d_cy_Line2dCy))))) __PYX_ERR(0, 110, __pyx_L1_error)
-    __Pyx_XDECREF_SET(__pyx_v_wall, ((struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *)__pyx_t_1));
+    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy))))) __PYX_ERR(0, 110, __pyx_L1_error)
+    __Pyx_XDECREF_SET(__pyx_v_wall, ((struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *)__pyx_t_1));
     __pyx_t_1 = 0;
 
-    /* "environment/cy_entities/game_cy.pyx":111
+    /* "environment/entities/cy/game_cy.pyx":111
  *         # Check if intersected with a wall, if so then set player back to old position
  *         for wall in self.walls:
  *             inter, _ = circle_line_intersection_cy(c=self.player.pos, r=self.player.radius, l=wall)             # <<<<<<<<<<<<<<
@@ -3062,7 +3062,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_step(struc
  */
     __pyx_t_1 = ((PyObject *)__pyx_v_self->player->pos);
     __Pyx_INCREF(__pyx_t_1);
-    __pyx_t_2 = __pyx_f_11environment_11cy_entities_15intersection_cy_circle_line_intersection_cy(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_1), __pyx_v_self->player->radius, __pyx_v_wall, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 111, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_5utils_2cy_15intersection_cy_circle_line_intersection_cy(((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)__pyx_t_1), __pyx_v_self->player->radius, __pyx_v_wall, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 111, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (likely(__pyx_t_2 != Py_None)) {
@@ -3094,7 +3094,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_step(struc
     __Pyx_XDECREF_SET(__pyx_v__, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "environment/cy_entities/game_cy.pyx":112
+    /* "environment/entities/cy/game_cy.pyx":112
  *         for wall in self.walls:
  *             inter, _ = circle_line_intersection_cy(c=self.player.pos, r=self.player.radius, l=wall)
  *             if inter:             # <<<<<<<<<<<<<<
@@ -3104,7 +3104,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_step(struc
     __pyx_t_12 = (__pyx_v_inter != 0);
     if (__pyx_t_12) {
 
-      /* "environment/cy_entities/game_cy.pyx":113
+      /* "environment/entities/cy/game_cy.pyx":113
  *             inter, _ = circle_line_intersection_cy(c=self.player.pos, r=self.player.radius, l=wall)
  *             if inter:
  *                 self.player.pos.x = self.player.prev_pos.x             # <<<<<<<<<<<<<<
@@ -3114,7 +3114,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_step(struc
       __pyx_t_9 = __pyx_v_self->player->prev_pos->x;
       __pyx_v_self->player->pos->x = __pyx_t_9;
 
-      /* "environment/cy_entities/game_cy.pyx":114
+      /* "environment/entities/cy/game_cy.pyx":114
  *             if inter:
  *                 self.player.pos.x = self.player.prev_pos.x
  *                 self.player.pos.y = self.player.prev_pos.y             # <<<<<<<<<<<<<<
@@ -3124,7 +3124,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_step(struc
       __pyx_t_9 = __pyx_v_self->player->prev_pos->y;
       __pyx_v_self->player->pos->y = __pyx_t_9;
 
-      /* "environment/cy_entities/game_cy.pyx":115
+      /* "environment/entities/cy/game_cy.pyx":115
  *                 self.player.pos.x = self.player.prev_pos.x
  *                 self.player.pos.y = self.player.prev_pos.y
  *                 self.player.angle = self.player.prev_angle             # <<<<<<<<<<<<<<
@@ -3134,7 +3134,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_step(struc
       __pyx_t_9 = __pyx_v_self->player->prev_angle;
       __pyx_v_self->player->angle = __pyx_t_9;
 
-      /* "environment/cy_entities/game_cy.pyx":116
+      /* "environment/entities/cy/game_cy.pyx":116
  *                 self.player.pos.y = self.player.prev_pos.y
  *                 self.player.angle = self.player.prev_angle
  *                 break             # <<<<<<<<<<<<<<
@@ -3143,7 +3143,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_step(struc
  */
       goto __pyx_L4_break;
 
-      /* "environment/cy_entities/game_cy.pyx":112
+      /* "environment/entities/cy/game_cy.pyx":112
  *         for wall in self.walls:
  *             inter, _ = circle_line_intersection_cy(c=self.player.pos, r=self.player.radius, l=wall)
  *             if inter:             # <<<<<<<<<<<<<<
@@ -3152,7 +3152,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_step(struc
  */
     }
 
-    /* "environment/cy_entities/game_cy.pyx":110
+    /* "environment/entities/cy/game_cy.pyx":110
  * 
  *         # Check if intersected with a wall, if so then set player back to old position
  *         for wall in self.walls:             # <<<<<<<<<<<<<<
@@ -3163,14 +3163,14 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_step(struc
   __pyx_L4_break:;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":119
+  /* "environment/entities/cy/game_cy.pyx":119
  * 
  *         # Check if target reached
  *         if self.player.get_sensor_reading_distance() <= TARGET_REACHED:             # <<<<<<<<<<<<<<
  *             self.done = True
  * 
  */
-  __pyx_t_8 = PyFloat_FromDouble(((struct __pyx_vtabstruct_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self->player->__pyx_vtab)->get_sensor_reading_distance(__pyx_v_self->player, 0)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 119, __pyx_L1_error)
+  __pyx_t_8 = PyFloat_FromDouble(((struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy *)__pyx_v_self->player->__pyx_vtab)->get_sensor_reading_distance(__pyx_v_self->player, 0)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_TARGET_REACHED); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -3181,7 +3181,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_step(struc
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (__pyx_t_12) {
 
-    /* "environment/cy_entities/game_cy.pyx":120
+    /* "environment/entities/cy/game_cy.pyx":120
  *         # Check if target reached
  *         if self.player.get_sensor_reading_distance() <= TARGET_REACHED:
  *             self.done = True             # <<<<<<<<<<<<<<
@@ -3190,7 +3190,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_step(struc
  */
     __pyx_v_self->done = 1;
 
-    /* "environment/cy_entities/game_cy.pyx":119
+    /* "environment/entities/cy/game_cy.pyx":119
  * 
  *         # Check if target reached
  *         if self.player.get_sensor_reading_distance() <= TARGET_REACHED:             # <<<<<<<<<<<<<<
@@ -3199,7 +3199,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_step(struc
  */
   }
 
-  /* "environment/cy_entities/game_cy.pyx":123
+  /* "environment/entities/cy/game_cy.pyx":123
  * 
  *         # Return the current observations
  *         return self.get_observation()             # <<<<<<<<<<<<<<
@@ -3207,13 +3207,13 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_step(struc
  *     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_3 = ((struct __pyx_vtabstruct_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self->__pyx_vtab)->get_observation(__pyx_v_self, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 123, __pyx_L1_error)
+  __pyx_t_3 = ((struct __pyx_vtabstruct_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self->__pyx_vtab)->get_observation(__pyx_v_self, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 123, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_r = __pyx_t_3;
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/game_cy.pyx":90
+  /* "environment/entities/cy/game_cy.pyx":90
  *         return self.get_observation()
  * 
  *     cpdef step(self, float l, float r):             # <<<<<<<<<<<<<<
@@ -3230,7 +3230,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_step(struc
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.step", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.step", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_wall);
@@ -3241,9 +3241,9 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_step(struc
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_9step(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_11environment_11cy_entities_7game_cy_6GameCy_8step[] = "\n        Progress one step in the game.\n\n        :param l: Left wheel speed [-1..1]\n        :param r: Right wheel speed [-1..1]\n        :return: Observation (Dictionary), target_reached (Boolean)\n        ";
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_9step(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_9step(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_8step[] = "\n        Progress one step in the game.\n\n        :param l: Left wheel speed [-1..1]\n        :param r: Right wheel speed [-1..1]\n        :return: Observation (Dictionary), target_reached (Boolean)\n        ";
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_9step(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   float __pyx_v_l;
   float __pyx_v_r;
   PyObject *__pyx_r = 0;
@@ -3291,24 +3291,24 @@ static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_9step(PyO
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("step", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 90, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.step", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.step", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_8step(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self), __pyx_v_l, __pyx_v_r);
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_8step(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self), __pyx_v_l, __pyx_v_r);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_8step(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, float __pyx_v_l, float __pyx_v_r) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_8step(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, float __pyx_v_l, float __pyx_v_r) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("step", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_step(__pyx_v_self, __pyx_v_l, __pyx_v_r, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 90, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_step(__pyx_v_self, __pyx_v_l, __pyx_v_r, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 90, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3317,7 +3317,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_8step(str
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.step", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.step", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3325,7 +3325,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_8step(str
   return __pyx_r;
 }
 
-/* "environment/cy_entities/game_cy.pyx":127
+/* "environment/entities/cy/game_cy.pyx":127
  *     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
  * 
  *     cpdef void create_empty_game(self):             # <<<<<<<<<<<<<<
@@ -3333,8 +3333,8 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_8step(str
  *         Create an empty game that only contains the boundary walls.
  */
 
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_11create_empty_game(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_create_empty_game(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_11create_empty_game(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_create_empty_game(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch) {
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
@@ -3353,7 +3353,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_create_empty_ga
       #endif
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_create_empty_game); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 127, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_11create_empty_game)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_11create_empty_game)) {
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
         if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
@@ -3387,14 +3387,14 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_create_empty_ga
     #endif
   }
 
-  /* "environment/cy_entities/game_cy.pyx":132
+  /* "environment/entities/cy/game_cy.pyx":132
  *         """
  *         # Create random set of walls
  *         self.walls = get_boundary_walls()             # <<<<<<<<<<<<<<
  *         self.target = Vec2dCy(0.5, AXIS_Y - 0.5)
  *         self.player = FootBotCy(game=self,
  */
-  __pyx_t_1 = __pyx_f_11environment_11cy_entities_7game_cy_get_boundary_walls(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_11environment_8entities_2cy_7game_cy_get_boundary_walls(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v_self->walls);
@@ -3402,7 +3402,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_create_empty_ga
   __pyx_v_self->walls = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":133
+  /* "environment/entities/cy/game_cy.pyx":133
  *         # Create random set of walls
  *         self.walls = get_boundary_walls()
  *         self.target = Vec2dCy(0.5, AXIS_Y - 0.5)             # <<<<<<<<<<<<<<
@@ -3422,16 +3422,16 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_create_empty_ga
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 133, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy), __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_GIVEREF(__pyx_t_2);
   __Pyx_GOTREF(__pyx_v_self->target);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->target));
-  __pyx_v_self->target = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_2);
+  __pyx_v_self->target = ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":134
+  /* "environment/entities/cy/game_cy.pyx":134
  *         self.walls = get_boundary_walls()
  *         self.target = Vec2dCy(0.5, AXIS_Y - 0.5)
  *         self.player = FootBotCy(game=self,             # <<<<<<<<<<<<<<
@@ -3442,7 +3442,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_create_empty_ga
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_game, ((PyObject *)__pyx_v_self)) < 0) __PYX_ERR(0, 134, __pyx_L1_error)
 
-  /* "environment/cy_entities/game_cy.pyx":135
+  /* "environment/entities/cy/game_cy.pyx":135
  *         self.target = Vec2dCy(0.5, AXIS_Y - 0.5)
  *         self.player = FootBotCy(game=self,
  *                                 init_pos=Vec2dCy(AXIS_X - 0.5, 0.5),             # <<<<<<<<<<<<<<
@@ -3462,13 +3462,13 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_create_empty_ga
   __Pyx_GIVEREF(__pyx_float_0_5);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_float_0_5);
   __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 135, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy), __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 135, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_init_pos, __pyx_t_3) < 0) __PYX_ERR(0, 134, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":136
+  /* "environment/entities/cy/game_cy.pyx":136
  *         self.player = FootBotCy(game=self,
  *                                 init_pos=Vec2dCy(AXIS_X - 0.5, 0.5),
  *                                 init_orient=np.pi / 2)             # <<<<<<<<<<<<<<
@@ -3486,32 +3486,32 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_create_empty_ga
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_init_orient, __pyx_t_3) < 0) __PYX_ERR(0, 134, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":134
+  /* "environment/entities/cy/game_cy.pyx":134
  *         self.walls = get_boundary_walls()
  *         self.target = Vec2dCy(0.5, AXIS_Y - 0.5)
  *         self.player = FootBotCy(game=self,             # <<<<<<<<<<<<<<
  *                                 init_pos=Vec2dCy(AXIS_X - 0.5, 0.5),
  *                                 init_orient=np.pi / 2)
  */
-  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_9robots_cy_FootBotCy), __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_8entities_2cy_9robots_cy_FootBotCy), __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 134, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_GIVEREF(__pyx_t_3);
   __Pyx_GOTREF(__pyx_v_self->player);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->player));
-  __pyx_v_self->player = ((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_t_3);
+  __pyx_v_self->player = ((struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":139
+  /* "environment/entities/cy/game_cy.pyx":139
  * 
  *         # Save the new game
  *         self.save()             # <<<<<<<<<<<<<<
  * 
  *         if not self.silent:
  */
-  ((struct __pyx_vtabstruct_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self->__pyx_vtab)->save(__pyx_v_self, 0);
+  ((struct __pyx_vtabstruct_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self->__pyx_vtab)->save(__pyx_v_self, 0);
 
-  /* "environment/cy_entities/game_cy.pyx":141
+  /* "environment/entities/cy/game_cy.pyx":141
  *         self.save()
  * 
  *         if not self.silent:             # <<<<<<<<<<<<<<
@@ -3521,7 +3521,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_create_empty_ga
   __pyx_t_5 = ((!(__pyx_v_self->silent != 0)) != 0);
   if (__pyx_t_5) {
 
-    /* "environment/cy_entities/game_cy.pyx":142
+    /* "environment/entities/cy/game_cy.pyx":142
  * 
  *         if not self.silent:
  *             print("New game created under id: {}".format(self.id))             # <<<<<<<<<<<<<<
@@ -3551,7 +3551,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_create_empty_ga
     if (__Pyx_PrintOne(0, __pyx_t_3) < 0) __PYX_ERR(0, 142, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "environment/cy_entities/game_cy.pyx":141
+    /* "environment/entities/cy/game_cy.pyx":141
  *         self.save()
  * 
  *         if not self.silent:             # <<<<<<<<<<<<<<
@@ -3560,7 +3560,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_create_empty_ga
  */
   }
 
-  /* "environment/cy_entities/game_cy.pyx":127
+  /* "environment/entities/cy/game_cy.pyx":127
  *     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
  * 
  *     cpdef void create_empty_game(self):             # <<<<<<<<<<<<<<
@@ -3575,32 +3575,32 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_create_empty_ga
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_WriteUnraisable("environment.cy_entities.game_cy.GameCy.create_empty_game", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __Pyx_WriteUnraisable("environment.entities.cy.game_cy.GameCy.create_empty_game", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_11create_empty_game(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_11environment_11cy_entities_7game_cy_6GameCy_10create_empty_game[] = "\n        Create an empty game that only contains the boundary walls.\n        ";
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_11create_empty_game(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_11create_empty_game(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_10create_empty_game[] = "\n        Create an empty game that only contains the boundary walls.\n        ";
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_11create_empty_game(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("create_empty_game (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_10create_empty_game(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_10create_empty_game(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_10create_empty_game(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_10create_empty_game(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("create_empty_game", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_void_to_None(__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_create_empty_game(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 127, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_void_to_None(__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_create_empty_game(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 127, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3609,7 +3609,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_10create_
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.create_empty_game", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.create_empty_game", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3617,7 +3617,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_10create_
   return __pyx_r;
 }
 
-/* "environment/cy_entities/game_cy.pyx":144
+/* "environment/entities/cy/game_cy.pyx":144
  *             print("New game created under id: {}".format(self.id))
  * 
  *     cpdef dict get_observation(self):             # <<<<<<<<<<<<<<
@@ -3625,8 +3625,8 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_10create_
  *         Get the current observation of the game. The following gets returned as a dictionary:
  */
 
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_13get_observation(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_observation(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_13get_observation(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_observation(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -3645,7 +3645,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_observ
       #endif
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_observation); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 144, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_13get_observation)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_13get_observation)) {
         __Pyx_XDECREF(__pyx_r);
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
@@ -3682,7 +3682,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_observ
     #endif
   }
 
-  /* "environment/cy_entities/game_cy.pyx":153
+  /* "environment/entities/cy/game_cy.pyx":153
  *          * D_SENSOR_LIST: List of all the sensors (proximity, angular, distance)
  *         """
  *         return {             # <<<<<<<<<<<<<<
@@ -3691,7 +3691,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_observ
  */
   __Pyx_XDECREF(__pyx_r);
 
-  /* "environment/cy_entities/game_cy.pyx":154
+  /* "environment/entities/cy/game_cy.pyx":154
  *         """
  *         return {
  *             D_ANGLE:          self.player.angle,             # <<<<<<<<<<<<<<
@@ -3708,7 +3708,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_observ
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":155
+  /* "environment/entities/cy/game_cy.pyx":155
  *         return {
  *             D_ANGLE:          self.player.angle,
  *             D_DIST_TO_TARGET: self.player.get_sensor_reading_distance(),             # <<<<<<<<<<<<<<
@@ -3717,13 +3717,13 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_observ
  */
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_D_DIST_TO_TARGET); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 155, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = PyFloat_FromDouble(((struct __pyx_vtabstruct_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self->player->__pyx_vtab)->get_sensor_reading_distance(__pyx_v_self->player, 0)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 155, __pyx_L1_error)
+  __pyx_t_2 = PyFloat_FromDouble(((struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy *)__pyx_v_self->player->__pyx_vtab)->get_sensor_reading_distance(__pyx_v_self->player, 0)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 155, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_t_1, __pyx_t_3, __pyx_t_2) < 0) __PYX_ERR(0, 154, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":156
+  /* "environment/entities/cy/game_cy.pyx":156
  *             D_ANGLE:          self.player.angle,
  *             D_DIST_TO_TARGET: self.player.get_sensor_reading_distance(),
  *             D_DONE:           self.done,             # <<<<<<<<<<<<<<
@@ -3738,7 +3738,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_observ
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":157
+  /* "environment/entities/cy/game_cy.pyx":157
  *             D_DIST_TO_TARGET: self.player.get_sensor_reading_distance(),
  *             D_DONE:           self.done,
  *             D_GAME_ID:        self.id,             # <<<<<<<<<<<<<<
@@ -3753,7 +3753,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_observ
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":158
+  /* "environment/entities/cy/game_cy.pyx":158
  *             D_DONE:           self.done,
  *             D_GAME_ID:        self.id,
  *             D_POS:            self.player.pos,             # <<<<<<<<<<<<<<
@@ -3765,7 +3765,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_observ
   if (PyDict_SetItem(__pyx_t_1, __pyx_t_2, ((PyObject *)__pyx_v_self->player->pos)) < 0) __PYX_ERR(0, 154, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":159
+  /* "environment/entities/cy/game_cy.pyx":159
  *             D_GAME_ID:        self.id,
  *             D_POS:            self.player.pos,
  *             D_SENSOR_LIST:    self.get_sensor_list(),             # <<<<<<<<<<<<<<
@@ -3774,13 +3774,13 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_observ
  */
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_SENSOR_LIST); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 159, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = ((struct __pyx_vtabstruct_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self->__pyx_vtab)->get_sensor_list(__pyx_v_self, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 159, __pyx_L1_error)
+  __pyx_t_3 = ((struct __pyx_vtabstruct_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self->__pyx_vtab)->get_sensor_list(__pyx_v_self, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 159, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_t_1, __pyx_t_2, __pyx_t_3) < 0) __PYX_ERR(0, 154, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":160
+  /* "environment/entities/cy/game_cy.pyx":160
  *             D_POS:            self.player.pos,
  *             D_SENSOR_LIST:    self.get_sensor_list(),
  *             D_STEPS:          self.steps_taken,             # <<<<<<<<<<<<<<
@@ -3798,7 +3798,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_observ
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/game_cy.pyx":144
+  /* "environment/entities/cy/game_cy.pyx":144
  *             print("New game created under id: {}".format(self.id))
  * 
  *     cpdef dict get_observation(self):             # <<<<<<<<<<<<<<
@@ -3812,7 +3812,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_observ
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.get_observation", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.get_observation", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3821,26 +3821,26 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_observ
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_13get_observation(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_11environment_11cy_entities_7game_cy_6GameCy_12get_observation[] = "\n        Get the current observation of the game. The following gets returned as a dictionary:\n         * D_ANGLE: The angle the player is currently heading\n         * D_DIST_TO_TARGET: Distance from player's current position to target in crows flight\n         * D_GAME_ID: The game's ID\n         * D_POS: The current position of the player in the maze (expressed in pixels)\n         * D_SENSOR_LIST: List of all the sensors (proximity, angular, distance)\n        ";
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_13get_observation(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_13get_observation(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_12get_observation[] = "\n        Get the current observation of the game. The following gets returned as a dictionary:\n         * D_ANGLE: The angle the player is currently heading\n         * D_DIST_TO_TARGET: Distance from player's current position to target in crows flight\n         * D_GAME_ID: The game's ID\n         * D_POS: The current position of the player in the maze (expressed in pixels)\n         * D_SENSOR_LIST: List of all the sensors (proximity, angular, distance)\n        ";
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_13get_observation(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_observation (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_12get_observation(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_12get_observation(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_12get_observation(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_12get_observation(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_observation", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_observation(__pyx_v_self, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 144, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_observation(__pyx_v_self, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 144, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3849,7 +3849,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_12get_obs
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.get_observation", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.get_observation", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3857,7 +3857,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_12get_obs
   return __pyx_r;
 }
 
-/* "environment/cy_entities/game_cy.pyx":163
+/* "environment/entities/cy/game_cy.pyx":163
  *         }
  * 
  *     cpdef list get_sensor_list(self):             # <<<<<<<<<<<<<<
@@ -3865,8 +3865,8 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_12get_obs
  *         Return a list of sensory-readings, with first the proximity sensors, then the angular sensors and at the end the
  */
 
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_15get_sensor_list(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_sensor_list(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_15get_sensor_list(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_sensor_list(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch) {
   PyObject *__pyx_v_sensor_readings = 0;
   PyObject *__pyx_v_proximity = 0;
   PyObject *__pyx_v_angular = 0;
@@ -3896,7 +3896,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_sensor
       #endif
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_sensor_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 163, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_15get_sensor_list)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_15get_sensor_list)) {
         __Pyx_XDECREF(__pyx_r);
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
@@ -3933,19 +3933,19 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_sensor
     #endif
   }
 
-  /* "environment/cy_entities/game_cy.pyx":176
+  /* "environment/entities/cy/game_cy.pyx":176
  * 
  *         # Read the sensors
  *         sensor_readings = self.player.get_sensor_readings()             # <<<<<<<<<<<<<<
  *         proximity = sensor_readings[D_SENSOR_PROXIMITY]
  *         angular = sensor_readings[D_SENSOR_ANGLE]
  */
-  __pyx_t_1 = ((struct __pyx_vtabstruct_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self->player->__pyx_vtab)->get_sensor_readings(__pyx_v_self->player); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 176, __pyx_L1_error)
+  __pyx_t_1 = ((struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy *)__pyx_v_self->player->__pyx_vtab)->get_sensor_readings(__pyx_v_self->player); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 176, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_sensor_readings = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":177
+  /* "environment/entities/cy/game_cy.pyx":177
  *         # Read the sensors
  *         sensor_readings = self.player.get_sensor_readings()
  *         proximity = sensor_readings[D_SENSOR_PROXIMITY]             # <<<<<<<<<<<<<<
@@ -3965,7 +3965,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_sensor
   __pyx_v_proximity = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":178
+  /* "environment/entities/cy/game_cy.pyx":178
  *         sensor_readings = self.player.get_sensor_readings()
  *         proximity = sensor_readings[D_SENSOR_PROXIMITY]
  *         angular = sensor_readings[D_SENSOR_ANGLE]             # <<<<<<<<<<<<<<
@@ -3985,7 +3985,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_sensor
   __pyx_v_angular = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":179
+  /* "environment/entities/cy/game_cy.pyx":179
  *         proximity = sensor_readings[D_SENSOR_PROXIMITY]
  *         angular = sensor_readings[D_SENSOR_ANGLE]
  *         distance = sensor_readings[D_SENSOR_DISTANCE]             # <<<<<<<<<<<<<<
@@ -4005,7 +4005,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_sensor
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_distance = __pyx_t_5;
 
-  /* "environment/cy_entities/game_cy.pyx":182
+  /* "environment/entities/cy/game_cy.pyx":182
  * 
  *         # Add sensory-readings in one list
  *         result = []             # <<<<<<<<<<<<<<
@@ -4017,7 +4017,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_sensor
   __pyx_v_result = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":183
+  /* "environment/entities/cy/game_cy.pyx":183
  *         # Add sensory-readings in one list
  *         result = []
  *         for i in range(len(proximity)):  # Proximity IDs go from 0 to proximity_length             # <<<<<<<<<<<<<<
@@ -4033,7 +4033,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_sensor
   for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
     __pyx_v_i = __pyx_t_8;
 
-    /* "environment/cy_entities/game_cy.pyx":184
+    /* "environment/entities/cy/game_cy.pyx":184
  *         result = []
  *         for i in range(len(proximity)):  # Proximity IDs go from 0 to proximity_length
  *             result.append(proximity[i])             # <<<<<<<<<<<<<<
@@ -4053,7 +4053,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_sensor
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
 
-  /* "environment/cy_entities/game_cy.pyx":185
+  /* "environment/entities/cy/game_cy.pyx":185
  *         for i in range(len(proximity)):  # Proximity IDs go from 0 to proximity_length
  *             result.append(proximity[i])
  *         for i in range(len(angular)):  # Angular IDs go from 0 to angular_length             # <<<<<<<<<<<<<<
@@ -4069,7 +4069,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_sensor
   for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
     __pyx_v_i = __pyx_t_8;
 
-    /* "environment/cy_entities/game_cy.pyx":186
+    /* "environment/entities/cy/game_cy.pyx":186
  *             result.append(proximity[i])
  *         for i in range(len(angular)):  # Angular IDs go from 0 to angular_length
  *             result.append(angular[i])             # <<<<<<<<<<<<<<
@@ -4089,7 +4089,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_sensor
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
 
-  /* "environment/cy_entities/game_cy.pyx":187
+  /* "environment/entities/cy/game_cy.pyx":187
  *         for i in range(len(angular)):  # Angular IDs go from 0 to angular_length
  *             result.append(angular[i])
  *         result.append(distance)             # <<<<<<<<<<<<<<
@@ -4101,7 +4101,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_sensor
   __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_result, __pyx_t_2); if (unlikely(__pyx_t_9 == ((int)-1))) __PYX_ERR(0, 187, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":188
+  /* "environment/entities/cy/game_cy.pyx":188
  *             result.append(angular[i])
  *         result.append(distance)
  *         return result             # <<<<<<<<<<<<<<
@@ -4113,7 +4113,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_sensor
   __pyx_r = __pyx_v_result;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/game_cy.pyx":163
+  /* "environment/entities/cy/game_cy.pyx":163
  *         }
  * 
  *     cpdef list get_sensor_list(self):             # <<<<<<<<<<<<<<
@@ -4127,7 +4127,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_sensor
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.get_sensor_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.get_sensor_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_sensor_readings);
@@ -4140,26 +4140,26 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_sensor
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_15get_sensor_list(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_11environment_11cy_entities_7game_cy_6GameCy_14get_sensor_list[] = "\n        Return a list of sensory-readings, with first the proximity sensors, then the angular sensors and at the end the\n        distance-sensor.\n        ";
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_15get_sensor_list(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_15get_sensor_list(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_14get_sensor_list[] = "\n        Return a list of sensory-readings, with first the proximity sensors, then the angular sensors and at the end the\n        distance-sensor.\n        ";
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_15get_sensor_list(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_sensor_list (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_14get_sensor_list(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_14get_sensor_list(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_14get_sensor_list(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_14get_sensor_list(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_sensor_list", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_sensor_list(__pyx_v_self, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_sensor_list(__pyx_v_self, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 163, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -4168,7 +4168,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_14get_sen
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.get_sensor_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.get_sensor_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4176,7 +4176,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_14get_sen
   return __pyx_r;
 }
 
-/* "environment/cy_entities/game_cy.pyx":190
+/* "environment/entities/cy/game_cy.pyx":190
  *         return result
  * 
  *     cpdef void set_player_angle(self, float a):             # <<<<<<<<<<<<<<
@@ -4184,8 +4184,8 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_14get_sen
  *         Set a new initial angle for the player.
  */
 
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_17set_player_angle(PyObject *__pyx_v_self, PyObject *__pyx_arg_a); /*proto*/
-static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_set_player_angle(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, float __pyx_v_a, int __pyx_skip_dispatch) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_17set_player_angle(PyObject *__pyx_v_self, PyObject *__pyx_arg_a); /*proto*/
+static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_angle(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, float __pyx_v_a, int __pyx_skip_dispatch) {
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
@@ -4204,7 +4204,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_set_player_angl
       #endif
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_player_angle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 190, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_17set_player_angle)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_17set_player_angle)) {
         __pyx_t_3 = PyFloat_FromDouble(__pyx_v_a); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 190, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_INCREF(__pyx_t_1);
@@ -4241,7 +4241,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_set_player_angl
     #endif
   }
 
-  /* "environment/cy_entities/game_cy.pyx":194
+  /* "environment/entities/cy/game_cy.pyx":194
  *         Set a new initial angle for the player.
  *         """
  *         self.player.init_angle = a             # <<<<<<<<<<<<<<
@@ -4250,7 +4250,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_set_player_angl
  */
   __pyx_v_self->player->init_angle = __pyx_v_a;
 
-  /* "environment/cy_entities/game_cy.pyx":195
+  /* "environment/entities/cy/game_cy.pyx":195
  *         """
  *         self.player.init_angle = a
  *         self.player.angle = a             # <<<<<<<<<<<<<<
@@ -4259,7 +4259,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_set_player_angl
  */
   __pyx_v_self->player->angle = __pyx_v_a;
 
-  /* "environment/cy_entities/game_cy.pyx":190
+  /* "environment/entities/cy/game_cy.pyx":190
  *         return result
  * 
  *     cpdef void set_player_angle(self, float a):             # <<<<<<<<<<<<<<
@@ -4275,15 +4275,15 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_set_player_angl
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_WriteUnraisable("environment.cy_entities.game_cy.GameCy.set_player_angle", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __Pyx_WriteUnraisable("environment.entities.cy.game_cy.GameCy.set_player_angle", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_17set_player_angle(PyObject *__pyx_v_self, PyObject *__pyx_arg_a); /*proto*/
-static char __pyx_doc_11environment_11cy_entities_7game_cy_6GameCy_16set_player_angle[] = "\n        Set a new initial angle for the player.\n        ";
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_17set_player_angle(PyObject *__pyx_v_self, PyObject *__pyx_arg_a) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_17set_player_angle(PyObject *__pyx_v_self, PyObject *__pyx_arg_a); /*proto*/
+static char __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_16set_player_angle[] = "\n        Set a new initial angle for the player.\n        ";
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_17set_player_angle(PyObject *__pyx_v_self, PyObject *__pyx_arg_a) {
   float __pyx_v_a;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -4293,24 +4293,24 @@ static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_17set_pla
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.set_player_angle", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.set_player_angle", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_16set_player_angle(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self), ((float)__pyx_v_a));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_16set_player_angle(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self), ((float)__pyx_v_a));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_16set_player_angle(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, float __pyx_v_a) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_16set_player_angle(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, float __pyx_v_a) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("set_player_angle", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_void_to_None(__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_set_player_angle(__pyx_v_self, __pyx_v_a, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 190, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_void_to_None(__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_angle(__pyx_v_self, __pyx_v_a, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 190, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -4319,7 +4319,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_16set_pla
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.set_player_angle", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.set_player_angle", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4327,7 +4327,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_16set_pla
   return __pyx_r;
 }
 
-/* "environment/cy_entities/game_cy.pyx":197
+/* "environment/entities/cy/game_cy.pyx":197
  *         self.player.angle = a
  * 
  *     cpdef void set_player_pos(self, Vec2dCy p):             # <<<<<<<<<<<<<<
@@ -4335,8 +4335,8 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_16set_pla
  *         Set a new initial position for the player.
  */
 
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_19set_player_pos(PyObject *__pyx_v_self, PyObject *__pyx_v_p); /*proto*/
-static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_set_player_pos(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_p, int __pyx_skip_dispatch) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_19set_player_pos(PyObject *__pyx_v_self, PyObject *__pyx_v_p); /*proto*/
+static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_pos(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_p, int __pyx_skip_dispatch) {
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
@@ -4355,7 +4355,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_set_player_pos(
       #endif
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_player_pos); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 197, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_19set_player_pos)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_19set_player_pos)) {
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
         if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
@@ -4389,7 +4389,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_set_player_pos(
     #endif
   }
 
-  /* "environment/cy_entities/game_cy.pyx":201
+  /* "environment/entities/cy/game_cy.pyx":201
  *         Set a new initial position for the player.
  *         """
  *         self.player.init_pos.x = p.x             # <<<<<<<<<<<<<<
@@ -4399,7 +4399,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_set_player_pos(
   __pyx_t_5 = __pyx_v_p->x;
   __pyx_v_self->player->init_pos->x = __pyx_t_5;
 
-  /* "environment/cy_entities/game_cy.pyx":202
+  /* "environment/entities/cy/game_cy.pyx":202
  *         """
  *         self.player.init_pos.x = p.x
  *         self.player.init_pos.y = p.y             # <<<<<<<<<<<<<<
@@ -4409,7 +4409,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_set_player_pos(
   __pyx_t_5 = __pyx_v_p->y;
   __pyx_v_self->player->init_pos->y = __pyx_t_5;
 
-  /* "environment/cy_entities/game_cy.pyx":203
+  /* "environment/entities/cy/game_cy.pyx":203
  *         self.player.init_pos.x = p.x
  *         self.player.init_pos.y = p.y
  *         self.player.pos.x = p.x             # <<<<<<<<<<<<<<
@@ -4419,7 +4419,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_set_player_pos(
   __pyx_t_5 = __pyx_v_p->x;
   __pyx_v_self->player->pos->x = __pyx_t_5;
 
-  /* "environment/cy_entities/game_cy.pyx":204
+  /* "environment/entities/cy/game_cy.pyx":204
  *         self.player.init_pos.y = p.y
  *         self.player.pos.x = p.x
  *         self.player.pos.y = p.y             # <<<<<<<<<<<<<<
@@ -4429,7 +4429,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_set_player_pos(
   __pyx_t_5 = __pyx_v_p->y;
   __pyx_v_self->player->pos->y = __pyx_t_5;
 
-  /* "environment/cy_entities/game_cy.pyx":205
+  /* "environment/entities/cy/game_cy.pyx":205
  *         self.player.pos.x = p.x
  *         self.player.pos.y = p.y
  *         self.player.prev_pos.x = p.x             # <<<<<<<<<<<<<<
@@ -4439,7 +4439,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_set_player_pos(
   __pyx_t_5 = __pyx_v_p->x;
   __pyx_v_self->player->prev_pos->x = __pyx_t_5;
 
-  /* "environment/cy_entities/game_cy.pyx":206
+  /* "environment/entities/cy/game_cy.pyx":206
  *         self.player.pos.y = p.y
  *         self.player.prev_pos.x = p.x
  *         self.player.prev_pos.y = p.y             # <<<<<<<<<<<<<<
@@ -4449,7 +4449,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_set_player_pos(
   __pyx_t_5 = __pyx_v_p->y;
   __pyx_v_self->player->prev_pos->y = __pyx_t_5;
 
-  /* "environment/cy_entities/game_cy.pyx":197
+  /* "environment/entities/cy/game_cy.pyx":197
  *         self.player.angle = a
  * 
  *     cpdef void set_player_pos(self, Vec2dCy p):             # <<<<<<<<<<<<<<
@@ -4464,20 +4464,20 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_set_player_pos(
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_WriteUnraisable("environment.cy_entities.game_cy.GameCy.set_player_pos", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __Pyx_WriteUnraisable("environment.entities.cy.game_cy.GameCy.set_player_pos", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_19set_player_pos(PyObject *__pyx_v_self, PyObject *__pyx_v_p); /*proto*/
-static char __pyx_doc_11environment_11cy_entities_7game_cy_6GameCy_18set_player_pos[] = "\n        Set a new initial position for the player.\n        ";
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_19set_player_pos(PyObject *__pyx_v_self, PyObject *__pyx_v_p) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_19set_player_pos(PyObject *__pyx_v_self, PyObject *__pyx_v_p); /*proto*/
+static char __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_18set_player_pos[] = "\n        Set a new initial position for the player.\n        ";
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_19set_player_pos(PyObject *__pyx_v_self, PyObject *__pyx_v_p) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_player_pos (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_p), __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy, 1, "p", 0))) __PYX_ERR(0, 197, __pyx_L1_error)
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_18set_player_pos(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self), ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_p));
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_p), __pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy, 1, "p", 0))) __PYX_ERR(0, 197, __pyx_L1_error)
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_18set_player_pos(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self), ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)__pyx_v_p));
 
   /* function exit code */
   goto __pyx_L0;
@@ -4488,13 +4488,13 @@ static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_19set_pla
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_18set_player_pos(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_p) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_18set_player_pos(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_p) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("set_player_pos", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_void_to_None(__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_set_player_pos(__pyx_v_self, __pyx_v_p, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_void_to_None(__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_pos(__pyx_v_self, __pyx_v_p, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 197, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -4503,7 +4503,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_18set_pla
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.set_player_pos", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.set_player_pos", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4511,7 +4511,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_18set_pla
   return __pyx_r;
 }
 
-/* "environment/cy_entities/game_cy.pyx":210
+/* "environment/entities/cy/game_cy.pyx":210
  *     # ---------------------------------------------> FUNCTIONAL METHODS <--------------------------------------------- #
  * 
  *     cpdef void save(self):             # <<<<<<<<<<<<<<
@@ -4519,8 +4519,8 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_18set_pla
  *         persist_dict[D_ANGLE] = self.player.init_angle  # Initial angle of player
  */
 
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_21save(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_save(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_21save(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_save(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch) {
   PyObject *__pyx_v_persist_dict = 0;
   PyObject *__pyx_v_f = NULL;
   PyObject *__pyx_v_p = NULL;
@@ -4554,7 +4554,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_save(struct __p
       #endif
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_save); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 210, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_21save)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_21save)) {
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
         if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
@@ -4588,7 +4588,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_save(struct __p
     #endif
   }
 
-  /* "environment/cy_entities/game_cy.pyx":211
+  /* "environment/entities/cy/game_cy.pyx":211
  * 
  *     cpdef void save(self):
  *         cdef dict persist_dict = dict()             # <<<<<<<<<<<<<<
@@ -4600,7 +4600,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_save(struct __p
   __pyx_v_persist_dict = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":212
+  /* "environment/entities/cy/game_cy.pyx":212
  *     cpdef void save(self):
  *         cdef dict persist_dict = dict()
  *         persist_dict[D_ANGLE] = self.player.init_angle  # Initial angle of player             # <<<<<<<<<<<<<<
@@ -4615,7 +4615,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_save(struct __p
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":213
+  /* "environment/entities/cy/game_cy.pyx":213
  *         cdef dict persist_dict = dict()
  *         persist_dict[D_ANGLE] = self.player.init_angle  # Initial angle of player
  *         if self.path: persist_dict[D_PATH] = [(p[0], p[1]) for p in self.path.items()]             # <<<<<<<<<<<<<<
@@ -4697,7 +4697,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_save(struct __p
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
 
-  /* "environment/cy_entities/game_cy.pyx":214
+  /* "environment/entities/cy/game_cy.pyx":214
  *         persist_dict[D_ANGLE] = self.player.init_angle  # Initial angle of player
  *         if self.path: persist_dict[D_PATH] = [(p[0], p[1]) for p in self.path.items()]
  *         persist_dict[D_POS] = (self.player.init_pos.x, self.player.init_pos.y)  # Initial position of player             # <<<<<<<<<<<<<<
@@ -4722,7 +4722,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_save(struct __p
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":215
+  /* "environment/entities/cy/game_cy.pyx":215
  *         if self.path: persist_dict[D_PATH] = [(p[0], p[1]) for p in self.path.items()]
  *         persist_dict[D_POS] = (self.player.init_pos.x, self.player.init_pos.y)  # Initial position of player
  *         persist_dict[D_TARGET] = (self.target.x, self.target.y)             # <<<<<<<<<<<<<<
@@ -4747,7 +4747,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_save(struct __p
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":216
+  /* "environment/entities/cy/game_cy.pyx":216
  *         persist_dict[D_POS] = (self.player.init_pos.x, self.player.init_pos.y)  # Initial position of player
  *         persist_dict[D_TARGET] = (self.target.x, self.target.y)
  *         persist_dict[D_WALLS] = [((w.x.x, w.x.y), (w.y.x, w.y.y)) for w in self.walls]             # <<<<<<<<<<<<<<
@@ -4825,7 +4825,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_save(struct __p
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":217
+  /* "environment/entities/cy/game_cy.pyx":217
  *         persist_dict[D_TARGET] = (self.target.x, self.target.y)
  *         persist_dict[D_WALLS] = [((w.x.x, w.x.y), (w.y.x, w.y.y)) for w in self.walls]
  *         with open('{p}games_db/{g}'.format(p=self.rel_path, g=self), 'wb') as f:             # <<<<<<<<<<<<<<
@@ -4888,7 +4888,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_save(struct __p
           __pyx_v_f = __pyx_t_1;
           __pyx_t_1 = 0;
 
-          /* "environment/cy_entities/game_cy.pyx":218
+          /* "environment/entities/cy/game_cy.pyx":218
  *         persist_dict[D_WALLS] = [((w.x.x, w.x.y), (w.y.x, w.y.y)) for w in self.walls]
  *         with open('{p}games_db/{g}'.format(p=self.rel_path, g=self), 'wb') as f:
  *             pickle.dump(persist_dict, f)             # <<<<<<<<<<<<<<
@@ -4947,7 +4947,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_save(struct __p
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-          /* "environment/cy_entities/game_cy.pyx":217
+          /* "environment/entities/cy/game_cy.pyx":217
  *         persist_dict[D_TARGET] = (self.target.x, self.target.y)
  *         persist_dict[D_WALLS] = [((w.x.x, w.x.y), (w.y.x, w.y.y)) for w in self.walls]
  *         with open('{p}games_db/{g}'.format(p=self.rel_path, g=self), 'wb') as f:             # <<<<<<<<<<<<<<
@@ -4967,7 +4967,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_save(struct __p
         __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
         __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
         /*except:*/ {
-          __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.save", __pyx_clineno, __pyx_lineno, __pyx_filename);
+          __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.save", __pyx_clineno, __pyx_lineno, __pyx_filename);
           if (__Pyx_GetException(&__pyx_t_1, &__pyx_t_3, &__pyx_t_2) < 0) __PYX_ERR(0, 217, __pyx_L14_except_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_GOTREF(__pyx_t_3);
@@ -5030,7 +5030,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_save(struct __p
     __pyx_L21:;
   }
 
-  /* "environment/cy_entities/game_cy.pyx":210
+  /* "environment/entities/cy/game_cy.pyx":210
  *     # ---------------------------------------------> FUNCTIONAL METHODS <--------------------------------------------- #
  * 
  *     cpdef void save(self):             # <<<<<<<<<<<<<<
@@ -5047,7 +5047,7 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_save(struct __p
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_9);
-  __Pyx_WriteUnraisable("environment.cy_entities.game_cy.GameCy.save", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __Pyx_WriteUnraisable("environment.entities.cy.game_cy.GameCy.save", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_persist_dict);
   __Pyx_XDECREF(__pyx_v_f);
@@ -5057,25 +5057,25 @@ static void __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_save(struct __p
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_21save(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_21save(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_21save(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_21save(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("save (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_20save(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_20save(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_20save(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_20save(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("save", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_void_to_None(__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_save(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 210, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_void_to_None(__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_save(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 210, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -5084,7 +5084,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_20save(st
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.save", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.save", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5092,7 +5092,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_20save(st
   return __pyx_r;
 }
 
-/* "environment/cy_entities/game_cy.pyx":220
+/* "environment/entities/cy/game_cy.pyx":220
  *             pickle.dump(persist_dict, f)
  * 
  *     cpdef bint load(self):             # <<<<<<<<<<<<<<
@@ -5100,8 +5100,8 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_20save(st
  *         Load in a game, specified by its current id.
  */
 
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_23load(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static int __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_23load(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch) {
   PyObject *__pyx_v_game = 0;
   PyObject *__pyx_v_f = NULL;
   PyObject *__pyx_7genexpr__pyx_v_p = NULL;
@@ -5140,7 +5140,7 @@ static int __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(struct __py
       #endif
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_load); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 220, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_23load)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_23load)) {
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
         if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
@@ -5176,7 +5176,7 @@ static int __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(struct __py
     #endif
   }
 
-  /* "environment/cy_entities/game_cy.pyx":229
+  /* "environment/entities/cy/game_cy.pyx":229
  *         cdef dict game
  * 
  *         try:             # <<<<<<<<<<<<<<
@@ -5192,7 +5192,7 @@ static int __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(struct __py
     __Pyx_XGOTREF(__pyx_t_8);
     /*try:*/ {
 
-      /* "environment/cy_entities/game_cy.pyx":230
+      /* "environment/entities/cy/game_cy.pyx":230
  * 
  *         try:
  *             with open('{p}games_db/{g}'.format(p=self.rel_path, g=self), 'rb') as f:             # <<<<<<<<<<<<<<
@@ -5255,7 +5255,7 @@ static int __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(struct __py
               __pyx_v_f = __pyx_t_1;
               __pyx_t_1 = 0;
 
-              /* "environment/cy_entities/game_cy.pyx":231
+              /* "environment/entities/cy/game_cy.pyx":231
  *         try:
  *             with open('{p}games_db/{g}'.format(p=self.rel_path, g=self), 'rb') as f:
  *                 game = pickle.load(f)             # <<<<<<<<<<<<<<
@@ -5286,7 +5286,7 @@ static int __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(struct __py
               __pyx_v_game = ((PyObject*)__pyx_t_1);
               __pyx_t_1 = 0;
 
-              /* "environment/cy_entities/game_cy.pyx":230
+              /* "environment/entities/cy/game_cy.pyx":230
  * 
  *         try:
  *             with open('{p}games_db/{g}'.format(p=self.rel_path, g=self), 'rb') as f:             # <<<<<<<<<<<<<<
@@ -5304,7 +5304,7 @@ static int __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(struct __py
             __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
             __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
             /*except:*/ {
-              __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.load", __pyx_clineno, __pyx_lineno, __pyx_filename);
+              __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.load", __pyx_clineno, __pyx_lineno, __pyx_filename);
               if (__Pyx_GetException(&__pyx_t_1, &__pyx_t_2, &__pyx_t_3) < 0) __PYX_ERR(0, 230, __pyx_L15_except_error)
               __Pyx_GOTREF(__pyx_t_1);
               __Pyx_GOTREF(__pyx_t_2);
@@ -5367,7 +5367,7 @@ static int __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(struct __py
         __pyx_L22:;
       }
 
-      /* "environment/cy_entities/game_cy.pyx":232
+      /* "environment/entities/cy/game_cy.pyx":232
  *             with open('{p}games_db/{g}'.format(p=self.rel_path, g=self), 'rb') as f:
  *                 game = pickle.load(f)
  *             self.player = FootBotCy(game=self)  # Create a dummy-player to set values on             # <<<<<<<<<<<<<<
@@ -5377,16 +5377,16 @@ static int __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(struct __py
       __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 232, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_3);
       if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_game, ((PyObject *)__pyx_v_self)) < 0) __PYX_ERR(0, 232, __pyx_L3_error)
-      __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_9robots_cy_FootBotCy), __pyx_empty_tuple, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 232, __pyx_L3_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_8entities_2cy_9robots_cy_FootBotCy), __pyx_empty_tuple, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 232, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GIVEREF(__pyx_t_2);
       __Pyx_GOTREF(__pyx_v_self->player);
       __Pyx_DECREF(((PyObject *)__pyx_v_self->player));
-      __pyx_v_self->player = ((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_t_2);
+      __pyx_v_self->player = ((struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *)__pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "environment/cy_entities/game_cy.pyx":233
+      /* "environment/entities/cy/game_cy.pyx":233
  *                 game = pickle.load(f)
  *             self.player = FootBotCy(game=self)  # Create a dummy-player to set values on
  *             self.set_player_angle(game[D_ANGLE])             # <<<<<<<<<<<<<<
@@ -5405,9 +5405,9 @@ static int __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(struct __py
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_t_15 = __pyx_PyFloat_AsFloat(__pyx_t_3); if (unlikely((__pyx_t_15 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 233, __pyx_L3_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      ((struct __pyx_vtabstruct_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self->__pyx_vtab)->set_player_angle(__pyx_v_self, __pyx_t_15, 0);
+      ((struct __pyx_vtabstruct_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self->__pyx_vtab)->set_player_angle(__pyx_v_self, __pyx_t_15, 0);
 
-      /* "environment/cy_entities/game_cy.pyx":234
+      /* "environment/entities/cy/game_cy.pyx":234
  *             self.player = FootBotCy(game=self)  # Create a dummy-player to set values on
  *             self.set_player_angle(game[D_ANGLE])
  *             self.set_player_pos(Vec2dCy(game[D_POS][0], game[D_POS][1]))             # <<<<<<<<<<<<<<
@@ -5448,13 +5448,13 @@ static int __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(struct __py
       PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_t_2);
       __pyx_t_3 = 0;
       __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 234, __pyx_L3_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy), __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 234, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      ((struct __pyx_vtabstruct_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self->__pyx_vtab)->set_player_pos(__pyx_v_self, ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_2), 0);
+      ((struct __pyx_vtabstruct_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self->__pyx_vtab)->set_player_pos(__pyx_v_self, ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)__pyx_t_2), 0);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "environment/cy_entities/game_cy.pyx":235
+      /* "environment/entities/cy/game_cy.pyx":235
  *             self.set_player_angle(game[D_ANGLE])
  *             self.set_player_pos(Vec2dCy(game[D_POS][0], game[D_POS][1]))
  *             self.path = {p[0]: p[1] for p in game[D_PATH]}             # <<<<<<<<<<<<<<
@@ -5538,7 +5538,7 @@ static int __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(struct __py
       __pyx_v_self->path = ((PyObject*)__pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "environment/cy_entities/game_cy.pyx":236
+      /* "environment/entities/cy/game_cy.pyx":236
  *             self.set_player_pos(Vec2dCy(game[D_POS][0], game[D_POS][1]))
  *             self.path = {p[0]: p[1] for p in game[D_PATH]}
  *             self.target = Vec2dCy(game[D_TARGET][0], game[D_TARGET][1])             # <<<<<<<<<<<<<<
@@ -5579,16 +5579,16 @@ static int __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(struct __py
       PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_1);
       __pyx_t_2 = 0;
       __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 236, __pyx_L3_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy), __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 236, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GIVEREF(__pyx_t_1);
       __Pyx_GOTREF(__pyx_v_self->target);
       __Pyx_DECREF(((PyObject *)__pyx_v_self->target));
-      __pyx_v_self->target = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_1);
+      __pyx_v_self->target = ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)__pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "environment/cy_entities/game_cy.pyx":237
+      /* "environment/entities/cy/game_cy.pyx":237
  *             self.path = {p[0]: p[1] for p in game[D_PATH]}
  *             self.target = Vec2dCy(game[D_TARGET][0], game[D_TARGET][1])
  *             self.walls = [Line2dCy(Vec2dCy(w[0][0], w[0][1]), Vec2dCy(w[1][0], w[1][1])) for w in game[D_WALLS]]             # <<<<<<<<<<<<<<
@@ -5667,7 +5667,7 @@ static int __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(struct __py
         PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_18);
         __pyx_t_3 = 0;
         __pyx_t_18 = 0;
-        __pyx_t_18 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 237, __pyx_L3_error)
+        __pyx_t_18 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 237, __pyx_L3_error)
         __Pyx_GOTREF(__pyx_t_18);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_w, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 237, __pyx_L3_error)
@@ -5688,7 +5688,7 @@ static int __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(struct __py
         PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_19);
         __pyx_t_3 = 0;
         __pyx_t_19 = 0;
-        __pyx_t_19 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 237, __pyx_L3_error)
+        __pyx_t_19 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 237, __pyx_L3_error)
         __Pyx_GOTREF(__pyx_t_19);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 237, __pyx_L3_error)
@@ -5699,7 +5699,7 @@ static int __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(struct __py
         PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_19);
         __pyx_t_18 = 0;
         __pyx_t_19 = 0;
-        __pyx_t_19 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_9line2d_cy_Line2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 237, __pyx_L3_error)
+        __pyx_t_19 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 237, __pyx_L3_error)
         __Pyx_GOTREF(__pyx_t_19);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_19))) __PYX_ERR(0, 237, __pyx_L3_error)
@@ -5712,7 +5712,7 @@ static int __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(struct __py
       __pyx_v_self->walls = ((PyObject*)__pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "environment/cy_entities/game_cy.pyx":238
+      /* "environment/entities/cy/game_cy.pyx":238
  *             self.target = Vec2dCy(game[D_TARGET][0], game[D_TARGET][1])
  *             self.walls = [Line2dCy(Vec2dCy(w[0][0], w[0][1]), Vec2dCy(w[1][0], w[1][1])) for w in game[D_WALLS]]
  *             if not self.silent:             # <<<<<<<<<<<<<<
@@ -5722,7 +5722,7 @@ static int __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(struct __py
       __pyx_t_14 = ((!(__pyx_v_self->silent != 0)) != 0);
       if (__pyx_t_14) {
 
-        /* "environment/cy_entities/game_cy.pyx":239
+        /* "environment/entities/cy/game_cy.pyx":239
  *             self.walls = [Line2dCy(Vec2dCy(w[0][0], w[0][1]), Vec2dCy(w[1][0], w[1][1])) for w in game[D_WALLS]]
  *             if not self.silent:
  *                 print("Existing game loaded with id: {}".format(self.id))             # <<<<<<<<<<<<<<
@@ -5752,7 +5752,7 @@ static int __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(struct __py
         if (__Pyx_PrintOne(0, __pyx_t_1) < 0) __PYX_ERR(0, 239, __pyx_L3_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "environment/cy_entities/game_cy.pyx":238
+        /* "environment/entities/cy/game_cy.pyx":238
  *             self.target = Vec2dCy(game[D_TARGET][0], game[D_TARGET][1])
  *             self.walls = [Line2dCy(Vec2dCy(w[0][0], w[0][1]), Vec2dCy(w[1][0], w[1][1])) for w in game[D_WALLS]]
  *             if not self.silent:             # <<<<<<<<<<<<<<
@@ -5761,7 +5761,7 @@ static int __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(struct __py
  */
       }
 
-      /* "environment/cy_entities/game_cy.pyx":240
+      /* "environment/entities/cy/game_cy.pyx":240
  *             if not self.silent:
  *                 print("Existing game loaded with id: {}".format(self.id))
  *             return True             # <<<<<<<<<<<<<<
@@ -5771,7 +5771,7 @@ static int __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(struct __py
       __pyx_r = 1;
       goto __pyx_L7_try_return;
 
-      /* "environment/cy_entities/game_cy.pyx":229
+      /* "environment/entities/cy/game_cy.pyx":229
  *         cdef dict game
  * 
  *         try:             # <<<<<<<<<<<<<<
@@ -5787,7 +5787,7 @@ static int __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(struct __py
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "environment/cy_entities/game_cy.pyx":241
+    /* "environment/entities/cy/game_cy.pyx":241
  *                 print("Existing game loaded with id: {}".format(self.id))
  *             return True
  *         except FileNotFoundError:             # <<<<<<<<<<<<<<
@@ -5802,13 +5802,13 @@ static int __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(struct __py
     __Pyx_ErrRestore(__pyx_t_1, __pyx_t_4, __pyx_t_19);
     __pyx_t_1 = 0; __pyx_t_4 = 0; __pyx_t_19 = 0;
     if (__pyx_t_20) {
-      __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.load", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.load", __pyx_clineno, __pyx_lineno, __pyx_filename);
       if (__Pyx_GetException(&__pyx_t_19, &__pyx_t_4, &__pyx_t_1) < 0) __PYX_ERR(0, 241, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_19);
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_GOTREF(__pyx_t_1);
 
-      /* "environment/cy_entities/game_cy.pyx":242
+      /* "environment/entities/cy/game_cy.pyx":242
  *             return True
  *         except FileNotFoundError:
  *             return False             # <<<<<<<<<<<<<<
@@ -5824,7 +5824,7 @@ static int __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(struct __py
     goto __pyx_L5_except_error;
     __pyx_L5_except_error:;
 
-    /* "environment/cy_entities/game_cy.pyx":229
+    /* "environment/entities/cy/game_cy.pyx":229
  *         cdef dict game
  * 
  *         try:             # <<<<<<<<<<<<<<
@@ -5850,7 +5850,7 @@ static int __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(struct __py
     goto __pyx_L0;
   }
 
-  /* "environment/cy_entities/game_cy.pyx":220
+  /* "environment/entities/cy/game_cy.pyx":220
  *             pickle.dump(persist_dict, f)
  * 
  *     cpdef bint load(self):             # <<<<<<<<<<<<<<
@@ -5866,7 +5866,7 @@ static int __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(struct __py
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_18);
   __Pyx_XDECREF(__pyx_t_19);
-  __Pyx_WriteUnraisable("environment.cy_entities.game_cy.GameCy.load", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __Pyx_WriteUnraisable("environment.entities.cy.game_cy.GameCy.load", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_game);
@@ -5878,26 +5878,26 @@ static int __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(struct __py
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_23load(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_11environment_11cy_entities_7game_cy_6GameCy_22load[] = "\n        Load in a game, specified by its current id.\n\n        :return: True: game successfully loaded | False: otherwise\n        ";
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_23load(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_23load(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_22load[] = "\n        Load in a game, specified by its current id.\n\n        :return: True: game successfully loaded | False: otherwise\n        ";
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_23load(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("load (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_22load(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_22load(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_22load(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_22load(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("load", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 220, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 220, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -5906,7 +5906,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_22load(st
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.load", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.load", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5914,7 +5914,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_22load(st
   return __pyx_r;
 }
 
-/* "environment/cy_entities/game_cy.pyx":244
+/* "environment/entities/cy/game_cy.pyx":244
  *             return False
  * 
  *     cpdef get_blueprint(self):             # <<<<<<<<<<<<<<
@@ -5922,10 +5922,10 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_22load(st
  *         :return: The blue-print map of the board (matplotlib Figure)
  */
 
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_25get_blueprint(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_blueprint(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_25get_blueprint(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_blueprint(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch) {
   PyObject *__pyx_v_walls = 0;
-  struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *__pyx_v_w = 0;
+  struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_w = 0;
   CYTHON_UNUSED PyObject *__pyx_v_fig = NULL;
   PyObject *__pyx_v_ax = NULL;
   PyObject *__pyx_v_lc = NULL;
@@ -5952,7 +5952,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_bluepr
       #endif
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_blueprint); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 244, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_25get_blueprint)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_25get_blueprint)) {
         __Pyx_XDECREF(__pyx_r);
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
@@ -5988,7 +5988,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_bluepr
     #endif
   }
 
-  /* "environment/cy_entities/game_cy.pyx":252
+  /* "environment/entities/cy/game_cy.pyx":252
  *         cdef Line2dCy w
  * 
  *         fig, ax = pl.subplots()             # <<<<<<<<<<<<<<
@@ -6066,7 +6066,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_bluepr
   __pyx_v_ax = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":255
+  /* "environment/entities/cy/game_cy.pyx":255
  * 
  *         # Draw all the walls
  *         walls = []             # <<<<<<<<<<<<<<
@@ -6078,7 +6078,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_bluepr
   __pyx_v_walls = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":256
+  /* "environment/entities/cy/game_cy.pyx":256
  *         # Draw all the walls
  *         walls = []
  *         for w in self.walls:             # <<<<<<<<<<<<<<
@@ -6098,11 +6098,11 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_bluepr
     __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 256, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     #endif
-    if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_11environment_11cy_entities_9line2d_cy_Line2dCy))))) __PYX_ERR(0, 256, __pyx_L1_error)
-    __Pyx_XDECREF_SET(__pyx_v_w, ((struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *)__pyx_t_2));
+    if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy))))) __PYX_ERR(0, 256, __pyx_L1_error)
+    __Pyx_XDECREF_SET(__pyx_v_w, ((struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *)__pyx_t_2));
     __pyx_t_2 = 0;
 
-    /* "environment/cy_entities/game_cy.pyx":257
+    /* "environment/entities/cy/game_cy.pyx":257
  *         walls = []
  *         for w in self.walls:
  *             walls.append([(w.x.x, w.x.y), (w.y.x, w.y.y)])             # <<<<<<<<<<<<<<
@@ -6144,7 +6144,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_bluepr
     __pyx_t_8 = __Pyx_PyList_Append(__pyx_v_walls, __pyx_t_2); if (unlikely(__pyx_t_8 == ((int)-1))) __PYX_ERR(0, 257, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "environment/cy_entities/game_cy.pyx":256
+    /* "environment/entities/cy/game_cy.pyx":256
  *         # Draw all the walls
  *         walls = []
  *         for w in self.walls:             # <<<<<<<<<<<<<<
@@ -6154,7 +6154,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_bluepr
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":258
+  /* "environment/entities/cy/game_cy.pyx":258
  *         for w in self.walls:
  *             walls.append([(w.x.x, w.x.y), (w.y.x, w.y.y)])
  *         lc = mc.LineCollection(walls, linewidths=2, colors='k')             # <<<<<<<<<<<<<<
@@ -6183,7 +6183,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_bluepr
   __pyx_v_lc = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":259
+  /* "environment/entities/cy/game_cy.pyx":259
  *             walls.append([(w.x.x, w.x.y), (w.y.x, w.y.y)])
  *         lc = mc.LineCollection(walls, linewidths=2, colors='k')
  *         ax.add_collection(lc)             # <<<<<<<<<<<<<<
@@ -6209,7 +6209,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_bluepr
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":262
+  /* "environment/entities/cy/game_cy.pyx":262
  * 
  *         # Add target to map
  *         pl.plot(0.5, AXIS_Y - 0.5, 'go')             # <<<<<<<<<<<<<<
@@ -6278,7 +6278,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_bluepr
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":265
+  /* "environment/entities/cy/game_cy.pyx":265
  * 
  *         # Adjust the boundaries
  *         pl.xlim(0, AXIS_X)             # <<<<<<<<<<<<<<
@@ -6341,7 +6341,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_bluepr
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":266
+  /* "environment/entities/cy/game_cy.pyx":266
  *         # Adjust the boundaries
  *         pl.xlim(0, AXIS_X)
  *         pl.ylim(0, AXIS_Y)             # <<<<<<<<<<<<<<
@@ -6404,7 +6404,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_bluepr
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":269
+  /* "environment/entities/cy/game_cy.pyx":269
  * 
  *         # Return the figure in its current state
  *         return ax             # <<<<<<<<<<<<<<
@@ -6416,7 +6416,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_bluepr
   __pyx_r = __pyx_v_ax;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/game_cy.pyx":244
+  /* "environment/entities/cy/game_cy.pyx":244
  *             return False
  * 
  *     cpdef get_blueprint(self):             # <<<<<<<<<<<<<<
@@ -6431,7 +6431,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_bluepr
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_7);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.get_blueprint", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.get_blueprint", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_walls);
@@ -6445,26 +6445,26 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_bluepr
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_25get_blueprint(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_11environment_11cy_entities_7game_cy_6GameCy_24get_blueprint[] = "\n        :return: The blue-print map of the board (matplotlib Figure)\n        ";
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_25get_blueprint(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_25get_blueprint(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_24get_blueprint[] = "\n        :return: The blue-print map of the board (matplotlib Figure)\n        ";
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_25get_blueprint(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_blueprint (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_24get_blueprint(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_24get_blueprint(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_24get_blueprint(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_24get_blueprint(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_blueprint", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_blueprint(__pyx_v_self, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 244, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_blueprint(__pyx_v_self, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 244, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -6473,7 +6473,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_24get_blu
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.get_blueprint", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.get_blueprint", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6481,7 +6481,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_24get_blu
   return __pyx_r;
 }
 
-/* "environment/cy_entities/game_cy.pxd":16
+/* "environment/entities/cy/game_cy.pxd":16
  *         * target: Robot that must be reached by the robot
  *     """
  *     cdef public bint done, noise, silent             # <<<<<<<<<<<<<<
@@ -6490,19 +6490,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_24get_blu
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_4done_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_4done_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_4done_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_4done_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4done___get__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_4done___get__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4done___get__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_4done___get__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6517,7 +6517,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4done___g
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.done.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.done.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6526,19 +6526,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4done___g
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_4done_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_4done_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_4done_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_4done_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4done_2__set__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_4done_2__set__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4done_2__set__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_4done_2__set__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -6550,7 +6550,7 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4done_2__set__(
   __pyx_r = 0;
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.done.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.done.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -6558,19 +6558,19 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4done_2__set__(
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_5noise_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_5noise_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_5noise_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_5noise_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_5noise___get__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_5noise___get__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_5noise___get__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_5noise___get__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6585,7 +6585,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_5noise___
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.noise.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.noise.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6594,19 +6594,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_5noise___
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_5noise_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_5noise_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_5noise_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_5noise_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_5noise_2__set__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_5noise_2__set__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_5noise_2__set__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_5noise_2__set__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -6618,7 +6618,7 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_5noise_2__set__
   __pyx_r = 0;
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.noise.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.noise.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -6626,19 +6626,19 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_5noise_2__set__
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_6silent_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_6silent_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_6silent_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_6silent_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6silent___get__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6silent___get__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6silent___get__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6silent___get__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6653,7 +6653,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6silent__
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.silent.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.silent.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6662,19 +6662,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6silent__
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_6silent_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_6silent_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_6silent_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_6silent_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6silent_2__set__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6silent_2__set__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6silent_2__set__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6silent_2__set__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -6686,14 +6686,14 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6silent_2__set_
   __pyx_r = 0;
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.silent.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.silent.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "environment/cy_entities/game_cy.pxd":17
+/* "environment/entities/cy/game_cy.pxd":17
  *     """
  *     cdef public bint done, noise, silent
  *     cdef public int id, steps_taken             # <<<<<<<<<<<<<<
@@ -6702,19 +6702,19 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6silent_2__set_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_2id_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_2id_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_2id_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_2id_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_2id___get__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_2id___get__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_2id___get__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_2id___get__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6729,7 +6729,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_2id___get
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.id.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.id.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6738,19 +6738,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_2id___get
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_2id_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_2id_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_2id_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_2id_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_2id_2__set__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_2id_2__set__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_2id_2__set__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_2id_2__set__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -6762,7 +6762,7 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_2id_2__set__(st
   __pyx_r = 0;
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.id.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.id.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -6770,19 +6770,19 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_2id_2__set__(st
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_11steps_taken_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_11steps_taken_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_11steps_taken_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_11steps_taken_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_11steps_taken___get__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_11steps_taken___get__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_11steps_taken___get__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_11steps_taken___get__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6797,7 +6797,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_11steps_t
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.steps_taken.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.steps_taken.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6806,19 +6806,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_11steps_t
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_11steps_taken_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_11steps_taken_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_11steps_taken_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_11steps_taken_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_11steps_taken_2__set__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_11steps_taken_2__set__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_11steps_taken_2__set__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_11steps_taken_2__set__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -6830,14 +6830,14 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_11steps_taken_2
   __pyx_r = 0;
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.steps_taken.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.steps_taken.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "environment/cy_entities/game_cy.pxd":18
+/* "environment/entities/cy/game_cy.pxd":18
  *     cdef public bint done, noise, silent
  *     cdef public int id, steps_taken
  *     cdef public dict path             # <<<<<<<<<<<<<<
@@ -6846,19 +6846,19 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_11steps_taken_2
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_4path_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_4path_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_4path_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_4path_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4path___get__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_4path___get__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4path___get__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_4path___get__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__", 0);
@@ -6875,19 +6875,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4path___g
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_4path_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_4path_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_4path_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_4path_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4path_2__set__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_4path_2__set__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4path_2__set__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_4path_2__set__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6906,7 +6906,7 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4path_2__set__(
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.path.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.path.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -6914,19 +6914,19 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4path_2__set__(
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_4path_5__del__(PyObject *__pyx_v_self); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_4path_5__del__(PyObject *__pyx_v_self) {
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_4path_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_4path_5__del__(PyObject *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4path_4__del__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_4path_4__del__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4path_4__del__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self) {
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_4path_4__del__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__del__", 0);
@@ -6942,7 +6942,7 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4path_4__del__(
   return __pyx_r;
 }
 
-/* "environment/cy_entities/game_cy.pxd":19
+/* "environment/entities/cy/game_cy.pxd":19
  *     cdef public int id, steps_taken
  *     cdef public dict path
  *     cdef public str rel_path             # <<<<<<<<<<<<<<
@@ -6951,19 +6951,19 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_4path_4__del__(
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_8rel_path_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_8rel_path_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_8rel_path_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_8rel_path_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_8rel_path___get__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_8rel_path___get__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_8rel_path___get__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_8rel_path___get__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__", 0);
@@ -6980,19 +6980,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_8rel_path
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_8rel_path_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_8rel_path_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_8rel_path_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_8rel_path_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_8rel_path_2__set__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_8rel_path_2__set__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_8rel_path_2__set__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_8rel_path_2__set__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -7011,7 +7011,7 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_8rel_path_2__se
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.rel_path.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.rel_path.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -7019,19 +7019,19 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_8rel_path_2__se
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_8rel_path_5__del__(PyObject *__pyx_v_self); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_8rel_path_5__del__(PyObject *__pyx_v_self) {
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_8rel_path_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_8rel_path_5__del__(PyObject *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_8rel_path_4__del__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_8rel_path_4__del__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_8rel_path_4__del__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self) {
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_8rel_path_4__del__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__del__", 0);
@@ -7047,7 +7047,7 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_8rel_path_4__de
   return __pyx_r;
 }
 
-/* "environment/cy_entities/game_cy.pxd":20
+/* "environment/entities/cy/game_cy.pxd":20
  *     cdef public dict path
  *     cdef public str rel_path
  *     cdef public list walls             # <<<<<<<<<<<<<<
@@ -7056,19 +7056,19 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_8rel_path_4__de
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_5walls_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_5walls_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_5walls_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_5walls_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_5walls___get__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_5walls___get__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_5walls___get__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_5walls___get__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__", 0);
@@ -7085,19 +7085,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_5walls___
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_5walls_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_5walls_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_5walls_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_5walls_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_5walls_2__set__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_5walls_2__set__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_5walls_2__set__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_5walls_2__set__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -7116,7 +7116,7 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_5walls_2__set__
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.walls.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.walls.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -7124,19 +7124,19 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_5walls_2__set__
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_5walls_5__del__(PyObject *__pyx_v_self); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_5walls_5__del__(PyObject *__pyx_v_self) {
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_5walls_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_5walls_5__del__(PyObject *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_5walls_4__del__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_5walls_4__del__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_5walls_4__del__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self) {
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_5walls_4__del__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__del__", 0);
@@ -7152,7 +7152,7 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_5walls_4__del__
   return __pyx_r;
 }
 
-/* "environment/cy_entities/game_cy.pxd":21
+/* "environment/entities/cy/game_cy.pxd":21
  *     cdef public str rel_path
  *     cdef public list walls
  *     cdef public FootBotCy player             # <<<<<<<<<<<<<<
@@ -7161,19 +7161,19 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_5walls_4__del__
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_6player_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_6player_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_6player_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_6player_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6player___get__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6player___get__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6player___get__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6player___get__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__", 0);
@@ -7190,30 +7190,30 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6player__
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_6player_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_6player_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_6player_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_6player_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6player_2__set__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6player_2__set__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6player_2__set__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6player_2__set__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_11environment_11cy_entities_9robots_cy_FootBotCy))))) __PYX_ERR(1, 21, __pyx_L1_error)
+  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_11environment_8entities_2cy_9robots_cy_FootBotCy))))) __PYX_ERR(1, 21, __pyx_L1_error)
   __pyx_t_1 = __pyx_v_value;
   __Pyx_INCREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v_self->player);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->player));
-  __pyx_v_self->player = ((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_t_1);
+  __pyx_v_self->player = ((struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *)__pyx_t_1);
   __pyx_t_1 = 0;
 
   /* function exit code */
@@ -7221,7 +7221,7 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6player_2__set_
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.player.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.player.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -7229,19 +7229,19 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6player_2__set_
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_6player_5__del__(PyObject *__pyx_v_self); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_6player_5__del__(PyObject *__pyx_v_self) {
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_6player_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_6player_5__del__(PyObject *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6player_4__del__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6player_4__del__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6player_4__del__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self) {
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6player_4__del__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__del__", 0);
@@ -7249,7 +7249,7 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6player_4__del_
   __Pyx_GIVEREF(Py_None);
   __Pyx_GOTREF(__pyx_v_self->player);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->player));
-  __pyx_v_self->player = ((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)Py_None);
+  __pyx_v_self->player = ((struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *)Py_None);
 
   /* function exit code */
   __pyx_r = 0;
@@ -7257,7 +7257,7 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6player_4__del_
   return __pyx_r;
 }
 
-/* "environment/cy_entities/game_cy.pxd":22
+/* "environment/entities/cy/game_cy.pxd":22
  *     cdef public list walls
  *     cdef public FootBotCy player
  *     cdef public Vec2dCy target             # <<<<<<<<<<<<<<
@@ -7266,19 +7266,19 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6player_4__del_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_6target_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_6target_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_6target_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_6target_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6target___get__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6target___get__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6target___get__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6target___get__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__", 0);
@@ -7295,30 +7295,30 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6target__
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_6target_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_6target_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_6target_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_6target_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6target_2__set__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6target_2__set__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6target_2__set__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6target_2__set__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy))))) __PYX_ERR(1, 22, __pyx_L1_error)
+  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy))))) __PYX_ERR(1, 22, __pyx_L1_error)
   __pyx_t_1 = __pyx_v_value;
   __Pyx_INCREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v_self->target);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->target));
-  __pyx_v_self->target = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_1);
+  __pyx_v_self->target = ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)__pyx_t_1);
   __pyx_t_1 = 0;
 
   /* function exit code */
@@ -7326,7 +7326,7 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6target_2__set_
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.target.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.target.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -7334,19 +7334,19 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6target_2__set_
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_6target_5__del__(PyObject *__pyx_v_self); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_6target_5__del__(PyObject *__pyx_v_self) {
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_6target_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_6target_5__del__(PyObject *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6target_4__del__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6target_4__del__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6target_4__del__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self) {
+static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6target_4__del__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__del__", 0);
@@ -7354,7 +7354,7 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6target_4__del_
   __Pyx_GIVEREF(Py_None);
   __Pyx_GOTREF(__pyx_v_self->target);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->target));
-  __pyx_v_self->target = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)Py_None);
+  __pyx_v_self->target = ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)Py_None);
 
   /* function exit code */
   __pyx_r = 0;
@@ -7369,19 +7369,19 @@ static int __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_6target_4__del_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_27__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_27__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_27__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_27__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_26__reduce_cython__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_26__reduce_cython__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_26__reduce_cython__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_26__reduce_cython__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
   PyObject *__pyx_v_state = 0;
   PyObject *__pyx_v__dict = 0;
   int __pyx_v_use_setstate;
@@ -7658,7 +7658,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_26__reduc
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_state);
@@ -7676,19 +7676,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_26__reduc
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_29__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_29__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_29__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_29__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_28__setstate_cython__(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_28__setstate_cython__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_28__setstate_cython__(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_28__setstate_cython__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -7700,7 +7700,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_28__setst
  *     __pyx_unpickle_GameCy__set_state(self, __pyx_state)             # <<<<<<<<<<<<<<
  */
   if (!(likely(PyTuple_CheckExact(__pyx_v___pyx_state))||((__pyx_v___pyx_state) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "tuple", Py_TYPE(__pyx_v___pyx_state)->tp_name), 0))) __PYX_ERR(2, 17, __pyx_L1_error)
-  __pyx_t_1 = __pyx_f_11environment_11cy_entities_7game_cy___pyx_unpickle_GameCy__set_state(__pyx_v_self, ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 17, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_11environment_8entities_2cy_7game_cy___pyx_unpickle_GameCy__set_state(__pyx_v_self, ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
@@ -7716,7 +7716,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_28__setst
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.GameCy.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -7724,7 +7724,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_28__setst
   return __pyx_r;
 }
 
-/* "environment/cy_entities/game_cy.pyx":271
+/* "environment/entities/cy/game_cy.pyx":271
  *         return ax
  * 
  * cpdef list get_boundary_walls():             # <<<<<<<<<<<<<<
@@ -7732,12 +7732,12 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_6GameCy_28__setst
  *     :return: Set of the four boundary walls
  */
 
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_1get_boundary_walls(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_get_boundary_walls(CYTHON_UNUSED int __pyx_skip_dispatch) {
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_a = 0;
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_b = 0;
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_c = 0;
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_d = 0;
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_1get_boundary_walls(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_get_boundary_walls(CYTHON_UNUSED int __pyx_skip_dispatch) {
+  struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_a = 0;
+  struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_b = 0;
+  struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_c = 0;
+  struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_d = 0;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -7747,19 +7747,19 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_get_boundary_walls
   PyObject *__pyx_t_5 = NULL;
   __Pyx_RefNannySetupContext("get_boundary_walls", 0);
 
-  /* "environment/cy_entities/game_cy.pyx":275
+  /* "environment/entities/cy/game_cy.pyx":275
  *     :return: Set of the four boundary walls
  *     """
  *     cdef Vec2dCy a = Vec2dCy(0, 0)             # <<<<<<<<<<<<<<
  *     cdef Vec2dCy b = Vec2dCy(AXIS_X, 0)
  *     cdef Vec2dCy c = Vec2dCy(AXIS_X, AXIS_Y)
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 275, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy), __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 275, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_a = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_1);
+  __pyx_v_a = ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":276
+  /* "environment/entities/cy/game_cy.pyx":276
  *     """
  *     cdef Vec2dCy a = Vec2dCy(0, 0)
  *     cdef Vec2dCy b = Vec2dCy(AXIS_X, 0)             # <<<<<<<<<<<<<<
@@ -7776,13 +7776,13 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_get_boundary_walls
   __Pyx_GIVEREF(__pyx_int_0);
   PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_int_0);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 276, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_v_b = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_1);
+  __pyx_v_b = ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":277
+  /* "environment/entities/cy/game_cy.pyx":277
  *     cdef Vec2dCy a = Vec2dCy(0, 0)
  *     cdef Vec2dCy b = Vec2dCy(AXIS_X, 0)
  *     cdef Vec2dCy c = Vec2dCy(AXIS_X, AXIS_Y)             # <<<<<<<<<<<<<<
@@ -7801,13 +7801,13 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_get_boundary_walls
   PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_2);
   __pyx_t_1 = 0;
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 277, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy), __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 277, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_v_c = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_2);
+  __pyx_v_c = ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":278
+  /* "environment/entities/cy/game_cy.pyx":278
  *     cdef Vec2dCy b = Vec2dCy(AXIS_X, 0)
  *     cdef Vec2dCy c = Vec2dCy(AXIS_X, AXIS_Y)
  *     cdef Vec2dCy d = Vec2dCy(0, AXIS_Y)             # <<<<<<<<<<<<<<
@@ -7823,13 +7823,13 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_get_boundary_walls
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 278, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy), __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 278, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_v_d = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_2);
+  __pyx_v_d = ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":279
+  /* "environment/entities/cy/game_cy.pyx":279
  *     cdef Vec2dCy c = Vec2dCy(AXIS_X, AXIS_Y)
  *     cdef Vec2dCy d = Vec2dCy(0, AXIS_Y)
  *     return [Line2dCy(a, b), Line2dCy(b, c), Line2dCy(c, d), Line2dCy(d, a)]             # <<<<<<<<<<<<<<
@@ -7843,7 +7843,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_get_boundary_walls
   __Pyx_INCREF(((PyObject *)__pyx_v_b));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_b));
   PyTuple_SET_ITEM(__pyx_t_2, 1, ((PyObject *)__pyx_v_b));
-  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_9line2d_cy_Line2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 279, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 279, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 279, __pyx_L1_error)
@@ -7854,7 +7854,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_get_boundary_walls
   __Pyx_INCREF(((PyObject *)__pyx_v_c));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_c));
   PyTuple_SET_ITEM(__pyx_t_2, 1, ((PyObject *)__pyx_v_c));
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_9line2d_cy_Line2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 279, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 279, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 279, __pyx_L1_error)
@@ -7865,7 +7865,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_get_boundary_walls
   __Pyx_INCREF(((PyObject *)__pyx_v_d));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_d));
   PyTuple_SET_ITEM(__pyx_t_2, 1, ((PyObject *)__pyx_v_d));
-  __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_9line2d_cy_Line2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 279, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 279, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 279, __pyx_L1_error)
@@ -7876,7 +7876,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_get_boundary_walls
   __Pyx_INCREF(((PyObject *)__pyx_v_a));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_a));
   PyTuple_SET_ITEM(__pyx_t_2, 1, ((PyObject *)__pyx_v_a));
-  __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_9line2d_cy_Line2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 279, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 279, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = PyList_New(4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 279, __pyx_L1_error)
@@ -7897,7 +7897,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_get_boundary_walls
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/game_cy.pyx":271
+  /* "environment/entities/cy/game_cy.pyx":271
  *         return ax
  * 
  * cpdef list get_boundary_walls():             # <<<<<<<<<<<<<<
@@ -7912,7 +7912,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_get_boundary_walls
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.get_boundary_walls", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.get_boundary_walls", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_a);
@@ -7925,26 +7925,26 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy_get_boundary_walls
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_1get_boundary_walls(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_11environment_11cy_entities_7game_cy_get_boundary_walls[] = "\n    :return: Set of the four boundary walls\n    ";
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_1get_boundary_walls(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_1get_boundary_walls(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_11environment_8entities_2cy_7game_cy_get_boundary_walls[] = "\n    :return: Set of the four boundary walls\n    ";
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_1get_boundary_walls(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_boundary_walls (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_get_boundary_walls(__pyx_self);
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_get_boundary_walls(__pyx_self);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_get_boundary_walls(CYTHON_UNUSED PyObject *__pyx_self) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_get_boundary_walls(CYTHON_UNUSED PyObject *__pyx_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_boundary_walls", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_11environment_11cy_entities_7game_cy_get_boundary_walls(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 271, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_11environment_8entities_2cy_7game_cy_get_boundary_walls(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 271, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -7953,7 +7953,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_get_boundary_wall
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.get_boundary_walls", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.get_boundary_walls", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -7968,9 +7968,9 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_get_boundary_wall
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_3__pyx_unpickle_GameCy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_11environment_11cy_entities_7game_cy_3__pyx_unpickle_GameCy = {"__pyx_unpickle_GameCy", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_11environment_11cy_entities_7game_cy_3__pyx_unpickle_GameCy, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_3__pyx_unpickle_GameCy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_3__pyx_unpickle_GameCy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_11environment_8entities_2cy_7game_cy_3__pyx_unpickle_GameCy = {"__pyx_unpickle_GameCy", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_11environment_8entities_2cy_7game_cy_3__pyx_unpickle_GameCy, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_3__pyx_unpickle_GameCy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v___pyx_type = 0;
   long __pyx_v___pyx_checksum;
   PyObject *__pyx_v___pyx_state = 0;
@@ -8029,18 +8029,18 @@ static PyObject *__pyx_pw_11environment_11cy_entities_7game_cy_3__pyx_unpickle_G
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_GameCy", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 1, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.__pyx_unpickle_GameCy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.__pyx_unpickle_GameCy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11environment_11cy_entities_7game_cy_2__pyx_unpickle_GameCy(__pyx_self, __pyx_v___pyx_type, __pyx_v___pyx_checksum, __pyx_v___pyx_state);
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_2__pyx_unpickle_GameCy(__pyx_self, __pyx_v___pyx_type, __pyx_v___pyx_checksum, __pyx_v___pyx_state);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_2__pyx_unpickle_GameCy(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_2__pyx_unpickle_GameCy(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_v___pyx_PickleError = 0;
   PyObject *__pyx_v___pyx_result = 0;
   PyObject *__pyx_r = NULL;
@@ -8134,7 +8134,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_2__pyx_unpickle_G
  *     if __pyx_state is not None:
  *         __pyx_unpickle_GameCy__set_state(<GameCy> __pyx_result, __pyx_state)
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_11environment_11cy_entities_7game_cy_GameCy), __pyx_n_s_new); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 7, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_11environment_8entities_2cy_7game_cy_GameCy), __pyx_n_s_new); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -8173,7 +8173,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_2__pyx_unpickle_G
  * cdef __pyx_unpickle_GameCy__set_state(GameCy __pyx_result, tuple __pyx_state):
  */
     if (!(likely(PyTuple_CheckExact(__pyx_v___pyx_state))||((__pyx_v___pyx_state) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "tuple", Py_TYPE(__pyx_v___pyx_state)->tp_name), 0))) __PYX_ERR(2, 9, __pyx_L1_error)
-    __pyx_t_3 = __pyx_f_11environment_11cy_entities_7game_cy___pyx_unpickle_GameCy__set_state(((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_v___pyx_result), ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 9, __pyx_L1_error)
+    __pyx_t_3 = __pyx_f_11environment_8entities_2cy_7game_cy___pyx_unpickle_GameCy__set_state(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v___pyx_result), ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 9, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
@@ -8210,7 +8210,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_2__pyx_unpickle_G
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.__pyx_unpickle_GameCy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.__pyx_unpickle_GameCy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v___pyx_PickleError);
@@ -8228,7 +8228,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_7game_cy_2__pyx_unpickle_G
  *     if len(__pyx_state) > 10 and hasattr(__pyx_result, '__dict__'):
  */
 
-static PyObject *__pyx_f_11environment_11cy_entities_7game_cy___pyx_unpickle_GameCy__set_state(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v___pyx_result, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy___pyx_unpickle_GameCy__set_state(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v___pyx_result, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -8294,11 +8294,11 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy___pyx_unpickle_Gam
   }
   __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_11environment_11cy_entities_9robots_cy_FootBotCy))))) __PYX_ERR(2, 12, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_11environment_8entities_2cy_9robots_cy_FootBotCy))))) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v___pyx_result->player);
   __Pyx_DECREF(((PyObject *)__pyx_v___pyx_result->player));
-  __pyx_v___pyx_result->player = ((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_t_1);
+  __pyx_v___pyx_result->player = ((struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *)__pyx_t_1);
   __pyx_t_1 = 0;
   if (unlikely(__pyx_v___pyx_state == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
@@ -8336,11 +8336,11 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy___pyx_unpickle_Gam
   }
   __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 8, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy))))) __PYX_ERR(2, 12, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy))))) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v___pyx_result->target);
   __Pyx_DECREF(((PyObject *)__pyx_v___pyx_result->target));
-  __pyx_v___pyx_result->target = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_1);
+  __pyx_v___pyx_result->target = ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)__pyx_t_1);
   __pyx_t_1 = 0;
   if (unlikely(__pyx_v___pyx_state == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
@@ -8436,17 +8436,17 @@ static PyObject *__pyx_f_11environment_11cy_entities_7game_cy___pyx_unpickle_Gam
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_9);
-  __Pyx_AddTraceback("environment.cy_entities.game_cy.__pyx_unpickle_GameCy__set_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy.game_cy.__pyx_unpickle_GameCy__set_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
-static struct __pyx_vtabstruct_11environment_11cy_entities_7game_cy_GameCy __pyx_vtable_11environment_11cy_entities_7game_cy_GameCy;
+static struct __pyx_vtabstruct_11environment_8entities_2cy_7game_cy_GameCy __pyx_vtable_11environment_8entities_2cy_7game_cy_GameCy;
 
-static PyObject *__pyx_tp_new_11environment_11cy_entities_7game_cy_GameCy(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
-  struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *p;
+static PyObject *__pyx_tp_new_11environment_8entities_2cy_7game_cy_GameCy(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *p;
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -8454,18 +8454,18 @@ static PyObject *__pyx_tp_new_11environment_11cy_entities_7game_cy_GameCy(PyType
     o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
   }
   if (unlikely(!o)) return 0;
-  p = ((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)o);
-  p->__pyx_vtab = __pyx_vtabptr_11environment_11cy_entities_7game_cy_GameCy;
+  p = ((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)o);
+  p->__pyx_vtab = __pyx_vtabptr_11environment_8entities_2cy_7game_cy_GameCy;
   p->path = ((PyObject*)Py_None); Py_INCREF(Py_None);
   p->rel_path = ((PyObject*)Py_None); Py_INCREF(Py_None);
   p->walls = ((PyObject*)Py_None); Py_INCREF(Py_None);
-  p->player = ((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)Py_None); Py_INCREF(Py_None);
-  p->target = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)Py_None); Py_INCREF(Py_None);
+  p->player = ((struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *)Py_None); Py_INCREF(Py_None);
+  p->target = ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)Py_None); Py_INCREF(Py_None);
   return o;
 }
 
-static void __pyx_tp_dealloc_11environment_11cy_entities_7game_cy_GameCy(PyObject *o) {
-  struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *p = (struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)o;
+static void __pyx_tp_dealloc_11environment_8entities_2cy_7game_cy_GameCy(PyObject *o) {
+  struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *p = (struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)o;
   #if CYTHON_USE_TP_FINALIZE
   if (unlikely(PyType_HasFeature(Py_TYPE(o), Py_TPFLAGS_HAVE_FINALIZE) && Py_TYPE(o)->tp_finalize) && !_PyGC_FINALIZED(o)) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
@@ -8480,9 +8480,9 @@ static void __pyx_tp_dealloc_11environment_11cy_entities_7game_cy_GameCy(PyObjec
   (*Py_TYPE(o)->tp_free)(o);
 }
 
-static int __pyx_tp_traverse_11environment_11cy_entities_7game_cy_GameCy(PyObject *o, visitproc v, void *a) {
+static int __pyx_tp_traverse_11environment_8entities_2cy_7game_cy_GameCy(PyObject *o, visitproc v, void *a) {
   int e;
-  struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *p = (struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)o;
+  struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *p = (struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)o;
   if (p->path) {
     e = (*v)(p->path, a); if (e) return e;
   }
@@ -8498,9 +8498,9 @@ static int __pyx_tp_traverse_11environment_11cy_entities_7game_cy_GameCy(PyObjec
   return 0;
 }
 
-static int __pyx_tp_clear_11environment_11cy_entities_7game_cy_GameCy(PyObject *o) {
+static int __pyx_tp_clear_11environment_8entities_2cy_7game_cy_GameCy(PyObject *o) {
   PyObject* tmp;
-  struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *p = (struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)o;
+  struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *p = (struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)o;
   tmp = ((PyObject*)p->path);
   p->path = ((PyObject*)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
@@ -8508,21 +8508,21 @@ static int __pyx_tp_clear_11environment_11cy_entities_7game_cy_GameCy(PyObject *
   p->walls = ((PyObject*)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   tmp = ((PyObject*)p->player);
-  p->player = ((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)Py_None); Py_INCREF(Py_None);
+  p->player = ((struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   tmp = ((PyObject*)p->target);
-  p->target = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)Py_None); Py_INCREF(Py_None);
+  p->target = ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   return 0;
 }
 
-static PyObject *__pyx_getprop_11environment_11cy_entities_7game_cy_6GameCy_done(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_4done_1__get__(o);
+static PyObject *__pyx_getprop_11environment_8entities_2cy_7game_cy_6GameCy_done(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_4done_1__get__(o);
 }
 
-static int __pyx_setprop_11environment_11cy_entities_7game_cy_6GameCy_done(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+static int __pyx_setprop_11environment_8entities_2cy_7game_cy_6GameCy_done(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
   if (v) {
-    return __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_4done_3__set__(o, v);
+    return __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_4done_3__set__(o, v);
   }
   else {
     PyErr_SetString(PyExc_NotImplementedError, "__del__");
@@ -8530,13 +8530,13 @@ static int __pyx_setprop_11environment_11cy_entities_7game_cy_6GameCy_done(PyObj
   }
 }
 
-static PyObject *__pyx_getprop_11environment_11cy_entities_7game_cy_6GameCy_noise(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_5noise_1__get__(o);
+static PyObject *__pyx_getprop_11environment_8entities_2cy_7game_cy_6GameCy_noise(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_5noise_1__get__(o);
 }
 
-static int __pyx_setprop_11environment_11cy_entities_7game_cy_6GameCy_noise(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+static int __pyx_setprop_11environment_8entities_2cy_7game_cy_6GameCy_noise(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
   if (v) {
-    return __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_5noise_3__set__(o, v);
+    return __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_5noise_3__set__(o, v);
   }
   else {
     PyErr_SetString(PyExc_NotImplementedError, "__del__");
@@ -8544,13 +8544,13 @@ static int __pyx_setprop_11environment_11cy_entities_7game_cy_6GameCy_noise(PyOb
   }
 }
 
-static PyObject *__pyx_getprop_11environment_11cy_entities_7game_cy_6GameCy_silent(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_6silent_1__get__(o);
+static PyObject *__pyx_getprop_11environment_8entities_2cy_7game_cy_6GameCy_silent(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_6silent_1__get__(o);
 }
 
-static int __pyx_setprop_11environment_11cy_entities_7game_cy_6GameCy_silent(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+static int __pyx_setprop_11environment_8entities_2cy_7game_cy_6GameCy_silent(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
   if (v) {
-    return __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_6silent_3__set__(o, v);
+    return __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_6silent_3__set__(o, v);
   }
   else {
     PyErr_SetString(PyExc_NotImplementedError, "__del__");
@@ -8558,13 +8558,13 @@ static int __pyx_setprop_11environment_11cy_entities_7game_cy_6GameCy_silent(PyO
   }
 }
 
-static PyObject *__pyx_getprop_11environment_11cy_entities_7game_cy_6GameCy_id(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_2id_1__get__(o);
+static PyObject *__pyx_getprop_11environment_8entities_2cy_7game_cy_6GameCy_id(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_2id_1__get__(o);
 }
 
-static int __pyx_setprop_11environment_11cy_entities_7game_cy_6GameCy_id(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+static int __pyx_setprop_11environment_8entities_2cy_7game_cy_6GameCy_id(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
   if (v) {
-    return __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_2id_3__set__(o, v);
+    return __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_2id_3__set__(o, v);
   }
   else {
     PyErr_SetString(PyExc_NotImplementedError, "__del__");
@@ -8572,13 +8572,13 @@ static int __pyx_setprop_11environment_11cy_entities_7game_cy_6GameCy_id(PyObjec
   }
 }
 
-static PyObject *__pyx_getprop_11environment_11cy_entities_7game_cy_6GameCy_steps_taken(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_11steps_taken_1__get__(o);
+static PyObject *__pyx_getprop_11environment_8entities_2cy_7game_cy_6GameCy_steps_taken(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_11steps_taken_1__get__(o);
 }
 
-static int __pyx_setprop_11environment_11cy_entities_7game_cy_6GameCy_steps_taken(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+static int __pyx_setprop_11environment_8entities_2cy_7game_cy_6GameCy_steps_taken(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
   if (v) {
-    return __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_11steps_taken_3__set__(o, v);
+    return __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_11steps_taken_3__set__(o, v);
   }
   else {
     PyErr_SetString(PyExc_NotImplementedError, "__del__");
@@ -8586,108 +8586,108 @@ static int __pyx_setprop_11environment_11cy_entities_7game_cy_6GameCy_steps_take
   }
 }
 
-static PyObject *__pyx_getprop_11environment_11cy_entities_7game_cy_6GameCy_path(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_4path_1__get__(o);
+static PyObject *__pyx_getprop_11environment_8entities_2cy_7game_cy_6GameCy_path(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_4path_1__get__(o);
 }
 
-static int __pyx_setprop_11environment_11cy_entities_7game_cy_6GameCy_path(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+static int __pyx_setprop_11environment_8entities_2cy_7game_cy_6GameCy_path(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
   if (v) {
-    return __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_4path_3__set__(o, v);
+    return __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_4path_3__set__(o, v);
   }
   else {
-    return __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_4path_5__del__(o);
+    return __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_4path_5__del__(o);
   }
 }
 
-static PyObject *__pyx_getprop_11environment_11cy_entities_7game_cy_6GameCy_rel_path(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_8rel_path_1__get__(o);
+static PyObject *__pyx_getprop_11environment_8entities_2cy_7game_cy_6GameCy_rel_path(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_8rel_path_1__get__(o);
 }
 
-static int __pyx_setprop_11environment_11cy_entities_7game_cy_6GameCy_rel_path(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+static int __pyx_setprop_11environment_8entities_2cy_7game_cy_6GameCy_rel_path(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
   if (v) {
-    return __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_8rel_path_3__set__(o, v);
+    return __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_8rel_path_3__set__(o, v);
   }
   else {
-    return __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_8rel_path_5__del__(o);
+    return __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_8rel_path_5__del__(o);
   }
 }
 
-static PyObject *__pyx_getprop_11environment_11cy_entities_7game_cy_6GameCy_walls(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_5walls_1__get__(o);
+static PyObject *__pyx_getprop_11environment_8entities_2cy_7game_cy_6GameCy_walls(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_5walls_1__get__(o);
 }
 
-static int __pyx_setprop_11environment_11cy_entities_7game_cy_6GameCy_walls(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+static int __pyx_setprop_11environment_8entities_2cy_7game_cy_6GameCy_walls(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
   if (v) {
-    return __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_5walls_3__set__(o, v);
+    return __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_5walls_3__set__(o, v);
   }
   else {
-    return __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_5walls_5__del__(o);
+    return __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_5walls_5__del__(o);
   }
 }
 
-static PyObject *__pyx_getprop_11environment_11cy_entities_7game_cy_6GameCy_player(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_6player_1__get__(o);
+static PyObject *__pyx_getprop_11environment_8entities_2cy_7game_cy_6GameCy_player(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_6player_1__get__(o);
 }
 
-static int __pyx_setprop_11environment_11cy_entities_7game_cy_6GameCy_player(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+static int __pyx_setprop_11environment_8entities_2cy_7game_cy_6GameCy_player(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
   if (v) {
-    return __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_6player_3__set__(o, v);
+    return __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_6player_3__set__(o, v);
   }
   else {
-    return __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_6player_5__del__(o);
+    return __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_6player_5__del__(o);
   }
 }
 
-static PyObject *__pyx_getprop_11environment_11cy_entities_7game_cy_6GameCy_target(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_6target_1__get__(o);
+static PyObject *__pyx_getprop_11environment_8entities_2cy_7game_cy_6GameCy_target(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_6target_1__get__(o);
 }
 
-static int __pyx_setprop_11environment_11cy_entities_7game_cy_6GameCy_target(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+static int __pyx_setprop_11environment_8entities_2cy_7game_cy_6GameCy_target(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
   if (v) {
-    return __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_6target_3__set__(o, v);
+    return __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_6target_3__set__(o, v);
   }
   else {
-    return __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_6target_5__del__(o);
+    return __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_6target_5__del__(o);
   }
 }
 
-static PyMethodDef __pyx_methods_11environment_11cy_entities_7game_cy_GameCy[] = {
-  {"close", (PyCFunction)__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_5close, METH_NOARGS, __pyx_doc_11environment_11cy_entities_7game_cy_6GameCy_4close},
-  {"reset", (PyCFunction)__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_7reset, METH_NOARGS, __pyx_doc_11environment_11cy_entities_7game_cy_6GameCy_6reset},
-  {"step", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_9step, METH_VARARGS|METH_KEYWORDS, __pyx_doc_11environment_11cy_entities_7game_cy_6GameCy_8step},
-  {"create_empty_game", (PyCFunction)__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_11create_empty_game, METH_NOARGS, __pyx_doc_11environment_11cy_entities_7game_cy_6GameCy_10create_empty_game},
-  {"get_observation", (PyCFunction)__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_13get_observation, METH_NOARGS, __pyx_doc_11environment_11cy_entities_7game_cy_6GameCy_12get_observation},
-  {"get_sensor_list", (PyCFunction)__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_15get_sensor_list, METH_NOARGS, __pyx_doc_11environment_11cy_entities_7game_cy_6GameCy_14get_sensor_list},
-  {"set_player_angle", (PyCFunction)__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_17set_player_angle, METH_O, __pyx_doc_11environment_11cy_entities_7game_cy_6GameCy_16set_player_angle},
-  {"set_player_pos", (PyCFunction)__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_19set_player_pos, METH_O, __pyx_doc_11environment_11cy_entities_7game_cy_6GameCy_18set_player_pos},
-  {"save", (PyCFunction)__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_21save, METH_NOARGS, 0},
-  {"load", (PyCFunction)__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_23load, METH_NOARGS, __pyx_doc_11environment_11cy_entities_7game_cy_6GameCy_22load},
-  {"get_blueprint", (PyCFunction)__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_25get_blueprint, METH_NOARGS, __pyx_doc_11environment_11cy_entities_7game_cy_6GameCy_24get_blueprint},
-  {"__reduce_cython__", (PyCFunction)__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_27__reduce_cython__, METH_NOARGS, 0},
-  {"__setstate_cython__", (PyCFunction)__pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_29__setstate_cython__, METH_O, 0},
+static PyMethodDef __pyx_methods_11environment_8entities_2cy_7game_cy_GameCy[] = {
+  {"close", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_5close, METH_NOARGS, __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_4close},
+  {"reset", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_7reset, METH_NOARGS, __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_6reset},
+  {"step", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_9step, METH_VARARGS|METH_KEYWORDS, __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_8step},
+  {"create_empty_game", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_11create_empty_game, METH_NOARGS, __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_10create_empty_game},
+  {"get_observation", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_13get_observation, METH_NOARGS, __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_12get_observation},
+  {"get_sensor_list", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_15get_sensor_list, METH_NOARGS, __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_14get_sensor_list},
+  {"set_player_angle", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_17set_player_angle, METH_O, __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_16set_player_angle},
+  {"set_player_pos", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_19set_player_pos, METH_O, __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_18set_player_pos},
+  {"save", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_21save, METH_NOARGS, 0},
+  {"load", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_23load, METH_NOARGS, __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_22load},
+  {"get_blueprint", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_25get_blueprint, METH_NOARGS, __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_24get_blueprint},
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_27__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_29__setstate_cython__, METH_O, 0},
   {0, 0, 0, 0}
 };
 
-static struct PyGetSetDef __pyx_getsets_11environment_11cy_entities_7game_cy_GameCy[] = {
-  {(char *)"done", __pyx_getprop_11environment_11cy_entities_7game_cy_6GameCy_done, __pyx_setprop_11environment_11cy_entities_7game_cy_6GameCy_done, (char *)0, 0},
-  {(char *)"noise", __pyx_getprop_11environment_11cy_entities_7game_cy_6GameCy_noise, __pyx_setprop_11environment_11cy_entities_7game_cy_6GameCy_noise, (char *)0, 0},
-  {(char *)"silent", __pyx_getprop_11environment_11cy_entities_7game_cy_6GameCy_silent, __pyx_setprop_11environment_11cy_entities_7game_cy_6GameCy_silent, (char *)0, 0},
-  {(char *)"id", __pyx_getprop_11environment_11cy_entities_7game_cy_6GameCy_id, __pyx_setprop_11environment_11cy_entities_7game_cy_6GameCy_id, (char *)0, 0},
-  {(char *)"steps_taken", __pyx_getprop_11environment_11cy_entities_7game_cy_6GameCy_steps_taken, __pyx_setprop_11environment_11cy_entities_7game_cy_6GameCy_steps_taken, (char *)0, 0},
-  {(char *)"path", __pyx_getprop_11environment_11cy_entities_7game_cy_6GameCy_path, __pyx_setprop_11environment_11cy_entities_7game_cy_6GameCy_path, (char *)0, 0},
-  {(char *)"rel_path", __pyx_getprop_11environment_11cy_entities_7game_cy_6GameCy_rel_path, __pyx_setprop_11environment_11cy_entities_7game_cy_6GameCy_rel_path, (char *)0, 0},
-  {(char *)"walls", __pyx_getprop_11environment_11cy_entities_7game_cy_6GameCy_walls, __pyx_setprop_11environment_11cy_entities_7game_cy_6GameCy_walls, (char *)0, 0},
-  {(char *)"player", __pyx_getprop_11environment_11cy_entities_7game_cy_6GameCy_player, __pyx_setprop_11environment_11cy_entities_7game_cy_6GameCy_player, (char *)0, 0},
-  {(char *)"target", __pyx_getprop_11environment_11cy_entities_7game_cy_6GameCy_target, __pyx_setprop_11environment_11cy_entities_7game_cy_6GameCy_target, (char *)0, 0},
+static struct PyGetSetDef __pyx_getsets_11environment_8entities_2cy_7game_cy_GameCy[] = {
+  {(char *)"done", __pyx_getprop_11environment_8entities_2cy_7game_cy_6GameCy_done, __pyx_setprop_11environment_8entities_2cy_7game_cy_6GameCy_done, (char *)0, 0},
+  {(char *)"noise", __pyx_getprop_11environment_8entities_2cy_7game_cy_6GameCy_noise, __pyx_setprop_11environment_8entities_2cy_7game_cy_6GameCy_noise, (char *)0, 0},
+  {(char *)"silent", __pyx_getprop_11environment_8entities_2cy_7game_cy_6GameCy_silent, __pyx_setprop_11environment_8entities_2cy_7game_cy_6GameCy_silent, (char *)0, 0},
+  {(char *)"id", __pyx_getprop_11environment_8entities_2cy_7game_cy_6GameCy_id, __pyx_setprop_11environment_8entities_2cy_7game_cy_6GameCy_id, (char *)0, 0},
+  {(char *)"steps_taken", __pyx_getprop_11environment_8entities_2cy_7game_cy_6GameCy_steps_taken, __pyx_setprop_11environment_8entities_2cy_7game_cy_6GameCy_steps_taken, (char *)0, 0},
+  {(char *)"path", __pyx_getprop_11environment_8entities_2cy_7game_cy_6GameCy_path, __pyx_setprop_11environment_8entities_2cy_7game_cy_6GameCy_path, (char *)0, 0},
+  {(char *)"rel_path", __pyx_getprop_11environment_8entities_2cy_7game_cy_6GameCy_rel_path, __pyx_setprop_11environment_8entities_2cy_7game_cy_6GameCy_rel_path, (char *)0, 0},
+  {(char *)"walls", __pyx_getprop_11environment_8entities_2cy_7game_cy_6GameCy_walls, __pyx_setprop_11environment_8entities_2cy_7game_cy_6GameCy_walls, (char *)0, 0},
+  {(char *)"player", __pyx_getprop_11environment_8entities_2cy_7game_cy_6GameCy_player, __pyx_setprop_11environment_8entities_2cy_7game_cy_6GameCy_player, (char *)0, 0},
+  {(char *)"target", __pyx_getprop_11environment_8entities_2cy_7game_cy_6GameCy_target, __pyx_setprop_11environment_8entities_2cy_7game_cy_6GameCy_target, (char *)0, 0},
   {0, 0, 0, 0, 0}
 };
 
-static PyTypeObject __pyx_type_11environment_11cy_entities_7game_cy_GameCy = {
+static PyTypeObject __pyx_type_11environment_8entities_2cy_7game_cy_GameCy = {
   PyVarObject_HEAD_INIT(0, 0)
-  "environment.cy_entities.game_cy.GameCy", /*tp_name*/
-  sizeof(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy), /*tp_basicsize*/
+  "environment.entities.cy.game_cy.GameCy", /*tp_name*/
+  sizeof(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_11environment_11cy_entities_7game_cy_GameCy, /*tp_dealloc*/
+  __pyx_tp_dealloc_11environment_8entities_2cy_7game_cy_GameCy, /*tp_dealloc*/
   #if PY_VERSION_HEX < 0x030800b4
   0, /*tp_print*/
   #endif
@@ -8708,29 +8708,29 @@ static PyTypeObject __pyx_type_11environment_11cy_entities_7game_cy_GameCy = {
   0, /*tp_as_mapping*/
   0, /*tp_hash*/
   0, /*tp_call*/
-  __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_3__str__, /*tp_str*/
+  __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_3__str__, /*tp_str*/
   0, /*tp_getattro*/
   0, /*tp_setattro*/
   0, /*tp_as_buffer*/
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
   "\n    A game environment is built up from the following segments:\n        * walls: Set of Line2d objects representing the walls in the maze\n        * robot: The player manoeuvring in the environment\n        * target: Robot that must be reached by the robot\n    ", /*tp_doc*/
-  __pyx_tp_traverse_11environment_11cy_entities_7game_cy_GameCy, /*tp_traverse*/
-  __pyx_tp_clear_11environment_11cy_entities_7game_cy_GameCy, /*tp_clear*/
+  __pyx_tp_traverse_11environment_8entities_2cy_7game_cy_GameCy, /*tp_traverse*/
+  __pyx_tp_clear_11environment_8entities_2cy_7game_cy_GameCy, /*tp_clear*/
   0, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_11environment_11cy_entities_7game_cy_GameCy, /*tp_methods*/
+  __pyx_methods_11environment_8entities_2cy_7game_cy_GameCy, /*tp_methods*/
   0, /*tp_members*/
-  __pyx_getsets_11environment_11cy_entities_7game_cy_GameCy, /*tp_getset*/
+  __pyx_getsets_11environment_8entities_2cy_7game_cy_GameCy, /*tp_getset*/
   0, /*tp_base*/
   0, /*tp_dict*/
   0, /*tp_descr_get*/
   0, /*tp_descr_set*/
   0, /*tp_dictoffset*/
-  __pyx_pw_11environment_11cy_entities_7game_cy_6GameCy_1__init__, /*tp_init*/
+  __pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_1__init__, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_11environment_11cy_entities_7game_cy_GameCy, /*tp_new*/
+  __pyx_tp_new_11environment_8entities_2cy_7game_cy_GameCy, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -8752,7 +8752,7 @@ static PyTypeObject __pyx_type_11environment_11cy_entities_7game_cy_GameCy = {
 };
 
 static PyMethodDef __pyx_methods[] = {
-  {"get_boundary_walls", (PyCFunction)__pyx_pw_11environment_11cy_entities_7game_cy_1get_boundary_walls, METH_NOARGS, __pyx_doc_11environment_11cy_entities_7game_cy_get_boundary_walls},
+  {"get_boundary_walls", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_1get_boundary_walls, METH_NOARGS, __pyx_doc_11environment_8entities_2cy_7game_cy_get_boundary_walls},
   {0, 0, 0, 0}
 };
 
@@ -8976,7 +8976,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_end, __pyx_k_end, sizeof(__pyx_k_end), 0, 0, 1, 1},
   {&__pyx_n_s_enter, __pyx_k_enter, sizeof(__pyx_k_enter), 0, 0, 1, 1},
   {&__pyx_kp_s_environment, __pyx_k_environment, sizeof(__pyx_k_environment), 0, 0, 1, 0},
-  {&__pyx_n_s_environment_cy_entities_game_cy, __pyx_k_environment_cy_entities_game_cy, sizeof(__pyx_k_environment_cy_entities_game_cy), 0, 0, 1, 1},
+  {&__pyx_n_s_environment_entities_cy_game_cy, __pyx_k_environment_entities_cy_game_cy, sizeof(__pyx_k_environment_entities_cy_game_cy), 0, 0, 1, 1},
   {&__pyx_n_s_exit, __pyx_k_exit, sizeof(__pyx_k_exit), 0, 0, 1, 1},
   {&__pyx_n_s_file, __pyx_k_file, sizeof(__pyx_k_file), 0, 0, 1, 1},
   {&__pyx_n_s_format, __pyx_k_format, sizeof(__pyx_k_format), 0, 0, 1, 1},
@@ -9064,7 +9064,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "environment/cy_entities/game_cy.pyx":217
+  /* "environment/entities/cy/game_cy.pyx":217
  *         persist_dict[D_TARGET] = (self.target.x, self.target.y)
  *         persist_dict[D_WALLS] = [((w.x.x, w.x.y), (w.y.x, w.y.y)) for w in self.walls]
  *         with open('{p}games_db/{g}'.format(p=self.rel_path, g=self), 'wb') as f:             # <<<<<<<<<<<<<<
@@ -9075,7 +9075,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "environment/cy_entities/game_cy.pyx":275
+  /* "environment/entities/cy/game_cy.pyx":275
  *     :return: Set of the four boundary walls
  *     """
  *     cdef Vec2dCy a = Vec2dCy(0, 0)             # <<<<<<<<<<<<<<
@@ -9143,7 +9143,7 @@ static int __Pyx_modinit_function_export_code(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_modinit_function_export_code", 0);
   /*--- Function export code ---*/
-  if (__Pyx_ExportFunction("get_boundary_walls", (void (*)(void))__pyx_f_11environment_11cy_entities_7game_cy_get_boundary_walls, "PyObject *(int __pyx_skip_dispatch)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_ExportFunction("get_boundary_walls", (void (*)(void))__pyx_f_11environment_8entities_2cy_7game_cy_get_boundary_walls, "PyObject *(int __pyx_skip_dispatch)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -9155,39 +9155,39 @@ static int __Pyx_modinit_type_init_code(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_init_code", 0);
   /*--- Type init code ---*/
-  __pyx_vtabptr_11environment_11cy_entities_7game_cy_GameCy = &__pyx_vtable_11environment_11cy_entities_7game_cy_GameCy;
-  __pyx_vtable_11environment_11cy_entities_7game_cy_GameCy.close = (PyObject *(*)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch))__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_close;
-  __pyx_vtable_11environment_11cy_entities_7game_cy_GameCy.reset = (PyObject *(*)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch))__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_reset;
-  __pyx_vtable_11environment_11cy_entities_7game_cy_GameCy.step = (PyObject *(*)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, float, float, int __pyx_skip_dispatch))__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_step;
-  __pyx_vtable_11environment_11cy_entities_7game_cy_GameCy.create_empty_game = (void (*)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch))__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_create_empty_game;
-  __pyx_vtable_11environment_11cy_entities_7game_cy_GameCy.get_observation = (PyObject *(*)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch))__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_observation;
-  __pyx_vtable_11environment_11cy_entities_7game_cy_GameCy.get_sensor_list = (PyObject *(*)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch))__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_sensor_list;
-  __pyx_vtable_11environment_11cy_entities_7game_cy_GameCy.set_player_angle = (void (*)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, float, int __pyx_skip_dispatch))__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_set_player_angle;
-  __pyx_vtable_11environment_11cy_entities_7game_cy_GameCy.set_player_pos = (void (*)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch))__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_set_player_pos;
-  __pyx_vtable_11environment_11cy_entities_7game_cy_GameCy.save = (void (*)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch))__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_save;
-  __pyx_vtable_11environment_11cy_entities_7game_cy_GameCy.load = (int (*)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch))__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_load;
-  __pyx_vtable_11environment_11cy_entities_7game_cy_GameCy.get_blueprint = (PyObject *(*)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch))__pyx_f_11environment_11cy_entities_7game_cy_6GameCy_get_blueprint;
-  if (PyType_Ready(&__pyx_type_11environment_11cy_entities_7game_cy_GameCy) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
+  __pyx_vtabptr_11environment_8entities_2cy_7game_cy_GameCy = &__pyx_vtable_11environment_8entities_2cy_7game_cy_GameCy;
+  __pyx_vtable_11environment_8entities_2cy_7game_cy_GameCy.close = (PyObject *(*)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch))__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_close;
+  __pyx_vtable_11environment_8entities_2cy_7game_cy_GameCy.reset = (PyObject *(*)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch))__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_reset;
+  __pyx_vtable_11environment_8entities_2cy_7game_cy_GameCy.step = (PyObject *(*)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, float, float, int __pyx_skip_dispatch))__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_step;
+  __pyx_vtable_11environment_8entities_2cy_7game_cy_GameCy.create_empty_game = (void (*)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch))__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_create_empty_game;
+  __pyx_vtable_11environment_8entities_2cy_7game_cy_GameCy.get_observation = (PyObject *(*)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch))__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_observation;
+  __pyx_vtable_11environment_8entities_2cy_7game_cy_GameCy.get_sensor_list = (PyObject *(*)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch))__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_sensor_list;
+  __pyx_vtable_11environment_8entities_2cy_7game_cy_GameCy.set_player_angle = (void (*)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, float, int __pyx_skip_dispatch))__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_angle;
+  __pyx_vtable_11environment_8entities_2cy_7game_cy_GameCy.set_player_pos = (void (*)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch))__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_pos;
+  __pyx_vtable_11environment_8entities_2cy_7game_cy_GameCy.save = (void (*)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch))__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_save;
+  __pyx_vtable_11environment_8entities_2cy_7game_cy_GameCy.load = (int (*)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch))__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load;
+  __pyx_vtable_11environment_8entities_2cy_7game_cy_GameCy.get_blueprint = (PyObject *(*)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch))__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_blueprint;
+  if (PyType_Ready(&__pyx_type_11environment_8entities_2cy_7game_cy_GameCy) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
-  __pyx_type_11environment_11cy_entities_7game_cy_GameCy.tp_print = 0;
+  __pyx_type_11environment_8entities_2cy_7game_cy_GameCy.tp_print = 0;
   #endif
-  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_11environment_11cy_entities_7game_cy_GameCy.tp_dictoffset && __pyx_type_11environment_11cy_entities_7game_cy_GameCy.tp_getattro == PyObject_GenericGetAttr)) {
-    __pyx_type_11environment_11cy_entities_7game_cy_GameCy.tp_getattro = __Pyx_PyObject_GenericGetAttr;
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_11environment_8entities_2cy_7game_cy_GameCy.tp_dictoffset && __pyx_type_11environment_8entities_2cy_7game_cy_GameCy.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_11environment_8entities_2cy_7game_cy_GameCy.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
   #if CYTHON_COMPILING_IN_CPYTHON
   {
-    PyObject *wrapper = PyObject_GetAttrString((PyObject *)&__pyx_type_11environment_11cy_entities_7game_cy_GameCy, "__init__"); if (unlikely(!wrapper)) __PYX_ERR(0, 19, __pyx_L1_error)
+    PyObject *wrapper = PyObject_GetAttrString((PyObject *)&__pyx_type_11environment_8entities_2cy_7game_cy_GameCy, "__init__"); if (unlikely(!wrapper)) __PYX_ERR(0, 19, __pyx_L1_error)
     if (Py_TYPE(wrapper) == &PyWrapperDescr_Type) {
-      __pyx_wrapperbase_11environment_11cy_entities_7game_cy_6GameCy___init__ = *((PyWrapperDescrObject *)wrapper)->d_base;
-      __pyx_wrapperbase_11environment_11cy_entities_7game_cy_6GameCy___init__.doc = __pyx_doc_11environment_11cy_entities_7game_cy_6GameCy___init__;
-      ((PyWrapperDescrObject *)wrapper)->d_base = &__pyx_wrapperbase_11environment_11cy_entities_7game_cy_6GameCy___init__;
+      __pyx_wrapperbase_11environment_8entities_2cy_7game_cy_6GameCy___init__ = *((PyWrapperDescrObject *)wrapper)->d_base;
+      __pyx_wrapperbase_11environment_8entities_2cy_7game_cy_6GameCy___init__.doc = __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy___init__;
+      ((PyWrapperDescrObject *)wrapper)->d_base = &__pyx_wrapperbase_11environment_8entities_2cy_7game_cy_6GameCy___init__;
     }
   }
   #endif
-  if (__Pyx_SetVtable(__pyx_type_11environment_11cy_entities_7game_cy_GameCy.tp_dict, __pyx_vtabptr_11environment_11cy_entities_7game_cy_GameCy) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_GameCy, (PyObject *)&__pyx_type_11environment_11cy_entities_7game_cy_GameCy) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_11environment_11cy_entities_7game_cy_GameCy) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
-  __pyx_ptype_11environment_11cy_entities_7game_cy_GameCy = &__pyx_type_11environment_11cy_entities_7game_cy_GameCy;
+  if (__Pyx_SetVtable(__pyx_type_11environment_8entities_2cy_7game_cy_GameCy.tp_dict, __pyx_vtabptr_11environment_8entities_2cy_7game_cy_GameCy) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_GameCy, (PyObject *)&__pyx_type_11environment_8entities_2cy_7game_cy_GameCy) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_11environment_8entities_2cy_7game_cy_GameCy) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
+  __pyx_ptype_11environment_8entities_2cy_7game_cy_GameCy = &__pyx_type_11environment_8entities_2cy_7game_cy_GameCy;
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -9200,38 +9200,38 @@ static int __Pyx_modinit_type_import_code(void) {
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_import_code", 0);
   /*--- Type import code ---*/
-  __pyx_t_1 = PyImport_ImportModule("environment.cy_entities.vec2d_cy"); if (unlikely(!__pyx_t_1)) __PYX_ERR(3, 7, __pyx_L1_error)
+  __pyx_t_1 = PyImport_ImportModule("utils.cy.vec2d_cy"); if (unlikely(!__pyx_t_1)) __PYX_ERR(3, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy = __Pyx_ImportType(__pyx_t_1, "environment.cy_entities.vec2d_cy", "Vec2dCy", sizeof(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy) __PYX_ERR(3, 7, __pyx_L1_error)
-  __pyx_vtabptr_11environment_11cy_entities_8vec2d_cy_Vec2dCy = (struct __pyx_vtabstruct_11environment_11cy_entities_8vec2d_cy_Vec2dCy*)__Pyx_GetVtable(__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_11cy_entities_8vec2d_cy_Vec2dCy)) __PYX_ERR(3, 7, __pyx_L1_error)
+  __pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy = __Pyx_ImportType(__pyx_t_1, "utils.cy.vec2d_cy", "Vec2dCy", sizeof(struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy) __PYX_ERR(3, 7, __pyx_L1_error)
+  __pyx_vtabptr_5utils_2cy_8vec2d_cy_Vec2dCy = (struct __pyx_vtabstruct_5utils_2cy_8vec2d_cy_Vec2dCy*)__Pyx_GetVtable(__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy->tp_dict); if (unlikely(!__pyx_vtabptr_5utils_2cy_8vec2d_cy_Vec2dCy)) __PYX_ERR(3, 7, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyImport_ImportModule("environment.cy_entities.sensors_cy"); if (unlikely(!__pyx_t_1)) __PYX_ERR(4, 9, __pyx_L1_error)
+  __pyx_t_1 = PyImport_ImportModule("environment.entities.cy.sensors_cy"); if (unlikely(!__pyx_t_1)) __PYX_ERR(4, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_ptype_11environment_11cy_entities_10sensors_cy_SensorCy = __Pyx_ImportType(__pyx_t_1, "environment.cy_entities.sensors_cy", "SensorCy", sizeof(struct __pyx_obj_11environment_11cy_entities_10sensors_cy_SensorCy), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_11environment_11cy_entities_10sensors_cy_SensorCy) __PYX_ERR(4, 9, __pyx_L1_error)
-  __pyx_vtabptr_11environment_11cy_entities_10sensors_cy_SensorCy = (struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_SensorCy*)__Pyx_GetVtable(__pyx_ptype_11environment_11cy_entities_10sensors_cy_SensorCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_11cy_entities_10sensors_cy_SensorCy)) __PYX_ERR(4, 9, __pyx_L1_error)
-  __pyx_ptype_11environment_11cy_entities_10sensors_cy_AngularSensorCy = __Pyx_ImportType(__pyx_t_1, "environment.cy_entities.sensors_cy", "AngularSensorCy", sizeof(struct __pyx_obj_11environment_11cy_entities_10sensors_cy_AngularSensorCy), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_11environment_11cy_entities_10sensors_cy_AngularSensorCy) __PYX_ERR(4, 16, __pyx_L1_error)
-  __pyx_vtabptr_11environment_11cy_entities_10sensors_cy_AngularSensorCy = (struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_AngularSensorCy*)__Pyx_GetVtable(__pyx_ptype_11environment_11cy_entities_10sensors_cy_AngularSensorCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_11cy_entities_10sensors_cy_AngularSensorCy)) __PYX_ERR(4, 16, __pyx_L1_error)
-  __pyx_ptype_11environment_11cy_entities_10sensors_cy_DistanceSensorCy = __Pyx_ImportType(__pyx_t_1, "environment.cy_entities.sensors_cy", "DistanceSensorCy", sizeof(struct __pyx_obj_11environment_11cy_entities_10sensors_cy_DistanceSensorCy), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_11environment_11cy_entities_10sensors_cy_DistanceSensorCy) __PYX_ERR(4, 24, __pyx_L1_error)
-  __pyx_vtabptr_11environment_11cy_entities_10sensors_cy_DistanceSensorCy = (struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_DistanceSensorCy*)__Pyx_GetVtable(__pyx_ptype_11environment_11cy_entities_10sensors_cy_DistanceSensorCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_11cy_entities_10sensors_cy_DistanceSensorCy)) __PYX_ERR(4, 24, __pyx_L1_error)
-  __pyx_ptype_11environment_11cy_entities_10sensors_cy_ProximitySensorCy = __Pyx_ImportType(__pyx_t_1, "environment.cy_entities.sensors_cy", "ProximitySensorCy", sizeof(struct __pyx_obj_11environment_11cy_entities_10sensors_cy_ProximitySensorCy), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_11environment_11cy_entities_10sensors_cy_ProximitySensorCy) __PYX_ERR(4, 31, __pyx_L1_error)
-  __pyx_vtabptr_11environment_11cy_entities_10sensors_cy_ProximitySensorCy = (struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_ProximitySensorCy*)__Pyx_GetVtable(__pyx_ptype_11environment_11cy_entities_10sensors_cy_ProximitySensorCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_11cy_entities_10sensors_cy_ProximitySensorCy)) __PYX_ERR(4, 31, __pyx_L1_error)
+  __pyx_ptype_11environment_8entities_2cy_10sensors_cy_SensorCy = __Pyx_ImportType(__pyx_t_1, "environment.entities.cy.sensors_cy", "SensorCy", sizeof(struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_SensorCy), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_11environment_8entities_2cy_10sensors_cy_SensorCy) __PYX_ERR(4, 9, __pyx_L1_error)
+  __pyx_vtabptr_11environment_8entities_2cy_10sensors_cy_SensorCy = (struct __pyx_vtabstruct_11environment_8entities_2cy_10sensors_cy_SensorCy*)__Pyx_GetVtable(__pyx_ptype_11environment_8entities_2cy_10sensors_cy_SensorCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_8entities_2cy_10sensors_cy_SensorCy)) __PYX_ERR(4, 9, __pyx_L1_error)
+  __pyx_ptype_11environment_8entities_2cy_10sensors_cy_AngularSensorCy = __Pyx_ImportType(__pyx_t_1, "environment.entities.cy.sensors_cy", "AngularSensorCy", sizeof(struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_AngularSensorCy), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_11environment_8entities_2cy_10sensors_cy_AngularSensorCy) __PYX_ERR(4, 16, __pyx_L1_error)
+  __pyx_vtabptr_11environment_8entities_2cy_10sensors_cy_AngularSensorCy = (struct __pyx_vtabstruct_11environment_8entities_2cy_10sensors_cy_AngularSensorCy*)__Pyx_GetVtable(__pyx_ptype_11environment_8entities_2cy_10sensors_cy_AngularSensorCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_8entities_2cy_10sensors_cy_AngularSensorCy)) __PYX_ERR(4, 16, __pyx_L1_error)
+  __pyx_ptype_11environment_8entities_2cy_10sensors_cy_DistanceSensorCy = __Pyx_ImportType(__pyx_t_1, "environment.entities.cy.sensors_cy", "DistanceSensorCy", sizeof(struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_DistanceSensorCy), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_11environment_8entities_2cy_10sensors_cy_DistanceSensorCy) __PYX_ERR(4, 24, __pyx_L1_error)
+  __pyx_vtabptr_11environment_8entities_2cy_10sensors_cy_DistanceSensorCy = (struct __pyx_vtabstruct_11environment_8entities_2cy_10sensors_cy_DistanceSensorCy*)__Pyx_GetVtable(__pyx_ptype_11environment_8entities_2cy_10sensors_cy_DistanceSensorCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_8entities_2cy_10sensors_cy_DistanceSensorCy)) __PYX_ERR(4, 24, __pyx_L1_error)
+  __pyx_ptype_11environment_8entities_2cy_10sensors_cy_ProximitySensorCy = __Pyx_ImportType(__pyx_t_1, "environment.entities.cy.sensors_cy", "ProximitySensorCy", sizeof(struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_ProximitySensorCy), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_11environment_8entities_2cy_10sensors_cy_ProximitySensorCy) __PYX_ERR(4, 31, __pyx_L1_error)
+  __pyx_vtabptr_11environment_8entities_2cy_10sensors_cy_ProximitySensorCy = (struct __pyx_vtabstruct_11environment_8entities_2cy_10sensors_cy_ProximitySensorCy*)__Pyx_GetVtable(__pyx_ptype_11environment_8entities_2cy_10sensors_cy_ProximitySensorCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_8entities_2cy_10sensors_cy_ProximitySensorCy)) __PYX_ERR(4, 31, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyImport_ImportModule("environment.cy_entities.robots_cy"); if (unlikely(!__pyx_t_1)) __PYX_ERR(5, 10, __pyx_L1_error)
+  __pyx_t_1 = PyImport_ImportModule("environment.entities.cy.robots_cy"); if (unlikely(!__pyx_t_1)) __PYX_ERR(5, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_ptype_11environment_11cy_entities_9robots_cy_FootBotCy = __Pyx_ImportType(__pyx_t_1, "environment.cy_entities.robots_cy", "FootBotCy", sizeof(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_11environment_11cy_entities_9robots_cy_FootBotCy) __PYX_ERR(5, 10, __pyx_L1_error)
-  __pyx_vtabptr_11environment_11cy_entities_9robots_cy_FootBotCy = (struct __pyx_vtabstruct_11environment_11cy_entities_9robots_cy_FootBotCy*)__Pyx_GetVtable(__pyx_ptype_11environment_11cy_entities_9robots_cy_FootBotCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_11cy_entities_9robots_cy_FootBotCy)) __PYX_ERR(5, 10, __pyx_L1_error)
+  __pyx_ptype_11environment_8entities_2cy_9robots_cy_FootBotCy = __Pyx_ImportType(__pyx_t_1, "environment.entities.cy.robots_cy", "FootBotCy", sizeof(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_11environment_8entities_2cy_9robots_cy_FootBotCy) __PYX_ERR(5, 10, __pyx_L1_error)
+  __pyx_vtabptr_11environment_8entities_2cy_9robots_cy_FootBotCy = (struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy*)__Pyx_GetVtable(__pyx_ptype_11environment_8entities_2cy_9robots_cy_FootBotCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_8entities_2cy_9robots_cy_FootBotCy)) __PYX_ERR(5, 10, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyImport_ImportModule("environment.cy_entities.line2d_cy"); if (unlikely(!__pyx_t_1)) __PYX_ERR(6, 8, __pyx_L1_error)
+  __pyx_t_1 = PyImport_ImportModule("utils.cy.line2d_cy"); if (unlikely(!__pyx_t_1)) __PYX_ERR(6, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_ptype_11environment_11cy_entities_9line2d_cy_Line2dCy = __Pyx_ImportType(__pyx_t_1, "environment.cy_entities.line2d_cy", "Line2dCy", sizeof(struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_11environment_11cy_entities_9line2d_cy_Line2dCy) __PYX_ERR(6, 8, __pyx_L1_error)
-  __pyx_vtabptr_11environment_11cy_entities_9line2d_cy_Line2dCy = (struct __pyx_vtabstruct_11environment_11cy_entities_9line2d_cy_Line2dCy*)__Pyx_GetVtable(__pyx_ptype_11environment_11cy_entities_9line2d_cy_Line2dCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_11cy_entities_9line2d_cy_Line2dCy)) __PYX_ERR(6, 8, __pyx_L1_error)
+  __pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy = __Pyx_ImportType(__pyx_t_1, "utils.cy.line2d_cy", "Line2dCy", sizeof(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy) __PYX_ERR(6, 8, __pyx_L1_error)
+  __pyx_vtabptr_5utils_2cy_9line2d_cy_Line2dCy = (struct __pyx_vtabstruct_5utils_2cy_9line2d_cy_Line2dCy*)__Pyx_GetVtable(__pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy->tp_dict); if (unlikely(!__pyx_vtabptr_5utils_2cy_9line2d_cy_Line2dCy)) __PYX_ERR(6, 8, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_RefNannyFinishContext();
   return 0;
@@ -9254,8 +9254,8 @@ static int __Pyx_modinit_function_import_code(void) {
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__Pyx_modinit_function_import_code", 0);
   /*--- Function import code ---*/
-  __pyx_t_1 = PyImport_ImportModule("environment.cy_entities.intersection_cy"); if (!__pyx_t_1) __PYX_ERR(0, 1, __pyx_L1_error)
-  if (__Pyx_ImportFunction(__pyx_t_1, "circle_line_intersection_cy", (void (**)(void))&__pyx_f_11environment_11cy_entities_15intersection_cy_circle_line_intersection_cy, "PyObject *(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, float, struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_t_1 = PyImport_ImportModule("utils.cy.intersection_cy"); if (!__pyx_t_1) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_ImportFunction(__pyx_t_1, "circle_line_intersection_cy", (void (**)(void))&__pyx_f_5utils_2cy_15intersection_cy_circle_line_intersection_cy, "PyObject *(struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, float, struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   Py_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_RefNannyFinishContext();
   return 0;
@@ -9435,14 +9435,14 @@ if (!__Pyx_RefNanny) {
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
-  if (__pyx_module_is_main_environment__cy_entities__game_cy) {
+  if (__pyx_module_is_main_environment__entities__cy__game_cy) {
     if (PyObject_SetAttr(__pyx_m, __pyx_n_s_name, __pyx_n_s_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "environment.cy_entities.game_cy")) {
-      if (unlikely(PyDict_SetItemString(modules, "environment.cy_entities.game_cy", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "environment.entities.cy.game_cy")) {
+      if (unlikely(PyDict_SetItemString(modules, "environment.entities.cy.game_cy", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -9463,7 +9463,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "environment/cy_entities/game_cy.pyx":7
+  /* "environment/entities/cy/game_cy.pyx":7
  * in other files).
  * """
  * import pickle             # <<<<<<<<<<<<<<
@@ -9475,7 +9475,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_pickle, __pyx_t_1) < 0) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":8
+  /* "environment/entities/cy/game_cy.pyx":8
  * """
  * import pickle
  * import random             # <<<<<<<<<<<<<<
@@ -9487,7 +9487,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_random, __pyx_t_1) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":10
+  /* "environment/entities/cy/game_cy.pyx":10
  * import random
  * 
  * import pylab as pl             # <<<<<<<<<<<<<<
@@ -9499,7 +9499,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_pl, __pyx_t_1) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":11
+  /* "environment/entities/cy/game_cy.pyx":11
  * 
  * import pylab as pl
  * from matplotlib import collections as mc             # <<<<<<<<<<<<<<
@@ -9520,7 +9520,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":13
+  /* "environment/entities/cy/game_cy.pyx":13
  * from matplotlib import collections as mc
  * 
  * from utils.config import *             # <<<<<<<<<<<<<<
@@ -9538,12 +9538,12 @@ if (!__Pyx_RefNanny) {
   if (__pyx_import_star(__pyx_t_1) < 0) __PYX_ERR(0, 13, __pyx_L1_error);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":14
+  /* "environment/entities/cy/game_cy.pyx":14
  * 
  * from utils.config import *
  * from utils.dictionary import *             # <<<<<<<<<<<<<<
  * 
- * from intersection_cy cimport circle_line_intersection_cy
+ * from utils.cy.intersection_cy cimport circle_line_intersection_cy
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 14, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -9561,12 +9561,12 @@ if (!__Pyx_RefNanny) {
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_11environment_11cy_entities_7game_cy_3__pyx_unpickle_GameCy, NULL, __pyx_n_s_environment_cy_entities_game_cy); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 1, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_11environment_8entities_2cy_7game_cy_3__pyx_unpickle_GameCy, NULL, __pyx_n_s_environment_entities_cy_game_cy); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_GameCy, __pyx_t_2) < 0) __PYX_ERR(2, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "environment/cy_entities/game_cy.pyx":1
+  /* "environment/entities/cy/game_cy.pyx":1
  * """             # <<<<<<<<<<<<<<
  * game_cy.pyx
  * 
@@ -9584,11 +9584,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_2);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init environment.cy_entities.game_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init environment.entities.cy.game_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     Py_CLEAR(__pyx_m);
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init environment.cy_entities.game_cy");
+    PyErr_SetString(PyExc_ImportError, "init environment.entities.cy.game_cy");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

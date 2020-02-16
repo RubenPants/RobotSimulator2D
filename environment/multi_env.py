@@ -4,16 +4,14 @@ from utils.config import FPS
 from utils.dictionary import D_SENSOR_LIST, D_DONE
 
 if sys.platform == 'linux':
-    from environment.cy_entities.game_cy import GameCy
+    from environment.entities.cy.game_cy import GameCy
 else:
     from environment.entities.game import Game
 
 
 # TODO: Create Cython MultiEnvironment, since this environment communicates a lot with god_class
 class MultiEnvironment:
-    """
-    This class provides an environment to evaluate a single genome on multiple games.
-    """
+    """ This class provides an environment to evaluate a single genome on multiple games. """
     
     def __init__(self,
                  make_net,

@@ -3,12 +3,12 @@
 /* BEGIN: Cython Metadata
 {
     "distutils": {
-        "name": "environment.cy_entities.intersection_cy",
+        "name": "utils.cy.intersection_cy",
         "sources": [
-            "intersection_cy.pyx"
+            "utils/cy/intersection_cy.pyx"
         ]
     },
-    "module_name": "environment.cy_entities.intersection_cy"
+    "module_name": "utils.cy.intersection_cy"
 }
 END: Cython Metadata */
 
@@ -602,8 +602,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #endif
 #endif
 
-#define __PYX_HAVE__environment__cy_entities__intersection_cy
-#define __PYX_HAVE_API__environment__cy_entities__intersection_cy
+#define __PYX_HAVE__utils__cy__intersection_cy
+#define __PYX_HAVE_API__utils__cy__intersection_cy
 /* Early includes */
 #ifdef _OPENMP
 #include <omp.h>
@@ -813,47 +813,47 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "intersection_cy.pyx",
-  "vec2d_cy.pxd",
-  "line2d_cy.pxd",
+  "utils/cy/intersection_cy.pyx",
+  "utils/cy/vec2d_cy.pxd",
+  "utils/cy/line2d_cy.pxd",
 };
 
 /*--- Type declarations ---*/
-struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy;
-struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy;
+struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy;
+struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy;
 
-/* "vec2d_cy.pxd":7
+/* "utils/cy/vec2d_cy.pxd":7
  * """
  * 
  * cdef class Vec2dCy:             # <<<<<<<<<<<<<<
  *     cdef public float x, y
  * 
  */
-struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy {
+struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy {
   PyObject_HEAD
-  struct __pyx_vtabstruct_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_vtab;
+  struct __pyx_vtabstruct_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_vtab;
   float x;
   float y;
 };
 
 
-/* "line2d_cy.pxd":8
- * from vec2d_cy cimport Vec2dCy
+/* "utils/cy/line2d_cy.pxd":8
+ * from utils.cy.vec2d_cy cimport Vec2dCy
  * 
  * cdef class Line2dCy:             # <<<<<<<<<<<<<<
  *     cdef public Vec2dCy x, y
  * 
  */
-struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy {
+struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy {
   PyObject_HEAD
-  struct __pyx_vtabstruct_11environment_11cy_entities_9line2d_cy_Line2dCy *__pyx_vtab;
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *x;
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *y;
+  struct __pyx_vtabstruct_5utils_2cy_9line2d_cy_Line2dCy *__pyx_vtab;
+  struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *x;
+  struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *y;
 };
 
 
 
-/* "vec2d_cy.pxd":7
+/* "utils/cy/vec2d_cy.pxd":7
  * """
  * 
  * cdef class Vec2dCy:             # <<<<<<<<<<<<<<
@@ -861,30 +861,30 @@ struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy {
  * 
  */
 
-struct __pyx_vtabstruct_11environment_11cy_entities_8vec2d_cy_Vec2dCy {
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *(*_operator_handler)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch);
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *(*_right_operator_handler)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch);
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *(*_inplace_operator_handler)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch);
-  float (*get_angle)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
-  float (*get_length)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *(*normalized)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
+struct __pyx_vtabstruct_5utils_2cy_8vec2d_cy_Vec2dCy {
+  struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *(*_operator_handler)(struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch);
+  struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *(*_right_operator_handler)(struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch);
+  struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *(*_inplace_operator_handler)(struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch);
+  float (*get_angle)(struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
+  float (*get_length)(struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
+  struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *(*normalized)(struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
 };
-static struct __pyx_vtabstruct_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_vtabptr_11environment_11cy_entities_8vec2d_cy_Vec2dCy;
+static struct __pyx_vtabstruct_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_vtabptr_5utils_2cy_8vec2d_cy_Vec2dCy;
 
 
-/* "line2d_cy.pxd":8
- * from vec2d_cy cimport Vec2dCy
+/* "utils/cy/line2d_cy.pxd":8
+ * from utils.cy.vec2d_cy cimport Vec2dCy
  * 
  * cdef class Line2dCy:             # <<<<<<<<<<<<<<
  *     cdef public Vec2dCy x, y
  * 
  */
 
-struct __pyx_vtabstruct_11environment_11cy_entities_9line2d_cy_Line2dCy {
-  float (*get_length)(struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch);
-  float (*get_orientation)(struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch);
+struct __pyx_vtabstruct_5utils_2cy_9line2d_cy_Line2dCy {
+  float (*get_length)(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch);
+  float (*get_orientation)(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch);
 };
-static struct __pyx_vtabstruct_11environment_11cy_entities_9line2d_cy_Line2dCy *__pyx_vtabptr_11environment_11cy_entities_9line2d_cy_Line2dCy;
+static struct __pyx_vtabstruct_5utils_2cy_9line2d_cy_Line2dCy *__pyx_vtabptr_5utils_2cy_9line2d_cy_Line2dCy;
 
 /* --- Runtime support code (head) --- */
 /* Refnanny.proto */
@@ -1166,23 +1166,23 @@ static int __Pyx_ExportFunction(const char *name, void (*f)(void), const char *s
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 
-/* Module declarations from 'environment.cy_entities.vec2d_cy' */
-static PyTypeObject *__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy = 0;
+/* Module declarations from 'utils.cy.vec2d_cy' */
+static PyTypeObject *__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy = 0;
 
-/* Module declarations from 'environment.cy_entities.line2d_cy' */
-static PyTypeObject *__pyx_ptype_11environment_11cy_entities_9line2d_cy_Line2dCy = 0;
+/* Module declarations from 'utils.cy.line2d_cy' */
+static PyTypeObject *__pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy = 0;
 
-/* Module declarations from 'environment.cy_entities.intersection_cy' */
-static float __pyx_v_11environment_11cy_entities_15intersection_cy_EPSILON;
-static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_line_line_intersection_cy(struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *, struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch); /*proto*/
-static int __pyx_f_11environment_11cy_entities_15intersection_cy_point_circle_intersection_cy(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, float, int __pyx_skip_dispatch); /*proto*/
-static int __pyx_f_11environment_11cy_entities_15intersection_cy_point_line_intersection_cy(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch); /*proto*/
-static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_circle_line_intersection_cy(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, float, struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch); /*proto*/
-#define __Pyx_MODULE_NAME "environment.cy_entities.intersection_cy"
-extern int __pyx_module_is_main_environment__cy_entities__intersection_cy;
-int __pyx_module_is_main_environment__cy_entities__intersection_cy = 0;
+/* Module declarations from 'utils.cy.intersection_cy' */
+static float __pyx_v_5utils_2cy_15intersection_cy_EPSILON;
+static PyObject *__pyx_f_5utils_2cy_15intersection_cy_line_line_intersection_cy(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch); /*proto*/
+static int __pyx_f_5utils_2cy_15intersection_cy_point_circle_intersection_cy(struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, float, int __pyx_skip_dispatch); /*proto*/
+static int __pyx_f_5utils_2cy_15intersection_cy_point_line_intersection_cy(struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch); /*proto*/
+static PyObject *__pyx_f_5utils_2cy_15intersection_cy_circle_line_intersection_cy(struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, float, struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch); /*proto*/
+#define __Pyx_MODULE_NAME "utils.cy.intersection_cy"
+extern int __pyx_module_is_main_utils__cy__intersection_cy;
+int __pyx_module_is_main_utils__cy__intersection_cy = 0;
 
-/* Implementation of 'environment.cy_entities.intersection_cy' */
+/* Implementation of 'utils.cy.intersection_cy' */
 static const char __pyx_k_c[] = "c";
 static const char __pyx_k_l[] = "l";
 static const char __pyx_k_p[] = "p";
@@ -1208,14 +1208,14 @@ static PyObject *__pyx_n_s_p;
 static PyObject *__pyx_n_s_pyx_vtable;
 static PyObject *__pyx_n_s_r;
 static PyObject *__pyx_n_s_test;
-static PyObject *__pyx_pf_11environment_11cy_entities_15intersection_cy_line_line_intersection_cy(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *__pyx_v_l1, struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *__pyx_v_l2); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_15intersection_cy_2point_circle_intersection_cy(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_p, struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_c, float __pyx_v_r); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_15intersection_cy_4point_line_intersection_cy(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_p, struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *__pyx_v_l); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_15intersection_cy_6circle_line_intersection_cy(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_c, float __pyx_v_r, struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *__pyx_v_l); /* proto */
+static PyObject *__pyx_pf_5utils_2cy_15intersection_cy_line_line_intersection_cy(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_l1, struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_l2); /* proto */
+static PyObject *__pyx_pf_5utils_2cy_15intersection_cy_2point_circle_intersection_cy(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_p, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_c, float __pyx_v_r); /* proto */
+static PyObject *__pyx_pf_5utils_2cy_15intersection_cy_4point_line_intersection_cy(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_p, struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_l); /* proto */
+static PyObject *__pyx_pf_5utils_2cy_15intersection_cy_6circle_line_intersection_cy(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_c, float __pyx_v_r, struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_l); /* proto */
 static PyObject *__pyx_tuple_;
 /* Late includes */
 
-/* "environment/cy_entities/intersection_cy.pyx":9
+/* "utils/cy/intersection_cy.pyx":9
  * cdef float EPSILON = 1e-5
  * 
  * cpdef tuple line_line_intersection_cy(Line2dCy l1, Line2dCy l2):             # <<<<<<<<<<<<<<
@@ -1223,8 +1223,8 @@ static PyObject *__pyx_tuple_;
  *     Determine if two lines are intersecting with each other and give point of contact if they do.
  */
 
-static PyObject *__pyx_pw_11environment_11cy_entities_15intersection_cy_1line_line_intersection_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_line_line_intersection_cy(struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *__pyx_v_l1, struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *__pyx_v_l2, CYTHON_UNUSED int __pyx_skip_dispatch) {
+static PyObject *__pyx_pw_5utils_2cy_15intersection_cy_1line_line_intersection_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_f_5utils_2cy_15intersection_cy_line_line_intersection_cy(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_l1, struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_l2, CYTHON_UNUSED int __pyx_skip_dispatch) {
   float __pyx_v_a_dev;
   float __pyx_v_a;
   float __pyx_v_b_dev;
@@ -1240,7 +1240,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_line_line
   PyObject *__pyx_t_7 = NULL;
   __Pyx_RefNannySetupContext("line_line_intersection_cy", 0);
 
-  /* "environment/cy_entities/intersection_cy.pyx":22
+  /* "utils/cy/intersection_cy.pyx":22
  *     cdef float b
  * 
  *     a_dev = ((l2.y.y - l2.x.y) * (l1.y.x - l1.x.x) - (l2.y.x - l2.x.x) * (l1.y.y - l1.x.y))             # <<<<<<<<<<<<<<
@@ -1249,7 +1249,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_line_line
  */
   __pyx_v_a_dev = (((__pyx_v_l2->y->y - __pyx_v_l2->x->y) * (__pyx_v_l1->y->x - __pyx_v_l1->x->x)) - ((__pyx_v_l2->y->x - __pyx_v_l2->x->x) * (__pyx_v_l1->y->y - __pyx_v_l1->x->y)));
 
-  /* "environment/cy_entities/intersection_cy.pyx":23
+  /* "utils/cy/intersection_cy.pyx":23
  * 
  *     a_dev = ((l2.y.y - l2.x.y) * (l1.y.x - l1.x.x) - (l2.y.x - l2.x.x) * (l1.y.y - l1.x.y))
  *     a_dev = a_dev if a_dev != 0 else EPSILON             # <<<<<<<<<<<<<<
@@ -1259,11 +1259,11 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_line_line
   if (((__pyx_v_a_dev != 0.0) != 0)) {
     __pyx_t_1 = __pyx_v_a_dev;
   } else {
-    __pyx_t_1 = __pyx_v_11environment_11cy_entities_15intersection_cy_EPSILON;
+    __pyx_t_1 = __pyx_v_5utils_2cy_15intersection_cy_EPSILON;
   }
   __pyx_v_a_dev = __pyx_t_1;
 
-  /* "environment/cy_entities/intersection_cy.pyx":24
+  /* "utils/cy/intersection_cy.pyx":24
  *     a_dev = ((l2.y.y - l2.x.y) * (l1.y.x - l1.x.x) - (l2.y.x - l2.x.x) * (l1.y.y - l1.x.y))
  *     a_dev = a_dev if a_dev != 0 else EPSILON
  *     a = ((l2.y.x - l2.x.x) * (l1.x.y - l2.x.y) - (l2.y.y - l2.x.y) * (l1.x.x - l2.x.x)) / a_dev             # <<<<<<<<<<<<<<
@@ -1277,7 +1277,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_line_line
   }
   __pyx_v_a = (__pyx_t_1 / __pyx_v_a_dev);
 
-  /* "environment/cy_entities/intersection_cy.pyx":25
+  /* "utils/cy/intersection_cy.pyx":25
  *     a_dev = a_dev if a_dev != 0 else EPSILON
  *     a = ((l2.y.x - l2.x.x) * (l1.x.y - l2.x.y) - (l2.y.y - l2.x.y) * (l1.x.x - l2.x.x)) / a_dev
  *     b_dev = ((l2.y.y - l2.x.y) * (l1.y.x - l1.x.x) - (l2.y.x - l2.x.x) * (l1.y.y - l1.x.y))             # <<<<<<<<<<<<<<
@@ -1286,7 +1286,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_line_line
  */
   __pyx_v_b_dev = (((__pyx_v_l2->y->y - __pyx_v_l2->x->y) * (__pyx_v_l1->y->x - __pyx_v_l1->x->x)) - ((__pyx_v_l2->y->x - __pyx_v_l2->x->x) * (__pyx_v_l1->y->y - __pyx_v_l1->x->y)));
 
-  /* "environment/cy_entities/intersection_cy.pyx":26
+  /* "utils/cy/intersection_cy.pyx":26
  *     a = ((l2.y.x - l2.x.x) * (l1.x.y - l2.x.y) - (l2.y.y - l2.x.y) * (l1.x.x - l2.x.x)) / a_dev
  *     b_dev = ((l2.y.y - l2.x.y) * (l1.y.x - l1.x.x) - (l2.y.x - l2.x.x) * (l1.y.y - l1.x.y))
  *     b_dev = b_dev if b_dev != 0 else EPSILON             # <<<<<<<<<<<<<<
@@ -1296,11 +1296,11 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_line_line
   if (((__pyx_v_b_dev != 0.0) != 0)) {
     __pyx_t_1 = __pyx_v_b_dev;
   } else {
-    __pyx_t_1 = __pyx_v_11environment_11cy_entities_15intersection_cy_EPSILON;
+    __pyx_t_1 = __pyx_v_5utils_2cy_15intersection_cy_EPSILON;
   }
   __pyx_v_b_dev = __pyx_t_1;
 
-  /* "environment/cy_entities/intersection_cy.pyx":27
+  /* "utils/cy/intersection_cy.pyx":27
  *     b_dev = ((l2.y.y - l2.x.y) * (l1.y.x - l1.x.x) - (l2.y.x - l2.x.x) * (l1.y.y - l1.x.y))
  *     b_dev = b_dev if b_dev != 0 else EPSILON
  *     b = ((l1.y.x - l1.x.x) * (l1.x.y - l2.x.y) - (l1.y.y - l1.x.y) * (l1.x.x - l2.x.x)) / b_dev             # <<<<<<<<<<<<<<
@@ -1314,7 +1314,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_line_line
   }
   __pyx_v_b = (__pyx_t_1 / __pyx_v_b_dev);
 
-  /* "environment/cy_entities/intersection_cy.pyx":30
+  /* "utils/cy/intersection_cy.pyx":30
  * 
  *     # Check if not intersecting
  *     if 0 <= a <= 1 and 0 <= b <= 1:             # <<<<<<<<<<<<<<
@@ -1340,7 +1340,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_line_line
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_2) {
 
-    /* "environment/cy_entities/intersection_cy.pyx":31
+    /* "utils/cy/intersection_cy.pyx":31
  *     # Check if not intersecting
  *     if 0 <= a <= 1 and 0 <= b <= 1:
  *         return True, Vec2dCy(l1.x.x + (a * (l1.y.x - l1.x.x)), l1.x.y + (a * (l1.y.y - l1.x.y)))             # <<<<<<<<<<<<<<
@@ -1360,7 +1360,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_line_line
     PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_t_6);
     __pyx_t_5 = 0;
     __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_7, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 31, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy), __pyx_t_7, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 31, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 31, __pyx_L1_error)
@@ -1375,7 +1375,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_line_line
     __pyx_t_7 = 0;
     goto __pyx_L0;
 
-    /* "environment/cy_entities/intersection_cy.pyx":30
+    /* "utils/cy/intersection_cy.pyx":30
  * 
  *     # Check if not intersecting
  *     if 0 <= a <= 1 and 0 <= b <= 1:             # <<<<<<<<<<<<<<
@@ -1384,7 +1384,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_line_line
  */
   }
 
-  /* "environment/cy_entities/intersection_cy.pyx":33
+  /* "utils/cy/intersection_cy.pyx":33
  *         return True, Vec2dCy(l1.x.x + (a * (l1.y.x - l1.x.x)), l1.x.y + (a * (l1.y.y - l1.x.y)))
  *     else:
  *         return False, None             # <<<<<<<<<<<<<<
@@ -1398,7 +1398,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_line_line
     goto __pyx_L0;
   }
 
-  /* "environment/cy_entities/intersection_cy.pyx":9
+  /* "utils/cy/intersection_cy.pyx":9
  * cdef float EPSILON = 1e-5
  * 
  * cpdef tuple line_line_intersection_cy(Line2dCy l1, Line2dCy l2):             # <<<<<<<<<<<<<<
@@ -1411,7 +1411,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_line_line
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
-  __Pyx_AddTraceback("environment.cy_entities.intersection_cy.line_line_intersection_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy.intersection_cy.line_line_intersection_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1420,11 +1420,11 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_line_line
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_15intersection_cy_1line_line_intersection_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_11environment_11cy_entities_15intersection_cy_line_line_intersection_cy[] = "\n    Determine if two lines are intersecting with each other and give point of contact if they do.\n    \n    :param l1: Line2d\n    :param l2: Line2d\n    :return: Bool, Intersection: Vec2d\n    ";
-static PyObject *__pyx_pw_11environment_11cy_entities_15intersection_cy_1line_line_intersection_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *__pyx_v_l1 = 0;
-  struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *__pyx_v_l2 = 0;
+static PyObject *__pyx_pw_5utils_2cy_15intersection_cy_1line_line_intersection_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5utils_2cy_15intersection_cy_line_line_intersection_cy[] = "\n    Determine if two lines are intersecting with each other and give point of contact if they do.\n    \n    :param l1: Line2d\n    :param l2: Line2d\n    :return: Bool, Intersection: Vec2d\n    ";
+static PyObject *__pyx_pw_5utils_2cy_15intersection_cy_1line_line_intersection_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_l1 = 0;
+  struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_l2 = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("line_line_intersection_cy (wrapper)", 0);
@@ -1463,20 +1463,20 @@ static PyObject *__pyx_pw_11environment_11cy_entities_15intersection_cy_1line_li
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
-    __pyx_v_l1 = ((struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *)values[0]);
-    __pyx_v_l2 = ((struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *)values[1]);
+    __pyx_v_l1 = ((struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *)values[0]);
+    __pyx_v_l2 = ((struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *)values[1]);
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("line_line_intersection_cy", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 9, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("environment.cy_entities.intersection_cy.line_line_intersection_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy.intersection_cy.line_line_intersection_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_l1), __pyx_ptype_11environment_11cy_entities_9line2d_cy_Line2dCy, 1, "l1", 0))) __PYX_ERR(0, 9, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_l2), __pyx_ptype_11environment_11cy_entities_9line2d_cy_Line2dCy, 1, "l2", 0))) __PYX_ERR(0, 9, __pyx_L1_error)
-  __pyx_r = __pyx_pf_11environment_11cy_entities_15intersection_cy_line_line_intersection_cy(__pyx_self, __pyx_v_l1, __pyx_v_l2);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_l1), __pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy, 1, "l1", 0))) __PYX_ERR(0, 9, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_l2), __pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy, 1, "l2", 0))) __PYX_ERR(0, 9, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5utils_2cy_15intersection_cy_line_line_intersection_cy(__pyx_self, __pyx_v_l1, __pyx_v_l2);
 
   /* function exit code */
   goto __pyx_L0;
@@ -1487,13 +1487,13 @@ static PyObject *__pyx_pw_11environment_11cy_entities_15intersection_cy_1line_li
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_15intersection_cy_line_line_intersection_cy(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *__pyx_v_l1, struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *__pyx_v_l2) {
+static PyObject *__pyx_pf_5utils_2cy_15intersection_cy_line_line_intersection_cy(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_l1, struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_l2) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("line_line_intersection_cy", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_11environment_11cy_entities_15intersection_cy_line_line_intersection_cy(__pyx_v_l1, __pyx_v_l2, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_5utils_2cy_15intersection_cy_line_line_intersection_cy(__pyx_v_l1, __pyx_v_l2, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -1502,7 +1502,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_15intersection_cy_line_lin
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.intersection_cy.line_line_intersection_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy.intersection_cy.line_line_intersection_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1510,7 +1510,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_15intersection_cy_line_lin
   return __pyx_r;
 }
 
-/* "environment/cy_entities/intersection_cy.pyx":35
+/* "utils/cy/intersection_cy.pyx":35
  *         return False, None
  * 
  * cpdef bint point_circle_intersection_cy(Vec2dCy p, Vec2dCy c, float r):             # <<<<<<<<<<<<<<
@@ -1518,8 +1518,8 @@ static PyObject *__pyx_pf_11environment_11cy_entities_15intersection_cy_line_lin
  *     Determine if a point lays inside of a circle.
  */
 
-static PyObject *__pyx_pw_11environment_11cy_entities_15intersection_cy_3point_circle_intersection_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_f_11environment_11cy_entities_15intersection_cy_point_circle_intersection_cy(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_p, struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_c, float __pyx_v_r, CYTHON_UNUSED int __pyx_skip_dispatch) {
+static PyObject *__pyx_pw_5utils_2cy_15intersection_cy_3point_circle_intersection_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_f_5utils_2cy_15intersection_cy_point_circle_intersection_cy(struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_p, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_c, float __pyx_v_r, CYTHON_UNUSED int __pyx_skip_dispatch) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1528,7 +1528,7 @@ static int __pyx_f_11environment_11cy_entities_15intersection_cy_point_circle_in
   int __pyx_t_4;
   __Pyx_RefNannySetupContext("point_circle_intersection_cy", 0);
 
-  /* "environment/cy_entities/intersection_cy.pyx":44
+  /* "utils/cy/intersection_cy.pyx":44
  *     :return: Bool
  *     """
  *     return (p - c).get_length() < r + EPSILON             # <<<<<<<<<<<<<<
@@ -1555,7 +1555,7 @@ static int __pyx_f_11environment_11cy_entities_15intersection_cy_point_circle_in
   if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 44, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyFloat_FromDouble((__pyx_v_r + __pyx_v_11environment_11cy_entities_15intersection_cy_EPSILON)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 44, __pyx_L1_error)
+  __pyx_t_3 = PyFloat_FromDouble((__pyx_v_r + __pyx_v_5utils_2cy_15intersection_cy_EPSILON)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 44, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = PyObject_RichCompare(__pyx_t_1, __pyx_t_3, Py_LT); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 44, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -1565,7 +1565,7 @@ static int __pyx_f_11environment_11cy_entities_15intersection_cy_point_circle_in
   __pyx_r = __pyx_t_4;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/intersection_cy.pyx":35
+  /* "utils/cy/intersection_cy.pyx":35
  *         return False, None
  * 
  * cpdef bint point_circle_intersection_cy(Vec2dCy p, Vec2dCy c, float r):             # <<<<<<<<<<<<<<
@@ -1578,7 +1578,7 @@ static int __pyx_f_11environment_11cy_entities_15intersection_cy_point_circle_in
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_WriteUnraisable("environment.cy_entities.intersection_cy.point_circle_intersection_cy", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __Pyx_WriteUnraisable("utils.cy.intersection_cy.point_circle_intersection_cy", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -1586,11 +1586,11 @@ static int __pyx_f_11environment_11cy_entities_15intersection_cy_point_circle_in
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_15intersection_cy_3point_circle_intersection_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_11environment_11cy_entities_15intersection_cy_2point_circle_intersection_cy[] = "\n    Determine if a point lays inside of a circle.\n    \n    :param p: Point\n    :param c: Center of circle\n    :param r: Radius of circle\n    :return: Bool\n    ";
-static PyObject *__pyx_pw_11environment_11cy_entities_15intersection_cy_3point_circle_intersection_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_p = 0;
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_c = 0;
+static PyObject *__pyx_pw_5utils_2cy_15intersection_cy_3point_circle_intersection_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5utils_2cy_15intersection_cy_2point_circle_intersection_cy[] = "\n    Determine if a point lays inside of a circle.\n    \n    :param p: Point\n    :param c: Center of circle\n    :param r: Radius of circle\n    :return: Bool\n    ";
+static PyObject *__pyx_pw_5utils_2cy_15intersection_cy_3point_circle_intersection_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_p = 0;
+  struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_c = 0;
   float __pyx_v_r;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -1639,21 +1639,21 @@ static PyObject *__pyx_pw_11environment_11cy_entities_15intersection_cy_3point_c
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
     }
-    __pyx_v_p = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)values[0]);
-    __pyx_v_c = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)values[1]);
+    __pyx_v_p = ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)values[0]);
+    __pyx_v_c = ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)values[1]);
     __pyx_v_r = __pyx_PyFloat_AsFloat(values[2]); if (unlikely((__pyx_v_r == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 35, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("point_circle_intersection_cy", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 35, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("environment.cy_entities.intersection_cy.point_circle_intersection_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy.intersection_cy.point_circle_intersection_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_p), __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy, 1, "p", 0))) __PYX_ERR(0, 35, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_c), __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy, 1, "c", 0))) __PYX_ERR(0, 35, __pyx_L1_error)
-  __pyx_r = __pyx_pf_11environment_11cy_entities_15intersection_cy_2point_circle_intersection_cy(__pyx_self, __pyx_v_p, __pyx_v_c, __pyx_v_r);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_p), __pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy, 1, "p", 0))) __PYX_ERR(0, 35, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_c), __pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy, 1, "c", 0))) __PYX_ERR(0, 35, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5utils_2cy_15intersection_cy_2point_circle_intersection_cy(__pyx_self, __pyx_v_p, __pyx_v_c, __pyx_v_r);
 
   /* function exit code */
   goto __pyx_L0;
@@ -1664,13 +1664,13 @@ static PyObject *__pyx_pw_11environment_11cy_entities_15intersection_cy_3point_c
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_15intersection_cy_2point_circle_intersection_cy(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_p, struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_c, float __pyx_v_r) {
+static PyObject *__pyx_pf_5utils_2cy_15intersection_cy_2point_circle_intersection_cy(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_p, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_c, float __pyx_v_r) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("point_circle_intersection_cy", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_f_11environment_11cy_entities_15intersection_cy_point_circle_intersection_cy(__pyx_v_p, __pyx_v_c, __pyx_v_r, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_f_5utils_2cy_15intersection_cy_point_circle_intersection_cy(__pyx_v_p, __pyx_v_c, __pyx_v_r, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -1679,7 +1679,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_15intersection_cy_2point_c
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.intersection_cy.point_circle_intersection_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy.intersection_cy.point_circle_intersection_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1687,7 +1687,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_15intersection_cy_2point_c
   return __pyx_r;
 }
 
-/* "environment/cy_entities/intersection_cy.pyx":46
+/* "utils/cy/intersection_cy.pyx":46
  *     return (p - c).get_length() < r + EPSILON
  * 
  * cpdef bint point_line_intersection_cy(Vec2dCy p, Line2dCy l):             # <<<<<<<<<<<<<<
@@ -1695,8 +1695,8 @@ static PyObject *__pyx_pf_11environment_11cy_entities_15intersection_cy_2point_c
  *     Determine if a point lays on a line.
  */
 
-static PyObject *__pyx_pw_11environment_11cy_entities_15intersection_cy_5point_line_intersection_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_f_11environment_11cy_entities_15intersection_cy_point_line_intersection_cy(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_p, struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *__pyx_v_l, CYTHON_UNUSED int __pyx_skip_dispatch) {
+static PyObject *__pyx_pw_5utils_2cy_15intersection_cy_5point_line_intersection_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_f_5utils_2cy_15intersection_cy_point_line_intersection_cy(struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_p, struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_l, CYTHON_UNUSED int __pyx_skip_dispatch) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1707,14 +1707,14 @@ static int __pyx_f_11environment_11cy_entities_15intersection_cy_point_line_inte
   int __pyx_t_6;
   __Pyx_RefNannySetupContext("point_line_intersection_cy", 0);
 
-  /* "environment/cy_entities/intersection_cy.pyx":54
+  /* "utils/cy/intersection_cy.pyx":54
  *     :return: Bool
  *     """
  *     return l.get_length() - EPSILON <= (p - l.x).get_length() + (p - l.y).get_length() <= l.get_length() + EPSILON             # <<<<<<<<<<<<<<
  * 
  * cpdef tuple circle_line_intersection_cy(Vec2dCy c, float r, Line2dCy l):
  */
-  __pyx_t_1 = PyFloat_FromDouble((((struct __pyx_vtabstruct_11environment_11cy_entities_9line2d_cy_Line2dCy *)__pyx_v_l->__pyx_vtab)->get_length(__pyx_v_l, 0) - __pyx_v_11environment_11cy_entities_15intersection_cy_EPSILON)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 54, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble((((struct __pyx_vtabstruct_5utils_2cy_9line2d_cy_Line2dCy *)__pyx_v_l->__pyx_vtab)->get_length(__pyx_v_l, 0) - __pyx_v_5utils_2cy_15intersection_cy_EPSILON)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 54, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_3 = PyNumber_Subtract(((PyObject *)__pyx_v_p), ((PyObject *)__pyx_v_l->x)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 54, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
@@ -1763,7 +1763,7 @@ static int __pyx_f_11environment_11cy_entities_15intersection_cy_point_line_inte
   __pyx_t_4 = PyObject_RichCompare(__pyx_t_1, __pyx_t_5, Py_LE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 54, __pyx_L1_error)
   if (__Pyx_PyObject_IsTrue(__pyx_t_4)) {
     __Pyx_DECREF(__pyx_t_4);
-    __pyx_t_2 = PyFloat_FromDouble((((struct __pyx_vtabstruct_11environment_11cy_entities_9line2d_cy_Line2dCy *)__pyx_v_l->__pyx_vtab)->get_length(__pyx_v_l, 0) + __pyx_v_11environment_11cy_entities_15intersection_cy_EPSILON)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 54, __pyx_L1_error)
+    __pyx_t_2 = PyFloat_FromDouble((((struct __pyx_vtabstruct_5utils_2cy_9line2d_cy_Line2dCy *)__pyx_v_l->__pyx_vtab)->get_length(__pyx_v_l, 0) + __pyx_v_5utils_2cy_15intersection_cy_EPSILON)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 54, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_4 = PyObject_RichCompare(__pyx_t_5, __pyx_t_2, Py_LE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 54, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -1775,7 +1775,7 @@ static int __pyx_f_11environment_11cy_entities_15intersection_cy_point_line_inte
   __pyx_r = __pyx_t_6;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/intersection_cy.pyx":46
+  /* "utils/cy/intersection_cy.pyx":46
  *     return (p - c).get_length() < r + EPSILON
  * 
  * cpdef bint point_line_intersection_cy(Vec2dCy p, Line2dCy l):             # <<<<<<<<<<<<<<
@@ -1790,7 +1790,7 @@ static int __pyx_f_11environment_11cy_entities_15intersection_cy_point_line_inte
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_WriteUnraisable("environment.cy_entities.intersection_cy.point_line_intersection_cy", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __Pyx_WriteUnraisable("utils.cy.intersection_cy.point_line_intersection_cy", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -1798,11 +1798,11 @@ static int __pyx_f_11environment_11cy_entities_15intersection_cy_point_line_inte
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_15intersection_cy_5point_line_intersection_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_11environment_11cy_entities_15intersection_cy_4point_line_intersection_cy[] = "\n    Determine if a point lays on a line.\n    \n    :param p: Point\n    :param l: Line2d\n    :return: Bool\n    ";
-static PyObject *__pyx_pw_11environment_11cy_entities_15intersection_cy_5point_line_intersection_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_p = 0;
-  struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *__pyx_v_l = 0;
+static PyObject *__pyx_pw_5utils_2cy_15intersection_cy_5point_line_intersection_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5utils_2cy_15intersection_cy_4point_line_intersection_cy[] = "\n    Determine if a point lays on a line.\n    \n    :param p: Point\n    :param l: Line2d\n    :return: Bool\n    ";
+static PyObject *__pyx_pw_5utils_2cy_15intersection_cy_5point_line_intersection_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_p = 0;
+  struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_l = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("point_line_intersection_cy (wrapper)", 0);
@@ -1841,20 +1841,20 @@ static PyObject *__pyx_pw_11environment_11cy_entities_15intersection_cy_5point_l
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
-    __pyx_v_p = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)values[0]);
-    __pyx_v_l = ((struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *)values[1]);
+    __pyx_v_p = ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)values[0]);
+    __pyx_v_l = ((struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *)values[1]);
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("point_line_intersection_cy", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 46, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("environment.cy_entities.intersection_cy.point_line_intersection_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy.intersection_cy.point_line_intersection_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_p), __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy, 1, "p", 0))) __PYX_ERR(0, 46, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_l), __pyx_ptype_11environment_11cy_entities_9line2d_cy_Line2dCy, 1, "l", 0))) __PYX_ERR(0, 46, __pyx_L1_error)
-  __pyx_r = __pyx_pf_11environment_11cy_entities_15intersection_cy_4point_line_intersection_cy(__pyx_self, __pyx_v_p, __pyx_v_l);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_p), __pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy, 1, "p", 0))) __PYX_ERR(0, 46, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_l), __pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy, 1, "l", 0))) __PYX_ERR(0, 46, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5utils_2cy_15intersection_cy_4point_line_intersection_cy(__pyx_self, __pyx_v_p, __pyx_v_l);
 
   /* function exit code */
   goto __pyx_L0;
@@ -1865,13 +1865,13 @@ static PyObject *__pyx_pw_11environment_11cy_entities_15intersection_cy_5point_l
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_15intersection_cy_4point_line_intersection_cy(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_p, struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *__pyx_v_l) {
+static PyObject *__pyx_pf_5utils_2cy_15intersection_cy_4point_line_intersection_cy(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_p, struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_l) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("point_line_intersection_cy", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_f_11environment_11cy_entities_15intersection_cy_point_line_intersection_cy(__pyx_v_p, __pyx_v_l, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 46, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_f_5utils_2cy_15intersection_cy_point_line_intersection_cy(__pyx_v_p, __pyx_v_l, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 46, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -1880,7 +1880,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_15intersection_cy_4point_l
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.intersection_cy.point_line_intersection_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy.intersection_cy.point_line_intersection_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1888,7 +1888,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_15intersection_cy_4point_l
   return __pyx_r;
 }
 
-/* "environment/cy_entities/intersection_cy.pyx":56
+/* "utils/cy/intersection_cy.pyx":56
  *     return l.get_length() - EPSILON <= (p - l.x).get_length() + (p - l.y).get_length() <= l.get_length() + EPSILON
  * 
  * cpdef tuple circle_line_intersection_cy(Vec2dCy c, float r, Line2dCy l):             # <<<<<<<<<<<<<<
@@ -1896,10 +1896,10 @@ static PyObject *__pyx_pf_11environment_11cy_entities_15intersection_cy_4point_l
  *     Determine if a circle intersects with a line and give point of contact if they do.
  */
 
-static PyObject *__pyx_pw_11environment_11cy_entities_15intersection_cy_7circle_line_intersection_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_circle_line_intersection_cy(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_c, float __pyx_v_r, struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *__pyx_v_l, CYTHON_UNUSED int __pyx_skip_dispatch) {
+static PyObject *__pyx_pw_5utils_2cy_15intersection_cy_7circle_line_intersection_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_f_5utils_2cy_15intersection_cy_circle_line_intersection_cy(struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_c, float __pyx_v_r, struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_l, CYTHON_UNUSED int __pyx_skip_dispatch) {
   float __pyx_v_dot;
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_closest = 0;
+  struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_closest = 0;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1911,7 +1911,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_circle_li
   PyObject *__pyx_t_7 = NULL;
   __Pyx_RefNannySetupContext("circle_line_intersection_cy", 0);
 
-  /* "environment/cy_entities/intersection_cy.pyx":69
+  /* "utils/cy/intersection_cy.pyx":69
  * 
  *     # Check for the edges of the line
  *     if point_circle_intersection_cy(l.x, c, r):             # <<<<<<<<<<<<<<
@@ -1920,11 +1920,11 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_circle_li
  */
   __pyx_t_1 = ((PyObject *)__pyx_v_l->x);
   __Pyx_INCREF(__pyx_t_1);
-  __pyx_t_2 = (__pyx_f_11environment_11cy_entities_15intersection_cy_point_circle_intersection_cy(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_1), __pyx_v_c, __pyx_v_r, 0) != 0);
+  __pyx_t_2 = (__pyx_f_5utils_2cy_15intersection_cy_point_circle_intersection_cy(((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)__pyx_t_1), __pyx_v_c, __pyx_v_r, 0) != 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "environment/cy_entities/intersection_cy.pyx":70
+    /* "utils/cy/intersection_cy.pyx":70
  *     # Check for the edges of the line
  *     if point_circle_intersection_cy(l.x, c, r):
  *         return True, l.x             # <<<<<<<<<<<<<<
@@ -1944,7 +1944,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_circle_li
     __pyx_t_1 = 0;
     goto __pyx_L0;
 
-    /* "environment/cy_entities/intersection_cy.pyx":69
+    /* "utils/cy/intersection_cy.pyx":69
  * 
  *     # Check for the edges of the line
  *     if point_circle_intersection_cy(l.x, c, r):             # <<<<<<<<<<<<<<
@@ -1953,7 +1953,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_circle_li
  */
   }
 
-  /* "environment/cy_entities/intersection_cy.pyx":71
+  /* "utils/cy/intersection_cy.pyx":71
  *     if point_circle_intersection_cy(l.x, c, r):
  *         return True, l.x
  *     if point_circle_intersection_cy(l.y, c, r):             # <<<<<<<<<<<<<<
@@ -1962,11 +1962,11 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_circle_li
  */
   __pyx_t_1 = ((PyObject *)__pyx_v_l->y);
   __Pyx_INCREF(__pyx_t_1);
-  __pyx_t_2 = (__pyx_f_11environment_11cy_entities_15intersection_cy_point_circle_intersection_cy(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_1), __pyx_v_c, __pyx_v_r, 0) != 0);
+  __pyx_t_2 = (__pyx_f_5utils_2cy_15intersection_cy_point_circle_intersection_cy(((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)__pyx_t_1), __pyx_v_c, __pyx_v_r, 0) != 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "environment/cy_entities/intersection_cy.pyx":72
+    /* "utils/cy/intersection_cy.pyx":72
  *         return True, l.x
  *     if point_circle_intersection_cy(l.y, c, r):
  *         return True, l.y             # <<<<<<<<<<<<<<
@@ -1986,7 +1986,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_circle_li
     __pyx_t_1 = 0;
     goto __pyx_L0;
 
-    /* "environment/cy_entities/intersection_cy.pyx":71
+    /* "utils/cy/intersection_cy.pyx":71
  *     if point_circle_intersection_cy(l.x, c, r):
  *         return True, l.x
  *     if point_circle_intersection_cy(l.y, c, r):             # <<<<<<<<<<<<<<
@@ -1995,7 +1995,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_circle_li
  */
   }
 
-  /* "environment/cy_entities/intersection_cy.pyx":75
+  /* "utils/cy/intersection_cy.pyx":75
  * 
  *     # Determine closest point to the line
  *     dot = (((c.x - l.x.x) * (l.y.x - l.x.x)) + ((c.y - l.x.y) * (l.y.y - l.x.y))) / (l.get_length() ** 2)             # <<<<<<<<<<<<<<
@@ -2003,14 +2003,14 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_circle_li
  * 
  */
   __pyx_t_3 = (((__pyx_v_c->x - __pyx_v_l->x->x) * (__pyx_v_l->y->x - __pyx_v_l->x->x)) + ((__pyx_v_c->y - __pyx_v_l->x->y) * (__pyx_v_l->y->y - __pyx_v_l->x->y)));
-  __pyx_t_4 = powf(((struct __pyx_vtabstruct_11environment_11cy_entities_9line2d_cy_Line2dCy *)__pyx_v_l->__pyx_vtab)->get_length(__pyx_v_l, 0), 2.0);
+  __pyx_t_4 = powf(((struct __pyx_vtabstruct_5utils_2cy_9line2d_cy_Line2dCy *)__pyx_v_l->__pyx_vtab)->get_length(__pyx_v_l, 0), 2.0);
   if (unlikely(__pyx_t_4 == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
     __PYX_ERR(0, 75, __pyx_L1_error)
   }
   __pyx_v_dot = (__pyx_t_3 / __pyx_t_4);
 
-  /* "environment/cy_entities/intersection_cy.pyx":76
+  /* "utils/cy/intersection_cy.pyx":76
  *     # Determine closest point to the line
  *     dot = (((c.x - l.x.x) * (l.y.x - l.x.x)) + ((c.y - l.x.y) * (l.y.y - l.x.y))) / (l.get_length() ** 2)
  *     closest = Vec2dCy(l.x.x + (dot * (l.y.x - l.x.x)), l.x.y + (dot * (l.y.y - l.x.y)))             # <<<<<<<<<<<<<<
@@ -2029,23 +2029,23 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_circle_li
   PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_5);
   __pyx_t_1 = 0;
   __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_6, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 76, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy), __pyx_t_6, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 76, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_v_closest = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_5);
+  __pyx_v_closest = ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)__pyx_t_5);
   __pyx_t_5 = 0;
 
-  /* "environment/cy_entities/intersection_cy.pyx":79
+  /* "utils/cy/intersection_cy.pyx":79
  * 
  *     # Check if closest is on segment
  *     if not point_line_intersection_cy(p=closest, l=l):             # <<<<<<<<<<<<<<
  *         return False, None
  * 
  */
-  __pyx_t_2 = ((!(__pyx_f_11environment_11cy_entities_15intersection_cy_point_line_intersection_cy(__pyx_v_closest, __pyx_v_l, 0) != 0)) != 0);
+  __pyx_t_2 = ((!(__pyx_f_5utils_2cy_15intersection_cy_point_line_intersection_cy(__pyx_v_closest, __pyx_v_l, 0) != 0)) != 0);
   if (__pyx_t_2) {
 
-    /* "environment/cy_entities/intersection_cy.pyx":80
+    /* "utils/cy/intersection_cy.pyx":80
  *     # Check if closest is on segment
  *     if not point_line_intersection_cy(p=closest, l=l):
  *         return False, None             # <<<<<<<<<<<<<<
@@ -2057,7 +2057,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_circle_li
     __pyx_r = __pyx_tuple_;
     goto __pyx_L0;
 
-    /* "environment/cy_entities/intersection_cy.pyx":79
+    /* "utils/cy/intersection_cy.pyx":79
  * 
  *     # Check if closest is on segment
  *     if not point_line_intersection_cy(p=closest, l=l):             # <<<<<<<<<<<<<<
@@ -2066,7 +2066,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_circle_li
  */
   }
 
-  /* "environment/cy_entities/intersection_cy.pyx":83
+  /* "utils/cy/intersection_cy.pyx":83
  * 
  *     # Check if in circle
  *     return (True, closest) if (closest - c).get_length() <= (r + EPSILON) else (False, None)             # <<<<<<<<<<<<<<
@@ -2092,7 +2092,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_circle_li
   if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 83, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = PyFloat_FromDouble((__pyx_v_r + __pyx_v_11environment_11cy_entities_15intersection_cy_EPSILON)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_t_7 = PyFloat_FromDouble((__pyx_v_r + __pyx_v_5utils_2cy_15intersection_cy_EPSILON)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 83, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_1 = PyObject_RichCompare(__pyx_t_6, __pyx_t_7, Py_LE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 83, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -2118,7 +2118,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_circle_li
   __pyx_t_5 = 0;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/intersection_cy.pyx":56
+  /* "utils/cy/intersection_cy.pyx":56
  *     return l.get_length() - EPSILON <= (p - l.x).get_length() + (p - l.y).get_length() <= l.get_length() + EPSILON
  * 
  * cpdef tuple circle_line_intersection_cy(Vec2dCy c, float r, Line2dCy l):             # <<<<<<<<<<<<<<
@@ -2132,7 +2132,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_circle_li
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
-  __Pyx_AddTraceback("environment.cy_entities.intersection_cy.circle_line_intersection_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy.intersection_cy.circle_line_intersection_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_closest);
@@ -2142,12 +2142,12 @@ static PyObject *__pyx_f_11environment_11cy_entities_15intersection_cy_circle_li
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_15intersection_cy_7circle_line_intersection_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_11environment_11cy_entities_15intersection_cy_6circle_line_intersection_cy[] = "\n    Determine if a circle intersects with a line and give point of contact if they do.\n    \n    :param l: Line2d\n    :param c: Center of circle\n    :param r: Radius of circle\n    :return: Bool, Intersection: Vec2d\n    ";
-static PyObject *__pyx_pw_11environment_11cy_entities_15intersection_cy_7circle_line_intersection_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_c = 0;
+static PyObject *__pyx_pw_5utils_2cy_15intersection_cy_7circle_line_intersection_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5utils_2cy_15intersection_cy_6circle_line_intersection_cy[] = "\n    Determine if a circle intersects with a line and give point of contact if they do.\n    \n    :param l: Line2d\n    :param c: Center of circle\n    :param r: Radius of circle\n    :return: Bool, Intersection: Vec2d\n    ";
+static PyObject *__pyx_pw_5utils_2cy_15intersection_cy_7circle_line_intersection_cy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_c = 0;
   float __pyx_v_r;
-  struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *__pyx_v_l = 0;
+  struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_l = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("circle_line_intersection_cy (wrapper)", 0);
@@ -2195,21 +2195,21 @@ static PyObject *__pyx_pw_11environment_11cy_entities_15intersection_cy_7circle_
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
     }
-    __pyx_v_c = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)values[0]);
+    __pyx_v_c = ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)values[0]);
     __pyx_v_r = __pyx_PyFloat_AsFloat(values[1]); if (unlikely((__pyx_v_r == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 56, __pyx_L3_error)
-    __pyx_v_l = ((struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *)values[2]);
+    __pyx_v_l = ((struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *)values[2]);
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("circle_line_intersection_cy", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 56, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("environment.cy_entities.intersection_cy.circle_line_intersection_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy.intersection_cy.circle_line_intersection_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_c), __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy, 1, "c", 0))) __PYX_ERR(0, 56, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_l), __pyx_ptype_11environment_11cy_entities_9line2d_cy_Line2dCy, 1, "l", 0))) __PYX_ERR(0, 56, __pyx_L1_error)
-  __pyx_r = __pyx_pf_11environment_11cy_entities_15intersection_cy_6circle_line_intersection_cy(__pyx_self, __pyx_v_c, __pyx_v_r, __pyx_v_l);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_c), __pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy, 1, "c", 0))) __PYX_ERR(0, 56, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_l), __pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy, 1, "l", 0))) __PYX_ERR(0, 56, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5utils_2cy_15intersection_cy_6circle_line_intersection_cy(__pyx_self, __pyx_v_c, __pyx_v_r, __pyx_v_l);
 
   /* function exit code */
   goto __pyx_L0;
@@ -2220,13 +2220,13 @@ static PyObject *__pyx_pw_11environment_11cy_entities_15intersection_cy_7circle_
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_15intersection_cy_6circle_line_intersection_cy(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_c, float __pyx_v_r, struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *__pyx_v_l) {
+static PyObject *__pyx_pf_5utils_2cy_15intersection_cy_6circle_line_intersection_cy(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_c, float __pyx_v_r, struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_l) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("circle_line_intersection_cy", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_11environment_11cy_entities_15intersection_cy_circle_line_intersection_cy(__pyx_v_c, __pyx_v_r, __pyx_v_l, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 56, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_5utils_2cy_15intersection_cy_circle_line_intersection_cy(__pyx_v_c, __pyx_v_r, __pyx_v_l, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 56, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -2235,7 +2235,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_15intersection_cy_6circle_
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.intersection_cy.circle_line_intersection_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy.intersection_cy.circle_line_intersection_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2244,10 +2244,10 @@ static PyObject *__pyx_pf_11environment_11cy_entities_15intersection_cy_6circle_
 }
 
 static PyMethodDef __pyx_methods[] = {
-  {"line_line_intersection_cy", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_11environment_11cy_entities_15intersection_cy_1line_line_intersection_cy, METH_VARARGS|METH_KEYWORDS, __pyx_doc_11environment_11cy_entities_15intersection_cy_line_line_intersection_cy},
-  {"point_circle_intersection_cy", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_11environment_11cy_entities_15intersection_cy_3point_circle_intersection_cy, METH_VARARGS|METH_KEYWORDS, __pyx_doc_11environment_11cy_entities_15intersection_cy_2point_circle_intersection_cy},
-  {"point_line_intersection_cy", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_11environment_11cy_entities_15intersection_cy_5point_line_intersection_cy, METH_VARARGS|METH_KEYWORDS, __pyx_doc_11environment_11cy_entities_15intersection_cy_4point_line_intersection_cy},
-  {"circle_line_intersection_cy", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_11environment_11cy_entities_15intersection_cy_7circle_line_intersection_cy, METH_VARARGS|METH_KEYWORDS, __pyx_doc_11environment_11cy_entities_15intersection_cy_6circle_line_intersection_cy},
+  {"line_line_intersection_cy", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5utils_2cy_15intersection_cy_1line_line_intersection_cy, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5utils_2cy_15intersection_cy_line_line_intersection_cy},
+  {"point_circle_intersection_cy", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5utils_2cy_15intersection_cy_3point_circle_intersection_cy, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5utils_2cy_15intersection_cy_2point_circle_intersection_cy},
+  {"point_line_intersection_cy", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5utils_2cy_15intersection_cy_5point_line_intersection_cy, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5utils_2cy_15intersection_cy_4point_line_intersection_cy},
+  {"circle_line_intersection_cy", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5utils_2cy_15intersection_cy_7circle_line_intersection_cy, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5utils_2cy_15intersection_cy_6circle_line_intersection_cy},
   {0, 0, 0, 0}
 };
 
@@ -2315,7 +2315,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "environment/cy_entities/intersection_cy.pyx":33
+  /* "utils/cy/intersection_cy.pyx":33
  *         return True, Vec2dCy(l1.x.x + (a * (l1.y.x - l1.x.x)), l1.x.y + (a * (l1.y.y - l1.x.y)))
  *     else:
  *         return False, None             # <<<<<<<<<<<<<<
@@ -2367,10 +2367,10 @@ static int __Pyx_modinit_function_export_code(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_modinit_function_export_code", 0);
   /*--- Function export code ---*/
-  if (__Pyx_ExportFunction("line_line_intersection_cy", (void (*)(void))__pyx_f_11environment_11cy_entities_15intersection_cy_line_line_intersection_cy, "PyObject *(struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *, struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  if (__Pyx_ExportFunction("point_circle_intersection_cy", (void (*)(void))__pyx_f_11environment_11cy_entities_15intersection_cy_point_circle_intersection_cy, "int (struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, float, int __pyx_skip_dispatch)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  if (__Pyx_ExportFunction("point_line_intersection_cy", (void (*)(void))__pyx_f_11environment_11cy_entities_15intersection_cy_point_line_intersection_cy, "int (struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  if (__Pyx_ExportFunction("circle_line_intersection_cy", (void (*)(void))__pyx_f_11environment_11cy_entities_15intersection_cy_circle_line_intersection_cy, "PyObject *(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, float, struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_ExportFunction("line_line_intersection_cy", (void (*)(void))__pyx_f_5utils_2cy_15intersection_cy_line_line_intersection_cy, "PyObject *(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_ExportFunction("point_circle_intersection_cy", (void (*)(void))__pyx_f_5utils_2cy_15intersection_cy_point_circle_intersection_cy, "int (struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, float, int __pyx_skip_dispatch)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_ExportFunction("point_line_intersection_cy", (void (*)(void))__pyx_f_5utils_2cy_15intersection_cy_point_line_intersection_cy, "int (struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_ExportFunction("circle_line_intersection_cy", (void (*)(void))__pyx_f_5utils_2cy_15intersection_cy_circle_line_intersection_cy, "PyObject *(struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, float, struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -2391,17 +2391,17 @@ static int __Pyx_modinit_type_import_code(void) {
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_import_code", 0);
   /*--- Type import code ---*/
-  __pyx_t_1 = PyImport_ImportModule("environment.cy_entities.vec2d_cy"); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 7, __pyx_L1_error)
+  __pyx_t_1 = PyImport_ImportModule("utils.cy.vec2d_cy"); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy = __Pyx_ImportType(__pyx_t_1, "environment.cy_entities.vec2d_cy", "Vec2dCy", sizeof(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy) __PYX_ERR(1, 7, __pyx_L1_error)
-  __pyx_vtabptr_11environment_11cy_entities_8vec2d_cy_Vec2dCy = (struct __pyx_vtabstruct_11environment_11cy_entities_8vec2d_cy_Vec2dCy*)__Pyx_GetVtable(__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_11cy_entities_8vec2d_cy_Vec2dCy)) __PYX_ERR(1, 7, __pyx_L1_error)
+  __pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy = __Pyx_ImportType(__pyx_t_1, "utils.cy.vec2d_cy", "Vec2dCy", sizeof(struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy) __PYX_ERR(1, 7, __pyx_L1_error)
+  __pyx_vtabptr_5utils_2cy_8vec2d_cy_Vec2dCy = (struct __pyx_vtabstruct_5utils_2cy_8vec2d_cy_Vec2dCy*)__Pyx_GetVtable(__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy->tp_dict); if (unlikely(!__pyx_vtabptr_5utils_2cy_8vec2d_cy_Vec2dCy)) __PYX_ERR(1, 7, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyImport_ImportModule("environment.cy_entities.line2d_cy"); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 8, __pyx_L1_error)
+  __pyx_t_1 = PyImport_ImportModule("utils.cy.line2d_cy"); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_ptype_11environment_11cy_entities_9line2d_cy_Line2dCy = __Pyx_ImportType(__pyx_t_1, "environment.cy_entities.line2d_cy", "Line2dCy", sizeof(struct __pyx_obj_11environment_11cy_entities_9line2d_cy_Line2dCy), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_11environment_11cy_entities_9line2d_cy_Line2dCy) __PYX_ERR(2, 8, __pyx_L1_error)
-  __pyx_vtabptr_11environment_11cy_entities_9line2d_cy_Line2dCy = (struct __pyx_vtabstruct_11environment_11cy_entities_9line2d_cy_Line2dCy*)__Pyx_GetVtable(__pyx_ptype_11environment_11cy_entities_9line2d_cy_Line2dCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_11cy_entities_9line2d_cy_Line2dCy)) __PYX_ERR(2, 8, __pyx_L1_error)
+  __pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy = __Pyx_ImportType(__pyx_t_1, "utils.cy.line2d_cy", "Line2dCy", sizeof(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy) __PYX_ERR(2, 8, __pyx_L1_error)
+  __pyx_vtabptr_5utils_2cy_9line2d_cy_Line2dCy = (struct __pyx_vtabstruct_5utils_2cy_9line2d_cy_Line2dCy*)__Pyx_GetVtable(__pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy->tp_dict); if (unlikely(!__pyx_vtabptr_5utils_2cy_9line2d_cy_Line2dCy)) __PYX_ERR(2, 8, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_RefNannyFinishContext();
   return 0;
@@ -2596,14 +2596,14 @@ if (!__Pyx_RefNanny) {
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
-  if (__pyx_module_is_main_environment__cy_entities__intersection_cy) {
+  if (__pyx_module_is_main_utils__cy__intersection_cy) {
     if (PyObject_SetAttr(__pyx_m, __pyx_n_s_name, __pyx_n_s_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "environment.cy_entities.intersection_cy")) {
-      if (unlikely(PyDict_SetItemString(modules, "environment.cy_entities.intersection_cy", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "utils.cy.intersection_cy")) {
+      if (unlikely(PyDict_SetItemString(modules, "utils.cy.intersection_cy", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -2624,16 +2624,16 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "environment/cy_entities/intersection_cy.pyx":7
+  /* "utils/cy/intersection_cy.pyx":7
  * intersection methods in other files).
  * """
  * cdef float EPSILON = 1e-5             # <<<<<<<<<<<<<<
  * 
  * cpdef tuple line_line_intersection_cy(Line2dCy l1, Line2dCy l2):
  */
-  __pyx_v_11environment_11cy_entities_15intersection_cy_EPSILON = 1e-5;
+  __pyx_v_5utils_2cy_15intersection_cy_EPSILON = 1e-5;
 
-  /* "environment/cy_entities/intersection_cy.pyx":1
+  /* "utils/cy/intersection_cy.pyx":1
  * """             # <<<<<<<<<<<<<<
  * intersection_cy.pyx
  * 
@@ -2650,11 +2650,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_1);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init environment.cy_entities.intersection_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init utils.cy.intersection_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     Py_CLEAR(__pyx_m);
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init environment.cy_entities.intersection_cy");
+    PyErr_SetString(PyExc_ImportError, "init utils.cy.intersection_cy");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

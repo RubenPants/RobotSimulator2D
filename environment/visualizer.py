@@ -10,7 +10,7 @@ from pymunk.pyglet_util import DrawOptions
 
 from environment.entities.game import Game
 from utils.config import *
-from utils.dictionary import D_SENSOR_LIST, D_DONE
+from utils.dictionary import D_DONE, D_SENSOR_LIST
 
 
 class Visualizer:

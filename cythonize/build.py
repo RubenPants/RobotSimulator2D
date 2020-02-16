@@ -5,6 +5,6 @@ Note: Cython must installed beforehand (i.e. pip3 install cython)
 """
 import os
 
-os.system('python3 setup.py build_ext --inplace')
-os.system('mv environment/cy_entities/* .')
-os.system('rm -r environment/')
+if __name__ == '__main__':
+    os.chdir("..")
+    os.system('python3 cythonize/setup.py build_ext --inplace')

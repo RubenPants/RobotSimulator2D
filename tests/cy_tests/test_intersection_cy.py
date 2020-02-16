@@ -1,8 +1,8 @@
 import unittest
 
-from environment.cy_entities.intersection_cy import *
-from environment.cy_entities.line2d_cy import Line2dCy
-from environment.cy_entities.vec2d_cy import Vec2dCy
+from utils.cy.intersection_cy import *
+from utils.cy.line2d_cy import Line2dCy
+from utils.cy.vec2d_cy import Vec2dCy
 
 
 class LineLineIntersectionCy(unittest.TestCase):

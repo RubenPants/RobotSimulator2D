@@ -14,9 +14,7 @@ from utils.dictionary import D_DIST_TO_TARGET, D_DONE, D_STEPS
 
 
 class EvaluationEnv:
-    """
-    The class is responsible evaluating the population across a set of games.
-    """
+    """ This class is responsible evaluating the population across a set of games. """
     
     def __init__(self, rel_path=''):
         """
