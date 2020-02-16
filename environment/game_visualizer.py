@@ -72,7 +72,7 @@ def path_heatmap(game):
 
 if __name__ == '__main__':
     # Load the game
-    for g_id in range(1, 2):
+    for g_id in range(1, 11):
         g = load_game(g_id)
         
         # Create visualizations

@@ -581,7 +581,6 @@ if __name__ == '__main__':
                     maze = Maze(AXIS_X, AXIS_Y, visualize=args.visualize)
                 except (IndexError, Exception):
                     maze = None  # Reset and try again
-            maze.get_path_coordinates(visualize=True)
             create_game(game_id=game,
                         path_list=maze.get_path_coordinates(),
                         wall_list=maze.get_wall_coordinates(),
