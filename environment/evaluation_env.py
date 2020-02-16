@@ -5,12 +5,17 @@ Evaluate a certain set of genomes on the evaluation mazes.
 """
 import configparser
 import multiprocessing as mp
+import sys
 
 from neat.six_util import iteritems
 
-from environment.multi_env import MultiEnvironment
 from utils.config import FPS
 from utils.dictionary import D_DIST_TO_TARGET, D_DONE, D_STEPS
+
+if sys.platform == 'linux':
+    from environment.cy.multi_env_cy import MultiEnvironmentCy
+else:
+    from environment.multi_env import MultiEnvironment
 
 
 class EvaluationEnv:
@@ -59,12 +64,20 @@ class EvaluationEnv:
         self.set_games()
         
         # Create the environment which is responsible for evaluating the genomes
-        multi_env = MultiEnvironment(
-                make_net=pop.make_net,
-                query_net=pop.query_net,
-                rel_path=self.rel_path,
-                max_duration=int(self.config['GAME']['duration'])
-        )
+        if sys.platform == 'linux':
+            multi_env = MultiEnvironmentCy(
+                    make_net=pop.make_net,
+                    query_net=pop.query_net,
+                    rel_path=self.rel_path,
+                    max_duration=int(self.config['GAME']['duration'])
+            )
+        else:
+            multi_env = MultiEnvironment(
+                    make_net=pop.make_net,
+                    query_net=pop.query_net,
+                    rel_path=self.rel_path,
+                    max_duration=int(self.config['GAME']['duration'])
+            )
         
         # Evaluate on all the games
         multi_env.set_games(self.games)
@@ -107,12 +120,20 @@ class EvaluationEnv:
         if len(self.games) > 20:
             raise Exception("It is not advised to evaluate a whole population on more than 20 games at once")
         
-        multi_env = MultiEnvironment(
-                make_net=pop.make_net,
-                query_net=pop.query_net,
-                rel_path=self.rel_path,
-                max_duration=int(self.config['GAME']['duration'])
-        )
+        if sys.platform == 'linux':
+            multi_env = MultiEnvironmentCy(
+                    make_net=pop.make_net,
+                    query_net=pop.query_net,
+                    rel_path=self.rel_path,
+                    max_duration=int(self.config['GAME']['duration'])
+            )
+        else:
+            multi_env = MultiEnvironment(
+                    make_net=pop.make_net,
+                    query_net=pop.query_net,
+                    rel_path=self.rel_path,
+                    max_duration=int(self.config['GAME']['duration'])
+            )
         
         # Initialize the evaluation-pool
         processes = []

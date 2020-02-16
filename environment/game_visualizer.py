@@ -7,9 +7,9 @@ folder to make sure the visualizations are saved properly.
 import matplotlib as mpl
 import matplotlib.colors as clr
 import matplotlib.pyplot as plt
-from mpl_toolkits.axes_grid1 import make_axes_locatable
 import numpy as np
-from matplotlib import cm
+from mpl_toolkits.axes_grid1 import make_axes_locatable
+
 from environment.entities.game import Game
 
 

@@ -5,12 +5,17 @@ Train and evaluate the population on a random batch of training games.
 """
 import configparser
 import multiprocessing as mp
+import sys
 from random import sample
 
 from neat.six_util import iteritems, itervalues
 
 from control.entities.fitness_functions import calc_pop_fitness
-from environment.multi_env import MultiEnvironment
+
+if sys.platform == 'linux':
+    from environment.cy.multi_env_cy import MultiEnvironmentCy
+else:
+    from environment.multi_env import MultiEnvironment
 
 
 class TrainingEnv:
@@ -57,12 +62,20 @@ class TrainingEnv:
         :param save_interval: Indicates how often a population gets saved
         """
         # Create the environment which is responsible for evaluating the genomes
-        multi_env = MultiEnvironment(
-                make_net=pop.make_net,
-                query_net=pop.query_net,
-                rel_path=self.rel_path,
-                max_duration=int(self.config['GAME']['duration'])
-        )
+        if sys.platform == 'linux':
+            multi_env = MultiEnvironmentCy(
+                    make_net=pop.make_net,
+                    query_net=pop.query_net,
+                    rel_path=self.rel_path,
+                    max_duration=int(self.config['GAME']['duration'])
+            )
+        else:
+            multi_env = MultiEnvironment(
+                    make_net=pop.make_net,
+                    query_net=pop.query_net,
+                    rel_path=self.rel_path,
+                    max_duration=int(self.config['GAME']['duration'])
+            )
         
         for iteration in range(n):
             # Set random set of games
@@ -132,12 +145,20 @@ class TrainingEnv:
         
         :param pop: Population object
         """
-        multi_env = MultiEnvironment(
-                make_net=pop.make_net,
-                query_net=pop.query_net,
-                rel_path=self.rel_path,
-                max_duration=int(self.config['GAME']['duration'])
-        )
+        if sys.platform == 'linux':
+            multi_env = MultiEnvironmentCy(
+                    make_net=pop.make_net,
+                    query_net=pop.query_net,
+                    rel_path=self.rel_path,
+                    max_duration=int(self.config['GAME']['duration'])
+            )
+        else:
+            multi_env = MultiEnvironment(
+                    make_net=pop.make_net,
+                    query_net=pop.query_net,
+                    rel_path=self.rel_path,
+                    max_duration=int(self.config['GAME']['duration'])
+            )
         
         if len(self.games) > 20:
             raise Exception("It is not advised to evaluate on more than 20 at once")
