@@ -3,12 +3,12 @@
 /* BEGIN: Cython Metadata
 {
     "distutils": {
-        "name": "environment.cy_entities.robots_cy",
+        "name": "environment.entities.cy_entities.robots_cy",
         "sources": [
-            "robots_cy.pyx"
+            "environment/entities/cy_entities/robots_cy.pyx"
         ]
     },
-    "module_name": "environment.cy_entities.robots_cy"
+    "module_name": "environment.entities.cy_entities.robots_cy"
 }
 END: Cython Metadata */
 
@@ -602,8 +602,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #endif
 #endif
 
-#define __PYX_HAVE__environment__cy_entities__robots_cy
-#define __PYX_HAVE_API__environment__cy_entities__robots_cy
+#define __PYX_HAVE__environment__entities__cy_entities__robots_cy
+#define __PYX_HAVE_API__environment__entities__cy_entities__robots_cy
 /* Early includes */
 #ifdef _OPENMP
 #include <omp.h>
@@ -813,61 +813,61 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "robots_cy.pyx",
-  "robots_cy.pxd",
+  "environment/entities/cy_entities/robots_cy.pyx",
+  "environment/entities/cy_entities/robots_cy.pxd",
   "stringsource",
-  "vec2d_cy.pxd",
-  "game_cy.pxd",
-  "sensors_cy.pxd",
+  "utils/cy_utils/vec2d_cy.pxd",
+  "environment/entities/cy_entities/game_cy.pxd",
+  "environment/entities/cy_entities/sensors_cy.pxd",
 };
 
 /*--- Type declarations ---*/
-struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy;
-struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy;
-struct __pyx_obj_11environment_11cy_entities_10sensors_cy_SensorCy;
-struct __pyx_obj_11environment_11cy_entities_10sensors_cy_AngularSensorCy;
-struct __pyx_obj_11environment_11cy_entities_10sensors_cy_DistanceSensorCy;
-struct __pyx_obj_11environment_11cy_entities_10sensors_cy_ProximitySensorCy;
-struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy;
-struct __pyx_opt_args_11environment_11cy_entities_9robots_cy_9FootBotCy_add_angular_sensors;
+struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy;
+struct __pyx_obj_11environment_8entities_11cy_entities_7game_cy_GameCy;
+struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_SensorCy;
+struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_AngularSensorCy;
+struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_DistanceSensorCy;
+struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_ProximitySensorCy;
+struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy;
+struct __pyx_opt_args_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_add_angular_sensors;
 
-/* "environment/cy_entities/robots_cy.pxd":36
+/* "environment/entities/cy_entities/robots_cy.pxd":36
  *     # -----------------------------------------------> SENSOR METHODS <----------------------------------------------- #
  * 
  *     cpdef void add_angular_sensors(self, bint clockwise=?)             # <<<<<<<<<<<<<<
  * 
  *     cpdef void add_proximity_sensor(self, float angle)
  */
-struct __pyx_opt_args_11environment_11cy_entities_9robots_cy_9FootBotCy_add_angular_sensors {
+struct __pyx_opt_args_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_add_angular_sensors {
   int __pyx_n;
   int clockwise;
 };
 
-/* "vec2d_cy.pxd":7
+/* "utils/cy_utils/vec2d_cy.pxd":7
  * """
  * 
  * cdef class Vec2dCy:             # <<<<<<<<<<<<<<
  *     cdef public float x, y
  * 
  */
-struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy {
+struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy {
   PyObject_HEAD
-  struct __pyx_vtabstruct_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_vtab;
+  struct __pyx_vtabstruct_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_vtab;
   float x;
   float y;
 };
 
 
-/* "game_cy.pxd":9
- * from vec2d_cy cimport Vec2dCy
+/* "environment/entities/cy_entities/game_cy.pxd":9
+ * from utils.cy_utils.vec2d_cy cimport Vec2dCy
  * 
  * cdef class GameCy:             # <<<<<<<<<<<<<<
  *     """
  *     A game environment is built up from the following segments:
  */
-struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy {
+struct __pyx_obj_11environment_8entities_11cy_entities_7game_cy_GameCy {
   PyObject_HEAD
-  struct __pyx_vtabstruct_11environment_11cy_entities_7game_cy_GameCy *__pyx_vtab;
+  struct __pyx_vtabstruct_11environment_8entities_11cy_entities_7game_cy_GameCy *__pyx_vtab;
   int done;
   int noise;
   int silent;
@@ -876,22 +876,22 @@ struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy {
   PyObject *path;
   PyObject *rel_path;
   PyObject *walls;
-  struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *player;
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *target;
+  struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *player;
+  struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *target;
 };
 
 
-/* "sensors_cy.pxd":9
- * from vec2d_cy cimport Vec2dCy
+/* "environment/entities/cy_entities/sensors_cy.pxd":9
+ * from utils.cy_utils.vec2d_cy cimport Vec2dCy
  * 
  * cdef class SensorCy:             # <<<<<<<<<<<<<<
  *     cdef public GameCy game
  *     cdef public int id
  */
-struct __pyx_obj_11environment_11cy_entities_10sensors_cy_SensorCy {
+struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_SensorCy {
   PyObject_HEAD
-  struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_SensorCy *__pyx_vtab;
-  struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *game;
+  struct __pyx_vtabstruct_11environment_8entities_11cy_entities_10sensors_cy_SensorCy *__pyx_vtab;
+  struct __pyx_obj_11environment_8entities_11cy_entities_7game_cy_GameCy *game;
   int id;
   float angle;
   float pos_offset;
@@ -899,71 +899,71 @@ struct __pyx_obj_11environment_11cy_entities_10sensors_cy_SensorCy {
 };
 
 
-/* "sensors_cy.pxd":16
+/* "environment/entities/cy_entities/sensors_cy.pxd":16
  *     cdef float get_measure(self)
  * 
  * cdef class AngularSensorCy(SensorCy):             # <<<<<<<<<<<<<<
  *     """
  *     Angle deviation between bot and wanted direction in 'crow flight'.
  */
-struct __pyx_obj_11environment_11cy_entities_10sensors_cy_AngularSensorCy {
-  struct __pyx_obj_11environment_11cy_entities_10sensors_cy_SensorCy __pyx_base;
+struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_AngularSensorCy {
+  struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_SensorCy __pyx_base;
   int clockwise;
 };
 
 
-/* "sensors_cy.pxd":24
+/* "environment/entities/cy_entities/sensors_cy.pxd":24
  *     cdef float get_measure(self)
  * 
  * cdef class DistanceSensorCy(SensorCy):             # <<<<<<<<<<<<<<
  *     """
  *     Distance from bot to the target in 'crows flight'.
  */
-struct __pyx_obj_11environment_11cy_entities_10sensors_cy_DistanceSensorCy {
-  struct __pyx_obj_11environment_11cy_entities_10sensors_cy_SensorCy __pyx_base;
+struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_DistanceSensorCy {
+  struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_SensorCy __pyx_base;
 };
 
 
-/* "sensors_cy.pxd":31
+/* "environment/entities/cy_entities/sensors_cy.pxd":31
  *     cdef float get_measure(self)
  * 
  * cdef class ProximitySensorCy(SensorCy):             # <<<<<<<<<<<<<<
  *     """
  *     The proximity sensor is attached to a bot's edge and measures the distance min(max_distance, object_distance). In
  */
-struct __pyx_obj_11environment_11cy_entities_10sensors_cy_ProximitySensorCy {
-  struct __pyx_obj_11environment_11cy_entities_10sensors_cy_SensorCy __pyx_base;
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *start_pos;
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *end_pos;
+struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_ProximitySensorCy {
+  struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_SensorCy __pyx_base;
+  struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *start_pos;
+  struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *end_pos;
 };
 
 
-/* "environment/cy_entities/robots_cy.pxd":10
- * from vec2d_cy cimport Vec2dCy
+/* "environment/entities/cy_entities/robots_cy.pxd":10
+ * from utils.cy_utils.vec2d_cy cimport Vec2dCy
  * 
  * cdef class FootBotCy:             # <<<<<<<<<<<<<<
  *     """
  *     The FootBot is the main bot used in this project. It is a simple circular robot with two wheels on its sides.
  */
-struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy {
+struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy {
   PyObject_HEAD
-  struct __pyx_vtabstruct_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_vtab;
-  struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *game;
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *pos;
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *prev_pos;
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *init_pos;
+  struct __pyx_vtabstruct_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_vtab;
+  struct __pyx_obj_11environment_8entities_11cy_entities_7game_cy_GameCy *game;
+  struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *pos;
+  struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *prev_pos;
+  struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *init_pos;
   float angle;
   float prev_angle;
   float init_angle;
   float radius;
   PyObject *angular_sensors;
   PyObject *proximity_sensors;
-  struct __pyx_obj_11environment_11cy_entities_10sensors_cy_DistanceSensorCy *distance_sensor;
+  struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_DistanceSensorCy *distance_sensor;
 };
 
 
 
-/* "vec2d_cy.pxd":7
+/* "utils/cy_utils/vec2d_cy.pxd":7
  * """
  * 
  * cdef class Vec2dCy:             # <<<<<<<<<<<<<<
@@ -971,56 +971,56 @@ struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy {
  * 
  */
 
-struct __pyx_vtabstruct_11environment_11cy_entities_8vec2d_cy_Vec2dCy {
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *(*_operator_handler)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch);
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *(*_right_operator_handler)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch);
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *(*_inplace_operator_handler)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch);
-  float (*get_angle)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
-  float (*get_length)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *(*normalized)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
+struct __pyx_vtabstruct_5utils_8cy_utils_8vec2d_cy_Vec2dCy {
+  struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *(*_operator_handler)(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch);
+  struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *(*_right_operator_handler)(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch);
+  struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *(*_inplace_operator_handler)(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch);
+  float (*get_angle)(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
+  float (*get_length)(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
+  struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *(*normalized)(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
 };
-static struct __pyx_vtabstruct_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_vtabptr_11environment_11cy_entities_8vec2d_cy_Vec2dCy;
+static struct __pyx_vtabstruct_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_vtabptr_5utils_8cy_utils_8vec2d_cy_Vec2dCy;
 
 
-/* "game_cy.pxd":9
- * from vec2d_cy cimport Vec2dCy
+/* "environment/entities/cy_entities/game_cy.pxd":9
+ * from utils.cy_utils.vec2d_cy cimport Vec2dCy
  * 
  * cdef class GameCy:             # <<<<<<<<<<<<<<
  *     """
  *     A game environment is built up from the following segments:
  */
 
-struct __pyx_vtabstruct_11environment_11cy_entities_7game_cy_GameCy {
-  PyObject *(*close)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch);
-  PyObject *(*reset)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch);
-  PyObject *(*step)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, float, float, int __pyx_skip_dispatch);
-  void (*create_empty_game)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch);
-  PyObject *(*get_observation)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch);
-  PyObject *(*get_sensor_list)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch);
-  void (*set_player_angle)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, float, int __pyx_skip_dispatch);
-  void (*set_player_pos)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
-  void (*save)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch);
-  int (*load)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch);
-  PyObject *(*get_blueprint)(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch);
+struct __pyx_vtabstruct_11environment_8entities_11cy_entities_7game_cy_GameCy {
+  PyObject *(*close)(struct __pyx_obj_11environment_8entities_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch);
+  PyObject *(*reset)(struct __pyx_obj_11environment_8entities_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch);
+  PyObject *(*step)(struct __pyx_obj_11environment_8entities_11cy_entities_7game_cy_GameCy *, float, float, int __pyx_skip_dispatch);
+  void (*create_empty_game)(struct __pyx_obj_11environment_8entities_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch);
+  PyObject *(*get_observation)(struct __pyx_obj_11environment_8entities_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch);
+  PyObject *(*get_sensor_list)(struct __pyx_obj_11environment_8entities_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch);
+  void (*set_player_angle)(struct __pyx_obj_11environment_8entities_11cy_entities_7game_cy_GameCy *, float, int __pyx_skip_dispatch);
+  void (*set_player_pos)(struct __pyx_obj_11environment_8entities_11cy_entities_7game_cy_GameCy *, struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
+  void (*save)(struct __pyx_obj_11environment_8entities_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch);
+  int (*load)(struct __pyx_obj_11environment_8entities_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch);
+  PyObject *(*get_blueprint)(struct __pyx_obj_11environment_8entities_11cy_entities_7game_cy_GameCy *, int __pyx_skip_dispatch);
 };
-static struct __pyx_vtabstruct_11environment_11cy_entities_7game_cy_GameCy *__pyx_vtabptr_11environment_11cy_entities_7game_cy_GameCy;
+static struct __pyx_vtabstruct_11environment_8entities_11cy_entities_7game_cy_GameCy *__pyx_vtabptr_11environment_8entities_11cy_entities_7game_cy_GameCy;
 
 
-/* "sensors_cy.pxd":9
- * from vec2d_cy cimport Vec2dCy
+/* "environment/entities/cy_entities/sensors_cy.pxd":9
+ * from utils.cy_utils.vec2d_cy cimport Vec2dCy
  * 
  * cdef class SensorCy:             # <<<<<<<<<<<<<<
  *     cdef public GameCy game
  *     cdef public int id
  */
 
-struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_SensorCy {
-  float (*get_measure)(struct __pyx_obj_11environment_11cy_entities_10sensors_cy_SensorCy *);
+struct __pyx_vtabstruct_11environment_8entities_11cy_entities_10sensors_cy_SensorCy {
+  float (*get_measure)(struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_SensorCy *);
 };
-static struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_SensorCy *__pyx_vtabptr_11environment_11cy_entities_10sensors_cy_SensorCy;
+static struct __pyx_vtabstruct_11environment_8entities_11cy_entities_10sensors_cy_SensorCy *__pyx_vtabptr_11environment_8entities_11cy_entities_10sensors_cy_SensorCy;
 
 
-/* "sensors_cy.pxd":16
+/* "environment/entities/cy_entities/sensors_cy.pxd":16
  *     cdef float get_measure(self)
  * 
  * cdef class AngularSensorCy(SensorCy):             # <<<<<<<<<<<<<<
@@ -1028,13 +1028,13 @@ static struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_SensorCy
  *     Angle deviation between bot and wanted direction in 'crow flight'.
  */
 
-struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_AngularSensorCy {
-  struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_SensorCy __pyx_base;
+struct __pyx_vtabstruct_11environment_8entities_11cy_entities_10sensors_cy_AngularSensorCy {
+  struct __pyx_vtabstruct_11environment_8entities_11cy_entities_10sensors_cy_SensorCy __pyx_base;
 };
-static struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_AngularSensorCy *__pyx_vtabptr_11environment_11cy_entities_10sensors_cy_AngularSensorCy;
+static struct __pyx_vtabstruct_11environment_8entities_11cy_entities_10sensors_cy_AngularSensorCy *__pyx_vtabptr_11environment_8entities_11cy_entities_10sensors_cy_AngularSensorCy;
 
 
-/* "sensors_cy.pxd":24
+/* "environment/entities/cy_entities/sensors_cy.pxd":24
  *     cdef float get_measure(self)
  * 
  * cdef class DistanceSensorCy(SensorCy):             # <<<<<<<<<<<<<<
@@ -1042,13 +1042,13 @@ static struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_AngularS
  *     Distance from bot to the target in 'crows flight'.
  */
 
-struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_DistanceSensorCy {
-  struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_SensorCy __pyx_base;
+struct __pyx_vtabstruct_11environment_8entities_11cy_entities_10sensors_cy_DistanceSensorCy {
+  struct __pyx_vtabstruct_11environment_8entities_11cy_entities_10sensors_cy_SensorCy __pyx_base;
 };
-static struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_DistanceSensorCy *__pyx_vtabptr_11environment_11cy_entities_10sensors_cy_DistanceSensorCy;
+static struct __pyx_vtabstruct_11environment_8entities_11cy_entities_10sensors_cy_DistanceSensorCy *__pyx_vtabptr_11environment_8entities_11cy_entities_10sensors_cy_DistanceSensorCy;
 
 
-/* "sensors_cy.pxd":31
+/* "environment/entities/cy_entities/sensors_cy.pxd":31
  *     cdef float get_measure(self)
  * 
  * cdef class ProximitySensorCy(SensorCy):             # <<<<<<<<<<<<<<
@@ -1056,33 +1056,33 @@ static struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_Distance
  *     The proximity sensor is attached to a bot's edge and measures the distance min(max_distance, object_distance). In
  */
 
-struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_ProximitySensorCy {
-  struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_SensorCy __pyx_base;
+struct __pyx_vtabstruct_11environment_8entities_11cy_entities_10sensors_cy_ProximitySensorCy {
+  struct __pyx_vtabstruct_11environment_8entities_11cy_entities_10sensors_cy_SensorCy __pyx_base;
 };
-static struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_ProximitySensorCy *__pyx_vtabptr_11environment_11cy_entities_10sensors_cy_ProximitySensorCy;
+static struct __pyx_vtabstruct_11environment_8entities_11cy_entities_10sensors_cy_ProximitySensorCy *__pyx_vtabptr_11environment_8entities_11cy_entities_10sensors_cy_ProximitySensorCy;
 
 
-/* "environment/cy_entities/robots_cy.pyx":12
- * from vec2d_cy cimport angle_to_vec
+/* "environment/entities/cy_entities/robots_cy.pyx":12
+ * from utils.cy_utils.vec2d_cy cimport angle_to_vec
  * 
  * cdef class FootBotCy:             # <<<<<<<<<<<<<<
  *     """
  *     The FootBot is the main bot used in this project. It is a simple circular robot with two wheels on its sides.
  */
 
-struct __pyx_vtabstruct_11environment_11cy_entities_9robots_cy_FootBotCy {
-  void (*drive)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *, float, float, float);
-  PyObject *(*get_sensor_readings)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *);
-  PyObject *(*get_sensor_reading_angle)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
-  float (*get_sensor_reading_distance)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
-  PyObject *(*get_sensor_reading_proximity)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
-  void (*add_angular_sensors)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *, int __pyx_skip_dispatch, struct __pyx_opt_args_11environment_11cy_entities_9robots_cy_9FootBotCy_add_angular_sensors *__pyx_optional_args);
-  void (*add_proximity_sensor)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *, float, int __pyx_skip_dispatch);
-  void (*create_angular_sensors)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *);
-  void (*create_distance_sensor)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *);
-  void (*create_proximity_sensors)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *);
+struct __pyx_vtabstruct_11environment_8entities_11cy_entities_9robots_cy_FootBotCy {
+  void (*drive)(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *, float, float, float);
+  PyObject *(*get_sensor_readings)(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *);
+  PyObject *(*get_sensor_reading_angle)(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
+  float (*get_sensor_reading_distance)(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
+  PyObject *(*get_sensor_reading_proximity)(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
+  void (*add_angular_sensors)(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *, int __pyx_skip_dispatch, struct __pyx_opt_args_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_add_angular_sensors *__pyx_optional_args);
+  void (*add_proximity_sensor)(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *, float, int __pyx_skip_dispatch);
+  void (*create_angular_sensors)(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *);
+  void (*create_distance_sensor)(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *);
+  void (*create_proximity_sensors)(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *);
 };
-static struct __pyx_vtabstruct_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_vtabptr_11environment_11cy_entities_9robots_cy_FootBotCy;
+static struct __pyx_vtabstruct_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_vtabptr_11environment_8entities_11cy_entities_9robots_cy_FootBotCy;
 
 /* --- Runtime support code (head) --- */
 /* Refnanny.proto */
@@ -1478,38 +1478,38 @@ static int __Pyx_ImportFunction(PyObject *module, const char *funcname, void (**
 /* InitStrings.proto */
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
-static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_drive(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, float __pyx_v_dt, float __pyx_v_lw, float __pyx_v_rw); /* proto*/
-static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_sensor_readings(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto*/
-static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_sensor_reading_angle(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
-static float __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_sensor_reading_distance(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
-static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_sensor_reading_proximity(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
-static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_add_angular_sensors(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, int __pyx_skip_dispatch, struct __pyx_opt_args_11environment_11cy_entities_9robots_cy_9FootBotCy_add_angular_sensors *__pyx_optional_args); /* proto*/
-static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_add_proximity_sensor(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, float __pyx_v_angle, int __pyx_skip_dispatch); /* proto*/
-static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_create_angular_sensors(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto*/
-static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_create_distance_sensor(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto*/
-static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_create_proximity_sensors(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto*/
+static void __pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_drive(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, float __pyx_v_dt, float __pyx_v_lw, float __pyx_v_rw); /* proto*/
+static PyObject *__pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_get_sensor_readings(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto*/
+static PyObject *__pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_get_sensor_reading_angle(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
+static float __pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_get_sensor_reading_distance(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
+static PyObject *__pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_get_sensor_reading_proximity(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
+static void __pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_add_angular_sensors(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, int __pyx_skip_dispatch, struct __pyx_opt_args_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_add_angular_sensors *__pyx_optional_args); /* proto*/
+static void __pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_add_proximity_sensor(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, float __pyx_v_angle, int __pyx_skip_dispatch); /* proto*/
+static void __pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_create_angular_sensors(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto*/
+static void __pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_create_distance_sensor(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto*/
+static void __pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_create_proximity_sensors(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto*/
 
-/* Module declarations from 'environment.cy_entities.vec2d_cy' */
-static PyTypeObject *__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy = 0;
-static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *(*__pyx_f_11environment_11cy_entities_8vec2d_cy_angle_to_vec)(float, int __pyx_skip_dispatch); /*proto*/
+/* Module declarations from 'utils.cy_utils.vec2d_cy' */
+static PyTypeObject *__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy = 0;
+static struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *(*__pyx_f_5utils_8cy_utils_8vec2d_cy_angle_to_vec)(float, int __pyx_skip_dispatch); /*proto*/
 
-/* Module declarations from 'environment.cy_entities.game_cy' */
-static PyTypeObject *__pyx_ptype_11environment_11cy_entities_7game_cy_GameCy = 0;
+/* Module declarations from 'environment.entities.cy_entities.game_cy' */
+static PyTypeObject *__pyx_ptype_11environment_8entities_11cy_entities_7game_cy_GameCy = 0;
 
-/* Module declarations from 'environment.cy_entities.sensors_cy' */
-static PyTypeObject *__pyx_ptype_11environment_11cy_entities_10sensors_cy_SensorCy = 0;
-static PyTypeObject *__pyx_ptype_11environment_11cy_entities_10sensors_cy_AngularSensorCy = 0;
-static PyTypeObject *__pyx_ptype_11environment_11cy_entities_10sensors_cy_DistanceSensorCy = 0;
-static PyTypeObject *__pyx_ptype_11environment_11cy_entities_10sensors_cy_ProximitySensorCy = 0;
+/* Module declarations from 'environment.entities.cy_entities.sensors_cy' */
+static PyTypeObject *__pyx_ptype_11environment_8entities_11cy_entities_10sensors_cy_SensorCy = 0;
+static PyTypeObject *__pyx_ptype_11environment_8entities_11cy_entities_10sensors_cy_AngularSensorCy = 0;
+static PyTypeObject *__pyx_ptype_11environment_8entities_11cy_entities_10sensors_cy_DistanceSensorCy = 0;
+static PyTypeObject *__pyx_ptype_11environment_8entities_11cy_entities_10sensors_cy_ProximitySensorCy = 0;
 
-/* Module declarations from 'environment.cy_entities.robots_cy' */
-static PyTypeObject *__pyx_ptype_11environment_11cy_entities_9robots_cy_FootBotCy = 0;
-static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy___pyx_unpickle_FootBotCy__set_state(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *, PyObject *); /*proto*/
-#define __Pyx_MODULE_NAME "environment.cy_entities.robots_cy"
-extern int __pyx_module_is_main_environment__cy_entities__robots_cy;
-int __pyx_module_is_main_environment__cy_entities__robots_cy = 0;
+/* Module declarations from 'environment.entities.cy_entities.robots_cy' */
+static PyTypeObject *__pyx_ptype_11environment_8entities_11cy_entities_9robots_cy_FootBotCy = 0;
+static PyObject *__pyx_f_11environment_8entities_11cy_entities_9robots_cy___pyx_unpickle_FootBotCy__set_state(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *, PyObject *); /*proto*/
+#define __Pyx_MODULE_NAME "environment.entities.cy_entities.robots_cy"
+extern int __pyx_module_is_main_environment__entities__cy_entities__robots_cy;
+int __pyx_module_is_main_environment__entities__cy_entities__robots_cy = 0;
 
-/* Implementation of 'environment.cy_entities.robots_cy' */
+/* Implementation of 'environment.entities.cy_entities.robots_cy' */
 static PyObject *__pyx_builtin_range;
 static const char __pyx_k_r[] = "r";
 static const char __pyx_k__3[] = "*";
@@ -1564,7 +1564,7 @@ static const char __pyx_k_get_sensor_reading_distance[] = "get_sensor_reading_di
 static const char __pyx_k_get_sensor_reading_proximity[] = "get_sensor_reading_proximity";
 static const char __pyx_k_robots_cy_pyx_Cython_version_of[] = "\nrobots_cy.pyx\n\nCython version of the robots.py file. Note that this file co-exists with a .pxd file (needed to import the robot\nclasses and methods in other files).\n";
 static const char __pyx_k_Incompatible_checksums_s_vs_0x87[] = "Incompatible checksums (%s vs 0x870e086 = (angle, angular_sensors, distance_sensor, game, init_angle, init_pos, pos, prev_angle, prev_pos, proximity_sensors, radius))";
-static const char __pyx_k_environment_cy_entities_robots_c[] = "environment.cy_entities.robots_cy";
+static const char __pyx_k_environment_entities_cy_entities[] = "environment.entities.cy_entities.robots_cy";
 static PyObject *__pyx_n_s_BOT_DRIVING_SPEED;
 static PyObject *__pyx_n_s_BOT_RADIUS;
 static PyObject *__pyx_n_s_BOT_TURNING_SPEED;
@@ -1581,7 +1581,7 @@ static PyObject *__pyx_n_s_angle;
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_clockwise;
 static PyObject *__pyx_n_s_dict;
-static PyObject *__pyx_n_s_environment_cy_entities_robots_c;
+static PyObject *__pyx_n_s_environment_entities_cy_entities;
 static PyObject *__pyx_n_s_foot_bot;
 static PyObject *__pyx_n_s_game;
 static PyObject *__pyx_n_s_get_sensor_reading_angle;
@@ -1618,47 +1618,47 @@ static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_update;
 static PyObject *__pyx_n_s_utils_config;
 static PyObject *__pyx_n_s_utils_dictionary;
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy___init__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_game, struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_init_pos, float __pyx_v_init_orient, float __pyx_v_r); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_2__str__(CYTHON_UNUSED struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_4reset(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_6get_sensor_reading_angle(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8get_sensor_reading_distance(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_10get_sensor_reading_proximity(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_12add_angular_sensors(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, int __pyx_v_clockwise); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_14add_proximity_sensor(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, float __pyx_v_angle); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_4game___get__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_4game_2__set__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_4game_4__del__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_3pos___get__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_3pos_2__set__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_3pos_4__del__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8prev_pos___get__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_2__set__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_4__del__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8init_pos___get__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8init_pos_2__set__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8init_pos_4__del__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_5angle___get__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_5angle_2__set__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_10prev_angle___get__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_10prev_angle_2__set__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_10init_angle___get__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_10init_angle_2__set__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_6radius___get__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_6radius_2__set__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors___get__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_2__set__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_4__del__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors___get__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_2__set__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_4__del__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor___get__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_2__set__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_4__del__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_16__reduce_cython__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_18__setstate_cython__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy___pyx_unpickle_FootBotCy(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
-static PyObject *__pyx_tp_new_11environment_11cy_entities_9robots_cy_FootBotCy(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy___init__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, struct __pyx_obj_11environment_8entities_11cy_entities_7game_cy_GameCy *__pyx_v_game, struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_init_pos, float __pyx_v_init_orient, float __pyx_v_r); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_2__str__(CYTHON_UNUSED struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_4reset(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_6get_sensor_reading_angle(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8get_sensor_reading_distance(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10get_sensor_reading_proximity(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_12add_angular_sensors(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, int __pyx_v_clockwise); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_14add_proximity_sensor(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, float __pyx_v_angle); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_4game___get__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_4game_2__set__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_4game_4__del__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_3pos___get__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_3pos_2__set__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_3pos_4__del__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8prev_pos___get__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_2__set__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_4__del__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8init_pos___get__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8init_pos_2__set__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8init_pos_4__del__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_5angle___get__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_5angle_2__set__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10prev_angle___get__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10prev_angle_2__set__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10init_angle___get__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10init_angle_2__set__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_6radius___get__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_6radius_2__set__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors___get__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_2__set__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_4__del__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors___get__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_2__set__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_4__del__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor___get__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_2__set__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_4__del__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_16__reduce_cython__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_18__setstate_cython__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy___pyx_unpickle_FootBotCy(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_tp_new_11environment_8entities_11cy_entities_9robots_cy_FootBotCy(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_int_0;
 static PyObject *__pyx_int_2;
 static PyObject *__pyx_int_4;
@@ -1669,7 +1669,7 @@ static PyObject *__pyx_tuple__4;
 static PyObject *__pyx_codeobj__5;
 /* Late includes */
 
-/* "environment/cy_entities/robots_cy.pyx":17
+/* "environment/entities/cy_entities/robots_cy.pyx":17
  *     """
  * 
  *     def __init__(self,             # <<<<<<<<<<<<<<
@@ -1678,14 +1678,14 @@ static PyObject *__pyx_codeobj__5;
  */
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_11environment_11cy_entities_9robots_cy_9FootBotCy___init__[] = "\n        Create a new FootBot object.\n        \n        :param game: Reference to the game in which the robot is created [Game]\n        :param init_pos: Initial position of the bot\n        :param init_orient: Initial angle of the bot\n        :param r: Radius of the circular robot\n        ";
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy___init__[] = "\n        Create a new FootBot object.\n        \n        :param game: Reference to the game in which the robot is created [Game]\n        :param init_pos: Initial position of the bot\n        :param init_orient: Initial angle of the bot\n        :param r: Radius of the circular robot\n        ";
 #if CYTHON_COMPILING_IN_CPYTHON
-struct wrapperbase __pyx_wrapperbase_11environment_11cy_entities_9robots_cy_9FootBotCy___init__;
+struct wrapperbase __pyx_wrapperbase_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy___init__;
 #endif
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_game = 0;
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_init_pos = 0;
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  struct __pyx_obj_11environment_8entities_11cy_entities_7game_cy_GameCy *__pyx_v_game = 0;
+  struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_init_pos = 0;
   float __pyx_v_init_orient;
   float __pyx_v_r;
   int __pyx_r;
@@ -1695,14 +1695,14 @@ static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_1__init__(
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_game,&__pyx_n_s_init_pos,&__pyx_n_s_init_orient,&__pyx_n_s_r,0};
     PyObject* values[4] = {0,0,0,0};
 
-    /* "environment/cy_entities/robots_cy.pyx":19
+    /* "environment/entities/cy_entities/robots_cy.pyx":19
  *     def __init__(self,
  *                  GameCy game,
  *                  Vec2dCy init_pos=None,             # <<<<<<<<<<<<<<
  *                  float init_orient=0,
  *                  float r=BOT_RADIUS):
  */
-    values[1] = (PyObject *)((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)Py_None);
+    values[1] = (PyObject *)((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)Py_None);
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
@@ -1758,8 +1758,8 @@ static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_1__init__(
         default: goto __pyx_L5_argtuple_error;
       }
     }
-    __pyx_v_game = ((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)values[0]);
-    __pyx_v_init_pos = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)values[1]);
+    __pyx_v_game = ((struct __pyx_obj_11environment_8entities_11cy_entities_7game_cy_GameCy *)values[0]);
+    __pyx_v_init_pos = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)values[1]);
     if (values[2]) {
       __pyx_v_init_orient = __pyx_PyFloat_AsFloat(values[2]); if (unlikely((__pyx_v_init_orient == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 20, __pyx_L3_error)
     } else {
@@ -1775,15 +1775,15 @@ static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_1__init__(
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("__init__", 0, 1, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 17, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_game), __pyx_ptype_11environment_11cy_entities_7game_cy_GameCy, 1, "game", 0))) __PYX_ERR(0, 18, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_init_pos), __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy, 1, "init_pos", 0))) __PYX_ERR(0, 19, __pyx_L1_error)
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy___init__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), __pyx_v_game, __pyx_v_init_pos, __pyx_v_init_orient, __pyx_v_r);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_game), __pyx_ptype_11environment_8entities_11cy_entities_7game_cy_GameCy, 1, "game", 0))) __PYX_ERR(0, 18, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_init_pos), __pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy, 1, "init_pos", 0))) __PYX_ERR(0, 19, __pyx_L1_error)
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy___init__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), __pyx_v_game, __pyx_v_init_pos, __pyx_v_init_orient, __pyx_v_r);
 
-  /* "environment/cy_entities/robots_cy.pyx":17
+  /* "environment/entities/cy_entities/robots_cy.pyx":17
  *     """
  * 
  *     def __init__(self,             # <<<<<<<<<<<<<<
@@ -1800,7 +1800,7 @@ static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_1__init__(
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy___init__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *__pyx_v_game, struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_init_pos, float __pyx_v_init_orient, float __pyx_v_r) {
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy___init__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, struct __pyx_obj_11environment_8entities_11cy_entities_7game_cy_GameCy *__pyx_v_game, struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_init_pos, float __pyx_v_init_orient, float __pyx_v_r) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1808,7 +1808,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy___init__(s
   float __pyx_t_3;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "environment/cy_entities/robots_cy.pyx":31
+  /* "environment/entities/cy_entities/robots_cy.pyx":31
  *         """
  *         # Game specific parameter
  *         self.game = game  # Game in which robot runs             # <<<<<<<<<<<<<<
@@ -1821,37 +1821,37 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy___init__(s
   __Pyx_DECREF(((PyObject *)__pyx_v_self->game));
   __pyx_v_self->game = __pyx_v_game;
 
-  /* "environment/cy_entities/robots_cy.pyx":34
+  /* "environment/entities/cy_entities/robots_cy.pyx":34
  * 
  *         # Robot specific parameters
  *         self.pos = Vec2dCy(0, 0)  # Current position             # <<<<<<<<<<<<<<
  *         self.prev_pos = Vec2dCy(0, 0)  # Previous current position
  *         if init_pos:
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 34, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy), __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 34, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v_self->pos);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->pos));
-  __pyx_v_self->pos = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_1);
+  __pyx_v_self->pos = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/robots_cy.pyx":35
+  /* "environment/entities/cy_entities/robots_cy.pyx":35
  *         # Robot specific parameters
  *         self.pos = Vec2dCy(0, 0)  # Current position
  *         self.prev_pos = Vec2dCy(0, 0)  # Previous current position             # <<<<<<<<<<<<<<
  *         if init_pos:
  *             self.init_pos = init_pos  # Initial position
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy), __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v_self->prev_pos);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->prev_pos));
-  __pyx_v_self->prev_pos = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_1);
+  __pyx_v_self->prev_pos = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/robots_cy.pyx":36
+  /* "environment/entities/cy_entities/robots_cy.pyx":36
  *         self.pos = Vec2dCy(0, 0)  # Current position
  *         self.prev_pos = Vec2dCy(0, 0)  # Previous current position
  *         if init_pos:             # <<<<<<<<<<<<<<
@@ -1861,7 +1861,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy___init__(s
   __pyx_t_2 = __Pyx_PyObject_IsTrue(((PyObject *)__pyx_v_init_pos)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 36, __pyx_L1_error)
   if (__pyx_t_2) {
 
-    /* "environment/cy_entities/robots_cy.pyx":37
+    /* "environment/entities/cy_entities/robots_cy.pyx":37
  *         self.prev_pos = Vec2dCy(0, 0)  # Previous current position
  *         if init_pos:
  *             self.init_pos = init_pos  # Initial position             # <<<<<<<<<<<<<<
@@ -1874,7 +1874,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy___init__(s
     __Pyx_DECREF(((PyObject *)__pyx_v_self->init_pos));
     __pyx_v_self->init_pos = __pyx_v_init_pos;
 
-    /* "environment/cy_entities/robots_cy.pyx":38
+    /* "environment/entities/cy_entities/robots_cy.pyx":38
  *         if init_pos:
  *             self.init_pos = init_pos  # Initial position
  *             self.pos.x = init_pos.x             # <<<<<<<<<<<<<<
@@ -1884,7 +1884,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy___init__(s
     __pyx_t_3 = __pyx_v_init_pos->x;
     __pyx_v_self->pos->x = __pyx_t_3;
 
-    /* "environment/cy_entities/robots_cy.pyx":39
+    /* "environment/entities/cy_entities/robots_cy.pyx":39
  *             self.init_pos = init_pos  # Initial position
  *             self.pos.x = init_pos.x
  *             self.pos.y = init_pos.y             # <<<<<<<<<<<<<<
@@ -1894,7 +1894,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy___init__(s
     __pyx_t_3 = __pyx_v_init_pos->y;
     __pyx_v_self->pos->y = __pyx_t_3;
 
-    /* "environment/cy_entities/robots_cy.pyx":40
+    /* "environment/entities/cy_entities/robots_cy.pyx":40
  *             self.pos.x = init_pos.x
  *             self.pos.y = init_pos.y
  *             self.prev_pos.x = init_pos.x             # <<<<<<<<<<<<<<
@@ -1904,7 +1904,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy___init__(s
     __pyx_t_3 = __pyx_v_init_pos->x;
     __pyx_v_self->prev_pos->x = __pyx_t_3;
 
-    /* "environment/cy_entities/robots_cy.pyx":41
+    /* "environment/entities/cy_entities/robots_cy.pyx":41
  *             self.pos.y = init_pos.y
  *             self.prev_pos.x = init_pos.x
  *             self.prev_pos.y = init_pos.y             # <<<<<<<<<<<<<<
@@ -1914,7 +1914,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy___init__(s
     __pyx_t_3 = __pyx_v_init_pos->y;
     __pyx_v_self->prev_pos->y = __pyx_t_3;
 
-    /* "environment/cy_entities/robots_cy.pyx":36
+    /* "environment/entities/cy_entities/robots_cy.pyx":36
  *         self.pos = Vec2dCy(0, 0)  # Current position
  *         self.prev_pos = Vec2dCy(0, 0)  # Previous current position
  *         if init_pos:             # <<<<<<<<<<<<<<
@@ -1924,7 +1924,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy___init__(s
     goto __pyx_L3;
   }
 
-  /* "environment/cy_entities/robots_cy.pyx":43
+  /* "environment/entities/cy_entities/robots_cy.pyx":43
  *             self.prev_pos.y = init_pos.y
  *         else:
  *             self.init_pos = Vec2dCy(0, 0)             # <<<<<<<<<<<<<<
@@ -1932,17 +1932,17 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy___init__(s
  *         self.angle = init_orient  # Current angle
  */
   /*else*/ {
-    __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy), __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_GIVEREF(__pyx_t_1);
     __Pyx_GOTREF(__pyx_v_self->init_pos);
     __Pyx_DECREF(((PyObject *)__pyx_v_self->init_pos));
-    __pyx_v_self->init_pos = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_1);
+    __pyx_v_self->init_pos = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_t_1);
     __pyx_t_1 = 0;
   }
   __pyx_L3:;
 
-  /* "environment/cy_entities/robots_cy.pyx":44
+  /* "environment/entities/cy_entities/robots_cy.pyx":44
  *         else:
  *             self.init_pos = Vec2dCy(0, 0)
  *         self.init_angle = init_orient  # Initial angle             # <<<<<<<<<<<<<<
@@ -1951,7 +1951,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy___init__(s
  */
   __pyx_v_self->init_angle = __pyx_v_init_orient;
 
-  /* "environment/cy_entities/robots_cy.pyx":45
+  /* "environment/entities/cy_entities/robots_cy.pyx":45
  *             self.init_pos = Vec2dCy(0, 0)
  *         self.init_angle = init_orient  # Initial angle
  *         self.angle = init_orient  # Current angle             # <<<<<<<<<<<<<<
@@ -1960,7 +1960,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy___init__(s
  */
   __pyx_v_self->angle = __pyx_v_init_orient;
 
-  /* "environment/cy_entities/robots_cy.pyx":46
+  /* "environment/entities/cy_entities/robots_cy.pyx":46
  *         self.init_angle = init_orient  # Initial angle
  *         self.angle = init_orient  # Current angle
  *         self.prev_angle = init_orient  # Previous angle             # <<<<<<<<<<<<<<
@@ -1969,7 +1969,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy___init__(s
  */
   __pyx_v_self->prev_angle = __pyx_v_init_orient;
 
-  /* "environment/cy_entities/robots_cy.pyx":47
+  /* "environment/entities/cy_entities/robots_cy.pyx":47
  *         self.angle = init_orient  # Current angle
  *         self.prev_angle = init_orient  # Previous angle
  *         self.radius = r  # Radius of the bot             # <<<<<<<<<<<<<<
@@ -1978,7 +1978,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy___init__(s
  */
   __pyx_v_self->radius = __pyx_v_r;
 
-  /* "environment/cy_entities/robots_cy.pyx":50
+  /* "environment/entities/cy_entities/robots_cy.pyx":50
  * 
  *         # Placeholders for sensors
  *         self.angular_sensors = set()             # <<<<<<<<<<<<<<
@@ -1993,7 +1993,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy___init__(s
   __pyx_v_self->angular_sensors = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/robots_cy.pyx":51
+  /* "environment/entities/cy_entities/robots_cy.pyx":51
  *         # Placeholders for sensors
  *         self.angular_sensors = set()
  *         self.distance_sensor = None             # <<<<<<<<<<<<<<
@@ -2004,9 +2004,9 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy___init__(s
   __Pyx_GIVEREF(Py_None);
   __Pyx_GOTREF(__pyx_v_self->distance_sensor);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->distance_sensor));
-  __pyx_v_self->distance_sensor = ((struct __pyx_obj_11environment_11cy_entities_10sensors_cy_DistanceSensorCy *)Py_None);
+  __pyx_v_self->distance_sensor = ((struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_DistanceSensorCy *)Py_None);
 
-  /* "environment/cy_entities/robots_cy.pyx":52
+  /* "environment/entities/cy_entities/robots_cy.pyx":52
  *         self.angular_sensors = set()
  *         self.distance_sensor = None
  *         self.proximity_sensors = set()             # <<<<<<<<<<<<<<
@@ -2021,34 +2021,34 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy___init__(s
   __pyx_v_self->proximity_sensors = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/robots_cy.pyx":55
+  /* "environment/entities/cy_entities/robots_cy.pyx":55
  * 
  *         # Create the sensors
  *         self.create_angular_sensors()             # <<<<<<<<<<<<<<
  *         self.create_distance_sensor()
  *         self.create_proximity_sensors()
  */
-  ((struct __pyx_vtabstruct_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self->__pyx_vtab)->create_angular_sensors(__pyx_v_self);
+  ((struct __pyx_vtabstruct_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self->__pyx_vtab)->create_angular_sensors(__pyx_v_self);
 
-  /* "environment/cy_entities/robots_cy.pyx":56
+  /* "environment/entities/cy_entities/robots_cy.pyx":56
  *         # Create the sensors
  *         self.create_angular_sensors()
  *         self.create_distance_sensor()             # <<<<<<<<<<<<<<
  *         self.create_proximity_sensors()
  * 
  */
-  ((struct __pyx_vtabstruct_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self->__pyx_vtab)->create_distance_sensor(__pyx_v_self);
+  ((struct __pyx_vtabstruct_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self->__pyx_vtab)->create_distance_sensor(__pyx_v_self);
 
-  /* "environment/cy_entities/robots_cy.pyx":57
+  /* "environment/entities/cy_entities/robots_cy.pyx":57
  *         self.create_angular_sensors()
  *         self.create_distance_sensor()
  *         self.create_proximity_sensors()             # <<<<<<<<<<<<<<
  * 
  *     def __str__(self):
  */
-  ((struct __pyx_vtabstruct_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self->__pyx_vtab)->create_proximity_sensors(__pyx_v_self);
+  ((struct __pyx_vtabstruct_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self->__pyx_vtab)->create_proximity_sensors(__pyx_v_self);
 
-  /* "environment/cy_entities/robots_cy.pyx":17
+  /* "environment/entities/cy_entities/robots_cy.pyx":17
  *     """
  * 
  *     def __init__(self,             # <<<<<<<<<<<<<<
@@ -2061,14 +2061,14 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy___init__(s
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "environment/cy_entities/robots_cy.pyx":59
+/* "environment/entities/cy_entities/robots_cy.pyx":59
  *         self.create_proximity_sensors()
  * 
  *     def __str__(self):             # <<<<<<<<<<<<<<
@@ -2077,24 +2077,24 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy___init__(s
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_3__str__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_3__str__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_3__str__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_3__str__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__str__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_2__str__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_2__str__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_2__str__(CYTHON_UNUSED struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_2__str__(CYTHON_UNUSED struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__str__", 0);
 
-  /* "environment/cy_entities/robots_cy.pyx":60
+  /* "environment/entities/cy_entities/robots_cy.pyx":60
  * 
  *     def __str__(self):
  *         return "foot_bot"             # <<<<<<<<<<<<<<
@@ -2106,7 +2106,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_2__s
   __pyx_r = __pyx_n_s_foot_bot;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/robots_cy.pyx":59
+  /* "environment/entities/cy_entities/robots_cy.pyx":59
  *         self.create_proximity_sensors()
  * 
  *     def __str__(self):             # <<<<<<<<<<<<<<
@@ -2121,7 +2121,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_2__s
   return __pyx_r;
 }
 
-/* "environment/cy_entities/robots_cy.pyx":64
+/* "environment/entities/cy_entities/robots_cy.pyx":64
  *     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
  * 
  *     cdef void drive(self, float dt, float lw, float rw):             # <<<<<<<<<<<<<<
@@ -2129,7 +2129,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_2__s
  *         Update the robot's position and orientation based on the action of the wheels.
  */
 
-static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_drive(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, float __pyx_v_dt, float __pyx_v_lw, float __pyx_v_rw) {
+static void __pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_drive(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, float __pyx_v_dt, float __pyx_v_lw, float __pyx_v_rw) {
   __Pyx_RefNannyDeclarations
   long __pyx_t_1;
   long __pyx_t_2;
@@ -2141,7 +2141,7 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_drive(stru
   PyObject *__pyx_t_8 = NULL;
   __Pyx_RefNannySetupContext("drive", 0);
 
-  /* "environment/cy_entities/robots_cy.pyx":73
+  /* "environment/entities/cy_entities/robots_cy.pyx":73
  *         """
  *         # Constraint the inputs
  *         lw = max(min(lw, 1), -1)             # <<<<<<<<<<<<<<
@@ -2164,7 +2164,7 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_drive(stru
   }
   __pyx_v_lw = __pyx_t_4;
 
-  /* "environment/cy_entities/robots_cy.pyx":74
+  /* "environment/entities/cy_entities/robots_cy.pyx":74
  *         # Constraint the inputs
  *         lw = max(min(lw, 1), -1)
  *         rw = max(min(rw, 1), -1)             # <<<<<<<<<<<<<<
@@ -2187,7 +2187,7 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_drive(stru
   }
   __pyx_v_rw = __pyx_t_3;
 
-  /* "environment/cy_entities/robots_cy.pyx":77
+  /* "environment/entities/cy_entities/robots_cy.pyx":77
  * 
  *         # Update previous state
  *         self.prev_pos.x, self.prev_pos.y = self.pos.x, self.pos.y             # <<<<<<<<<<<<<<
@@ -2199,7 +2199,7 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_drive(stru
   __pyx_v_self->prev_pos->x = __pyx_t_3;
   __pyx_v_self->prev_pos->y = __pyx_t_4;
 
-  /* "environment/cy_entities/robots_cy.pyx":78
+  /* "environment/entities/cy_entities/robots_cy.pyx":78
  *         # Update previous state
  *         self.prev_pos.x, self.prev_pos.y = self.pos.x, self.pos.y
  *         self.prev_angle = self.angle             # <<<<<<<<<<<<<<
@@ -2209,7 +2209,7 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_drive(stru
   __pyx_t_4 = __pyx_v_self->angle;
   __pyx_v_self->prev_angle = __pyx_t_4;
 
-  /* "environment/cy_entities/robots_cy.pyx":81
+  /* "environment/entities/cy_entities/robots_cy.pyx":81
  * 
  *         # Update angle is determined by the speed of both wheels
  *         self.angle += (rw - lw) * BOT_TURNING_SPEED * dt             # <<<<<<<<<<<<<<
@@ -2240,7 +2240,7 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_drive(stru
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __pyx_v_self->angle = __pyx_t_4;
 
-  /* "environment/cy_entities/robots_cy.pyx":82
+  /* "environment/entities/cy_entities/robots_cy.pyx":82
  *         # Update angle is determined by the speed of both wheels
  *         self.angle += (rw - lw) * BOT_TURNING_SPEED * dt
  *         self.angle %= 2 * np.pi             # <<<<<<<<<<<<<<
@@ -2265,14 +2265,14 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_drive(stru
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_v_self->angle = __pyx_t_4;
 
-  /* "environment/cy_entities/robots_cy.pyx":85
+  /* "environment/entities/cy_entities/robots_cy.pyx":85
  * 
  *         # Update position is the average of the two wheels times the maximum driving speed
  *         self.pos += angle_to_vec(self.angle) * float((((lw + rw) / 2) * BOT_DRIVING_SPEED * dt))             # <<<<<<<<<<<<<<
  * 
  *     cdef dict get_sensor_readings(self):
  */
-  __pyx_t_5 = ((PyObject *)__pyx_f_11environment_11cy_entities_8vec2d_cy_angle_to_vec(__pyx_v_self->angle, 0)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_5 = ((PyObject *)__pyx_f_5utils_8cy_utils_8vec2d_cy_angle_to_vec(__pyx_v_self->angle, 0)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_6 = PyFloat_FromDouble(((__pyx_v_lw + __pyx_v_rw) / 2.0)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
@@ -2298,14 +2298,14 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_drive(stru
   __pyx_t_7 = PyNumber_InPlaceAdd(((PyObject *)__pyx_v_self->pos), __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy))))) __PYX_ERR(0, 85, __pyx_L1_error)
+  if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy))))) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GIVEREF(__pyx_t_7);
   __Pyx_GOTREF(__pyx_v_self->pos);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->pos));
-  __pyx_v_self->pos = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_7);
+  __pyx_v_self->pos = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_t_7);
   __pyx_t_7 = 0;
 
-  /* "environment/cy_entities/robots_cy.pyx":64
+  /* "environment/entities/cy_entities/robots_cy.pyx":64
  *     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
  * 
  *     cdef void drive(self, float dt, float lw, float rw):             # <<<<<<<<<<<<<<
@@ -2320,12 +2320,12 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_drive(stru
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_WriteUnraisable("environment.cy_entities.robots_cy.FootBotCy.drive", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __Pyx_WriteUnraisable("environment.entities.cy_entities.robots_cy.FootBotCy.drive", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
 }
 
-/* "environment/cy_entities/robots_cy.pyx":87
+/* "environment/entities/cy_entities/robots_cy.pyx":87
  *         self.pos += angle_to_vec(self.angle) * float((((lw + rw) / 2) * BOT_DRIVING_SPEED * dt))
  * 
  *     cdef dict get_sensor_readings(self):             # <<<<<<<<<<<<<<
@@ -2333,7 +2333,7 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_drive(stru
  *         :return: Dictionary of the current sensory-readings
  */
 
-static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_sensor_readings(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
+static PyObject *__pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_get_sensor_readings(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
   PyObject *__pyx_v_sensor_readings = 0;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -2341,7 +2341,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_s
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("get_sensor_readings", 0);
 
-  /* "environment/cy_entities/robots_cy.pyx":94
+  /* "environment/entities/cy_entities/robots_cy.pyx":94
  * 
  *         # Collect all the sensor values in a dictionary
  *         sensor_readings = dict()             # <<<<<<<<<<<<<<
@@ -2353,14 +2353,14 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_s
   __pyx_v_sensor_readings = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/robots_cy.pyx":95
+  /* "environment/entities/cy_entities/robots_cy.pyx":95
  *         # Collect all the sensor values in a dictionary
  *         sensor_readings = dict()
  *         sensor_readings[D_SENSOR_PROXIMITY] = self.get_sensor_reading_proximity()             # <<<<<<<<<<<<<<
  *         sensor_readings[D_SENSOR_DISTANCE] = self.get_sensor_reading_distance()
  *         sensor_readings[D_SENSOR_ANGLE] = self.get_sensor_reading_angle()
  */
-  __pyx_t_1 = ((struct __pyx_vtabstruct_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self->__pyx_vtab)->get_sensor_reading_proximity(__pyx_v_self, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 95, __pyx_L1_error)
+  __pyx_t_1 = ((struct __pyx_vtabstruct_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self->__pyx_vtab)->get_sensor_reading_proximity(__pyx_v_self, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_SENSOR_PROXIMITY); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -2368,14 +2368,14 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_s
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/robots_cy.pyx":96
+  /* "environment/entities/cy_entities/robots_cy.pyx":96
  *         sensor_readings = dict()
  *         sensor_readings[D_SENSOR_PROXIMITY] = self.get_sensor_reading_proximity()
  *         sensor_readings[D_SENSOR_DISTANCE] = self.get_sensor_reading_distance()             # <<<<<<<<<<<<<<
  *         sensor_readings[D_SENSOR_ANGLE] = self.get_sensor_reading_angle()
  *         return sensor_readings
  */
-  __pyx_t_1 = PyFloat_FromDouble(((struct __pyx_vtabstruct_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self->__pyx_vtab)->get_sensor_reading_distance(__pyx_v_self, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 96, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(((struct __pyx_vtabstruct_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self->__pyx_vtab)->get_sensor_reading_distance(__pyx_v_self, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_SENSOR_DISTANCE); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -2383,14 +2383,14 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_s
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/robots_cy.pyx":97
+  /* "environment/entities/cy_entities/robots_cy.pyx":97
  *         sensor_readings[D_SENSOR_PROXIMITY] = self.get_sensor_reading_proximity()
  *         sensor_readings[D_SENSOR_DISTANCE] = self.get_sensor_reading_distance()
  *         sensor_readings[D_SENSOR_ANGLE] = self.get_sensor_reading_angle()             # <<<<<<<<<<<<<<
  *         return sensor_readings
  * 
  */
-  __pyx_t_1 = ((struct __pyx_vtabstruct_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self->__pyx_vtab)->get_sensor_reading_angle(__pyx_v_self, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __pyx_t_1 = ((struct __pyx_vtabstruct_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self->__pyx_vtab)->get_sensor_reading_angle(__pyx_v_self, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_SENSOR_ANGLE); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -2398,7 +2398,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_s
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/robots_cy.pyx":98
+  /* "environment/entities/cy_entities/robots_cy.pyx":98
  *         sensor_readings[D_SENSOR_DISTANCE] = self.get_sensor_reading_distance()
  *         sensor_readings[D_SENSOR_ANGLE] = self.get_sensor_reading_angle()
  *         return sensor_readings             # <<<<<<<<<<<<<<
@@ -2410,7 +2410,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_s
   __pyx_r = __pyx_v_sensor_readings;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/robots_cy.pyx":87
+  /* "environment/entities/cy_entities/robots_cy.pyx":87
  *         self.pos += angle_to_vec(self.angle) * float((((lw + rw) / 2) * BOT_DRIVING_SPEED * dt))
  * 
  *     cdef dict get_sensor_readings(self):             # <<<<<<<<<<<<<<
@@ -2422,7 +2422,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_s
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.get_sensor_readings", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.get_sensor_readings", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_sensor_readings);
@@ -2431,7 +2431,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_s
   return __pyx_r;
 }
 
-/* "environment/cy_entities/robots_cy.pyx":100
+/* "environment/entities/cy_entities/robots_cy.pyx":100
  *         return sensor_readings
  * 
  *     def reset(self):             # <<<<<<<<<<<<<<
@@ -2440,26 +2440,26 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_s
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_5reset(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_11environment_11cy_entities_9robots_cy_9FootBotCy_4reset[] = "\n        Put the robot back to its initial parameters.\n        ";
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_5reset(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_5reset(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_4reset[] = "\n        Put the robot back to its initial parameters.\n        ";
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_5reset(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("reset (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_4reset(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_4reset(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_4reset(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_4reset(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   float __pyx_t_1;
   __Pyx_RefNannySetupContext("reset", 0);
 
-  /* "environment/cy_entities/robots_cy.pyx":104
+  /* "environment/entities/cy_entities/robots_cy.pyx":104
  *         Put the robot back to its initial parameters.
  *         """
  *         self.pos.x = self.init_pos.x             # <<<<<<<<<<<<<<
@@ -2469,7 +2469,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_4res
   __pyx_t_1 = __pyx_v_self->init_pos->x;
   __pyx_v_self->pos->x = __pyx_t_1;
 
-  /* "environment/cy_entities/robots_cy.pyx":105
+  /* "environment/entities/cy_entities/robots_cy.pyx":105
  *         """
  *         self.pos.x = self.init_pos.x
  *         self.pos.y = self.init_pos.y             # <<<<<<<<<<<<<<
@@ -2479,7 +2479,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_4res
   __pyx_t_1 = __pyx_v_self->init_pos->y;
   __pyx_v_self->pos->y = __pyx_t_1;
 
-  /* "environment/cy_entities/robots_cy.pyx":106
+  /* "environment/entities/cy_entities/robots_cy.pyx":106
  *         self.pos.x = self.init_pos.x
  *         self.pos.y = self.init_pos.y
  *         self.prev_pos.x = self.init_pos.x             # <<<<<<<<<<<<<<
@@ -2489,7 +2489,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_4res
   __pyx_t_1 = __pyx_v_self->init_pos->x;
   __pyx_v_self->prev_pos->x = __pyx_t_1;
 
-  /* "environment/cy_entities/robots_cy.pyx":107
+  /* "environment/entities/cy_entities/robots_cy.pyx":107
  *         self.pos.y = self.init_pos.y
  *         self.prev_pos.x = self.init_pos.x
  *         self.prev_pos.y = self.init_pos.y             # <<<<<<<<<<<<<<
@@ -2499,7 +2499,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_4res
   __pyx_t_1 = __pyx_v_self->init_pos->y;
   __pyx_v_self->prev_pos->y = __pyx_t_1;
 
-  /* "environment/cy_entities/robots_cy.pyx":108
+  /* "environment/entities/cy_entities/robots_cy.pyx":108
  *         self.prev_pos.x = self.init_pos.x
  *         self.prev_pos.y = self.init_pos.y
  *         self.angle = self.init_angle             # <<<<<<<<<<<<<<
@@ -2509,7 +2509,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_4res
   __pyx_t_1 = __pyx_v_self->init_angle;
   __pyx_v_self->angle = __pyx_t_1;
 
-  /* "environment/cy_entities/robots_cy.pyx":100
+  /* "environment/entities/cy_entities/robots_cy.pyx":100
  *         return sensor_readings
  * 
  *     def reset(self):             # <<<<<<<<<<<<<<
@@ -2524,7 +2524,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_4res
   return __pyx_r;
 }
 
-/* "environment/cy_entities/robots_cy.pyx":112
+/* "environment/entities/cy_entities/robots_cy.pyx":112
  *     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
  * 
  *     cpdef dict get_sensor_reading_angle(self):             # <<<<<<<<<<<<<<
@@ -2532,10 +2532,10 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_4res
  *         :return: The current values of the proximity sensors
  */
 
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_7get_sensor_reading_angle(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_sensor_reading_angle(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, int __pyx_skip_dispatch) {
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_7get_sensor_reading_angle(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_get_sensor_reading_angle(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, int __pyx_skip_dispatch) {
   PyObject *__pyx_v_readings = 0;
-  struct __pyx_obj_11environment_11cy_entities_10sensors_cy_AngularSensorCy *__pyx_v_a = 0;
+  struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_AngularSensorCy *__pyx_v_a = 0;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2558,7 +2558,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_s
       #endif
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_sensor_reading_angle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_7get_sensor_reading_angle)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_7get_sensor_reading_angle)) {
         __Pyx_XDECREF(__pyx_r);
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
@@ -2595,7 +2595,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_s
     #endif
   }
 
-  /* "environment/cy_entities/robots_cy.pyx":116
+  /* "environment/entities/cy_entities/robots_cy.pyx":116
  *         :return: The current values of the proximity sensors
  *         """
  *         cdef dict readings = dict()             # <<<<<<<<<<<<<<
@@ -2607,7 +2607,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_s
   __pyx_v_readings = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/robots_cy.pyx":118
+  /* "environment/entities/cy_entities/robots_cy.pyx":118
  *         cdef dict readings = dict()
  *         cdef AngularSensorCy a
  *         for a in self.angular_sensors:             # <<<<<<<<<<<<<<
@@ -2625,18 +2625,18 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_s
     if (unlikely(__pyx_t_8 == 0)) break;
     if (unlikely(__pyx_t_8 == -1)) __PYX_ERR(0, 118, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_11environment_11cy_entities_10sensors_cy_AngularSensorCy))))) __PYX_ERR(0, 118, __pyx_L1_error)
-    __Pyx_XDECREF_SET(__pyx_v_a, ((struct __pyx_obj_11environment_11cy_entities_10sensors_cy_AngularSensorCy *)__pyx_t_2));
+    if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_11environment_8entities_11cy_entities_10sensors_cy_AngularSensorCy))))) __PYX_ERR(0, 118, __pyx_L1_error)
+    __Pyx_XDECREF_SET(__pyx_v_a, ((struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_AngularSensorCy *)__pyx_t_2));
     __pyx_t_2 = 0;
 
-    /* "environment/cy_entities/robots_cy.pyx":119
+    /* "environment/entities/cy_entities/robots_cy.pyx":119
  *         cdef AngularSensorCy a
  *         for a in self.angular_sensors:
  *             readings[a.id] = a.get_measure()             # <<<<<<<<<<<<<<
  *         return readings
  * 
  */
-    __pyx_t_2 = PyFloat_FromDouble(((struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_AngularSensorCy *)__pyx_v_a->__pyx_base.__pyx_vtab)->__pyx_base.get_measure(((struct __pyx_obj_11environment_11cy_entities_10sensors_cy_SensorCy *)__pyx_v_a))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 119, __pyx_L1_error)
+    __pyx_t_2 = PyFloat_FromDouble(((struct __pyx_vtabstruct_11environment_8entities_11cy_entities_10sensors_cy_AngularSensorCy *)__pyx_v_a->__pyx_base.__pyx_vtab)->__pyx_base.get_measure(((struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_SensorCy *)__pyx_v_a))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 119, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_a->__pyx_base.id); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 119, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
@@ -2646,7 +2646,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_s
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/robots_cy.pyx":120
+  /* "environment/entities/cy_entities/robots_cy.pyx":120
  *         for a in self.angular_sensors:
  *             readings[a.id] = a.get_measure()
  *         return readings             # <<<<<<<<<<<<<<
@@ -2658,7 +2658,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_s
   __pyx_r = __pyx_v_readings;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/robots_cy.pyx":112
+  /* "environment/entities/cy_entities/robots_cy.pyx":112
  *     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
  * 
  *     cpdef dict get_sensor_reading_angle(self):             # <<<<<<<<<<<<<<
@@ -2672,7 +2672,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_s
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.get_sensor_reading_angle", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.get_sensor_reading_angle", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_readings);
@@ -2683,26 +2683,26 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_s
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_7get_sensor_reading_angle(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_11environment_11cy_entities_9robots_cy_9FootBotCy_6get_sensor_reading_angle[] = "\n        :return: The current values of the proximity sensors\n        ";
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_7get_sensor_reading_angle(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_7get_sensor_reading_angle(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_6get_sensor_reading_angle[] = "\n        :return: The current values of the proximity sensors\n        ";
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_7get_sensor_reading_angle(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_sensor_reading_angle (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_6get_sensor_reading_angle(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_6get_sensor_reading_angle(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_6get_sensor_reading_angle(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_6get_sensor_reading_angle(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_sensor_reading_angle", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_sensor_reading_angle(__pyx_v_self, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_get_sensor_reading_angle(__pyx_v_self, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -2711,7 +2711,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_6get
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.get_sensor_reading_angle", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.get_sensor_reading_angle", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2719,7 +2719,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_6get
   return __pyx_r;
 }
 
-/* "environment/cy_entities/robots_cy.pyx":122
+/* "environment/entities/cy_entities/robots_cy.pyx":122
  *         return readings
  * 
  *     cpdef float get_sensor_reading_distance(self):             # <<<<<<<<<<<<<<
@@ -2727,8 +2727,8 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_6get
  *         :return: The current distance to the target
  */
 
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_9get_sensor_reading_distance(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static float __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_sensor_reading_distance(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, int __pyx_skip_dispatch) {
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_9get_sensor_reading_distance(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static float __pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_get_sensor_reading_distance(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, int __pyx_skip_dispatch) {
   float __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2748,7 +2748,7 @@ static float __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_senso
       #endif
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_sensor_reading_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 122, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_9get_sensor_reading_distance)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_9get_sensor_reading_distance)) {
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
         if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
@@ -2784,17 +2784,17 @@ static float __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_senso
     #endif
   }
 
-  /* "environment/cy_entities/robots_cy.pyx":126
+  /* "environment/entities/cy_entities/robots_cy.pyx":126
  *         :return: The current distance to the target
  *         """
  *         return self.distance_sensor.get_measure()             # <<<<<<<<<<<<<<
  * 
  *     cpdef dict get_sensor_reading_proximity(self):
  */
-  __pyx_r = ((struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_DistanceSensorCy *)__pyx_v_self->distance_sensor->__pyx_base.__pyx_vtab)->__pyx_base.get_measure(((struct __pyx_obj_11environment_11cy_entities_10sensors_cy_SensorCy *)__pyx_v_self->distance_sensor));
+  __pyx_r = ((struct __pyx_vtabstruct_11environment_8entities_11cy_entities_10sensors_cy_DistanceSensorCy *)__pyx_v_self->distance_sensor->__pyx_base.__pyx_vtab)->__pyx_base.get_measure(((struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_SensorCy *)__pyx_v_self->distance_sensor));
   goto __pyx_L0;
 
-  /* "environment/cy_entities/robots_cy.pyx":122
+  /* "environment/entities/cy_entities/robots_cy.pyx":122
  *         return readings
  * 
  *     cpdef float get_sensor_reading_distance(self):             # <<<<<<<<<<<<<<
@@ -2808,7 +2808,7 @@ static float __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_senso
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_WriteUnraisable("environment.cy_entities.robots_cy.FootBotCy.get_sensor_reading_distance", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __Pyx_WriteUnraisable("environment.entities.cy_entities.robots_cy.FootBotCy.get_sensor_reading_distance", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -2816,26 +2816,26 @@ static float __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_senso
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_9get_sensor_reading_distance(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_11environment_11cy_entities_9robots_cy_9FootBotCy_8get_sensor_reading_distance[] = "\n        :return: The current distance to the target\n        ";
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_9get_sensor_reading_distance(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_9get_sensor_reading_distance(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8get_sensor_reading_distance[] = "\n        :return: The current distance to the target\n        ";
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_9get_sensor_reading_distance(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_sensor_reading_distance (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8get_sensor_reading_distance(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8get_sensor_reading_distance(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8get_sensor_reading_distance(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8get_sensor_reading_distance(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_sensor_reading_distance", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_sensor_reading_distance(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 122, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_get_sensor_reading_distance(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 122, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -2844,7 +2844,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8get
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.get_sensor_reading_distance", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.get_sensor_reading_distance", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2852,7 +2852,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8get
   return __pyx_r;
 }
 
-/* "environment/cy_entities/robots_cy.pyx":128
+/* "environment/entities/cy_entities/robots_cy.pyx":128
  *         return self.distance_sensor.get_measure()
  * 
  *     cpdef dict get_sensor_reading_proximity(self):             # <<<<<<<<<<<<<<
@@ -2860,10 +2860,10 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8get
  *         :return: The current values of the proximity sensors
  */
 
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_11get_sensor_reading_proximity(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_sensor_reading_proximity(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, int __pyx_skip_dispatch) {
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_11get_sensor_reading_proximity(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_get_sensor_reading_proximity(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, int __pyx_skip_dispatch) {
   PyObject *__pyx_v_readings = 0;
-  struct __pyx_obj_11environment_11cy_entities_10sensors_cy_ProximitySensorCy *__pyx_v_p = 0;
+  struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_ProximitySensorCy *__pyx_v_p = 0;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2886,7 +2886,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_s
       #endif
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_sensor_reading_proximity); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 128, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_11get_sensor_reading_proximity)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_11get_sensor_reading_proximity)) {
         __Pyx_XDECREF(__pyx_r);
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
@@ -2923,7 +2923,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_s
     #endif
   }
 
-  /* "environment/cy_entities/robots_cy.pyx":132
+  /* "environment/entities/cy_entities/robots_cy.pyx":132
  *         :return: The current values of the proximity sensors
  *         """
  *         cdef dict readings = dict()             # <<<<<<<<<<<<<<
@@ -2935,7 +2935,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_s
   __pyx_v_readings = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/robots_cy.pyx":134
+  /* "environment/entities/cy_entities/robots_cy.pyx":134
  *         cdef dict readings = dict()
  *         cdef ProximitySensorCy p
  *         for p in self.proximity_sensors:             # <<<<<<<<<<<<<<
@@ -2953,18 +2953,18 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_s
     if (unlikely(__pyx_t_8 == 0)) break;
     if (unlikely(__pyx_t_8 == -1)) __PYX_ERR(0, 134, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_11environment_11cy_entities_10sensors_cy_ProximitySensorCy))))) __PYX_ERR(0, 134, __pyx_L1_error)
-    __Pyx_XDECREF_SET(__pyx_v_p, ((struct __pyx_obj_11environment_11cy_entities_10sensors_cy_ProximitySensorCy *)__pyx_t_2));
+    if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_11environment_8entities_11cy_entities_10sensors_cy_ProximitySensorCy))))) __PYX_ERR(0, 134, __pyx_L1_error)
+    __Pyx_XDECREF_SET(__pyx_v_p, ((struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_ProximitySensorCy *)__pyx_t_2));
     __pyx_t_2 = 0;
 
-    /* "environment/cy_entities/robots_cy.pyx":135
+    /* "environment/entities/cy_entities/robots_cy.pyx":135
  *         cdef ProximitySensorCy p
  *         for p in self.proximity_sensors:
  *             readings[p.id] = p.get_measure()             # <<<<<<<<<<<<<<
  *         return readings
  * 
  */
-    __pyx_t_2 = PyFloat_FromDouble(((struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_ProximitySensorCy *)__pyx_v_p->__pyx_base.__pyx_vtab)->__pyx_base.get_measure(((struct __pyx_obj_11environment_11cy_entities_10sensors_cy_SensorCy *)__pyx_v_p))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 135, __pyx_L1_error)
+    __pyx_t_2 = PyFloat_FromDouble(((struct __pyx_vtabstruct_11environment_8entities_11cy_entities_10sensors_cy_ProximitySensorCy *)__pyx_v_p->__pyx_base.__pyx_vtab)->__pyx_base.get_measure(((struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_SensorCy *)__pyx_v_p))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 135, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_p->__pyx_base.id); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 135, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
@@ -2974,7 +2974,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_s
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/robots_cy.pyx":136
+  /* "environment/entities/cy_entities/robots_cy.pyx":136
  *         for p in self.proximity_sensors:
  *             readings[p.id] = p.get_measure()
  *         return readings             # <<<<<<<<<<<<<<
@@ -2986,7 +2986,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_s
   __pyx_r = __pyx_v_readings;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/robots_cy.pyx":128
+  /* "environment/entities/cy_entities/robots_cy.pyx":128
  *         return self.distance_sensor.get_measure()
  * 
  *     cpdef dict get_sensor_reading_proximity(self):             # <<<<<<<<<<<<<<
@@ -3000,7 +3000,7 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_s
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.get_sensor_reading_proximity", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.get_sensor_reading_proximity", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_readings);
@@ -3011,26 +3011,26 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_s
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_11get_sensor_reading_proximity(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_11environment_11cy_entities_9robots_cy_9FootBotCy_10get_sensor_reading_proximity[] = "\n        :return: The current values of the proximity sensors\n        ";
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_11get_sensor_reading_proximity(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_11get_sensor_reading_proximity(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10get_sensor_reading_proximity[] = "\n        :return: The current values of the proximity sensors\n        ";
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_11get_sensor_reading_proximity(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_sensor_reading_proximity (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_10get_sensor_reading_proximity(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10get_sensor_reading_proximity(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_10get_sensor_reading_proximity(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10get_sensor_reading_proximity(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_sensor_reading_proximity", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_sensor_reading_proximity(__pyx_v_self, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 128, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_get_sensor_reading_proximity(__pyx_v_self, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 128, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3039,7 +3039,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_10ge
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.get_sensor_reading_proximity", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.get_sensor_reading_proximity", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3047,7 +3047,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_10ge
   return __pyx_r;
 }
 
-/* "environment/cy_entities/robots_cy.pyx":140
+/* "environment/entities/cy_entities/robots_cy.pyx":140
  *     # -----------------------------------------------> SENSOR METHODS <----------------------------------------------- #
  * 
  *     cpdef void add_angular_sensors(self, bint clockwise=True):             # <<<<<<<<<<<<<<
@@ -3055,8 +3055,8 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_10ge
  *         Add an angular sensor to the agent and give it an idea one greater than the last sensor added, or 0 if it is the
  */
 
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_13add_angular_sensors(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_add_angular_sensors(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, int __pyx_skip_dispatch, struct __pyx_opt_args_11environment_11cy_entities_9robots_cy_9FootBotCy_add_angular_sensors *__pyx_optional_args) {
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_13add_angular_sensors(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static void __pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_add_angular_sensors(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, int __pyx_skip_dispatch, struct __pyx_opt_args_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_add_angular_sensors *__pyx_optional_args) {
   int __pyx_v_clockwise = ((int)1);
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -3083,7 +3083,7 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_add_angula
       #endif
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_add_angular_sensors); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_13add_angular_sensors)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_13add_angular_sensors)) {
         __pyx_t_3 = __Pyx_PyBool_FromLong(__pyx_v_clockwise); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 140, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_INCREF(__pyx_t_1);
@@ -3120,7 +3120,7 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_add_angula
     #endif
   }
 
-  /* "environment/cy_entities/robots_cy.pyx":145
+  /* "environment/entities/cy_entities/robots_cy.pyx":145
  *         first sensor that is added.
  *         """
  *         self.angular_sensors.add(AngularSensorCy(sensor_id=len(self.angular_sensors),             # <<<<<<<<<<<<<<
@@ -3146,7 +3146,7 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_add_angula
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_sensor_id, __pyx_t_2) < 0) __PYX_ERR(0, 145, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "environment/cy_entities/robots_cy.pyx":146
+  /* "environment/entities/cy_entities/robots_cy.pyx":146
  *         """
  *         self.angular_sensors.add(AngularSensorCy(sensor_id=len(self.angular_sensors),
  *                                                  game=self.game,             # <<<<<<<<<<<<<<
@@ -3155,7 +3155,7 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_add_angula
  */
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_game, ((PyObject *)__pyx_v_self->game)) < 0) __PYX_ERR(0, 145, __pyx_L1_error)
 
-  /* "environment/cy_entities/robots_cy.pyx":147
+  /* "environment/entities/cy_entities/robots_cy.pyx":147
  *         self.angular_sensors.add(AngularSensorCy(sensor_id=len(self.angular_sensors),
  *                                                  game=self.game,
  *                                                  clockwise=clockwise))             # <<<<<<<<<<<<<<
@@ -3167,20 +3167,20 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_add_angula
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_clockwise, __pyx_t_2) < 0) __PYX_ERR(0, 145, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "environment/cy_entities/robots_cy.pyx":145
+  /* "environment/entities/cy_entities/robots_cy.pyx":145
  *         first sensor that is added.
  *         """
  *         self.angular_sensors.add(AngularSensorCy(sensor_id=len(self.angular_sensors),             # <<<<<<<<<<<<<<
  *                                                  game=self.game,
  *                                                  clockwise=clockwise))
  */
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_10sensors_cy_AngularSensorCy), __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 145, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_8entities_11cy_entities_10sensors_cy_AngularSensorCy), __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 145, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_7 = PySet_Add(__pyx_v_self->angular_sensors, __pyx_t_2); if (unlikely(__pyx_t_7 == ((int)-1))) __PYX_ERR(0, 145, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "environment/cy_entities/robots_cy.pyx":140
+  /* "environment/entities/cy_entities/robots_cy.pyx":140
  *     # -----------------------------------------------> SENSOR METHODS <----------------------------------------------- #
  * 
  *     cpdef void add_angular_sensors(self, bint clockwise=True):             # <<<<<<<<<<<<<<
@@ -3196,15 +3196,15 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_add_angula
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_WriteUnraisable("environment.cy_entities.robots_cy.FootBotCy.add_angular_sensors", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __Pyx_WriteUnraisable("environment.entities.cy_entities.robots_cy.FootBotCy.add_angular_sensors", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_13add_angular_sensors(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_11environment_11cy_entities_9robots_cy_9FootBotCy_12add_angular_sensors[] = "\n        Add an angular sensor to the agent and give it an idea one greater than the last sensor added, or 0 if it is the\n        first sensor that is added.\n        ";
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_13add_angular_sensors(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_13add_angular_sensors(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_12add_angular_sensors[] = "\n        Add an angular sensor to the agent and give it an idea one greater than the last sensor added, or 0 if it is the\n        first sensor that is added.\n        ";
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_13add_angular_sensors(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   int __pyx_v_clockwise;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -3250,27 +3250,27 @@ static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_13ad
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("add_angular_sensors", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 140, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.add_angular_sensors", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.add_angular_sensors", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_12add_angular_sensors(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), __pyx_v_clockwise);
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_12add_angular_sensors(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), __pyx_v_clockwise);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_12add_angular_sensors(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, int __pyx_v_clockwise) {
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_12add_angular_sensors(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, int __pyx_v_clockwise) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  struct __pyx_opt_args_11environment_11cy_entities_9robots_cy_9FootBotCy_add_angular_sensors __pyx_t_1;
+  struct __pyx_opt_args_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_add_angular_sensors __pyx_t_1;
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("add_angular_sensors", 0);
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1.__pyx_n = 1;
   __pyx_t_1.clockwise = __pyx_v_clockwise;
-  __pyx_vtabptr_11environment_11cy_entities_9robots_cy_FootBotCy->add_angular_sensors(__pyx_v_self, 1, &__pyx_t_1); 
+  __pyx_vtabptr_11environment_8entities_11cy_entities_9robots_cy_FootBotCy->add_angular_sensors(__pyx_v_self, 1, &__pyx_t_1); 
   __pyx_t_2 = __Pyx_void_to_None(NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 140, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
@@ -3280,7 +3280,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_12ad
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.add_angular_sensors", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.add_angular_sensors", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3288,7 +3288,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_12ad
   return __pyx_r;
 }
 
-/* "environment/cy_entities/robots_cy.pyx":149
+/* "environment/entities/cy_entities/robots_cy.pyx":149
  *                                                  clockwise=clockwise))
  * 
  *     cpdef void add_proximity_sensor(self, float angle):             # <<<<<<<<<<<<<<
@@ -3296,8 +3296,8 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_12ad
  *         Add an proximity sensor to the agent and give it an id one greater than the last sensor added, or 0 if it is
  */
 
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_15add_proximity_sensor(PyObject *__pyx_v_self, PyObject *__pyx_arg_angle); /*proto*/
-static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_add_proximity_sensor(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, float __pyx_v_angle, int __pyx_skip_dispatch) {
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15add_proximity_sensor(PyObject *__pyx_v_self, PyObject *__pyx_arg_angle); /*proto*/
+static void __pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_add_proximity_sensor(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, float __pyx_v_angle, int __pyx_skip_dispatch) {
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
@@ -3318,7 +3318,7 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_add_proxim
       #endif
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_add_proximity_sensor); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 149, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_15add_proximity_sensor)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15add_proximity_sensor)) {
         __pyx_t_3 = PyFloat_FromDouble(__pyx_v_angle); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 149, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_INCREF(__pyx_t_1);
@@ -3355,7 +3355,7 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_add_proxim
     #endif
   }
 
-  /* "environment/cy_entities/robots_cy.pyx":159
+  /* "environment/entities/cy_entities/robots_cy.pyx":159
  *                         * -np.pi / 2 = 90 to the right of the robot
  *         """
  *         self.proximity_sensors.add(ProximitySensorCy(sensor_id=len(self.proximity_sensors),             # <<<<<<<<<<<<<<
@@ -3381,7 +3381,7 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_add_proxim
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_sensor_id, __pyx_t_2) < 0) __PYX_ERR(0, 159, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "environment/cy_entities/robots_cy.pyx":160
+  /* "environment/entities/cy_entities/robots_cy.pyx":160
  *         """
  *         self.proximity_sensors.add(ProximitySensorCy(sensor_id=len(self.proximity_sensors),
  *                                                      game=self.game,             # <<<<<<<<<<<<<<
@@ -3390,7 +3390,7 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_add_proxim
  */
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_game, ((PyObject *)__pyx_v_self->game)) < 0) __PYX_ERR(0, 159, __pyx_L1_error)
 
-  /* "environment/cy_entities/robots_cy.pyx":161
+  /* "environment/entities/cy_entities/robots_cy.pyx":161
  *         self.proximity_sensors.add(ProximitySensorCy(sensor_id=len(self.proximity_sensors),
  *                                                      game=self.game,
  *                                                      angle=angle,             # <<<<<<<<<<<<<<
@@ -3402,7 +3402,7 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_add_proxim
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_angle, __pyx_t_2) < 0) __PYX_ERR(0, 159, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "environment/cy_entities/robots_cy.pyx":162
+  /* "environment/entities/cy_entities/robots_cy.pyx":162
  *                                                      game=self.game,
  *                                                      angle=angle,
  *                                                      pos_offset=BOT_RADIUS))             # <<<<<<<<<<<<<<
@@ -3414,20 +3414,20 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_add_proxim
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_pos_offset, __pyx_t_2) < 0) __PYX_ERR(0, 159, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "environment/cy_entities/robots_cy.pyx":159
+  /* "environment/entities/cy_entities/robots_cy.pyx":159
  *                         * -np.pi / 2 = 90 to the right of the robot
  *         """
  *         self.proximity_sensors.add(ProximitySensorCy(sensor_id=len(self.proximity_sensors),             # <<<<<<<<<<<<<<
  *                                                      game=self.game,
  *                                                      angle=angle,
  */
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_10sensors_cy_ProximitySensorCy), __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 159, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_8entities_11cy_entities_10sensors_cy_ProximitySensorCy), __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 159, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_7 = PySet_Add(__pyx_v_self->proximity_sensors, __pyx_t_2); if (unlikely(__pyx_t_7 == ((int)-1))) __PYX_ERR(0, 159, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "environment/cy_entities/robots_cy.pyx":149
+  /* "environment/entities/cy_entities/robots_cy.pyx":149
  *                                                  clockwise=clockwise))
  * 
  *     cpdef void add_proximity_sensor(self, float angle):             # <<<<<<<<<<<<<<
@@ -3443,15 +3443,15 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_add_proxim
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_WriteUnraisable("environment.cy_entities.robots_cy.FootBotCy.add_proximity_sensor", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __Pyx_WriteUnraisable("environment.entities.cy_entities.robots_cy.FootBotCy.add_proximity_sensor", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_15add_proximity_sensor(PyObject *__pyx_v_self, PyObject *__pyx_arg_angle); /*proto*/
-static char __pyx_doc_11environment_11cy_entities_9robots_cy_9FootBotCy_14add_proximity_sensor[] = "\n        Add an proximity sensor to the agent and give it an id one greater than the last sensor added, or 0 if it is\n        the first sensor that is added.\n        \n        :param angle: Relative angle to the robot's facing-direction\n                        * np.pi / 2 = 90\302\260 to the left of the robot\n                        * 0 = the same direction as the robot is facing\n                        * -np.pi / 2 = 90\302\260 to the right of the robot\n        ";
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_15add_proximity_sensor(PyObject *__pyx_v_self, PyObject *__pyx_arg_angle) {
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15add_proximity_sensor(PyObject *__pyx_v_self, PyObject *__pyx_arg_angle); /*proto*/
+static char __pyx_doc_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_14add_proximity_sensor[] = "\n        Add an proximity sensor to the agent and give it an id one greater than the last sensor added, or 0 if it is\n        the first sensor that is added.\n        \n        :param angle: Relative angle to the robot's facing-direction\n                        * np.pi / 2 = 90\302\260 to the left of the robot\n                        * 0 = the same direction as the robot is facing\n                        * -np.pi / 2 = 90\302\260 to the right of the robot\n        ";
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15add_proximity_sensor(PyObject *__pyx_v_self, PyObject *__pyx_arg_angle) {
   float __pyx_v_angle;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -3461,24 +3461,24 @@ static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_15ad
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.add_proximity_sensor", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.add_proximity_sensor", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_14add_proximity_sensor(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), ((float)__pyx_v_angle));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_14add_proximity_sensor(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), ((float)__pyx_v_angle));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_14add_proximity_sensor(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, float __pyx_v_angle) {
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_14add_proximity_sensor(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, float __pyx_v_angle) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("add_proximity_sensor", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_void_to_None(__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_add_proximity_sensor(__pyx_v_self, __pyx_v_angle, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 149, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_void_to_None(__pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_add_proximity_sensor(__pyx_v_self, __pyx_v_angle, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 149, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3487,7 +3487,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_14ad
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.add_proximity_sensor", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.add_proximity_sensor", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3495,7 +3495,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_14ad
   return __pyx_r;
 }
 
-/* "environment/cy_entities/robots_cy.pyx":164
+/* "environment/entities/cy_entities/robots_cy.pyx":164
  *                                                      pos_offset=BOT_RADIUS))
  * 
  *     cdef void create_angular_sensors(self):             # <<<<<<<<<<<<<<
@@ -3503,12 +3503,12 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_14ad
  *         Two angular sensors that define the angle between the orientation the agent is heading and the agent towards the
  */
 
-static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_create_angular_sensors(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
+static void __pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_create_angular_sensors(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
-  struct __pyx_opt_args_11environment_11cy_entities_9robots_cy_9FootBotCy_add_angular_sensors __pyx_t_1;
+  struct __pyx_opt_args_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_add_angular_sensors __pyx_t_1;
   __Pyx_RefNannySetupContext("create_angular_sensors", 0);
 
-  /* "environment/cy_entities/robots_cy.pyx":169
+  /* "environment/entities/cy_entities/robots_cy.pyx":169
  *         target 'in crows flight'. One measures this angle in clockwise, the other counterclockwise.
  *         """
  *         self.add_angular_sensors(clockwise=True)             # <<<<<<<<<<<<<<
@@ -3517,9 +3517,9 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_create_ang
  */
   __pyx_t_1.__pyx_n = 1;
   __pyx_t_1.clockwise = 1;
-  ((struct __pyx_vtabstruct_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self->__pyx_vtab)->add_angular_sensors(__pyx_v_self, 0, &__pyx_t_1); 
+  ((struct __pyx_vtabstruct_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self->__pyx_vtab)->add_angular_sensors(__pyx_v_self, 0, &__pyx_t_1); 
 
-  /* "environment/cy_entities/robots_cy.pyx":170
+  /* "environment/entities/cy_entities/robots_cy.pyx":170
  *         """
  *         self.add_angular_sensors(clockwise=True)
  *         self.add_angular_sensors(clockwise=False)             # <<<<<<<<<<<<<<
@@ -3528,9 +3528,9 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_create_ang
  */
   __pyx_t_1.__pyx_n = 1;
   __pyx_t_1.clockwise = 0;
-  ((struct __pyx_vtabstruct_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self->__pyx_vtab)->add_angular_sensors(__pyx_v_self, 0, &__pyx_t_1); 
+  ((struct __pyx_vtabstruct_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self->__pyx_vtab)->add_angular_sensors(__pyx_v_self, 0, &__pyx_t_1); 
 
-  /* "environment/cy_entities/robots_cy.pyx":164
+  /* "environment/entities/cy_entities/robots_cy.pyx":164
  *                                                      pos_offset=BOT_RADIUS))
  * 
  *     cdef void create_angular_sensors(self):             # <<<<<<<<<<<<<<
@@ -3542,7 +3542,7 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_create_ang
   __Pyx_RefNannyFinishContext();
 }
 
-/* "environment/cy_entities/robots_cy.pyx":172
+/* "environment/entities/cy_entities/robots_cy.pyx":172
  *         self.add_angular_sensors(clockwise=False)
  * 
  *     cdef void create_distance_sensor(self):             # <<<<<<<<<<<<<<
@@ -3550,13 +3550,13 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_create_ang
  *         Single distance sensor which determines distance between agent's center and target's center.
  */
 
-static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_create_distance_sensor(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
+static void __pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_create_distance_sensor(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("create_distance_sensor", 0);
 
-  /* "environment/cy_entities/robots_cy.pyx":176
+  /* "environment/entities/cy_entities/robots_cy.pyx":176
  *         Single distance sensor which determines distance between agent's center and target's center.
  *         """
  *         self.distance_sensor = DistanceSensorCy(game=self.game)             # <<<<<<<<<<<<<<
@@ -3566,16 +3566,16 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_create_dis
   __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 176, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_game, ((PyObject *)__pyx_v_self->game)) < 0) __PYX_ERR(0, 176, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_10sensors_cy_DistanceSensorCy), __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 176, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_8entities_11cy_entities_10sensors_cy_DistanceSensorCy), __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 176, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_GIVEREF(__pyx_t_2);
   __Pyx_GOTREF(__pyx_v_self->distance_sensor);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->distance_sensor));
-  __pyx_v_self->distance_sensor = ((struct __pyx_obj_11environment_11cy_entities_10sensors_cy_DistanceSensorCy *)__pyx_t_2);
+  __pyx_v_self->distance_sensor = ((struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_DistanceSensorCy *)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "environment/cy_entities/robots_cy.pyx":172
+  /* "environment/entities/cy_entities/robots_cy.pyx":172
  *         self.add_angular_sensors(clockwise=False)
  * 
  *     cdef void create_distance_sensor(self):             # <<<<<<<<<<<<<<
@@ -3588,12 +3588,12 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_create_dis
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_WriteUnraisable("environment.cy_entities.robots_cy.FootBotCy.create_distance_sensor", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __Pyx_WriteUnraisable("environment.entities.cy_entities.robots_cy.FootBotCy.create_distance_sensor", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
 }
 
-/* "environment/cy_entities/robots_cy.pyx":178
+/* "environment/entities/cy_entities/robots_cy.pyx":178
  *         self.distance_sensor = DistanceSensorCy(game=self.game)
  * 
  *     cdef void create_proximity_sensors(self):             # <<<<<<<<<<<<<<
@@ -3601,7 +3601,7 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_create_dis
  *         24 equally spaced proximity sensors, which measure the distance between the agent and an object, if this object
  */
 
-static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_create_proximity_sensors(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
+static void __pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_create_proximity_sensors(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
   int __pyx_v_i;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -3612,7 +3612,7 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_create_pro
   float __pyx_t_6;
   __Pyx_RefNannySetupContext("create_proximity_sensors", 0);
 
-  /* "environment/cy_entities/robots_cy.pyx":186
+  /* "environment/entities/cy_entities/robots_cy.pyx":186
  *         """
  *         cdef int i
  *         for i in range(5):             # <<<<<<<<<<<<<<
@@ -3621,7 +3621,7 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_create_pro
   for (__pyx_t_1 = 0; __pyx_t_1 < 5; __pyx_t_1+=1) {
     __pyx_v_i = __pyx_t_1;
 
-    /* "environment/cy_entities/robots_cy.pyx":187
+    /* "environment/entities/cy_entities/robots_cy.pyx":187
  *         cdef int i
  *         for i in range(5):
  *             self.add_proximity_sensor(angle=np.pi / 2 - i * np.pi / 4)             # <<<<<<<<<<<<<<
@@ -3654,10 +3654,10 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_create_pro
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_t_6 = __pyx_PyFloat_AsFloat(__pyx_t_4); if (unlikely((__pyx_t_6 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 187, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    ((struct __pyx_vtabstruct_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self->__pyx_vtab)->add_proximity_sensor(__pyx_v_self, __pyx_t_6, 0);
+    ((struct __pyx_vtabstruct_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self->__pyx_vtab)->add_proximity_sensor(__pyx_v_self, __pyx_t_6, 0);
   }
 
-  /* "environment/cy_entities/robots_cy.pyx":178
+  /* "environment/entities/cy_entities/robots_cy.pyx":178
  *         self.distance_sensor = DistanceSensorCy(game=self.game)
  * 
  *     cdef void create_proximity_sensors(self):             # <<<<<<<<<<<<<<
@@ -3672,12 +3672,12 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_create_pro
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_WriteUnraisable("environment.cy_entities.robots_cy.FootBotCy.create_proximity_sensors", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __Pyx_WriteUnraisable("environment.entities.cy_entities.robots_cy.FootBotCy.create_proximity_sensors", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
 }
 
-/* "environment/cy_entities/robots_cy.pxd":14
+/* "environment/entities/cy_entities/robots_cy.pxd":14
  *     The FootBot is the main bot used in this project. It is a simple circular robot with two wheels on its sides.
  *     """
  *     cdef public GameCy game             # <<<<<<<<<<<<<<
@@ -3686,19 +3686,19 @@ static void __pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_create_pro
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_4game_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_4game_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_4game_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_4game_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_4game___get__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_4game___get__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_4game___get__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_4game___get__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__", 0);
@@ -3715,30 +3715,30 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_4gam
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_4game_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_4game_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_4game_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_4game_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_4game_2__set__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_4game_2__set__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_4game_2__set__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_4game_2__set__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_11environment_11cy_entities_7game_cy_GameCy))))) __PYX_ERR(1, 14, __pyx_L1_error)
+  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_11environment_8entities_11cy_entities_7game_cy_GameCy))))) __PYX_ERR(1, 14, __pyx_L1_error)
   __pyx_t_1 = __pyx_v_value;
   __Pyx_INCREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v_self->game);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->game));
-  __pyx_v_self->game = ((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_t_1);
+  __pyx_v_self->game = ((struct __pyx_obj_11environment_8entities_11cy_entities_7game_cy_GameCy *)__pyx_t_1);
   __pyx_t_1 = 0;
 
   /* function exit code */
@@ -3746,7 +3746,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_4game_2__s
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.game.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.game.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -3754,19 +3754,19 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_4game_2__s
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_4game_5__del__(PyObject *__pyx_v_self); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_4game_5__del__(PyObject *__pyx_v_self) {
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_4game_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_4game_5__del__(PyObject *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_4game_4__del__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_4game_4__del__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_4game_4__del__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_4game_4__del__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__del__", 0);
@@ -3774,7 +3774,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_4game_4__d
   __Pyx_GIVEREF(Py_None);
   __Pyx_GOTREF(__pyx_v_self->game);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->game));
-  __pyx_v_self->game = ((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)Py_None);
+  __pyx_v_self->game = ((struct __pyx_obj_11environment_8entities_11cy_entities_7game_cy_GameCy *)Py_None);
 
   /* function exit code */
   __pyx_r = 0;
@@ -3782,7 +3782,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_4game_4__d
   return __pyx_r;
 }
 
-/* "environment/cy_entities/robots_cy.pxd":15
+/* "environment/entities/cy_entities/robots_cy.pxd":15
  *     """
  *     cdef public GameCy game
  *     cdef public Vec2dCy pos, prev_pos, init_pos             # <<<<<<<<<<<<<<
@@ -3791,19 +3791,19 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_4game_4__d
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_3pos_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_3pos_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_3pos_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_3pos_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_3pos___get__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_3pos___get__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_3pos___get__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_3pos___get__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__", 0);
@@ -3820,30 +3820,30 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_3pos
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_3pos_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_3pos_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_3pos_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_3pos_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_3pos_2__set__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_3pos_2__set__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_3pos_2__set__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_3pos_2__set__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy))))) __PYX_ERR(1, 15, __pyx_L1_error)
+  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy))))) __PYX_ERR(1, 15, __pyx_L1_error)
   __pyx_t_1 = __pyx_v_value;
   __Pyx_INCREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v_self->pos);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->pos));
-  __pyx_v_self->pos = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_1);
+  __pyx_v_self->pos = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_t_1);
   __pyx_t_1 = 0;
 
   /* function exit code */
@@ -3851,7 +3851,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_3pos_2__se
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.pos.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.pos.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -3859,19 +3859,19 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_3pos_2__se
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_3pos_5__del__(PyObject *__pyx_v_self); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_3pos_5__del__(PyObject *__pyx_v_self) {
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_3pos_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_3pos_5__del__(PyObject *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_3pos_4__del__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_3pos_4__del__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_3pos_4__del__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_3pos_4__del__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__del__", 0);
@@ -3879,7 +3879,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_3pos_4__de
   __Pyx_GIVEREF(Py_None);
   __Pyx_GOTREF(__pyx_v_self->pos);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->pos));
-  __pyx_v_self->pos = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)Py_None);
+  __pyx_v_self->pos = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)Py_None);
 
   /* function exit code */
   __pyx_r = 0;
@@ -3888,19 +3888,19 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_3pos_4__de
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8prev_pos___get__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8prev_pos___get__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8prev_pos___get__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8prev_pos___get__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__", 0);
@@ -3917,30 +3917,30 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8pre
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_2__set__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_2__set__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_2__set__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_2__set__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy))))) __PYX_ERR(1, 15, __pyx_L1_error)
+  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy))))) __PYX_ERR(1, 15, __pyx_L1_error)
   __pyx_t_1 = __pyx_v_value;
   __Pyx_INCREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v_self->prev_pos);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->prev_pos));
-  __pyx_v_self->prev_pos = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_1);
+  __pyx_v_self->prev_pos = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_t_1);
   __pyx_t_1 = 0;
 
   /* function exit code */
@@ -3948,7 +3948,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.prev_pos.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.prev_pos.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -3956,19 +3956,19 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_5__del__(PyObject *__pyx_v_self); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_5__del__(PyObject *__pyx_v_self) {
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_5__del__(PyObject *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_4__del__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_4__del__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_4__del__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_4__del__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__del__", 0);
@@ -3976,7 +3976,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_
   __Pyx_GIVEREF(Py_None);
   __Pyx_GOTREF(__pyx_v_self->prev_pos);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->prev_pos));
-  __pyx_v_self->prev_pos = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)Py_None);
+  __pyx_v_self->prev_pos = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)Py_None);
 
   /* function exit code */
   __pyx_r = 0;
@@ -3985,19 +3985,19 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_8init_pos_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_8init_pos_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8init_pos_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8init_pos_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8init_pos___get__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8init_pos___get__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8init_pos___get__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8init_pos___get__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__", 0);
@@ -4014,30 +4014,30 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8ini
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_8init_pos_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_8init_pos_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8init_pos_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8init_pos_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8init_pos_2__set__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8init_pos_2__set__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8init_pos_2__set__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8init_pos_2__set__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy))))) __PYX_ERR(1, 15, __pyx_L1_error)
+  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy))))) __PYX_ERR(1, 15, __pyx_L1_error)
   __pyx_t_1 = __pyx_v_value;
   __Pyx_INCREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v_self->init_pos);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->init_pos));
-  __pyx_v_self->init_pos = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_1);
+  __pyx_v_self->init_pos = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_t_1);
   __pyx_t_1 = 0;
 
   /* function exit code */
@@ -4045,7 +4045,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8init_pos_
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.init_pos.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.init_pos.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -4053,19 +4053,19 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8init_pos_
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_8init_pos_5__del__(PyObject *__pyx_v_self); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_8init_pos_5__del__(PyObject *__pyx_v_self) {
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8init_pos_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8init_pos_5__del__(PyObject *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8init_pos_4__del__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8init_pos_4__del__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8init_pos_4__del__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8init_pos_4__del__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__del__", 0);
@@ -4073,7 +4073,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8init_pos_
   __Pyx_GIVEREF(Py_None);
   __Pyx_GOTREF(__pyx_v_self->init_pos);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->init_pos));
-  __pyx_v_self->init_pos = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)Py_None);
+  __pyx_v_self->init_pos = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)Py_None);
 
   /* function exit code */
   __pyx_r = 0;
@@ -4081,7 +4081,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8init_pos_
   return __pyx_r;
 }
 
-/* "environment/cy_entities/robots_cy.pxd":16
+/* "environment/entities/cy_entities/robots_cy.pxd":16
  *     cdef public GameCy game
  *     cdef public Vec2dCy pos, prev_pos, init_pos
  *     cdef public float angle, prev_angle, init_angle, radius             # <<<<<<<<<<<<<<
@@ -4090,19 +4090,19 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_8init_pos_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_5angle_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_5angle_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_5angle_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_5angle_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_5angle___get__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_5angle___get__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_5angle___get__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_5angle___get__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4117,7 +4117,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_5ang
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.angle.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.angle.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4126,19 +4126,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_5ang
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_5angle_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_5angle_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_5angle_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_5angle_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_5angle_2__set__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_5angle_2__set__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_5angle_2__set__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_5angle_2__set__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   float __pyx_t_1;
@@ -4150,7 +4150,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_5angle_2__
   __pyx_r = 0;
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.angle.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.angle.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -4158,19 +4158,19 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_5angle_2__
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_10prev_angle_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_10prev_angle_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10prev_angle_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10prev_angle_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_10prev_angle___get__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10prev_angle___get__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_10prev_angle___get__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10prev_angle___get__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4185,7 +4185,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_10pr
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.prev_angle.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.prev_angle.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4194,19 +4194,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_10pr
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_10prev_angle_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_10prev_angle_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10prev_angle_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10prev_angle_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_10prev_angle_2__set__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10prev_angle_2__set__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_10prev_angle_2__set__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10prev_angle_2__set__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   float __pyx_t_1;
@@ -4218,7 +4218,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_10prev_ang
   __pyx_r = 0;
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.prev_angle.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.prev_angle.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -4226,19 +4226,19 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_10prev_ang
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_10init_angle_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_10init_angle_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10init_angle_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10init_angle_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_10init_angle___get__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10init_angle___get__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_10init_angle___get__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10init_angle___get__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4253,7 +4253,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_10in
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.init_angle.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.init_angle.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4262,19 +4262,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_10in
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_10init_angle_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_10init_angle_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10init_angle_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10init_angle_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_10init_angle_2__set__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10init_angle_2__set__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_10init_angle_2__set__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10init_angle_2__set__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   float __pyx_t_1;
@@ -4286,7 +4286,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_10init_ang
   __pyx_r = 0;
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.init_angle.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.init_angle.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -4294,19 +4294,19 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_10init_ang
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_6radius_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_6radius_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_6radius_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_6radius_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_6radius___get__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_6radius___get__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_6radius___get__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_6radius___get__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4321,7 +4321,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_6rad
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.radius.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.radius.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4330,19 +4330,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_6rad
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_6radius_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_6radius_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_6radius_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_6radius_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_6radius_2__set__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_6radius_2__set__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_6radius_2__set__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_6radius_2__set__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   float __pyx_t_1;
@@ -4354,14 +4354,14 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_6radius_2_
   __pyx_r = 0;
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.radius.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.radius.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "environment/cy_entities/robots_cy.pxd":17
+/* "environment/entities/cy_entities/robots_cy.pxd":17
  *     cdef public Vec2dCy pos, prev_pos, init_pos
  *     cdef public float angle, prev_angle, init_angle, radius
  *     cdef public set angular_sensors, proximity_sensors             # <<<<<<<<<<<<<<
@@ -4370,19 +4370,19 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_6radius_2_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors___get__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors___get__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors___get__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors___get__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__", 0);
@@ -4399,19 +4399,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_15an
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_2__set__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_2__set__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_2__set__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_2__set__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4430,7 +4430,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_15angular_
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.angular_sensors.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.angular_sensors.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -4438,19 +4438,19 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_15angular_
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_5__del__(PyObject *__pyx_v_self); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_5__del__(PyObject *__pyx_v_self) {
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_5__del__(PyObject *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_4__del__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_4__del__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_4__del__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_4__del__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__del__", 0);
@@ -4467,19 +4467,19 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_15angular_
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors___get__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors___get__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors___get__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors___get__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__", 0);
@@ -4496,19 +4496,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_17pr
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_2__set__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_2__set__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_2__set__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_2__set__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4527,7 +4527,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_17proximit
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.proximity_sensors.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.proximity_sensors.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -4535,19 +4535,19 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_17proximit
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_5__del__(PyObject *__pyx_v_self); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_5__del__(PyObject *__pyx_v_self) {
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_5__del__(PyObject *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_4__del__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_4__del__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_4__del__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_4__del__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__del__", 0);
@@ -4563,7 +4563,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_17proximit
   return __pyx_r;
 }
 
-/* "environment/cy_entities/robots_cy.pxd":18
+/* "environment/entities/cy_entities/robots_cy.pxd":18
  *     cdef public float angle, prev_angle, init_angle, radius
  *     cdef public set angular_sensors, proximity_sensors
  *     cdef public DistanceSensorCy distance_sensor             # <<<<<<<<<<<<<<
@@ -4572,19 +4572,19 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_17proximit
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor___get__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor___get__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor___get__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor___get__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__", 0);
@@ -4601,30 +4601,30 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_15di
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_2__set__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_2__set__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_2__set__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_2__set__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_11environment_11cy_entities_10sensors_cy_DistanceSensorCy))))) __PYX_ERR(1, 18, __pyx_L1_error)
+  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_11environment_8entities_11cy_entities_10sensors_cy_DistanceSensorCy))))) __PYX_ERR(1, 18, __pyx_L1_error)
   __pyx_t_1 = __pyx_v_value;
   __Pyx_INCREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v_self->distance_sensor);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->distance_sensor));
-  __pyx_v_self->distance_sensor = ((struct __pyx_obj_11environment_11cy_entities_10sensors_cy_DistanceSensorCy *)__pyx_t_1);
+  __pyx_v_self->distance_sensor = ((struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_DistanceSensorCy *)__pyx_t_1);
   __pyx_t_1 = 0;
 
   /* function exit code */
@@ -4632,7 +4632,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_15distance
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.distance_sensor.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.distance_sensor.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -4640,19 +4640,19 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_15distance
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_5__del__(PyObject *__pyx_v_self); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_5__del__(PyObject *__pyx_v_self) {
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_5__del__(PyObject *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_4__del__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_4__del__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_4__del__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
+static int __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_4__del__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__del__", 0);
@@ -4660,7 +4660,7 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_15distance
   __Pyx_GIVEREF(Py_None);
   __Pyx_GOTREF(__pyx_v_self->distance_sensor);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->distance_sensor));
-  __pyx_v_self->distance_sensor = ((struct __pyx_obj_11environment_11cy_entities_10sensors_cy_DistanceSensorCy *)Py_None);
+  __pyx_v_self->distance_sensor = ((struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_DistanceSensorCy *)Py_None);
 
   /* function exit code */
   __pyx_r = 0;
@@ -4675,19 +4675,19 @@ static int __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_15distance
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_17__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_17__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_17__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_17__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_16__reduce_cython__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_16__reduce_cython__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_16__reduce_cython__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_16__reduce_cython__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self) {
   PyObject *__pyx_v_state = 0;
   PyObject *__pyx_v__dict = 0;
   int __pyx_v_use_setstate;
@@ -4977,7 +4977,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_16__
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_state);
@@ -4995,19 +4995,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_16__
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_19__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_19__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_19__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_19__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_18__setstate_cython__(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_18__setstate_cython__(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_18__setstate_cython__(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_18__setstate_cython__(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5019,7 +5019,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_18__
  *     __pyx_unpickle_FootBotCy__set_state(self, __pyx_state)             # <<<<<<<<<<<<<<
  */
   if (!(likely(PyTuple_CheckExact(__pyx_v___pyx_state))||((__pyx_v___pyx_state) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "tuple", Py_TYPE(__pyx_v___pyx_state)->tp_name), 0))) __PYX_ERR(2, 17, __pyx_L1_error)
-  __pyx_t_1 = __pyx_f_11environment_11cy_entities_9robots_cy___pyx_unpickle_FootBotCy__set_state(__pyx_v_self, ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 17, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_11environment_8entities_11cy_entities_9robots_cy___pyx_unpickle_FootBotCy__set_state(__pyx_v_self, ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
@@ -5035,7 +5035,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_18__
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.FootBotCy.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.FootBotCy.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5050,9 +5050,9 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy_9FootBotCy_18__
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_1__pyx_unpickle_FootBotCy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_11environment_11cy_entities_9robots_cy_1__pyx_unpickle_FootBotCy = {"__pyx_unpickle_FootBotCy", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_11environment_11cy_entities_9robots_cy_1__pyx_unpickle_FootBotCy, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_1__pyx_unpickle_FootBotCy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_1__pyx_unpickle_FootBotCy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_11environment_8entities_11cy_entities_9robots_cy_1__pyx_unpickle_FootBotCy = {"__pyx_unpickle_FootBotCy", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_1__pyx_unpickle_FootBotCy, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_1__pyx_unpickle_FootBotCy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v___pyx_type = 0;
   long __pyx_v___pyx_checksum;
   PyObject *__pyx_v___pyx_state = 0;
@@ -5111,18 +5111,18 @@ static PyObject *__pyx_pw_11environment_11cy_entities_9robots_cy_1__pyx_unpickle
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_FootBotCy", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 1, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.__pyx_unpickle_FootBotCy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.__pyx_unpickle_FootBotCy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11environment_11cy_entities_9robots_cy___pyx_unpickle_FootBotCy(__pyx_self, __pyx_v___pyx_type, __pyx_v___pyx_checksum, __pyx_v___pyx_state);
+  __pyx_r = __pyx_pf_11environment_8entities_11cy_entities_9robots_cy___pyx_unpickle_FootBotCy(__pyx_self, __pyx_v___pyx_type, __pyx_v___pyx_checksum, __pyx_v___pyx_state);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy___pyx_unpickle_FootBotCy(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_11environment_8entities_11cy_entities_9robots_cy___pyx_unpickle_FootBotCy(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_v___pyx_PickleError = 0;
   PyObject *__pyx_v___pyx_result = 0;
   PyObject *__pyx_r = NULL;
@@ -5216,7 +5216,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy___pyx_unpickle_
  *     if __pyx_state is not None:
  *         __pyx_unpickle_FootBotCy__set_state(<FootBotCy> __pyx_result, __pyx_state)
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_11environment_11cy_entities_9robots_cy_FootBotCy), __pyx_n_s_new); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 7, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_11environment_8entities_11cy_entities_9robots_cy_FootBotCy), __pyx_n_s_new); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -5255,7 +5255,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy___pyx_unpickle_
  * cdef __pyx_unpickle_FootBotCy__set_state(FootBotCy __pyx_result, tuple __pyx_state):
  */
     if (!(likely(PyTuple_CheckExact(__pyx_v___pyx_state))||((__pyx_v___pyx_state) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "tuple", Py_TYPE(__pyx_v___pyx_state)->tp_name), 0))) __PYX_ERR(2, 9, __pyx_L1_error)
-    __pyx_t_3 = __pyx_f_11environment_11cy_entities_9robots_cy___pyx_unpickle_FootBotCy__set_state(((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)__pyx_v___pyx_result), ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 9, __pyx_L1_error)
+    __pyx_t_3 = __pyx_f_11environment_8entities_11cy_entities_9robots_cy___pyx_unpickle_FootBotCy__set_state(((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)__pyx_v___pyx_result), ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 9, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
@@ -5292,7 +5292,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy___pyx_unpickle_
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.__pyx_unpickle_FootBotCy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.__pyx_unpickle_FootBotCy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v___pyx_PickleError);
@@ -5310,7 +5310,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_9robots_cy___pyx_unpickle_
  *     if len(__pyx_state) > 11 and hasattr(__pyx_result, '__dict__'):
  */
 
-static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy___pyx_unpickle_FootBotCy__set_state(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *__pyx_v___pyx_result, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_f_11environment_8entities_11cy_entities_9robots_cy___pyx_unpickle_FootBotCy__set_state(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *__pyx_v___pyx_result, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5358,11 +5358,11 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy___pyx_unpickle_F
   }
   __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_11environment_11cy_entities_10sensors_cy_DistanceSensorCy))))) __PYX_ERR(2, 12, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_11environment_8entities_11cy_entities_10sensors_cy_DistanceSensorCy))))) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v___pyx_result->distance_sensor);
   __Pyx_DECREF(((PyObject *)__pyx_v___pyx_result->distance_sensor));
-  __pyx_v___pyx_result->distance_sensor = ((struct __pyx_obj_11environment_11cy_entities_10sensors_cy_DistanceSensorCy *)__pyx_t_1);
+  __pyx_v___pyx_result->distance_sensor = ((struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_DistanceSensorCy *)__pyx_t_1);
   __pyx_t_1 = 0;
   if (unlikely(__pyx_v___pyx_state == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
@@ -5370,11 +5370,11 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy___pyx_unpickle_F
   }
   __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_11environment_11cy_entities_7game_cy_GameCy))))) __PYX_ERR(2, 12, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_11environment_8entities_11cy_entities_7game_cy_GameCy))))) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v___pyx_result->game);
   __Pyx_DECREF(((PyObject *)__pyx_v___pyx_result->game));
-  __pyx_v___pyx_result->game = ((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)__pyx_t_1);
+  __pyx_v___pyx_result->game = ((struct __pyx_obj_11environment_8entities_11cy_entities_7game_cy_GameCy *)__pyx_t_1);
   __pyx_t_1 = 0;
   if (unlikely(__pyx_v___pyx_state == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
@@ -5391,11 +5391,11 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy___pyx_unpickle_F
   }
   __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy))))) __PYX_ERR(2, 12, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy))))) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v___pyx_result->init_pos);
   __Pyx_DECREF(((PyObject *)__pyx_v___pyx_result->init_pos));
-  __pyx_v___pyx_result->init_pos = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_1);
+  __pyx_v___pyx_result->init_pos = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_t_1);
   __pyx_t_1 = 0;
   if (unlikely(__pyx_v___pyx_state == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
@@ -5403,11 +5403,11 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy___pyx_unpickle_F
   }
   __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy))))) __PYX_ERR(2, 12, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy))))) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v___pyx_result->pos);
   __Pyx_DECREF(((PyObject *)__pyx_v___pyx_result->pos));
-  __pyx_v___pyx_result->pos = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_1);
+  __pyx_v___pyx_result->pos = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_t_1);
   __pyx_t_1 = 0;
   if (unlikely(__pyx_v___pyx_state == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
@@ -5424,11 +5424,11 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy___pyx_unpickle_F
   }
   __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 8, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy))))) __PYX_ERR(2, 12, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy))))) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v___pyx_result->prev_pos);
   __Pyx_DECREF(((PyObject *)__pyx_v___pyx_result->prev_pos));
-  __pyx_v___pyx_result->prev_pos = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_1);
+  __pyx_v___pyx_result->prev_pos = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_t_1);
   __pyx_t_1 = 0;
   if (unlikely(__pyx_v___pyx_state == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
@@ -5533,17 +5533,17 @@ static PyObject *__pyx_f_11environment_11cy_entities_9robots_cy___pyx_unpickle_F
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_9);
-  __Pyx_AddTraceback("environment.cy_entities.robots_cy.__pyx_unpickle_FootBotCy__set_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("environment.entities.cy_entities.robots_cy.__pyx_unpickle_FootBotCy__set_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
-static struct __pyx_vtabstruct_11environment_11cy_entities_9robots_cy_FootBotCy __pyx_vtable_11environment_11cy_entities_9robots_cy_FootBotCy;
+static struct __pyx_vtabstruct_11environment_8entities_11cy_entities_9robots_cy_FootBotCy __pyx_vtable_11environment_8entities_11cy_entities_9robots_cy_FootBotCy;
 
-static PyObject *__pyx_tp_new_11environment_11cy_entities_9robots_cy_FootBotCy(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
-  struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *p;
+static PyObject *__pyx_tp_new_11environment_8entities_11cy_entities_9robots_cy_FootBotCy(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *p;
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -5551,20 +5551,20 @@ static PyObject *__pyx_tp_new_11environment_11cy_entities_9robots_cy_FootBotCy(P
     o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
   }
   if (unlikely(!o)) return 0;
-  p = ((struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)o);
-  p->__pyx_vtab = __pyx_vtabptr_11environment_11cy_entities_9robots_cy_FootBotCy;
-  p->game = ((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)Py_None); Py_INCREF(Py_None);
-  p->pos = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)Py_None); Py_INCREF(Py_None);
-  p->prev_pos = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)Py_None); Py_INCREF(Py_None);
-  p->init_pos = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)Py_None); Py_INCREF(Py_None);
+  p = ((struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)o);
+  p->__pyx_vtab = __pyx_vtabptr_11environment_8entities_11cy_entities_9robots_cy_FootBotCy;
+  p->game = ((struct __pyx_obj_11environment_8entities_11cy_entities_7game_cy_GameCy *)Py_None); Py_INCREF(Py_None);
+  p->pos = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)Py_None); Py_INCREF(Py_None);
+  p->prev_pos = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)Py_None); Py_INCREF(Py_None);
+  p->init_pos = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)Py_None); Py_INCREF(Py_None);
   p->angular_sensors = ((PyObject*)Py_None); Py_INCREF(Py_None);
   p->proximity_sensors = ((PyObject*)Py_None); Py_INCREF(Py_None);
-  p->distance_sensor = ((struct __pyx_obj_11environment_11cy_entities_10sensors_cy_DistanceSensorCy *)Py_None); Py_INCREF(Py_None);
+  p->distance_sensor = ((struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_DistanceSensorCy *)Py_None); Py_INCREF(Py_None);
   return o;
 }
 
-static void __pyx_tp_dealloc_11environment_11cy_entities_9robots_cy_FootBotCy(PyObject *o) {
-  struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *p = (struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)o;
+static void __pyx_tp_dealloc_11environment_8entities_11cy_entities_9robots_cy_FootBotCy(PyObject *o) {
+  struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *p = (struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)o;
   #if CYTHON_USE_TP_FINALIZE
   if (unlikely(PyType_HasFeature(Py_TYPE(o), Py_TPFLAGS_HAVE_FINALIZE) && Py_TYPE(o)->tp_finalize) && !_PyGC_FINALIZED(o)) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
@@ -5581,9 +5581,9 @@ static void __pyx_tp_dealloc_11environment_11cy_entities_9robots_cy_FootBotCy(Py
   (*Py_TYPE(o)->tp_free)(o);
 }
 
-static int __pyx_tp_traverse_11environment_11cy_entities_9robots_cy_FootBotCy(PyObject *o, visitproc v, void *a) {
+static int __pyx_tp_traverse_11environment_8entities_11cy_entities_9robots_cy_FootBotCy(PyObject *o, visitproc v, void *a) {
   int e;
-  struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *p = (struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)o;
+  struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *p = (struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)o;
   if (p->game) {
     e = (*v)(((PyObject *)p->game), a); if (e) return e;
   }
@@ -5608,20 +5608,20 @@ static int __pyx_tp_traverse_11environment_11cy_entities_9robots_cy_FootBotCy(Py
   return 0;
 }
 
-static int __pyx_tp_clear_11environment_11cy_entities_9robots_cy_FootBotCy(PyObject *o) {
+static int __pyx_tp_clear_11environment_8entities_11cy_entities_9robots_cy_FootBotCy(PyObject *o) {
   PyObject* tmp;
-  struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *p = (struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *)o;
+  struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *p = (struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *)o;
   tmp = ((PyObject*)p->game);
-  p->game = ((struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy *)Py_None); Py_INCREF(Py_None);
+  p->game = ((struct __pyx_obj_11environment_8entities_11cy_entities_7game_cy_GameCy *)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   tmp = ((PyObject*)p->pos);
-  p->pos = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)Py_None); Py_INCREF(Py_None);
+  p->pos = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   tmp = ((PyObject*)p->prev_pos);
-  p->prev_pos = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)Py_None); Py_INCREF(Py_None);
+  p->prev_pos = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   tmp = ((PyObject*)p->init_pos);
-  p->init_pos = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)Py_None); Py_INCREF(Py_None);
+  p->init_pos = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   tmp = ((PyObject*)p->angular_sensors);
   p->angular_sensors = ((PyObject*)Py_None); Py_INCREF(Py_None);
@@ -5630,84 +5630,70 @@ static int __pyx_tp_clear_11environment_11cy_entities_9robots_cy_FootBotCy(PyObj
   p->proximity_sensors = ((PyObject*)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   tmp = ((PyObject*)p->distance_sensor);
-  p->distance_sensor = ((struct __pyx_obj_11environment_11cy_entities_10sensors_cy_DistanceSensorCy *)Py_None); Py_INCREF(Py_None);
+  p->distance_sensor = ((struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_DistanceSensorCy *)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   return 0;
 }
 
-static PyObject *__pyx_getprop_11environment_11cy_entities_9robots_cy_9FootBotCy_game(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_4game_1__get__(o);
+static PyObject *__pyx_getprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_game(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_4game_1__get__(o);
 }
 
-static int __pyx_setprop_11environment_11cy_entities_9robots_cy_9FootBotCy_game(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+static int __pyx_setprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_game(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
   if (v) {
-    return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_4game_3__set__(o, v);
+    return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_4game_3__set__(o, v);
   }
   else {
-    return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_4game_5__del__(o);
+    return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_4game_5__del__(o);
   }
 }
 
-static PyObject *__pyx_getprop_11environment_11cy_entities_9robots_cy_9FootBotCy_pos(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_3pos_1__get__(o);
+static PyObject *__pyx_getprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_pos(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_3pos_1__get__(o);
 }
 
-static int __pyx_setprop_11environment_11cy_entities_9robots_cy_9FootBotCy_pos(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+static int __pyx_setprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_pos(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
   if (v) {
-    return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_3pos_3__set__(o, v);
+    return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_3pos_3__set__(o, v);
   }
   else {
-    return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_3pos_5__del__(o);
+    return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_3pos_5__del__(o);
   }
 }
 
-static PyObject *__pyx_getprop_11environment_11cy_entities_9robots_cy_9FootBotCy_prev_pos(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_1__get__(o);
+static PyObject *__pyx_getprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_prev_pos(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_1__get__(o);
 }
 
-static int __pyx_setprop_11environment_11cy_entities_9robots_cy_9FootBotCy_prev_pos(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+static int __pyx_setprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_prev_pos(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
   if (v) {
-    return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_3__set__(o, v);
+    return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_3__set__(o, v);
   }
   else {
-    return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_5__del__(o);
+    return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8prev_pos_5__del__(o);
   }
 }
 
-static PyObject *__pyx_getprop_11environment_11cy_entities_9robots_cy_9FootBotCy_init_pos(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_8init_pos_1__get__(o);
+static PyObject *__pyx_getprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_init_pos(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8init_pos_1__get__(o);
 }
 
-static int __pyx_setprop_11environment_11cy_entities_9robots_cy_9FootBotCy_init_pos(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+static int __pyx_setprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_init_pos(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
   if (v) {
-    return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_8init_pos_3__set__(o, v);
+    return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8init_pos_3__set__(o, v);
   }
   else {
-    return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_8init_pos_5__del__(o);
+    return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8init_pos_5__del__(o);
   }
 }
 
-static PyObject *__pyx_getprop_11environment_11cy_entities_9robots_cy_9FootBotCy_angle(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_5angle_1__get__(o);
+static PyObject *__pyx_getprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_angle(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_5angle_1__get__(o);
 }
 
-static int __pyx_setprop_11environment_11cy_entities_9robots_cy_9FootBotCy_angle(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+static int __pyx_setprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_angle(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
   if (v) {
-    return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_5angle_3__set__(o, v);
-  }
-  else {
-    PyErr_SetString(PyExc_NotImplementedError, "__del__");
-    return -1;
-  }
-}
-
-static PyObject *__pyx_getprop_11environment_11cy_entities_9robots_cy_9FootBotCy_prev_angle(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_10prev_angle_1__get__(o);
-}
-
-static int __pyx_setprop_11environment_11cy_entities_9robots_cy_9FootBotCy_prev_angle(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
-  if (v) {
-    return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_10prev_angle_3__set__(o, v);
+    return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_5angle_3__set__(o, v);
   }
   else {
     PyErr_SetString(PyExc_NotImplementedError, "__del__");
@@ -5715,13 +5701,13 @@ static int __pyx_setprop_11environment_11cy_entities_9robots_cy_9FootBotCy_prev_
   }
 }
 
-static PyObject *__pyx_getprop_11environment_11cy_entities_9robots_cy_9FootBotCy_init_angle(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_10init_angle_1__get__(o);
+static PyObject *__pyx_getprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_prev_angle(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10prev_angle_1__get__(o);
 }
 
-static int __pyx_setprop_11environment_11cy_entities_9robots_cy_9FootBotCy_init_angle(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+static int __pyx_setprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_prev_angle(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
   if (v) {
-    return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_10init_angle_3__set__(o, v);
+    return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10prev_angle_3__set__(o, v);
   }
   else {
     PyErr_SetString(PyExc_NotImplementedError, "__del__");
@@ -5729,13 +5715,13 @@ static int __pyx_setprop_11environment_11cy_entities_9robots_cy_9FootBotCy_init_
   }
 }
 
-static PyObject *__pyx_getprop_11environment_11cy_entities_9robots_cy_9FootBotCy_radius(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_6radius_1__get__(o);
+static PyObject *__pyx_getprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_init_angle(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10init_angle_1__get__(o);
 }
 
-static int __pyx_setprop_11environment_11cy_entities_9robots_cy_9FootBotCy_radius(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+static int __pyx_setprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_init_angle(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
   if (v) {
-    return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_6radius_3__set__(o, v);
+    return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10init_angle_3__set__(o, v);
   }
   else {
     PyErr_SetString(PyExc_NotImplementedError, "__del__");
@@ -5743,78 +5729,92 @@ static int __pyx_setprop_11environment_11cy_entities_9robots_cy_9FootBotCy_radiu
   }
 }
 
-static PyObject *__pyx_getprop_11environment_11cy_entities_9robots_cy_9FootBotCy_angular_sensors(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_1__get__(o);
+static PyObject *__pyx_getprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_radius(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_6radius_1__get__(o);
 }
 
-static int __pyx_setprop_11environment_11cy_entities_9robots_cy_9FootBotCy_angular_sensors(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+static int __pyx_setprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_radius(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
   if (v) {
-    return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_3__set__(o, v);
+    return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_6radius_3__set__(o, v);
   }
   else {
-    return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_5__del__(o);
+    PyErr_SetString(PyExc_NotImplementedError, "__del__");
+    return -1;
   }
 }
 
-static PyObject *__pyx_getprop_11environment_11cy_entities_9robots_cy_9FootBotCy_proximity_sensors(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_1__get__(o);
+static PyObject *__pyx_getprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_angular_sensors(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_1__get__(o);
 }
 
-static int __pyx_setprop_11environment_11cy_entities_9robots_cy_9FootBotCy_proximity_sensors(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+static int __pyx_setprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_angular_sensors(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
   if (v) {
-    return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_3__set__(o, v);
+    return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_3__set__(o, v);
   }
   else {
-    return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_5__del__(o);
+    return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15angular_sensors_5__del__(o);
   }
 }
 
-static PyObject *__pyx_getprop_11environment_11cy_entities_9robots_cy_9FootBotCy_distance_sensor(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_1__get__(o);
+static PyObject *__pyx_getprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_proximity_sensors(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_1__get__(o);
 }
 
-static int __pyx_setprop_11environment_11cy_entities_9robots_cy_9FootBotCy_distance_sensor(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+static int __pyx_setprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_proximity_sensors(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
   if (v) {
-    return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_3__set__(o, v);
+    return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_3__set__(o, v);
   }
   else {
-    return __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_5__del__(o);
+    return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_17proximity_sensors_5__del__(o);
   }
 }
 
-static PyMethodDef __pyx_methods_11environment_11cy_entities_9robots_cy_FootBotCy[] = {
-  {"reset", (PyCFunction)__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_5reset, METH_NOARGS, __pyx_doc_11environment_11cy_entities_9robots_cy_9FootBotCy_4reset},
-  {"get_sensor_reading_angle", (PyCFunction)__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_7get_sensor_reading_angle, METH_NOARGS, __pyx_doc_11environment_11cy_entities_9robots_cy_9FootBotCy_6get_sensor_reading_angle},
-  {"get_sensor_reading_distance", (PyCFunction)__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_9get_sensor_reading_distance, METH_NOARGS, __pyx_doc_11environment_11cy_entities_9robots_cy_9FootBotCy_8get_sensor_reading_distance},
-  {"get_sensor_reading_proximity", (PyCFunction)__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_11get_sensor_reading_proximity, METH_NOARGS, __pyx_doc_11environment_11cy_entities_9robots_cy_9FootBotCy_10get_sensor_reading_proximity},
-  {"add_angular_sensors", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_13add_angular_sensors, METH_VARARGS|METH_KEYWORDS, __pyx_doc_11environment_11cy_entities_9robots_cy_9FootBotCy_12add_angular_sensors},
-  {"add_proximity_sensor", (PyCFunction)__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_15add_proximity_sensor, METH_O, __pyx_doc_11environment_11cy_entities_9robots_cy_9FootBotCy_14add_proximity_sensor},
-  {"__reduce_cython__", (PyCFunction)__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_17__reduce_cython__, METH_NOARGS, 0},
-  {"__setstate_cython__", (PyCFunction)__pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_19__setstate_cython__, METH_O, 0},
+static PyObject *__pyx_getprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_distance_sensor(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_1__get__(o);
+}
+
+static int __pyx_setprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_distance_sensor(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_3__set__(o, v);
+  }
+  else {
+    return __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15distance_sensor_5__del__(o);
+  }
+}
+
+static PyMethodDef __pyx_methods_11environment_8entities_11cy_entities_9robots_cy_FootBotCy[] = {
+  {"reset", (PyCFunction)__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_5reset, METH_NOARGS, __pyx_doc_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_4reset},
+  {"get_sensor_reading_angle", (PyCFunction)__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_7get_sensor_reading_angle, METH_NOARGS, __pyx_doc_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_6get_sensor_reading_angle},
+  {"get_sensor_reading_distance", (PyCFunction)__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_9get_sensor_reading_distance, METH_NOARGS, __pyx_doc_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_8get_sensor_reading_distance},
+  {"get_sensor_reading_proximity", (PyCFunction)__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_11get_sensor_reading_proximity, METH_NOARGS, __pyx_doc_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_10get_sensor_reading_proximity},
+  {"add_angular_sensors", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_13add_angular_sensors, METH_VARARGS|METH_KEYWORDS, __pyx_doc_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_12add_angular_sensors},
+  {"add_proximity_sensor", (PyCFunction)__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_15add_proximity_sensor, METH_O, __pyx_doc_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_14add_proximity_sensor},
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_17__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_19__setstate_cython__, METH_O, 0},
   {0, 0, 0, 0}
 };
 
-static struct PyGetSetDef __pyx_getsets_11environment_11cy_entities_9robots_cy_FootBotCy[] = {
-  {(char *)"game", __pyx_getprop_11environment_11cy_entities_9robots_cy_9FootBotCy_game, __pyx_setprop_11environment_11cy_entities_9robots_cy_9FootBotCy_game, (char *)0, 0},
-  {(char *)"pos", __pyx_getprop_11environment_11cy_entities_9robots_cy_9FootBotCy_pos, __pyx_setprop_11environment_11cy_entities_9robots_cy_9FootBotCy_pos, (char *)0, 0},
-  {(char *)"prev_pos", __pyx_getprop_11environment_11cy_entities_9robots_cy_9FootBotCy_prev_pos, __pyx_setprop_11environment_11cy_entities_9robots_cy_9FootBotCy_prev_pos, (char *)0, 0},
-  {(char *)"init_pos", __pyx_getprop_11environment_11cy_entities_9robots_cy_9FootBotCy_init_pos, __pyx_setprop_11environment_11cy_entities_9robots_cy_9FootBotCy_init_pos, (char *)0, 0},
-  {(char *)"angle", __pyx_getprop_11environment_11cy_entities_9robots_cy_9FootBotCy_angle, __pyx_setprop_11environment_11cy_entities_9robots_cy_9FootBotCy_angle, (char *)0, 0},
-  {(char *)"prev_angle", __pyx_getprop_11environment_11cy_entities_9robots_cy_9FootBotCy_prev_angle, __pyx_setprop_11environment_11cy_entities_9robots_cy_9FootBotCy_prev_angle, (char *)0, 0},
-  {(char *)"init_angle", __pyx_getprop_11environment_11cy_entities_9robots_cy_9FootBotCy_init_angle, __pyx_setprop_11environment_11cy_entities_9robots_cy_9FootBotCy_init_angle, (char *)0, 0},
-  {(char *)"radius", __pyx_getprop_11environment_11cy_entities_9robots_cy_9FootBotCy_radius, __pyx_setprop_11environment_11cy_entities_9robots_cy_9FootBotCy_radius, (char *)0, 0},
-  {(char *)"angular_sensors", __pyx_getprop_11environment_11cy_entities_9robots_cy_9FootBotCy_angular_sensors, __pyx_setprop_11environment_11cy_entities_9robots_cy_9FootBotCy_angular_sensors, (char *)0, 0},
-  {(char *)"proximity_sensors", __pyx_getprop_11environment_11cy_entities_9robots_cy_9FootBotCy_proximity_sensors, __pyx_setprop_11environment_11cy_entities_9robots_cy_9FootBotCy_proximity_sensors, (char *)0, 0},
-  {(char *)"distance_sensor", __pyx_getprop_11environment_11cy_entities_9robots_cy_9FootBotCy_distance_sensor, __pyx_setprop_11environment_11cy_entities_9robots_cy_9FootBotCy_distance_sensor, (char *)0, 0},
+static struct PyGetSetDef __pyx_getsets_11environment_8entities_11cy_entities_9robots_cy_FootBotCy[] = {
+  {(char *)"game", __pyx_getprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_game, __pyx_setprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_game, (char *)0, 0},
+  {(char *)"pos", __pyx_getprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_pos, __pyx_setprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_pos, (char *)0, 0},
+  {(char *)"prev_pos", __pyx_getprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_prev_pos, __pyx_setprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_prev_pos, (char *)0, 0},
+  {(char *)"init_pos", __pyx_getprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_init_pos, __pyx_setprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_init_pos, (char *)0, 0},
+  {(char *)"angle", __pyx_getprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_angle, __pyx_setprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_angle, (char *)0, 0},
+  {(char *)"prev_angle", __pyx_getprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_prev_angle, __pyx_setprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_prev_angle, (char *)0, 0},
+  {(char *)"init_angle", __pyx_getprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_init_angle, __pyx_setprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_init_angle, (char *)0, 0},
+  {(char *)"radius", __pyx_getprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_radius, __pyx_setprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_radius, (char *)0, 0},
+  {(char *)"angular_sensors", __pyx_getprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_angular_sensors, __pyx_setprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_angular_sensors, (char *)0, 0},
+  {(char *)"proximity_sensors", __pyx_getprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_proximity_sensors, __pyx_setprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_proximity_sensors, (char *)0, 0},
+  {(char *)"distance_sensor", __pyx_getprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_distance_sensor, __pyx_setprop_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_distance_sensor, (char *)0, 0},
   {0, 0, 0, 0, 0}
 };
 
-static PyTypeObject __pyx_type_11environment_11cy_entities_9robots_cy_FootBotCy = {
+static PyTypeObject __pyx_type_11environment_8entities_11cy_entities_9robots_cy_FootBotCy = {
   PyVarObject_HEAD_INIT(0, 0)
-  "environment.cy_entities.robots_cy.FootBotCy", /*tp_name*/
-  sizeof(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy), /*tp_basicsize*/
+  "environment.entities.cy_entities.robots_cy.FootBotCy", /*tp_name*/
+  sizeof(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_11environment_11cy_entities_9robots_cy_FootBotCy, /*tp_dealloc*/
+  __pyx_tp_dealloc_11environment_8entities_11cy_entities_9robots_cy_FootBotCy, /*tp_dealloc*/
   #if PY_VERSION_HEX < 0x030800b4
   0, /*tp_print*/
   #endif
@@ -5835,29 +5835,29 @@ static PyTypeObject __pyx_type_11environment_11cy_entities_9robots_cy_FootBotCy 
   0, /*tp_as_mapping*/
   0, /*tp_hash*/
   0, /*tp_call*/
-  __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_3__str__, /*tp_str*/
+  __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_3__str__, /*tp_str*/
   0, /*tp_getattro*/
   0, /*tp_setattro*/
   0, /*tp_as_buffer*/
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
   "\n    The FootBot is the main bot used in this project. It is a simple circular robot with two wheels on its sides.\n    ", /*tp_doc*/
-  __pyx_tp_traverse_11environment_11cy_entities_9robots_cy_FootBotCy, /*tp_traverse*/
-  __pyx_tp_clear_11environment_11cy_entities_9robots_cy_FootBotCy, /*tp_clear*/
+  __pyx_tp_traverse_11environment_8entities_11cy_entities_9robots_cy_FootBotCy, /*tp_traverse*/
+  __pyx_tp_clear_11environment_8entities_11cy_entities_9robots_cy_FootBotCy, /*tp_clear*/
   0, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_11environment_11cy_entities_9robots_cy_FootBotCy, /*tp_methods*/
+  __pyx_methods_11environment_8entities_11cy_entities_9robots_cy_FootBotCy, /*tp_methods*/
   0, /*tp_members*/
-  __pyx_getsets_11environment_11cy_entities_9robots_cy_FootBotCy, /*tp_getset*/
+  __pyx_getsets_11environment_8entities_11cy_entities_9robots_cy_FootBotCy, /*tp_getset*/
   0, /*tp_base*/
   0, /*tp_dict*/
   0, /*tp_descr_get*/
   0, /*tp_descr_set*/
   0, /*tp_dictoffset*/
-  __pyx_pw_11environment_11cy_entities_9robots_cy_9FootBotCy_1__init__, /*tp_init*/
+  __pyx_pw_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_1__init__, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_11environment_11cy_entities_9robots_cy_FootBotCy, /*tp_new*/
+  __pyx_tp_new_11environment_8entities_11cy_entities_9robots_cy_FootBotCy, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -5898,7 +5898,7 @@ static int __pyx_import_star_set(PyObject *o, PyObject* py_name, char *name) {
     "__pyx_ctuple_long__and_long",
     "__pyx_ctuple_long__and_long_struct",
     "__pyx_ctuple_long_struct",
-    "__pyx_opt_args_11environment_11cy_entities_9robots_cy_9FootBotCy_add_angular_sensors",
+    "__pyx_opt_args_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_add_angular_sensors",
     0
   };
   const char** type_name = internal_type_names;
@@ -6082,7 +6082,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_n_s_clockwise, __pyx_k_clockwise, sizeof(__pyx_k_clockwise), 0, 0, 1, 1},
   {&__pyx_n_s_dict, __pyx_k_dict, sizeof(__pyx_k_dict), 0, 0, 1, 1},
-  {&__pyx_n_s_environment_cy_entities_robots_c, __pyx_k_environment_cy_entities_robots_c, sizeof(__pyx_k_environment_cy_entities_robots_c), 0, 0, 1, 1},
+  {&__pyx_n_s_environment_entities_cy_entities, __pyx_k_environment_entities_cy_entities, sizeof(__pyx_k_environment_entities_cy_entities), 0, 0, 1, 1},
   {&__pyx_n_s_foot_bot, __pyx_k_foot_bot, sizeof(__pyx_k_foot_bot), 0, 0, 1, 1},
   {&__pyx_n_s_game, __pyx_k_game, sizeof(__pyx_k_game), 0, 0, 1, 1},
   {&__pyx_n_s_get_sensor_reading_angle, __pyx_k_get_sensor_reading_angle, sizeof(__pyx_k_get_sensor_reading_angle), 0, 0, 1, 1},
@@ -6132,7 +6132,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "environment/cy_entities/robots_cy.pyx":34
+  /* "environment/entities/cy_entities/robots_cy.pyx":34
  * 
  *         # Robot specific parameters
  *         self.pos = Vec2dCy(0, 0)  # Current position             # <<<<<<<<<<<<<<
@@ -6206,38 +6206,38 @@ static int __Pyx_modinit_type_init_code(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_init_code", 0);
   /*--- Type init code ---*/
-  __pyx_vtabptr_11environment_11cy_entities_9robots_cy_FootBotCy = &__pyx_vtable_11environment_11cy_entities_9robots_cy_FootBotCy;
-  __pyx_vtable_11environment_11cy_entities_9robots_cy_FootBotCy.drive = (void (*)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *, float, float, float))__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_drive;
-  __pyx_vtable_11environment_11cy_entities_9robots_cy_FootBotCy.get_sensor_readings = (PyObject *(*)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *))__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_sensor_readings;
-  __pyx_vtable_11environment_11cy_entities_9robots_cy_FootBotCy.get_sensor_reading_angle = (PyObject *(*)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *, int __pyx_skip_dispatch))__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_sensor_reading_angle;
-  __pyx_vtable_11environment_11cy_entities_9robots_cy_FootBotCy.get_sensor_reading_distance = (float (*)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *, int __pyx_skip_dispatch))__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_sensor_reading_distance;
-  __pyx_vtable_11environment_11cy_entities_9robots_cy_FootBotCy.get_sensor_reading_proximity = (PyObject *(*)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *, int __pyx_skip_dispatch))__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_get_sensor_reading_proximity;
-  __pyx_vtable_11environment_11cy_entities_9robots_cy_FootBotCy.add_angular_sensors = (void (*)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *, int __pyx_skip_dispatch, struct __pyx_opt_args_11environment_11cy_entities_9robots_cy_9FootBotCy_add_angular_sensors *__pyx_optional_args))__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_add_angular_sensors;
-  __pyx_vtable_11environment_11cy_entities_9robots_cy_FootBotCy.add_proximity_sensor = (void (*)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *, float, int __pyx_skip_dispatch))__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_add_proximity_sensor;
-  __pyx_vtable_11environment_11cy_entities_9robots_cy_FootBotCy.create_angular_sensors = (void (*)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *))__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_create_angular_sensors;
-  __pyx_vtable_11environment_11cy_entities_9robots_cy_FootBotCy.create_distance_sensor = (void (*)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *))__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_create_distance_sensor;
-  __pyx_vtable_11environment_11cy_entities_9robots_cy_FootBotCy.create_proximity_sensors = (void (*)(struct __pyx_obj_11environment_11cy_entities_9robots_cy_FootBotCy *))__pyx_f_11environment_11cy_entities_9robots_cy_9FootBotCy_create_proximity_sensors;
-  if (PyType_Ready(&__pyx_type_11environment_11cy_entities_9robots_cy_FootBotCy) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
+  __pyx_vtabptr_11environment_8entities_11cy_entities_9robots_cy_FootBotCy = &__pyx_vtable_11environment_8entities_11cy_entities_9robots_cy_FootBotCy;
+  __pyx_vtable_11environment_8entities_11cy_entities_9robots_cy_FootBotCy.drive = (void (*)(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *, float, float, float))__pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_drive;
+  __pyx_vtable_11environment_8entities_11cy_entities_9robots_cy_FootBotCy.get_sensor_readings = (PyObject *(*)(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *))__pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_get_sensor_readings;
+  __pyx_vtable_11environment_8entities_11cy_entities_9robots_cy_FootBotCy.get_sensor_reading_angle = (PyObject *(*)(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *, int __pyx_skip_dispatch))__pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_get_sensor_reading_angle;
+  __pyx_vtable_11environment_8entities_11cy_entities_9robots_cy_FootBotCy.get_sensor_reading_distance = (float (*)(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *, int __pyx_skip_dispatch))__pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_get_sensor_reading_distance;
+  __pyx_vtable_11environment_8entities_11cy_entities_9robots_cy_FootBotCy.get_sensor_reading_proximity = (PyObject *(*)(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *, int __pyx_skip_dispatch))__pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_get_sensor_reading_proximity;
+  __pyx_vtable_11environment_8entities_11cy_entities_9robots_cy_FootBotCy.add_angular_sensors = (void (*)(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *, int __pyx_skip_dispatch, struct __pyx_opt_args_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_add_angular_sensors *__pyx_optional_args))__pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_add_angular_sensors;
+  __pyx_vtable_11environment_8entities_11cy_entities_9robots_cy_FootBotCy.add_proximity_sensor = (void (*)(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *, float, int __pyx_skip_dispatch))__pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_add_proximity_sensor;
+  __pyx_vtable_11environment_8entities_11cy_entities_9robots_cy_FootBotCy.create_angular_sensors = (void (*)(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *))__pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_create_angular_sensors;
+  __pyx_vtable_11environment_8entities_11cy_entities_9robots_cy_FootBotCy.create_distance_sensor = (void (*)(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *))__pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_create_distance_sensor;
+  __pyx_vtable_11environment_8entities_11cy_entities_9robots_cy_FootBotCy.create_proximity_sensors = (void (*)(struct __pyx_obj_11environment_8entities_11cy_entities_9robots_cy_FootBotCy *))__pyx_f_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy_create_proximity_sensors;
+  if (PyType_Ready(&__pyx_type_11environment_8entities_11cy_entities_9robots_cy_FootBotCy) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
-  __pyx_type_11environment_11cy_entities_9robots_cy_FootBotCy.tp_print = 0;
+  __pyx_type_11environment_8entities_11cy_entities_9robots_cy_FootBotCy.tp_print = 0;
   #endif
-  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_11environment_11cy_entities_9robots_cy_FootBotCy.tp_dictoffset && __pyx_type_11environment_11cy_entities_9robots_cy_FootBotCy.tp_getattro == PyObject_GenericGetAttr)) {
-    __pyx_type_11environment_11cy_entities_9robots_cy_FootBotCy.tp_getattro = __Pyx_PyObject_GenericGetAttr;
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_11environment_8entities_11cy_entities_9robots_cy_FootBotCy.tp_dictoffset && __pyx_type_11environment_8entities_11cy_entities_9robots_cy_FootBotCy.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_11environment_8entities_11cy_entities_9robots_cy_FootBotCy.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
   #if CYTHON_COMPILING_IN_CPYTHON
   {
-    PyObject *wrapper = PyObject_GetAttrString((PyObject *)&__pyx_type_11environment_11cy_entities_9robots_cy_FootBotCy, "__init__"); if (unlikely(!wrapper)) __PYX_ERR(0, 12, __pyx_L1_error)
+    PyObject *wrapper = PyObject_GetAttrString((PyObject *)&__pyx_type_11environment_8entities_11cy_entities_9robots_cy_FootBotCy, "__init__"); if (unlikely(!wrapper)) __PYX_ERR(0, 12, __pyx_L1_error)
     if (Py_TYPE(wrapper) == &PyWrapperDescr_Type) {
-      __pyx_wrapperbase_11environment_11cy_entities_9robots_cy_9FootBotCy___init__ = *((PyWrapperDescrObject *)wrapper)->d_base;
-      __pyx_wrapperbase_11environment_11cy_entities_9robots_cy_9FootBotCy___init__.doc = __pyx_doc_11environment_11cy_entities_9robots_cy_9FootBotCy___init__;
-      ((PyWrapperDescrObject *)wrapper)->d_base = &__pyx_wrapperbase_11environment_11cy_entities_9robots_cy_9FootBotCy___init__;
+      __pyx_wrapperbase_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy___init__ = *((PyWrapperDescrObject *)wrapper)->d_base;
+      __pyx_wrapperbase_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy___init__.doc = __pyx_doc_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy___init__;
+      ((PyWrapperDescrObject *)wrapper)->d_base = &__pyx_wrapperbase_11environment_8entities_11cy_entities_9robots_cy_9FootBotCy___init__;
     }
   }
   #endif
-  if (__Pyx_SetVtable(__pyx_type_11environment_11cy_entities_9robots_cy_FootBotCy.tp_dict, __pyx_vtabptr_11environment_11cy_entities_9robots_cy_FootBotCy) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_FootBotCy, (PyObject *)&__pyx_type_11environment_11cy_entities_9robots_cy_FootBotCy) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_11environment_11cy_entities_9robots_cy_FootBotCy) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
-  __pyx_ptype_11environment_11cy_entities_9robots_cy_FootBotCy = &__pyx_type_11environment_11cy_entities_9robots_cy_FootBotCy;
+  if (__Pyx_SetVtable(__pyx_type_11environment_8entities_11cy_entities_9robots_cy_FootBotCy.tp_dict, __pyx_vtabptr_11environment_8entities_11cy_entities_9robots_cy_FootBotCy) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_FootBotCy, (PyObject *)&__pyx_type_11environment_8entities_11cy_entities_9robots_cy_FootBotCy) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_11environment_8entities_11cy_entities_9robots_cy_FootBotCy) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
+  __pyx_ptype_11environment_8entities_11cy_entities_9robots_cy_FootBotCy = &__pyx_type_11environment_8entities_11cy_entities_9robots_cy_FootBotCy;
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -6250,32 +6250,32 @@ static int __Pyx_modinit_type_import_code(void) {
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_import_code", 0);
   /*--- Type import code ---*/
-  __pyx_t_1 = PyImport_ImportModule("environment.cy_entities.vec2d_cy"); if (unlikely(!__pyx_t_1)) __PYX_ERR(3, 7, __pyx_L1_error)
+  __pyx_t_1 = PyImport_ImportModule("utils.cy_utils.vec2d_cy"); if (unlikely(!__pyx_t_1)) __PYX_ERR(3, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy = __Pyx_ImportType(__pyx_t_1, "environment.cy_entities.vec2d_cy", "Vec2dCy", sizeof(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy) __PYX_ERR(3, 7, __pyx_L1_error)
-  __pyx_vtabptr_11environment_11cy_entities_8vec2d_cy_Vec2dCy = (struct __pyx_vtabstruct_11environment_11cy_entities_8vec2d_cy_Vec2dCy*)__Pyx_GetVtable(__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_11cy_entities_8vec2d_cy_Vec2dCy)) __PYX_ERR(3, 7, __pyx_L1_error)
+  __pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy = __Pyx_ImportType(__pyx_t_1, "utils.cy_utils.vec2d_cy", "Vec2dCy", sizeof(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy) __PYX_ERR(3, 7, __pyx_L1_error)
+  __pyx_vtabptr_5utils_8cy_utils_8vec2d_cy_Vec2dCy = (struct __pyx_vtabstruct_5utils_8cy_utils_8vec2d_cy_Vec2dCy*)__Pyx_GetVtable(__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy->tp_dict); if (unlikely(!__pyx_vtabptr_5utils_8cy_utils_8vec2d_cy_Vec2dCy)) __PYX_ERR(3, 7, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyImport_ImportModule("environment.cy_entities.game_cy"); if (unlikely(!__pyx_t_1)) __PYX_ERR(4, 9, __pyx_L1_error)
+  __pyx_t_1 = PyImport_ImportModule("environment.entities.cy_entities.game_cy"); if (unlikely(!__pyx_t_1)) __PYX_ERR(4, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_ptype_11environment_11cy_entities_7game_cy_GameCy = __Pyx_ImportType(__pyx_t_1, "environment.cy_entities.game_cy", "GameCy", sizeof(struct __pyx_obj_11environment_11cy_entities_7game_cy_GameCy), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_11environment_11cy_entities_7game_cy_GameCy) __PYX_ERR(4, 9, __pyx_L1_error)
-  __pyx_vtabptr_11environment_11cy_entities_7game_cy_GameCy = (struct __pyx_vtabstruct_11environment_11cy_entities_7game_cy_GameCy*)__Pyx_GetVtable(__pyx_ptype_11environment_11cy_entities_7game_cy_GameCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_11cy_entities_7game_cy_GameCy)) __PYX_ERR(4, 9, __pyx_L1_error)
+  __pyx_ptype_11environment_8entities_11cy_entities_7game_cy_GameCy = __Pyx_ImportType(__pyx_t_1, "environment.entities.cy_entities.game_cy", "GameCy", sizeof(struct __pyx_obj_11environment_8entities_11cy_entities_7game_cy_GameCy), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_11environment_8entities_11cy_entities_7game_cy_GameCy) __PYX_ERR(4, 9, __pyx_L1_error)
+  __pyx_vtabptr_11environment_8entities_11cy_entities_7game_cy_GameCy = (struct __pyx_vtabstruct_11environment_8entities_11cy_entities_7game_cy_GameCy*)__Pyx_GetVtable(__pyx_ptype_11environment_8entities_11cy_entities_7game_cy_GameCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_8entities_11cy_entities_7game_cy_GameCy)) __PYX_ERR(4, 9, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyImport_ImportModule("environment.cy_entities.sensors_cy"); if (unlikely(!__pyx_t_1)) __PYX_ERR(5, 9, __pyx_L1_error)
+  __pyx_t_1 = PyImport_ImportModule("environment.entities.cy_entities.sensors_cy"); if (unlikely(!__pyx_t_1)) __PYX_ERR(5, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_ptype_11environment_11cy_entities_10sensors_cy_SensorCy = __Pyx_ImportType(__pyx_t_1, "environment.cy_entities.sensors_cy", "SensorCy", sizeof(struct __pyx_obj_11environment_11cy_entities_10sensors_cy_SensorCy), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_11environment_11cy_entities_10sensors_cy_SensorCy) __PYX_ERR(5, 9, __pyx_L1_error)
-  __pyx_vtabptr_11environment_11cy_entities_10sensors_cy_SensorCy = (struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_SensorCy*)__Pyx_GetVtable(__pyx_ptype_11environment_11cy_entities_10sensors_cy_SensorCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_11cy_entities_10sensors_cy_SensorCy)) __PYX_ERR(5, 9, __pyx_L1_error)
-  __pyx_ptype_11environment_11cy_entities_10sensors_cy_AngularSensorCy = __Pyx_ImportType(__pyx_t_1, "environment.cy_entities.sensors_cy", "AngularSensorCy", sizeof(struct __pyx_obj_11environment_11cy_entities_10sensors_cy_AngularSensorCy), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_11environment_11cy_entities_10sensors_cy_AngularSensorCy) __PYX_ERR(5, 16, __pyx_L1_error)
-  __pyx_vtabptr_11environment_11cy_entities_10sensors_cy_AngularSensorCy = (struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_AngularSensorCy*)__Pyx_GetVtable(__pyx_ptype_11environment_11cy_entities_10sensors_cy_AngularSensorCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_11cy_entities_10sensors_cy_AngularSensorCy)) __PYX_ERR(5, 16, __pyx_L1_error)
-  __pyx_ptype_11environment_11cy_entities_10sensors_cy_DistanceSensorCy = __Pyx_ImportType(__pyx_t_1, "environment.cy_entities.sensors_cy", "DistanceSensorCy", sizeof(struct __pyx_obj_11environment_11cy_entities_10sensors_cy_DistanceSensorCy), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_11environment_11cy_entities_10sensors_cy_DistanceSensorCy) __PYX_ERR(5, 24, __pyx_L1_error)
-  __pyx_vtabptr_11environment_11cy_entities_10sensors_cy_DistanceSensorCy = (struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_DistanceSensorCy*)__Pyx_GetVtable(__pyx_ptype_11environment_11cy_entities_10sensors_cy_DistanceSensorCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_11cy_entities_10sensors_cy_DistanceSensorCy)) __PYX_ERR(5, 24, __pyx_L1_error)
-  __pyx_ptype_11environment_11cy_entities_10sensors_cy_ProximitySensorCy = __Pyx_ImportType(__pyx_t_1, "environment.cy_entities.sensors_cy", "ProximitySensorCy", sizeof(struct __pyx_obj_11environment_11cy_entities_10sensors_cy_ProximitySensorCy), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_11environment_11cy_entities_10sensors_cy_ProximitySensorCy) __PYX_ERR(5, 31, __pyx_L1_error)
-  __pyx_vtabptr_11environment_11cy_entities_10sensors_cy_ProximitySensorCy = (struct __pyx_vtabstruct_11environment_11cy_entities_10sensors_cy_ProximitySensorCy*)__Pyx_GetVtable(__pyx_ptype_11environment_11cy_entities_10sensors_cy_ProximitySensorCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_11cy_entities_10sensors_cy_ProximitySensorCy)) __PYX_ERR(5, 31, __pyx_L1_error)
+  __pyx_ptype_11environment_8entities_11cy_entities_10sensors_cy_SensorCy = __Pyx_ImportType(__pyx_t_1, "environment.entities.cy_entities.sensors_cy", "SensorCy", sizeof(struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_SensorCy), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_11environment_8entities_11cy_entities_10sensors_cy_SensorCy) __PYX_ERR(5, 9, __pyx_L1_error)
+  __pyx_vtabptr_11environment_8entities_11cy_entities_10sensors_cy_SensorCy = (struct __pyx_vtabstruct_11environment_8entities_11cy_entities_10sensors_cy_SensorCy*)__Pyx_GetVtable(__pyx_ptype_11environment_8entities_11cy_entities_10sensors_cy_SensorCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_8entities_11cy_entities_10sensors_cy_SensorCy)) __PYX_ERR(5, 9, __pyx_L1_error)
+  __pyx_ptype_11environment_8entities_11cy_entities_10sensors_cy_AngularSensorCy = __Pyx_ImportType(__pyx_t_1, "environment.entities.cy_entities.sensors_cy", "AngularSensorCy", sizeof(struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_AngularSensorCy), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_11environment_8entities_11cy_entities_10sensors_cy_AngularSensorCy) __PYX_ERR(5, 16, __pyx_L1_error)
+  __pyx_vtabptr_11environment_8entities_11cy_entities_10sensors_cy_AngularSensorCy = (struct __pyx_vtabstruct_11environment_8entities_11cy_entities_10sensors_cy_AngularSensorCy*)__Pyx_GetVtable(__pyx_ptype_11environment_8entities_11cy_entities_10sensors_cy_AngularSensorCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_8entities_11cy_entities_10sensors_cy_AngularSensorCy)) __PYX_ERR(5, 16, __pyx_L1_error)
+  __pyx_ptype_11environment_8entities_11cy_entities_10sensors_cy_DistanceSensorCy = __Pyx_ImportType(__pyx_t_1, "environment.entities.cy_entities.sensors_cy", "DistanceSensorCy", sizeof(struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_DistanceSensorCy), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_11environment_8entities_11cy_entities_10sensors_cy_DistanceSensorCy) __PYX_ERR(5, 24, __pyx_L1_error)
+  __pyx_vtabptr_11environment_8entities_11cy_entities_10sensors_cy_DistanceSensorCy = (struct __pyx_vtabstruct_11environment_8entities_11cy_entities_10sensors_cy_DistanceSensorCy*)__Pyx_GetVtable(__pyx_ptype_11environment_8entities_11cy_entities_10sensors_cy_DistanceSensorCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_8entities_11cy_entities_10sensors_cy_DistanceSensorCy)) __PYX_ERR(5, 24, __pyx_L1_error)
+  __pyx_ptype_11environment_8entities_11cy_entities_10sensors_cy_ProximitySensorCy = __Pyx_ImportType(__pyx_t_1, "environment.entities.cy_entities.sensors_cy", "ProximitySensorCy", sizeof(struct __pyx_obj_11environment_8entities_11cy_entities_10sensors_cy_ProximitySensorCy), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_11environment_8entities_11cy_entities_10sensors_cy_ProximitySensorCy) __PYX_ERR(5, 31, __pyx_L1_error)
+  __pyx_vtabptr_11environment_8entities_11cy_entities_10sensors_cy_ProximitySensorCy = (struct __pyx_vtabstruct_11environment_8entities_11cy_entities_10sensors_cy_ProximitySensorCy*)__Pyx_GetVtable(__pyx_ptype_11environment_8entities_11cy_entities_10sensors_cy_ProximitySensorCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_8entities_11cy_entities_10sensors_cy_ProximitySensorCy)) __PYX_ERR(5, 31, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_RefNannyFinishContext();
   return 0;
@@ -6298,8 +6298,8 @@ static int __Pyx_modinit_function_import_code(void) {
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__Pyx_modinit_function_import_code", 0);
   /*--- Function import code ---*/
-  __pyx_t_1 = PyImport_ImportModule("environment.cy_entities.vec2d_cy"); if (!__pyx_t_1) __PYX_ERR(0, 1, __pyx_L1_error)
-  if (__Pyx_ImportFunction(__pyx_t_1, "angle_to_vec", (void (**)(void))&__pyx_f_11environment_11cy_entities_8vec2d_cy_angle_to_vec, "struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *(float, int __pyx_skip_dispatch)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_t_1 = PyImport_ImportModule("utils.cy_utils.vec2d_cy"); if (!__pyx_t_1) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_ImportFunction(__pyx_t_1, "angle_to_vec", (void (**)(void))&__pyx_f_5utils_8cy_utils_8vec2d_cy_angle_to_vec, "struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *(float, int __pyx_skip_dispatch)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   Py_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_RefNannyFinishContext();
   return 0;
@@ -6480,14 +6480,14 @@ if (!__Pyx_RefNanny) {
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
-  if (__pyx_module_is_main_environment__cy_entities__robots_cy) {
+  if (__pyx_module_is_main_environment__entities__cy_entities__robots_cy) {
     if (PyObject_SetAttr(__pyx_m, __pyx_n_s_name, __pyx_n_s_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "environment.cy_entities.robots_cy")) {
-      if (unlikely(PyDict_SetItemString(modules, "environment.cy_entities.robots_cy", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "environment.entities.cy_entities.robots_cy")) {
+      if (unlikely(PyDict_SetItemString(modules, "environment.entities.cy_entities.robots_cy", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -6508,12 +6508,12 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "environment/cy_entities/robots_cy.pyx":8
+  /* "environment/entities/cy_entities/robots_cy.pyx":8
  * """
  * from sensors_cy cimport AngularSensorCy, ProximitySensorCy
  * from utils.config import *             # <<<<<<<<<<<<<<
  * from utils.dictionary import *
- * from vec2d_cy cimport angle_to_vec
+ * from utils.cy_utils.vec2d_cy cimport angle_to_vec
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -6526,11 +6526,11 @@ if (!__Pyx_RefNanny) {
   if (__pyx_import_star(__pyx_t_2) < 0) __PYX_ERR(0, 8, __pyx_L1_error);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "environment/cy_entities/robots_cy.pyx":9
+  /* "environment/entities/cy_entities/robots_cy.pyx":9
  * from sensors_cy cimport AngularSensorCy, ProximitySensorCy
  * from utils.config import *
  * from utils.dictionary import *             # <<<<<<<<<<<<<<
- * from vec2d_cy cimport angle_to_vec
+ * from utils.cy_utils.vec2d_cy cimport angle_to_vec
  * 
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 9, __pyx_L1_error)
@@ -6544,7 +6544,7 @@ if (!__Pyx_RefNanny) {
   if (__pyx_import_star(__pyx_t_1) < 0) __PYX_ERR(0, 9, __pyx_L1_error);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/robots_cy.pyx":21
+  /* "environment/entities/cy_entities/robots_cy.pyx":21
  *                  Vec2dCy init_pos=None,
  *                  float init_orient=0,
  *                  float r=BOT_RADIUS):             # <<<<<<<<<<<<<<
@@ -6562,12 +6562,12 @@ if (!__Pyx_RefNanny) {
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_11environment_11cy_entities_9robots_cy_1__pyx_unpickle_FootBotCy, NULL, __pyx_n_s_environment_cy_entities_robots_c); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 1, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_11environment_8entities_11cy_entities_9robots_cy_1__pyx_unpickle_FootBotCy, NULL, __pyx_n_s_environment_entities_cy_entities); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_FootBotCy, __pyx_t_1) < 0) __PYX_ERR(2, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/robots_cy.pyx":1
+  /* "environment/entities/cy_entities/robots_cy.pyx":1
  * """             # <<<<<<<<<<<<<<
  * robots_cy.pyx
  * 
@@ -6585,11 +6585,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_2);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init environment.cy_entities.robots_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init environment.entities.cy_entities.robots_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     Py_CLEAR(__pyx_m);
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init environment.cy_entities.robots_cy");
+    PyErr_SetString(PyExc_ImportError, "init environment.entities.cy_entities.robots_cy");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

@@ -6,8 +6,8 @@ classes and methods in other files).
 """
 import random
 
-from intersection_cy cimport line_line_intersection_cy
-from line2d_cy cimport Line2dCy
+from utils.cy_utils.intersection_cy cimport line_line_intersection_cy
+from utils.cy_utils.line2d_cy cimport Line2dCy
 from utils.config import *
 from utils.dictionary import *
 

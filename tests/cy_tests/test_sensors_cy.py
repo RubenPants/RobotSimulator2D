@@ -4,9 +4,9 @@ Test of all the sensors.
 
 import unittest
 
-from environment.cy_entities.game_cy import GameCy
-from environment.cy_entities.line2d_cy import Line2dCy
-from environment.cy_entities.vec2d_cy import Vec2dCy
+from environment.entities.cy_entities.game_cy import GameCy
+from utils.cy_utils.line2d_cy import Line2dCy
+from utils.cy_utils.vec2d_cy import Vec2dCy
 from utils.config import *
 
 EPSILON_ANGLE = 0.0001  # 0.0001 radian offset allowed (~0.02 degrees)

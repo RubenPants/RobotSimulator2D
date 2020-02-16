@@ -3,12 +3,12 @@
 /* BEGIN: Cython Metadata
 {
     "distutils": {
-        "name": "environment.cy_entities.vec2d_cy",
+        "name": "utils.cy_utils.vec2d_cy",
         "sources": [
-            "vec2d_cy.pyx"
+            "utils/cy_utils/vec2d_cy.pyx"
         ]
     },
-    "module_name": "environment.cy_entities.vec2d_cy"
+    "module_name": "utils.cy_utils.vec2d_cy"
 }
 END: Cython Metadata */
 
@@ -602,8 +602,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #endif
 #endif
 
-#define __PYX_HAVE__environment__cy_entities__vec2d_cy
-#define __PYX_HAVE_API__environment__cy_entities__vec2d_cy
+#define __PYX_HAVE__utils__cy_utils__vec2d_cy
+#define __PYX_HAVE_API__utils__cy_utils__vec2d_cy
 /* Early includes */
 #ifdef _OPENMP
 #include <omp.h>
@@ -813,45 +813,45 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "vec2d_cy.pyx",
-  "vec2d_cy.pxd",
+  "utils/cy_utils/vec2d_cy.pyx",
+  "utils/cy_utils/vec2d_cy.pxd",
   "stringsource",
 };
 
 /*--- Type declarations ---*/
-struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy;
-struct __pyx_obj_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__;
+struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy;
+struct __pyx_obj_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__;
 
-/* "environment/cy_entities/vec2d_cy.pxd":7
+/* "utils/cy_utils/vec2d_cy.pxd":7
  * """
  * 
  * cdef class Vec2dCy:             # <<<<<<<<<<<<<<
  *     cdef public float x, y
  * 
  */
-struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy {
+struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy {
   PyObject_HEAD
-  struct __pyx_vtabstruct_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_vtab;
+  struct __pyx_vtabstruct_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_vtab;
   float x;
   float y;
 };
 
 
-/* "environment/cy_entities/vec2d_cy.pyx":38
+/* "utils/cy_utils/vec2d_cy.pyx":38
  *             raise IndexError()
  * 
  *     def __iter__(self):             # <<<<<<<<<<<<<<
  *         yield self.x
  *         yield self.y
  */
-struct __pyx_obj_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__ {
+struct __pyx_obj_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__ {
   PyObject_HEAD
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self;
+  struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self;
 };
 
 
 
-/* "environment/cy_entities/vec2d_cy.pyx":12
+/* "utils/cy_utils/vec2d_cy.pyx":12
  * from utils.config import *
  * 
  * cdef class Vec2dCy:             # <<<<<<<<<<<<<<
@@ -859,15 +859,15 @@ struct __pyx_obj_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____ite
  *     Create a two dimensional vector.
  */
 
-struct __pyx_vtabstruct_11environment_11cy_entities_8vec2d_cy_Vec2dCy {
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *(*_operator_handler)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch);
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *(*_right_operator_handler)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch);
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *(*_inplace_operator_handler)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch);
-  float (*get_angle)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
-  float (*get_length)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *(*normalized)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
+struct __pyx_vtabstruct_5utils_8cy_utils_8vec2d_cy_Vec2dCy {
+  struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *(*_operator_handler)(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch);
+  struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *(*_right_operator_handler)(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch);
+  struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *(*_inplace_operator_handler)(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch);
+  float (*get_angle)(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
+  float (*get_length)(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
+  struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *(*normalized)(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
 };
-static struct __pyx_vtabstruct_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_vtabptr_11environment_11cy_entities_8vec2d_cy_Vec2dCy;
+static struct __pyx_vtabstruct_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_vtabptr_5utils_8cy_utils_8vec2d_cy_Vec2dCy;
 
 /* --- Runtime support code (head) --- */
 /* Refnanny.proto */
@@ -1344,23 +1344,23 @@ static int __Pyx_ExportFunction(const char *name, void (*f)(void), const char *s
 /* InitStrings.proto */
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
-static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy__operator_handler(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other, PyObject *__pyx_v_f, int __pyx_skip_dispatch); /* proto*/
-static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy__right_operator_handler(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other, PyObject *__pyx_v_f, int __pyx_skip_dispatch); /* proto*/
-static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy__inplace_operator_handler(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other, PyObject *__pyx_v_f, int __pyx_skip_dispatch); /* proto*/
-static float __pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_get_angle(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
-static float __pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_get_length(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
-static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_normalized(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
+static struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_f_5utils_8cy_utils_8vec2d_cy_7Vec2dCy__operator_handler(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other, PyObject *__pyx_v_f, int __pyx_skip_dispatch); /* proto*/
+static struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_f_5utils_8cy_utils_8vec2d_cy_7Vec2dCy__right_operator_handler(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other, PyObject *__pyx_v_f, int __pyx_skip_dispatch); /* proto*/
+static struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_f_5utils_8cy_utils_8vec2d_cy_7Vec2dCy__inplace_operator_handler(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other, PyObject *__pyx_v_f, int __pyx_skip_dispatch); /* proto*/
+static float __pyx_f_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_get_angle(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
+static float __pyx_f_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_get_length(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
+static struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_f_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_normalized(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
 
-/* Module declarations from 'environment.cy_entities.vec2d_cy' */
-static PyTypeObject *__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy = 0;
-static PyTypeObject *__pyx_ptype_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__ = 0;
-static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_11environment_11cy_entities_8vec2d_cy_angle_to_vec(float, int __pyx_skip_dispatch); /*proto*/
-static PyObject *__pyx_f_11environment_11cy_entities_8vec2d_cy___pyx_unpickle_Vec2dCy__set_state(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, PyObject *); /*proto*/
-#define __Pyx_MODULE_NAME "environment.cy_entities.vec2d_cy"
-extern int __pyx_module_is_main_environment__cy_entities__vec2d_cy;
-int __pyx_module_is_main_environment__cy_entities__vec2d_cy = 0;
+/* Module declarations from 'utils.cy_utils.vec2d_cy' */
+static PyTypeObject *__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy = 0;
+static PyTypeObject *__pyx_ptype_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__ = 0;
+static struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_f_5utils_8cy_utils_8vec2d_cy_angle_to_vec(float, int __pyx_skip_dispatch); /*proto*/
+static PyObject *__pyx_f_5utils_8cy_utils_8vec2d_cy___pyx_unpickle_Vec2dCy__set_state(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *, PyObject *); /*proto*/
+#define __Pyx_MODULE_NAME "utils.cy_utils.vec2d_cy"
+extern int __pyx_module_is_main_utils__cy_utils__vec2d_cy;
+int __pyx_module_is_main_utils__cy_utils__vec2d_cy = 0;
 
-/* Implementation of 'environment.cy_entities.vec2d_cy' */
+/* Implementation of 'utils.cy_utils.vec2d_cy' */
 static PyObject *__pyx_builtin_IndexError;
 static PyObject *__pyx_builtin_round;
 static const char __pyx_k_[] = "*";
@@ -1427,10 +1427,10 @@ static const char __pyx_k_operator_handler[] = "_operator_handler";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_pyx_unpickle_Vec2dCy[] = "__pyx_unpickle_Vec2dCy";
 static const char __pyx_k_right_operator_handler[] = "_right_operator_handler";
+static const char __pyx_k_utils_cy_utils_vec2d_cy[] = "utils.cy_utils.vec2d_cy";
 static const char __pyx_k_inplace_operator_handler[] = "_inplace_operator_handler";
 static const char __pyx_k_vec2d_cy_pyx_Cython_version_of[] = "\nvec2d_cy.pyx\n\nCython version of the vec2d.py file. Note that this file co-exists with a .pxd file (needed to import Vec2dCy in other\nfiles).\n";
 static const char __pyx_k_Incompatible_checksums_s_vs_0xc8[] = "Incompatible checksums (%s vs 0xc8d1ae9 = (x, y))";
-static const char __pyx_k_environment_cy_entities_vec2d_cy[] = "environment.cy_entities.vec2d_cy";
 static PyObject *__pyx_n_s_;
 static PyObject *__pyx_kp_s_Incompatible_checksums_s_vs_0xc8;
 static PyObject *__pyx_n_s_IndexError;
@@ -1446,7 +1446,6 @@ static PyObject *__pyx_n_s_close;
 static PyObject *__pyx_n_s_cos;
 static PyObject *__pyx_n_s_dict;
 static PyObject *__pyx_n_s_div;
-static PyObject *__pyx_n_s_environment_cy_entities_vec2d_cy;
 static PyObject *__pyx_n_s_f;
 static PyObject *__pyx_n_s_floordiv;
 static PyObject *__pyx_n_s_get_angle;
@@ -1496,57 +1495,58 @@ static PyObject *__pyx_n_s_throw;
 static PyObject *__pyx_n_s_truediv;
 static PyObject *__pyx_n_s_update;
 static PyObject *__pyx_n_s_utils_config;
+static PyObject *__pyx_n_s_utils_cy_utils_vec2d_cy;
 static PyObject *__pyx_n_s_x;
 static PyObject *__pyx_n_s_y;
-static int __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy___init__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, float __pyx_v_x, float __pyx_v_y); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_2__getitem__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, int __pyx_v_i); /* proto */
-static int __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_4__setitem__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, int __pyx_v_i, float __pyx_v_value); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_6__iter__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self); /* proto */
-static Py_ssize_t __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_9__len__(CYTHON_UNUSED struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_11__repr__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_13__eq__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_15__ne__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_17__add__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_19__iadd__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_21__sub__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_23__rsub__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_25__isub__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_27__mul__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_29__imul__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_31_operator_handler(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other, PyObject *__pyx_v_f); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_33_right_operator_handler(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other, PyObject *__pyx_v_f); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_35_inplace_operator_handler(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other, PyObject *__pyx_v_f); /* proto */
+static int __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy___init__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, float __pyx_v_x, float __pyx_v_y); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_2__getitem__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, int __pyx_v_i); /* proto */
+static int __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_4__setitem__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, int __pyx_v_i, float __pyx_v_value); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_6__iter__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self); /* proto */
+static Py_ssize_t __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_9__len__(CYTHON_UNUSED struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_11__repr__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_13__eq__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_15__ne__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_17__add__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_19__iadd__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_21__sub__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_23__rsub__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_25__isub__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_27__mul__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_29__imul__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_31_operator_handler(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other, PyObject *__pyx_v_f); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_33_right_operator_handler(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other, PyObject *__pyx_v_f); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_35_inplace_operator_handler(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other, PyObject *__pyx_v_f); /* proto */
 #if PY_MAJOR_VERSION < 3 || (CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX < 0x03050000)
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_37__div__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_37__div__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
 #endif
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_39__rdiv__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_39__rdiv__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
 #if PY_MAJOR_VERSION < 3 || (CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX < 0x03050000)
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_41__idiv__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_41__idiv__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
 #endif
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_43__floordiv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_45__rfloordiv__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_47__ifloordiv__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_49__truediv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_51__rtruediv__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_53__itruediv__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_55__neg__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_57__pos__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_59__abs__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_61__invert__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_63__round__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_n); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_65get_angle(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_67get_length(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_69normalized(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1x___get__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self); /* proto */
-static int __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1x_2__set__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1y___get__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self); /* proto */
-static int __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1y_2__set__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_71__reduce_cython__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_73__setstate_cython__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_angle_to_vec(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_angle); /* proto */
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_2__pyx_unpickle_Vec2dCy(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
-static PyObject *__pyx_tp_new_11environment_11cy_entities_8vec2d_cy_Vec2dCy(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_43__floordiv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_45__rfloordiv__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_47__ifloordiv__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_49__truediv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_51__rtruediv__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_53__itruediv__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_55__neg__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_57__pos__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_59__abs__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_61__invert__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_63__round__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_n); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_65get_angle(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_67get_length(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_69normalized(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_1x___get__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self); /* proto */
+static int __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_1x_2__set__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_1y___get__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self); /* proto */
+static int __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_1y_2__set__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_71__reduce_cython__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_73__setstate_cython__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_angle_to_vec(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_angle); /* proto */
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_2__pyx_unpickle_Vec2dCy(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_tp_new_5utils_8cy_utils_8vec2d_cy_Vec2dCy(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_int_0;
 static PyObject *__pyx_int_210574057;
 static PyObject *__pyx_tuple__2;
@@ -1554,7 +1554,7 @@ static PyObject *__pyx_tuple__3;
 static PyObject *__pyx_codeobj__4;
 /* Late includes */
 
-/* "environment/cy_entities/vec2d_cy.pyx":19
+/* "utils/cy_utils/vec2d_cy.pyx":19
  *     __slots__ = ("x", "y")
  * 
  *     def __init__(self, float x=0, float y=0):             # <<<<<<<<<<<<<<
@@ -1563,8 +1563,8 @@ static PyObject *__pyx_codeobj__4;
  */
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static int __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   float __pyx_v_x;
   float __pyx_v_y;
   int __pyx_r;
@@ -1626,23 +1626,23 @@ static int __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1__init__(PyO
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("__init__", 0, 0, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 19, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy___init__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self), __pyx_v_x, __pyx_v_y);
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy___init__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self), __pyx_v_x, __pyx_v_y);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy___init__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, float __pyx_v_x, float __pyx_v_y) {
+static int __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy___init__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, float __pyx_v_x, float __pyx_v_y) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":20
+  /* "utils/cy_utils/vec2d_cy.pyx":20
  * 
  *     def __init__(self, float x=0, float y=0):
  *         self.x = x             # <<<<<<<<<<<<<<
@@ -1651,7 +1651,7 @@ static int __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy___init__(stru
  */
   __pyx_v_self->x = __pyx_v_x;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":21
+  /* "utils/cy_utils/vec2d_cy.pyx":21
  *     def __init__(self, float x=0, float y=0):
  *         self.x = x
  *         self.y = y             # <<<<<<<<<<<<<<
@@ -1660,7 +1660,7 @@ static int __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy___init__(stru
  */
   __pyx_v_self->y = __pyx_v_y;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":19
+  /* "utils/cy_utils/vec2d_cy.pyx":19
  *     __slots__ = ("x", "y")
  * 
  *     def __init__(self, float x=0, float y=0):             # <<<<<<<<<<<<<<
@@ -1674,7 +1674,7 @@ static int __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy___init__(stru
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":23
+/* "utils/cy_utils/vec2d_cy.pyx":23
  *         self.y = y
  * 
  *     def __getitem__(self, int i):             # <<<<<<<<<<<<<<
@@ -1683,8 +1683,8 @@ static int __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy___init__(stru
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_3__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_i); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_3__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_i) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_3__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_i); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_3__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_i) {
   int __pyx_v_i;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -1694,24 +1694,24 @@ static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_3__geti
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_2__getitem__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((int)__pyx_v_i));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_2__getitem__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((int)__pyx_v_i));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_2__getitem__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, int __pyx_v_i) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_2__getitem__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, int __pyx_v_i) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__getitem__", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":24
+  /* "utils/cy_utils/vec2d_cy.pyx":24
  * 
  *     def __getitem__(self, int i):
  *         if i == 0:             # <<<<<<<<<<<<<<
@@ -1721,7 +1721,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_2__geti
   switch (__pyx_v_i) {
     case 0:
 
-    /* "environment/cy_entities/vec2d_cy.pyx":25
+    /* "utils/cy_utils/vec2d_cy.pyx":25
  *     def __getitem__(self, int i):
  *         if i == 0:
  *             return self.x             # <<<<<<<<<<<<<<
@@ -1735,7 +1735,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_2__geti
     __pyx_t_1 = 0;
     goto __pyx_L0;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":24
+    /* "utils/cy_utils/vec2d_cy.pyx":24
  * 
  *     def __getitem__(self, int i):
  *         if i == 0:             # <<<<<<<<<<<<<<
@@ -1745,7 +1745,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_2__geti
     break;
     case 1:
 
-    /* "environment/cy_entities/vec2d_cy.pyx":27
+    /* "utils/cy_utils/vec2d_cy.pyx":27
  *             return self.x
  *         elif i == 1:
  *             return self.y             # <<<<<<<<<<<<<<
@@ -1759,7 +1759,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_2__geti
     __pyx_t_1 = 0;
     goto __pyx_L0;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":26
+    /* "utils/cy_utils/vec2d_cy.pyx":26
  *         if i == 0:
  *             return self.x
  *         elif i == 1:             # <<<<<<<<<<<<<<
@@ -1770,7 +1770,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_2__geti
     default: break;
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":28
+  /* "utils/cy_utils/vec2d_cy.pyx":28
  *         elif i == 1:
  *             return self.y
  *         raise IndexError()             # <<<<<<<<<<<<<<
@@ -1783,7 +1783,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_2__geti
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __PYX_ERR(0, 28, __pyx_L1_error)
 
-  /* "environment/cy_entities/vec2d_cy.pyx":23
+  /* "utils/cy_utils/vec2d_cy.pyx":23
  *         self.y = y
  * 
  *     def __getitem__(self, int i):             # <<<<<<<<<<<<<<
@@ -1794,7 +1794,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_2__geti
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1802,7 +1802,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_2__geti
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":30
+/* "utils/cy_utils/vec2d_cy.pyx":30
  *         raise IndexError()
  * 
  *     def __setitem__(self, int i, float value):             # <<<<<<<<<<<<<<
@@ -1811,8 +1811,8 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_2__geti
  */
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_5__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_i, PyObject *__pyx_arg_value); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_5__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_i, PyObject *__pyx_arg_value) {
+static int __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_5__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_i, PyObject *__pyx_arg_value); /*proto*/
+static int __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_5__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_i, PyObject *__pyx_arg_value) {
   int __pyx_v_i;
   float __pyx_v_value;
   int __pyx_r;
@@ -1826,24 +1826,24 @@ static int __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_5__setitem__(
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__setitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__setitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_4__setitem__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((int)__pyx_v_i), ((float)__pyx_v_value));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_4__setitem__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((int)__pyx_v_i), ((float)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_4__setitem__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, int __pyx_v_i, float __pyx_v_value) {
+static int __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_4__setitem__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, int __pyx_v_i, float __pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__setitem__", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":31
+  /* "utils/cy_utils/vec2d_cy.pyx":31
  * 
  *     def __setitem__(self, int i, float value):
  *         if i == 0:             # <<<<<<<<<<<<<<
@@ -1853,7 +1853,7 @@ static int __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_4__setitem__(
   switch (__pyx_v_i) {
     case 0:
 
-    /* "environment/cy_entities/vec2d_cy.pyx":32
+    /* "utils/cy_utils/vec2d_cy.pyx":32
  *     def __setitem__(self, int i, float value):
  *         if i == 0:
  *             self.x = value             # <<<<<<<<<<<<<<
@@ -1862,7 +1862,7 @@ static int __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_4__setitem__(
  */
     __pyx_v_self->x = __pyx_v_value;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":31
+    /* "utils/cy_utils/vec2d_cy.pyx":31
  * 
  *     def __setitem__(self, int i, float value):
  *         if i == 0:             # <<<<<<<<<<<<<<
@@ -1872,7 +1872,7 @@ static int __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_4__setitem__(
     break;
     case 1:
 
-    /* "environment/cy_entities/vec2d_cy.pyx":34
+    /* "utils/cy_utils/vec2d_cy.pyx":34
  *             self.x = value
  *         elif i == 1:
  *             self.y = value             # <<<<<<<<<<<<<<
@@ -1881,7 +1881,7 @@ static int __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_4__setitem__(
  */
     __pyx_v_self->y = __pyx_v_value;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":33
+    /* "utils/cy_utils/vec2d_cy.pyx":33
  *         if i == 0:
  *             self.x = value
  *         elif i == 1:             # <<<<<<<<<<<<<<
@@ -1891,7 +1891,7 @@ static int __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_4__setitem__(
     break;
     default:
 
-    /* "environment/cy_entities/vec2d_cy.pyx":36
+    /* "utils/cy_utils/vec2d_cy.pyx":36
  *             self.y = value
  *         else:
  *             raise IndexError()             # <<<<<<<<<<<<<<
@@ -1906,7 +1906,7 @@ static int __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_4__setitem__(
     break;
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":30
+  /* "utils/cy_utils/vec2d_cy.pyx":30
  *         raise IndexError()
  * 
  *     def __setitem__(self, int i, float value):             # <<<<<<<<<<<<<<
@@ -1919,15 +1919,15 @@ static int __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_4__setitem__(
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__setitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__setitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
-static PyObject *__pyx_gb_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_8generator(__pyx_CoroutineObject *__pyx_generator, CYTHON_UNUSED PyThreadState *__pyx_tstate, PyObject *__pyx_sent_value); /* proto */
+static PyObject *__pyx_gb_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_8generator(__pyx_CoroutineObject *__pyx_generator, CYTHON_UNUSED PyThreadState *__pyx_tstate, PyObject *__pyx_sent_value); /* proto */
 
-/* "environment/cy_entities/vec2d_cy.pyx":38
+/* "utils/cy_utils/vec2d_cy.pyx":38
  *             raise IndexError()
  * 
  *     def __iter__(self):             # <<<<<<<<<<<<<<
@@ -1936,26 +1936,26 @@ static PyObject *__pyx_gb_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_8genera
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_7__iter__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_7__iter__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_7__iter__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_7__iter__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__iter__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_6__iter__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_6__iter__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_6__iter__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self) {
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__ *__pyx_cur_scope;
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_6__iter__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self) {
+  struct __pyx_obj_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__ *__pyx_cur_scope;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__iter__", 0);
-  __pyx_cur_scope = (struct __pyx_obj_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__ *)__pyx_tp_new_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__(__pyx_ptype_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__, __pyx_empty_tuple, NULL);
+  __pyx_cur_scope = (struct __pyx_obj_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__ *)__pyx_tp_new_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__(__pyx_ptype_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__, __pyx_empty_tuple, NULL);
   if (unlikely(!__pyx_cur_scope)) {
-    __pyx_cur_scope = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__ *)Py_None);
+    __pyx_cur_scope = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__ *)Py_None);
     __Pyx_INCREF(Py_None);
     __PYX_ERR(0, 38, __pyx_L1_error)
   } else {
@@ -1965,7 +1965,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_6__iter
   __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_8generator, NULL, (PyObject *) __pyx_cur_scope, __pyx_n_s_iter, __pyx_n_s_Vec2dCy___iter, __pyx_n_s_environment_cy_entities_vec2d_cy); if (unlikely(!gen)) __PYX_ERR(0, 38, __pyx_L1_error)
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_8generator, NULL, (PyObject *) __pyx_cur_scope, __pyx_n_s_iter, __pyx_n_s_Vec2dCy___iter, __pyx_n_s_utils_cy_utils_vec2d_cy); if (unlikely(!gen)) __PYX_ERR(0, 38, __pyx_L1_error)
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -1973,7 +1973,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_6__iter
 
   /* function exit code */
   __pyx_L1_error:;
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__iter__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__iter__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
   __Pyx_XGIVEREF(__pyx_r);
@@ -1981,9 +1981,9 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_6__iter
   return __pyx_r;
 }
 
-static PyObject *__pyx_gb_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_8generator(__pyx_CoroutineObject *__pyx_generator, CYTHON_UNUSED PyThreadState *__pyx_tstate, PyObject *__pyx_sent_value) /* generator body */
+static PyObject *__pyx_gb_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_8generator(__pyx_CoroutineObject *__pyx_generator, CYTHON_UNUSED PyThreadState *__pyx_tstate, PyObject *__pyx_sent_value) /* generator body */
 {
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__ *__pyx_cur_scope = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__ *)__pyx_generator->closure);
+  struct __pyx_obj_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__ *__pyx_cur_scope = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__ *)__pyx_generator->closure);
   PyObject *__pyx_r = NULL;
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannyDeclarations
@@ -1999,7 +1999,7 @@ static PyObject *__pyx_gb_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_8genera
   __pyx_L3_first_run:;
   if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 38, __pyx_L1_error)
 
-  /* "environment/cy_entities/vec2d_cy.pyx":39
+  /* "utils/cy_utils/vec2d_cy.pyx":39
  * 
  *     def __iter__(self):
  *         yield self.x             # <<<<<<<<<<<<<<
@@ -2019,7 +2019,7 @@ static PyObject *__pyx_gb_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_8genera
   __pyx_L4_resume_from_yield:;
   if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 39, __pyx_L1_error)
 
-  /* "environment/cy_entities/vec2d_cy.pyx":40
+  /* "utils/cy_utils/vec2d_cy.pyx":40
  *     def __iter__(self):
  *         yield self.x
  *         yield self.y             # <<<<<<<<<<<<<<
@@ -2040,7 +2040,7 @@ static PyObject *__pyx_gb_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_8genera
   if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 40, __pyx_L1_error)
   CYTHON_MAYBE_UNUSED_VAR(__pyx_cur_scope);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":38
+  /* "utils/cy_utils/vec2d_cy.pyx":38
  *             raise IndexError()
  * 
  *     def __iter__(self):             # <<<<<<<<<<<<<<
@@ -2065,7 +2065,7 @@ static PyObject *__pyx_gb_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_8genera
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":42
+/* "utils/cy_utils/vec2d_cy.pyx":42
  *         yield self.y
  * 
  *     def __len__(self):             # <<<<<<<<<<<<<<
@@ -2074,24 +2074,24 @@ static PyObject *__pyx_gb_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_8genera
  */
 
 /* Python wrapper */
-static Py_ssize_t __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_10__len__(PyObject *__pyx_v_self); /*proto*/
-static Py_ssize_t __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_10__len__(PyObject *__pyx_v_self) {
+static Py_ssize_t __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_10__len__(PyObject *__pyx_v_self); /*proto*/
+static Py_ssize_t __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_10__len__(PyObject *__pyx_v_self) {
   Py_ssize_t __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__len__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_9__len__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_9__len__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static Py_ssize_t __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_9__len__(CYTHON_UNUSED struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self) {
+static Py_ssize_t __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_9__len__(CYTHON_UNUSED struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self) {
   Py_ssize_t __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__len__", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":43
+  /* "utils/cy_utils/vec2d_cy.pyx":43
  * 
  *     def __len__(self):
  *         return 2             # <<<<<<<<<<<<<<
@@ -2101,7 +2101,7 @@ static Py_ssize_t __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_9__len
   __pyx_r = 2;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":42
+  /* "utils/cy_utils/vec2d_cy.pyx":42
  *         yield self.y
  * 
  *     def __len__(self):             # <<<<<<<<<<<<<<
@@ -2115,7 +2115,7 @@ static Py_ssize_t __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_9__len
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":45
+/* "utils/cy_utils/vec2d_cy.pyx":45
  *         return 2
  * 
  *     def __repr__(self):             # <<<<<<<<<<<<<<
@@ -2124,19 +2124,19 @@ static Py_ssize_t __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_9__len
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_12__repr__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_12__repr__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_12__repr__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_12__repr__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__repr__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_11__repr__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_11__repr__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_11__repr__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_11__repr__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2144,7 +2144,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_11__rep
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("__repr__", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":46
+  /* "utils/cy_utils/vec2d_cy.pyx":46
  * 
  *     def __repr__(self):
  *         return 'Vec2dCy(%s, %s)' % (self.x, self.y)             # <<<<<<<<<<<<<<
@@ -2171,7 +2171,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_11__rep
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":45
+  /* "utils/cy_utils/vec2d_cy.pyx":45
  *         return 2
  * 
  *     def __repr__(self):             # <<<<<<<<<<<<<<
@@ -2184,7 +2184,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_11__rep
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__repr__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__repr__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2192,7 +2192,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_11__rep
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":48
+/* "utils/cy_utils/vec2d_cy.pyx":48
  *         return 'Vec2dCy(%s, %s)' % (self.x, self.y)
  * 
  *     def __eq__(self, other):             # <<<<<<<<<<<<<<
@@ -2201,19 +2201,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_11__rep
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_14__eq__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_14__eq__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_14__eq__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_14__eq__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__eq__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_13__eq__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v_other));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_13__eq__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v_other));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_13__eq__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_13__eq__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -2226,7 +2226,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_13__eq_
   PyObject *__pyx_t_8 = NULL;
   __Pyx_RefNannySetupContext("__eq__", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":49
+  /* "utils/cy_utils/vec2d_cy.pyx":49
  * 
  *     def __eq__(self, other):
  *         if hasattr(other, "__getitem__") and len(other) == 2:             # <<<<<<<<<<<<<<
@@ -2246,7 +2246,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_13__eq_
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "environment/cy_entities/vec2d_cy.pyx":50
+    /* "utils/cy_utils/vec2d_cy.pyx":50
  *     def __eq__(self, other):
  *         if hasattr(other, "__getitem__") and len(other) == 2:
  *             return self.x == other[0] and self.y == other[1]             # <<<<<<<<<<<<<<
@@ -2285,7 +2285,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_13__eq_
     __pyx_t_5 = 0;
     goto __pyx_L0;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":49
+    /* "utils/cy_utils/vec2d_cy.pyx":49
  * 
  *     def __eq__(self, other):
  *         if hasattr(other, "__getitem__") and len(other) == 2:             # <<<<<<<<<<<<<<
@@ -2294,7 +2294,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_13__eq_
  */
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":52
+  /* "utils/cy_utils/vec2d_cy.pyx":52
  *             return self.x == other[0] and self.y == other[1]
  *         else:
  *             return False             # <<<<<<<<<<<<<<
@@ -2308,7 +2308,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_13__eq_
     goto __pyx_L0;
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":48
+  /* "utils/cy_utils/vec2d_cy.pyx":48
  *         return 'Vec2dCy(%s, %s)' % (self.x, self.y)
  * 
  *     def __eq__(self, other):             # <<<<<<<<<<<<<<
@@ -2322,7 +2322,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_13__eq_
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__eq__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__eq__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2330,7 +2330,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_13__eq_
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":54
+/* "utils/cy_utils/vec2d_cy.pyx":54
  *             return False
  * 
  *     def __ne__(self, other):             # <<<<<<<<<<<<<<
@@ -2339,19 +2339,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_13__eq_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_16__ne__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_16__ne__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_16__ne__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_16__ne__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__ne__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_15__ne__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v_other));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_15__ne__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v_other));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_15__ne__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_15__ne__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -2364,7 +2364,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_15__ne_
   PyObject *__pyx_t_8 = NULL;
   __Pyx_RefNannySetupContext("__ne__", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":55
+  /* "utils/cy_utils/vec2d_cy.pyx":55
  * 
  *     def __ne__(self, other):
  *         if hasattr(other, "__getitem__") and len(other) == 2:             # <<<<<<<<<<<<<<
@@ -2384,7 +2384,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_15__ne_
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "environment/cy_entities/vec2d_cy.pyx":56
+    /* "utils/cy_utils/vec2d_cy.pyx":56
  *     def __ne__(self, other):
  *         if hasattr(other, "__getitem__") and len(other) == 2:
  *             return self.x != other[0] or self.y != other[1]             # <<<<<<<<<<<<<<
@@ -2423,7 +2423,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_15__ne_
     __pyx_t_5 = 0;
     goto __pyx_L0;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":55
+    /* "utils/cy_utils/vec2d_cy.pyx":55
  * 
  *     def __ne__(self, other):
  *         if hasattr(other, "__getitem__") and len(other) == 2:             # <<<<<<<<<<<<<<
@@ -2432,7 +2432,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_15__ne_
  */
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":58
+  /* "utils/cy_utils/vec2d_cy.pyx":58
  *             return self.x != other[0] or self.y != other[1]
  *         else:
  *             return True             # <<<<<<<<<<<<<<
@@ -2446,7 +2446,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_15__ne_
     goto __pyx_L0;
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":54
+  /* "utils/cy_utils/vec2d_cy.pyx":54
  *             return False
  * 
  *     def __ne__(self, other):             # <<<<<<<<<<<<<<
@@ -2460,7 +2460,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_15__ne_
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__ne__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__ne__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2468,7 +2468,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_15__ne_
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":60
+/* "utils/cy_utils/vec2d_cy.pyx":60
  *             return True
  * 
  *     def __add__(self, other):             # <<<<<<<<<<<<<<
@@ -2477,19 +2477,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_15__ne_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_18__add__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_18__add__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_18__add__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_18__add__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__add__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_17__add__(((PyObject *)__pyx_v_self), ((PyObject *)__pyx_v_other));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_17__add__(((PyObject *)__pyx_v_self), ((PyObject *)__pyx_v_other));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_17__add__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_17__add__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -2500,18 +2500,18 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_17__add
   PyObject *__pyx_t_6 = NULL;
   __Pyx_RefNannySetupContext("__add__", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":61
+  /* "utils/cy_utils/vec2d_cy.pyx":61
  * 
  *     def __add__(self, other):
  *         if isinstance(other, Vec2dCy):             # <<<<<<<<<<<<<<
  *             return Vec2dCy(self.x + other.x, self.y + other.y)
  *         elif hasattr(other, "__getitem__"):
  */
-  __pyx_t_1 = __Pyx_TypeCheck(__pyx_v_other, __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy); 
+  __pyx_t_1 = __Pyx_TypeCheck(__pyx_v_other, __pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy); 
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "environment/cy_entities/vec2d_cy.pyx":62
+    /* "utils/cy_utils/vec2d_cy.pyx":62
  *     def __add__(self, other):
  *         if isinstance(other, Vec2dCy):
  *             return Vec2dCy(self.x + other.x, self.y + other.y)             # <<<<<<<<<<<<<<
@@ -2543,14 +2543,14 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_17__add
     PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_6);
     __pyx_t_5 = 0;
     __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_3, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 62, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy), __pyx_t_3, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 62, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_r = __pyx_t_6;
     __pyx_t_6 = 0;
     goto __pyx_L0;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":61
+    /* "utils/cy_utils/vec2d_cy.pyx":61
  * 
  *     def __add__(self, other):
  *         if isinstance(other, Vec2dCy):             # <<<<<<<<<<<<<<
@@ -2559,7 +2559,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_17__add
  */
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":63
+  /* "utils/cy_utils/vec2d_cy.pyx":63
  *         if isinstance(other, Vec2dCy):
  *             return Vec2dCy(self.x + other.x, self.y + other.y)
  *         elif hasattr(other, "__getitem__"):             # <<<<<<<<<<<<<<
@@ -2570,7 +2570,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_17__add
   __pyx_t_1 = (__pyx_t_2 != 0);
   if (__pyx_t_1) {
 
-    /* "environment/cy_entities/vec2d_cy.pyx":64
+    /* "utils/cy_utils/vec2d_cy.pyx":64
  *             return Vec2dCy(self.x + other.x, self.y + other.y)
  *         elif hasattr(other, "__getitem__"):
  *             return Vec2dCy(self.x + other[0], self.y + other[1])             # <<<<<<<<<<<<<<
@@ -2602,14 +2602,14 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_17__add
     PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_4);
     __pyx_t_5 = 0;
     __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 64, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy), __pyx_t_6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 64, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __pyx_r = __pyx_t_4;
     __pyx_t_4 = 0;
     goto __pyx_L0;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":63
+    /* "utils/cy_utils/vec2d_cy.pyx":63
  *         if isinstance(other, Vec2dCy):
  *             return Vec2dCy(self.x + other.x, self.y + other.y)
  *         elif hasattr(other, "__getitem__"):             # <<<<<<<<<<<<<<
@@ -2618,7 +2618,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_17__add
  */
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":66
+  /* "utils/cy_utils/vec2d_cy.pyx":66
  *             return Vec2dCy(self.x + other[0], self.y + other[1])
  *         else:
  *             return Vec2dCy(self.x + other, self.y + other)             # <<<<<<<<<<<<<<
@@ -2645,7 +2645,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_17__add
     PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_5);
     __pyx_t_6 = 0;
     __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_4, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 66, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy), __pyx_t_4, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 66, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_r = __pyx_t_5;
@@ -2653,7 +2653,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_17__add
     goto __pyx_L0;
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":60
+  /* "utils/cy_utils/vec2d_cy.pyx":60
  *             return True
  * 
  *     def __add__(self, other):             # <<<<<<<<<<<<<<
@@ -2667,7 +2667,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_17__add
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__add__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__add__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2675,7 +2675,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_17__add
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":70
+/* "utils/cy_utils/vec2d_cy.pyx":70
  *     __radd__ = __add__
  * 
  *     def __iadd__(self, other):             # <<<<<<<<<<<<<<
@@ -2684,19 +2684,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_17__add
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_20__iadd__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_20__iadd__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_20__iadd__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_20__iadd__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__iadd__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_19__iadd__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v_other));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_19__iadd__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v_other));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_19__iadd__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_19__iadd__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -2707,18 +2707,18 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_19__iad
   float __pyx_t_6;
   __Pyx_RefNannySetupContext("__iadd__", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":71
+  /* "utils/cy_utils/vec2d_cy.pyx":71
  * 
  *     def __iadd__(self, other):
  *         if isinstance(other, Vec2dCy):             # <<<<<<<<<<<<<<
  *             self.x += other.x
  *             self.y += other.y
  */
-  __pyx_t_1 = __Pyx_TypeCheck(__pyx_v_other, __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy); 
+  __pyx_t_1 = __Pyx_TypeCheck(__pyx_v_other, __pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy); 
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "environment/cy_entities/vec2d_cy.pyx":72
+    /* "utils/cy_utils/vec2d_cy.pyx":72
  *     def __iadd__(self, other):
  *         if isinstance(other, Vec2dCy):
  *             self.x += other.x             # <<<<<<<<<<<<<<
@@ -2737,7 +2737,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_19__iad
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_v_self->x = __pyx_t_6;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":73
+    /* "utils/cy_utils/vec2d_cy.pyx":73
  *         if isinstance(other, Vec2dCy):
  *             self.x += other.x
  *             self.y += other.y             # <<<<<<<<<<<<<<
@@ -2756,7 +2756,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_19__iad
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_self->y = __pyx_t_6;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":71
+    /* "utils/cy_utils/vec2d_cy.pyx":71
  * 
  *     def __iadd__(self, other):
  *         if isinstance(other, Vec2dCy):             # <<<<<<<<<<<<<<
@@ -2766,7 +2766,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_19__iad
     goto __pyx_L3;
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":74
+  /* "utils/cy_utils/vec2d_cy.pyx":74
  *             self.x += other.x
  *             self.y += other.y
  *         elif hasattr(other, "__getitem__"):             # <<<<<<<<<<<<<<
@@ -2777,7 +2777,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_19__iad
   __pyx_t_1 = (__pyx_t_2 != 0);
   if (__pyx_t_1) {
 
-    /* "environment/cy_entities/vec2d_cy.pyx":75
+    /* "utils/cy_utils/vec2d_cy.pyx":75
  *             self.y += other.y
  *         elif hasattr(other, "__getitem__"):
  *             self.x += other[0]             # <<<<<<<<<<<<<<
@@ -2796,7 +2796,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_19__iad
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_v_self->x = __pyx_t_6;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":76
+    /* "utils/cy_utils/vec2d_cy.pyx":76
  *         elif hasattr(other, "__getitem__"):
  *             self.x += other[0]
  *             self.y += other[1]             # <<<<<<<<<<<<<<
@@ -2815,7 +2815,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_19__iad
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_self->y = __pyx_t_6;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":74
+    /* "utils/cy_utils/vec2d_cy.pyx":74
  *             self.x += other.x
  *             self.y += other.y
  *         elif hasattr(other, "__getitem__"):             # <<<<<<<<<<<<<<
@@ -2825,7 +2825,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_19__iad
     goto __pyx_L3;
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":78
+  /* "utils/cy_utils/vec2d_cy.pyx":78
  *             self.y += other[1]
  *         else:
  *             self.x += other             # <<<<<<<<<<<<<<
@@ -2842,7 +2842,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_19__iad
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_v_self->x = __pyx_t_6;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":79
+    /* "utils/cy_utils/vec2d_cy.pyx":79
  *         else:
  *             self.x += other
  *             self.y += other             # <<<<<<<<<<<<<<
@@ -2860,7 +2860,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_19__iad
   }
   __pyx_L3:;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":80
+  /* "utils/cy_utils/vec2d_cy.pyx":80
  *             self.x += other
  *             self.y += other
  *         return self             # <<<<<<<<<<<<<<
@@ -2872,7 +2872,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_19__iad
   __pyx_r = ((PyObject *)__pyx_v_self);
   goto __pyx_L0;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":70
+  /* "utils/cy_utils/vec2d_cy.pyx":70
  *     __radd__ = __add__
  * 
  *     def __iadd__(self, other):             # <<<<<<<<<<<<<<
@@ -2885,7 +2885,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_19__iad
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__iadd__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__iadd__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2893,7 +2893,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_19__iad
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":82
+/* "utils/cy_utils/vec2d_cy.pyx":82
  *         return self
  * 
  *     def __sub__(self, other):             # <<<<<<<<<<<<<<
@@ -2902,19 +2902,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_19__iad
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_22__sub__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_22__sub__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_22__sub__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_22__sub__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__sub__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_21__sub__(((PyObject *)__pyx_v_self), ((PyObject *)__pyx_v_other));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_21__sub__(((PyObject *)__pyx_v_self), ((PyObject *)__pyx_v_other));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_21__sub__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_21__sub__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -2925,18 +2925,18 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_21__sub
   PyObject *__pyx_t_6 = NULL;
   __Pyx_RefNannySetupContext("__sub__", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":83
+  /* "utils/cy_utils/vec2d_cy.pyx":83
  * 
  *     def __sub__(self, other):
  *         if isinstance(other, Vec2dCy):             # <<<<<<<<<<<<<<
  *             return Vec2dCy(self.x - other.x, self.y - other.y)
  *         elif hasattr(other, "__getitem__"):
  */
-  __pyx_t_1 = __Pyx_TypeCheck(__pyx_v_other, __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy); 
+  __pyx_t_1 = __Pyx_TypeCheck(__pyx_v_other, __pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy); 
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "environment/cy_entities/vec2d_cy.pyx":84
+    /* "utils/cy_utils/vec2d_cy.pyx":84
  *     def __sub__(self, other):
  *         if isinstance(other, Vec2dCy):
  *             return Vec2dCy(self.x - other.x, self.y - other.y)             # <<<<<<<<<<<<<<
@@ -2968,14 +2968,14 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_21__sub
     PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_6);
     __pyx_t_5 = 0;
     __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_3, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 84, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy), __pyx_t_3, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 84, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_r = __pyx_t_6;
     __pyx_t_6 = 0;
     goto __pyx_L0;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":83
+    /* "utils/cy_utils/vec2d_cy.pyx":83
  * 
  *     def __sub__(self, other):
  *         if isinstance(other, Vec2dCy):             # <<<<<<<<<<<<<<
@@ -2984,7 +2984,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_21__sub
  */
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":85
+  /* "utils/cy_utils/vec2d_cy.pyx":85
  *         if isinstance(other, Vec2dCy):
  *             return Vec2dCy(self.x - other.x, self.y - other.y)
  *         elif hasattr(other, "__getitem__"):             # <<<<<<<<<<<<<<
@@ -2995,7 +2995,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_21__sub
   __pyx_t_1 = (__pyx_t_2 != 0);
   if (__pyx_t_1) {
 
-    /* "environment/cy_entities/vec2d_cy.pyx":86
+    /* "utils/cy_utils/vec2d_cy.pyx":86
  *             return Vec2dCy(self.x - other.x, self.y - other.y)
  *         elif hasattr(other, "__getitem__"):
  *             return Vec2dCy(self.x - other[0], self.y - other[1])             # <<<<<<<<<<<<<<
@@ -3027,14 +3027,14 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_21__sub
     PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_4);
     __pyx_t_5 = 0;
     __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 86, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy), __pyx_t_6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 86, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __pyx_r = __pyx_t_4;
     __pyx_t_4 = 0;
     goto __pyx_L0;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":85
+    /* "utils/cy_utils/vec2d_cy.pyx":85
  *         if isinstance(other, Vec2dCy):
  *             return Vec2dCy(self.x - other.x, self.y - other.y)
  *         elif hasattr(other, "__getitem__"):             # <<<<<<<<<<<<<<
@@ -3043,7 +3043,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_21__sub
  */
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":88
+  /* "utils/cy_utils/vec2d_cy.pyx":88
  *             return Vec2dCy(self.x - other[0], self.y - other[1])
  *         else:
  *             return Vec2dCy(self.x - other, self.y - other)             # <<<<<<<<<<<<<<
@@ -3070,7 +3070,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_21__sub
     PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_5);
     __pyx_t_6 = 0;
     __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_4, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 88, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy), __pyx_t_4, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 88, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_r = __pyx_t_5;
@@ -3078,7 +3078,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_21__sub
     goto __pyx_L0;
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":82
+  /* "utils/cy_utils/vec2d_cy.pyx":82
  *         return self
  * 
  *     def __sub__(self, other):             # <<<<<<<<<<<<<<
@@ -3092,7 +3092,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_21__sub
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__sub__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__sub__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3100,7 +3100,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_21__sub
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":90
+/* "utils/cy_utils/vec2d_cy.pyx":90
  *             return Vec2dCy(self.x - other, self.y - other)
  * 
  *     def __rsub__(self, other):             # <<<<<<<<<<<<<<
@@ -3109,19 +3109,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_21__sub
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_24__rsub__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_24__rsub__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_24__rsub__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_24__rsub__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__rsub__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_23__rsub__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v_other));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_23__rsub__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v_other));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_23__rsub__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_23__rsub__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -3132,18 +3132,18 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_23__rsu
   PyObject *__pyx_t_6 = NULL;
   __Pyx_RefNannySetupContext("__rsub__", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":91
+  /* "utils/cy_utils/vec2d_cy.pyx":91
  * 
  *     def __rsub__(self, other):
  *         if isinstance(other, Vec2dCy):             # <<<<<<<<<<<<<<
  *             return Vec2dCy(other.x - self.x, other.y - self.y)
  *         if hasattr(other, "__getitem__"):
  */
-  __pyx_t_1 = __Pyx_TypeCheck(__pyx_v_other, __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy); 
+  __pyx_t_1 = __Pyx_TypeCheck(__pyx_v_other, __pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy); 
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "environment/cy_entities/vec2d_cy.pyx":92
+    /* "utils/cy_utils/vec2d_cy.pyx":92
  *     def __rsub__(self, other):
  *         if isinstance(other, Vec2dCy):
  *             return Vec2dCy(other.x - self.x, other.y - self.y)             # <<<<<<<<<<<<<<
@@ -3175,14 +3175,14 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_23__rsu
     PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_6);
     __pyx_t_5 = 0;
     __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_3, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 92, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy), __pyx_t_3, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 92, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_r = __pyx_t_6;
     __pyx_t_6 = 0;
     goto __pyx_L0;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":91
+    /* "utils/cy_utils/vec2d_cy.pyx":91
  * 
  *     def __rsub__(self, other):
  *         if isinstance(other, Vec2dCy):             # <<<<<<<<<<<<<<
@@ -3191,7 +3191,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_23__rsu
  */
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":93
+  /* "utils/cy_utils/vec2d_cy.pyx":93
  *         if isinstance(other, Vec2dCy):
  *             return Vec2dCy(other.x - self.x, other.y - self.y)
  *         if hasattr(other, "__getitem__"):             # <<<<<<<<<<<<<<
@@ -3202,7 +3202,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_23__rsu
   __pyx_t_1 = (__pyx_t_2 != 0);
   if (__pyx_t_1) {
 
-    /* "environment/cy_entities/vec2d_cy.pyx":94
+    /* "utils/cy_utils/vec2d_cy.pyx":94
  *             return Vec2dCy(other.x - self.x, other.y - self.y)
  *         if hasattr(other, "__getitem__"):
  *             return Vec2dCy(other[0] - self.x, other[1] - self.y)             # <<<<<<<<<<<<<<
@@ -3234,14 +3234,14 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_23__rsu
     PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_4);
     __pyx_t_5 = 0;
     __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 94, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy), __pyx_t_6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 94, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __pyx_r = __pyx_t_4;
     __pyx_t_4 = 0;
     goto __pyx_L0;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":93
+    /* "utils/cy_utils/vec2d_cy.pyx":93
  *         if isinstance(other, Vec2dCy):
  *             return Vec2dCy(other.x - self.x, other.y - self.y)
  *         if hasattr(other, "__getitem__"):             # <<<<<<<<<<<<<<
@@ -3250,7 +3250,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_23__rsu
  */
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":96
+  /* "utils/cy_utils/vec2d_cy.pyx":96
  *             return Vec2dCy(other[0] - self.x, other[1] - self.y)
  *         else:
  *             return Vec2dCy(other - self.x, other - self.y)             # <<<<<<<<<<<<<<
@@ -3277,7 +3277,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_23__rsu
     PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_5);
     __pyx_t_6 = 0;
     __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_4, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 96, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy), __pyx_t_4, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 96, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_r = __pyx_t_5;
@@ -3285,7 +3285,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_23__rsu
     goto __pyx_L0;
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":90
+  /* "utils/cy_utils/vec2d_cy.pyx":90
  *             return Vec2dCy(self.x - other, self.y - other)
  * 
  *     def __rsub__(self, other):             # <<<<<<<<<<<<<<
@@ -3299,7 +3299,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_23__rsu
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__rsub__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__rsub__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3307,7 +3307,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_23__rsu
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":98
+/* "utils/cy_utils/vec2d_cy.pyx":98
  *             return Vec2dCy(other - self.x, other - self.y)
  * 
  *     def __isub__(self, other):             # <<<<<<<<<<<<<<
@@ -3316,19 +3316,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_23__rsu
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_26__isub__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_26__isub__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_26__isub__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_26__isub__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__isub__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_25__isub__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v_other));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_25__isub__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v_other));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_25__isub__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_25__isub__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -3339,18 +3339,18 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_25__isu
   float __pyx_t_6;
   __Pyx_RefNannySetupContext("__isub__", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":99
+  /* "utils/cy_utils/vec2d_cy.pyx":99
  * 
  *     def __isub__(self, other):
  *         if isinstance(other, Vec2dCy):             # <<<<<<<<<<<<<<
  *             self.x -= other.x
  *             self.y -= other.y
  */
-  __pyx_t_1 = __Pyx_TypeCheck(__pyx_v_other, __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy); 
+  __pyx_t_1 = __Pyx_TypeCheck(__pyx_v_other, __pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy); 
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "environment/cy_entities/vec2d_cy.pyx":100
+    /* "utils/cy_utils/vec2d_cy.pyx":100
  *     def __isub__(self, other):
  *         if isinstance(other, Vec2dCy):
  *             self.x -= other.x             # <<<<<<<<<<<<<<
@@ -3369,7 +3369,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_25__isu
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_v_self->x = __pyx_t_6;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":101
+    /* "utils/cy_utils/vec2d_cy.pyx":101
  *         if isinstance(other, Vec2dCy):
  *             self.x -= other.x
  *             self.y -= other.y             # <<<<<<<<<<<<<<
@@ -3388,7 +3388,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_25__isu
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_self->y = __pyx_t_6;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":99
+    /* "utils/cy_utils/vec2d_cy.pyx":99
  * 
  *     def __isub__(self, other):
  *         if isinstance(other, Vec2dCy):             # <<<<<<<<<<<<<<
@@ -3398,7 +3398,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_25__isu
     goto __pyx_L3;
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":102
+  /* "utils/cy_utils/vec2d_cy.pyx":102
  *             self.x -= other.x
  *             self.y -= other.y
  *         elif hasattr(other, "__getitem__"):             # <<<<<<<<<<<<<<
@@ -3409,7 +3409,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_25__isu
   __pyx_t_1 = (__pyx_t_2 != 0);
   if (__pyx_t_1) {
 
-    /* "environment/cy_entities/vec2d_cy.pyx":103
+    /* "utils/cy_utils/vec2d_cy.pyx":103
  *             self.y -= other.y
  *         elif hasattr(other, "__getitem__"):
  *             self.x -= other[0]             # <<<<<<<<<<<<<<
@@ -3428,7 +3428,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_25__isu
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_v_self->x = __pyx_t_6;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":104
+    /* "utils/cy_utils/vec2d_cy.pyx":104
  *         elif hasattr(other, "__getitem__"):
  *             self.x -= other[0]
  *             self.y -= other[1]             # <<<<<<<<<<<<<<
@@ -3447,7 +3447,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_25__isu
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_self->y = __pyx_t_6;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":102
+    /* "utils/cy_utils/vec2d_cy.pyx":102
  *             self.x -= other.x
  *             self.y -= other.y
  *         elif hasattr(other, "__getitem__"):             # <<<<<<<<<<<<<<
@@ -3457,7 +3457,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_25__isu
     goto __pyx_L3;
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":106
+  /* "utils/cy_utils/vec2d_cy.pyx":106
  *             self.y -= other[1]
  *         else:
  *             self.x -= other             # <<<<<<<<<<<<<<
@@ -3474,7 +3474,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_25__isu
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_v_self->x = __pyx_t_6;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":107
+    /* "utils/cy_utils/vec2d_cy.pyx":107
  *         else:
  *             self.x -= other
  *             self.y -= other             # <<<<<<<<<<<<<<
@@ -3492,7 +3492,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_25__isu
   }
   __pyx_L3:;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":108
+  /* "utils/cy_utils/vec2d_cy.pyx":108
  *             self.x -= other
  *             self.y -= other
  *         return self             # <<<<<<<<<<<<<<
@@ -3504,7 +3504,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_25__isu
   __pyx_r = ((PyObject *)__pyx_v_self);
   goto __pyx_L0;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":98
+  /* "utils/cy_utils/vec2d_cy.pyx":98
  *             return Vec2dCy(other - self.x, other - self.y)
  * 
  *     def __isub__(self, other):             # <<<<<<<<<<<<<<
@@ -3517,7 +3517,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_25__isu
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__isub__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__isub__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3525,7 +3525,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_25__isu
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":110
+/* "utils/cy_utils/vec2d_cy.pyx":110
  *         return self
  * 
  *     def __mul__(self, other):             # <<<<<<<<<<<<<<
@@ -3534,19 +3534,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_25__isu
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_28__mul__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_28__mul__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_28__mul__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_28__mul__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__mul__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_27__mul__(((PyObject *)__pyx_v_self), ((PyObject *)__pyx_v_other));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_27__mul__(((PyObject *)__pyx_v_self), ((PyObject *)__pyx_v_other));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_27__mul__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_27__mul__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -3557,18 +3557,18 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_27__mul
   PyObject *__pyx_t_6 = NULL;
   __Pyx_RefNannySetupContext("__mul__", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":111
+  /* "utils/cy_utils/vec2d_cy.pyx":111
  * 
  *     def __mul__(self, other):
  *         if isinstance(other, Vec2dCy):             # <<<<<<<<<<<<<<
  *             return Vec2dCy(self.x * other.x, self.y * other.y)
  *         if hasattr(other, "__getitem__"):
  */
-  __pyx_t_1 = __Pyx_TypeCheck(__pyx_v_other, __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy); 
+  __pyx_t_1 = __Pyx_TypeCheck(__pyx_v_other, __pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy); 
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "environment/cy_entities/vec2d_cy.pyx":112
+    /* "utils/cy_utils/vec2d_cy.pyx":112
  *     def __mul__(self, other):
  *         if isinstance(other, Vec2dCy):
  *             return Vec2dCy(self.x * other.x, self.y * other.y)             # <<<<<<<<<<<<<<
@@ -3600,14 +3600,14 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_27__mul
     PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_6);
     __pyx_t_5 = 0;
     __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_3, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy), __pyx_t_3, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 112, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_r = __pyx_t_6;
     __pyx_t_6 = 0;
     goto __pyx_L0;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":111
+    /* "utils/cy_utils/vec2d_cy.pyx":111
  * 
  *     def __mul__(self, other):
  *         if isinstance(other, Vec2dCy):             # <<<<<<<<<<<<<<
@@ -3616,7 +3616,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_27__mul
  */
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":113
+  /* "utils/cy_utils/vec2d_cy.pyx":113
  *         if isinstance(other, Vec2dCy):
  *             return Vec2dCy(self.x * other.x, self.y * other.y)
  *         if hasattr(other, "__getitem__"):             # <<<<<<<<<<<<<<
@@ -3627,7 +3627,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_27__mul
   __pyx_t_1 = (__pyx_t_2 != 0);
   if (__pyx_t_1) {
 
-    /* "environment/cy_entities/vec2d_cy.pyx":114
+    /* "utils/cy_utils/vec2d_cy.pyx":114
  *             return Vec2dCy(self.x * other.x, self.y * other.y)
  *         if hasattr(other, "__getitem__"):
  *             return Vec2dCy(self.x * other[0], self.y * other[1])             # <<<<<<<<<<<<<<
@@ -3659,14 +3659,14 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_27__mul
     PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_4);
     __pyx_t_5 = 0;
     __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 114, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy), __pyx_t_6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 114, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __pyx_r = __pyx_t_4;
     __pyx_t_4 = 0;
     goto __pyx_L0;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":113
+    /* "utils/cy_utils/vec2d_cy.pyx":113
  *         if isinstance(other, Vec2dCy):
  *             return Vec2dCy(self.x * other.x, self.y * other.y)
  *         if hasattr(other, "__getitem__"):             # <<<<<<<<<<<<<<
@@ -3675,7 +3675,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_27__mul
  */
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":116
+  /* "utils/cy_utils/vec2d_cy.pyx":116
  *             return Vec2dCy(self.x * other[0], self.y * other[1])
  *         else:
  *             return Vec2dCy(self.x * other, self.y * other)             # <<<<<<<<<<<<<<
@@ -3702,7 +3702,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_27__mul
     PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_5);
     __pyx_t_6 = 0;
     __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_4, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 116, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy), __pyx_t_4, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 116, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_r = __pyx_t_5;
@@ -3710,7 +3710,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_27__mul
     goto __pyx_L0;
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":110
+  /* "utils/cy_utils/vec2d_cy.pyx":110
  *         return self
  * 
  *     def __mul__(self, other):             # <<<<<<<<<<<<<<
@@ -3724,7 +3724,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_27__mul
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__mul__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__mul__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3732,7 +3732,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_27__mul
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":120
+/* "utils/cy_utils/vec2d_cy.pyx":120
  *     __rmul__ = __mul__
  * 
  *     def __imul__(self, other):             # <<<<<<<<<<<<<<
@@ -3741,19 +3741,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_27__mul
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_30__imul__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_30__imul__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_30__imul__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_30__imul__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__imul__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_29__imul__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v_other));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_29__imul__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v_other));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_29__imul__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_29__imul__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -3764,18 +3764,18 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_29__imu
   float __pyx_t_6;
   __Pyx_RefNannySetupContext("__imul__", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":121
+  /* "utils/cy_utils/vec2d_cy.pyx":121
  * 
  *     def __imul__(self, other):
  *         if isinstance(other, Vec2dCy):             # <<<<<<<<<<<<<<
  *             self.x *= other.x
  *             self.y *= other.y
  */
-  __pyx_t_1 = __Pyx_TypeCheck(__pyx_v_other, __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy); 
+  __pyx_t_1 = __Pyx_TypeCheck(__pyx_v_other, __pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy); 
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "environment/cy_entities/vec2d_cy.pyx":122
+    /* "utils/cy_utils/vec2d_cy.pyx":122
  *     def __imul__(self, other):
  *         if isinstance(other, Vec2dCy):
  *             self.x *= other.x             # <<<<<<<<<<<<<<
@@ -3794,7 +3794,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_29__imu
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_v_self->x = __pyx_t_6;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":123
+    /* "utils/cy_utils/vec2d_cy.pyx":123
  *         if isinstance(other, Vec2dCy):
  *             self.x *= other.x
  *             self.y *= other.y             # <<<<<<<<<<<<<<
@@ -3813,7 +3813,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_29__imu
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_self->y = __pyx_t_6;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":121
+    /* "utils/cy_utils/vec2d_cy.pyx":121
  * 
  *     def __imul__(self, other):
  *         if isinstance(other, Vec2dCy):             # <<<<<<<<<<<<<<
@@ -3823,7 +3823,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_29__imu
     goto __pyx_L3;
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":124
+  /* "utils/cy_utils/vec2d_cy.pyx":124
  *             self.x *= other.x
  *             self.y *= other.y
  *         elif hasattr(other, "__getitem__"):             # <<<<<<<<<<<<<<
@@ -3834,7 +3834,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_29__imu
   __pyx_t_1 = (__pyx_t_2 != 0);
   if (__pyx_t_1) {
 
-    /* "environment/cy_entities/vec2d_cy.pyx":125
+    /* "utils/cy_utils/vec2d_cy.pyx":125
  *             self.y *= other.y
  *         elif hasattr(other, "__getitem__"):
  *             self.x *= other[0]             # <<<<<<<<<<<<<<
@@ -3853,7 +3853,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_29__imu
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_v_self->x = __pyx_t_6;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":126
+    /* "utils/cy_utils/vec2d_cy.pyx":126
  *         elif hasattr(other, "__getitem__"):
  *             self.x *= other[0]
  *             self.y *= other[1]             # <<<<<<<<<<<<<<
@@ -3872,7 +3872,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_29__imu
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_self->y = __pyx_t_6;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":124
+    /* "utils/cy_utils/vec2d_cy.pyx":124
  *             self.x *= other.x
  *             self.y *= other.y
  *         elif hasattr(other, "__getitem__"):             # <<<<<<<<<<<<<<
@@ -3882,7 +3882,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_29__imu
     goto __pyx_L3;
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":128
+  /* "utils/cy_utils/vec2d_cy.pyx":128
  *             self.y *= other[1]
  *         else:
  *             self.x *= other             # <<<<<<<<<<<<<<
@@ -3899,7 +3899,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_29__imu
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_v_self->x = __pyx_t_6;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":129
+    /* "utils/cy_utils/vec2d_cy.pyx":129
  *         else:
  *             self.x *= other
  *             self.y *= other             # <<<<<<<<<<<<<<
@@ -3917,7 +3917,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_29__imu
   }
   __pyx_L3:;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":130
+  /* "utils/cy_utils/vec2d_cy.pyx":130
  *             self.x *= other
  *             self.y *= other
  *         return self             # <<<<<<<<<<<<<<
@@ -3929,7 +3929,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_29__imu
   __pyx_r = ((PyObject *)__pyx_v_self);
   goto __pyx_L0;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":120
+  /* "utils/cy_utils/vec2d_cy.pyx":120
  *     __rmul__ = __mul__
  * 
  *     def __imul__(self, other):             # <<<<<<<<<<<<<<
@@ -3942,7 +3942,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_29__imu
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__imul__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__imul__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3950,7 +3950,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_29__imu
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":132
+/* "utils/cy_utils/vec2d_cy.pyx":132
  *         return self
  * 
  *     cpdef Vec2dCy _operator_handler(self, other, f):             # <<<<<<<<<<<<<<
@@ -3958,9 +3958,9 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_29__imu
  *             return Vec2dCy(f(self.x, other.x),
  */
 
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_32_operator_handler(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy__operator_handler(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other, PyObject *__pyx_v_f, int __pyx_skip_dispatch) {
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_r = NULL;
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_32_operator_handler(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_f_5utils_8cy_utils_8vec2d_cy_7Vec2dCy__operator_handler(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other, PyObject *__pyx_v_f, int __pyx_skip_dispatch) {
+  struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
@@ -3984,7 +3984,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
       #endif
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_operator_handler); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_32_operator_handler)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_32_operator_handler)) {
         __Pyx_XDECREF(((PyObject *)__pyx_r));
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
@@ -4032,8 +4032,8 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         }
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy))))) __PYX_ERR(0, 132, __pyx_L1_error)
-        __pyx_r = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_2);
+        if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy))))) __PYX_ERR(0, 132, __pyx_L1_error)
+        __pyx_r = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_t_2);
         __pyx_t_2 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         goto __pyx_L0;
@@ -4051,18 +4051,18 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
     #endif
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":133
+  /* "utils/cy_utils/vec2d_cy.pyx":133
  * 
  *     cpdef Vec2dCy _operator_handler(self, other, f):
  *         if isinstance(other, Vec2dCy):             # <<<<<<<<<<<<<<
  *             return Vec2dCy(f(self.x, other.x),
  *                            f(self.y, other.y))
  */
-  __pyx_t_7 = __Pyx_TypeCheck(__pyx_v_other, __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy); 
+  __pyx_t_7 = __Pyx_TypeCheck(__pyx_v_other, __pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy); 
   __pyx_t_8 = (__pyx_t_7 != 0);
   if (__pyx_t_8) {
 
-    /* "environment/cy_entities/vec2d_cy.pyx":134
+    /* "utils/cy_utils/vec2d_cy.pyx":134
  *     cpdef Vec2dCy _operator_handler(self, other, f):
  *         if isinstance(other, Vec2dCy):
  *             return Vec2dCy(f(self.x, other.x),             # <<<<<<<<<<<<<<
@@ -4125,7 +4125,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
     }
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":135
+    /* "utils/cy_utils/vec2d_cy.pyx":135
  *         if isinstance(other, Vec2dCy):
  *             return Vec2dCy(f(self.x, other.x),
  *                            f(self.y, other.y))             # <<<<<<<<<<<<<<
@@ -4187,7 +4187,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":134
+    /* "utils/cy_utils/vec2d_cy.pyx":134
  *     cpdef Vec2dCy _operator_handler(self, other, f):
  *         if isinstance(other, Vec2dCy):
  *             return Vec2dCy(f(self.x, other.x),             # <<<<<<<<<<<<<<
@@ -4202,14 +4202,14 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
     PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_6);
     __pyx_t_1 = 0;
     __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 134, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 134, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_r = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_6);
+    __pyx_r = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_t_6);
     __pyx_t_6 = 0;
     goto __pyx_L0;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":133
+    /* "utils/cy_utils/vec2d_cy.pyx":133
  * 
  *     cpdef Vec2dCy _operator_handler(self, other, f):
  *         if isinstance(other, Vec2dCy):             # <<<<<<<<<<<<<<
@@ -4218,7 +4218,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
  */
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":136
+  /* "utils/cy_utils/vec2d_cy.pyx":136
  *             return Vec2dCy(f(self.x, other.x),
  *                            f(self.y, other.y))
  *         elif hasattr(other, "__getitem__"):             # <<<<<<<<<<<<<<
@@ -4229,7 +4229,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
   __pyx_t_7 = (__pyx_t_8 != 0);
   if (__pyx_t_7) {
 
-    /* "environment/cy_entities/vec2d_cy.pyx":137
+    /* "utils/cy_utils/vec2d_cy.pyx":137
  *                            f(self.y, other.y))
  *         elif hasattr(other, "__getitem__"):
  *             return Vec2dCy(f(self.x, other[0]),             # <<<<<<<<<<<<<<
@@ -4292,7 +4292,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
     }
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":138
+    /* "utils/cy_utils/vec2d_cy.pyx":138
  *         elif hasattr(other, "__getitem__"):
  *             return Vec2dCy(f(self.x, other[0]),
  *                            f(self.y, other[1]))             # <<<<<<<<<<<<<<
@@ -4354,7 +4354,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":137
+    /* "utils/cy_utils/vec2d_cy.pyx":137
  *                            f(self.y, other.y))
  *         elif hasattr(other, "__getitem__"):
  *             return Vec2dCy(f(self.x, other[0]),             # <<<<<<<<<<<<<<
@@ -4369,14 +4369,14 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
     PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_10);
     __pyx_t_6 = 0;
     __pyx_t_10 = 0;
-    __pyx_t_10 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 137, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 137, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_r = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_10);
+    __pyx_r = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_t_10);
     __pyx_t_10 = 0;
     goto __pyx_L0;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":136
+    /* "utils/cy_utils/vec2d_cy.pyx":136
  *             return Vec2dCy(f(self.x, other.x),
  *                            f(self.y, other.y))
  *         elif hasattr(other, "__getitem__"):             # <<<<<<<<<<<<<<
@@ -4385,7 +4385,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
  */
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":140
+  /* "utils/cy_utils/vec2d_cy.pyx":140
  *                            f(self.y, other[1]))
  *         else:
  *             return Vec2dCy(f(self.x, other),             # <<<<<<<<<<<<<<
@@ -4445,7 +4445,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
     }
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":141
+    /* "utils/cy_utils/vec2d_cy.pyx":141
  *         else:
  *             return Vec2dCy(f(self.x, other),
  *                            f(self.y, other))             # <<<<<<<<<<<<<<
@@ -4503,7 +4503,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":140
+    /* "utils/cy_utils/vec2d_cy.pyx":140
  *                            f(self.y, other[1]))
  *         else:
  *             return Vec2dCy(f(self.x, other),             # <<<<<<<<<<<<<<
@@ -4518,15 +4518,15 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
     PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_6);
     __pyx_t_10 = 0;
     __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 140, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 140, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_r = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_6);
+    __pyx_r = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_t_6);
     __pyx_t_6 = 0;
     goto __pyx_L0;
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":132
+  /* "utils/cy_utils/vec2d_cy.pyx":132
  *         return self
  * 
  *     cpdef Vec2dCy _operator_handler(self, other, f):             # <<<<<<<<<<<<<<
@@ -4543,7 +4543,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_9);
   __Pyx_XDECREF(__pyx_t_10);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy._operator_handler", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy._operator_handler", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XGIVEREF((PyObject *)__pyx_r);
@@ -4552,8 +4552,8 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_32_operator_handler(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_32_operator_handler(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_32_operator_handler(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_32_operator_handler(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_other = 0;
   PyObject *__pyx_v_f = 0;
   PyObject *__pyx_r = 0;
@@ -4601,24 +4601,24 @@ static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_32_oper
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("_operator_handler", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 132, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy._operator_handler", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy._operator_handler", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_31_operator_handler(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self), __pyx_v_other, __pyx_v_f);
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_31_operator_handler(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self), __pyx_v_other, __pyx_v_f);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_31_operator_handler(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other, PyObject *__pyx_v_f) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_31_operator_handler(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other, PyObject *__pyx_v_f) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("_operator_handler", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = ((PyObject *)__pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy__operator_handler(__pyx_v_self, __pyx_v_other, __pyx_v_f, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
+  __pyx_t_1 = ((PyObject *)__pyx_f_5utils_8cy_utils_8vec2d_cy_7Vec2dCy__operator_handler(__pyx_v_self, __pyx_v_other, __pyx_v_f, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -4627,7 +4627,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_31_oper
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy._operator_handler", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy._operator_handler", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4635,7 +4635,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_31_oper
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":143
+/* "utils/cy_utils/vec2d_cy.pyx":143
  *                            f(self.y, other))
  * 
  *     cpdef Vec2dCy _right_operator_handler(self, other, f):             # <<<<<<<<<<<<<<
@@ -4643,9 +4643,9 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_31_oper
  *             return Vec2dCy(f(other[0], self.x),
  */
 
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_34_right_operator_handler(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy__right_operator_handler(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other, PyObject *__pyx_v_f, int __pyx_skip_dispatch) {
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_r = NULL;
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_34_right_operator_handler(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_f_5utils_8cy_utils_8vec2d_cy_7Vec2dCy__right_operator_handler(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other, PyObject *__pyx_v_f, int __pyx_skip_dispatch) {
+  struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
@@ -4669,7 +4669,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
       #endif
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_right_operator_handler); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_34_right_operator_handler)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_34_right_operator_handler)) {
         __Pyx_XDECREF(((PyObject *)__pyx_r));
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
@@ -4717,8 +4717,8 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         }
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy))))) __PYX_ERR(0, 143, __pyx_L1_error)
-        __pyx_r = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_2);
+        if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy))))) __PYX_ERR(0, 143, __pyx_L1_error)
+        __pyx_r = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_t_2);
         __pyx_t_2 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         goto __pyx_L0;
@@ -4736,7 +4736,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
     #endif
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":144
+  /* "utils/cy_utils/vec2d_cy.pyx":144
  * 
  *     cpdef Vec2dCy _right_operator_handler(self, other, f):
  *         if hasattr(other, "__getitem__"):             # <<<<<<<<<<<<<<
@@ -4747,7 +4747,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
   __pyx_t_8 = (__pyx_t_7 != 0);
   if (__pyx_t_8) {
 
-    /* "environment/cy_entities/vec2d_cy.pyx":145
+    /* "utils/cy_utils/vec2d_cy.pyx":145
  *     cpdef Vec2dCy _right_operator_handler(self, other, f):
  *         if hasattr(other, "__getitem__"):
  *             return Vec2dCy(f(other[0], self.x),             # <<<<<<<<<<<<<<
@@ -4810,7 +4810,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
     }
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":146
+    /* "utils/cy_utils/vec2d_cy.pyx":146
  *         if hasattr(other, "__getitem__"):
  *             return Vec2dCy(f(other[0], self.x),
  *                            f(other[1], self.y))             # <<<<<<<<<<<<<<
@@ -4872,7 +4872,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":145
+    /* "utils/cy_utils/vec2d_cy.pyx":145
  *     cpdef Vec2dCy _right_operator_handler(self, other, f):
  *         if hasattr(other, "__getitem__"):
  *             return Vec2dCy(f(other[0], self.x),             # <<<<<<<<<<<<<<
@@ -4887,14 +4887,14 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
     PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_6);
     __pyx_t_1 = 0;
     __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 145, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 145, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_r = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_6);
+    __pyx_r = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_t_6);
     __pyx_t_6 = 0;
     goto __pyx_L0;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":144
+    /* "utils/cy_utils/vec2d_cy.pyx":144
  * 
  *     cpdef Vec2dCy _right_operator_handler(self, other, f):
  *         if hasattr(other, "__getitem__"):             # <<<<<<<<<<<<<<
@@ -4903,7 +4903,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
  */
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":148
+  /* "utils/cy_utils/vec2d_cy.pyx":148
  *                            f(other[1], self.y))
  *         else:
  *             return Vec2dCy(f(other, self.x),             # <<<<<<<<<<<<<<
@@ -4963,7 +4963,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":149
+    /* "utils/cy_utils/vec2d_cy.pyx":149
  *         else:
  *             return Vec2dCy(f(other, self.x),
  *                            f(other, self.y))             # <<<<<<<<<<<<<<
@@ -5021,7 +5021,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":148
+    /* "utils/cy_utils/vec2d_cy.pyx":148
  *                            f(other[1], self.y))
  *         else:
  *             return Vec2dCy(f(other, self.x),             # <<<<<<<<<<<<<<
@@ -5036,15 +5036,15 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
     PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_1);
     __pyx_t_6 = 0;
     __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_r = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_1);
+    __pyx_r = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_t_1);
     __pyx_t_1 = 0;
     goto __pyx_L0;
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":143
+  /* "utils/cy_utils/vec2d_cy.pyx":143
  *                            f(self.y, other))
  * 
  *     cpdef Vec2dCy _right_operator_handler(self, other, f):             # <<<<<<<<<<<<<<
@@ -5061,7 +5061,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_9);
   __Pyx_XDECREF(__pyx_t_10);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy._right_operator_handler", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy._right_operator_handler", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XGIVEREF((PyObject *)__pyx_r);
@@ -5070,8 +5070,8 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_34_right_operator_handler(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_34_right_operator_handler(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_34_right_operator_handler(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_34_right_operator_handler(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_other = 0;
   PyObject *__pyx_v_f = 0;
   PyObject *__pyx_r = 0;
@@ -5119,24 +5119,24 @@ static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_34_righ
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("_right_operator_handler", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 143, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy._right_operator_handler", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy._right_operator_handler", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_33_right_operator_handler(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self), __pyx_v_other, __pyx_v_f);
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_33_right_operator_handler(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self), __pyx_v_other, __pyx_v_f);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_33_right_operator_handler(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other, PyObject *__pyx_v_f) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_33_right_operator_handler(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other, PyObject *__pyx_v_f) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("_right_operator_handler", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = ((PyObject *)__pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy__right_operator_handler(__pyx_v_self, __pyx_v_other, __pyx_v_f, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __pyx_t_1 = ((PyObject *)__pyx_f_5utils_8cy_utils_8vec2d_cy_7Vec2dCy__right_operator_handler(__pyx_v_self, __pyx_v_other, __pyx_v_f, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -5145,7 +5145,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_33_righ
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy._right_operator_handler", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy._right_operator_handler", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5153,7 +5153,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_33_righ
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":151
+/* "utils/cy_utils/vec2d_cy.pyx":151
  *                            f(other, self.y))
  * 
  *     cpdef Vec2dCy _inplace_operator_handler(self, other, f):             # <<<<<<<<<<<<<<
@@ -5161,9 +5161,9 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_33_righ
  *             self.x = f(self.x, other[0])
  */
 
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_36_inplace_operator_handler(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy__inplace_operator_handler(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other, PyObject *__pyx_v_f, int __pyx_skip_dispatch) {
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_r = NULL;
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_36_inplace_operator_handler(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_f_5utils_8cy_utils_8vec2d_cy_7Vec2dCy__inplace_operator_handler(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other, PyObject *__pyx_v_f, int __pyx_skip_dispatch) {
+  struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
@@ -5187,7 +5187,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
       #endif
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_inplace_operator_handler); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 151, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_36_inplace_operator_handler)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_36_inplace_operator_handler)) {
         __Pyx_XDECREF(((PyObject *)__pyx_r));
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
@@ -5235,8 +5235,8 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         }
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy))))) __PYX_ERR(0, 151, __pyx_L1_error)
-        __pyx_r = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_2);
+        if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy))))) __PYX_ERR(0, 151, __pyx_L1_error)
+        __pyx_r = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_t_2);
         __pyx_t_2 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         goto __pyx_L0;
@@ -5254,7 +5254,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
     #endif
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":152
+  /* "utils/cy_utils/vec2d_cy.pyx":152
  * 
  *     cpdef Vec2dCy _inplace_operator_handler(self, other, f):
  *         if hasattr(other, "__getitem__"):             # <<<<<<<<<<<<<<
@@ -5265,7 +5265,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
   __pyx_t_8 = (__pyx_t_7 != 0);
   if (__pyx_t_8) {
 
-    /* "environment/cy_entities/vec2d_cy.pyx":153
+    /* "utils/cy_utils/vec2d_cy.pyx":153
  *     cpdef Vec2dCy _inplace_operator_handler(self, other, f):
  *         if hasattr(other, "__getitem__"):
  *             self.x = f(self.x, other[0])             # <<<<<<<<<<<<<<
@@ -5330,7 +5330,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_v_self->x = __pyx_t_10;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":154
+    /* "utils/cy_utils/vec2d_cy.pyx":154
  *         if hasattr(other, "__getitem__"):
  *             self.x = f(self.x, other[0])
  *             self.y = f(self.y, other[1])             # <<<<<<<<<<<<<<
@@ -5395,7 +5395,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_v_self->y = __pyx_t_10;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":152
+    /* "utils/cy_utils/vec2d_cy.pyx":152
  * 
  *     cpdef Vec2dCy _inplace_operator_handler(self, other, f):
  *         if hasattr(other, "__getitem__"):             # <<<<<<<<<<<<<<
@@ -5405,7 +5405,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
     goto __pyx_L3;
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":156
+  /* "utils/cy_utils/vec2d_cy.pyx":156
  *             self.y = f(self.y, other[1])
  *         else:
  *             self.x = f(self.x, other)             # <<<<<<<<<<<<<<
@@ -5467,7 +5467,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_v_self->x = __pyx_t_10;
 
-    /* "environment/cy_entities/vec2d_cy.pyx":157
+    /* "utils/cy_utils/vec2d_cy.pyx":157
  *         else:
  *             self.x = f(self.x, other)
  *             self.y = f(self.y, other)             # <<<<<<<<<<<<<<
@@ -5530,7 +5530,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
   }
   __pyx_L3:;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":158
+  /* "utils/cy_utils/vec2d_cy.pyx":158
  *             self.x = f(self.x, other)
  *             self.y = f(self.y, other)
  *         return self             # <<<<<<<<<<<<<<
@@ -5542,7 +5542,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
   __pyx_r = __pyx_v_self;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":151
+  /* "utils/cy_utils/vec2d_cy.pyx":151
  *                            f(other, self.y))
  * 
  *     cpdef Vec2dCy _inplace_operator_handler(self, other, f):             # <<<<<<<<<<<<<<
@@ -5558,7 +5558,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_9);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy._inplace_operator_handler", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy._inplace_operator_handler", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XGIVEREF((PyObject *)__pyx_r);
@@ -5567,8 +5567,8 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_36_inplace_operator_handler(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_36_inplace_operator_handler(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_36_inplace_operator_handler(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_36_inplace_operator_handler(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_other = 0;
   PyObject *__pyx_v_f = 0;
   PyObject *__pyx_r = 0;
@@ -5616,24 +5616,24 @@ static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_36_inpl
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("_inplace_operator_handler", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 151, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy._inplace_operator_handler", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy._inplace_operator_handler", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_35_inplace_operator_handler(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self), __pyx_v_other, __pyx_v_f);
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_35_inplace_operator_handler(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self), __pyx_v_other, __pyx_v_f);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_35_inplace_operator_handler(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other, PyObject *__pyx_v_f) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_35_inplace_operator_handler(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other, PyObject *__pyx_v_f) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("_inplace_operator_handler", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = ((PyObject *)__pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy__inplace_operator_handler(__pyx_v_self, __pyx_v_other, __pyx_v_f, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 151, __pyx_L1_error)
+  __pyx_t_1 = ((PyObject *)__pyx_f_5utils_8cy_utils_8vec2d_cy_7Vec2dCy__inplace_operator_handler(__pyx_v_self, __pyx_v_other, __pyx_v_f, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -5642,7 +5642,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_35_inpl
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy._inplace_operator_handler", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy._inplace_operator_handler", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5650,7 +5650,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_35_inpl
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":160
+/* "utils/cy_utils/vec2d_cy.pyx":160
  *         return self
  * 
  *     def __div__(self, other):             # <<<<<<<<<<<<<<
@@ -5660,12 +5660,12 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_35_inpl
 
 /* Python wrapper */
 #if PY_MAJOR_VERSION < 3 || (CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX < 0x03050000)
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_38__div__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_38__div__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_38__div__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_38__div__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__div__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_37__div__(((PyObject *)__pyx_v_self), ((PyObject *)__pyx_v_other));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_37__div__(((PyObject *)__pyx_v_self), ((PyObject *)__pyx_v_other));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
@@ -5674,7 +5674,7 @@ static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_38__div
 #endif /*!(#if PY_MAJOR_VERSION < 3 || (CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX < 0x03050000))*/
 
 #if PY_MAJOR_VERSION < 3 || (CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX < 0x03050000)
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_37__div__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_37__div__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5685,7 +5685,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_37__div
   PyObject *__pyx_t_6 = NULL;
   __Pyx_RefNannySetupContext("__div__", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":161
+  /* "utils/cy_utils/vec2d_cy.pyx":161
  * 
  *     def __div__(self, other):
  *         return self._operator_handler(other, operator.div)             # <<<<<<<<<<<<<<
@@ -5751,7 +5751,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_37__div
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":160
+  /* "utils/cy_utils/vec2d_cy.pyx":160
  *         return self
  * 
  *     def __div__(self, other):             # <<<<<<<<<<<<<<
@@ -5766,7 +5766,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_37__div
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__div__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__div__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5775,7 +5775,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_37__div
 }
 #endif /*!(#if PY_MAJOR_VERSION < 3 || (CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX < 0x03050000))*/
 
-/* "environment/cy_entities/vec2d_cy.pyx":163
+/* "utils/cy_utils/vec2d_cy.pyx":163
  *         return self._operator_handler(other, operator.div)
  * 
  *     def __rdiv__(self, other):             # <<<<<<<<<<<<<<
@@ -5784,26 +5784,26 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_37__div
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_40__rdiv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_40__rdiv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_40__rdiv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_40__rdiv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__rdiv__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_39__rdiv__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v_other));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_39__rdiv__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v_other));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_39__rdiv__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_39__rdiv__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("__rdiv__", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":164
+  /* "utils/cy_utils/vec2d_cy.pyx":164
  * 
  *     def __rdiv__(self, other):
  *         return self._right_operator_handler(other, operator.div)             # <<<<<<<<<<<<<<
@@ -5816,14 +5816,14 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_39__rdi
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_div); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 164, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = ((PyObject *)((struct __pyx_vtabstruct_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self->__pyx_vtab)->_right_operator_handler(__pyx_v_self, __pyx_v_other, __pyx_t_2, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 164, __pyx_L1_error)
+  __pyx_t_1 = ((PyObject *)((struct __pyx_vtabstruct_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self->__pyx_vtab)->_right_operator_handler(__pyx_v_self, __pyx_v_other, __pyx_t_2, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 164, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":163
+  /* "utils/cy_utils/vec2d_cy.pyx":163
  *         return self._operator_handler(other, operator.div)
  * 
  *     def __rdiv__(self, other):             # <<<<<<<<<<<<<<
@@ -5835,7 +5835,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_39__rdi
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__rdiv__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__rdiv__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5843,7 +5843,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_39__rdi
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":166
+/* "utils/cy_utils/vec2d_cy.pyx":166
  *         return self._right_operator_handler(other, operator.div)
  * 
  *     def __idiv__(self, other):             # <<<<<<<<<<<<<<
@@ -5853,12 +5853,12 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_39__rdi
 
 /* Python wrapper */
 #if PY_MAJOR_VERSION < 3 || (CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX < 0x03050000)
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_42__idiv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_42__idiv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_42__idiv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_42__idiv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__idiv__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_41__idiv__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v_other));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_41__idiv__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v_other));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
@@ -5867,14 +5867,14 @@ static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_42__idi
 #endif /*!(#if PY_MAJOR_VERSION < 3 || (CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX < 0x03050000))*/
 
 #if PY_MAJOR_VERSION < 3 || (CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX < 0x03050000)
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_41__idiv__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_41__idiv__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("__idiv__", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":167
+  /* "utils/cy_utils/vec2d_cy.pyx":167
  * 
  *     def __idiv__(self, other):
  *         return self._inplace_operator_handler(other, operator.div)             # <<<<<<<<<<<<<<
@@ -5887,14 +5887,14 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_41__idi
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_div); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 167, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = ((PyObject *)((struct __pyx_vtabstruct_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self->__pyx_vtab)->_inplace_operator_handler(__pyx_v_self, __pyx_v_other, __pyx_t_2, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 167, __pyx_L1_error)
+  __pyx_t_1 = ((PyObject *)((struct __pyx_vtabstruct_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self->__pyx_vtab)->_inplace_operator_handler(__pyx_v_self, __pyx_v_other, __pyx_t_2, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 167, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":166
+  /* "utils/cy_utils/vec2d_cy.pyx":166
  *         return self._right_operator_handler(other, operator.div)
  * 
  *     def __idiv__(self, other):             # <<<<<<<<<<<<<<
@@ -5906,7 +5906,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_41__idi
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__idiv__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__idiv__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5915,7 +5915,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_41__idi
 }
 #endif /*!(#if PY_MAJOR_VERSION < 3 || (CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX < 0x03050000))*/
 
-/* "environment/cy_entities/vec2d_cy.pyx":169
+/* "utils/cy_utils/vec2d_cy.pyx":169
  *         return self._inplace_operator_handler(other, operator.div)
  * 
  *     def __floordiv__(self, other):             # <<<<<<<<<<<<<<
@@ -5924,19 +5924,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_41__idi
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_44__floordiv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_44__floordiv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_44__floordiv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_44__floordiv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__floordiv__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_43__floordiv__(((PyObject *)__pyx_v_self), ((PyObject *)__pyx_v_other));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_43__floordiv__(((PyObject *)__pyx_v_self), ((PyObject *)__pyx_v_other));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_43__floordiv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_43__floordiv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5947,7 +5947,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_43__flo
   PyObject *__pyx_t_6 = NULL;
   __Pyx_RefNannySetupContext("__floordiv__", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":170
+  /* "utils/cy_utils/vec2d_cy.pyx":170
  * 
  *     def __floordiv__(self, other):
  *         return self._operator_handler(other, operator.floordiv)             # <<<<<<<<<<<<<<
@@ -6013,7 +6013,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_43__flo
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":169
+  /* "utils/cy_utils/vec2d_cy.pyx":169
  *         return self._inplace_operator_handler(other, operator.div)
  * 
  *     def __floordiv__(self, other):             # <<<<<<<<<<<<<<
@@ -6028,7 +6028,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_43__flo
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__floordiv__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__floordiv__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6036,7 +6036,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_43__flo
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":172
+/* "utils/cy_utils/vec2d_cy.pyx":172
  *         return self._operator_handler(other, operator.floordiv)
  * 
  *     def __rfloordiv__(self, other):             # <<<<<<<<<<<<<<
@@ -6045,26 +6045,26 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_43__flo
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_46__rfloordiv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_46__rfloordiv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_46__rfloordiv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_46__rfloordiv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__rfloordiv__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_45__rfloordiv__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v_other));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_45__rfloordiv__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v_other));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_45__rfloordiv__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_45__rfloordiv__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("__rfloordiv__", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":173
+  /* "utils/cy_utils/vec2d_cy.pyx":173
  * 
  *     def __rfloordiv__(self, other):
  *         return self._right_operator_handler(other, operator.floordiv)             # <<<<<<<<<<<<<<
@@ -6077,14 +6077,14 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_45__rfl
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_floordiv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 173, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = ((PyObject *)((struct __pyx_vtabstruct_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self->__pyx_vtab)->_right_operator_handler(__pyx_v_self, __pyx_v_other, __pyx_t_2, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 173, __pyx_L1_error)
+  __pyx_t_1 = ((PyObject *)((struct __pyx_vtabstruct_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self->__pyx_vtab)->_right_operator_handler(__pyx_v_self, __pyx_v_other, __pyx_t_2, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 173, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":172
+  /* "utils/cy_utils/vec2d_cy.pyx":172
  *         return self._operator_handler(other, operator.floordiv)
  * 
  *     def __rfloordiv__(self, other):             # <<<<<<<<<<<<<<
@@ -6096,7 +6096,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_45__rfl
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__rfloordiv__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__rfloordiv__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6104,7 +6104,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_45__rfl
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":175
+/* "utils/cy_utils/vec2d_cy.pyx":175
  *         return self._right_operator_handler(other, operator.floordiv)
  * 
  *     def __ifloordiv__(self, other):             # <<<<<<<<<<<<<<
@@ -6113,26 +6113,26 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_45__rfl
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_48__ifloordiv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_48__ifloordiv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_48__ifloordiv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_48__ifloordiv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__ifloordiv__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_47__ifloordiv__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v_other));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_47__ifloordiv__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v_other));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_47__ifloordiv__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_47__ifloordiv__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("__ifloordiv__", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":176
+  /* "utils/cy_utils/vec2d_cy.pyx":176
  * 
  *     def __ifloordiv__(self, other):
  *         return self._inplace_operator_handler(other, operator.floordiv)             # <<<<<<<<<<<<<<
@@ -6145,14 +6145,14 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_47__ifl
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_floordiv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 176, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = ((PyObject *)((struct __pyx_vtabstruct_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self->__pyx_vtab)->_inplace_operator_handler(__pyx_v_self, __pyx_v_other, __pyx_t_2, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 176, __pyx_L1_error)
+  __pyx_t_1 = ((PyObject *)((struct __pyx_vtabstruct_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self->__pyx_vtab)->_inplace_operator_handler(__pyx_v_self, __pyx_v_other, __pyx_t_2, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 176, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":175
+  /* "utils/cy_utils/vec2d_cy.pyx":175
  *         return self._right_operator_handler(other, operator.floordiv)
  * 
  *     def __ifloordiv__(self, other):             # <<<<<<<<<<<<<<
@@ -6164,7 +6164,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_47__ifl
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__ifloordiv__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__ifloordiv__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6172,7 +6172,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_47__ifl
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":178
+/* "utils/cy_utils/vec2d_cy.pyx":178
  *         return self._inplace_operator_handler(other, operator.floordiv)
  * 
  *     def __truediv__(self, other):             # <<<<<<<<<<<<<<
@@ -6181,19 +6181,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_47__ifl
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_50__truediv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_50__truediv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_50__truediv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_50__truediv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__truediv__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_49__truediv__(((PyObject *)__pyx_v_self), ((PyObject *)__pyx_v_other));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_49__truediv__(((PyObject *)__pyx_v_self), ((PyObject *)__pyx_v_other));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_49__truediv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_49__truediv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6204,7 +6204,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_49__tru
   PyObject *__pyx_t_6 = NULL;
   __Pyx_RefNannySetupContext("__truediv__", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":179
+  /* "utils/cy_utils/vec2d_cy.pyx":179
  * 
  *     def __truediv__(self, other):
  *         return self._operator_handler(other, operator.truediv)             # <<<<<<<<<<<<<<
@@ -6270,7 +6270,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_49__tru
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":178
+  /* "utils/cy_utils/vec2d_cy.pyx":178
  *         return self._inplace_operator_handler(other, operator.floordiv)
  * 
  *     def __truediv__(self, other):             # <<<<<<<<<<<<<<
@@ -6285,7 +6285,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_49__tru
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__truediv__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__truediv__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6293,7 +6293,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_49__tru
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":181
+/* "utils/cy_utils/vec2d_cy.pyx":181
  *         return self._operator_handler(other, operator.truediv)
  * 
  *     def __rtruediv__(self, other):             # <<<<<<<<<<<<<<
@@ -6302,26 +6302,26 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_49__tru
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_52__rtruediv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_52__rtruediv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_52__rtruediv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_52__rtruediv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__rtruediv__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_51__rtruediv__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v_other));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_51__rtruediv__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v_other));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_51__rtruediv__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_51__rtruediv__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("__rtruediv__", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":182
+  /* "utils/cy_utils/vec2d_cy.pyx":182
  * 
  *     def __rtruediv__(self, other):
  *         return self._right_operator_handler(other, operator.truediv)             # <<<<<<<<<<<<<<
@@ -6334,14 +6334,14 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_51__rtr
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_truediv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 182, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = ((PyObject *)((struct __pyx_vtabstruct_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self->__pyx_vtab)->_right_operator_handler(__pyx_v_self, __pyx_v_other, __pyx_t_2, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 182, __pyx_L1_error)
+  __pyx_t_1 = ((PyObject *)((struct __pyx_vtabstruct_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self->__pyx_vtab)->_right_operator_handler(__pyx_v_self, __pyx_v_other, __pyx_t_2, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 182, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":181
+  /* "utils/cy_utils/vec2d_cy.pyx":181
  *         return self._operator_handler(other, operator.truediv)
  * 
  *     def __rtruediv__(self, other):             # <<<<<<<<<<<<<<
@@ -6353,7 +6353,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_51__rtr
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__rtruediv__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__rtruediv__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6361,7 +6361,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_51__rtr
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":184
+/* "utils/cy_utils/vec2d_cy.pyx":184
  *         return self._right_operator_handler(other, operator.truediv)
  * 
  *     def __itruediv__(self, other):             # <<<<<<<<<<<<<<
@@ -6370,26 +6370,26 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_51__rtr
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_54__itruediv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_54__itruediv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_54__itruediv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_54__itruediv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__itruediv__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_53__itruediv__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v_other));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_53__itruediv__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v_other));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_53__itruediv__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_53__itruediv__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_other) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("__itruediv__", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":185
+  /* "utils/cy_utils/vec2d_cy.pyx":185
  * 
  *     def __itruediv__(self, other):
  *         return self._inplace_operator_handler(other, operator.truediv)             # <<<<<<<<<<<<<<
@@ -6402,14 +6402,14 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_53__itr
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_truediv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 185, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = ((PyObject *)((struct __pyx_vtabstruct_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self->__pyx_vtab)->_inplace_operator_handler(__pyx_v_self, __pyx_v_other, __pyx_t_2, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 185, __pyx_L1_error)
+  __pyx_t_1 = ((PyObject *)((struct __pyx_vtabstruct_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self->__pyx_vtab)->_inplace_operator_handler(__pyx_v_self, __pyx_v_other, __pyx_t_2, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 185, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":184
+  /* "utils/cy_utils/vec2d_cy.pyx":184
  *         return self._right_operator_handler(other, operator.truediv)
  * 
  *     def __itruediv__(self, other):             # <<<<<<<<<<<<<<
@@ -6421,7 +6421,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_53__itr
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__itruediv__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__itruediv__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6429,7 +6429,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_53__itr
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":187
+/* "utils/cy_utils/vec2d_cy.pyx":187
  *         return self._inplace_operator_handler(other, operator.truediv)
  * 
  *     def __neg__(self):             # <<<<<<<<<<<<<<
@@ -6438,19 +6438,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_53__itr
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_56__neg__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_56__neg__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_56__neg__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_56__neg__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__neg__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_55__neg__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_55__neg__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_55__neg__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_55__neg__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6460,7 +6460,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_55__neg
   PyObject *__pyx_t_5 = NULL;
   __Pyx_RefNannySetupContext("__neg__", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":188
+  /* "utils/cy_utils/vec2d_cy.pyx":188
  * 
  *     def __neg__(self):
  *         return Vec2dCy(operator.neg(self.x), operator.neg(self.y))             # <<<<<<<<<<<<<<
@@ -6522,14 +6522,14 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_55__neg
   PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_3);
   __pyx_t_1 = 0;
   __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 188, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy), __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 188, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_r = __pyx_t_3;
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":187
+  /* "utils/cy_utils/vec2d_cy.pyx":187
  *         return self._inplace_operator_handler(other, operator.truediv)
  * 
  *     def __neg__(self):             # <<<<<<<<<<<<<<
@@ -6544,7 +6544,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_55__neg
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__neg__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__neg__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6552,7 +6552,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_55__neg
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":190
+/* "utils/cy_utils/vec2d_cy.pyx":190
  *         return Vec2dCy(operator.neg(self.x), operator.neg(self.y))
  * 
  *     def __pos__(self):             # <<<<<<<<<<<<<<
@@ -6561,19 +6561,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_55__neg
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_58__pos__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_58__pos__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_58__pos__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_58__pos__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__pos__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_57__pos__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_57__pos__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_57__pos__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_57__pos__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6583,7 +6583,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_57__pos
   PyObject *__pyx_t_5 = NULL;
   __Pyx_RefNannySetupContext("__pos__", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":191
+  /* "utils/cy_utils/vec2d_cy.pyx":191
  * 
  *     def __pos__(self):
  *         return Vec2dCy(operator.pos(self.x), operator.pos(self.y))             # <<<<<<<<<<<<<<
@@ -6645,14 +6645,14 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_57__pos
   PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_3);
   __pyx_t_1 = 0;
   __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 191, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy), __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_r = __pyx_t_3;
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":190
+  /* "utils/cy_utils/vec2d_cy.pyx":190
  *         return Vec2dCy(operator.neg(self.x), operator.neg(self.y))
  * 
  *     def __pos__(self):             # <<<<<<<<<<<<<<
@@ -6667,7 +6667,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_57__pos
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__pos__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__pos__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6675,7 +6675,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_57__pos
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":193
+/* "utils/cy_utils/vec2d_cy.pyx":193
  *         return Vec2dCy(operator.pos(self.x), operator.pos(self.y))
  * 
  *     def __abs__(self):             # <<<<<<<<<<<<<<
@@ -6684,19 +6684,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_57__pos
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_60__abs__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_60__abs__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_60__abs__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_60__abs__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__abs__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_59__abs__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_59__abs__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_59__abs__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_59__abs__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6704,7 +6704,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_59__abs
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("__abs__", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":194
+  /* "utils/cy_utils/vec2d_cy.pyx":194
  * 
  *     def __abs__(self):
  *         return Vec2dCy(abs(self.x), abs(self.y))             # <<<<<<<<<<<<<<
@@ -6724,14 +6724,14 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_59__abs
   PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_2);
   __pyx_t_1 = 0;
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 194, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy), __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 194, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":193
+  /* "utils/cy_utils/vec2d_cy.pyx":193
  *         return Vec2dCy(operator.pos(self.x), operator.pos(self.y))
  * 
  *     def __abs__(self):             # <<<<<<<<<<<<<<
@@ -6744,7 +6744,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_59__abs
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__abs__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__abs__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6752,7 +6752,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_59__abs
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":196
+/* "utils/cy_utils/vec2d_cy.pyx":196
  *         return Vec2dCy(abs(self.x), abs(self.y))
  * 
  *     def __invert__(self):             # <<<<<<<<<<<<<<
@@ -6761,19 +6761,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_59__abs
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_62__invert__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_62__invert__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_62__invert__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_62__invert__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__invert__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_61__invert__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_61__invert__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_61__invert__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_61__invert__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6781,7 +6781,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_61__inv
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("__invert__", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":197
+  /* "utils/cy_utils/vec2d_cy.pyx":197
  * 
  *     def __invert__(self):
  *         return Vec2dCy(-self.x, -self.y)             # <<<<<<<<<<<<<<
@@ -6801,14 +6801,14 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_61__inv
   PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_2);
   __pyx_t_1 = 0;
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy), __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 197, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":196
+  /* "utils/cy_utils/vec2d_cy.pyx":196
  *         return Vec2dCy(abs(self.x), abs(self.y))
  * 
  *     def __invert__(self):             # <<<<<<<<<<<<<<
@@ -6821,7 +6821,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_61__inv
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__invert__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__invert__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6829,7 +6829,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_61__inv
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":199
+/* "utils/cy_utils/vec2d_cy.pyx":199
  *         return Vec2dCy(-self.x, -self.y)
  * 
  *     def __round__(self, n=0):             # <<<<<<<<<<<<<<
@@ -6838,8 +6838,8 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_61__inv
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_64__round__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_64__round__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_64__round__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_64__round__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_n = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -6882,18 +6882,18 @@ static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_64__rou
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("__round__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 199, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__round__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__round__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_63__round__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self), __pyx_v_n);
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_63__round__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self), __pyx_v_n);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_63__round__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_n) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_63__round__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_n) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6901,7 +6901,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_63__rou
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("__round__", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":200
+  /* "utils/cy_utils/vec2d_cy.pyx":200
  * 
  *     def __round__(self, n=0):
  *         return Vec2dCy(round(self.x, n), round(self.y, n))             # <<<<<<<<<<<<<<
@@ -6943,14 +6943,14 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_63__rou
   PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_2);
   __pyx_t_1 = 0;
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 200, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy), __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 200, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":199
+  /* "utils/cy_utils/vec2d_cy.pyx":199
  *         return Vec2dCy(-self.x, -self.y)
  * 
  *     def __round__(self, n=0):             # <<<<<<<<<<<<<<
@@ -6963,7 +6963,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_63__rou
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__round__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__round__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6971,7 +6971,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_63__rou
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":202
+/* "utils/cy_utils/vec2d_cy.pyx":202
  *         return Vec2dCy(round(self.x, n), round(self.y, n))
  * 
  *     cpdef float get_angle(self):             # <<<<<<<<<<<<<<
@@ -6979,8 +6979,8 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_63__rou
  * 
  */
 
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_66get_angle(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static float __pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_get_angle(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, int __pyx_skip_dispatch) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_66get_angle(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static float __pyx_f_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_get_angle(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, int __pyx_skip_dispatch) {
   float __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -7004,7 +7004,7 @@ static float __pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_get_angle(st
       #endif
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_angle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 202, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_66get_angle)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_66get_angle)) {
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
         if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
@@ -7040,14 +7040,14 @@ static float __pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_get_angle(st
     #endif
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":203
+  /* "utils/cy_utils/vec2d_cy.pyx":203
  * 
  *     cpdef float get_angle(self):
  *         return 0 if self.get_length() == 0 else math.atan2(self.y, self.x)             # <<<<<<<<<<<<<<
  * 
  *     cpdef float get_length(self):
  */
-  if (((((struct __pyx_vtabstruct_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self->__pyx_vtab)->get_length(__pyx_v_self, 0) == 0.0) != 0)) {
+  if (((((struct __pyx_vtabstruct_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self->__pyx_vtab)->get_length(__pyx_v_self, 0) == 0.0) != 0)) {
     __pyx_t_5 = 0.0;
   } else {
     __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_math); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 203, __pyx_L1_error)
@@ -7115,7 +7115,7 @@ static float __pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_get_angle(st
   __pyx_r = __pyx_t_5;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":202
+  /* "utils/cy_utils/vec2d_cy.pyx":202
  *         return Vec2dCy(round(self.x, n), round(self.y, n))
  * 
  *     cpdef float get_angle(self):             # <<<<<<<<<<<<<<
@@ -7131,7 +7131,7 @@ static float __pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_get_angle(st
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_WriteUnraisable("environment.cy_entities.vec2d_cy.Vec2dCy.get_angle", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __Pyx_WriteUnraisable("utils.cy_utils.vec2d_cy.Vec2dCy.get_angle", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -7139,25 +7139,25 @@ static float __pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_get_angle(st
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_66get_angle(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_66get_angle(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_66get_angle(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_66get_angle(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_angle (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_65get_angle(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_65get_angle(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_65get_angle(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_65get_angle(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_angle", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_get_angle(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 202, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_f_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_get_angle(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 202, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -7166,7 +7166,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_65get_a
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.get_angle", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.get_angle", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -7174,7 +7174,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_65get_a
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":205
+/* "utils/cy_utils/vec2d_cy.pyx":205
  *         return 0 if self.get_length() == 0 else math.atan2(self.y, self.x)
  * 
  *     cpdef float get_length(self):             # <<<<<<<<<<<<<<
@@ -7182,8 +7182,8 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_65get_a
  * 
  */
 
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_68get_length(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static float __pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_get_length(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, int __pyx_skip_dispatch) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_68get_length(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static float __pyx_f_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_get_length(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, int __pyx_skip_dispatch) {
   float __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -7203,7 +7203,7 @@ static float __pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_get_length(s
       #endif
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 205, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_68get_length)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_68get_length)) {
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
         if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
@@ -7239,7 +7239,7 @@ static float __pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_get_length(s
     #endif
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":206
+  /* "utils/cy_utils/vec2d_cy.pyx":206
  * 
  *     cpdef float get_length(self):
  *         return math.sqrt(self.x ** 2 + self.y ** 2)             # <<<<<<<<<<<<<<
@@ -7274,7 +7274,7 @@ static float __pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_get_length(s
   __pyx_r = __pyx_t_5;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":205
+  /* "utils/cy_utils/vec2d_cy.pyx":205
  *         return 0 if self.get_length() == 0 else math.atan2(self.y, self.x)
  * 
  *     cpdef float get_length(self):             # <<<<<<<<<<<<<<
@@ -7288,7 +7288,7 @@ static float __pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_get_length(s
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_WriteUnraisable("environment.cy_entities.vec2d_cy.Vec2dCy.get_length", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __Pyx_WriteUnraisable("utils.cy_utils.vec2d_cy.Vec2dCy.get_length", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -7296,25 +7296,25 @@ static float __pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_get_length(s
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_68get_length(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_68get_length(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_68get_length(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_68get_length(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_length (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_67get_length(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_67get_length(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_67get_length(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_67get_length(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_length", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_get_length(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 205, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_f_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_get_length(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 205, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -7323,7 +7323,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_67get_l
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.get_length", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.get_length", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -7331,7 +7331,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_67get_l
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":208
+/* "utils/cy_utils/vec2d_cy.pyx":208
  *         return math.sqrt(self.x ** 2 + self.y ** 2)
  * 
  *     cpdef Vec2dCy normalized(self):             # <<<<<<<<<<<<<<
@@ -7339,9 +7339,9 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_67get_l
  * 
  */
 
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_70normalized(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_normalized(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, int __pyx_skip_dispatch) {
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_r = NULL;
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_70normalized(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_f_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_normalized(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, int __pyx_skip_dispatch) {
+  struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
@@ -7359,7 +7359,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
       #endif
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_normalized); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 208, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_70normalized)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_70normalized)) {
         __Pyx_XDECREF(((PyObject *)__pyx_r));
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
@@ -7377,8 +7377,8 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
         if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 208, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy))))) __PYX_ERR(0, 208, __pyx_L1_error)
-        __pyx_r = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_2);
+        if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy))))) __PYX_ERR(0, 208, __pyx_L1_error)
+        __pyx_r = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_t_2);
         __pyx_t_2 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         goto __pyx_L0;
@@ -7396,7 +7396,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
     #endif
   }
 
-  /* "environment/cy_entities/vec2d_cy.pyx":209
+  /* "utils/cy_utils/vec2d_cy.pyx":209
  * 
  *     cpdef Vec2dCy normalized(self):
  *         return self / self.get_length() if self.get_length() != 0 else Vec2dCy(self)             # <<<<<<<<<<<<<<
@@ -7404,26 +7404,26 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
  * cpdef Vec2dCy angle_to_vec(float angle):
  */
   __Pyx_XDECREF(((PyObject *)__pyx_r));
-  if (((((struct __pyx_vtabstruct_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self->__pyx_vtab)->get_length(__pyx_v_self, 0) != 0.0) != 0)) {
-    __pyx_t_2 = PyFloat_FromDouble(((struct __pyx_vtabstruct_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self->__pyx_vtab)->get_length(__pyx_v_self, 0)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 209, __pyx_L1_error)
+  if (((((struct __pyx_vtabstruct_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self->__pyx_vtab)->get_length(__pyx_v_self, 0) != 0.0) != 0)) {
+    __pyx_t_2 = PyFloat_FromDouble(((struct __pyx_vtabstruct_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self->__pyx_vtab)->get_length(__pyx_v_self, 0)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 209, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_3 = __Pyx_PyNumber_Divide(((PyObject *)__pyx_v_self), __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 209, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy))))) __PYX_ERR(0, 209, __pyx_L1_error)
+    if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy))))) __PYX_ERR(0, 209, __pyx_L1_error)
     __pyx_t_1 = __pyx_t_3;
     __pyx_t_3 = 0;
   } else {
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), ((PyObject *)__pyx_v_self)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 209, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy), ((PyObject *)__pyx_v_self)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 209, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_1 = __pyx_t_3;
     __pyx_t_3 = 0;
   }
-  __pyx_r = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_1);
+  __pyx_r = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_t_1);
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":208
+  /* "utils/cy_utils/vec2d_cy.pyx":208
  *         return math.sqrt(self.x ** 2 + self.y ** 2)
  * 
  *     cpdef Vec2dCy normalized(self):             # <<<<<<<<<<<<<<
@@ -7437,7 +7437,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.normalized", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.normalized", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XGIVEREF((PyObject *)__pyx_r);
@@ -7446,25 +7446,25 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_70normalized(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_70normalized(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_70normalized(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_70normalized(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("normalized (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_69normalized(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_69normalized(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_69normalized(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_69normalized(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("normalized", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = ((PyObject *)__pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_normalized(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 208, __pyx_L1_error)
+  __pyx_t_1 = ((PyObject *)__pyx_f_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_normalized(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 208, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -7473,7 +7473,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_69norma
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.normalized", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.normalized", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -7481,7 +7481,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_69norma
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pxd":8
+/* "utils/cy_utils/vec2d_cy.pxd":8
  * 
  * cdef class Vec2dCy:
  *     cdef public float x, y             # <<<<<<<<<<<<<<
@@ -7490,19 +7490,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_69norma
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1x_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1x_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_1x_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_1x_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1x___get__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_1x___get__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1x___get__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_1x___get__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -7517,7 +7517,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1x___ge
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.x.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.x.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -7526,19 +7526,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1x___ge
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1x_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1x_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_1x_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_1x_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1x_2__set__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_1x_2__set__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1x_2__set__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_1x_2__set__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   float __pyx_t_1;
@@ -7550,7 +7550,7 @@ static int __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1x_2__set__(s
   __pyx_r = 0;
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.x.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.x.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -7558,19 +7558,19 @@ static int __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1x_2__set__(s
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1y_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1y_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_1y_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_1y_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1y___get__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_1y___get__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1y___get__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_1y___get__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -7585,7 +7585,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1y___ge
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.y.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.y.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -7594,19 +7594,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1y___ge
 }
 
 /* Python wrapper */
-static int __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1y_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
-static int __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1y_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_1y_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_1y_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1y_2__set__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_1y_2__set__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1y_2__set__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_value) {
+static int __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_1y_2__set__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   float __pyx_t_1;
@@ -7618,7 +7618,7 @@ static int __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1y_2__set__(s
   __pyx_r = 0;
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.y.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.y.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -7632,19 +7632,19 @@ static int __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1y_2__set__(s
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_72__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_72__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_72__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_72__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_71__reduce_cython__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_71__reduce_cython__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_71__reduce_cython__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_71__reduce_cython__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self) {
   PyObject *__pyx_v_state = 0;
   PyObject *__pyx_v__dict = 0;
   int __pyx_v_use_setstate;
@@ -7852,7 +7852,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_71__red
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_state);
@@ -7870,19 +7870,19 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_71__red
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_74__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_74__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_74__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_74__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_73__setstate_cython__(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_73__setstate_cython__(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_73__setstate_cython__(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_73__setstate_cython__(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -7894,7 +7894,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_73__set
  *     __pyx_unpickle_Vec2dCy__set_state(self, __pyx_state)             # <<<<<<<<<<<<<<
  */
   if (!(likely(PyTuple_CheckExact(__pyx_v___pyx_state))||((__pyx_v___pyx_state) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "tuple", Py_TYPE(__pyx_v___pyx_state)->tp_name), 0))) __PYX_ERR(2, 17, __pyx_L1_error)
-  __pyx_t_1 = __pyx_f_11environment_11cy_entities_8vec2d_cy___pyx_unpickle_Vec2dCy__set_state(__pyx_v_self, ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 17, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_5utils_8cy_utils_8vec2d_cy___pyx_unpickle_Vec2dCy__set_state(__pyx_v_self, ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
@@ -7910,7 +7910,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_73__set
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.Vec2dCy.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.Vec2dCy.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -7918,7 +7918,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_73__set
   return __pyx_r;
 }
 
-/* "environment/cy_entities/vec2d_cy.pyx":211
+/* "utils/cy_utils/vec2d_cy.pyx":211
  *         return self / self.get_length() if self.get_length() != 0 else Vec2dCy(self)
  * 
  * cpdef Vec2dCy angle_to_vec(float angle):             # <<<<<<<<<<<<<<
@@ -7926,9 +7926,9 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_73__set
  *     Transform an angle to a normalized vector.
  */
 
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_1angle_to_vec(PyObject *__pyx_self, PyObject *__pyx_arg_angle); /*proto*/
-static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_11environment_11cy_entities_8vec2d_cy_angle_to_vec(float __pyx_v_angle, CYTHON_UNUSED int __pyx_skip_dispatch) {
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_r = NULL;
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_1angle_to_vec(PyObject *__pyx_self, PyObject *__pyx_arg_angle); /*proto*/
+static struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_f_5utils_8cy_utils_8vec2d_cy_angle_to_vec(float __pyx_v_angle, CYTHON_UNUSED int __pyx_skip_dispatch) {
+  struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
@@ -7937,7 +7937,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
   PyObject *__pyx_t_5 = NULL;
   __Pyx_RefNannySetupContext("angle_to_vec", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":218
+  /* "utils/cy_utils/vec2d_cy.pyx":218
  *     :return: Vec2dCy
  *     """
  *     return Vec2dCy(np.cos(angle), np.sin(angle))             # <<<<<<<<<<<<<<
@@ -7997,14 +7997,14 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
   PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_3);
   __pyx_t_1 = 0;
   __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 218, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy), __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 218, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_r = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_t_3);
+  __pyx_r = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_t_3);
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":211
+  /* "utils/cy_utils/vec2d_cy.pyx":211
  *         return self / self.get_length() if self.get_length() != 0 else Vec2dCy(self)
  * 
  * cpdef Vec2dCy angle_to_vec(float angle):             # <<<<<<<<<<<<<<
@@ -8019,7 +8019,7 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.angle_to_vec", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.angle_to_vec", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XGIVEREF((PyObject *)__pyx_r);
@@ -8028,9 +8028,9 @@ static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_f_1
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_1angle_to_vec(PyObject *__pyx_self, PyObject *__pyx_arg_angle); /*proto*/
-static char __pyx_doc_11environment_11cy_entities_8vec2d_cy_angle_to_vec[] = "\n    Transform an angle to a normalized vector.\n\n    :param angle: Float\n    :return: Vec2dCy\n    ";
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_1angle_to_vec(PyObject *__pyx_self, PyObject *__pyx_arg_angle) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_1angle_to_vec(PyObject *__pyx_self, PyObject *__pyx_arg_angle); /*proto*/
+static char __pyx_doc_5utils_8cy_utils_8vec2d_cy_angle_to_vec[] = "\n    Transform an angle to a normalized vector.\n\n    :param angle: Float\n    :return: Vec2dCy\n    ";
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_1angle_to_vec(PyObject *__pyx_self, PyObject *__pyx_arg_angle) {
   float __pyx_v_angle;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -8040,24 +8040,24 @@ static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_1angle_to_vec(Py
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.angle_to_vec", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.angle_to_vec", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_angle_to_vec(__pyx_self, ((float)__pyx_v_angle));
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_angle_to_vec(__pyx_self, ((float)__pyx_v_angle));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_angle_to_vec(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_angle) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_angle_to_vec(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_angle) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("angle_to_vec", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = ((PyObject *)__pyx_f_11environment_11cy_entities_8vec2d_cy_angle_to_vec(__pyx_v_angle, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 211, __pyx_L1_error)
+  __pyx_t_1 = ((PyObject *)__pyx_f_5utils_8cy_utils_8vec2d_cy_angle_to_vec(__pyx_v_angle, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 211, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -8066,7 +8066,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_angle_to_vec(CYT
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.angle_to_vec", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.angle_to_vec", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -8081,9 +8081,9 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_angle_to_vec(CYT
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_3__pyx_unpickle_Vec2dCy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_11environment_11cy_entities_8vec2d_cy_3__pyx_unpickle_Vec2dCy = {"__pyx_unpickle_Vec2dCy", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_11environment_11cy_entities_8vec2d_cy_3__pyx_unpickle_Vec2dCy, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_3__pyx_unpickle_Vec2dCy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_3__pyx_unpickle_Vec2dCy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_5utils_8cy_utils_8vec2d_cy_3__pyx_unpickle_Vec2dCy = {"__pyx_unpickle_Vec2dCy", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5utils_8cy_utils_8vec2d_cy_3__pyx_unpickle_Vec2dCy, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_5utils_8cy_utils_8vec2d_cy_3__pyx_unpickle_Vec2dCy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v___pyx_type = 0;
   long __pyx_v___pyx_checksum;
   PyObject *__pyx_v___pyx_state = 0;
@@ -8142,18 +8142,18 @@ static PyObject *__pyx_pw_11environment_11cy_entities_8vec2d_cy_3__pyx_unpickle_
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_Vec2dCy", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 1, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.__pyx_unpickle_Vec2dCy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.__pyx_unpickle_Vec2dCy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11environment_11cy_entities_8vec2d_cy_2__pyx_unpickle_Vec2dCy(__pyx_self, __pyx_v___pyx_type, __pyx_v___pyx_checksum, __pyx_v___pyx_state);
+  __pyx_r = __pyx_pf_5utils_8cy_utils_8vec2d_cy_2__pyx_unpickle_Vec2dCy(__pyx_self, __pyx_v___pyx_type, __pyx_v___pyx_checksum, __pyx_v___pyx_state);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_2__pyx_unpickle_Vec2dCy(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_5utils_8cy_utils_8vec2d_cy_2__pyx_unpickle_Vec2dCy(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_v___pyx_PickleError = 0;
   PyObject *__pyx_v___pyx_result = 0;
   PyObject *__pyx_r = NULL;
@@ -8247,7 +8247,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_2__pyx_unpickle_
  *     if __pyx_state is not None:
  *         __pyx_unpickle_Vec2dCy__set_state(<Vec2dCy> __pyx_result, __pyx_state)
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy), __pyx_n_s_new); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 7, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy), __pyx_n_s_new); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -8286,7 +8286,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_2__pyx_unpickle_
  * cdef __pyx_unpickle_Vec2dCy__set_state(Vec2dCy __pyx_result, tuple __pyx_state):
  */
     if (!(likely(PyTuple_CheckExact(__pyx_v___pyx_state))||((__pyx_v___pyx_state) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "tuple", Py_TYPE(__pyx_v___pyx_state)->tp_name), 0))) __PYX_ERR(2, 9, __pyx_L1_error)
-    __pyx_t_3 = __pyx_f_11environment_11cy_entities_8vec2d_cy___pyx_unpickle_Vec2dCy__set_state(((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)__pyx_v___pyx_result), ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 9, __pyx_L1_error)
+    __pyx_t_3 = __pyx_f_5utils_8cy_utils_8vec2d_cy___pyx_unpickle_Vec2dCy__set_state(((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)__pyx_v___pyx_result), ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 9, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
@@ -8323,7 +8323,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_2__pyx_unpickle_
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.__pyx_unpickle_Vec2dCy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.__pyx_unpickle_Vec2dCy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v___pyx_PickleError);
@@ -8341,7 +8341,7 @@ static PyObject *__pyx_pf_11environment_11cy_entities_8vec2d_cy_2__pyx_unpickle_
  *     if len(__pyx_state) > 2 and hasattr(__pyx_result, '__dict__'):
  */
 
-static PyObject *__pyx_f_11environment_11cy_entities_8vec2d_cy___pyx_unpickle_Vec2dCy__set_state(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *__pyx_v___pyx_result, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_f_5utils_8cy_utils_8vec2d_cy___pyx_unpickle_Vec2dCy__set_state(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *__pyx_v___pyx_result, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -8462,17 +8462,17 @@ static PyObject *__pyx_f_11environment_11cy_entities_8vec2d_cy___pyx_unpickle_Ve
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_9);
-  __Pyx_AddTraceback("environment.cy_entities.vec2d_cy.__pyx_unpickle_Vec2dCy__set_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("utils.cy_utils.vec2d_cy.__pyx_unpickle_Vec2dCy__set_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
-static struct __pyx_vtabstruct_11environment_11cy_entities_8vec2d_cy_Vec2dCy __pyx_vtable_11environment_11cy_entities_8vec2d_cy_Vec2dCy;
+static struct __pyx_vtabstruct_5utils_8cy_utils_8vec2d_cy_Vec2dCy __pyx_vtable_5utils_8cy_utils_8vec2d_cy_Vec2dCy;
 
-static PyObject *__pyx_tp_new_11environment_11cy_entities_8vec2d_cy_Vec2dCy(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *p;
+static PyObject *__pyx_tp_new_5utils_8cy_utils_8vec2d_cy_Vec2dCy(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *p;
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -8480,12 +8480,12 @@ static PyObject *__pyx_tp_new_11environment_11cy_entities_8vec2d_cy_Vec2dCy(PyTy
     o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
   }
   if (unlikely(!o)) return 0;
-  p = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *)o);
-  p->__pyx_vtab = __pyx_vtabptr_11environment_11cy_entities_8vec2d_cy_Vec2dCy;
+  p = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *)o);
+  p->__pyx_vtab = __pyx_vtabptr_5utils_8cy_utils_8vec2d_cy_Vec2dCy;
   return o;
 }
 
-static void __pyx_tp_dealloc_11environment_11cy_entities_8vec2d_cy_Vec2dCy(PyObject *o) {
+static void __pyx_tp_dealloc_5utils_8cy_utils_8vec2d_cy_Vec2dCy(PyObject *o) {
   #if CYTHON_USE_TP_FINALIZE
   if (unlikely(PyType_HasFeature(Py_TYPE(o), Py_TPFLAGS_HAVE_FINALIZE) && Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
@@ -8493,7 +8493,7 @@ static void __pyx_tp_dealloc_11environment_11cy_entities_8vec2d_cy_Vec2dCy(PyObj
   #endif
   (*Py_TYPE(o)->tp_free)(o);
 }
-static PyObject *__pyx_sq_item_11environment_11cy_entities_8vec2d_cy_Vec2dCy(PyObject *o, Py_ssize_t i) {
+static PyObject *__pyx_sq_item_5utils_8cy_utils_8vec2d_cy_Vec2dCy(PyObject *o, Py_ssize_t i) {
   PyObject *r;
   PyObject *x = PyInt_FromSsize_t(i); if(!x) return 0;
   r = Py_TYPE(o)->tp_as_mapping->mp_subscript(o, x);
@@ -8501,9 +8501,9 @@ static PyObject *__pyx_sq_item_11environment_11cy_entities_8vec2d_cy_Vec2dCy(PyO
   return r;
 }
 
-static int __pyx_mp_ass_subscript_11environment_11cy_entities_8vec2d_cy_Vec2dCy(PyObject *o, PyObject *i, PyObject *v) {
+static int __pyx_mp_ass_subscript_5utils_8cy_utils_8vec2d_cy_Vec2dCy(PyObject *o, PyObject *i, PyObject *v) {
   if (v) {
-    return __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_5__setitem__(o, i, v);
+    return __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_5__setitem__(o, i, v);
   }
   else {
     PyErr_Format(PyExc_NotImplementedError,
@@ -8512,13 +8512,13 @@ static int __pyx_mp_ass_subscript_11environment_11cy_entities_8vec2d_cy_Vec2dCy(
   }
 }
 
-static PyObject *__pyx_tp_richcompare_11environment_11cy_entities_8vec2d_cy_Vec2dCy(PyObject *o1, PyObject *o2, int op) {
+static PyObject *__pyx_tp_richcompare_5utils_8cy_utils_8vec2d_cy_Vec2dCy(PyObject *o1, PyObject *o2, int op) {
   switch (op) {
     case Py_EQ: {
-      return __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_14__eq__(o1, o2);
+      return __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_14__eq__(o1, o2);
     }
     case Py_NE: {
-      return __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_16__ne__(o1, o2);
+      return __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_16__ne__(o1, o2);
     }
     default: {
       return __Pyx_NewRef(Py_NotImplemented);
@@ -8526,13 +8526,13 @@ static PyObject *__pyx_tp_richcompare_11environment_11cy_entities_8vec2d_cy_Vec2
   }
 }
 
-static PyObject *__pyx_getprop_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_x(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1x_1__get__(o);
+static PyObject *__pyx_getprop_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_x(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_1x_1__get__(o);
 }
 
-static int __pyx_setprop_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_x(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+static int __pyx_setprop_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_x(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
   if (v) {
-    return __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1x_3__set__(o, v);
+    return __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_1x_3__set__(o, v);
   }
   else {
     PyErr_SetString(PyExc_NotImplementedError, "__del__");
@@ -8540,13 +8540,13 @@ static int __pyx_setprop_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_x(PyObje
   }
 }
 
-static PyObject *__pyx_getprop_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_y(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1y_1__get__(o);
+static PyObject *__pyx_getprop_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_y(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_1y_1__get__(o);
 }
 
-static int __pyx_setprop_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_y(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+static int __pyx_setprop_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_y(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
   if (v) {
-    return __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1y_3__set__(o, v);
+    return __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_1y_3__set__(o, v);
   }
   else {
     PyErr_SetString(PyExc_NotImplementedError, "__del__");
@@ -8554,44 +8554,44 @@ static int __pyx_setprop_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_y(PyObje
   }
 }
 
-static PyMethodDef __pyx_methods_11environment_11cy_entities_8vec2d_cy_Vec2dCy[] = {
-  {"__rsub__", (PyCFunction)__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_24__rsub__, METH_O, 0},
-  {"_operator_handler", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_32_operator_handler, METH_VARARGS|METH_KEYWORDS, 0},
-  {"_right_operator_handler", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_34_right_operator_handler, METH_VARARGS|METH_KEYWORDS, 0},
-  {"_inplace_operator_handler", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_36_inplace_operator_handler, METH_VARARGS|METH_KEYWORDS, 0},
-  {"__rdiv__", (PyCFunction)__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_40__rdiv__, METH_O, 0},
-  {"__rfloordiv__", (PyCFunction)__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_46__rfloordiv__, METH_O, 0},
-  {"__rtruediv__", (PyCFunction)__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_52__rtruediv__, METH_O, 0},
-  {"__round__", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_64__round__, METH_VARARGS|METH_KEYWORDS, 0},
-  {"get_angle", (PyCFunction)__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_66get_angle, METH_NOARGS, 0},
-  {"get_length", (PyCFunction)__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_68get_length, METH_NOARGS, 0},
-  {"normalized", (PyCFunction)__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_70normalized, METH_NOARGS, 0},
-  {"__reduce_cython__", (PyCFunction)__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_72__reduce_cython__, METH_NOARGS, 0},
-  {"__setstate_cython__", (PyCFunction)__pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_74__setstate_cython__, METH_O, 0},
+static PyMethodDef __pyx_methods_5utils_8cy_utils_8vec2d_cy_Vec2dCy[] = {
+  {"__rsub__", (PyCFunction)__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_24__rsub__, METH_O, 0},
+  {"_operator_handler", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_32_operator_handler, METH_VARARGS|METH_KEYWORDS, 0},
+  {"_right_operator_handler", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_34_right_operator_handler, METH_VARARGS|METH_KEYWORDS, 0},
+  {"_inplace_operator_handler", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_36_inplace_operator_handler, METH_VARARGS|METH_KEYWORDS, 0},
+  {"__rdiv__", (PyCFunction)__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_40__rdiv__, METH_O, 0},
+  {"__rfloordiv__", (PyCFunction)__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_46__rfloordiv__, METH_O, 0},
+  {"__rtruediv__", (PyCFunction)__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_52__rtruediv__, METH_O, 0},
+  {"__round__", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_64__round__, METH_VARARGS|METH_KEYWORDS, 0},
+  {"get_angle", (PyCFunction)__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_66get_angle, METH_NOARGS, 0},
+  {"get_length", (PyCFunction)__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_68get_length, METH_NOARGS, 0},
+  {"normalized", (PyCFunction)__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_70normalized, METH_NOARGS, 0},
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_72__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_74__setstate_cython__, METH_O, 0},
   {0, 0, 0, 0}
 };
 
-static struct PyGetSetDef __pyx_getsets_11environment_11cy_entities_8vec2d_cy_Vec2dCy[] = {
-  {(char *)"x", __pyx_getprop_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_x, __pyx_setprop_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_x, (char *)0, 0},
-  {(char *)"y", __pyx_getprop_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_y, __pyx_setprop_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_y, (char *)0, 0},
+static struct PyGetSetDef __pyx_getsets_5utils_8cy_utils_8vec2d_cy_Vec2dCy[] = {
+  {(char *)"x", __pyx_getprop_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_x, __pyx_setprop_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_x, (char *)0, 0},
+  {(char *)"y", __pyx_getprop_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_y, __pyx_setprop_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_y, (char *)0, 0},
   {0, 0, 0, 0, 0}
 };
 
 static PyNumberMethods __pyx_tp_as_number_Vec2dCy = {
-  __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_18__add__, /*nb_add*/
-  __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_22__sub__, /*nb_subtract*/
-  __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_28__mul__, /*nb_multiply*/
+  __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_18__add__, /*nb_add*/
+  __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_22__sub__, /*nb_subtract*/
+  __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_28__mul__, /*nb_multiply*/
   #if PY_MAJOR_VERSION < 3 || (CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX < 0x03050000)
-  __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_38__div__, /*nb_divide*/
+  __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_38__div__, /*nb_divide*/
   #endif
   0, /*nb_remainder*/
   0, /*nb_divmod*/
   0, /*nb_power*/
-  __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_56__neg__, /*nb_negative*/
-  __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_58__pos__, /*nb_positive*/
-  __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_60__abs__, /*nb_absolute*/
+  __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_56__neg__, /*nb_negative*/
+  __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_58__pos__, /*nb_positive*/
+  __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_60__abs__, /*nb_absolute*/
   0, /*nb_nonzero*/
-  __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_62__invert__, /*nb_invert*/
+  __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_62__invert__, /*nb_invert*/
   0, /*nb_lshift*/
   0, /*nb_rshift*/
   0, /*nb_and*/
@@ -8613,11 +8613,11 @@ static PyNumberMethods __pyx_tp_as_number_Vec2dCy = {
   #if PY_MAJOR_VERSION < 3 || (CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX < 0x03050000)
   0, /*nb_hex*/
   #endif
-  __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_20__iadd__, /*nb_inplace_add*/
-  __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_26__isub__, /*nb_inplace_subtract*/
-  __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_30__imul__, /*nb_inplace_multiply*/
+  __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_20__iadd__, /*nb_inplace_add*/
+  __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_26__isub__, /*nb_inplace_subtract*/
+  __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_30__imul__, /*nb_inplace_multiply*/
   #if PY_MAJOR_VERSION < 3 || (CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX < 0x03050000)
-  __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_42__idiv__, /*nb_inplace_divide*/
+  __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_42__idiv__, /*nb_inplace_divide*/
   #endif
   0, /*nb_inplace_remainder*/
   0, /*nb_inplace_power*/
@@ -8626,10 +8626,10 @@ static PyNumberMethods __pyx_tp_as_number_Vec2dCy = {
   0, /*nb_inplace_and*/
   0, /*nb_inplace_xor*/
   0, /*nb_inplace_or*/
-  __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_44__floordiv__, /*nb_floor_divide*/
-  __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_50__truediv__, /*nb_true_divide*/
-  __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_48__ifloordiv__, /*nb_inplace_floor_divide*/
-  __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_54__itruediv__, /*nb_inplace_true_divide*/
+  __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_44__floordiv__, /*nb_floor_divide*/
+  __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_50__truediv__, /*nb_true_divide*/
+  __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_48__ifloordiv__, /*nb_inplace_floor_divide*/
+  __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_54__itruediv__, /*nb_inplace_true_divide*/
   0, /*nb_index*/
   #if PY_VERSION_HEX >= 0x03050000
   0, /*nb_matrix_multiply*/
@@ -8640,10 +8640,10 @@ static PyNumberMethods __pyx_tp_as_number_Vec2dCy = {
 };
 
 static PySequenceMethods __pyx_tp_as_sequence_Vec2dCy = {
-  __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_10__len__, /*sq_length*/
+  __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_10__len__, /*sq_length*/
   0, /*sq_concat*/
   0, /*sq_repeat*/
-  __pyx_sq_item_11environment_11cy_entities_8vec2d_cy_Vec2dCy, /*sq_item*/
+  __pyx_sq_item_5utils_8cy_utils_8vec2d_cy_Vec2dCy, /*sq_item*/
   0, /*sq_slice*/
   0, /*sq_ass_item*/
   0, /*sq_ass_slice*/
@@ -8653,17 +8653,17 @@ static PySequenceMethods __pyx_tp_as_sequence_Vec2dCy = {
 };
 
 static PyMappingMethods __pyx_tp_as_mapping_Vec2dCy = {
-  __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_10__len__, /*mp_length*/
-  __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_3__getitem__, /*mp_subscript*/
-  __pyx_mp_ass_subscript_11environment_11cy_entities_8vec2d_cy_Vec2dCy, /*mp_ass_subscript*/
+  __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_10__len__, /*mp_length*/
+  __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_3__getitem__, /*mp_subscript*/
+  __pyx_mp_ass_subscript_5utils_8cy_utils_8vec2d_cy_Vec2dCy, /*mp_ass_subscript*/
 };
 
-static PyTypeObject __pyx_type_11environment_11cy_entities_8vec2d_cy_Vec2dCy = {
+static PyTypeObject __pyx_type_5utils_8cy_utils_8vec2d_cy_Vec2dCy = {
   PyVarObject_HEAD_INIT(0, 0)
-  "environment.cy_entities.vec2d_cy.Vec2dCy", /*tp_name*/
-  sizeof(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy), /*tp_basicsize*/
+  "utils.cy_utils.vec2d_cy.Vec2dCy", /*tp_name*/
+  sizeof(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_11environment_11cy_entities_8vec2d_cy_Vec2dCy, /*tp_dealloc*/
+  __pyx_tp_dealloc_5utils_8cy_utils_8vec2d_cy_Vec2dCy, /*tp_dealloc*/
   #if PY_VERSION_HEX < 0x030800b4
   0, /*tp_print*/
   #endif
@@ -8678,7 +8678,7 @@ static PyTypeObject __pyx_type_11environment_11cy_entities_8vec2d_cy_Vec2dCy = {
   #if PY_MAJOR_VERSION >= 3
   0, /*tp_as_async*/
   #endif
-  __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_12__repr__, /*tp_repr*/
+  __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_12__repr__, /*tp_repr*/
   &__pyx_tp_as_number_Vec2dCy, /*tp_as_number*/
   &__pyx_tp_as_sequence_Vec2dCy, /*tp_as_sequence*/
   &__pyx_tp_as_mapping_Vec2dCy, /*tp_as_mapping*/
@@ -8692,21 +8692,21 @@ static PyTypeObject __pyx_type_11environment_11cy_entities_8vec2d_cy_Vec2dCy = {
   "\n    Create a two dimensional vector.\n    ", /*tp_doc*/
   0, /*tp_traverse*/
   0, /*tp_clear*/
-  __pyx_tp_richcompare_11environment_11cy_entities_8vec2d_cy_Vec2dCy, /*tp_richcompare*/
+  __pyx_tp_richcompare_5utils_8cy_utils_8vec2d_cy_Vec2dCy, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
-  __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_7__iter__, /*tp_iter*/
+  __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_7__iter__, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_11environment_11cy_entities_8vec2d_cy_Vec2dCy, /*tp_methods*/
+  __pyx_methods_5utils_8cy_utils_8vec2d_cy_Vec2dCy, /*tp_methods*/
   0, /*tp_members*/
-  __pyx_getsets_11environment_11cy_entities_8vec2d_cy_Vec2dCy, /*tp_getset*/
+  __pyx_getsets_5utils_8cy_utils_8vec2d_cy_Vec2dCy, /*tp_getset*/
   0, /*tp_base*/
   0, /*tp_dict*/
   0, /*tp_descr_get*/
   0, /*tp_descr_set*/
   0, /*tp_dictoffset*/
-  __pyx_pw_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_1__init__, /*tp_init*/
+  __pyx_pw_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_1__init__, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_11environment_11cy_entities_8vec2d_cy_Vec2dCy, /*tp_new*/
+  __pyx_tp_new_5utils_8cy_utils_8vec2d_cy_Vec2dCy, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -8727,14 +8727,14 @@ static PyTypeObject __pyx_type_11environment_11cy_entities_8vec2d_cy_Vec2dCy = {
   #endif
 };
 
-static struct __pyx_obj_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__ *__pyx_freelist_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__[8];
-static int __pyx_freecount_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__ = 0;
+static struct __pyx_obj_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__ *__pyx_freelist_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__[8];
+static int __pyx_freecount_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__ = 0;
 
-static PyObject *__pyx_tp_new_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+static PyObject *__pyx_tp_new_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
   PyObject *o;
-  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__ > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__)))) {
-    o = (PyObject*)__pyx_freelist_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__[--__pyx_freecount_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__];
-    memset(o, 0, sizeof(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__));
+  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__ > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__)))) {
+    o = (PyObject*)__pyx_freelist_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__[--__pyx_freecount_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__];
+    memset(o, 0, sizeof(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__));
     (void) PyObject_INIT(o, t);
     PyObject_GC_Track(o);
   } else {
@@ -8744,32 +8744,32 @@ static PyObject *__pyx_tp_new_11environment_11cy_entities_8vec2d_cy___pyx_scope_
   return o;
 }
 
-static void __pyx_tp_dealloc_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__(PyObject *o) {
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__ *p = (struct __pyx_obj_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__ *)o;
+static void __pyx_tp_dealloc_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__(PyObject *o) {
+  struct __pyx_obj_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__ *p = (struct __pyx_obj_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__ *)o;
   PyObject_GC_UnTrack(o);
   Py_CLEAR(p->__pyx_v_self);
-  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__ < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__)))) {
-    __pyx_freelist_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__[__pyx_freecount_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__++] = ((struct __pyx_obj_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__ *)o);
+  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__ < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__)))) {
+    __pyx_freelist_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__[__pyx_freecount_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__++] = ((struct __pyx_obj_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__ *)o);
   } else {
     (*Py_TYPE(o)->tp_free)(o);
   }
 }
 
-static int __pyx_tp_traverse_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__(PyObject *o, visitproc v, void *a) {
+static int __pyx_tp_traverse_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__(PyObject *o, visitproc v, void *a) {
   int e;
-  struct __pyx_obj_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__ *p = (struct __pyx_obj_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__ *)o;
+  struct __pyx_obj_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__ *p = (struct __pyx_obj_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__ *)o;
   if (p->__pyx_v_self) {
     e = (*v)(((PyObject *)p->__pyx_v_self), a); if (e) return e;
   }
   return 0;
 }
 
-static PyTypeObject __pyx_type_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__ = {
+static PyTypeObject __pyx_type_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__ = {
   PyVarObject_HEAD_INIT(0, 0)
-  "environment.cy_entities.vec2d_cy.__pyx_scope_struct____iter__", /*tp_name*/
-  sizeof(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__), /*tp_basicsize*/
+  "utils.cy_utils.vec2d_cy.__pyx_scope_struct____iter__", /*tp_name*/
+  sizeof(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__, /*tp_dealloc*/
+  __pyx_tp_dealloc_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__, /*tp_dealloc*/
   #if PY_VERSION_HEX < 0x030800b4
   0, /*tp_print*/
   #endif
@@ -8796,7 +8796,7 @@ static PyTypeObject __pyx_type_11environment_11cy_entities_8vec2d_cy___pyx_scope
   0, /*tp_as_buffer*/
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
   0, /*tp_doc*/
-  __pyx_tp_traverse_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__, /*tp_traverse*/
+  __pyx_tp_traverse_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__, /*tp_traverse*/
   0, /*tp_clear*/
   0, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
@@ -8812,7 +8812,7 @@ static PyTypeObject __pyx_type_11environment_11cy_entities_8vec2d_cy___pyx_scope
   0, /*tp_dictoffset*/
   0, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__, /*tp_new*/
+  __pyx_tp_new_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -8834,7 +8834,7 @@ static PyTypeObject __pyx_type_11environment_11cy_entities_8vec2d_cy___pyx_scope
 };
 
 static PyMethodDef __pyx_methods[] = {
-  {"angle_to_vec", (PyCFunction)__pyx_pw_11environment_11cy_entities_8vec2d_cy_1angle_to_vec, METH_O, __pyx_doc_11environment_11cy_entities_8vec2d_cy_angle_to_vec},
+  {"angle_to_vec", (PyCFunction)__pyx_pw_5utils_8cy_utils_8vec2d_cy_1angle_to_vec, METH_O, __pyx_doc_5utils_8cy_utils_8vec2d_cy_angle_to_vec},
   {0, 0, 0, 0}
 };
 
@@ -9028,7 +9028,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_cos, __pyx_k_cos, sizeof(__pyx_k_cos), 0, 0, 1, 1},
   {&__pyx_n_s_dict, __pyx_k_dict, sizeof(__pyx_k_dict), 0, 0, 1, 1},
   {&__pyx_n_s_div, __pyx_k_div, sizeof(__pyx_k_div), 0, 0, 1, 1},
-  {&__pyx_n_s_environment_cy_entities_vec2d_cy, __pyx_k_environment_cy_entities_vec2d_cy, sizeof(__pyx_k_environment_cy_entities_vec2d_cy), 0, 0, 1, 1},
   {&__pyx_n_s_f, __pyx_k_f, sizeof(__pyx_k_f), 0, 0, 1, 1},
   {&__pyx_n_s_floordiv, __pyx_k_floordiv, sizeof(__pyx_k_floordiv), 0, 0, 1, 1},
   {&__pyx_n_s_get_angle, __pyx_k_get_angle, sizeof(__pyx_k_get_angle), 0, 0, 1, 1},
@@ -9078,6 +9077,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_truediv, __pyx_k_truediv, sizeof(__pyx_k_truediv), 0, 0, 1, 1},
   {&__pyx_n_s_update, __pyx_k_update, sizeof(__pyx_k_update), 0, 0, 1, 1},
   {&__pyx_n_s_utils_config, __pyx_k_utils_config, sizeof(__pyx_k_utils_config), 0, 0, 1, 1},
+  {&__pyx_n_s_utils_cy_utils_vec2d_cy, __pyx_k_utils_cy_utils_vec2d_cy, sizeof(__pyx_k_utils_cy_utils_vec2d_cy), 0, 0, 1, 1},
   {&__pyx_n_s_x, __pyx_k_x, sizeof(__pyx_k_x), 0, 0, 1, 1},
   {&__pyx_n_s_y, __pyx_k_y, sizeof(__pyx_k_y), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
@@ -9094,7 +9094,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":17
+  /* "utils/cy_utils/vec2d_cy.pyx":17
  *     """
  * 
  *     __slots__ = ("x", "y")             # <<<<<<<<<<<<<<
@@ -9158,7 +9158,7 @@ static int __Pyx_modinit_function_export_code(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_modinit_function_export_code", 0);
   /*--- Function export code ---*/
-  if (__Pyx_ExportFunction("angle_to_vec", (void (*)(void))__pyx_f_11environment_11cy_entities_8vec2d_cy_angle_to_vec, "struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *(float, int __pyx_skip_dispatch)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_ExportFunction("angle_to_vec", (void (*)(void))__pyx_f_5utils_8cy_utils_8vec2d_cy_angle_to_vec, "struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *(float, int __pyx_skip_dispatch)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -9170,32 +9170,32 @@ static int __Pyx_modinit_type_init_code(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_init_code", 0);
   /*--- Type init code ---*/
-  __pyx_vtabptr_11environment_11cy_entities_8vec2d_cy_Vec2dCy = &__pyx_vtable_11environment_11cy_entities_8vec2d_cy_Vec2dCy;
-  __pyx_vtable_11environment_11cy_entities_8vec2d_cy_Vec2dCy._operator_handler = (struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *(*)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch))__pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy__operator_handler;
-  __pyx_vtable_11environment_11cy_entities_8vec2d_cy_Vec2dCy._right_operator_handler = (struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *(*)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch))__pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy__right_operator_handler;
-  __pyx_vtable_11environment_11cy_entities_8vec2d_cy_Vec2dCy._inplace_operator_handler = (struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *(*)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch))__pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy__inplace_operator_handler;
-  __pyx_vtable_11environment_11cy_entities_8vec2d_cy_Vec2dCy.get_angle = (float (*)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch))__pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_get_angle;
-  __pyx_vtable_11environment_11cy_entities_8vec2d_cy_Vec2dCy.get_length = (float (*)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch))__pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_get_length;
-  __pyx_vtable_11environment_11cy_entities_8vec2d_cy_Vec2dCy.normalized = (struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *(*)(struct __pyx_obj_11environment_11cy_entities_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch))__pyx_f_11environment_11cy_entities_8vec2d_cy_7Vec2dCy_normalized;
-  if (PyType_Ready(&__pyx_type_11environment_11cy_entities_8vec2d_cy_Vec2dCy) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
+  __pyx_vtabptr_5utils_8cy_utils_8vec2d_cy_Vec2dCy = &__pyx_vtable_5utils_8cy_utils_8vec2d_cy_Vec2dCy;
+  __pyx_vtable_5utils_8cy_utils_8vec2d_cy_Vec2dCy._operator_handler = (struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *(*)(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch))__pyx_f_5utils_8cy_utils_8vec2d_cy_7Vec2dCy__operator_handler;
+  __pyx_vtable_5utils_8cy_utils_8vec2d_cy_Vec2dCy._right_operator_handler = (struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *(*)(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch))__pyx_f_5utils_8cy_utils_8vec2d_cy_7Vec2dCy__right_operator_handler;
+  __pyx_vtable_5utils_8cy_utils_8vec2d_cy_Vec2dCy._inplace_operator_handler = (struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *(*)(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *, PyObject *, PyObject *, int __pyx_skip_dispatch))__pyx_f_5utils_8cy_utils_8vec2d_cy_7Vec2dCy__inplace_operator_handler;
+  __pyx_vtable_5utils_8cy_utils_8vec2d_cy_Vec2dCy.get_angle = (float (*)(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch))__pyx_f_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_get_angle;
+  __pyx_vtable_5utils_8cy_utils_8vec2d_cy_Vec2dCy.get_length = (float (*)(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch))__pyx_f_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_get_length;
+  __pyx_vtable_5utils_8cy_utils_8vec2d_cy_Vec2dCy.normalized = (struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *(*)(struct __pyx_obj_5utils_8cy_utils_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch))__pyx_f_5utils_8cy_utils_8vec2d_cy_7Vec2dCy_normalized;
+  if (PyType_Ready(&__pyx_type_5utils_8cy_utils_8vec2d_cy_Vec2dCy) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
-  __pyx_type_11environment_11cy_entities_8vec2d_cy_Vec2dCy.tp_print = 0;
+  __pyx_type_5utils_8cy_utils_8vec2d_cy_Vec2dCy.tp_print = 0;
   #endif
-  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_11environment_11cy_entities_8vec2d_cy_Vec2dCy.tp_dictoffset && __pyx_type_11environment_11cy_entities_8vec2d_cy_Vec2dCy.tp_getattro == PyObject_GenericGetAttr)) {
-    __pyx_type_11environment_11cy_entities_8vec2d_cy_Vec2dCy.tp_getattro = __Pyx_PyObject_GenericGetAttr;
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_5utils_8cy_utils_8vec2d_cy_Vec2dCy.tp_dictoffset && __pyx_type_5utils_8cy_utils_8vec2d_cy_Vec2dCy.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_5utils_8cy_utils_8vec2d_cy_Vec2dCy.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (__Pyx_SetVtable(__pyx_type_11environment_11cy_entities_8vec2d_cy_Vec2dCy.tp_dict, __pyx_vtabptr_11environment_11cy_entities_8vec2d_cy_Vec2dCy) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Vec2dCy, (PyObject *)&__pyx_type_11environment_11cy_entities_8vec2d_cy_Vec2dCy) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_11environment_11cy_entities_8vec2d_cy_Vec2dCy) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
-  __pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy = &__pyx_type_11environment_11cy_entities_8vec2d_cy_Vec2dCy;
-  if (PyType_Ready(&__pyx_type_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__) < 0) __PYX_ERR(0, 38, __pyx_L1_error)
+  if (__Pyx_SetVtable(__pyx_type_5utils_8cy_utils_8vec2d_cy_Vec2dCy.tp_dict, __pyx_vtabptr_5utils_8cy_utils_8vec2d_cy_Vec2dCy) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Vec2dCy, (PyObject *)&__pyx_type_5utils_8cy_utils_8vec2d_cy_Vec2dCy) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_5utils_8cy_utils_8vec2d_cy_Vec2dCy) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
+  __pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy = &__pyx_type_5utils_8cy_utils_8vec2d_cy_Vec2dCy;
+  if (PyType_Ready(&__pyx_type_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__) < 0) __PYX_ERR(0, 38, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
-  __pyx_type_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__.tp_print = 0;
+  __pyx_type_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__.tp_print = 0;
   #endif
-  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__.tp_dictoffset && __pyx_type_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__.tp_getattro == PyObject_GenericGetAttr)) {
-    __pyx_type_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__.tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__.tp_dictoffset && __pyx_type_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__.tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
   }
-  __pyx_ptype_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__ = &__pyx_type_11environment_11cy_entities_8vec2d_cy___pyx_scope_struct____iter__;
+  __pyx_ptype_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__ = &__pyx_type_5utils_8cy_utils_8vec2d_cy___pyx_scope_struct____iter__;
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -9397,14 +9397,14 @@ if (!__Pyx_RefNanny) {
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
-  if (__pyx_module_is_main_environment__cy_entities__vec2d_cy) {
+  if (__pyx_module_is_main_utils__cy_utils__vec2d_cy) {
     if (PyObject_SetAttr(__pyx_m, __pyx_n_s_name, __pyx_n_s_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "environment.cy_entities.vec2d_cy")) {
-      if (unlikely(PyDict_SetItemString(modules, "environment.cy_entities.vec2d_cy", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "utils.cy_utils.vec2d_cy")) {
+      if (unlikely(PyDict_SetItemString(modules, "utils.cy_utils.vec2d_cy", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -9425,7 +9425,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "environment/cy_entities/vec2d_cy.pyx":7
+  /* "utils/cy_utils/vec2d_cy.pyx":7
  * files).
  * """
  * import math             # <<<<<<<<<<<<<<
@@ -9437,7 +9437,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_math, __pyx_t_1) < 0) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":8
+  /* "utils/cy_utils/vec2d_cy.pyx":8
  * """
  * import math
  * import operator             # <<<<<<<<<<<<<<
@@ -9449,7 +9449,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_operator, __pyx_t_1) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":10
+  /* "utils/cy_utils/vec2d_cy.pyx":10
  * import operator
  * 
  * from utils.config import *             # <<<<<<<<<<<<<<
@@ -9467,53 +9467,53 @@ if (!__Pyx_RefNanny) {
   if (__pyx_import_star(__pyx_t_2) < 0) __PYX_ERR(0, 10, __pyx_L1_error);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":17
+  /* "utils/cy_utils/vec2d_cy.pyx":17
  *     """
  * 
  *     __slots__ = ("x", "y")             # <<<<<<<<<<<<<<
  * 
  *     def __init__(self, float x=0, float y=0):
  */
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy->tp_dict, __pyx_n_s_slots, __pyx_tuple__2) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
-  PyType_Modified(__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy);
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy->tp_dict, __pyx_n_s_slots, __pyx_tuple__2) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
+  PyType_Modified(__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":68
+  /* "utils/cy_utils/vec2d_cy.pyx":68
  *             return Vec2dCy(self.x + other, self.y + other)
  * 
  *     __radd__ = __add__             # <<<<<<<<<<<<<<
  * 
  *     def __iadd__(self, other):
  */
-  __Pyx_GetNameInClass(__pyx_t_2, (PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy, __pyx_n_s_add); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 68, __pyx_L1_error)
+  __Pyx_GetNameInClass(__pyx_t_2, (PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy, __pyx_n_s_add); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 68, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy->tp_dict, __pyx_n_s_radd, __pyx_t_2) < 0) __PYX_ERR(0, 68, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy->tp_dict, __pyx_n_s_radd, __pyx_t_2) < 0) __PYX_ERR(0, 68, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy);
+  PyType_Modified(__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy);
 
-  /* "environment/cy_entities/vec2d_cy.pyx":118
+  /* "utils/cy_utils/vec2d_cy.pyx":118
  *             return Vec2dCy(self.x * other, self.y * other)
  * 
  *     __rmul__ = __mul__             # <<<<<<<<<<<<<<
  * 
  *     def __imul__(self, other):
  */
-  __Pyx_GetNameInClass(__pyx_t_2, (PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy, __pyx_n_s_mul); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 118, __pyx_L1_error)
+  __Pyx_GetNameInClass(__pyx_t_2, (PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy, __pyx_n_s_mul); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 118, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy->tp_dict, __pyx_n_s_rmul, __pyx_t_2) < 0) __PYX_ERR(0, 118, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy->tp_dict, __pyx_n_s_rmul, __pyx_t_2) < 0) __PYX_ERR(0, 118, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_11environment_11cy_entities_8vec2d_cy_Vec2dCy);
+  PyType_Modified(__pyx_ptype_5utils_8cy_utils_8vec2d_cy_Vec2dCy);
 
   /* "(tree fragment)":1
  * def __pyx_unpickle_Vec2dCy(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_11environment_11cy_entities_8vec2d_cy_3__pyx_unpickle_Vec2dCy, NULL, __pyx_n_s_environment_cy_entities_vec2d_cy); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 1, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5utils_8cy_utils_8vec2d_cy_3__pyx_unpickle_Vec2dCy, NULL, __pyx_n_s_utils_cy_utils_vec2d_cy); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_Vec2dCy, __pyx_t_2) < 0) __PYX_ERR(2, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "environment/cy_entities/vec2d_cy.pyx":1
+  /* "utils/cy_utils/vec2d_cy.pyx":1
  * """             # <<<<<<<<<<<<<<
  * vec2d_cy.pyx
  * 
@@ -9531,11 +9531,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_2);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init environment.cy_entities.vec2d_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init utils.cy_utils.vec2d_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     Py_CLEAR(__pyx_m);
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init environment.cy_entities.vec2d_cy");
+    PyErr_SetString(PyExc_ImportError, "init utils.cy_utils.vec2d_cy");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

@@ -7,7 +7,7 @@ classes and methods in other files).
 from sensors_cy cimport AngularSensorCy, ProximitySensorCy
 from utils.config import *
 from utils.dictionary import *
-from vec2d_cy cimport angle_to_vec
+from utils.cy_utils.vec2d_cy cimport angle_to_vec
 
 cdef class FootBotCy:
     """

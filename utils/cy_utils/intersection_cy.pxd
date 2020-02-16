@@ -3,8 +3,8 @@ intersection_cy.pxd
 
 Used to declare all the intersection_cy methods that must be callable from outside of other objects.
 """
-from line2d_cy cimport Line2dCy
-from vec2d_cy cimport Vec2dCy
+from utils.cy_utils.line2d_cy cimport Line2dCy
+from utils.cy_utils.vec2d_cy cimport Vec2dCy
 
 cpdef tuple line_line_intersection_cy(Line2dCy l1, Line2dCy l2)
 

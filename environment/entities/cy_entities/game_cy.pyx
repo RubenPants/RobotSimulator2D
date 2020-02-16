@@ -13,8 +13,8 @@ from matplotlib import collections as mc
 from utils.config import *
 from utils.dictionary import *
 
-from intersection_cy cimport circle_line_intersection_cy
-from line2d_cy cimport Line2dCy
+from utils.cy_utils.intersection_cy cimport circle_line_intersection_cy
+from utils.cy_utils.line2d_cy cimport Line2dCy
 
 cdef class GameCy:
     """
