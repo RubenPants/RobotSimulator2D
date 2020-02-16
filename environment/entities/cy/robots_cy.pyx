@@ -5,7 +5,7 @@ Cython version of the robots.py file. Note that this file co-exists with a .pxd 
 classes and methods in other files).
 """
 from sensors_cy cimport AngularSensorCy, ProximitySensorCy
-from utils.config import *
+
 from utils.dictionary import *
 from utils.cy.vec2d_cy cimport angle_to_vec
 

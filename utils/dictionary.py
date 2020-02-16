@@ -11,6 +11,7 @@ D_ANGLE = 'angle'
 D_BLUEPRINT = 'blueprint'
 
 # C
+D_CONFIG = 'config'
 D_CONTROL_ENV = 'control_environment'
 
 # D

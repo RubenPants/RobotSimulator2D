@@ -8916,7 +8916,7 @@ if (!__Pyx_RefNanny) {
   /* "environment/entities/cy/sensors_cy.pyx":11
  * from utils.cy.intersection_cy cimport line_line_intersection_cy
  * from utils.cy.line2d_cy cimport Line2dCy
- * from utils.config import *             # <<<<<<<<<<<<<<
+ *              # <<<<<<<<<<<<<<
  * from utils.dictionary import *
  * 
  */
@@ -8933,7 +8933,7 @@ if (!__Pyx_RefNanny) {
 
   /* "environment/entities/cy/sensors_cy.pyx":12
  * from utils.cy.line2d_cy cimport Line2dCy
- * from utils.config import *
+ *
  * from utils.dictionary import *             # <<<<<<<<<<<<<<
  * 
  * cdef class SensorCy:

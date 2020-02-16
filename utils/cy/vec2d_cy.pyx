@@ -7,7 +7,7 @@ files).
 import math
 import operator
 
-from utils.config import *
+
 
 cdef class Vec2dCy:
     """

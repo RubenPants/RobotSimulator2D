@@ -9537,7 +9537,7 @@ if (!__Pyx_RefNanny) {
  * import pylab as pl
  * from matplotlib import collections as mc             # <<<<<<<<<<<<<<
  * 
- * from utils.config import *
+ *
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -9556,7 +9556,7 @@ if (!__Pyx_RefNanny) {
   /* "environment/entities/cy/game_cy.pyx":13
  * from matplotlib import collections as mc
  * 
- * from utils.config import *             # <<<<<<<<<<<<<<
+ *              # <<<<<<<<<<<<<<
  * from utils.dictionary import *
  * 
  */
@@ -9573,7 +9573,7 @@ if (!__Pyx_RefNanny) {
 
   /* "environment/entities/cy/game_cy.pyx":14
  * 
- * from utils.config import *
+ *
  * from utils.dictionary import *             # <<<<<<<<<<<<<<
  * 
  * from utils.cy.intersection_cy cimport circle_line_intersection_cy

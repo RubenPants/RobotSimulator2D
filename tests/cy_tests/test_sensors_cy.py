@@ -7,7 +7,7 @@ import unittest
 from environment.entities.cy.game_cy import GameCy
 from utils.cy.line2d_cy import Line2dCy
 from utils.cy.vec2d_cy import Vec2dCy
-from utils.config import *
+
 
 EPSILON_ANGLE = 0.0001  # 0.0001 radian offset allowed (~0.02 degrees)
 EPSILON_DISTANCE = 0.001  # 1 millimeter offset allowed

@@ -10,7 +10,7 @@ import random
 import pylab as pl
 from matplotlib import collections as mc
 
-from utils.config import *
+
 from utils.dictionary import *
 
 from utils.cy.intersection_cy cimport circle_line_intersection_cy

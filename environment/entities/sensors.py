@@ -10,7 +10,6 @@ import random
 
 import numpy as np
 
-from utils.config import NOISE_SENSOR_ANGLE, NOISE_SENSOR_DIST, NOISE_SENSOR_PROXY, SENSOR_RAY_DISTANCE
 from utils.dictionary import *
 from utils.intersection import line_line_intersection
 from utils.line2d import Line2d
@@ -77,8 +76,7 @@ class AngularSensor(Sensor):
         :param sensor_id: Identification number for the sensor
         """
         # noinspection PyCompatibility
-        super().__init__(game=game,
-                         sensor_id=sensor_id)
+        super().__init__(game=game, sensor_id=sensor_id)
         self.clockwise = clockwise
     
     def __str__(self):
@@ -102,8 +100,7 @@ class AngularSensor(Sensor):
             diff %= 2 * np.pi
         
         # Add noise
-        if self.game.noise:
-            diff += random.gauss(0, NOISE_SENSOR_ANGLE)
+        if self.game.noise: diff += random.gauss(0, self.game.cfg['NOISE']['angle'])
         return diff
 
 
@@ -119,8 +116,7 @@ class DistanceSensor(Sensor):
         :param game: Reference to the game in which the sensor is used
         :param sensor_id: Identification number for the sensor
         """
-        super().__init__(game=game,
-                         sensor_id=sensor_id)
+        super().__init__(game=game, sensor_id=sensor_id)
     
     def __str__(self):
         return "{sensor}_{id:02d}".format(sensor=D_SENSOR_DISTANCE, id=self.id)
@@ -132,8 +128,7 @@ class DistanceSensor(Sensor):
         start_p = self.game.player.pos
         end_p = self.game.target
         distance = (start_p - end_p).get_length()
-        if self.game.noise:
-            distance += random.gauss(0, NOISE_SENSOR_DIST)
+        if self.game.noise: distance += random.gauss(0, self.game.cfg['NOISE']['distance'])
         return distance
 
 
@@ -149,7 +144,7 @@ class ProximitySensor(Sensor):
                  sensor_id: int = 0,
                  angle: float = 0,
                  pos_offset: float = 0,
-                 max_dist: float = SENSOR_RAY_DISTANCE):
+                 max_dist: float = None):
         """
         :param game: Reference to the game in which the sensor is used
         :param sensor_id: Identification number for the sensor
@@ -157,6 +152,7 @@ class ProximitySensor(Sensor):
         :param pos_offset: Distance to the agent's center of mass and orientation
         :param max_dist: Maximum distance the sensor can reach, infinite if set to zero
         """
+        if not max_dist: max_dist = game.cfg['SENSOR']['ray distance']
         super().__init__(game=game,
                          sensor_id=sensor_id,
                          angle=angle,
@@ -180,8 +176,7 @@ class ProximitySensor(Sensor):
                                   np.sin(self.game.player.angle + self.angle))
         self.start_pos = self.game.player.pos + normalized_offset * self.pos_offset
         self.end_pos = self.game.player.pos + normalized_offset * (self.pos_offset + self.max_dist)
-        sensor_line = Line2d(x=self.game.player.pos,
-                             y=self.end_pos)
+        sensor_line = Line2d(x=self.game.player.pos, y=self.end_pos)
         
         # Check if there is a wall intersecting with the sensor and return the closest distance to a wall
         closest_dist = self.max_dist
@@ -194,6 +189,6 @@ class ProximitySensor(Sensor):
                     closest_dist = new_dist
         
         if self.game.noise:
-            closest_dist += random.gauss(0, NOISE_SENSOR_PROXY)
+            closest_dist += random.gauss(0, self.game.cfg['NOISE']['proximity'])
             closest_dist = max(0, min(closest_dist, self.max_dist))
         return closest_dist

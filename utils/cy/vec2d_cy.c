@@ -852,7 +852,7 @@ struct __pyx_obj_5utils_2cy_8vec2d_cy___pyx_scope_struct____iter__ {
 
 
 /* "utils/cy/vec2d_cy.pyx":12
- * from utils.config import *
+ *
  * 
  * cdef class Vec2dCy:             # <<<<<<<<<<<<<<
  *     """
@@ -9442,7 +9442,7 @@ if (!__Pyx_RefNanny) {
  * import math
  * import operator             # <<<<<<<<<<<<<<
  * 
- * from utils.config import *
+ *
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_operator, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -9452,7 +9452,7 @@ if (!__Pyx_RefNanny) {
   /* "utils/cy/vec2d_cy.pyx":10
  * import operator
  * 
- * from utils.config import *             # <<<<<<<<<<<<<<
+ *              # <<<<<<<<<<<<<<
  * 
  * cdef class Vec2dCy:
  */

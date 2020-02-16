@@ -6511,7 +6511,7 @@ if (!__Pyx_RefNanny) {
   /* "environment/entities/cy/robots_cy.pyx":8
  * """
  * from sensors_cy cimport AngularSensorCy, ProximitySensorCy
- * from utils.config import *             # <<<<<<<<<<<<<<
+ *              # <<<<<<<<<<<<<<
  * from utils.dictionary import *
  * from utils.cy.vec2d_cy cimport angle_to_vec
  */
@@ -6528,7 +6528,7 @@ if (!__Pyx_RefNanny) {
 
   /* "environment/entities/cy/robots_cy.pyx":9
  * from sensors_cy cimport AngularSensorCy, ProximitySensorCy
- * from utils.config import *
+ *
  * from utils.dictionary import *             # <<<<<<<<<<<<<<
  * from utils.cy.vec2d_cy cimport angle_to_vec
  * 

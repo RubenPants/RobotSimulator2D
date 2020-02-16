@@ -5,7 +5,7 @@ import unittest
 from random import random
 
 from environment.entities.game import Game
-from utils.config import *
+
 from utils.line2d import Line2d
 from utils.vec2d import Vec2d
 

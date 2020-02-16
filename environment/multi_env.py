@@ -5,7 +5,6 @@ TODO
 """
 import sys
 
-from utils.config import FPS
 from utils.dictionary import D_SENSOR_LIST, D_DONE
 
 if sys.platform == 'linux':

@@ -15,7 +15,6 @@ from neat.math_util import mean
 from neat.reporting import ReporterSet
 
 from control.entities.visualizer import draw_net
-from utils.config import AXIS_Y
 from utils.dictionary import D_FIT_COMB, D_GAME_ID, D_K, D_POS, D_TAG
 from utils.myutils import get_subfolder, update_dict
 
@@ -183,7 +182,7 @@ class Population:
             plt.plot(dot_x, dot_y, 'ro')
             
             # Add target again to map
-            plt.plot(0.5, AXIS_Y - 0.5, 'go')
+            plt.plot(0.5, g.axis_y - 0.5, 'go')
             
             # Add title
             plt.title("Blueprint - Game {id:05d} - Generation {gen:05d}".format(id=g.id, gen=self.generation))

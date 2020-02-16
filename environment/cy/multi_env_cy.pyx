@@ -6,7 +6,6 @@ TODO
 import numpy as np
 cimport numpy as np
 from environment.entities.cy.game_cy cimport GameCy
-from utils.config import FPS
 from utils.dictionary import D_DONE, D_SENSOR_LIST
 
 cdef class MultiEnvironmentCy:

@@ -8,7 +8,7 @@ import random
 
 from utils.cy.intersection_cy cimport line_line_intersection_cy
 from utils.cy.line2d_cy cimport Line2dCy
-from utils.config import *
+
 from utils.dictionary import *
 
 cdef class SensorCy:
