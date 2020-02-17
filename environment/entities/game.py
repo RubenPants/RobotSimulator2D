@@ -125,8 +125,7 @@ class Game:
                 break
         
         # Check if target reached
-        if self.player.get_sensor_reading_distance() <= float(self.cfg['TARGET']['reached']):
-            self.done = True
+        if self.player.get_sensor_reading_distance() <= float(self.cfg['TARGET']['reached']): self.done = True
         
         # Return the current observations
         return self.get_observation()
@@ -181,12 +180,9 @@ class Game:
         angular = sensor_readings[D_SENSOR_ANGLE]
         distance = sensor_readings[D_SENSOR_DISTANCE]
         
-        # Add sensory-readings in one list
-        result = []
-        for i in range(len(proximity)):  # Proximity IDs go from 0 to proximity_length
-            result.append(proximity[i])
-        for i in range(len(angular)):  # Angular IDs go from 0 to angular_length
-            result.append(angular[i])
+        result = []  # Add sensory-readings in one list
+        for i in range(len(proximity)): result.append(proximity[i])  # Proximity IDs go from 0 to proximity_length
+        for i in range(len(angular)): result.append(angular[i])  # Angular IDs go from 0 to angular_length
         result.append(distance)
         return result
     
@@ -218,8 +214,7 @@ class Game:
         persist_dict[D_POS] = (self.player.init_pos.x, self.player.init_pos.y)  # Initial position of player
         persist_dict[D_TARGET] = (self.target.x, self.target.y)
         persist_dict[D_WALLS] = [((w.x.x, w.x.y), (w.y.x, w.y.y)) for w in self.walls]
-        with open(f'environment/games_db/{self}', 'wb') as f:
-            pickle.dump(persist_dict, f)
+        with open(f'environment/games_db/{self}', 'wb') as f: pickle.dump(persist_dict, f)
     
     def load(self):
         """
@@ -228,8 +223,7 @@ class Game:
         :return: True: game successfully loaded | False: otherwise
         """
         try:
-            with open(f'environment/games_db/{self}', 'rb') as f:
-                game = pickle.load(f)
+            with open(f'environment/games_db/{self}', 'rb') as f: game = pickle.load(f)
             self.cfg = game[D_CONFIG]
             self.player = FootBot(game=self)  # Create a dummy-player to set values on
             self.set_player_angle(game[D_ANGLE])
@@ -237,8 +231,7 @@ class Game:
             self.path = {p[0]: p[1] for p in game[D_PATH]}
             self.target = Vec2d(game[D_TARGET][0], game[D_TARGET][1])
             self.walls = [Line2d(Vec2d(w[0][0], w[0][1]), Vec2d(w[1][0], w[1][1])) for w in game[D_WALLS]]
-            if not self.silent:
-                print("Existing game loaded with id: {}".format(self.id))
+            if not self.silent: print(f"Existing game loaded with id: {self.id}")
             return True
         except FileNotFoundError:
             return False
@@ -251,8 +244,7 @@ class Game:
         
         # Draw all the walls
         walls = []
-        for w in self.walls:
-            walls.append([(w.x.x, w.x.y), (w.y.x, w.y.y)])
+        for w in self.walls: walls.append([(w.x.x, w.x.y), (w.y.x, w.y.y)])
         lc = mc.LineCollection(walls, linewidths=2, colors='k')
         ax.add_collection(lc)
         
@@ -268,9 +260,7 @@ class Game:
 
 
 def get_boundary_walls(cfg=None):
-    """
-    :return: Set of the four boundary walls
-    """
+    """ :return: Set of the four boundary walls """
     if not cfg:
         cfg = ConfigParser()
         cfg.read("configs/game.cfg")

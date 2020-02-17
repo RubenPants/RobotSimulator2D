@@ -9,7 +9,7 @@ import numpy as np
 from sensors_cy cimport AngularSensorCy, DistanceSensorCy, ProximitySensorCy
 from utils.dictionary import *
 from utils.myutils import drop, prep
-from utils.cy.vec2d_cy cimport angle_to_vec
+from utils.cy.vec2d_cy cimport angle_to_vec, Vec2dCy
 
 cdef class FootBotCy:
     """
@@ -61,8 +61,8 @@ cdef class FootBotCy:
         self.create_distance_sensor()
         self.create_proximity_sensors()
     
-    def __str__(self, int gen=0):
-        return "foot_bot".format(f"_{gen:04d}" if gen else "")
+    def __str__(self):
+        return "foot_bot"
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     
@@ -74,7 +74,7 @@ cdef class FootBotCy:
         :param lw: Speed of the left wheel, float [-1,1]
         :param rw: Speed of the right wheel, float [-1,1]
         """
-        if self.game.cfg['CONTROL']['time all']: prep(key="robot_drive", silent=True)
+        if bool(self.game.cfg['CONTROL']['time all']): prep(key="robot_drive", silent=True)
 
         # Constraint the inputs
         lw = max(min(lw, 1), -1)
@@ -89,25 +89,21 @@ cdef class FootBotCy:
         self.angle %= 2 * np.pi
         
         # Update position is the average of the two wheels times the maximum driving speed
-        self.pos += angle_to_vec(self.angle) * float((((lw + rw) / 2) * self.game.cfg['BOT']['driving speed'] * dt))
-        if self.game.cfg['CONTROL']['time all']: drop(key="robot_drive", silent=True)
+        self.pos += angle_to_vec(self.angle) * float(
+                (((lw + rw) / 2) * float(self.game.cfg['BOT']['driving speed']) * dt))
+        if bool(self.game.cfg['CONTROL']['time all']): drop(key="robot_drive", silent=True)
     
     cdef dict get_sensor_readings(self):
         """
         :return: Dictionary of the current sensory-readings
         """
         cdef dict sensor_readings
-        
-        if self.game.cfg['CONTROL']['time all']: prep(key="sensor_readings", silent=True)
-
-        # Collect all the sensor values in a dictionary
+        if bool(self.game.cfg['CONTROL']['time all']): prep(key="sensor_readings", silent=True)
         sensor_readings = dict()
         sensor_readings[D_SENSOR_PROXIMITY] = self.get_sensor_reading_proximity()
         sensor_readings[D_SENSOR_DISTANCE] = self.get_sensor_reading_distance()
         sensor_readings[D_SENSOR_ANGLE] = self.get_sensor_reading_angle()
-        
-        if self.game.cfg['CONTROL']['time all']: drop(key="sensor_readings", silent=True)
-        
+        if bool(self.game.cfg['CONTROL']['time all']): drop(key="sensor_readings", silent=True)
         return sensor_readings
     
     def reset(self):

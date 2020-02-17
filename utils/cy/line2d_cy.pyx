@@ -4,11 +4,11 @@ line2d_cy.pyx
 Cython version of the line2d.py file. Note that this file co-exists with a .pxd file (needed to import Line2dCy in other
 files).
 """
+from utils.cy.vec2d_cy import Vec2dCy
+
 
 cdef class Line2dCy:
-    """
-    Create a two dimensional line setup of the connection between two 2D vectors.
-    """
+    """ Create a two dimensional line setup of the connection between two 2D vectors. """
     
     __slots__ = ("x", "y")
     

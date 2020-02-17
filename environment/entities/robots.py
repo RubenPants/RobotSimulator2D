@@ -98,15 +98,11 @@ class FootBot:
         :return: Dictionary of the current sensory-readings
         """
         if bool(self.game.cfg['CONTROL']['time all']): prep(key="sensor_readings", silent=True)
-        
-        # Collect all the sensor values in a dictionary
         sensor_readings = dict()
         sensor_readings[D_SENSOR_PROXIMITY] = self.get_sensor_reading_proximity()
         sensor_readings[D_SENSOR_DISTANCE] = self.get_sensor_reading_distance()
         sensor_readings[D_SENSOR_ANGLE] = self.get_sensor_reading_angle()
-        
         if bool(self.game.cfg['CONTROL']['time all']): drop(key="sensor_readings", silent=True)
-        
         return sensor_readings
     
     def reset(self):
