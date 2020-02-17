@@ -59,7 +59,7 @@ cdef class MultiEnvironmentCy:
         
         # Start iterating the environments
         step_num = 0
-        max_steps = self.max_duration * int(games[0].cfg['CONTROL']['fps'])
+        max_steps = self.max_duration * games[0].cfg.fps
         while True:
             # Check if maximum iterations is reached
             if step_num == max_steps: break
@@ -90,14 +90,6 @@ cdef class MultiEnvironmentCy:
     
     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
     
-    cpdef GameCy create_game(self, int i):
-        """
-        :param i: Game-ID
-        :return: Game or GameCy object
-        """
-        return GameCy(game_id=i,
-                      silent=True)
-    
     cpdef void set_games(self, list games):
         """
         Set the games-set with new games.
@@ -106,3 +98,12 @@ cdef class MultiEnvironmentCy:
         """
         self.games = games
         self.batch_size = len(games)
+
+
+cpdef GameCy create_game(int i):
+    """
+    :param i: Game-ID
+    :return: Game or GameCy object
+    """
+    return GameCy(game_id=i,
+                  silent=True)

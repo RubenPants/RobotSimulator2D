@@ -147,7 +147,6 @@ class Game:
         
         # Save the new game
         self.save()
-        
         if not self.silent: print("New game created under id: {}".format(self.id))
     
     def get_observation(self):

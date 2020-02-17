@@ -6,12 +6,13 @@ in other files).
 """
 import pickle
 import random
-from configparser import ConfigParser
 
 import numpy as np
+cimport numpy as np
 import pylab as pl
 from matplotlib import collections as mc
 
+from configs.cy.config_cy import GameConfigCy
 from environment.entities.cy.robots_cy cimport FootBotCy
 from utils.dictionary import *
 from utils.cy.intersection_cy cimport circle_line_intersection_cy
@@ -29,7 +30,7 @@ cdef class GameCy:
     __slots__ = ("cfg", "silent", "noise", "done", "id", "path", "player", "steps_taken", "target", "walls")
     
     def __init__(self,
-                 config=None,
+                 GameConfigCy config=None,
                  int game_id=0,
                  bint noise=True,
                  bint overwrite=False,
@@ -102,8 +103,8 @@ cdef class GameCy:
         cdef float dt
         
         # Progress the game
-        dt = 1.0 / int(self.cfg['CONTROL']['fps']) + (
-            abs(random.gauss(0, float(self.cfg['NOISE']['time']))) if self.noise else 0)
+        dt = 1.0 / self.cfg.fps + (
+            abs(random.gauss(0, self.cfg.noise_time)) if self.noise else 0)
         return self.step_dt(dt=dt, l=l, r=r)
     
     cpdef step_dt(self, float dt, float l, float r):
@@ -134,7 +135,7 @@ cdef class GameCy:
                 break
         
         # Check if target reached
-        if self.player.get_sensor_reading_distance() <= float(self.cfg['TARGET']['reached']): self.done = True
+        if self.player.get_sensor_reading_distance() <= self.cfg.target_reached: self.done = True
         
         # Return the current observations
         return self.get_observation()
@@ -147,14 +148,13 @@ cdef class GameCy:
         """
         # Create random set of walls
         self.walls = get_boundary_walls(cfg=self.cfg)
-        self.target = Vec2dCy(0.5, int(self.cfg['CREATION']['y-axis']) - 0.5)
+        self.target = Vec2dCy(0.5, self.cfg.y_axis - 0.5)
         self.player = FootBotCy(game=self,
-                              init_pos=Vec2dCy(int(self.cfg['CREATION']['x-axis']) - 0.5, 0.5),
+                              init_pos=Vec2dCy(self.cfg.x_axis - 0.5, 0.5),
                               init_orient=np.pi / 2)
         
         # Save the new game
         self.save()
-        
         if not self.silent: print("New game created under id: {}".format(self.id))
     
     cpdef dict get_observation(self):
@@ -270,22 +270,20 @@ cdef class GameCy:
         ax.add_collection(lc)
         
         # Add target to map
-        pl.plot(0.5, int(self.cfg['CREATION']['y-axis']) - 0.5, 'go')
+        pl.plot(0.5, self.cfg.y_axis - 0.5, 'go')
         
         # Adjust the boundaries
-        pl.xlim(0, int(self.cfg['CREATION']['x-axis']))
-        pl.ylim(0, int(self.cfg['CREATION']['y-axis']))
+        pl.xlim(0, self.cfg.x_axis)
+        pl.ylim(0, self.cfg.y_axis)
         
         # Return the figure in its current state
         return ax
 
-cpdef list get_boundary_walls(cfg=None):
+
+cpdef list get_boundary_walls(GameConfigCy cfg = None):
     """ :return: Set of the four boundary walls """
-    if not cfg:
-        cfg = ConfigParser()
-        cfg.read("configs/game.cfg")
     a = Vec2dCy(0, 0)
-    b = Vec2dCy(int(cfg['CREATION']['x-axis']), 0)
-    c = Vec2dCy(int(cfg['CREATION']['x-axis']), int(cfg['CREATION']['y-axis']))
-    d = Vec2dCy(0, int(cfg['CREATION']['y-axis']))
+    b = Vec2dCy(cfg.x_axis, 0)
+    c = Vec2dCy(cfg.x_axis, cfg.y_axis)
+    d = Vec2dCy(0, cfg.y_axis)
     return [Line2dCy(a, b), Line2dCy(b, c), Line2dCy(c, d), Line2dCy(d, a)]

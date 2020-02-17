@@ -29,6 +29,11 @@ from environment.entities.robots import FootBot
 from utils.line2d import Line2d
 from utils.vec2d import Vec2d
 
+# Constants
+MIN_ROOM_WIDTH = 5
+ROOM_ATTEMPTS = 5
+FILLED_ROOM_RATIO = 0.2
+
 
 class Maze:
     def __init__(self, cfg: GameConfig, visualize: bool = False):
@@ -89,7 +94,7 @@ class Maze:
         Try to add several rooms for a few times. This method is very stochastic and has a high tendency to fail when
         several rooms are already added. This is however no problem, thus ignored.
         """
-        for _ in range(self.cfg.room_attempts):
+        for _ in range(ROOM_ATTEMPTS):
             try:
                 self.add_room()
             except IndexError:
@@ -108,7 +113,7 @@ class Maze:
                 if self.maze[y, x] >= 0:
                     # Check ratio of empty tiles
                     filled_tiles = self.fill_room((x, y), reset=True)
-                    if len(filled_tiles) / self.tiles_amount > self.cfg.filled_room_ratio:
+                    if len(filled_tiles) / self.tiles_amount > FILLED_ROOM_RATIO:
                         # Add a wall on a potential wall-tile in the empty room
                         self.add_wall([(x, y) for (x, y) in filled_tiles if (x % 2 == 0 and y % 2 == 0)], hor=add_hor)
                         add_hor = not add_hor
@@ -210,7 +215,7 @@ class Maze:
         max_length = int(diff.get_length())
         
         # Early-stop if base wall is not wide enough
-        if max_length < self.cfg.min_room_width:
+        if max_length < MIN_ROOM_WIDTH:
             raise IndexError
         
         # Define a new starting position
@@ -225,7 +230,7 @@ class Maze:
         
         # Check if wall is wide enough
         room_width = int((end_new - start_new).get_length())
-        if room_width < self.cfg.min_room_width:
+        if room_width < MIN_ROOM_WIDTH:
             raise IndexError
         
         # Grow to both sides

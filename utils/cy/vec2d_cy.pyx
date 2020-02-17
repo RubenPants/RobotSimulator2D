@@ -8,6 +8,7 @@ import math
 import operator
 
 import numpy as np
+cimport numpy as np
 
 
 cdef class Vec2dCy:

@@ -30,7 +30,7 @@ class FootBot:
         :param r: Radius of the circular robot
         """
         # Default values parameters
-        if not r: r = float(game.cfg.bot_radius)
+        if not r: r = game.cfg.bot_radius
         
         # Game specific parameter
         self.game = game  # Game in which robot runs
@@ -89,8 +89,7 @@ class FootBot:
         self.angle %= 2 * np.pi
         
         # Update position is the average of the two wheels times the maximum driving speed
-        self.pos += angle_to_vec(self.angle) * float(
-                (((lw + rw) / 2) * self.game.cfg.bot_driving_speed * dt))
+        self.pos += angle_to_vec(self.angle) * float((((lw + rw) / 2) * self.game.cfg.bot_driving_speed * dt))
         if self.game.cfg.time_all: drop(key="robot_drive", silent=True)
     
     def get_sensor_readings(self):

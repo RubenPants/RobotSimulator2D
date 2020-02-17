@@ -15,6 +15,7 @@ cdef class MultiEnvironmentCy:
     
     cpdef void eval_genome(self, genome, config, return_dict=?, bint debug=?)
     
-    cpdef GameCy create_game(self, int i)
-    
     cpdef void set_games(self, list games)
+    
+
+cpdef GameCy create_game(int i)
