@@ -20,15 +20,14 @@ from .cppn import clamp_weights_, create_cppn, get_coord_inputs
 
 class AdaptiveLinearNet:
     def __init__(self, delta_w_node, input_coords, output_coords, weight_threshold=0.2, weight_max=3.0,
-                 activation=tanh_activation, cppn_activation=identity_activation, batch_size=1,
-                 device="cuda:0"):  # TODO: Check if cuda is beneficial!
+                 activation=tanh_activation, cppn_activation=identity_activation, batch_size=1):
         self.delta_w_node = delta_w_node
         
         self.n_inputs = len(input_coords)
-        self.input_coords = torch.tensor(input_coords, dtype=torch.float32, device=device)
+        self.input_coords = torch.tensor(input_coords, dtype=torch.float32)
         
         self.n_outputs = len(output_coords)
-        self.output_coords = torch.tensor(output_coords, dtype=torch.float32, device=device)
+        self.output_coords = torch.tensor(output_coords, dtype=torch.float32)
         
         self.weight_threshold = weight_threshold
         self.weight_max = weight_max
@@ -37,7 +36,6 @@ class AdaptiveLinearNet:
         self.cppn_activation = cppn_activation
         
         self.batch_size = batch_size
-        self.device = device
         self.reset()
     
     def get_init_weights(self, in_coords, out_coords, w_node):
@@ -46,7 +44,7 @@ class AdaptiveLinearNet:
         n_in = len(in_coords)
         n_out = len(out_coords)
         
-        zeros = torch.zeros((n_out, n_in), dtype=torch.float32, device=self.device)
+        zeros = torch.zeros((n_out, n_in), dtype=torch.float32)
         
         weights = self.cppn_activation(w_node(
                 x_out=x_out,
@@ -77,7 +75,7 @@ class AdaptiveLinearNet:
         returns: (batch_size, n_outputs)
         """
         with torch.no_grad():
-            inputs = torch.tensor(inputs, dtype=torch.float32, device=self.device).unsqueeze(2)
+            inputs = torch.tensor(inputs, dtype=torch.float32).unsqueeze(2)
             
             outputs = self.activation(self.input_to_output.matmul(inputs))
             
@@ -105,8 +103,7 @@ class AdaptiveLinearNet:
     
     @staticmethod
     def create(genome, config, input_coords, output_coords, weight_threshold=0.2, weight_max=3.0,
-               output_activation=None, activation=tanh_activation, cppn_activation=identity_activation, batch_size=1,
-               device="cuda:0"):  # TODO: Check if cuda is beneficial!
+               output_activation=None, activation=tanh_activation, cppn_activation=identity_activation, batch_size=1):
         nodes = create_cppn(
                 genome,
                 config,
@@ -125,6 +122,5 @@ class AdaptiveLinearNet:
                 weight_max=weight_max,
                 activation=activation,
                 cppn_activation=cppn_activation,
-                batch_size=batch_size,
-                device=device,
+                batch_size=batch_size
         )
