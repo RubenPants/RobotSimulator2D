@@ -141,6 +141,6 @@ def create_answer(games):
     answer += f"Percentage finished: {100 * len([g for g in games if g[D_DONE]]) / len(games):.1f}"
     answer += f" - Average distance to target {sum([g[D_DIST_TO_TARGET] for g in games]) / len(games):.1f}"
     answer += f" - Max distance to target {max([g[D_DIST_TO_TARGET] for g in games]):.1f}"
-    answer += f" - Average time taken {sum([g[D_STEPS] / g.cfg['RUN']['fps'] for g in games]) / len(games):.1f}"
-    answer += f" - Max time taken {max([g[D_STEPS] / g.cfg['RUN']['fps'] for g in games]):.1f}"
+    answer += f" - Average time taken {sum([g[D_STEPS] / int(g.cfg['RUN']['fps']) for g in games]) / len(games):.1f}"
+    answer += f" - Max time taken {max([g[D_STEPS] / int(g.cfg['RUN']['fps']) for g in games]):.1f}"
     return answer
