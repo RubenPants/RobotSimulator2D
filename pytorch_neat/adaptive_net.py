@@ -36,8 +36,7 @@ class AdaptiveNet:
                  weight_threshold=0.2,
                  activation=tanh_activation,
     
-                 batch_size=1,
-                 device='cuda:0'):  # TODO: Check if cuda is beneficial!
+                 batch_size=1):
         self.w_ih_node = w_ih_node
         
         self.b_h_node = b_h_node
@@ -50,20 +49,19 @@ class AdaptiveNet:
         # self.stateful_node = stateful_node
         
         self.n_inputs = len(input_coords)
-        self.input_coords = torch.tensor(input_coords, dtype=torch.float32, device=device)
+        self.input_coords = torch.tensor(input_coords, dtype=torch.float32)
         
         self.n_hidden = len(hidden_coords)
-        self.hidden_coords = torch.tensor(hidden_coords, dtype=torch.float32, device=device)
+        self.hidden_coords = torch.tensor(hidden_coords, dtype=torch.float32)
         
         self.n_outputs = len(output_coords)
-        self.output_coords = torch.tensor(output_coords, dtype=torch.float32, device=device)
+        self.output_coords = torch.tensor(output_coords, dtype=torch.float32)
         
         self.weight_threshold = weight_threshold
         
         self.activation = activation
         
         self.batch_size = batch_size
-        self.device = device
         self.reset()
     
     def get_init_weights(self, in_coords, out_coords, w_node):
@@ -72,8 +70,7 @@ class AdaptiveNet:
         n_in = len(in_coords)
         n_out = len(out_coords)
         
-        zeros = torch.zeros(
-                (n_out, n_in), dtype=torch.float32, device=self.device)
+        zeros = torch.zeros((n_out, n_in), dtype=torch.float32)
         
         weights = w_node(x_out=x_out, y_out=y_out, x_in=x_in, y_in=y_in,
                          pre=zeros, post=zeros, w=zeros)
@@ -86,8 +83,7 @@ class AdaptiveNet:
             self.input_to_hidden = self.get_init_weights(
                     self.input_coords, self.hidden_coords, self.w_ih_node)
             
-            bias_coords = torch.zeros(
-                    (1, 2), dtype=torch.float32, device=self.device)
+            bias_coords = torch.zeros((1, 2), dtype=torch.float32)
             self.bias_hidden = self.get_init_weights(
                     bias_coords, self.hidden_coords, self.b_h_node).unsqueeze(0).expand(
                     self.batch_size, self.n_hidden, 1)
@@ -96,8 +92,7 @@ class AdaptiveNet:
                     self.hidden_coords, self.hidden_coords, self.w_hh_node).unsqueeze(0).expand(
                     self.batch_size, self.n_hidden, self.n_hidden)
             
-            bias_coords = torch.zeros(
-                    (1, 2), dtype=torch.float32, device=self.device)
+            bias_coords = torch.zeros((1, 2), dtype=torch.float32)
             self.bias_output = self.get_init_weights(
                     bias_coords, self.output_coords, self.b_o_node)
             
@@ -119,8 +114,7 @@ class AdaptiveNet:
         returns: (batch_size, n_outputs)
         '''
         with torch.no_grad():
-            inputs = torch.tensor(
-                    inputs, dtype=torch.float32, device=self.device).unsqueeze(2)
+            inputs = torch.tensor(inputs, dtype=torch.float32).unsqueeze(2)
             
             self.hidden = self.activation(self.input_to_hidden.matmul(inputs) +
                                           self.hidden_to_hidden.matmul(self.hidden) +
@@ -154,8 +148,7 @@ class AdaptiveNet:
     
                weight_threshold=0.2,
                activation=tanh_activation,
-               batch_size=1,
-               device='cuda:0'):
+               batch_size=1):
         nodes = create_cppn(
                 genome, config,
                 ['x_in', 'y_in', 'x_out', 'y_out', 'pre', 'post', 'w'],
@@ -181,5 +174,4 @@ class AdaptiveNet:
         
                            weight_threshold=weight_threshold,
                            activation=activation,
-                           batch_size=batch_size,
-                           device=device)
+                           batch_size=batch_size)

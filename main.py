@@ -36,7 +36,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     pop = Population(
-            name='distance',
+            name='test',
             rel_path='control/NEAT/',
             make_net_method=make_net,
             query_net_method=query_net,

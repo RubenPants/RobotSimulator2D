@@ -74,7 +74,7 @@ class Population:
         :param query_net_method: Method used to query actions of the genome-specific network
         """
         # Init the population's configuration
-        config_path = '{}config.cfg'.format(self.rel_path)
+        config_path = 'configs/neat.cfg'
         config = neat.Config(
                 neat.DefaultGenome,
                 neat.DefaultReproduction,
