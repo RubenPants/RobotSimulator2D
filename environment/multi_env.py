@@ -46,7 +46,7 @@ class MultiEnvironment:
         net = self.make_net(genome, config, self.batch_size)
         
         # Placeholders
-        games = [self.create_game(g) for g in self.games]
+        games = [create_game(g) for g in self.games]
         states = [g.reset()[D_SENSOR_LIST] for g in games]
         finished = [False] * self.batch_size
         
