@@ -52,7 +52,7 @@ class MultiEnvironment:
         
         # Start iterating the environments
         step_num = 0
-        max_steps = self.max_duration * games[0].cfg.fps
+        max_steps = self.max_duration * games[0].fps
         while True:
             # Check if maximum iterations is reached
             if step_num == max_steps: break

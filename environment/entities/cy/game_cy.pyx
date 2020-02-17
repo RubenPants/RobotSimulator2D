@@ -12,7 +12,7 @@ cimport numpy as np
 import pylab as pl
 from matplotlib import collections as mc
 
-from configs.cy.config_cy import GameConfigCy
+from configs.config import GameConfig
 from environment.entities.cy.robots_cy cimport FootBotCy
 from utils.dictionary import *
 from utils.cy.intersection_cy cimport circle_line_intersection_cy
@@ -30,7 +30,7 @@ cdef class GameCy:
     __slots__ = ("cfg", "silent", "noise", "done", "id", "path", "player", "steps_taken", "target", "walls")
     
     def __init__(self,
-                 GameConfigCy config=None,
+                 GameConfig config=None,
                  int game_id=0,
                  bint noise=True,
                  bint overwrite=False,
@@ -280,7 +280,7 @@ cdef class GameCy:
         return ax
 
 
-cpdef list get_boundary_walls(GameConfigCy cfg = None):
+cpdef list get_boundary_walls(GameConfig cfg = None):
     """ :return: Set of the four boundary walls """
     a = Vec2dCy(0, 0)
     b = Vec2dCy(cfg.x_axis, 0)

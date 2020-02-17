@@ -10,7 +10,6 @@ from distutils.core import setup
 import numpy
 from Cython.Build import cythonize
 
-setup(ext_modules=cythonize('configs/cy/config_cy.pyx'), include_dirs=[numpy.get_include()])
 setup(ext_modules=cythonize('utils/cy/vec2d_cy.pyx'), include_dirs=[numpy.get_include()])
 setup(ext_modules=cythonize('utils/cy/line2d_cy.pyx'))
 setup(ext_modules=cythonize('utils/cy/intersection_cy.pyx'))

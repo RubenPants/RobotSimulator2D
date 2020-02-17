@@ -26,14 +26,23 @@ class Game:
         * target: Robot that must be reached by the robot
     """
     
-    __slots__ = ("cfg", "silent", "noise", "done", "id", "path", "player", "steps_taken", "target", "walls")
+    __slots__ = ("bot_driving_speed", "bot_radius", "bot_turning_speed",
+                 "batch", "duration", "max_game_id", "max_eval_game_id", "fps",
+                 "p2m", "x_axis", "y_axis",
+                 "noise_time", "noise_angle", "noise_distance", "noise_proximity",
+                 "sensor_ray_distance",
+                 "target_reached",
+                 "silent", "noise", "time_all",
+                 "done", "id", "path", "player", "steps_taken", "target", "walls")
     
     def __init__(self,
                  config: GameConfig = None,
                  game_id: int = 0,
                  noise: bool = False,
                  overwrite: bool = False,
-                 silent: bool = False):
+                 silent: bool = False,
+                 time_all: bool = False,
+                 ):
         """
         Define a new game.
 
@@ -42,13 +51,32 @@ class Game:
         :param noise: Add noise when progressing the game
         :param overwrite: Overwrite pre-existing games
         :param silent: Do not print anything
+        :param time_all: Time each of the game components
         """
         # Set config
-        self.cfg: GameConfig = config
+        if config:
+            self.bot_driving_speed: float = config.bot_driving_speed
+            self.bot_radius: float = config.bot_radius
+            self.bot_turning_speed: float = config.bot_radius
+            self.batch: int = config.batch
+            self.duration: int = config.duration
+            self.max_game_id: int = config.max_game_id
+            self.max_eval_game_id: int = config.max_eval_game_id
+            self.fps: int = config.fps
+            self.p2m: int = config.p2m
+            self.x_axis: int = config.x_axis
+            self.y_axis: int = config.y_axis
+            self.noise_time: float = config.noise_time
+            self.noise_angle: float = config.noise_angle
+            self.noise_distance: float = config.noise_distance
+            self.noise_proximity: float = config.noise_proximity
+            self.sensor_ray_distance: float = config.sensor_ray_distance
+            self.target_reached: float = config.target_reached
         
         # Environment specific parameters
         self.silent: bool = silent  # True: Do not print out statistics
         self.noise: bool = noise  # Add noise to the game-environment
+        self.time_all: bool = time_all  # Time each of the game-components
         
         # Placeholders for parameters
         self.done: bool = False  # Game has finished
@@ -99,8 +127,7 @@ class Game:
         :return: Observation (Dictionary), target_reached (Boolean)
         """
         # Progress the game
-        dt = 1.0 / self.cfg.fps + (
-            abs(random.gauss(0, self.cfg.noise_time)) if self.noise else 0)
+        dt = 1.0 / self.fps + (abs(random.gauss(0, self.noise_time)) if self.noise else 0)
         return self.step_dt(dt=dt, l=l, r=r)
     
     def step_dt(self, dt: float, l: float, r: float):
@@ -127,7 +154,7 @@ class Game:
                 break
         
         # Check if target reached
-        if self.player.get_sensor_reading_distance() <= self.cfg.target_reached: self.done = True
+        if self.player.get_sensor_reading_distance() <= self.target_reached: self.done = True
         
         # Return the current observations
         return self.get_observation()
@@ -139,10 +166,10 @@ class Game:
         Create an empty game that only contains the boundary walls.
         """
         # Create random set of walls
-        self.walls = get_boundary_walls(cfg=self.cfg)
-        self.target = Vec2d(0.5, self.cfg.y_axis - 0.5)
+        self.walls = get_boundary_walls(x_axis=self.x_axis, y_axis=self.y_axis)
+        self.target = Vec2d(0.5, self.y_axis - 0.5)
         self.player = FootBot(game=self,
-                              init_pos=Vec2d(self.cfg.x_axis - 0.5, 0.5),
+                              init_pos=Vec2d(self.x_axis - 0.5, 0.5),
                               init_orient=np.pi / 2)
         
         # Save the new game
@@ -209,7 +236,23 @@ class Game:
     
     def save(self):
         persist_dict = dict()
-        persist_dict[D_CONFIG] = self.cfg
+        persist_dict[D_BOT_DRIVING_SPEED] = self.bot_driving_speed
+        persist_dict[D_BOT_RADIUS] = self.bot_radius
+        persist_dict[D_BOT_TURNING_SPEED] = self.bot_turning_speed
+        persist_dict[D_BATCH] = self.batch
+        persist_dict[D_DURATION] = self.duration
+        persist_dict[D_MAX_GAME_ID] = self.max_game_id
+        persist_dict[D_MAX_EVAL_GAME_ID] = self.max_eval_game_id
+        persist_dict[D_FPS] = self.fps
+        persist_dict[D_PTM] = self.p2m
+        persist_dict[D_X_AXIS] = self.x_axis
+        persist_dict[D_Y_AXIS] = self.y_axis
+        persist_dict[D_NOISE_TIME] = self.noise_time
+        persist_dict[D_NOISE_ANGLE] = self.noise_angle
+        persist_dict[D_NOISE_DISTANCE] = self.noise_distance
+        persist_dict[D_NOISE_PROXIMITY] = self.noise_proximity
+        persist_dict[D_SENSOR_RAY_DISTANCE] = self.sensor_ray_distance
+        persist_dict[D_TARGET_REACHED] = self.target_reached
         persist_dict[D_ANGLE] = self.player.init_angle  # Initial angle of player
         if self.path: persist_dict[D_PATH] = [(p[0], p[1]) for p in self.path.items()]
         persist_dict[D_POS] = (self.player.init_pos.x, self.player.init_pos.y)  # Initial position of player
@@ -226,7 +269,23 @@ class Game:
         try:
             with open(f'environment/games_db/{self}', 'rb') as f:
                 game = pickle.load(f)
-            self.cfg = game[D_CONFIG]
+            self.bot_driving_speed = game[D_BOT_DRIVING_SPEED]
+            self.bot_radius = game[D_BOT_RADIUS]
+            self.bot_turning_speed = game[D_BOT_TURNING_SPEED]
+            self.batch = game[D_BATCH]
+            self.duration = game[D_DURATION]
+            self.max_game_id = game[D_MAX_GAME_ID]
+            self.max_eval_game_id = game[D_MAX_EVAL_GAME_ID]
+            self.fps = game[D_FPS]
+            self.p2m = game[D_PTM]
+            self.x_axis = game[D_X_AXIS]
+            self.y_axis = game[D_Y_AXIS]
+            self.noise_time = game[D_NOISE_TIME]
+            self.noise_angle = game[D_NOISE_ANGLE]
+            self.noise_distance = game[D_NOISE_DISTANCE]
+            self.noise_proximity = game[D_NOISE_PROXIMITY]
+            self.sensor_ray_distance = game[D_SENSOR_RAY_DISTANCE]
+            self.target_reached = game[D_TARGET_REACHED]
             self.player = FootBot(game=self)  # Create a dummy-player to set values on
             self.set_player_angle(game[D_ANGLE])
             self.set_player_pos(Vec2d(game[D_POS][0], game[D_POS][1]))
@@ -251,20 +310,20 @@ class Game:
         ax.add_collection(lc)
         
         # Add target to map
-        pl.plot(0.5, self.cfg.y_axis - 0.5, 'go')
+        pl.plot(0.5, self.y_axis - 0.5, 'go')
         
         # Adjust the boundaries
-        pl.xlim(0, self.cfg.x_axis)
-        pl.ylim(0, self.cfg.y_axis)
+        pl.xlim(0, self.x_axis)
+        pl.ylim(0, self.y_axis)
         
         # Return the figure in its current state
         return ax
 
 
-def get_boundary_walls(cfg: GameConfig = None):
+def get_boundary_walls(x_axis, y_axis):
     """ :return: Set of the four boundary walls """
     a = Vec2d(0, 0)
-    b = Vec2d(cfg.x_axis, 0)
-    c = Vec2d(cfg.x_axis, cfg.y_axis)
-    d = Vec2d(0, cfg.y_axis)
+    b = Vec2d(x_axis, 0)
+    c = Vec2d(x_axis, y_axis)
+    d = Vec2d(0, y_axis)
     return [Line2d(a, b), Line2d(b, c), Line2d(c, d), Line2d(d, a)]

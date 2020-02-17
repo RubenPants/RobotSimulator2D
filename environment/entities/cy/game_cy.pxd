@@ -3,7 +3,7 @@ game_cy.pxd
 
 Used to declare all the game_cy class and method that must be callable from outside of other objects.
 """
-from configs.cy.config_cy cimport GameConfigCy
+from configs.config cimport GameConfig
 from environment.entities.cy.robots_cy cimport FootBotCy
 from utils.cy.vec2d_cy cimport Vec2dCy
 
@@ -20,7 +20,7 @@ cdef class GameCy:
     cdef public list walls
     cdef public FootBotCy player
     cdef public Vec2dCy target
-    cdef public GameConfigCy cfg
+    cdef public GameConfig cfg
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     
@@ -52,4 +52,4 @@ cdef class GameCy:
     
     cpdef get_blueprint(self, ax=?)
 
-cpdef list get_boundary_walls(GameConfigCy cfg=?)
+cpdef list get_boundary_walls(GameConfig cfg=?)

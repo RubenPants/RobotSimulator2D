@@ -32,8 +32,6 @@ class GameConfig:
         self.max_game_id: int = 1000
         # Max ID of evaluation game (starting from max_id) [def=1200]
         self.max_eval_game_id: int = 1200
-        # Time every component in the full pipeline (only used to find bottlenecks) [def=False]
-        self.time_all: bool = False
         # Number of frames each second  [def=20]
         self.fps: int = 20
         
