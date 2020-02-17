@@ -18,12 +18,12 @@ After successfully creating the maze-matrix, it is converted to a Pymunk game an
 import argparse
 import os
 import random
-from configparser import ConfigParser
 
 import matplotlib.pyplot as plt
 import numpy as np
 from tqdm import tqdm
 
+from configs.config import GameConfig
 from environment.entities.game import Game
 from environment.entities.robots import FootBot
 from utils.line2d import Line2d
@@ -31,7 +31,7 @@ from utils.vec2d import Vec2d
 
 
 class Maze:
-    def __init__(self, cfg, visualize=False):
+    def __init__(self, cfg: GameConfig, visualize: bool = False):
         """
         Auto-generate a maze, which is a model for the final games.
         
@@ -42,8 +42,8 @@ class Maze:
         self.cfg = cfg
         
         # Set the maze's main parameters
-        self.x_width = 2 * int(self.cfg['CREATION']['x-axis']) + 1
-        self.y_width = 2 * int(self.cfg['CREATION']['y-axis']) + 1
+        self.x_width = 2 * self.cfg.x_axis + 1
+        self.y_width = 2 * self.cfg.y_axis + 1
         self.tiles_amount = self.x_width * self.y_width
         self.maze = np.zeros((self.y_width, self.x_width))
         
@@ -89,7 +89,7 @@ class Maze:
         Try to add several rooms for a few times. This method is very stochastic and has a high tendency to fail when
         several rooms are already added. This is however no problem, thus ignored.
         """
-        for _ in range(int(self.cfg['CREATION']['room attempts'])):
+        for _ in range(self.cfg.room_attempts):
             try:
                 self.add_room()
             except IndexError:
@@ -108,7 +108,7 @@ class Maze:
                 if self.maze[y, x] >= 0:
                     # Check ratio of empty tiles
                     filled_tiles = self.fill_room((x, y), reset=True)
-                    if len(filled_tiles) / self.tiles_amount > float(self.cfg['CREATION']['filled ratio']):
+                    if len(filled_tiles) / self.tiles_amount > self.cfg.filled_room_ratio:
                         # Add a wall on a potential wall-tile in the empty room
                         self.add_wall([(x, y) for (x, y) in filled_tiles if (x % 2 == 0 and y % 2 == 0)], hor=add_hor)
                         add_hor = not add_hor
@@ -132,7 +132,7 @@ class Maze:
         combine_walls(wall_list)
         return wall_list
     
-    def get_path_coordinates(self, visualize=False):
+    def get_path_coordinates(self, visualize: bool = False):
         """ Define all free-positions together with their distance to the target """
         
         def get_neighbour_values(p):
@@ -210,7 +210,7 @@ class Maze:
         max_length = int(diff.get_length())
         
         # Early-stop if base wall is not wide enough
-        if max_length < int(self.cfg['CREATION']['min width']):
+        if max_length < self.cfg.min_room_width:
             raise IndexError
         
         # Define a new starting position
@@ -225,7 +225,7 @@ class Maze:
         
         # Check if wall is wide enough
         room_width = int((end_new - start_new).get_length())
-        if room_width < int(self.cfg['CREATION']['min width']):
+        if room_width < self.cfg.min_room_width:
             raise IndexError
         
         # Grow to both sides
@@ -267,7 +267,7 @@ class Maze:
             self.maze[start_new[1] + direction[1] * x + direction_ort[1] * room_depth,
                       start_new[0] + direction[0] * x + direction_ort[0] * room_depth] = -1
     
-    def add_wall(self, lst, hor=True):
+    def add_wall(self, lst: list, hor: bool = True):
         """
         Add a random straight wall starting on one of the given positions, such that it connects two walls.
         
@@ -335,7 +335,7 @@ class Maze:
     
     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
     
-    def fill_room(self, pos, reset=False):
+    def fill_room(self, pos, reset: bool = False):
         """
         Fill a room (integer > 0) and count the number of tiles in it.
         
@@ -428,7 +428,7 @@ class Maze:
                 if self.maze[y, x] > 0:
                     self.maze[y, x] = 0
     
-    def visualize(self, clip=True):
+    def visualize(self, clip: bool = True):
         c = self.maze.copy()
         if clip:
             c = np.clip(c, a_min=-1, a_max=0)
@@ -457,7 +457,7 @@ class Maze:
                     (self.in_maze((x, y)) and self.maze[y, x] >= 0)])
 
 
-def combine_walls(wall_list):
+def combine_walls(wall_list: list):
     """
     Combine every two wall-segments (Line2d) together that can be represented by only one line segment. This will
     increase the performance later on, since the intersection methods must loop over less wall-segments.
@@ -512,7 +512,7 @@ def combine_walls(wall_list):
             i += 1
 
 
-def create_custom_game(cfg, overwrite=False):
+def create_custom_game(cfg: GameConfig, overwrite=False):
     """ Dummy to create a custom-defined game. """
     # Initial parameters
     game_id = 0
@@ -523,25 +523,24 @@ def create_custom_game(cfg, overwrite=False):
                 overwrite=overwrite)
     
     # Put the target on a fixed position
-    game.target = Vec2d(0.5, int(cfg['CREATION']['y-axis']) - 0.5)
+    game.target = Vec2d(0.5, cfg.y_axis - 0.5)
     
     # Create random player
     game.player = FootBot(game=game,
-                          init_pos=Vec2d(int(cfg['CREATION']['x-axis']) - 0.5, 0.5),
+                          init_pos=Vec2d(cfg.x_axis - 0.5, 0.5),
                           init_orient=np.pi / 2)
     
     # Save the final game
     game.save()
 
 
-def create_game(cfg, game_id=0, path_list=None, rel_path='', wall_list=None, overwrite=False):
+def create_game(cfg: GameConfig, game_id=0, path_list=None, wall_list=None, overwrite=False):
     """
     Create a game based on a list of walls.
     
     :param cfg: The game config
     :param game_id: ID of the game (Integer)
     :param path_list: List of paths together with value [0..1] indicating how close the tile is to the target
-    :param rel_path: Relative path to the 'games'-folder
     :param wall_list: List of tuples containing the begin and end coordinate of a wall, excluding boundary walls
     :param overwrite: Overwrite pre-existing games
     """
@@ -558,11 +557,11 @@ def create_game(cfg, game_id=0, path_list=None, rel_path='', wall_list=None, ove
     game.path = {p[0]: p[1] for p in path_list}
     
     # Put the target on a fixed position
-    game.target = Vec2d(0.5, int(cfg['CREATION']['y-axis']) - 0.5)
+    game.target = Vec2d(0.5, cfg.y_axis - 0.5)
     
     # Create random player
     game.player = FootBot(game=game,
-                          init_pos=Vec2d(int(cfg['CREATION']['x-axis']) - 0.5, 0.5),
+                          init_pos=Vec2d(cfg.x_axis - 0.5, 0.5),
                           init_orient=np.pi / 2)
     
     # Save the final game
@@ -584,12 +583,11 @@ if __name__ == '__main__':
     os.chdir('..')
     
     # Load in the config file
-    config = ConfigParser()
-    config.read("configs/game.cfg")
+    config = GameConfig()
     
     # Setup the params
     nr_games = args.nr_games
-    if not nr_games: nr_games = int(config['CONTROL']['max eval-id'])
+    if not nr_games: nr_games = config.max_eval_game_id
     
     if args.custom:
         create_custom_game(cfg=config, overwrite=args.overwrite)

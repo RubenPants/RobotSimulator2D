@@ -5,12 +5,12 @@ Game class which contains the player, target, and all the walls.
 """
 import pickle
 import random
-from configparser import ConfigParser
 
 import numpy as np
 import pylab as pl
 from matplotlib import collections as mc
 
+from configs.config import GameConfig
 from environment.entities.robots import FootBot
 from utils.dictionary import *
 from utils.intersection import circle_line_intersection
@@ -29,7 +29,7 @@ class Game:
     __slots__ = ("cfg", "silent", "noise", "done", "id", "path", "player", "steps_taken", "target", "walls")
     
     def __init__(self,
-                 config=None,
+                 config: GameConfig = None,
                  game_id: int = 0,
                  noise: bool = False,
                  overwrite: bool = False,
@@ -44,7 +44,7 @@ class Game:
         :param silent: Do not print anything
         """
         # Set config
-        self.cfg = config
+        self.cfg: GameConfig = config
         
         # Environment specific parameters
         self.silent: bool = silent  # True: Do not print out statistics
@@ -99,8 +99,8 @@ class Game:
         :return: Observation (Dictionary), target_reached (Boolean)
         """
         # Progress the game
-        dt = 1.0 / int(self.cfg['CONTROL']['fps']) + (
-            abs(random.gauss(0, float(self.cfg['NOISE']['time']))) if self.noise else 0)
+        dt = 1.0 / self.cfg.fps + (
+            abs(random.gauss(0, self.cfg.noise_time)) if self.noise else 0)
         return self.step_dt(dt=dt, l=l, r=r)
     
     def step_dt(self, dt: float, l: float, r: float):
@@ -127,7 +127,7 @@ class Game:
                 break
         
         # Check if target reached
-        if self.player.get_sensor_reading_distance() <= float(self.cfg['TARGET']['reached']): self.done = True
+        if self.player.get_sensor_reading_distance() <= self.cfg.target_reached: self.done = True
         
         # Return the current observations
         return self.get_observation()
@@ -140,9 +140,9 @@ class Game:
         """
         # Create random set of walls
         self.walls = get_boundary_walls(cfg=self.cfg)
-        self.target = Vec2d(0.5, int(self.cfg['CREATION']['y-axis']) - 0.5)
+        self.target = Vec2d(0.5, self.cfg.y_axis - 0.5)
         self.player = FootBot(game=self,
-                              init_pos=Vec2d(int(self.cfg['CREATION']['x-axis']) - 0.5, 0.5),
+                              init_pos=Vec2d(self.cfg.x_axis - 0.5, 0.5),
                               init_orient=np.pi / 2)
         
         # Save the new game
@@ -252,23 +252,20 @@ class Game:
         ax.add_collection(lc)
         
         # Add target to map
-        pl.plot(0.5, int(self.cfg['CREATION']['y-axis']) - 0.5, 'go')
+        pl.plot(0.5, self.cfg.y_axis - 0.5, 'go')
         
         # Adjust the boundaries
-        pl.xlim(0, int(self.cfg['CREATION']['x-axis']))
-        pl.ylim(0, int(self.cfg['CREATION']['y-axis']))
+        pl.xlim(0, self.cfg.x_axis)
+        pl.ylim(0, self.cfg.y_axis)
         
         # Return the figure in its current state
         return ax
 
 
-def get_boundary_walls(cfg=None):
+def get_boundary_walls(cfg: GameConfig = None):
     """ :return: Set of the four boundary walls """
-    if not cfg:
-        cfg = ConfigParser()
-        cfg.read("configs/game.cfg")
     a = Vec2d(0, 0)
-    b = Vec2d(int(cfg['CREATION']['x-axis']), 0)
-    c = Vec2d(int(cfg['CREATION']['x-axis']), int(cfg['CREATION']['y-axis']))
-    d = Vec2d(0, int(cfg['CREATION']['y-axis']))
+    b = Vec2d(cfg.x_axis, 0)
+    c = Vec2d(cfg.x_axis, cfg.y_axis)
+    d = Vec2d(0, cfg.y_axis)
     return [Line2d(a, b), Line2d(b, c), Line2d(c, d), Line2d(d, a)]
