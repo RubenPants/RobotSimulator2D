@@ -58,11 +58,10 @@ class Game:
         self.walls: list = None  # List of all walls in the game
         
         # Check if game already exists, if not create new game
-        if overwrite or not self.load():
-            self.create_empty_game()
+        if overwrite or not self.load(): self.create_empty_game()
     
     def __str__(self):
-        return "game_{id:05d}".format(id=self.id)
+        return f"game_{self.id:05d}"
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     
@@ -276,7 +275,7 @@ def get_boundary_walls(cfg=None):
         cfg = ConfigParser()
         cfg.read("configs/game.cfg")
     a = Vec2d(0, 0)
-    b = Vec2d(cfg['CREATION']['x-axis'], 0)
-    c = Vec2d(cfg['CREATION']['x-axis'], cfg['CREATION']['y-axis'])
-    d = Vec2d(0, cfg['CREATION']['y-axis'])
+    b = Vec2d(int(cfg['CREATION']['x-axis']), 0)
+    c = Vec2d(int(cfg['CREATION']['x-axis']), int(cfg['CREATION']['y-axis']))
+    d = Vec2d(0, int(cfg['CREATION']['y-axis']))
     return [Line2d(a, b), Line2d(b, c), Line2d(c, d), Line2d(d, a)]

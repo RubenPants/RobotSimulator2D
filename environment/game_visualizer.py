@@ -28,7 +28,6 @@ def load_game(game_id, cfg=None):
         cfg.read("configs/game.cfg")
     
     return Game(game_id=game_id,
-                rel_path="",
                 silent=False)
 
 

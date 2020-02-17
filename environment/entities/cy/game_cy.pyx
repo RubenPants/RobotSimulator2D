@@ -6,15 +6,17 @@ in other files).
 """
 import pickle
 import random
+from configparser import ConfigParser
 
+import numpy as np
 import pylab as pl
 from matplotlib import collections as mc
 
-
+from environment.entities.cy.robots_cy cimport FootBotCy
 from utils.dictionary import *
-
 from utils.cy.intersection_cy cimport circle_line_intersection_cy
 from utils.cy.line2d_cy cimport Line2dCy
+from utils.cy.vec2d_cy cimport Vec2dCy
 
 cdef class GameCy:
     """
@@ -24,28 +26,28 @@ cdef class GameCy:
         * target: Robot that must be reached by the robot
     """
     
-    __slots__ = ("rel_path", "silent", "noise", "done", "id", "path", "player", "steps_taken", "target", "walls")
+    __slots__ = ("config", "rel_path", "silent", "noise", "done", "id", "path", "player", "steps_taken", "target", "walls")
     
     def __init__(self,
+                 config=None,
                  int game_id=0,
                  bint noise=True,
                  bint overwrite=False,
-                 str rel_path='environment/',
                  bint silent=False):
         """
         Define a new game.
 
+        :param config: Configuration file related to the game (only needed to pass during creation)
         :param game_id: Game id
         :param noise: Add noise when progressing the game
         :param overwrite: Overwrite pre-existing games
-        :param rel_path: Relative path where Game object is stored or will be stored
         :param silent: Do not print anything
         """
-        # Set path correct
-        self.rel_path = rel_path  # Relative path to the 'environment' folder
-        self.silent = silent  # True: Do not print out statistics
+        # Set config
+        self.cfg = config
         
         # Environment specific parameters
+        self.silent = silent  # True: Do not print out statistics
         self.noise = noise  # Add noise to the game-environment
         
         # Placeholders for parameters
@@ -58,11 +60,10 @@ cdef class GameCy:
         self.walls = None  # List of all walls in the game
         
         # Check if game already exists, if not create new game
-        if overwrite or not self.load():
-            self.create_empty_game()
+        if overwrite or not self.load(): self.create_empty_game()
     
     def __str__(self):
-        return "game_{id:05d}".format(id=self.id)
+        return f"game_{self.id:05d}"
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     

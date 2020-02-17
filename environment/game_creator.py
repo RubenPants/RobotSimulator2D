@@ -589,7 +589,7 @@ if __name__ == '__main__':
     
     # Setup the params
     nr_games = args.nr_games
-    if not nr_games: nr_games = int(config['CREATION']['game amount'])
+    if not nr_games: nr_games = int(config['CONTROL']['max eval-id'])
     
     if args.custom:
         create_custom_game(cfg=config, overwrite=args.overwrite)
@@ -599,7 +599,7 @@ if __name__ == '__main__':
             while not maze:
                 try:
                     maze = Maze(cfg=config, visualize=args.visualize)
-                except (IndexError):  # TODO: Add 'Exception'
+                except IndexError:
                     maze = None  # Reset and try again
             create_game(cfg=config,
                         game_id=g_id,

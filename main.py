@@ -28,7 +28,7 @@ def query_net(net, states):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument('--train', type=bool, default=True)
+    parser.add_argument('--train', type=bool, default=False)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
     parser.add_argument('--genome', type=bool, default=True)
@@ -47,22 +47,16 @@ if __name__ == '__main__':
         print("\n===> TRAINING <===\n")
         from environment.training_env import TrainingEnv
         
-        trainer = TrainingEnv(
-                rel_path='environment/',
-        )
-        
         # Train for 100 generations
+        trainer = TrainingEnv()
         trainer.evaluate_and_evolve(pop, n=100)
-        
+    
     if args.blueprint:
         print("\n===> CREATING BLUEPRINTS <===\n")
         from environment.training_env import TrainingEnv
-    
-        trainer = TrainingEnv(
-                rel_path='environment/',
-        )
         
         # Create the blueprints for first 5 games
+        trainer = TrainingEnv()
         for g in range(1, 6):
             print("Creating blueprints for  game {}".format(g))
             trainer.set_games([g])
@@ -74,15 +68,13 @@ if __name__ == '__main__':
         print("\n===> EVALUATING <===\n")
         from environment.evaluation_env import EvaluationEnv
         
-        evaluator = EvaluationEnv(
-                rel_path='environment/',
-        )
+        evaluator = EvaluationEnv()
         evaluator.evaluate_genome_list(genome_list=[pop.best_genome], pop=pop)
-        
+    
     if args.genome:
         print("\n===> VISUALIZING GENOME <===\n")
         pop.visualize_genome()
-        
+    
     if args.live:
         print("\n===> STARTING LIVE DEMO <===\n")
         from environment.visualizer import Visualizer

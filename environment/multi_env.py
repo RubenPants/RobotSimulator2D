@@ -19,22 +19,19 @@ class MultiEnvironment:
     def __init__(self,
                  make_net,
                  query_net,
-                 max_duration: int = 100,
-                 rel_path: str = ''):
+                 max_duration: int = 100):
         """
         Create an environment in which the genomes get evaluated across different games.
         
         :param make_net: Method to create a network based on the given genome
         :param query_net: Method to evaluate the network given the current state
         :param max_duration: Maximum number of seconds a candidate drives around in a single environment
-        :param rel_path: Relative path pointing to the 'environment/' folder
         """
         self.batch_size = None
         self.games = None
         self.make_net = make_net
-        self.max_steps = max_duration * FPS
+        self.max_duration = max_duration
         self.query_net = query_net
-        self.rel_path = rel_path
     
     def eval_genome(self,
                     genome,
@@ -59,9 +56,10 @@ class MultiEnvironment:
         
         # Start iterating the environments
         step_num = 0
+        max_steps = self.max_duration * int(games[0].cfg['CONTROL']['fps'])
         while True:
             # Check if maximum iterations is reached
-            if self.max_steps is not None and step_num == self.max_steps:
+            if step_num == max_steps:
                 break
             
             # Determine the actions made by the agent for each of the states
@@ -101,11 +99,9 @@ class MultiEnvironment:
         """
         if sys.platform == 'linux':
             return GameCy(game_id=i,
-                          rel_path=self.rel_path,
                           silent=True)
         else:
             return Game(game_id=i,
-                        rel_path=self.rel_path,
                         silent=True)
     
     def set_games(self, games):

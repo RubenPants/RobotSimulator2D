@@ -22,18 +22,11 @@ else:
 class TrainingEnv:
     """ This class is responsible evaluating and evolving the population across a set of games. """
     
-    def __init__(self, rel_path=''):
-        """
-        The evaluator is given a population which it then evaluates using the MultiEnvironment.
-        
-        :param rel_path: Relative path pointing to the 'environment/' folder
-        """
-        # Set relative path
-        self.rel_path = '{rp}{x}'.format(rp=rel_path, x='/' if (rel_path and rel_path[-1] not in ['/', '\\']) else '')
-        
+    def __init__(self):
+        """ The evaluator is given a population which it then evaluates using the MultiEnvironment. """
         # Load in current configuration
         self.config = configparser.ConfigParser()
-        self.config.read('{}config.cfg'.format(self.rel_path))
+        self.config.read('configs/game.cfg')
         
         #  Create a list of all the possible games
         self.games = None
@@ -48,8 +41,8 @@ class TrainingEnv:
         :param games: List of integers
         """
         if not games:
-            self.games = [i + 1 for i in range(int(self.config['GAME']['max_id']))]
-            self.batch_size = min(len(self.games), int(self.config['GAME']['game_batch']))
+            self.games = [i + 1 for i in range(int(self.config['CONTROL']['max id']))]
+            self.batch_size = min(len(self.games), int(self.config['CONTROL']['batch']))
         else:
             self.games = games
             self.batch_size = len(games)
@@ -67,15 +60,13 @@ class TrainingEnv:
             multi_env = MultiEnvironmentCy(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    rel_path=self.rel_path,
-                    max_duration=int(self.config['GAME']['duration'])
+                    max_duration=int(self.config['CONTROL']['duration'])
             )
         else:
             multi_env = MultiEnvironment(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    rel_path=self.rel_path,
-                    max_duration=int(self.config['GAME']['duration'])
+                    max_duration=int(self.config['CONTROL']['duration'])
             )
         
         for iteration in range(n):
@@ -150,15 +141,13 @@ class TrainingEnv:
             multi_env = MultiEnvironmentCy(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    rel_path=self.rel_path,
-                    max_duration=int(self.config['GAME']['duration'])
+                    max_duration=int(self.config['CONTROL']['duration'])
             )
         else:
             multi_env = MultiEnvironment(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    rel_path=self.rel_path,
-                    max_duration=int(self.config['GAME']['duration'])
+                    max_duration=int(self.config['CONTROL']['duration'])
             )
         
         if len(self.games) > 20:
