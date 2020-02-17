@@ -12,8 +12,8 @@ class Vec2d(object):
     __slots__ = ("x", "y")
     
     def __init__(self, x: float = 0, y: float = 0):
-        self.x = x
-        self.y = y
+        self.x: float = x
+        self.y: float = y
     
     def __getitem__(self, i):
         if i == 0:

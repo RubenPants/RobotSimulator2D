@@ -16,10 +16,10 @@ cdef class GameCy:
     cdef public bint done, noise, silent
     cdef public int id, steps_taken
     cdef public dict path
-    cdef public str rel_path
     cdef public list walls
     cdef public FootBotCy player
     cdef public Vec2dCy target
+    cdef public cfg
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     
@@ -28,6 +28,8 @@ cdef class GameCy:
     cpdef dict reset(self)
     
     cpdef step(self, float l, float r)
+    
+    cpdef step_dt(self, float dt, float l, float r)
     
     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
     
@@ -47,6 +49,6 @@ cdef class GameCy:
     
     cpdef bint load(self)
     
-    cpdef get_blueprint(self)
+    cpdef get_blueprint(self, ax=?)
 
-cpdef list get_boundary_walls()
+cpdef list get_boundary_walls(cfg=?)

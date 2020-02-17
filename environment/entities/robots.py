@@ -3,8 +3,9 @@ robots.py
 
 Robots used to manoeuvre around in the Game-environment.
 """
+import numpy as np
+
 from environment.entities.sensors import AngularSensor, DistanceSensor, ProximitySensor
-from utils.config import *
 from utils.dictionary import *
 from utils.myutils import drop, prep
 from utils.vec2d import angle_to_vec, Vec2d
@@ -19,7 +20,7 @@ class FootBot:
                  game,  # Type not specified due to circular imports
                  init_pos: Vec2d = None,
                  init_orient: float = 0,
-                 r: float = BOT_RADIUS):
+                 r: float = None):
         """
         Create a new FootBot object.
         
@@ -28,6 +29,9 @@ class FootBot:
         :param init_orient: Initial angle of the bot
         :param r: Radius of the circular robot
         """
+        # Default values parameters
+        if not r: r = float(game.cfg['BOT']['radius'])
+        
         # Game specific parameter
         self.game = game  # Game in which robot runs
         
@@ -58,7 +62,7 @@ class FootBot:
         self.create_proximity_sensors()
     
     def __str__(self, gen=None):
-        return "foot_bot".format("_{gen:04d}".format(gen=gen) if gen else "")
+        return "foot_bot".format(f"_{gen:04d}" if gen else "")
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     
@@ -70,8 +74,7 @@ class FootBot:
         :param lw: Speed of the left wheel, float [-1,1]
         :param rw: Speed of the right wheel, float [-1,1]
         """
-        if TIME_ALL:
-            prep(key="robot_drive", silent=True)
+        if bool(self.game.cfg['CONTROL']['time all']): prep(key="robot_drive", silent=True)
         
         # Constraint the inputs
         lw = max(min(lw, 1), -1)
@@ -82,30 +85,24 @@ class FootBot:
         self.prev_angle = self.angle
         
         # Update angle is determined by the speed of both wheels
-        self.angle += (rw - lw) * BOT_TURNING_SPEED * dt
+        self.angle += (rw - lw) * float(self.game.cfg['BOT']['turning speed']) * dt
         self.angle %= 2 * np.pi
         
         # Update position is the average of the two wheels times the maximum driving speed
-        self.pos += angle_to_vec(self.angle) * float((((lw + rw) / 2) * BOT_DRIVING_SPEED * dt))
-        if TIME_ALL:
-            drop(key="robot_drive", silent=True)
+        self.pos += angle_to_vec(self.angle) * float(
+                (((lw + rw) / 2) * float(self.game.cfg['BOT']['driving speed']) * dt))
+        if bool(self.game.cfg['CONTROL']['time all']): drop(key="robot_drive", silent=True)
     
     def get_sensor_readings(self):
         """
         :return: Dictionary of the current sensory-readings
         """
-        if TIME_ALL:
-            prep(key="sensor_readings", silent=True)
-        
-        # Collect all the sensor values in a dictionary
+        if bool(self.game.cfg['CONTROL']['time all']): prep(key="sensor_readings", silent=True)
         sensor_readings = dict()
         sensor_readings[D_SENSOR_PROXIMITY] = self.get_sensor_reading_proximity()
         sensor_readings[D_SENSOR_DISTANCE] = self.get_sensor_reading_distance()
         sensor_readings[D_SENSOR_ANGLE] = self.get_sensor_reading_angle()
-        
-        if TIME_ALL:
-            drop(key="sensor_readings", silent=True)
-        
+        if bool(self.game.cfg['CONTROL']['time all']): drop(key="sensor_readings", silent=True)
         return sensor_readings
     
     def reset(self):
@@ -125,8 +122,7 @@ class FootBot:
         :return: The current values of the proximity sensors
         """
         readings = dict()
-        for a in self.angular_sensors:
-            readings[a.id] = a.get_measure()
+        for a in self.angular_sensors: readings[a.id] = a.get_measure()
         return readings
     
     def get_sensor_reading_distance(self):
@@ -140,8 +136,7 @@ class FootBot:
         :return: The current values of the proximity sensors
         """
         readings = dict()
-        for p in self.proximity_sensors:
-            readings[p.id] = p.get_measure()
+        for p in self.proximity_sensors: readings[p.id] = p.get_measure()
         return readings
     
     # -----------------------------------------------> SENSOR METHODS <----------------------------------------------- #
@@ -168,7 +163,7 @@ class FootBot:
         self.proximity_sensors.add(ProximitySensor(sensor_id=len(self.proximity_sensors),
                                                    game=self.game,
                                                    angle=angle,
-                                                   pos_offset=BOT_RADIUS))
+                                                   pos_offset=float(self.game.cfg['BOT']['radius'])))
     
     def create_angular_sensors(self):
         """
@@ -191,5 +186,4 @@ class FootBot:
         
         Sensors are added from the left-side of the drone to the right
         """
-        for i in range(5):
-            self.add_proximity_sensor(angle=np.pi / 2 - i * np.pi / 4)
+        for i in range(5): self.add_proximity_sensor(angle=np.pi / 2 - i * np.pi / 4)

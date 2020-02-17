@@ -40,6 +40,11 @@ The whole process gets started by calling `reset`,which returns an initial `obse
 
 Do the build inside of each cy-folder. This build file is responsible for moving all the cy-files to the correct folder!
 
+## TODO - Urgent
+
+* Remove rel_path, do everything from root
+* One config file to rule them all
+
 ## TODO
 
 * Express path of maze in terms of meters (do not normalize yet during creation! Perhaps introduce a max_path parameter as well?)

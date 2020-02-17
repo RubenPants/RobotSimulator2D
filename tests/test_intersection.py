@@ -1,7 +1,6 @@
 """
 Test of all the intersection methods.
 """
-
 import unittest
 
 from utils.intersection import *

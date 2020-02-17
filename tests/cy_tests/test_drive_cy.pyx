@@ -4,7 +4,7 @@ from random import random
 from ..game_cy cimport GameCy
 from ..line2d_cy cimport Line2dCy
 from ..vec2d_cy cimport Vec2dCy
-from utils.config import *
+
 
 EPSILON = 0.05  # 5 centimeter offset allowed
 

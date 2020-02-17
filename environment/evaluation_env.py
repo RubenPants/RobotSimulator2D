@@ -8,8 +8,8 @@ import multiprocessing as mp
 import sys
 
 from neat.six_util import iteritems
+from tqdm import tqdm
 
-from utils.config import FPS
 from utils.dictionary import D_DIST_TO_TARGET, D_DONE, D_STEPS
 
 if sys.platform == 'linux':
@@ -21,18 +21,11 @@ else:
 class EvaluationEnv:
     """ This class is responsible evaluating the population across a set of games. """
     
-    def __init__(self, rel_path=''):
-        """
-        The evaluator is given a set of genomes which it then evaluates using the MultiEnvironment.
-
-        :param rel_path: Relative path pointing to the 'environment/' folder
-        """
-        # Set relative path
-        self.rel_path = '{rp}{x}'.format(rp=rel_path, x='/' if (rel_path and rel_path[-1] not in ['/', '\\']) else '')
-        
+    def __init__(self):
+        """ The evaluator is given a set of genomes which it then evaluates using the MultiEnvironment. """
         # Load in current configuration
-        self.config = configparser.ConfigParser()
-        self.config.read('{}config.cfg'.format(self.rel_path))
+        self.cfg = configparser.ConfigParser()
+        self.cfg.read('configs/game.cfg')
         
         #  Create a list of all the possible games
         self.games = None
@@ -46,8 +39,8 @@ class EvaluationEnv:
         :param games: List of integers
         """
         if not games:
-            self.games = [i + 1 for i in range(int(self.config['GAME']['max_id']),
-                                               int(self.config['GAME']['max_eval_id']))]
+            self.games = [i + 1 for i in range(int(self.cfg['CONTROL']['max id']),
+                                               int(self.cfg['CONTROL']['max eval-id']))]
             self.batch_size = len(self.games)
         else:
             self.games = games
@@ -68,15 +61,13 @@ class EvaluationEnv:
             multi_env = MultiEnvironmentCy(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    rel_path=self.rel_path,
-                    max_duration=int(self.config['GAME']['duration'])
+                    max_duration=int(self.cfg['CONTROL']['duration'])
             )
         else:
             multi_env = MultiEnvironment(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    rel_path=self.rel_path,
-                    max_duration=int(self.config['GAME']['duration'])
+                    max_duration=int(self.cfg['CONTROL']['duration'])
             )
         
         # Evaluate on all the games
@@ -90,11 +81,8 @@ class EvaluationEnv:
             for genome in genomes:
                 processes.append(mp.Process(target=multi_env.eval_genome, args=(genome, config, return_dict)))
             
-            for p in processes:
-                p.start()
-            
-            for p in processes:
-                p.join()
+            for p in tqdm(processes): p.start()
+            for p in processes: p.join()
             
             # No need to validate the fitness in this scenario
             return return_dict
@@ -103,8 +91,7 @@ class EvaluationEnv:
         result_dict = eval_genomes(list(zip(range(len(genome_list)), genome_list)), pop.config)
         
         eval_result = dict()
-        for k in result_dict.keys():
-            eval_result[str(genome_list[k].key)] = create_answer(result_dict[k])
+        for k in result_dict.keys(): eval_result[str(genome_list[k].key)] = create_answer(result_dict[k])
         pop.add_evaluation_result(eval_result)
     
     def evaluate_population(self, pop, game_ids=None):
@@ -114,8 +101,7 @@ class EvaluationEnv:
         :param pop: Population object
         :param game_ids: List of game-ids
         """
-        if game_ids:
-            self.set_games(game_ids)
+        if game_ids: self.set_games(game_ids)
         
         if len(self.games) > 20:
             raise Exception("It is not advised to evaluate a whole population on more than 20 games at once")
@@ -124,15 +110,13 @@ class EvaluationEnv:
             multi_env = MultiEnvironmentCy(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    rel_path=self.rel_path,
-                    max_duration=int(self.config['GAME']['duration'])
+                    max_duration=int(self.cfg['CONTROL']['duration'])
             )
         else:
             multi_env = MultiEnvironment(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    rel_path=self.rel_path,
-                    max_duration=int(self.config['GAME']['duration'])
+                    max_duration=int(self.cfg['CONTROL']['duration'])
             )
         
         # Initialize the evaluation-pool
@@ -144,11 +128,8 @@ class EvaluationEnv:
         for genome in list(iteritems(pop.population)):
             processes.append(mp.Process(target=multi_env.eval_genome, args=(genome, pop.config, return_dict)))
         
-        for p in processes:
-            p.start()
-        
-        for p in processes:
-            p.join()
+        for p in tqdm(processes): p.start()
+        for p in processes: p.join()
         
         # Create blueprint of final result
         game_objects = [multi_env.create_game(g) for g in self.games]
@@ -157,14 +138,9 @@ class EvaluationEnv:
 
 def create_answer(games):
     answer = ""
-    answer += "Percentage finished: {p:.1f}".format(
-            p=100 * len([g for g in games if g[D_DONE]]) / len(games))
-    answer += " - Average distance to target {d:.1f}".format(
-            d=sum([g[D_DIST_TO_TARGET] for g in games]) / len(games))
-    answer += " - Max distance to target {d:.1f}".format(
-            d=max([g[D_DIST_TO_TARGET] for g in games]))
-    answer += " - Average time taken {t:.1f}".format(
-            t=sum([g[D_STEPS] / FPS for g in games]) / len(games))
-    answer += " - Max time taken {t:.1f}".format(
-            t=max([g[D_STEPS] / FPS for g in games]))
+    answer += f"Percentage finished: {100 * len([g for g in games if g[D_DONE]]) / len(games):.1f}"
+    answer += f" - Average distance to target {sum([g[D_DIST_TO_TARGET] for g in games]) / len(games):.1f}"
+    answer += f" - Max distance to target {max([g[D_DIST_TO_TARGET] for g in games]):.1f}"
+    answer += f" - Average time taken {sum([g[D_STEPS] / int(g.cfg['RUN']['fps']) for g in games]) / len(games):.1f}"
+    answer += f" - Max time taken {max([g[D_STEPS] / int(g.cfg['RUN']['fps']) for g in games]):.1f}"
     return answer

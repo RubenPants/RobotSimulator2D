@@ -3,6 +3,7 @@ main.py
 
 TODO
 """
+import os
 from control.entities.population_manager import PopulationManager
 
 from pytorch_neat.recurrent_net import RecurrentNet
@@ -43,4 +44,8 @@ def main(name='test', rel_path='', silent=False):
 
 
 if __name__ == "__main__":
+    # Go back to root
+    os.chdir("../..")
+    
+    # Call main
     main()

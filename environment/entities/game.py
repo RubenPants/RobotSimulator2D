@@ -5,16 +5,16 @@ Game class which contains the player, target, and all the walls.
 """
 import pickle
 import random
+from configparser import ConfigParser
 
+import numpy as np
 import pylab as pl
 from matplotlib import collections as mc
 
 from environment.entities.robots import FootBot
-from utils.config import *
 from utils.dictionary import *
 from utils.intersection import circle_line_intersection
 from utils.line2d import Line2d
-from utils.myutils import drop, prep
 from utils.vec2d import Vec2d
 
 
@@ -26,26 +26,28 @@ class Game:
         * target: Robot that must be reached by the robot
     """
     
+    __slots__ = ("cfg", "silent", "noise", "done", "id", "path", "player", "steps_taken", "target", "walls")
+    
     def __init__(self,
+                 config=None,
                  game_id: int = 0,
-                 noise: bool = True,
+                 noise: bool = False,
                  overwrite: bool = False,
-                 rel_path: str = 'environment/',
                  silent: bool = False):
         """
         Define a new game.
 
+        :param config: Configuration file related to the game (only needed to pass during creation)
         :param game_id: Game id
         :param noise: Add noise when progressing the game
         :param overwrite: Overwrite pre-existing games
-        :param rel_path: Relative path where Game object is stored or will be stored
         :param silent: Do not print anything
         """
-        # Set path correct
-        self.rel_path: str = rel_path  # Relative path to the 'environment' folder
-        self.silent: bool = silent  # True: Do not print out statistics
+        # Set config
+        self.cfg = config
         
         # Environment specific parameters
+        self.silent: bool = silent  # True: Do not print out statistics
         self.noise: bool = noise  # Add noise to the game-environment
         
         # Placeholders for parameters
@@ -58,11 +60,10 @@ class Game:
         self.walls: list = None  # List of all walls in the game
         
         # Check if game already exists, if not create new game
-        if overwrite or not self.load():
-            self.create_empty_game()
+        if overwrite or not self.load(): self.create_empty_game()
     
     def __str__(self):
-        return "game_{id:05d}".format(id=self.id)
+        return f"game_{self.id:05d}"
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     
@@ -98,7 +99,8 @@ class Game:
         :return: Observation (Dictionary), target_reached (Boolean)
         """
         # Progress the game
-        dt = 1.0 / FPS + abs(random.gauss(0, NOISE_TIME)) if self.noise else 1.0 / FPS
+        dt = 1.0 / int(self.cfg['CONTROL']['fps']) + (
+            abs(random.gauss(0, float(self.cfg['NOISE']['time']))) if self.noise else 0)
         return self.step_dt(dt=dt, l=l, r=r)
     
     def step_dt(self, dt: float, l: float, r: float):
@@ -125,8 +127,7 @@ class Game:
                 break
         
         # Check if target reached
-        if self.player.get_sensor_reading_distance() <= TARGET_REACHED:
-            self.done = True
+        if self.player.get_sensor_reading_distance() <= float(self.cfg['TARGET']['reached']): self.done = True
         
         # Return the current observations
         return self.get_observation()
@@ -138,17 +139,16 @@ class Game:
         Create an empty game that only contains the boundary walls.
         """
         # Create random set of walls
-        self.walls = get_boundary_walls()
-        self.target = Vec2d(0.5, AXIS_Y - 0.5)
+        self.walls = get_boundary_walls(cfg=self.cfg)
+        self.target = Vec2d(0.5, int(self.cfg['CREATION']['y-axis']) - 0.5)
         self.player = FootBot(game=self,
-                              init_pos=Vec2d(AXIS_X - 0.5, 0.5),
+                              init_pos=Vec2d(int(self.cfg['CREATION']['x-axis']) - 0.5, 0.5),
                               init_orient=np.pi / 2)
         
         # Save the new game
         self.save()
         
-        if not self.silent:
-            print("New game created under id: {}".format(self.id))
+        if not self.silent: print("New game created under id: {}".format(self.id))
     
     def get_observation(self):
         """
@@ -182,12 +182,9 @@ class Game:
         angular = sensor_readings[D_SENSOR_ANGLE]
         distance = sensor_readings[D_SENSOR_DISTANCE]
         
-        # Add sensory-readings in one list
-        result = []
-        for i in range(len(proximity)):  # Proximity IDs go from 0 to proximity_length
-            result.append(proximity[i])
-        for i in range(len(angular)):  # Angular IDs go from 0 to angular_length
-            result.append(angular[i])
+        result = []  # Add sensory-readings in one list
+        for i in range(len(proximity)): result.append(proximity[i])  # Proximity IDs go from 0 to proximity_length
+        for i in range(len(angular)): result.append(angular[i])  # Angular IDs go from 0 to angular_length
         result.append(distance)
         return result
     
@@ -212,20 +209,14 @@ class Game:
     # ---------------------------------------------> FUNCTIONAL METHODS <--------------------------------------------- #
     
     def save(self):
-        if TIME_ALL:
-            prep(key='load_save', silent=True)
-        try:
-            persist_dict = dict()
-            persist_dict[D_ANGLE] = self.player.init_angle  # Initial angle of player
-            if self.path: persist_dict[D_PATH] = [(p[0], p[1]) for p in self.path.items()]
-            persist_dict[D_POS] = (self.player.init_pos.x, self.player.init_pos.y)  # Initial position of player
-            persist_dict[D_TARGET] = (self.target.x, self.target.y)
-            persist_dict[D_WALLS] = [((w.x.x, w.x.y), (w.y.x, w.y.y)) for w in self.walls]
-            with open('{p}games_db/{g}'.format(p=self.rel_path, g=self), 'wb') as f:
-                pickle.dump(persist_dict, f)
-        finally:
-            if TIME_ALL:
-                drop(key='load_save', silent=True)
+        persist_dict = dict()
+        persist_dict[D_CONFIG] = self.cfg
+        persist_dict[D_ANGLE] = self.player.init_angle  # Initial angle of player
+        if self.path: persist_dict[D_PATH] = [(p[0], p[1]) for p in self.path.items()]
+        persist_dict[D_POS] = (self.player.init_pos.x, self.player.init_pos.y)  # Initial position of player
+        persist_dict[D_TARGET] = (self.target.x, self.target.y)
+        persist_dict[D_WALLS] = [((w.x.x, w.x.y), (w.y.x, w.y.y)) for w in self.walls]
+        with open(f'environment/games_db/{self}', 'wb') as f: pickle.dump(persist_dict, f)
     
     def load(self):
         """
@@ -233,57 +224,51 @@ class Game:
 
         :return: True: game successfully loaded | False: otherwise
         """
-        if TIME_ALL:
-            prep(key='load_save', silent=True)
         try:
-            with open('{p}games_db/{g}'.format(p=self.rel_path, g=self), 'rb') as f:
+            with open(f'environment/games_db/{self}', 'rb') as f:
                 game = pickle.load(f)
+            self.cfg = game[D_CONFIG]
             self.player = FootBot(game=self)  # Create a dummy-player to set values on
             self.set_player_angle(game[D_ANGLE])
             self.set_player_pos(Vec2d(game[D_POS][0], game[D_POS][1]))
             self.path = {p[0]: p[1] for p in game[D_PATH]}
             self.target = Vec2d(game[D_TARGET][0], game[D_TARGET][1])
             self.walls = [Line2d(Vec2d(w[0][0], w[0][1]), Vec2d(w[1][0], w[1][1])) for w in game[D_WALLS]]
-            if not self.silent:
-                print("Existing game loaded with id: {}".format(self.id))
+            if not self.silent: print(f"Existing game loaded with id: {self.id}")
             return True
         except FileNotFoundError:
             return False
-        finally:
-            if TIME_ALL:
-                drop(key='load_save', silent=True)
     
     def get_blueprint(self, ax=None):
         """
         :return: The blue-print map of the board (matplotlib Figure)
         """
-        if not ax:
-            fig, ax = pl.subplots()
+        if not ax: fig, ax = pl.subplots()
         
         # Draw all the walls
         walls = []
-        for w in self.walls:
-            walls.append([(w.x.x, w.x.y), (w.y.x, w.y.y)])
+        for w in self.walls: walls.append([(w.x.x, w.x.y), (w.y.x, w.y.y)])
         lc = mc.LineCollection(walls, linewidths=2, colors='k')
         ax.add_collection(lc)
         
         # Add target to map
-        pl.plot(0.5, AXIS_Y - 0.5, 'go')
+        pl.plot(0.5, int(self.cfg['CREATION']['y-axis']) - 0.5, 'go')
         
         # Adjust the boundaries
-        pl.xlim(0, AXIS_X)
-        pl.ylim(0, AXIS_Y)
+        pl.xlim(0, int(self.cfg['CREATION']['x-axis']))
+        pl.ylim(0, int(self.cfg['CREATION']['y-axis']))
         
         # Return the figure in its current state
         return ax
 
 
-def get_boundary_walls():
-    """
-    :return: Set of the four boundary walls
-    """
+def get_boundary_walls(cfg=None):
+    """ :return: Set of the four boundary walls """
+    if not cfg:
+        cfg = ConfigParser()
+        cfg.read("configs/game.cfg")
     a = Vec2d(0, 0)
-    b = Vec2d(AXIS_X, 0)
-    c = Vec2d(AXIS_X, AXIS_Y)
-    d = Vec2d(0, AXIS_Y)
+    b = Vec2d(int(cfg['CREATION']['x-axis']), 0)
+    c = Vec2d(int(cfg['CREATION']['x-axis']), int(cfg['CREATION']['y-axis']))
+    d = Vec2d(0, int(cfg['CREATION']['y-axis']))
     return [Line2d(a, b), Line2d(b, c), Line2d(c, d), Line2d(d, a)]

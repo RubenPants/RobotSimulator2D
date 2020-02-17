@@ -839,8 +839,8 @@ struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy {
 };
 
 
-/* "utils/cy/line2d_cy.pxd":8
- * from utils.cy.vec2d_cy cimport Vec2dCy
+/* "utils/cy/line2d_cy.pxd":9
+ * 
  * 
  * cdef class Line2dCy:             # <<<<<<<<<<<<<<
  *     cdef public Vec2dCy x, y
@@ -887,12 +887,12 @@ struct __pyx_vtabstruct_5utils_2cy_8vec2d_cy_Vec2dCy {
 static struct __pyx_vtabstruct_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_vtabptr_5utils_2cy_8vec2d_cy_Vec2dCy;
 
 
-/* "utils/cy/line2d_cy.pyx":8
- * """
+/* "utils/cy/line2d_cy.pyx":10
+ * 
  * 
  * cdef class Line2dCy:             # <<<<<<<<<<<<<<
- *     """
- *     Create a two dimensional line setup of the connection between two 2D vectors.
+ *     """ Create a two dimensional line setup of the connection between two 2D vectors. """
+ * 
  */
 
 struct __pyx_vtabstruct_5utils_2cy_9line2d_cy_Line2dCy {
@@ -1431,6 +1431,7 @@ static const char __pyx_k_import[] = "__import__";
 static const char __pyx_k_pickle[] = "pickle";
 static const char __pyx_k_reduce[] = "__reduce__";
 static const char __pyx_k_update[] = "update";
+static const char __pyx_k_Vec2dCy[] = "Vec2dCy";
 static const char __pyx_k_getitem[] = "__getitem__";
 static const char __pyx_k_Line2dCy[] = "Line2dCy";
 static const char __pyx_k_getstate[] = "__getstate__";
@@ -1452,6 +1453,7 @@ static const char __pyx_k_Line2dCy___iter[] = "Line2dCy.__iter__";
 static const char __pyx_k_get_orientation[] = "get_orientation";
 static const char __pyx_k_pyx_PickleError[] = "__pyx_PickleError";
 static const char __pyx_k_setstate_cython[] = "__setstate_cython__";
+static const char __pyx_k_utils_cy_vec2d_cy[] = "utils.cy.vec2d_cy";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_utils_cy_line2d_cy[] = "utils.cy.line2d_cy";
 static const char __pyx_k_pyx_unpickle_Line2dCy[] = "__pyx_unpickle_Line2dCy";
@@ -1463,6 +1465,7 @@ static PyObject *__pyx_n_s_Line2dCy;
 static PyObject *__pyx_n_s_Line2dCy___iter;
 static PyObject *__pyx_kp_s_Line2dCy_s_s;
 static PyObject *__pyx_n_s_PickleError;
+static PyObject *__pyx_n_s_Vec2dCy;
 static PyObject *__pyx_n_s_add;
 static PyObject *__pyx_n_s_args;
 static PyObject *__pyx_n_s_cline_in_traceback;
@@ -1501,6 +1504,7 @@ static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_throw;
 static PyObject *__pyx_n_s_update;
 static PyObject *__pyx_n_s_utils_cy_line2d_cy;
+static PyObject *__pyx_n_s_utils_cy_vec2d_cy;
 static PyObject *__pyx_n_s_x;
 static PyObject *__pyx_n_s_y;
 static int __pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy___init__(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_x, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_y); /* proto */
@@ -3948,7 +3952,7 @@ static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_31get_orientation(stru
   return __pyx_r;
 }
 
-/* "utils/cy/line2d_cy.pxd":9
+/* "utils/cy/line2d_cy.pxd":10
  * 
  * cdef class Line2dCy:
  *     cdef public Vec2dCy x, y             # <<<<<<<<<<<<<<
@@ -4003,7 +4007,7 @@ static int __pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_1x_2__set__(struct __pyx_obj
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy))))) __PYX_ERR(1, 9, __pyx_L1_error)
+  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy))))) __PYX_ERR(1, 10, __pyx_L1_error)
   __pyx_t_1 = __pyx_v_value;
   __Pyx_INCREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
@@ -4100,7 +4104,7 @@ static int __pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_1y_2__set__(struct __pyx_obj
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy))))) __PYX_ERR(1, 9, __pyx_L1_error)
+  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy))))) __PYX_ERR(1, 10, __pyx_L1_error)
   __pyx_t_1 = __pyx_v_value;
   __Pyx_INCREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
@@ -5092,7 +5096,7 @@ static PyTypeObject __pyx_type_5utils_2cy_9line2d_cy_Line2dCy = {
   0, /*tp_setattro*/
   0, /*tp_as_buffer*/
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
-  "\n    Create a two dimensional line setup of the connection between two 2D vectors.\n    ", /*tp_doc*/
+  " Create a two dimensional line setup of the connection between two 2D vectors. ", /*tp_doc*/
   __pyx_tp_traverse_5utils_2cy_9line2d_cy_Line2dCy, /*tp_traverse*/
   __pyx_tp_clear_5utils_2cy_9line2d_cy_Line2dCy, /*tp_clear*/
   __pyx_tp_richcompare_5utils_2cy_9line2d_cy_Line2dCy, /*tp_richcompare*/
@@ -5288,6 +5292,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_Line2dCy___iter, __pyx_k_Line2dCy___iter, sizeof(__pyx_k_Line2dCy___iter), 0, 0, 1, 1},
   {&__pyx_kp_s_Line2dCy_s_s, __pyx_k_Line2dCy_s_s, sizeof(__pyx_k_Line2dCy_s_s), 0, 0, 1, 0},
   {&__pyx_n_s_PickleError, __pyx_k_PickleError, sizeof(__pyx_k_PickleError), 0, 0, 1, 1},
+  {&__pyx_n_s_Vec2dCy, __pyx_k_Vec2dCy, sizeof(__pyx_k_Vec2dCy), 0, 0, 1, 1},
   {&__pyx_n_s_add, __pyx_k_add, sizeof(__pyx_k_add), 0, 0, 1, 1},
   {&__pyx_n_s_args, __pyx_k_args, sizeof(__pyx_k_args), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
@@ -5326,6 +5331,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_throw, __pyx_k_throw, sizeof(__pyx_k_throw), 0, 0, 1, 1},
   {&__pyx_n_s_update, __pyx_k_update, sizeof(__pyx_k_update), 0, 0, 1, 1},
   {&__pyx_n_s_utils_cy_line2d_cy, __pyx_k_utils_cy_line2d_cy, sizeof(__pyx_k_utils_cy_line2d_cy), 0, 0, 1, 1},
+  {&__pyx_n_s_utils_cy_vec2d_cy, __pyx_k_utils_cy_vec2d_cy, sizeof(__pyx_k_utils_cy_vec2d_cy), 0, 0, 1, 1},
   {&__pyx_n_s_x, __pyx_k_x, sizeof(__pyx_k_x), 0, 0, 1, 1},
   {&__pyx_n_s_y, __pyx_k_y, sizeof(__pyx_k_y), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
@@ -5354,7 +5360,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple_);
 
   /* "utils/cy/line2d_cy.pyx":13
- *     """
+ *     """ Create a two dimensional line setup of the connection between two 2D vectors. """
  * 
  *     __slots__ = ("x", "y")             # <<<<<<<<<<<<<<
  * 
@@ -5429,16 +5435,16 @@ static int __Pyx_modinit_type_init_code(void) {
   __pyx_vtabptr_5utils_2cy_9line2d_cy_Line2dCy = &__pyx_vtable_5utils_2cy_9line2d_cy_Line2dCy;
   __pyx_vtable_5utils_2cy_9line2d_cy_Line2dCy.get_length = (float (*)(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch))__pyx_f_5utils_2cy_9line2d_cy_8Line2dCy_get_length;
   __pyx_vtable_5utils_2cy_9line2d_cy_Line2dCy.get_orientation = (float (*)(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch))__pyx_f_5utils_2cy_9line2d_cy_8Line2dCy_get_orientation;
-  if (PyType_Ready(&__pyx_type_5utils_2cy_9line2d_cy_Line2dCy) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_5utils_2cy_9line2d_cy_Line2dCy) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_5utils_2cy_9line2d_cy_Line2dCy.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_5utils_2cy_9line2d_cy_Line2dCy.tp_dictoffset && __pyx_type_5utils_2cy_9line2d_cy_Line2dCy.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_5utils_2cy_9line2d_cy_Line2dCy.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (__Pyx_SetVtable(__pyx_type_5utils_2cy_9line2d_cy_Line2dCy.tp_dict, __pyx_vtabptr_5utils_2cy_9line2d_cy_Line2dCy) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Line2dCy, (PyObject *)&__pyx_type_5utils_2cy_9line2d_cy_Line2dCy) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_5utils_2cy_9line2d_cy_Line2dCy) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
+  if (__Pyx_SetVtable(__pyx_type_5utils_2cy_9line2d_cy_Line2dCy.tp_dict, __pyx_vtabptr_5utils_2cy_9line2d_cy_Line2dCy) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Line2dCy, (PyObject *)&__pyx_type_5utils_2cy_9line2d_cy_Line2dCy) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_5utils_2cy_9line2d_cy_Line2dCy) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
   __pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy = &__pyx_type_5utils_2cy_9line2d_cy_Line2dCy;
   if (PyType_Ready(&__pyx_type_5utils_2cy_9line2d_cy___pyx_scope_struct____iter__) < 0) __PYX_ERR(0, 34, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
@@ -5583,6 +5589,7 @@ static CYTHON_SMALL_CODE int __pyx_pymod_exec_line2d_cy(PyObject *__pyx_pyinit_m
 #endif
 {
   PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannyDeclarations
   #if CYTHON_PEP489_MULTI_PHASE_INIT
   if (__pyx_m) {
@@ -5687,8 +5694,25 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
+  /* "utils/cy/line2d_cy.pyx":7
+ * files).
+ * """
+ * from utils.cy.vec2d_cy import Vec2dCy             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_INCREF(__pyx_n_s_Vec2dCy);
+  __Pyx_GIVEREF(__pyx_n_s_Vec2dCy);
+  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_Vec2dCy);
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_utils_cy_vec2d_cy, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
   /* "utils/cy/line2d_cy.pyx":13
- *     """
+ *     """ Create a two dimensional line setup of the connection between two 2D vectors. """
  * 
  *     __slots__ = ("x", "y")             # <<<<<<<<<<<<<<
  * 
@@ -5704,10 +5728,10 @@ if (!__Pyx_RefNanny) {
  * 
  *     def __iadd__(self, other):
  */
-  __Pyx_GetNameInClass(__pyx_t_1, (PyObject *)__pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy, __pyx_n_s_add); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 64, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy->tp_dict, __pyx_n_s_radd, __pyx_t_1) < 0) __PYX_ERR(0, 64, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_GetNameInClass(__pyx_t_2, (PyObject *)__pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy, __pyx_n_s_add); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 64, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy->tp_dict, __pyx_n_s_radd, __pyx_t_2) < 0) __PYX_ERR(0, 64, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   PyType_Modified(__pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy);
 
   /* "(tree fragment)":1
@@ -5715,26 +5739,27 @@ if (!__Pyx_RefNanny) {
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5utils_2cy_9line2d_cy_1__pyx_unpickle_Line2dCy, NULL, __pyx_n_s_utils_cy_line2d_cy); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_Line2dCy, __pyx_t_1) < 0) __PYX_ERR(2, 1, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5utils_2cy_9line2d_cy_1__pyx_unpickle_Line2dCy, NULL, __pyx_n_s_utils_cy_line2d_cy); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_Line2dCy, __pyx_t_2) < 0) __PYX_ERR(2, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "utils/cy/line2d_cy.pyx":1
  * """             # <<<<<<<<<<<<<<
  * line2d_cy.pyx
  * 
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_2) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /*--- Wrapped vars code ---*/
 
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
   if (__pyx_m) {
     if (__pyx_d) {
       __Pyx_AddTraceback("init utils.cy.line2d_cy", __pyx_clineno, __pyx_lineno, __pyx_filename);

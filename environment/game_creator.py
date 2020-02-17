@@ -16,27 +16,34 @@ The creation of a stage will happen in three different stages:
 After successfully creating the maze-matrix, it is converted to a Pymunk game and then saved in the 'games_db' folder.
 """
 import argparse
+import os
 import random
+from configparser import ConfigParser
 
 import matplotlib.pyplot as plt
+import numpy as np
 from tqdm import tqdm
 
 from environment.entities.game import Game
 from environment.entities.robots import FootBot
-from utils.config import *
 from utils.line2d import Line2d
 from utils.vec2d import Vec2d
 
 
 class Maze:
-    def __init__(self, x_width, y_width, visualize=False):
+    def __init__(self, cfg, visualize=False):
         """
-        :param x_width: Width of the x-axis
-        :param y_width: Width of the y-axis
+        Auto-generate a maze, which is a model for the final games.
+        
+        :param cfg: Config file
         :param visualize: Visualize intermediate steps of creation
         """
-        self.x_width = 2 * x_width + 1
-        self.y_width = 2 * y_width + 1
+        # Load in the config file
+        self.cfg = cfg
+        
+        # Set the maze's main parameters
+        self.x_width = 2 * int(self.cfg['CREATION']['x-axis']) + 1
+        self.y_width = 2 * int(self.cfg['CREATION']['y-axis']) + 1
         self.tiles_amount = self.x_width * self.y_width
         self.maze = np.zeros((self.y_width, self.x_width))
         
@@ -82,7 +89,7 @@ class Maze:
         Try to add several rooms for a few times. This method is very stochastic and has a high tendency to fail when
         several rooms are already added. This is however no problem, thus ignored.
         """
-        for _ in range(ROOM_ATTEMPTS):
+        for _ in range(int(self.cfg['CREATION']['room attempts'])):
             try:
                 self.add_room()
             except IndexError:
@@ -101,7 +108,7 @@ class Maze:
                 if self.maze[y, x] >= 0:
                     # Check ratio of empty tiles
                     filled_tiles = self.fill_room((x, y), reset=True)
-                    if len(filled_tiles) / self.tiles_amount > FILLED_ROOM_RATIO:
+                    if len(filled_tiles) / self.tiles_amount > float(self.cfg['CREATION']['filled ratio']):
                         # Add a wall on a potential wall-tile in the empty room
                         self.add_wall([(x, y) for (x, y) in filled_tiles if (x % 2 == 0 and y % 2 == 0)], hor=add_hor)
                         add_hor = not add_hor
@@ -203,7 +210,7 @@ class Maze:
         max_length = int(diff.get_length())
         
         # Early-stop if base wall is not wide enough
-        if max_length < MIN_ROOM_WIDTH:
+        if max_length < int(self.cfg['CREATION']['min width']):
             raise IndexError
         
         # Define a new starting position
@@ -218,7 +225,7 @@ class Maze:
         
         # Check if wall is wide enough
         room_width = int((end_new - start_new).get_length())
-        if room_width < MIN_ROOM_WIDTH:
+        if room_width < int(self.cfg['CREATION']['min width']):
             raise IndexError
         
         # Grow to both sides
@@ -505,31 +512,33 @@ def combine_walls(wall_list):
             i += 1
 
 
-def create_custom_game(overwrite=False):
+def create_custom_game(cfg, overwrite=False):
+    """ Dummy to create a custom-defined game. """
     # Initial parameters
     game_id = 0
     
     # Create empty Game instance
-    game = Game(game_id=game_id,
-                rel_path='',
+    game = Game(config=cfg,
+                game_id=game_id,
                 overwrite=overwrite)
     
     # Put the target on a fixed position
-    game.target = Vec2d(0.5, AXIS_Y - 0.5)
+    game.target = Vec2d(0.5, int(cfg['CREATION']['y-axis']) - 0.5)
     
     # Create random player
     game.player = FootBot(game=game,
-                          init_pos=Vec2d(AXIS_X - 0.5, 0.5),
+                          init_pos=Vec2d(int(cfg['CREATION']['x-axis']) - 0.5, 0.5),
                           init_orient=np.pi / 2)
     
     # Save the final game
     game.save()
 
 
-def create_game(game_id=0, path_list=None, rel_path='', wall_list=None, overwrite=False):
+def create_game(cfg, game_id=0, path_list=None, rel_path='', wall_list=None, overwrite=False):
     """
     Create a game based on a list of walls.
     
+    :param cfg: The game config
     :param game_id: ID of the game (Integer)
     :param path_list: List of paths together with value [0..1] indicating how close the tile is to the target
     :param rel_path: Relative path to the 'games'-folder
@@ -537,8 +546,8 @@ def create_game(game_id=0, path_list=None, rel_path='', wall_list=None, overwrit
     :param overwrite: Overwrite pre-existing games
     """
     # Create empty Game instance
-    game = Game(game_id=game_id,
-                rel_path=rel_path,
+    game = Game(config=cfg,
+                game_id=game_id,
                 overwrite=overwrite,
                 silent=True)
     
@@ -549,11 +558,11 @@ def create_game(game_id=0, path_list=None, rel_path='', wall_list=None, overwrit
     game.path = {p[0]: p[1] for p in path_list}
     
     # Put the target on a fixed position
-    game.target = Vec2d(0.5, AXIS_Y - 0.5)
+    game.target = Vec2d(0.5, int(cfg['CREATION']['y-axis']) - 0.5)
     
     # Create random player
     game.player = FootBot(game=game,
-                          init_pos=Vec2d(AXIS_X - 0.5, 0.5),
+                          init_pos=Vec2d(int(cfg['CREATION']['x-axis']) - 0.5, 0.5),
                           init_orient=np.pi / 2)
     
     # Save the final game
@@ -567,21 +576,33 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('--custom', type=bool, default=False)
     parser.add_argument('--overwrite', type=bool, default=True)
-    parser.add_argument('--nr_games', type=int, default=GAMES_AMOUNT)
+    parser.add_argument('--nr_games', type=int, default=None)
     parser.add_argument('--visualize', type=bool, default=False)
     args = parser.parse_args()
     
+    # Point back to root
+    os.chdir('..')
+    
+    # Load in the config file
+    config = ConfigParser()
+    config.read("configs/game.cfg")
+    
+    # Setup the params
+    nr_games = args.nr_games
+    if not nr_games: nr_games = int(config['CONTROL']['max eval-id'])
+    
     if args.custom:
-        create_custom_game(overwrite=args.overwrite)
+        create_custom_game(cfg=config, overwrite=args.overwrite)
     else:
-        for game in tqdm(range(1, args.nr_games + 1), desc="Generating Mazes"):
+        for g_id in tqdm(range(1, nr_games + 1), desc="Generating Mazes"):
             maze = None
             while not maze:
                 try:
-                    maze = Maze(AXIS_X, AXIS_Y, visualize=args.visualize)
-                except (IndexError, Exception):
+                    maze = Maze(cfg=config, visualize=args.visualize)
+                except IndexError:
                     maze = None  # Reset and try again
-            create_game(game_id=game,
+            create_game(cfg=config,
+                        game_id=g_id,
                         path_list=maze.get_path_coordinates(),
                         wall_list=maze.get_wall_coordinates(),
                         overwrite=args.overwrite)

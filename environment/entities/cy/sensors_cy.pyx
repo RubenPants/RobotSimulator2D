@@ -6,10 +6,13 @@ classes and methods in other files).
 """
 import random
 
+import numpy as np
+
+from utils.dictionary import *
 from utils.cy.intersection_cy cimport line_line_intersection_cy
 from utils.cy.line2d_cy cimport Line2dCy
-from utils.config import *
-from utils.dictionary import *
+from utils.cy.vec2d_cy cimport Vec2dCy
+
 
 cdef class SensorCy:
     """
@@ -41,9 +44,7 @@ cdef class SensorCy:
         self.max_dist = max_dist
     
     def __str__(self):
-        """
-        :return: Name of the sensor
-        """
+        """ :return: Name of the sensor """
         raise NotImplemented
     
     cdef float get_measure(self):
@@ -54,6 +55,7 @@ cdef class SensorCy:
         :return: Distance
         """
         raise NotImplemented
+
 
 cdef class AngularSensorCy(SensorCy):
     """
@@ -70,12 +72,11 @@ cdef class AngularSensorCy(SensorCy):
         :param sensor_id: Identification number for the sensor
         """
         # noinspection PyCompatibility
-        super().__init__(game=game,
-                         sensor_id=sensor_id)
+        super().__init__(game=game, sensor_id=sensor_id)
         self.clockwise = clockwise
     
     def __str__(self):
-        return "{sensor}_{id:02d}".format(sensor=D_SENSOR_ANGLE, id=self.id)
+        return f"{D_SENSOR_ANGLE}_{self.id:02d}"
     
     cdef float get_measure(self):
         """
@@ -99,8 +100,7 @@ cdef class AngularSensorCy(SensorCy):
             diff %= 2 * np.pi
         
         # Add noise
-        if self.game.noise:
-            diff += random.gauss(0, NOISE_SENSOR_ANGLE)
+        if self.game.noise: diff += random.gauss(0, float(self.game.cfg['NOISE']['angle']))
         return diff
 
 cdef class DistanceSensorCy(SensorCy):
@@ -115,11 +115,10 @@ cdef class DistanceSensorCy(SensorCy):
         :param game: Reference to the game in which the sensor is used
         :param sensor_id: Identification number for the sensor
         """
-        super().__init__(game=game,
-                         sensor_id=sensor_id)
+        super().__init__(game=game, sensor_id=sensor_id)
     
     def __str__(self):
-        return "{sensor}_{id:02d}".format(sensor=D_SENSOR_DISTANCE, id=self.id)
+        return f"{D_SENSOR_DISTANCE}_{self.id:02d}"
     
     cdef float get_measure(self):
         """
@@ -133,8 +132,7 @@ cdef class DistanceSensorCy(SensorCy):
         start_p = self.game.player.pos
         end_p = self.game.target
         distance = (start_p - end_p).get_length()
-        if self.game.noise:
-            distance += random.gauss(0, NOISE_SENSOR_DIST)
+        if self.game.noise: distance += random.gauss(0, float(self.game.cfg['NOISE']['distance']))
         return distance
 
 cdef class ProximitySensorCy(SensorCy):
@@ -149,7 +147,7 @@ cdef class ProximitySensorCy(SensorCy):
                  int sensor_id=0,
                  float angle=0,
                  float pos_offset=0,
-                 float max_dist=SENSOR_RAY_DISTANCE):
+                 float max_dist=0):
         """
         :param game: Reference to the game in which the sensor is used
         :param sensor_id: Identification number for the sensor
@@ -157,6 +155,7 @@ cdef class ProximitySensorCy(SensorCy):
         :param pos_offset: Distance to the agent's center of mass and orientation
         :param max_dist: Maximum distance the sensor can reach, infinite if set to zero
         """
+        if not max_dist: max_dist = float(game.cfg['SENSOR']['ray distance'])
         super().__init__(game=game,
                          sensor_id=sensor_id,
                          angle=angle,
@@ -166,7 +165,7 @@ cdef class ProximitySensorCy(SensorCy):
         self.end_pos = None  # Placeholder for end-point of proximity sensor
     
     def __str__(self):
-        return "{sensor}_{id:02d}".format(sensor=D_SENSOR_PROXIMITY, id=self.id)
+        return f"{D_SENSOR_PROXIMITY}_{self.id:02d}"
     
     cdef float get_measure(self):
         """
@@ -187,8 +186,7 @@ cdef class ProximitySensorCy(SensorCy):
                                     np.sin(self.game.player.angle + self.angle))
         self.start_pos = self.game.player.pos + normalized_offset * self.pos_offset
         self.end_pos = self.game.player.pos + normalized_offset * (self.pos_offset + self.max_dist)
-        sensor_line = Line2dCy(x=self.game.player.pos,
-                               y=self.end_pos)
+        sensor_line = Line2dCy(x=self.game.player.pos, y=self.end_pos)
         
         # Check if there is a wall intersecting with the sensor and return the closest distance to a wall
         closest_dist = self.max_dist
@@ -201,5 +199,6 @@ cdef class ProximitySensorCy(SensorCy):
                     closest_dist = new_dist
         
         if self.game.noise:
-            closest_dist += random.gauss(0, NOISE_SENSOR_PROXY)
+            closest_dist += random.gauss(0, float(self.game.cfg['NOISE']['proximity']))
+            closest_dist = max(0, min(closest_dist, self.max_dist))
         return closest_dist

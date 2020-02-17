@@ -4,6 +4,10 @@ intersection_cy.pyx
 Cython version of the intersection.py file. Note that this file co-exists with a .pxd file (needed to import the
 intersection methods in other files).
 """
+from utils.cy.line2d_cy cimport Line2dCy
+from utils.cy.vec2d_cy cimport Vec2dCy
+
+# Constants
 cdef float EPSILON = 1e-5
 
 cpdef tuple line_line_intersection_cy(Line2dCy l1, Line2dCy l2):

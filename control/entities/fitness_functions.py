@@ -79,7 +79,7 @@ def fitness_per_game(fitness_config: dict, game_observations):
     elif tag == 'quality_diversity':
         raise NotImplemented
     else:
-        raise Exception("{} is not supported".format(tag))
+        raise Exception(f"{tag} is not supported")
 
 
 # -------------------------------------------------> HELPER METHODS <------------------------------------------------- #
