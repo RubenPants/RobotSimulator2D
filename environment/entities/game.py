@@ -26,6 +26,8 @@ class Game:
         * target: Robot that must be reached by the robot
     """
     
+    __slots__ = ("cfg", "silent", "noise", "done", "id", "path", "player", "steps_taken", "target", "walls")
+    
     def __init__(self,
                  config=None,
                  game_id: int = 0,
@@ -223,7 +225,8 @@ class Game:
         :return: True: game successfully loaded | False: otherwise
         """
         try:
-            with open(f'environment/games_db/{self}', 'rb') as f: game = pickle.load(f)
+            with open(f'environment/games_db/{self}', 'rb') as f:
+                game = pickle.load(f)
             self.cfg = game[D_CONFIG]
             self.player = FootBot(game=self)  # Create a dummy-player to set values on
             self.set_player_angle(game[D_ANGLE])

@@ -16,10 +16,10 @@ cdef class GameCy:
     cdef public bint done, noise, silent
     cdef public int id, steps_taken
     cdef public dict path
-    cdef public str rel_path
     cdef public list walls
     cdef public FootBotCy player
     cdef public Vec2dCy target
+    cdef public cfg
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     

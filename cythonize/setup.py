@@ -18,4 +18,4 @@ setup(ext_modules=cythonize('environment/entities/cy/robots_cy.pyx'))
 setup(ext_modules=cythonize('environment/entities/cy/game_cy.pyx'))
 
 # Uses numpy arrays
-# setup(ext_modules=cythonize('environment/cy/multi_env_cy.pyx'), include_dirs=[numpy.get_include()])
+setup(ext_modules=cythonize('environment/cy/multi_env_cy.pyx'), include_dirs=[numpy.get_include()])

@@ -3,18 +3,14 @@ multi_env.py
 
 TODO
 """
-import sys
-
-from utils.dictionary import D_SENSOR_LIST, D_DONE
-
-if sys.platform == 'linux':
-    from environment.entities.cy.game_cy import GameCy
-else:
-    from environment.entities.game import Game
+from environment.entities.game import Game
+from utils.dictionary import D_DONE, D_SENSOR_LIST
 
 
 class MultiEnvironment:
     """ This class provides an environment to evaluate a single genome on multiple games. """
+    
+    __slots__ = ("batch_size", "games", "make_net", "max_duration", "query_net")
     
     def __init__(self,
                  make_net,
@@ -59,14 +55,11 @@ class MultiEnvironment:
         max_steps = self.max_duration * int(games[0].cfg['CONTROL']['fps'])
         while True:
             # Check if maximum iterations is reached
-            if step_num == max_steps:
-                break
+            if step_num == max_steps: break
             
             # Determine the actions made by the agent for each of the states
-            if debug:
-                actions = self.query_net(net, states, debug=True, step_num=step_num)
-            else:
-                actions = self.query_net(net, states)
+            if debug: actions = self.query_net(net, states, debug=True, step_num=step_num)
+            else: actions = self.query_net(net, states)
             
             # Check if each game received an action
             assert len(actions) == len(games)
@@ -82,13 +75,11 @@ class MultiEnvironment:
                     states[i] = obs[D_SENSOR_LIST]
             
             # Stop if agent reached target in all the games
-            if all(finished):
-                break
+            if all(finished): break
             step_num += 1
         
         # Return the final observations
-        if return_dict is not None:
-            return_dict[genome_id] = [g.close() for g in games]
+        if return_dict is not None: return_dict[genome_id] = [g.close() for g in games]
     
     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
     
@@ -97,12 +88,8 @@ class MultiEnvironment:
         :param i: Game-ID
         :return: Game or GameCy object
         """
-        if sys.platform == 'linux':
-            return GameCy(game_id=i,
-                          silent=True)
-        else:
-            return Game(game_id=i,
-                        silent=True)
+        return Game(game_id=i,
+                    silent=True)
     
     def set_games(self, games):
         """

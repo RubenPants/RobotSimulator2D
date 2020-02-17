@@ -85,7 +85,7 @@ cdef class FootBotCy:
         self.prev_angle = self.angle
         
         # Update angle is determined by the speed of both wheels
-        self.angle += (rw - lw) * self.game.cfg['BOT']['turning speed'] * dt
+        self.angle += (rw - lw) * float(self.game.cfg['BOT']['turning speed']) * dt
         self.angle %= 2 * np.pi
         
         # Update position is the average of the two wheels times the maximum driving speed
@@ -166,7 +166,7 @@ cdef class FootBotCy:
         self.proximity_sensors.add(ProximitySensorCy(sensor_id=len(self.proximity_sensors),
                                                      game=self.game,
                                                      angle=angle,
-                                                     pos_offset=self.game.cfg['BOT']['radius']))
+                                                     pos_offset=float(self.game.cfg['BOT']['radius'])))
     
     cdef void create_angular_sensors(self):
         """

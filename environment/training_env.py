@@ -82,11 +82,8 @@ class TrainingEnv:
                 for genome in genomes:
                     processes.append(mp.Process(target=multi_env.eval_genome, args=(genome, config, return_dict)))
                 
-                for p in tqdm(processes):
-                    p.start()
-                
-                for p in processes:
-                    p.join()
+                for p in tqdm(processes): p.start()
+                for p in processes: p.join()
                 
                 # Calculate the fitness from the given return_dict
                 fitness = calc_pop_fitness(fitness_config=pop.fitness_config, game_observations=return_dict)
@@ -102,13 +99,11 @@ class TrainingEnv:
             # Gather and report statistics
             best = None
             for g in itervalues(pop.population):
-                if best is None or g.fitness > best.fitness:
-                    best = g
+                if best is None or g.fitness > best.fitness: best = g
             pop.reporters.post_evaluate(pop.config, pop.population, pop.species, best)
             
             # Track best genome ever seen
-            if pop.best_genome is None or best.fitness > pop.best_genome.fitness:
-                pop.best_genome = best
+            if pop.best_genome is None or best.fitness > pop.best_genome.fitness: pop.best_genome = best
             
             # Let population evolve
             pop.evolve()
@@ -164,11 +159,8 @@ class TrainingEnv:
         for genome in list(iteritems(pop.population)):
             processes.append(mp.Process(target=multi_env.eval_genome, args=(genome, pop.config, return_dict)))
         
-        for p in processes:
-            p.start()
-        
-        for p in processes:
-            p.join()
+        for p in tqdm(processes): p.start()
+        for p in processes: p.join()
         
         # Create blueprint of final result
         game_objects = [multi_env.create_game(g) for g in self.games]
