@@ -87,8 +87,8 @@ def fitness_per_game(fitness_config: dict, game_observations):
 
 def fitness_distance(game_observations):
     """
-    Determine the fitness based on the average distance to target in crows flight. This fitness is calculated as the
-    inverted average distance, times one hundred.
+    Determine the fitness based on the average distance to target in crows flight. This remaining distance is normalized
+    by the A* distance from the agent's initial position
     
     TODO: Inspired by James' paper page --> Still need to implement it though!
     
@@ -97,7 +97,7 @@ def fitness_distance(game_observations):
     """
     fitness_dict = dict()
     for k, v in game_observations.items():  # Iterate over the candidates
-        fitness_dict[k] = [min(100 / o[D_DIST_TO_TARGET], 100) for o in v]  # Highest fitness of 100
+        fitness_dict[k] = [min(0, 1 - o[D_DIST_TO_TARGET] / o[D_A_STAR]) for o in v]
     return fitness_dict
 
 
@@ -133,9 +133,51 @@ def novelty_search(game_observations, k: int = 5):
     return cum_novelty
 
 
+def novelty_search_game(game_observations, k: int = 5):  # TODO: Not sure if properly Novelty Function (add one by one?)
+    """
+    Candidates are given a fitness based on how novel their position is. For each candidate, the distance to its k
+    nearest neighbours is determined, which are then summed up with each other. Novel candidates are the ones that are
+    far away from other candidates, thus have a (relative) low summed distance the the k-nearest neighbours. The idea
+    behind novelty search is that it simulates an efficient search across the whole search-space, whilst only evaluating
+    the candidates on their phenotype (final position).
+    
+    Briefly said: the further away a candidate is from the other candidates (in crows fly), the 'fitter' it is.
+    
+    :param game_observations: Dictionary of List of game.close() results (Dictionary)
+    :param k: The number of neighbours taken into account
+    :return: Dictionary: key=genome_id, val=fitness of one game as a float
+    """
+    ids = list(game_observations.keys())
+    assert (k > 0)  # Check if algorithm considers at least one neighbor
+    assert (len(ids) > k)  # Check if k is not greater than population-size
+    
+    # Shuffle the ids randomly
+    ids = list(np.random.permutation(ids))
+    
+    # Get the positions of the k first positions
+    positions = np.asarray([game_observations[ids[i]][D_POS] for i in range(k + 1)])
+    
+    # Determine distance of first k neighbours
+    distance = dict()
+    knn = NearestNeighbors(n_neighbors=(k + 1)).fit(positions)  # k+1 since a candidate includes itself
+    knn_distances, _ = knn.kneighbors(positions)  # Array of distances to k+1 nearest neighbors
+    for i in range(k + 1):
+        distance[ids[i]] = sum(knn_distances[i])
+    
+    # Iteratively append rest of candidates and determine distance
+    for i in range(k + 1, len(ids)):
+        positions = np.concatenate([positions, [game_observations[ids[i]][D_POS]]])
+        knn = NearestNeighbors(n_neighbors=(k + 1)).fit(positions)
+        knn_distances, _ = knn.kneighbors(positions)
+        distance[ids[i]] = sum(knn_distances[i])
+    
+    # Return result
+    return distance
+
+
 def fitness_path(game_observations):
     """
-    This metric uses the game-specific "path" values. This values indicate the quality for each for the tiles,
+    This metric uses the game-specific "path" values. This value indicates the quality for each for the tiles,
     indicating how far away this current tile is from target. Note that these values are normalized and transformed to
     fitness values, where the tile of the target has value 1 and the value of the tile with the longest path towards the
     target has value 0.
@@ -143,17 +185,10 @@ def fitness_path(game_observations):
     :param game_observations: List of game.close() results (Dictionary)
     :return: { genome_id, [fitness_floats] }
     """
-    
-    def get_value(path, pos):
-        """
-        Get the value of the given position in the given game.
-        """
-        return path[min(path.keys(), key=lambda key: (pos - Vec2d(key[0], key[1])).get_length())]
-    
     # Calculate the score
     fitness_dict = dict()
     for k, v in game_observations.items():  # Iterate over the candidates
-        fitness_dict[k] = [100 * get_value(path=o[D_PATH], pos=o[D_POS]) for o in v]
+        fitness_dict[k] = [min(0, 1 - o[D_PATH][o[D_POS][0], o[D_POS][1]] / o[D_A_STAR]) for o in v]
     return fitness_dict
 
 
@@ -206,45 +241,3 @@ def fitness_distance_time(game_observations):
     for k, v in game_observations.items():  # Iterate over the candidates
         fitness_dict[k] = [100 - 50 * (o[D_DIST_TO_TARGET] / max_d[i] + o[D_STEPS] / max_s[i]) for i, o in enumerate(v)]
     return fitness_dict
-
-
-def novelty_search_game(game_observations, k: int = 5):  # TODO: Not sure if properly Novelty Function (add one by one?)
-    """
-    Candidates are given a fitness based on how novel their position is. For each candidate, the distance to its k
-    nearest neighbours is determined, which are then summed up with each other. Novel candidates are the ones that are
-    far away from other candidates, thus have a (relative) low summed distance the the k-nearest neighbours. The idea
-    behind novelty search is that it simulates an efficient search across the whole search-space, whilst only evaluating
-    the candidates on their phenotype (final position).
-    
-    Briefly said: the further away a candidate is from the other candidates (in crows fly), the 'fitter' it is.
-    
-    :param game_observations: Dictionary of List of game.close() results (Dictionary)
-    :param k: The number of neighbours taken into account
-    :return: Dictionary: key=genome_id, val=fitness of one game as a float
-    """
-    ids = list(game_observations.keys())
-    assert (k > 0)  # Check if algorithm considers at least one neighbor
-    assert (len(ids) > k)  # Check if k is not greater than population-size
-    
-    # Shuffle the ids randomly
-    ids = list(np.random.permutation(ids))
-    
-    # Get the positions of the k first positions
-    positions = np.asarray([game_observations[ids[i]][D_POS] for i in range(k + 1)])
-    
-    # Determine distance of first k neighbours
-    distance = dict()
-    knn = NearestNeighbors(n_neighbors=(k + 1)).fit(positions)  # k+1 since a candidate includes itself
-    knn_distances, _ = knn.kneighbors(positions)  # Array of distances to k+1 nearest neighbors
-    for i in range(k + 1):
-        distance[ids[i]] = sum(knn_distances[i])
-    
-    # Iteratively append rest of candidates and determine distance
-    for i in range(k + 1, len(ids)):
-        positions = np.concatenate([positions, [game_observations[ids[i]][D_POS]]])
-        knn = NearestNeighbors(n_neighbors=(k + 1)).fit(positions)
-        knn_distances, _ = knn.kneighbors(positions)
-        distance[ids[i]] = sum(knn_distances[i])
-    
-    # Return result
-    return distance

@@ -5,6 +5,7 @@ Words used across the project, sorted in alphabetical order.
 """
 
 # A
+D_A_STAR = "A*"
 D_ANGLE = 'angle'
 
 # B

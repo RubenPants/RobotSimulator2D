@@ -96,6 +96,7 @@ cdef class GameCy:
         :return: Final state and useful statistics
         """
         return {
+            D_A_STAR:         self.path[self.player.init_pos[0], self.player.init_pos[1]],
             D_DIST_TO_TARGET: self.player.get_sensor_reading_distance(),
             D_DONE:           self.done,
             D_GAME_ID:        self.id,
