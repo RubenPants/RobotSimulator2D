@@ -1,13 +1,13 @@
 """
 Test of all the sensors.
 """
-
 import unittest
+
+import numpy as np
 
 from environment.entities.cy.game_cy import GameCy
 from utils.cy.line2d_cy import Line2dCy
 from utils.cy.vec2d_cy import Vec2dCy
-
 
 EPSILON_ANGLE = 0.0001  # 0.0001 radian offset allowed (~0.02 degrees)
 EPSILON_DISTANCE = 0.001  # 1 millimeter offset allowed
@@ -19,8 +19,8 @@ class AngularSensorTestCy(unittest.TestCase):
     Test the angular sensor.
     """
     
-    def test_front(self, rel_path=""):
-        game = GameCy(game_id=0, rel_path=rel_path, silent=True, overwrite=True, noise=False)
+    def test_front(self, save_path="../games_db/"):
+        game = GameCy(game_id=0, save_path=save_path, silent=True, overwrite=True, noise=False)
         
         # Update player and target position
         game.target = Vec2dCy(1, 0)
@@ -33,8 +33,8 @@ class AngularSensorTestCy(unittest.TestCase):
             s = min(s, abs(s - 2 * np.pi))
             self.assertAlmostEqual(s, 0.0, delta=EPSILON_ANGLE)
     
-    def test_left_angle(self, rel_path=""):
-        game = GameCy(game_id=0, rel_path=rel_path, silent=True, overwrite=True, noise=False)
+    def test_left_angle(self, save_path="../games_db/"):
+        game = GameCy(game_id=0, save_path=save_path, silent=True, overwrite=True, noise=False)
         
         # Update player and target position
         game.target = Vec2dCy(1, 1)
@@ -52,8 +52,8 @@ class DistanceSensorTestCy(unittest.TestCase):
     Test the distance sensor.
     """
     
-    def test_front(self, rel_path=""):
-        game = GameCy(game_id=0, rel_path=rel_path, silent=True, overwrite=True, noise=False)
+    def test_front(self, save_path="../games_db/"):
+        game = GameCy(game_id=0, save_path=save_path, silent=True, overwrite=True, noise=False)
         
         # Update player and target position
         game.target = Vec2dCy(1, 0)
@@ -62,8 +62,8 @@ class DistanceSensorTestCy(unittest.TestCase):
         
         self.assertAlmostEqual(game.player.get_sensor_reading_distance(), 1.0, delta=EPSILON_DISTANCE)
     
-    def test_left_angle(self, rel_path=""):
-        game = GameCy(game_id=0, rel_path=rel_path, silent=True, overwrite=True, noise=False)
+    def test_left_angle(self, save_path="../games_db/"):
+        game = GameCy(game_id=0, save_path=save_path, silent=True, overwrite=True, noise=False)
         
         # Update player and target position
         game.target = Vec2dCy(1, 1)
@@ -78,8 +78,8 @@ class ProximitySensorTestCy(unittest.TestCase):
     Test the proximity sensor.
     """
     
-    def test_no_walls(self, rel_path=""):
-        game = GameCy(game_id=0, rel_path=rel_path, silent=True, overwrite=True, noise=False)
+    def test_no_walls(self, save_path="../games_db/"):
+        game = GameCy(game_id=0, save_path=save_path, silent=True, overwrite=True, noise=False)
         
         # Add walls to maze that are far enough from agent
         a = Vec2dCy(2, 2)
@@ -94,10 +94,10 @@ class ProximitySensorTestCy(unittest.TestCase):
         
         sensors = game.player.get_sensor_reading_proximity()
         for s in sensors.values():
-            self.assertAlmostEqual(s, SENSOR_RAY_DISTANCE, delta=EPSILON_DISTANCE)
+            self.assertAlmostEqual(s, game.sensor_ray_distance, delta=EPSILON_DISTANCE)
     
-    def test_cubed(self, rel_path=""):
-        game = GameCy(game_id=0, rel_path=rel_path, silent=True, overwrite=True, noise=False)
+    def test_cubed(self, save_path="../games_db/"):
+        game = GameCy(game_id=0, save_path=save_path, silent=True, overwrite=True, noise=False)
         
         # Add walls to maze
         a = Vec2dCy(4, 5)
@@ -120,15 +120,15 @@ class ProximitySensorTestCy(unittest.TestCase):
         game.player.add_proximity_sensor(np.pi)  # 180° in the back
         
         sensors = game.player.get_sensor_reading_proximity()
-        self.assertAlmostEqual(sensors[0], 1.0 - BOT_RADIUS, delta=EPSILON_DISTANCE)
-        self.assertAlmostEqual(sensors[1], np.sqrt(2) - BOT_RADIUS, delta=EPSILON_DISTANCE)
-        self.assertAlmostEqual(sensors[2], 1 - BOT_RADIUS, delta=EPSILON_DISTANCE)
-        self.assertAlmostEqual(sensors[3], np.sqrt(2) - BOT_RADIUS, delta=EPSILON_DISTANCE)
-        self.assertAlmostEqual(sensors[4], 1 - BOT_RADIUS, delta=EPSILON_DISTANCE)
-        self.assertAlmostEqual(sensors[5], SENSOR_RAY_DISTANCE, delta=EPSILON_DISTANCE)
+        self.assertAlmostEqual(sensors[0], 1.0 - game.bot_radius, delta=EPSILON_DISTANCE)
+        self.assertAlmostEqual(sensors[1], np.sqrt(2) - game.bot_radius, delta=EPSILON_DISTANCE)
+        self.assertAlmostEqual(sensors[2], 1 - game.bot_radius, delta=EPSILON_DISTANCE)
+        self.assertAlmostEqual(sensors[3], np.sqrt(2) - game.bot_radius, delta=EPSILON_DISTANCE)
+        self.assertAlmostEqual(sensors[4], 1 - game.bot_radius, delta=EPSILON_DISTANCE)
+        self.assertAlmostEqual(sensors[5], game.sensor_ray_distance, delta=EPSILON_DISTANCE)
     
-    def test_force(self, rel_path=""):
-        game = GameCy(game_id=0, rel_path=rel_path, silent=True, overwrite=True, noise=True)
+    def test_force(self, save_path="../games_db/"):
+        game = GameCy(game_id=0, save_path=save_path, silent=True, overwrite=True, noise=True)
         
         # Add walls to maze
         b = Vec2dCy(5, 5)
@@ -153,23 +153,21 @@ class ProximitySensorTestCy(unittest.TestCase):
 
 
 def main():
-    rel_path = "environment/cy_entities/"
-    
     # Test angular sensors
     ast = AngularSensorTestCy()
-    ast.test_front(rel_path=rel_path)
-    ast.test_left_angle(rel_path=rel_path)
+    ast.test_front(save_path="tests/games_db/")
+    ast.test_left_angle(save_path="tests/games_db/")
     
     # Test distance sensor
     dst = DistanceSensorTestCy()
-    dst.test_front(rel_path=rel_path)
-    dst.test_left_angle(rel_path=rel_path)
+    dst.test_front(save_path="tests/games_db/")
+    dst.test_left_angle(save_path="tests/games_db/")
     
     # Test proximity sensors
     pst = ProximitySensorTestCy()
-    pst.test_no_walls(rel_path=rel_path)
-    pst.test_cubed(rel_path=rel_path)
-    pst.test_force(rel_path=rel_path)
+    pst.test_no_walls(save_path="tests/games_db/")
+    pst.test_cubed(save_path="tests/games_db/")
+    pst.test_force(save_path="tests/games_db/")
 
 
 if __name__ == '__main__':
