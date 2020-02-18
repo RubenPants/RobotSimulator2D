@@ -32,7 +32,7 @@ class Game:
                  "noise_time", "noise_angle", "noise_distance", "noise_proximity",
                  "sensor_ray_distance",
                  "target_reached",
-                 "silent", "noise",
+                 "silent", "noise", "save_path",
                  "done", "id", "path", "player", "steps_taken", "target", "walls")
     
     def __init__(self,
@@ -40,6 +40,7 @@ class Game:
                  game_id: int = 0,
                  noise: bool = False,
                  overwrite: bool = False,
+                 save_path: str = '',
                  silent: bool = False,
                  ):
         """
@@ -49,30 +50,32 @@ class Game:
         :param game_id: Game id
         :param noise: Add noise when progressing the game
         :param overwrite: Overwrite pre-existing games
+        :param save_path: Save and load the game from different directories
         :param silent: Do not print anything
         """
         # Set config (or placeholder if config not defined)
-        self.bot_driving_speed: float = config.bot_driving_speed if config else 0
-        self.bot_radius: float = config.bot_radius if config else 0
-        self.bot_turning_speed: float = config.bot_turning_speed if config else 0
-        self.batch: int = config.batch if config else 0
-        self.duration: int = config.duration if config else 0
-        self.max_game_id: int = config.max_game_id if config else 0
-        self.max_eval_game_id: int = config.max_eval_game_id if config else 0
-        self.fps: int = config.fps if config else 0
-        self.p2m: int = config.p2m if config else 0
-        self.x_axis: int = config.x_axis if config else 0
-        self.y_axis: int = config.y_axis if config else 0
-        self.noise_time: float = config.noise_time if config else 0
-        self.noise_angle: float = config.noise_angle if config else 0
-        self.noise_distance: float = config.noise_distance if config else 0
-        self.noise_proximity: float = config.noise_proximity if config else 0
-        self.sensor_ray_distance: float = config.sensor_ray_distance if config else 0
-        self.target_reached: float = config.target_reached if config else 0
+        self.bot_driving_speed: float = 0
+        self.bot_radius: float = 0
+        self.bot_turning_speed: float = 0
+        self.batch: int = 0
+        self.duration: int = 0
+        self.max_game_id: int = 0
+        self.max_eval_game_id: int = 0
+        self.fps: int = 0
+        self.p2m: int = 0
+        self.x_axis: int = 0
+        self.y_axis: int = 0
+        self.noise_time: float = 0
+        self.noise_angle: float = 0
+        self.noise_distance: float = 0
+        self.noise_proximity: float = 0
+        self.sensor_ray_distance: float = 0
+        self.target_reached: float = 0
         
         # Environment specific parameters
         self.silent: bool = silent  # True: Do not print out statistics
         self.noise: bool = noise  # Add noise to the game-environment
+        self.save_path: str = save_path if save_path else 'environment/games_db/'
         
         # Placeholders for parameters
         self.done: bool = False  # Game has finished
@@ -84,7 +87,10 @@ class Game:
         self.walls: list = None  # List of all walls in the game
         
         # Check if game already exists, if not create new game
-        if overwrite or not self.load(): self.create_empty_game()
+        if overwrite or not self.load():
+            if not config: config = GameConfig()
+            self.set_config_params(config)
+            self.create_empty_game()
     
     def __str__(self):
         return f"game_{self.id:05d}"
@@ -159,9 +165,7 @@ class Game:
     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
     
     def create_empty_game(self):
-        """
-        Create an empty game that only contains the boundary walls.
-        """
+        """ Create an empty game that only contains the boundary walls. """
         # Create random set of walls
         self.walls = get_boundary_walls(x_axis=self.x_axis, y_axis=self.y_axis)
         self.target = Vec2d(0.5, self.y_axis - 0.5)
@@ -211,6 +215,26 @@ class Game:
         result.append(distance)
         return result
     
+    def set_config_params(self, config):
+        """ Store all the configured parameters locally. """
+        self.bot_driving_speed: float = config.bot_driving_speed
+        self.bot_radius: float = config.bot_radius
+        self.bot_turning_speed: float = config.bot_turning_speed
+        self.batch: int = config.batch
+        self.duration: int = config.duration
+        self.max_game_id: int = config.max_game_id
+        self.max_eval_game_id: int = config.max_eval_game_id
+        self.fps: int = config.fps
+        self.p2m: int = config.p2m
+        self.x_axis: int = config.x_axis
+        self.y_axis: int = config.y_axis
+        self.noise_time: float = config.noise_time
+        self.noise_angle: float = config.noise_angle
+        self.noise_distance: float = config.noise_distance
+        self.noise_proximity: float = config.noise_proximity
+        self.sensor_ray_distance: float = config.sensor_ray_distance
+        self.target_reached: float = config.target_reached
+    
     def set_player_angle(self, a: float):
         """
         Set a new initial angle for the player.
@@ -255,7 +279,7 @@ class Game:
         persist_dict[D_POS] = (self.player.init_pos.x, self.player.init_pos.y)  # Initial position of player
         persist_dict[D_TARGET] = (self.target.x, self.target.y)
         persist_dict[D_WALLS] = [((w.x.x, w.x.y), (w.y.x, w.y.y)) for w in self.walls]
-        with open(f'environment/games_db/{self}', 'wb') as f: pickle.dump(persist_dict, f)
+        with open(f'{self.save_path}{self}', 'wb') as f: pickle.dump(persist_dict, f)
     
     def load(self):
         """
@@ -264,7 +288,7 @@ class Game:
         :return: True: game successfully loaded | False: otherwise
         """
         try:
-            with open(f'environment/games_db/{self}', 'rb') as f:
+            with open(f'{self.save_path}{self}', 'rb') as f:
                 game = pickle.load(f)
             self.bot_driving_speed = game[D_BOT_DRIVING_SPEED]
             self.bot_radius = game[D_BOT_RADIUS]

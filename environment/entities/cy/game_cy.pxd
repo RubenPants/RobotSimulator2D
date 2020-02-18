@@ -22,6 +22,7 @@ cdef class GameCy:
     cdef public float bot_driving_speed, bot_radius, bot_turning_speed
     cdef public int batch, duration, max_game_id, max_eval_game_id, fps, p2m, x_axis, y_axis
     cdef public float noise_time, noise_angle, noise_distance, noise_proximity, sensor_ray_distance, target_reached
+    cdef public str save_path
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     
@@ -40,6 +41,8 @@ cdef class GameCy:
     cpdef dict get_observation(self)
     
     cpdef list get_sensor_list(self)
+    
+    cpdef void set_config_params(self, config)
     
     cpdef void set_player_angle(self, float a)
     

@@ -111,8 +111,7 @@ class TrainingEnv:
             pop.reporters.end_generation(pop.config, pop.population, pop.species)
             
             # Save the population
-            if iteration % save_interval == 0:
-                pop.save()
+            if iteration % save_interval == 0: pop.save()
     
     def sample_games(self, multi_env):
         """

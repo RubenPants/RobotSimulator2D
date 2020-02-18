@@ -21,29 +21,37 @@ class GameWallCollision(unittest.TestCase):
     
     def test_wall_force(self):
         # Create empty game
-        game = Game(silent=True, overwrite=True)
+        try:
+            game = Game(silent=True, save_path='tests/games_db/', overwrite=True)
+        except FileNotFoundError:
+            os.chdir("..")
+            game = Game(silent=True, save_path='tests/games_db/', overwrite=True)
         
         # Drive forward for 100 seconds
-        for _ in range(50 * game.cfg['CREATION']['fps']):
+        for _ in range(50 * game.fps):
             game.step(l=1, r=1)
         
         # Check if robot in fixed position
-        self.assertAlmostEqual(game.player.pos.x, int(game.cfg['CREATION']['x-axis']) - 0.5, delta=EPSILON)
+        self.assertAlmostEqual(game.player.pos.x, int(game.x_axis) - 0.5, delta=EPSILON)
         self.assertAlmostEqual(game.player.pos.y,
-                               int(game.cfg['CREATION']['y-axis']) - float(game.cfg['BOT']['radius']),
+                               int(game.y_axis) - float(game.bot_radius),
                                delta=EPSILON)
     
     def test_wall_force_reverse(self):
         # Create empty game
-        game = Game(silent=True, overwrite=True)
+        try:
+            game = Game(silent=True, save_path='tests/games_db/', overwrite=True)
+        except FileNotFoundError:
+            os.chdir("..")
+            game = Game(silent=True, save_path='tests/games_db/', overwrite=True)
         
         # Drive forward for 100 seconds
-        for _ in range(10 * game.cfg['CREATION']['fps']):
+        for _ in range(10 * game.fps):
             game.step(l=-1, r=-1)
         
         # Check if robot in fixed position
-        self.assertAlmostEqual(game.player.pos.x, int(game.cfg['CREATION']['x-axis']) - 0.5, delta=EPSILON)
-        self.assertAlmostEqual(game.player.pos.y, float(game.cfg['BOT']['radius']), delta=EPSILON)
+        self.assertAlmostEqual(game.player.pos.x, int(game.x_axis) - 0.5, delta=EPSILON)
+        self.assertAlmostEqual(game.player.pos.y, float(game.bot_radius), delta=EPSILON)
 
 
 class GameDrive(unittest.TestCase):
@@ -53,21 +61,29 @@ class GameDrive(unittest.TestCase):
     
     def test_360(self):
         # Create empty game
-        game = Game(silent=True, overwrite=True)
+        try:
+            game = Game(silent=True, save_path='tests/games_db/', overwrite=True)
+        except FileNotFoundError:
+            os.chdir("..")
+            game = Game(silent=True, save_path='tests/games_db/', overwrite=True)
         
         # Keep spinning around
-        for _ in range(10 * game.cfg['CREATION']['fps']):
+        for _ in range(10 * game.fps):
             game.step(l=-1, r=1)
         
         # Check if robot in fixed position
-        self.assertAlmostEqual(game.player.pos.x, int(game.cfg['CREATION']['x-axis']) - 0.5, delta=EPSILON)
+        self.assertAlmostEqual(game.player.pos.x, int(game.x_axis) - 0.5, delta=EPSILON)
         self.assertAlmostEqual(game.player.pos.y, 0.5, delta=EPSILON)
     
     def test_remain_in_box(self):
         """
         Set drone in small box in the middle of the game to check if it stays here in.
         """
-        game = Game(silent=True, overwrite=True)
+        try:
+            game = Game(silent=True, save_path='tests/games_db/', overwrite=True)
+        except FileNotFoundError:
+            os.chdir("..")
+            game = Game(silent=True, save_path='tests/games_db/', overwrite=True)
         
         # Create inner box
         a, b, c, d = Vec2d(4, 5), Vec2d(5, 5), Vec2d(5, 4), Vec2d(4, 4)
@@ -80,7 +96,7 @@ class GameDrive(unittest.TestCase):
             game.player.angle = random() * np.pi
             
             # Run for one twenty seconds
-            for _ in range(20 * game.cfg['CREATION']['fps']):
+            for _ in range(20 * game.fps):
                 l = random() * 1.5 - 0.5  # [-0.5..1]
                 r = random() * 1.5 - 0.5  # [-0.5..1]
                 game.step(l=l, r=r)
@@ -91,8 +107,6 @@ class GameDrive(unittest.TestCase):
 
 
 def main():
-    os.chdir("..")
-    
     # Test wall collision
     gwc = GameWallCollision()
     gwc.test_wall_force()

@@ -12,6 +12,7 @@ cimport numpy as np
 import pylab as pl
 from matplotlib import collections as mc
 
+from configs.config import GameConfig
 from environment.entities.cy.robots_cy cimport FootBotCy
 from utils.dictionary import *
 from utils.cy.intersection_cy cimport circle_line_intersection_cy
@@ -32,7 +33,7 @@ cdef class GameCy:
                  "noise_time", "noise_angle", "noise_distance", "noise_proximity",
                  "sensor_ray_distance",
                  "target_reached",
-                 "silent", "noise",
+                 "silent", "noise", "save_path",
                  "done", "id", "path", "player", "steps_taken", "target", "walls")
     
     def __init__(self,
@@ -40,6 +41,7 @@ cdef class GameCy:
                  int game_id=0,
                  bint noise=True,
                  bint overwrite=False,
+                 str save_path = '',
                  bint silent=False,
                  ):
         """
@@ -49,30 +51,32 @@ cdef class GameCy:
         :param game_id: Game id
         :param noise: Add noise when progressing the game
         :param overwrite: Overwrite pre-existing games
+        :param save_path: Save and load the game from different directories
         :param silent: Do not print anything
         """
         # Set config
-        self.bot_driving_speed = config.bot_driving_speed if config else 0
-        self.bot_radius = config.bot_radius if config else 0
-        self.bot_turning_speed = config.bot_radius if config else 0
-        self.batch = config.batch if config else 0
-        self.duration = config.duration if config else 0
-        self.max_game_id = config.max_game_id if config else 0
-        self.max_eval_game_id = config.max_eval_game_id if config else 0
-        self.fps = config.fps if config else 0
-        self.p2m = config.p2m if config else 0
-        self.x_axis = config.x_axis if config else 0
-        self.y_axis = config.y_axis if config else 0
-        self.noise_time = config.noise_time if config else 0
-        self.noise_angle = config.noise_angle if config else 0
-        self.noise_distance = config.noise_distance if config else 0
-        self.noise_proximity = config.noise_proximity if config else 0
-        self.sensor_ray_distance = config.sensor_ray_distance if config else 0
-        self.target_reached = config.target_reached if config else 0
+        self.bot_driving_speed = 0
+        self.bot_radius = 0
+        self.bot_turning_speed = 0
+        self.batch = 0
+        self.duration = 0
+        self.max_game_id = 0
+        self.max_eval_game_id = 0
+        self.fps = 0
+        self.p2m = 0
+        self.x_axis = 0
+        self.y_axis = 0
+        self.noise_time = 0
+        self.noise_angle = 0
+        self.noise_distance = 0
+        self.noise_proximity = 0
+        self.sensor_ray_distance = 0
+        self.target_reached = 0
         
         # Environment specific parameters
         self.silent = silent  # True: Do not print out statistics
         self.noise = noise  # Add noise to the game-environment
+        self.save_path = save_path if save_path else 'environment/games_db/'
         
         # Placeholders for parameters
         self.done = False  # Game has finished
@@ -84,7 +88,10 @@ cdef class GameCy:
         self.walls = None  # List of all walls in the game
         
         # Check if game already exists, if not create new game
-        if overwrite or not self.load(): self.create_empty_game()
+        if overwrite or not self.load():
+            if not config: config = GameConfig()
+            self.set_config_params(config)
+            self.create_empty_game()
     
     def __str__(self):
         return f"game_{self.id:05d}"
@@ -222,6 +229,26 @@ cdef class GameCy:
         for i in range(len(angular)): result.append(angular[i])  # Angular IDs go from 0 to angular_length
         result.append(distance)
         return result
+    
+    cpdef void set_config_params(self, config):
+        """ Store all the configured parameters locally. """
+        self.bot_driving_speed = config.bot_driving_speed
+        self.bot_radius = config.bot_radius
+        self.bot_turning_speed = config.bot_turning_speed
+        self.batch = config.batch
+        self.duration = config.duration
+        self.max_game_id = config.max_game_id
+        self.max_eval_game_id = config.max_eval_game_id
+        self.fps = config.fps
+        self.p2m = config.p2m
+        self.x_axis = config.x_axis
+        self.y_axis = config.y_axis
+        self.noise_time = config.noise_time
+        self.noise_angle = config.noise_angle
+        self.noise_distance = config.noise_distance
+        self.noise_proximity = config.noise_proximity
+        self.sensor_ray_distance = config.sensor_ray_distance
+        self.target_reached = config.target_reached
     
     cpdef void set_player_angle(self, float a):
         """
