@@ -32,7 +32,7 @@ class Game:
                  "noise_time", "noise_angle", "noise_distance", "noise_proximity",
                  "sensor_ray_distance",
                  "target_reached",
-                 "silent", "noise", "time_all",
+                 "silent", "noise",
                  "done", "id", "path", "player", "steps_taken", "target", "walls")
     
     def __init__(self,
@@ -41,7 +41,6 @@ class Game:
                  noise: bool = False,
                  overwrite: bool = False,
                  silent: bool = False,
-                 time_all: bool = False,
                  ):
         """
         Define a new game.
@@ -51,13 +50,12 @@ class Game:
         :param noise: Add noise when progressing the game
         :param overwrite: Overwrite pre-existing games
         :param silent: Do not print anything
-        :param time_all: Time each of the game components
         """
         # Set config
         if config:
             self.bot_driving_speed: float = config.bot_driving_speed
             self.bot_radius: float = config.bot_radius
-            self.bot_turning_speed: float = config.bot_radius
+            self.bot_turning_speed: float = config.bot_turning_speed
             self.batch: int = config.batch
             self.duration: int = config.duration
             self.max_game_id: int = config.max_game_id
@@ -76,7 +74,6 @@ class Game:
         # Environment specific parameters
         self.silent: bool = silent  # True: Do not print out statistics
         self.noise: bool = noise  # Add noise to the game-environment
-        self.time_all: bool = time_all  # Time each of the game-components
         
         # Placeholders for parameters
         self.done: bool = False  # Game has finished

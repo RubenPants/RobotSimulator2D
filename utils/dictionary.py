@@ -72,6 +72,7 @@ D_STEPS = 'steps'
 D_TAG = 'tag'
 D_TARGET = 'target'
 D_TARGET_REACHED = 'target_reached'
+D_TIME_ALL = "time_all"
 
 # W
 D_WALLS = 'walls'

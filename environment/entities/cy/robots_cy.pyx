@@ -31,7 +31,7 @@ cdef class FootBotCy:
         :param r: Radius of the circular robot
         """
         # Default values parameters
-        if not r: r = game.cfg.bot_radius
+        if not r: r = game.bot_radius
         
         # Game specific parameter
         self.game = game  # Game in which robot runs
@@ -75,8 +75,6 @@ cdef class FootBotCy:
         :param lw: Speed of the left wheel, float [-1,1]
         :param rw: Speed of the right wheel, float [-1,1]
         """
-        if self.game.cfg.time_all: prep(key="robot_drive", silent=True)
-
         # Constraint the inputs
         lw = max(min(lw, 1), -1)
         rw = max(min(rw, 1), -1)
@@ -86,24 +84,21 @@ cdef class FootBotCy:
         self.prev_angle = self.angle
         
         # Update angle is determined by the speed of both wheels
-        self.angle += (rw - lw) * self.game.cfg.bot_turning_speed * dt
+        self.angle += (rw - lw) * self.game.bot_turning_speed * dt
         self.angle %= 2 * np.pi
         
         # Update position is the average of the two wheels times the maximum driving speed
-        self.pos += angle_to_vec(self.angle) * float((((lw + rw) / 2) * self.game.cfg.bot_driving_speed * dt))
-        if self.game.cfg.time_all: drop(key="robot_drive", silent=True)
+        self.pos += angle_to_vec(self.angle) * float((((lw + rw) / 2) * self.game.bot_driving_speed * dt))
     
     cdef dict get_sensor_readings(self):
         """
         :return: Dictionary of the current sensory-readings
         """
         cdef dict sensor_readings
-        if self.game.cfg.time_all: prep(key="sensor_readings", silent=True)
         sensor_readings = dict()
         sensor_readings[D_SENSOR_PROXIMITY] = self.get_sensor_reading_proximity()
         sensor_readings[D_SENSOR_DISTANCE] = self.get_sensor_reading_distance()
         sensor_readings[D_SENSOR_ANGLE] = self.get_sensor_reading_angle()
-        if self.game.cfg.time_all: drop(key="sensor_readings", silent=True)
         return sensor_readings
     
     def reset(self):
@@ -166,7 +161,7 @@ cdef class FootBotCy:
         self.proximity_sensors.add(ProximitySensorCy(sensor_id=len(self.proximity_sensors),
                                                      game=self.game,
                                                      angle=angle,
-                                                     pos_offset=self.game.cfg.bot_radius))
+                                                     pos_offset=self.game.bot_radius))
     
     cdef void create_angular_sensors(self):
         """

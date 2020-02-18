@@ -7,7 +7,6 @@ import numpy as np
 
 from environment.entities.sensors import AngularSensor, DistanceSensor, ProximitySensor
 from utils.dictionary import *
-from utils.myutils import drop, prep
 from utils.vec2d import angle_to_vec, Vec2d
 
 
@@ -74,8 +73,6 @@ class FootBot:
         :param lw: Speed of the left wheel, float [-1,1]
         :param rw: Speed of the right wheel, float [-1,1]
         """
-        if self.game.time_all: prep(key="robot_drive", silent=True)
-        
         # Constraint the inputs
         lw = max(min(lw, 1), -1)
         rw = max(min(rw, 1), -1)
@@ -90,18 +87,15 @@ class FootBot:
         
         # Update position is the average of the two wheels times the maximum driving speed
         self.pos += angle_to_vec(self.angle) * float((((lw + rw) / 2) * self.game.bot_driving_speed * dt))
-        if self.game.time_all: drop(key="robot_drive", silent=True)
     
     def get_sensor_readings(self):
         """
         :return: Dictionary of the current sensory-readings
         """
-        if self.game.time_all: prep(key="sensor_readings", silent=True)
         sensor_readings = dict()
         sensor_readings[D_SENSOR_PROXIMITY] = self.get_sensor_reading_proximity()
         sensor_readings[D_SENSOR_DISTANCE] = self.get_sensor_reading_distance()
         sensor_readings[D_SENSOR_ANGLE] = self.get_sensor_reading_angle()
-        if self.game.time_all: drop(key="sensor_readings", silent=True)
         return sensor_readings
     
     def reset(self):

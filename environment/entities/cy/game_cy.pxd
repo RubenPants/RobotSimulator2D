@@ -3,7 +3,6 @@ game_cy.pxd
 
 Used to declare all the game_cy class and method that must be callable from outside of other objects.
 """
-from configs.config cimport GameConfig
 from environment.entities.cy.robots_cy cimport FootBotCy
 from utils.cy.vec2d_cy cimport Vec2dCy
 
@@ -20,7 +19,9 @@ cdef class GameCy:
     cdef public list walls
     cdef public FootBotCy player
     cdef public Vec2dCy target
-    cdef public GameConfig cfg
+    cdef float bot_driving_speed, bot_radius, bot_turning_speed
+    cdef int batch, duration, max_game_id, max_eval_game_id, fps, p2m, x_axis, y_axis
+    cdef float noise_time, noise_angle, noise_distance, noise_proximity, sensor_ray_distance, target_reached
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     
@@ -52,4 +53,4 @@ cdef class GameCy:
     
     cpdef get_blueprint(self, ax=?)
 
-cpdef list get_boundary_walls(GameConfig cfg=?)
+cpdef list get_boundary_walls(int x_axis, int y_axis)

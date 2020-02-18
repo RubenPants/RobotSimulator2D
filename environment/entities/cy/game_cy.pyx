@@ -12,7 +12,6 @@ cimport numpy as np
 import pylab as pl
 from matplotlib import collections as mc
 
-from configs.config import GameConfig
 from environment.entities.cy.robots_cy cimport FootBotCy
 from utils.dictionary import *
 from utils.cy.intersection_cy cimport circle_line_intersection_cy
@@ -26,15 +25,23 @@ cdef class GameCy:
         * robot: The player manoeuvring in the environment
         * target: Robot that must be reached by the robot
     """
-    
-    __slots__ = ("cfg", "silent", "noise", "done", "id", "path", "player", "steps_taken", "target", "walls")
+
+    __slots__ = ("bot_driving_speed", "bot_radius", "bot_turning_speed",
+                 "batch", "duration", "max_game_id", "max_eval_game_id", "fps",
+                 "p2m", "x_axis", "y_axis",
+                 "noise_time", "noise_angle", "noise_distance", "noise_proximity",
+                 "sensor_ray_distance",
+                 "target_reached",
+                 "silent", "noise",
+                 "done", "id", "path", "player", "steps_taken", "target", "walls")
     
     def __init__(self,
-                 GameConfig config=None,
+                 config=None,
                  int game_id=0,
                  bint noise=True,
                  bint overwrite=False,
-                 bint silent=False):
+                 bint silent=False,
+                 ):
         """
         Define a new game.
 
@@ -45,7 +52,24 @@ cdef class GameCy:
         :param silent: Do not print anything
         """
         # Set config
-        self.cfg = config
+        if config:
+            self.bot_driving_speed = config.bot_driving_speed
+            self.bot_radius = config.bot_radius
+            self.bot_turning_speed = config.bot_radius
+            self.batch = config.batch
+            self.duration = config.duration
+            self.max_game_id = config.max_game_id
+            self.max_eval_game_id = config.max_eval_game_id
+            self.fps = config.fps
+            self.p2m = config.p2m
+            self.x_axis = config.x_axis
+            self.y_axis = config.y_axis
+            self.noise_time = config.noise_time
+            self.noise_angle = config.noise_angle
+            self.noise_distance = config.noise_distance
+            self.noise_proximity = config.noise_proximity
+            self.sensor_ray_distance = config.sensor_ray_distance
+            self.target_reached = config.target_reached
         
         # Environment specific parameters
         self.silent = silent  # True: Do not print out statistics
@@ -103,8 +127,7 @@ cdef class GameCy:
         cdef float dt
         
         # Progress the game
-        dt = 1.0 / self.cfg.fps + (
-            abs(random.gauss(0, self.cfg.noise_time)) if self.noise else 0)
+        dt = 1.0 / self.fps + (abs(random.gauss(0, self.noise_time)) if self.noise else 0)
         return self.step_dt(dt=dt, l=l, r=r)
     
     cpdef step_dt(self, float dt, float l, float r):
@@ -135,7 +158,7 @@ cdef class GameCy:
                 break
         
         # Check if target reached
-        if self.player.get_sensor_reading_distance() <= self.cfg.target_reached: self.done = True
+        if self.player.get_sensor_reading_distance() <= self.target_reached: self.done = True
         
         # Return the current observations
         return self.get_observation()
@@ -147,11 +170,11 @@ cdef class GameCy:
         Create an empty game that only contains the boundary walls.
         """
         # Create random set of walls
-        self.walls = get_boundary_walls(cfg=self.cfg)
-        self.target = Vec2dCy(0.5, self.cfg.y_axis - 0.5)
+        self.walls = get_boundary_walls(x_axis=self.x_axis, y_axis=self.y_axis)
+        self.target = Vec2dCy(0.5, self.y_axis - 0.5)
         self.player = FootBotCy(game=self,
-                              init_pos=Vec2dCy(self.cfg.x_axis - 0.5, 0.5),
-                              init_orient=np.pi / 2)
+                                init_pos=Vec2dCy(self.x_axis - 0.5, 0.5),
+                                init_orient=np.pi / 2)
         
         # Save the new game
         self.save()
@@ -222,7 +245,23 @@ cdef class GameCy:
     
     cpdef void save(self):
         cdef dict persist_dict = dict()
-        persist_dict[D_CONFIG] = self.cfg
+        persist_dict[D_BOT_DRIVING_SPEED] = self.bot_driving_speed
+        persist_dict[D_BOT_RADIUS] = self.bot_radius
+        persist_dict[D_BOT_TURNING_SPEED] = self.bot_turning_speed
+        persist_dict[D_BATCH] = self.batch
+        persist_dict[D_DURATION] = self.duration
+        persist_dict[D_MAX_GAME_ID] = self.max_game_id
+        persist_dict[D_MAX_EVAL_GAME_ID] = self.max_eval_game_id
+        persist_dict[D_FPS] = self.fps
+        persist_dict[D_PTM] = self.p2m
+        persist_dict[D_X_AXIS] = self.x_axis
+        persist_dict[D_Y_AXIS] = self.y_axis
+        persist_dict[D_NOISE_TIME] = self.noise_time
+        persist_dict[D_NOISE_ANGLE] = self.noise_angle
+        persist_dict[D_NOISE_DISTANCE] = self.noise_distance
+        persist_dict[D_NOISE_PROXIMITY] = self.noise_proximity
+        persist_dict[D_SENSOR_RAY_DISTANCE] = self.sensor_ray_distance
+        persist_dict[D_TARGET_REACHED] = self.target_reached
         persist_dict[D_ANGLE] = self.player.init_angle  # Initial angle of player
         if self.path: persist_dict[D_PATH] = [(p[0], p[1]) for p in self.path.items()]
         persist_dict[D_POS] = (self.player.init_pos.x, self.player.init_pos.y)  # Initial position of player
@@ -240,8 +279,25 @@ cdef class GameCy:
         cdef dict game
         
         try:
-            with open(f'environment/games_db/{self}', 'rb') as f: game = pickle.load(f)
-            self.cfg = game[D_CONFIG]
+            with open(f'environment/games_db/{self}', 'rb') as f:
+                game = pickle.load(f)
+            self.bot_driving_speed = game[D_BOT_DRIVING_SPEED]
+            self.bot_radius = game[D_BOT_RADIUS]
+            self.bot_turning_speed = game[D_BOT_TURNING_SPEED]
+            self.batch = game[D_BATCH]
+            self.duration = game[D_DURATION]
+            self.max_game_id = game[D_MAX_GAME_ID]
+            self.max_eval_game_id = game[D_MAX_EVAL_GAME_ID]
+            self.fps = game[D_FPS]
+            self.p2m = game[D_PTM]
+            self.x_axis = game[D_X_AXIS]
+            self.y_axis = game[D_Y_AXIS]
+            self.noise_time = game[D_NOISE_TIME]
+            self.noise_angle = game[D_NOISE_ANGLE]
+            self.noise_distance = game[D_NOISE_DISTANCE]
+            self.noise_proximity = game[D_NOISE_PROXIMITY]
+            self.sensor_ray_distance = game[D_SENSOR_RAY_DISTANCE]
+            self.target_reached = game[D_TARGET_REACHED]
             self.player = FootBotCy(game=self)  # Create a dummy-player to set values on
             self.set_player_angle(game[D_ANGLE])
             self.set_player_pos(Vec2dCy(game[D_POS][0], game[D_POS][1]))
@@ -270,20 +326,20 @@ cdef class GameCy:
         ax.add_collection(lc)
         
         # Add target to map
-        pl.plot(0.5, self.cfg.y_axis - 0.5, 'go')
+        pl.plot(0.5, self.y_axis - 0.5, 'go')
         
         # Adjust the boundaries
-        pl.xlim(0, self.cfg.x_axis)
-        pl.ylim(0, self.cfg.y_axis)
+        pl.xlim(0, self.x_axis)
+        pl.ylim(0, self.y_axis)
         
         # Return the figure in its current state
         return ax
 
 
-cpdef list get_boundary_walls(GameConfig cfg = None):
+cpdef list get_boundary_walls(int x_axis, int y_axis):
     """ :return: Set of the four boundary walls """
     a = Vec2dCy(0, 0)
-    b = Vec2dCy(cfg.x_axis, 0)
-    c = Vec2dCy(cfg.x_axis, cfg.y_axis)
-    d = Vec2dCy(0, cfg.y_axis)
+    b = Vec2dCy(x_axis, 0)
+    c = Vec2dCy(x_axis, y_axis)
+    d = Vec2dCy(0, y_axis)
     return [Line2dCy(a, b), Line2dCy(b, c), Line2dCy(c, d), Line2dCy(d, a)]
