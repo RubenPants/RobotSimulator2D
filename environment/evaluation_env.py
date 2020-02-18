@@ -3,13 +3,13 @@ evaluation_env.py
 
 Evaluate a certain set of genomes on the evaluation mazes.
 """
-import configparser
 import multiprocessing as mp
 import sys
 
 from neat.six_util import iteritems
 from tqdm import tqdm
 
+from configs.config import GameConfig
 from utils.dictionary import D_DIST_TO_TARGET, D_DONE, D_STEPS
 
 if sys.platform == 'linux':
@@ -24,8 +24,7 @@ class EvaluationEnv:
     def __init__(self):
         """ The evaluator is given a set of genomes which it then evaluates using the MultiEnvironment. """
         # Load in current configuration
-        self.cfg = configparser.ConfigParser()
-        self.cfg.read('configs/game.cfg')
+        self.cfg: GameConfig = GameConfig()
         
         #  Create a list of all the possible games
         self.games = None
@@ -39,8 +38,7 @@ class EvaluationEnv:
         :param games: List of integers
         """
         if not games:
-            self.games = [i + 1 for i in range(int(self.cfg['CONTROL']['max id']),
-                                               int(self.cfg['CONTROL']['max eval-id']))]
+            self.games = [i + 1 for i in range(self.cfg.max_game_id, self.cfg.max_eval_game_id)]
             self.batch_size = len(self.games)
         else:
             self.games = games
@@ -61,13 +59,13 @@ class EvaluationEnv:
             multi_env = MultiEnvironmentCy(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_duration=int(self.cfg['CONTROL']['duration'])
+                    max_duration=self.cfg.duration
             )
         else:
             multi_env = MultiEnvironment(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_duration=int(self.cfg['CONTROL']['duration'])
+                    max_duration=self.cfg.duration
             )
         
         # Evaluate on all the games
@@ -110,13 +108,13 @@ class EvaluationEnv:
             multi_env = MultiEnvironmentCy(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_duration=int(self.cfg['CONTROL']['duration'])
+                    max_duration=self.cfg.duration
             )
         else:
             multi_env = MultiEnvironment(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_duration=int(self.cfg['CONTROL']['duration'])
+                    max_duration=self.cfg.duration
             )
         
         # Initialize the evaluation-pool
@@ -136,11 +134,11 @@ class EvaluationEnv:
         pop.create_blueprints(final_observations=return_dict, games=game_objects)
 
 
-def create_answer(games):
+def create_answer(games: list):
     answer = ""
     answer += f"Percentage finished: {100 * len([g for g in games if g[D_DONE]]) / len(games):.1f}"
     answer += f" - Average distance to target {sum([g[D_DIST_TO_TARGET] for g in games]) / len(games):.1f}"
     answer += f" - Max distance to target {max([g[D_DIST_TO_TARGET] for g in games]):.1f}"
-    answer += f" - Average time taken {sum([g[D_STEPS] / int(g.cfg['RUN']['fps']) for g in games]) / len(games):.1f}"
-    answer += f" - Max time taken {max([g[D_STEPS] / int(g.cfg['RUN']['fps']) for g in games]):.1f}"
+    answer += f" - Average time taken {sum([g[D_STEPS] / g.cfg.fps for g in games]) / len(games):.1f}"
+    answer += f" - Max time taken {max([g[D_STEPS] / g.cfg.fps for g in games]):.1f}"
     return answer

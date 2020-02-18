@@ -3,7 +3,6 @@ training_env.py
 
 Train and evaluate the population on a random batch of training games.
 """
-import configparser
 import multiprocessing as mp
 import sys
 from random import sample
@@ -11,6 +10,7 @@ from random import sample
 from neat.six_util import iteritems, itervalues
 from tqdm import tqdm
 
+from configs.config import GameConfig
 from control.entities.fitness_functions import calc_pop_fitness
 
 if sys.platform == 'linux':
@@ -25,8 +25,7 @@ class TrainingEnv:
     def __init__(self):
         """ The evaluator is given a population which it then evaluates using the MultiEnvironment. """
         # Load in current configuration
-        self.config = configparser.ConfigParser()
-        self.config.read('configs/game.cfg')
+        self.config: GameConfig = GameConfig()
         
         #  Create a list of all the possible games
         self.games = None
@@ -41,8 +40,8 @@ class TrainingEnv:
         :param games: List of integers
         """
         if not games:
-            self.games = [i + 1 for i in range(int(self.config['CONTROL']['max id']))]
-            self.batch_size = min(len(self.games), int(self.config['CONTROL']['batch']))
+            self.games = [i + 1 for i in range(self.config.max_game_id)]
+            self.batch_size = min(len(self.games), self.config.batch)
         else:
             self.games = games
             self.batch_size = len(games)
@@ -60,13 +59,13 @@ class TrainingEnv:
             multi_env = MultiEnvironmentCy(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_duration=int(self.config['CONTROL']['duration'])
+                    max_duration=self.config.duration
             )
         else:
             multi_env = MultiEnvironment(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_duration=int(self.config['CONTROL']['duration'])
+                    max_duration=self.config.duration
             )
         
         for iteration in range(n):
@@ -136,13 +135,13 @@ class TrainingEnv:
             multi_env = MultiEnvironmentCy(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_duration=int(self.config['CONTROL']['duration'])
+                    max_duration=self.config.duration
             )
         else:
             multi_env = MultiEnvironment(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_duration=int(self.config['CONTROL']['duration'])
+                    max_duration=self.config.duration
             )
         
         if len(self.games) > 20:

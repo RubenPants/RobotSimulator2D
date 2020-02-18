@@ -7,7 +7,6 @@ import numpy as np
 
 from environment.entities.sensors import AngularSensor, DistanceSensor, ProximitySensor
 from utils.dictionary import *
-from utils.myutils import drop, prep
 from utils.vec2d import angle_to_vec, Vec2d
 
 
@@ -30,7 +29,7 @@ class FootBot:
         :param r: Radius of the circular robot
         """
         # Default values parameters
-        if not r: r = float(game.cfg['BOT']['radius'])
+        if not r: r = game.bot_radius
         
         # Game specific parameter
         self.game = game  # Game in which robot runs
@@ -74,8 +73,6 @@ class FootBot:
         :param lw: Speed of the left wheel, float [-1,1]
         :param rw: Speed of the right wheel, float [-1,1]
         """
-        if bool(self.game.cfg['CONTROL']['time all']): prep(key="robot_drive", silent=True)
-        
         # Constraint the inputs
         lw = max(min(lw, 1), -1)
         rw = max(min(rw, 1), -1)
@@ -85,24 +82,20 @@ class FootBot:
         self.prev_angle = self.angle
         
         # Update angle is determined by the speed of both wheels
-        self.angle += (rw - lw) * float(self.game.cfg['BOT']['turning speed']) * dt
+        self.angle += (rw - lw) * self.game.bot_turning_speed * dt
         self.angle %= 2 * np.pi
         
         # Update position is the average of the two wheels times the maximum driving speed
-        self.pos += angle_to_vec(self.angle) * float(
-                (((lw + rw) / 2) * float(self.game.cfg['BOT']['driving speed']) * dt))
-        if bool(self.game.cfg['CONTROL']['time all']): drop(key="robot_drive", silent=True)
+        self.pos += angle_to_vec(self.angle) * float((((lw + rw) / 2) * self.game.bot_driving_speed * dt))
     
     def get_sensor_readings(self):
         """
         :return: Dictionary of the current sensory-readings
         """
-        if bool(self.game.cfg['CONTROL']['time all']): prep(key="sensor_readings", silent=True)
         sensor_readings = dict()
         sensor_readings[D_SENSOR_PROXIMITY] = self.get_sensor_reading_proximity()
         sensor_readings[D_SENSOR_DISTANCE] = self.get_sensor_reading_distance()
         sensor_readings[D_SENSOR_ANGLE] = self.get_sensor_reading_angle()
-        if bool(self.game.cfg['CONTROL']['time all']): drop(key="sensor_readings", silent=True)
         return sensor_readings
     
     def reset(self):
@@ -163,7 +156,7 @@ class FootBot:
         self.proximity_sensors.add(ProximitySensor(sensor_id=len(self.proximity_sensors),
                                                    game=self.game,
                                                    angle=angle,
-                                                   pos_offset=float(self.game.cfg['BOT']['radius'])))
+                                                   pos_offset=self.game.bot_radius))
     
     def create_angular_sensors(self):
         """

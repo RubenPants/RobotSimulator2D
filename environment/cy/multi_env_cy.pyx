@@ -53,13 +53,14 @@ cdef class MultiEnvironmentCy:
         net = self.make_net(genome, config, self.batch_size)
         
         # Placeholders
-        games = [self.create_game(g) for g in self.games]
+        games = [create_game(g) for g in self.games]
         states = [g.reset()[D_SENSOR_LIST] for g in games]
         finished = [False] * self.batch_size
         
         # Start iterating the environments
         step_num = 0
-        max_steps = self.max_duration * int(games[0].cfg['CONTROL']['fps'])
+        max_steps = self.max_duration * 20  # TODO
+        # max_steps = self.max_duration * games[0].fps  # TODO
         while True:
             # Check if maximum iterations is reached
             if step_num == max_steps: break
@@ -90,14 +91,6 @@ cdef class MultiEnvironmentCy:
     
     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
     
-    cpdef GameCy create_game(self, int i):
-        """
-        :param i: Game-ID
-        :return: Game or GameCy object
-        """
-        return GameCy(game_id=i,
-                      silent=True)
-    
     cpdef void set_games(self, list games):
         """
         Set the games-set with new games.
@@ -106,3 +99,12 @@ cdef class MultiEnvironmentCy:
         """
         self.games = games
         self.batch_size = len(games)
+
+
+cpdef GameCy create_game(int i):
+    """
+    :param i: Game-ID
+    :return: Game or GameCy object
+    """
+    return GameCy(game_id=i,
+                  silent=True)

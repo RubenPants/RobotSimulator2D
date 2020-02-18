@@ -4,8 +4,6 @@ game_visualizer.py
 This method is purely used to visualize the game-maps (used in the thesis). This file must be called in the environment
 folder to make sure the visualizations are saved properly.
 """
-from configparser import ConfigParser
-
 import matplotlib as mpl
 import matplotlib.colors as clr
 import matplotlib.pyplot as plt
@@ -15,18 +13,13 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 from environment.entities.game import Game
 
 
-def load_game(game_id, cfg=None):
+def load_game(game_id):
     """
     Load the game of the given ID.
     
     :param game_id: Integer
-    :param cfg: The game's configuration
     :return: Game object
     """
-    if not cfg:
-        cfg = ConfigParser()
-        cfg.read("configs/game.cfg")
-    
     return Game(game_id=game_id,
                 silent=False)
 

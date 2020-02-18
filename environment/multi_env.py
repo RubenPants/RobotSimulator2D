@@ -46,20 +46,22 @@ class MultiEnvironment:
         net = self.make_net(genome, config, self.batch_size)
         
         # Placeholders
-        games = [self.create_game(g) for g in self.games]
+        games = [create_game(g) for g in self.games]
         states = [g.reset()[D_SENSOR_LIST] for g in games]
         finished = [False] * self.batch_size
         
         # Start iterating the environments
         step_num = 0
-        max_steps = self.max_duration * int(games[0].cfg['CONTROL']['fps'])
+        max_steps = self.max_duration * games[0].fps
         while True:
             # Check if maximum iterations is reached
             if step_num == max_steps: break
             
             # Determine the actions made by the agent for each of the states
-            if debug: actions = self.query_net(net, states, debug=True, step_num=step_num)
-            else: actions = self.query_net(net, states)
+            if debug:
+                actions = self.query_net(net, states, debug=True, step_num=step_num)
+            else:
+                actions = self.query_net(net, states)
             
             # Check if each game received an action
             assert len(actions) == len(games)
@@ -83,14 +85,6 @@ class MultiEnvironment:
     
     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
     
-    def create_game(self, i):
-        """
-        :param i: Game-ID
-        :return: Game or GameCy object
-        """
-        return Game(game_id=i,
-                    silent=True)
-    
     def set_games(self, games):
         """
         Set the games-set with new games.
@@ -99,3 +93,12 @@ class MultiEnvironment:
         """
         self.games = games
         self.batch_size = len(games)
+
+
+def create_game(i):
+    """
+    :param i: Game-ID
+    :return: Game or GameCy object
+    """
+    return Game(game_id=i,
+                silent=True)

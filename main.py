@@ -31,7 +31,7 @@ if __name__ == '__main__':
     parser.add_argument('--train', type=bool, default=True)
     parser.add_argument('--blueprint', type=bool, default=True)
     parser.add_argument('--evaluate', type=bool, default=False)
-    parser.add_argument('--genome', type=bool, default=False)
+    parser.add_argument('--genome', type=bool, default=True)
     parser.add_argument('--live', type=bool, default=False)
     args = parser.parse_args()
     
@@ -60,9 +60,10 @@ if __name__ == '__main__':
         for g in range(1, 6):
             print("Creating blueprints for  game {}".format(g))
             trainer.set_games([g])
-            for i in range(11):
-                pop.load(gen=int(i * 10))
-                trainer.blueprint_genomes(pop)
+            # for i in range(11):
+            #     pop.load(gen=int(i * 10))
+            #     trainer.blueprint_genomes(pop)
+            trainer.blueprint_genomes(pop)
     
     if args.evaluate:
         print("\n===> EVALUATING <===\n")

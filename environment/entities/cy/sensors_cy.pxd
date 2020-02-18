@@ -6,12 +6,14 @@ Used to declare all the methods and classes inside of sensors_cy that must be ca
 from environment.entities.cy.game_cy cimport GameCy
 from utils.cy.vec2d_cy cimport Vec2dCy
 
+
 cdef class SensorCy:
     cdef public GameCy game
     cdef public int id
     cdef public float angle, pos_offset, max_dist
     
     cdef float get_measure(self)
+
 
 cdef class AngularSensorCy(SensorCy):
     """
@@ -21,12 +23,14 @@ cdef class AngularSensorCy(SensorCy):
     
     cdef float get_measure(self)
 
+
 cdef class DistanceSensorCy(SensorCy):
     """
     Distance from bot to the target in 'crows flight'.
     """
     
     cdef float get_measure(self)
+
 
 cdef class ProximitySensorCy(SensorCy):
     """
