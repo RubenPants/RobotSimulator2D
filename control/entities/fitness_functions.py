@@ -35,23 +35,23 @@ def calc_pop_fitness(fitness_config, game_observations):
     intermediate_observations = fitness_per_game(fitness_config=fitness_config, game_observations=game_observations)
     
     # 2) Combine the fitness-functions
-    return fitness_averaged(fitness_config=fitness_config, fitness_dict=intermediate_observations)
+    return fitness_averaged(fitness_config=fitness_config, fitness=intermediate_observations)
 
 
-def fitness_averaged(fitness_config: dict, fitness_dict: dict):
+def fitness_averaged(fitness_config: dict, fitness: dict):
     """
     
     :param fitness_config: Configuration dictionary which contains:
         * D_FIT_COMB: Tag specifying in which way the fitness scores get combined (min, avg, max)
-    :param fitness_dict: { genome_key : [fitness_floats] }
+    :param fitness: { genome_key : [fitness_floats] }
     :return: Adjusted fitness dictionary: { genome_key: combined_fitness_float }
     """
     t = fitness_config[D_FIT_COMB]
     assert (t in ['min', 'avg', 'max', 'gmean'])
     f = min if t == 'min' else max if t == 'max' else np.mean if 'avg' else stats.gmean
-    for k in fitness_dict.keys():
-        fitness_dict[k] = f(fitness_dict[k])
-    return fitness_dict
+    for k in fitness.keys():
+        fitness[k] = f(fitness[k])
+    return fitness
 
 
 def fitness_per_game(fitness_config: dict, game_observations):
@@ -67,9 +67,9 @@ def fitness_per_game(fitness_config: dict, game_observations):
     """
     tag = fitness_config[D_TAG]
     if tag == 'distance':
-        return fitness_distance(game_observations=game_observations)
+        return distance(game_observations=game_observations)
     elif tag == 'distance_time':
-        return fitness_distance_time(game_observations=game_observations)
+        return distance_time(game_observations=game_observations)
     elif tag == 'novelty':
         return novelty_search(game_observations=game_observations, k=fitness_config[D_K])
     elif tag == 'path':
@@ -85,26 +85,50 @@ def fitness_per_game(fitness_config: dict, game_observations):
 # -------------------------------------------------> HELPER METHODS <------------------------------------------------- #
 
 
-def fitness_distance(game_observations):
+def distance(game_observations):
     """
     Determine the fitness based on the average distance to target in crows flight. This remaining distance is normalized
-    by the A* distance from the agent's initial position
+    by the A* distance from the agent's initial position. The fitness ranges between 0 and 1.
     
     TODO: Inspired by James' paper page --> Still need to implement it though!
     
     :param game_observations: List of game.close() results (Dictionary)
     :return: { genome_id, [fitness_floats] }
     """
-    fitness_dict = dict()
+    fitness = dict()
     for k, v in game_observations.items():  # Iterate over the candidates
-        fitness_dict[k] = [min(0, 1 - o[D_DIST_TO_TARGET] / o[D_A_STAR]) for o in v]
-    return fitness_dict
+        fitness[k] = [max(0, 1 - o[D_DIST_TO_TARGET] / o[D_A_STAR]) for o in v]
+    return fitness
+
+
+def distance_time(game_observations):
+    """
+    This metric will combine both the distance of the agent towards the goal, as well as the time it took to reach the
+    goal relative to its peers (if the agent did in fact reach the goal). The fitness is calculated as the sum of the
+    relative distance to target (1-distance/max_distance) and the steps it took to reach the target (1-steps/max_steps).
+    The fitness ranges between 0 and 1.
+    
+    :param game_observations: List of game.close() results (Dictionary)
+    :return: { genome_id, [fitness_floats] }
+    """
+    # Get maximum values for each of the games
+    n_games = len(list(game_observations.values())[0])  # Number of games
+    max_s, max_d = [], []  # Maximum steps and distance for each game respectively
+    for n in range(n_games):
+        max_s.append(max([o[n][D_STEPS] for o in game_observations.values()]))
+        max_d.append(max([o[n][D_DIST_TO_TARGET] for o in game_observations.values()]))
+    
+    # Calculate the score
+    fitness = dict()
+    for k, v in game_observations.items():  # Iterate over the candidates
+        fitness[k] = [max(0, 1 - (o[D_DIST_TO_TARGET] / max_d[i] + o[D_STEPS] / max_s[i]) / 2) for i, o in enumerate(v)]
+    return fitness
 
 
 def novelty_search(game_observations, k: int = 5):
     """
     This method is used to apply the novelty-search across different games. This is the method that must be called by
-    the evaluator-environment.
+    the evaluator-environment. The fitness ranges between 0 and 1.
     
     :param game_observations: List of game.close() results (Dictionary)
     :param k: The number of neighbours taken into account
@@ -170,6 +194,11 @@ def novelty_search_game(game_observations, k: int = 5):  # TODO: Not sure if pro
         knn = NearestNeighbors(n_neighbors=(k + 1)).fit(positions)
         knn_distances, _ = knn.kneighbors(positions)
         distance[ids[i]] = sum(knn_distances[i])
+        
+    # Normalize the distance
+    max_distance = max(distance.values())
+    for k in distance.keys():
+        distance[k] /= max_distance
     
     # Return result
     return distance
@@ -180,16 +209,16 @@ def fitness_path(game_observations):
     This metric uses the game-specific "path" values. This value indicates the quality for each for the tiles,
     indicating how far away this current tile is from target. Note that these values are normalized and transformed to
     fitness values, where the tile of the target has value 1 and the value of the tile with the longest path towards the
-    target has value 0.
+    target has value 0. The fitness ranges between 0 and 1.
     
     :param game_observations: List of game.close() results (Dictionary)
     :return: { genome_id, [fitness_floats] }
     """
     # Calculate the score
-    fitness_dict = dict()
+    fitness = dict()
     for k, v in game_observations.items():  # Iterate over the candidates
-        fitness_dict[k] = [min(0, 1 - o[D_PATH][o[D_POS][0], o[D_POS][1]] / o[D_A_STAR]) for o in v]
-    return fitness_dict
+        fitness[k] = [max(0, 1 - o[D_PATH][int(o[D_POS][0]) + 0.5, int(o[D_POS][1]) + 0.5] / o[D_A_STAR]) for o in v]
+    return fitness
 
 
 def fitness_path_time(game_observations):
@@ -200,44 +229,13 @@ def fitness_path_time(game_observations):
     :param game_observations: List of game.close() results (Dictionary)
     :return: { genome_id, [fitness_floats] }
     """
-    
-    def get_value(path, pos):
-        """
-        Get the value of the given position in the given game.
-        """
-        return path[min(path.keys(), key=lambda key: (pos - Vec2d(key[0], key[1])).get_length())]
-    
     # Calculate worst time to reach the target
     n_games = len(list(game_observations.values())[0])  # Number of games
     max_steps = [max([o[g][D_STEPS] for o in game_observations.values()]) for g in range(n_games)]
     
     # Calculate the score
-    fitness_dict = dict()
+    fitness = dict()
     for k, v in game_observations.items():  # Iterate over the candidates
-        fitness_dict[k] = [50 * (get_value(path=o[D_PATH], pos=o[D_POS]) +
-                                 (max_steps[i] - o[D_STEPS]) / max_steps[i]) for i, o in enumerate(v)]
-    return fitness_dict
-
-
-def fitness_distance_time(game_observations):
-    """
-    This metric will combine both the distance of the agent towards the goal, as well as the time it took to reach the
-    goal relative to its peers (if the agent did in fact reach the goal). The fitness is calculated as the sum of the
-    relative distance to target (1-distance/max_distance) and the steps it took to reach the target (1-steps/max_steps).
-    Both are multiplied by 50 with a soul reason to have a total score on 100.
-    
-    :param game_observations: List of game.close() results (Dictionary)
-    :return: { genome_id, [fitness_floats] }
-    """
-    # Get maximum values for each of the games
-    n_games = len(list(game_observations.values())[0])  # Number of games
-    max_s, max_d = [], []  # Maximum steps and distance for each game respectively
-    for n in range(n_games):
-        max_s.append(max([o[n][D_STEPS] for o in game_observations.values()]))
-        max_d.append(max([o[n][D_DIST_TO_TARGET] for o in game_observations.values()]))
-    
-    # Calculate the score
-    fitness_dict = dict()
-    for k, v in game_observations.items():  # Iterate over the candidates
-        fitness_dict[k] = [100 - 50 * (o[D_DIST_TO_TARGET] / max_d[i] + o[D_STEPS] / max_s[i]) for i, o in enumerate(v)]
-    return fitness_dict
+        fitness[k] = [max(0, 1 - (o[D_PATH][int(o[D_POS][0]) + 0.5, int(o[D_POS][1]) + 0.5] / o[D_A_STAR] +
+                                  o[D_STEPS] / max_steps[i]) / 2) for i, o in enumerate(v)]
+    return fitness
