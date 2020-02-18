@@ -51,25 +51,24 @@ class Game:
         :param overwrite: Overwrite pre-existing games
         :param silent: Do not print anything
         """
-        # Set config
-        if config:
-            self.bot_driving_speed: float = config.bot_driving_speed
-            self.bot_radius: float = config.bot_radius
-            self.bot_turning_speed: float = config.bot_turning_speed
-            self.batch: int = config.batch
-            self.duration: int = config.duration
-            self.max_game_id: int = config.max_game_id
-            self.max_eval_game_id: int = config.max_eval_game_id
-            self.fps: int = config.fps
-            self.p2m: int = config.p2m
-            self.x_axis: int = config.x_axis
-            self.y_axis: int = config.y_axis
-            self.noise_time: float = config.noise_time
-            self.noise_angle: float = config.noise_angle
-            self.noise_distance: float = config.noise_distance
-            self.noise_proximity: float = config.noise_proximity
-            self.sensor_ray_distance: float = config.sensor_ray_distance
-            self.target_reached: float = config.target_reached
+        # Set config (or placeholder if config not defined)
+        self.bot_driving_speed: float = config.bot_driving_speed if config else 0
+        self.bot_radius: float = config.bot_radius if config else 0
+        self.bot_turning_speed: float = config.bot_turning_speed if config else 0
+        self.batch: int = config.batch if config else 0
+        self.duration: int = config.duration if config else 0
+        self.max_game_id: int = config.max_game_id if config else 0
+        self.max_eval_game_id: int = config.max_eval_game_id if config else 0
+        self.fps: int = config.fps if config else 0
+        self.p2m: int = config.p2m if config else 0
+        self.x_axis: int = config.x_axis if config else 0
+        self.y_axis: int = config.y_axis if config else 0
+        self.noise_time: float = config.noise_time if config else 0
+        self.noise_angle: float = config.noise_angle if config else 0
+        self.noise_distance: float = config.noise_distance if config else 0
+        self.noise_proximity: float = config.noise_proximity if config else 0
+        self.sensor_ray_distance: float = config.sensor_ray_distance if config else 0
+        self.target_reached: float = config.target_reached if config else 0
         
         # Environment specific parameters
         self.silent: bool = silent  # True: Do not print out statistics

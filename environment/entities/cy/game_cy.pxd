@@ -19,9 +19,9 @@ cdef class GameCy:
     cdef public list walls
     cdef public FootBotCy player
     cdef public Vec2dCy target
-    cdef float bot_driving_speed, bot_radius, bot_turning_speed
-    cdef int batch, duration, max_game_id, max_eval_game_id, fps, p2m, x_axis, y_axis
-    cdef float noise_time, noise_angle, noise_distance, noise_proximity, sensor_ray_distance, target_reached
+    cdef public float bot_driving_speed, bot_radius, bot_turning_speed
+    cdef public int batch, duration, max_game_id, max_eval_game_id, fps, p2m, x_axis, y_axis
+    cdef public float noise_time, noise_angle, noise_distance, noise_proximity, sensor_ray_distance, target_reached
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     

@@ -52,24 +52,23 @@ cdef class GameCy:
         :param silent: Do not print anything
         """
         # Set config
-        if config:
-            self.bot_driving_speed = config.bot_driving_speed
-            self.bot_radius = config.bot_radius
-            self.bot_turning_speed = config.bot_radius
-            self.batch = config.batch
-            self.duration = config.duration
-            self.max_game_id = config.max_game_id
-            self.max_eval_game_id = config.max_eval_game_id
-            self.fps = config.fps
-            self.p2m = config.p2m
-            self.x_axis = config.x_axis
-            self.y_axis = config.y_axis
-            self.noise_time = config.noise_time
-            self.noise_angle = config.noise_angle
-            self.noise_distance = config.noise_distance
-            self.noise_proximity = config.noise_proximity
-            self.sensor_ray_distance = config.sensor_ray_distance
-            self.target_reached = config.target_reached
+        self.bot_driving_speed = config.bot_driving_speed if config else 0
+        self.bot_radius = config.bot_radius if config else 0
+        self.bot_turning_speed = config.bot_radius if config else 0
+        self.batch = config.batch if config else 0
+        self.duration = config.duration if config else 0
+        self.max_game_id = config.max_game_id if config else 0
+        self.max_eval_game_id = config.max_eval_game_id if config else 0
+        self.fps = config.fps if config else 0
+        self.p2m = config.p2m if config else 0
+        self.x_axis = config.x_axis if config else 0
+        self.y_axis = config.y_axis if config else 0
+        self.noise_time = config.noise_time if config else 0
+        self.noise_angle = config.noise_angle if config else 0
+        self.noise_distance = config.noise_distance if config else 0
+        self.noise_proximity = config.noise_proximity if config else 0
+        self.sensor_ray_distance = config.sensor_ray_distance if config else 0
+        self.target_reached = config.target_reached if config else 0
         
         # Environment specific parameters
         self.silent = silent  # True: Do not print out statistics
