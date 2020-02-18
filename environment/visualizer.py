@@ -55,8 +55,8 @@ class Visualizer:
         game = Game(game_id=game_id, silent=True)
         
         # Create space in which game will be played
-        window = pyglet.window.Window(game.cfg.x_axis * game.cfg.p2m,
-                                      game.cfg.y_axis * game.cfg.p2m,
+        window = pyglet.window.Window(game.x_axis * game.p2m,
+                                      game.y_axis * game.p2m,
                                       "Robot Simulator - Game {id:03d}".format(id=game_id),
                                       resizable=False,
                                       visible=True)
@@ -74,28 +74,28 @@ class Visualizer:
         # Draw static objects - walls
         for wall in game.walls:
             wall_shape = pymunk.Segment(space.static_body,
-                                        a=wall.x * game.cfg.p2m,
-                                        b=wall.y * game.cfg.p2m,
-                                        radius=0.05 * game.cfg.p2m)  # 5cm walls
+                                        a=wall.x * game.p2m,
+                                        b=wall.y * game.p2m,
+                                        radius=0.05 * game.p2m)  # 5cm walls
             wall_shape.color = (0, 0, 0)
             space.add(wall_shape)
         
         # Draw static objects - target
         target_body = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
-        target_body.position = game.target * game.cfg.p2m
-        target_shape = pymunk.Circle(body=target_body, radius=game.cfg.bot_radius * game.cfg.p2m)
+        target_body.position = game.target * game.p2m
+        target_shape = pymunk.Circle(body=target_body, radius=game.bot_radius * game.p2m)
         target_shape.sensor = True
         target_shape.color = (0, 128, 0)
         space.add(target_body, target_shape)
         
         # Init player
         m = pymunk.moment_for_circle(mass=1, inner_radius=0,
-                                     outer_radius=game.cfg.bot_radius * game.cfg.p2m)
+                                     outer_radius=game.bot_radius * game.p2m)
         player_body = pymunk.Body(mass=1, moment=m)
-        player_body.position = game.player.pos * game.cfg.p2m
+        player_body.position = game.player.pos * game.p2m
         player_body.angle = game.player.angle
         player_shape = pymunk.Circle(body=player_body,
-                                     radius=game.cfg.bot_radius * game.cfg.p2m)
+                                     radius=game.bot_radius * game.p2m)
         player_shape.color = (255, 0, 0)
         space.add(player_body, player_shape)
         
@@ -104,11 +104,11 @@ class Visualizer:
             [space.remove(s) for s in space.shapes if s.sensor and type(s) == pymunk.Segment]
             for s in game.player.proximity_sensors:
                 line = pymunk.Segment(space.static_body,
-                                      a=s.start_pos * game.cfg.p2m,
-                                      b=s.end_pos * game.cfg.p2m,
+                                      a=s.start_pos * game.p2m,
+                                      b=s.end_pos * game.p2m,
                                       radius=0.5)
                 line.sensor = True
-                touch = ((s.start_pos - s.end_pos).get_length() < game.cfg.sensor_ray_distance - 0.05)
+                touch = ((s.start_pos - s.end_pos).get_length() < game.sensor_ray_distance - 0.05)
                 line.color = (100, 100, 100) if touch else (200, 200, 200)  # Brighten up ray if it makes contact
                 space.add(line)
         
@@ -128,8 +128,8 @@ class Visualizer:
                 if self.debug:
                     print("Passed time:", round(dt, 3))
                     print("Location: x={}, y={}".format(
-                            round(player_body.position.x / game.cfg.p2m, 2),
-                            round(player_body.position.y / game.cfg.p2m, 2)))
+                            round(player_body.position.x / game.p2m, 2),
+                            round(player_body.position.y / game.p2m, 2)))
                     print("Action: lw={l}, rw={r}".format(l=round(action[0][0], 3), r=round(action[0][1], 3)))
                     print("Observation:", [round(s, 3) for s in self.state])
                 
@@ -139,10 +139,10 @@ class Visualizer:
                 self.state = obs[D_SENSOR_LIST]
                 
                 # Update space's player coordinates and angle
-                player_body.position = game.player.pos * game.cfg.p2m
+                player_body.position = game.player.pos * game.p2m
                 player_body.angle = game.player.angle
             space.step(dt)
         
         # Run the game
-        pyglet.clock.schedule_interval(update_method, 1.0 / (game.cfg.fps * self.speedup))
+        pyglet.clock.schedule_interval(update_method, 1.0 / (game.fps * self.speedup))
         pyglet.app.run()
