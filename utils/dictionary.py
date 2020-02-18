@@ -57,9 +57,6 @@ D_PLAYER = 'player'
 D_POS = 'position'
 D_PTM = 'pixel2meter'
 
-# R
-D_REL_PATH = 'rel_path'
-
 # S
 D_SENSOR_LIST = 'sensor_list'
 D_SENSORS = 'sensors'

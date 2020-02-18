@@ -20,19 +20,14 @@ class Visualizer:
     def __init__(self,
                  query_net,
                  debug: bool = True,
-                 rel_path: str = '',
                  speedup: float = 3):
         """
         The visualizer provides methods used to visualize the performance of a single genome.
         
         :param query_net: Method used to query the network
         :param debug: Generates prints (CLI) during visualization
-        :param rel_path: Relative path pointing to the 'environment/' folder
         :param speedup: Specifies the relative speedup the virtual environment faces towards the real world
         """
-        # Set relative path
-        self.rel_path = '{rp}{x}'.format(rp=rel_path, x='/' if (rel_path and rel_path[-1] not in ['/', '\\']) else '')
-        
         # Visualizer specific parameters
         self.speedup = speedup
         self.state = None

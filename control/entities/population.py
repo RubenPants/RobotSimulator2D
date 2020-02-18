@@ -25,22 +25,26 @@ class CompleteExtinctionException(Exception):
 
 class Population:
     def __init__(self,
-                 name: str,
-                 rel_path: str = "",
+                 name: str = "",
+                 version: int = 0,
                  make_net_method=None,
                  query_net_method=None):
         """
         The population will be concerned about everything directly and solely related to the population. These are
         reporters, persisting methods, evolution and more.
         
-        :param rel_path: Relative path to folder in which population must be stored
+        :param name: Name of population, used when specific population must be summon
+        :param version: Version of the population, 0 if not versioned
         :param make_net_method: Method used to create a network based on a given genome
         :param query_net_method: Method used to query the action on the network, given a current state
         """
         # Set formal properties of the population
-        self.rel_path = '{rp}{x}'.format(rp=rel_path, x='/' if (rel_path and rel_path[-1] not in ['/', '\\']) else '')
-        self.name = name if name else "population_{nr:05d}".format(
-                nr=len(glob(get_subfolder(self.rel_path, 'populations') + '*')))
+        if name:
+            self.name = name
+        else:
+            cfg = ConfigParser()
+            cfg.read("configs/neat.cfg")
+            self.name = f"{cfg['EVALUATION']['fitness']}{f'_{version}' if version else ''}"
         
         # Placeholders
         self.best_genome = None
@@ -93,7 +97,7 @@ class Population:
         elif self.config.fitness_criterion == 'mean':
             self.fitness_criterion = mean
         elif not self.config.no_fitness_termination:
-            raise RuntimeError("Unexpected fitness_criterion: {0!r}".format(self.config.fitness_criterion))
+            raise RuntimeError(f"Unexpected fitness_criterion: {self.config.fitness_criterion!r}")
         
         # Config specific for fitness
         cfg = ConfigParser()
@@ -108,11 +112,8 @@ class Population:
         self.population = self.reproduction.create_new(self.config.genome_type,
                                                        self.config.genome_config,
                                                        self.config.pop_size)
-        self.species = self.config.species_set_type(self.config.species_set_config,
-                                                    self.reporters)
-        self.species.speciate(self.config,
-                              self.population,
-                              self.generation)
+        self.species = self.config.species_set_type(self.config.species_set_config, self.reporters)
+        self.species.speciate(self.config, self.population, self.generation)
         
         # Create network method containers
         self.make_net = make_net_method
@@ -165,7 +166,7 @@ class Population:
         :param final_observations: Dictionary of all the final game observations made
         :param games: List Game-objects used during evaluation
         """
-        save_path = get_subfolder('{}populations/{}/'.format(self.rel_path, str(self)), 'images')
+        save_path = get_subfolder(f'control/NEAT/populations/{self}/', 'images')
         genome_keys = list(final_observations.keys())
         for g in games:
             # Get the game's blueprint
@@ -205,8 +206,8 @@ class Population:
             if not name:
                 name = 'best_genome_'
         name += 'gen_{gen:05d}'.format(gen=self.generation)
-        get_subfolder('{}/populations/{}/'.format(self.rel_path, self), 'images')
-        sf = get_subfolder('{}populations/{}/images/'.format(self.rel_path, self), 'architectures')
+        get_subfolder(f'control/NEAT/populations/{self}/', 'images')
+        sf = get_subfolder(f'control/NEAT/populations/{self}/images/', 'architectures')
         draw_net(self.config,
                  genome,
                  filename='{sf}{name}'.format(sf=sf, name=name),
@@ -220,9 +221,9 @@ class Population:
         
         :param eval_result: Dictionary
         """
-        sf = get_subfolder('{}/populations/{}/'.format(self.rel_path, self), 'evaluation')
-        sf = get_subfolder(sf, "{gen:05d}".format(gen=self.generation))
-        update_dict('{}results'.format(sf), eval_result)
+        sf = get_subfolder(f'control/NEAT/populations/{self}/', 'evaluation')
+        sf = get_subfolder(sf, f"{self.generation:05d}")
+        update_dict(f'{sf}results', eval_result)
     
     def add_reporter(self, reporter):
         """
@@ -251,16 +252,13 @@ class Population:
         Save the population as the current generation.
         """
         # Create needed subfolder if not yet exist
-        get_subfolder(self.rel_path, 'populations')
-        get_subfolder('{}populations/'.format(self.rel_path), '{}'.format(self))
-        get_subfolder('{rp}populations/{pop}/'.format(rp=self.rel_path, pop=self), 'generations')
+        get_subfolder("control/NEAT/", 'populations')
+        get_subfolder('control/NEAT/populations/', f'{self}')
+        get_subfolder(f'control/NEAT/populations/{self}/', 'generations')
         
         # Save the population
-        pickle.dump(self, open('{rp}populations/{pop}/generations/gen_{gen:05d}'.format(
-                rp=self.rel_path,
-                pop=self,
-                gen=self.generation), 'wb'))
-        print("Population '{}' saved! Current generation: {}".format(self, self.generation))
+        pickle.dump(self, open(f'control/NEAT/populations/{self}/generations/gen_{self.generation:05d}', 'wb'))
+        print(f"Population '{self}' saved! Current generation: {self.generation}")
     
     def load(self, gen=None):
         """
@@ -271,21 +269,16 @@ class Population:
         try:
             if gen is None:
                 # Load in all previous populations
-                populations = glob('{rp}populations/{pop}/generations/gen_*'.format(rp=self.rel_path, pop=self))
+                populations = glob(f'control/NEAT/populations/{self}/generations/gen_*')
                 if not populations: raise FileNotFoundError
                 
                 # Find newest population and save generation number under 'gen'
                 populations = [p.replace('\\', '/') for p in populations]
-                regex = r"(?<=" + \
-                        re.escape('{rp}populations/{pop}/generations/gen_'.format(rp=self.rel_path, pop=self)) + \
-                        ")[0-9]*"
+                regex = r"(?<=" + re.escape(f'control/NEAT/populations/{self}/generations/gen_') + ")[0-9]*"
                 gen = max([int(re.findall(regex, p)[0]) for p in populations])
             
             # Load in the population under the specified generation
-            pop = pickle.load(open('{rp}populations/{pop}/generations/gen_{gen:05d}'.format(
-                    rp=self.rel_path,
-                    pop=self,
-                    gen=gen), 'rb'))
+            pop = pickle.load(open(f'control/NEAT/populations/{self}/generations/gen_{gen:05d}', 'rb'))
             self.best_genome = pop.best_genome
             self.config = pop.config
             self.fitness_config = pop.fitness_config
@@ -297,7 +290,7 @@ class Population:
             self.reporters = pop.reporters
             self.reproduction = pop.reproduction
             self.species = pop.species
-            print("Population '{}' loaded successfully! Current generation: {}".format(self, self.generation))
+            print(f"Population '{self}' loaded successfully! Current generation: {self.generation}")
             return True
         except FileNotFoundError:
             return False

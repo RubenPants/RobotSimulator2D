@@ -36,8 +36,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     pop = Population(
-            name='test',
-            rel_path='control/NEAT/',
+            version=1,
             make_net_method=make_net,
             query_net_method=query_net,
     )
@@ -83,7 +82,6 @@ if __name__ == '__main__':
         net = make_net(pop.best_genome, pop.config, 1)
         visualizer = Visualizer(
                 query_net=query_net,
-                rel_path='environment/',
                 debug=False,
                 # speedup=1,
         )

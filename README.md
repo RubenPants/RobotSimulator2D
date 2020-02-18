@@ -42,9 +42,7 @@ Do the build inside of each cy-folder. This build file is responsible for moving
 
 ## TODO - Urgent
 
-* Remove rel_path, do everything from root
 * One config file to rule them all
-* Save config params as fields instead of reading the config each time (slow!)
 
 ## TODO
 
