@@ -182,7 +182,7 @@ class Population:
             plt.plot(dot_x, dot_y, 'ro')
             
             # Add target again to map
-            plt.plot(0.5, g.axis_y - 0.5, 'go')
+            plt.plot(0.5, g.y_axis - 0.5, 'go')
             
             # Add title
             plt.title("Blueprint - Game {id:05d} - Generation {gen:05d}".format(id=g.id, gen=self.generation))

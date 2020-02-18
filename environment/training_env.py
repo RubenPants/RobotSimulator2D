@@ -59,13 +59,13 @@ class TrainingEnv:
             multi_env = MultiEnvironmentCy(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_steps=self.cfg.duration*self.cfg.fps
+                    max_steps=self.cfg.duration * self.cfg.fps
             )
         else:
             multi_env = MultiEnvironment(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_steps=self.cfg.duration*self.cfg.fps
+                    max_steps=self.cfg.duration * self.cfg.fps
             )
         
         for iteration in range(n):
@@ -135,13 +135,13 @@ class TrainingEnv:
             multi_env = MultiEnvironmentCy(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_steps=self.cfg.duration*self.cfg.fps
+                    max_steps=self.cfg.duration * self.cfg.fps
             )
         else:
             multi_env = MultiEnvironment(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_steps=self.cfg.duration*self.cfg.fps
+                    max_steps=self.cfg.duration * self.cfg.fps
             )
         
         if len(self.games) > 20:

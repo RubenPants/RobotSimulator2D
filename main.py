@@ -28,7 +28,7 @@ def query_net(net, states):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument('--train', type=bool, default=True)
+    parser.add_argument('--train', type=bool, default=False)
     parser.add_argument('--blueprint', type=bool, default=True)
     parser.add_argument('--evaluate', type=bool, default=False)
     parser.add_argument('--genome', type=bool, default=True)
@@ -58,7 +58,7 @@ if __name__ == '__main__':
         # Create the blueprints for first 5 games
         trainer = TrainingEnv()
         for g in range(1, 6):
-            print("Creating blueprints for  game {}".format(g))
+            print(f"Creating blueprints for  game {g}")
             trainer.set_games([g])
             # for i in range(11):
             #     pop.load(gen=int(i * 10))
