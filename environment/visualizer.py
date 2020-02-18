@@ -52,7 +52,7 @@ class Visualizer:
         :param game_id: ID of the game that will be used for evaluation
         """
         # Create the requested game
-        game = create_game(game_id)
+        game = Game(game_id=game_id, silent=True)
         
         # Create space in which game will be played
         window = pyglet.window.Window(game.cfg.x_axis * game.cfg.p2m,
@@ -146,12 +146,3 @@ class Visualizer:
         # Run the game
         pyglet.clock.schedule_interval(update_method, 1.0 / (game.cfg.fps * self.speedup))
         pyglet.app.run()
-
-
-def create_game(i):
-    """
-    :param i: Game-ID
-    :return: Game object
-    """
-    return Game(game_id=i,
-                silent=True)

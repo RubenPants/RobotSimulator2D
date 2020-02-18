@@ -25,7 +25,7 @@ class TrainingEnv:
     def __init__(self):
         """ The evaluator is given a population which it then evaluates using the MultiEnvironment. """
         # Load in current configuration
-        self.config: GameConfig = GameConfig()
+        self.cfg: GameConfig = GameConfig()
         
         #  Create a list of all the possible games
         self.games = None
@@ -40,8 +40,8 @@ class TrainingEnv:
         :param games: List of integers
         """
         if not games:
-            self.games = [i + 1 for i in range(self.config.max_game_id)]
-            self.batch_size = min(len(self.games), self.config.batch)
+            self.games = [i + 1 for i in range(self.cfg.max_game_id)]
+            self.batch_size = min(len(self.games), self.cfg.batch)
         else:
             self.games = games
             self.batch_size = len(games)
@@ -59,13 +59,13 @@ class TrainingEnv:
             multi_env = MultiEnvironmentCy(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_duration=self.config.duration
+                    max_steps=self.cfg.duration*self.cfg.fps
             )
         else:
             multi_env = MultiEnvironment(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_duration=self.config.duration
+                    max_steps=self.cfg.duration*self.cfg.fps
             )
         
         for iteration in range(n):
@@ -135,13 +135,13 @@ class TrainingEnv:
             multi_env = MultiEnvironmentCy(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_duration=self.config.duration
+                    max_steps=self.cfg.duration*self.cfg.fps
             )
         else:
             multi_env = MultiEnvironment(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_duration=self.config.duration
+                    max_steps=self.cfg.duration*self.cfg.fps
             )
         
         if len(self.games) > 20:

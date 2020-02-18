@@ -10,23 +10,23 @@ from utils.dictionary import D_DONE, D_SENSOR_LIST
 class MultiEnvironment:
     """ This class provides an environment to evaluate a single genome on multiple games. """
     
-    __slots__ = ("batch_size", "games", "make_net", "max_duration", "query_net")
+    __slots__ = ("batch_size", "games", "make_net", "max_steps", "query_net")
     
     def __init__(self,
                  make_net,
                  query_net,
-                 max_duration: int = 100):
+                 max_steps: int = 2000):
         """
         Create an environment in which the genomes get evaluated across different games.
         
         :param make_net: Method to create a network based on the given genome
         :param query_net: Method to evaluate the network given the current state
-        :param max_duration: Maximum number of seconds a candidate drives around in a single environment
+        :param max_steps: Maximum number of steps a candidate drives around in a single environment
         """
         self.batch_size = None
         self.games = None
         self.make_net = make_net
-        self.max_duration = max_duration
+        self.max_steps = max_steps
         self.query_net = query_net
     
     def eval_genome(self,
@@ -46,16 +46,15 @@ class MultiEnvironment:
         net = self.make_net(genome, config, self.batch_size)
         
         # Placeholders
-        games = [create_game(g) for g in self.games]
+        games = [self.create_game(g) for g in self.games]
         states = [g.reset()[D_SENSOR_LIST] for g in games]
         finished = [False] * self.batch_size
         
         # Start iterating the environments
         step_num = 0
-        max_steps = self.max_duration * games[0].fps
         while True:
             # Check if maximum iterations is reached
-            if step_num == max_steps: break
+            if step_num == self.max_steps: break
             
             # Determine the actions made by the agent for each of the states
             if debug:
@@ -85,6 +84,14 @@ class MultiEnvironment:
     
     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
     
+    def create_game(self, i):
+        """
+        :param i: Game-ID
+        :return: Game or GameCy object
+        """
+        return Game(game_id=i,
+                    silent=True)
+    
     def set_games(self, games):
         """
         Set the games-set with new games.
@@ -93,12 +100,3 @@ class MultiEnvironment:
         """
         self.games = games
         self.batch_size = len(games)
-
-
-def create_game(i):
-    """
-    :param i: Game-ID
-    :return: Game or GameCy object
-    """
-    return Game(game_id=i,
-                silent=True)

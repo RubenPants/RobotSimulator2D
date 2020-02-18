@@ -59,13 +59,13 @@ class EvaluationEnv:
             multi_env = MultiEnvironmentCy(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_duration=self.cfg.duration
+                    max_steps=self.cfg.duration * self.cfg.fps
             )
         else:
             multi_env = MultiEnvironment(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_duration=self.cfg.duration
+                    max_steps=self.cfg.duration * self.cfg.fps
             )
         
         # Evaluate on all the games
@@ -108,13 +108,13 @@ class EvaluationEnv:
             multi_env = MultiEnvironmentCy(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_duration=self.cfg.duration
+                    max_steps=self.cfg.duration * self.cfg.fps
             )
         else:
             multi_env = MultiEnvironment(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_duration=self.cfg.duration
+                    max_steps=self.cfg.duration * self.cfg.fps
             )
         
         # Initialize the evaluation-pool
