@@ -28,7 +28,7 @@ def query_net(net, states):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument('--train', type=bool, default=False)
+    parser.add_argument('--train', type=bool, default=True)
     parser.add_argument('--iterations', type=int, default=20)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
@@ -37,6 +37,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     pop = Population(
+            name="test",
             version=1,
             make_net_method=make_net,
             query_net_method=query_net,

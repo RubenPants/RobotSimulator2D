@@ -60,7 +60,7 @@ D_NOISE_TIME = 'noise_time'
 D_NUMBER_OF_AGENTS = 'number_of_agents'
 
 # P
-D_PARTIAL_DIRECT = 'partial_direct'
+D_PARTIAL_DIRECT_05 = 'partial_direct 0.5'
 D_PATH = 'path'
 D_PATH_TIME = 'path_time'
 D_PLAYER = 'player'

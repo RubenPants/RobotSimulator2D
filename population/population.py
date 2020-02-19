@@ -13,6 +13,8 @@ import matplotlib.pyplot as plt
 import neat
 from neat.math_util import mean
 
+from configs.config import NeatConfig
+from population.utils.population_config import PopulationConfig
 from population.utils.reporting import ReporterSet
 from population.visualizer import draw_net
 from utils.dictionary import D_FIT_COMB, D_GAME_ID, D_K, D_POS, D_TAG
@@ -42,9 +44,8 @@ class Population:
         if name:
             self.name = name
         else:
-            cfg = ConfigParser()
-            cfg.read("configs/neat.cfg")
-            self.name = f"{cfg['EVALUATION']['fitness']}{f'_{version}' if version else ''}"
+            cfg = NeatConfig()
+            self.name = f"{cfg.fitness}{f'_{version}' if version else ''}"
         
         # Placeholders
         self.best_genome = None
@@ -61,8 +62,7 @@ class Population:
         
         # Try to load the population, create new if not possible
         if not self.load():
-            # net-methods must be provided
-            assert (make_net_method is not None) and (query_net_method is not None)
+            assert (make_net_method is not None) and (query_net_method is not None)  # net-methods must be provided
             self.create_population(make_net_method=make_net_method, query_net_method=query_net_method)
     
     def __str__(self):
@@ -78,13 +78,13 @@ class Population:
         :param query_net_method: Method used to query actions of the genome-specific network
         """
         # Init the population's configuration
-        config_path = 'configs/neat.cfg'
-        config = neat.Config(
-                neat.DefaultGenome,
-                neat.DefaultReproduction,
-                neat.DefaultSpeciesSet,
-                neat.DefaultStagnation,
-                config_path,
+        cfg = NeatConfig()
+        config = PopulationConfig(
+                genome_type=neat.DefaultGenome,
+                reproduction_type=neat.DefaultReproduction,
+                species_set_type=neat.DefaultSpeciesSet,
+                stagnation_type=neat.DefaultStagnation,
+                config=cfg,
         )
         self.reporters = ReporterSet()
         self.set_config(config)
@@ -100,12 +100,10 @@ class Population:
             raise RuntimeError(f"Unexpected fitness_criterion: {self.config.fitness_criterion!r}")
         
         # Config specific for fitness
-        cfg = ConfigParser()
-        cfg.read(config_path)
         self.fitness_config = {
-            D_FIT_COMB: cfg['EVALUATION']['fitness_comb'],
-            D_K:        int(cfg['EVALUATION']['nn_k']),
-            D_TAG:      cfg['EVALUATION']['fitness'],
+            D_FIT_COMB: cfg.fitness_comb,
+            D_K:        cfg.nn_k,
+            D_TAG:      cfg.fitness,
         }
         
         # Create a population from scratch, then partition into species
