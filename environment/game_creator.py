@@ -609,3 +609,18 @@ if __name__ == '__main__':
                         path_list=maze.get_path_coordinates(),
                         wall_list=maze.get_wall_coordinates(),
                         overwrite=args.overwrite)
+            
+            # Quality check the created game
+            try:
+                game = Game(
+                        game_id=g_id,
+                        save_path="environment/games_db/",
+                        overwrite=False)
+                game.close()
+                game.reset()
+                game.get_blueprint()
+                game.get_observation()
+                game.step(0, 0)
+            except Exception:
+                print(f"Faulty created game: {g_id}, please manually redo this one")
+                os.remove(f"environment/games_db/game_{g_id:05d}")

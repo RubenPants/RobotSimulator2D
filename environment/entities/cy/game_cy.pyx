@@ -81,7 +81,7 @@ cdef class GameCy:
         # Placeholders for parameters
         self.done = False  # Game has finished
         self.id = game_id  # Game's ID-number
-        self.path = None  # Coordinates together with distance to target
+        self.path = dict()  # Coordinates together with distance to target
         self.player = None  # Candidate-robot
         self.steps_taken = 0  # Number of steps taken by the agent
         self.target = None  # Target-robot
