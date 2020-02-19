@@ -16,16 +16,20 @@ from utils.cy.vec2d_cy cimport Vec2dCy
 
 
 cdef class SensorCy:
-    """
-    The baseclass used by all sensors.
-    """
+    """ The baseclass used by all sensors. """
+    
+    __slots__ = (
+        "game",
+        "id", "angle", "pos_offset", "max_dist"
+    )
     
     def __init__(self,
                  GameCy game,  # Type not specified due to circular imports
                  int sensor_id=0,
                  float angle=0,
                  float pos_offset=0,
-                 float max_dist=0):
+                 float max_dist=0
+                 ):
         """
         Basic characteristics of a sensor.
         

@@ -21,6 +21,11 @@ else:
 class EvaluationEnv:
     """ This class is responsible evaluating the population across a set of games. """
     
+    __slots__ = (
+        "cfg",
+        "games", "batch_size",
+    )
+    
     def __init__(self):
         """ The evaluator is given a set of genomes which it then evaluates using the MultiEnvironment. """
         # Load in current configuration
