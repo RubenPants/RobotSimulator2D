@@ -32,8 +32,8 @@ if __name__ == '__main__':
     parser.add_argument('--iterations', type=int, default=20)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
-    parser.add_argument('--genome', type=bool, default=False)
-    parser.add_argument('--live', type=bool, default=True)
+    parser.add_argument('--genome', type=bool, default=True)
+    parser.add_argument('--live', type=bool, default=False)
     args = parser.parse_args()
     
     pop = Population(

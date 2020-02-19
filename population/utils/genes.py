@@ -15,6 +15,8 @@ class BaseGene(object):
     mutation methods.
     """
     
+    _gene_attributes = None
+    
     def __init__(self, key):
         self.key = key
     
@@ -24,7 +26,7 @@ class BaseGene(object):
         return '{0}({1})'.format(self.__class__.__name__, ", ".join(attrib))
     
     def __lt__(self, other):
-        assert isinstance(self.key, type(other.key)), "Cannot compare keys {0!r} and {1!r}".format(self.key, other.key)
+        assert isinstance(self.key, type(other.key)), f"Cannot compare keys {self.key!r} and {other.key!r}"
         return self.key < other.key
     
     @classmethod
@@ -36,36 +38,30 @@ class BaseGene(object):
         params = []
         if not hasattr(cls, '_gene_attributes'):
             setattr(cls, '_gene_attributes', getattr(cls, '__gene_attributes__'))
-            warnings.warn(
-                    "Class '{!s}' {!r} needs '_gene_attributes' not '__gene_attributes__'".format(
-                            cls.__name__, cls),
-                    DeprecationWarning)
-        for a in cls._gene_attributes:
-            params += a.get_config_params()
+            warnings.warn(f"Class '{cls.__name__:!s}' {cls:!r} needs '_gene_attributes' not '__gene_attributes__'",
+                          DeprecationWarning)
+        for a in cls._gene_attributes: params += a.get_config_params()
         return params
     
     def init_attributes(self, config):
-        for a in self._gene_attributes:
-            setattr(self, a.name, a.init_value(config))
+        """ Set the initial attributes as claimed by the config. """
+        for a in self._gene_attributes: setattr(self, a.name, a.init_value(config))
     
     def mutate(self, config):
+        """ Perform the mutation operation. """
         for a in self._gene_attributes:
             v = getattr(self, a.name)
             setattr(self, a.name, a.mutate_value(v, config))
     
     def copy(self):
+        """ Copy the gene (this class). """
         new_gene = self.__class__(self.key)
-        for a in self._gene_attributes:
-            setattr(new_gene, a.name, getattr(self, a.name))
-        
+        for a in self._gene_attributes: setattr(new_gene, a.name, getattr(self, a.name))
         return new_gene
     
     def crossover(self, gene2):
         """ Creates a new gene randomly inheriting attributes from its parents."""
         assert self.key == gene2.key
-        
-        # Note: we use "a if random() > 0.5 else b" instead of choice((a, b))
-        # here because `choice` is substantially slower.
         new_gene = self.__class__(self.key)
         for a in self._gene_attributes:
             if random() > 0.5:
@@ -76,9 +72,6 @@ class BaseGene(object):
         return new_gene
 
 
-# TODO: Should these be in the nn module?  iznn and ctrnn can have additional attributes.
-
-
 class DefaultNodeGene(BaseGene):
     _gene_attributes = [FloatAttribute('bias'),
                         FloatAttribute('response'),
@@ -86,29 +79,31 @@ class DefaultNodeGene(BaseGene):
                         StringAttribute('aggregation', options='sum')]
     
     def __init__(self, key):
+        # Placeholders
+        self.response = None
+        self.bias = None
+        self.activation = None
+        self.aggregation = None
+        
         assert isinstance(key, int), "DefaultNodeGene key must be an int, not {!r}".format(key)
         BaseGene.__init__(self, key)
     
     def distance(self, other, config):
         d = abs(self.bias - other.bias) + abs(self.response - other.response)
-        if self.activation != other.activation:
-            d += 1.0
-        if self.aggregation != other.aggregation:
-            d += 1.0
+        if self.activation != other.activation: d += 1.0
+        if self.aggregation != other.aggregation: d += 1.0
         return d * config.compatibility_weight_coefficient
 
 
-# TODO: Do an ablation study to determine whether the enabled setting is
-# important--presumably mutations that set the weight to near zero could
-# provide a similar effect depending on the weight range, mutation rate,
-# and aggregation function. (Most obviously, a near-zero weight for the
-# `product` aggregation function is rather more important than one giving
-# an output of 1 from the connection, for instance!)
 class DefaultConnectionGene(BaseGene):
     _gene_attributes = [FloatAttribute('weight'),
                         BoolAttribute('enabled')]
     
     def __init__(self, key):
+        # Placeholders
+        self.enabled = None
+        self.weight = None
+        
         assert isinstance(key, tuple), "DefaultConnectionGene key must be a tuple, not {!r}".format(key)
         BaseGene.__init__(self, key)
     
