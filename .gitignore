@@ -140,4 +140,4 @@ environment/cy_entities/games_db/game*
 # Ignore deprecated files
 **_dep.*
 **/deprecated/**
-
+error.txt
