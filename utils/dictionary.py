@@ -5,8 +5,9 @@ Words used across the project, sorted in alphabetical order.
 """
 
 # A
-D_A_STAR = "A*"
+D_A_STAR = 'A*'
 D_ANGLE = 'angle'
+D_AVG = 'avg'
 
 # B
 D_BATCH = 'batch'
@@ -21,6 +22,8 @@ D_CONTROL_ENV = 'control_environment'
 
 # D
 D_DIST_TO_TARGET = 'distance_to_target'
+D_DISTANCE = 'distance'
+D_DISTANCE_TIME = 'distance_time'
 D_DONE = 'done'
 D_DURATION = 'duration'
 
@@ -36,23 +39,30 @@ D_GAME_ENV = 'game_environment'
 D_GAME_ID = 'game_id'
 D_GEN_ID = 'generation_id'
 D_GEN_NR = 'generation_number'
+D_GMEAN = 'gmean'
 
 # K
 D_K = 'k'
 
 # M
+D_MAX = 'max'
 D_MAX_EVAL_GAME_ID = 'max_eval_game_id'
 D_MAX_GAME_ID = 'max_game_id'
+D_MEAN = 'mean'
+D_MIN = 'min'
 
 # N
 D_NOISE_ANGLE = 'noise_angle'
 D_NOISE_DISTANCE = 'noise_distance'
 D_NOISE_PROXIMITY = 'noise_proximity'
+D_NOVELTY = 'novelty'
 D_NOISE_TIME = 'noise_time'
 D_NUMBER_OF_AGENTS = 'number_of_agents'
 
 # P
+D_PARTIAL_DIRECT_05 = 'partial_direct 0.5'
 D_PATH = 'path'
+D_PATH_TIME = 'path_time'
 D_PLAYER = 'player'
 D_POS = 'position'
 D_PTM = 'pixel2meter'
@@ -65,12 +75,14 @@ D_SENSOR_DISTANCE = 'distance_sensor'
 D_SENSOR_PROXIMITY = 'proximity_sensor'
 D_SENSOR_RAY_DISTANCE = 'sensor_ray_distance'
 D_STEPS = 'steps'
+D_SUM = 'sum'
 
 # T
 D_TAG = 'tag'
+D_TANH = 'tanh'
 D_TARGET = 'target'
 D_TARGET_REACHED = 'target_reached'
-D_TIME_ALL = "time_all"
+D_TIME_ALL = 'time_all'
 
 # W
 D_WALLS = 'walls'

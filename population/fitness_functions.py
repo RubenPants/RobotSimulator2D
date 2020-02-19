@@ -10,7 +10,6 @@ from scipy import stats
 from sklearn.neighbors import NearestNeighbors
 
 from utils.dictionary import *
-from utils.vec2d import Vec2d
 
 
 # --------------------------------------------------> MAIN METHODS <-------------------------------------------------- #
@@ -194,7 +193,7 @@ def novelty_search_game(game_observations, k: int = 5):  # TODO: Not sure if pro
         knn = NearestNeighbors(n_neighbors=(k + 1)).fit(positions)
         knn_distances, _ = knn.kneighbors(positions)
         distance[ids[i]] = sum(knn_distances[i])
-        
+    
     # Normalize the distance
     max_distance = max(distance.values())
     for k in distance.keys():
