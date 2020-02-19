@@ -29,10 +29,11 @@ def query_net(net, states):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('--train', type=bool, default=False)
-    parser.add_argument('--blueprint', type=bool, default=True)
+    parser.add_argument('--iterations', type=int, default=20)
+    parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
     parser.add_argument('--genome', type=bool, default=False)
-    parser.add_argument('--live', type=bool, default=False)
+    parser.add_argument('--live', type=bool, default=True)
     args = parser.parse_args()
     
     pop = Population(
@@ -48,7 +49,7 @@ if __name__ == '__main__':
         
         # Train for 100 generations
         trainer = TrainingEnv()
-        trainer.evaluate_and_evolve(pop, n=100)
+        trainer.evaluate_and_evolve(pop, n=args.iterations)
     
     if args.blueprint:
         print("\n===> CREATING BLUEPRINTS <===\n")
@@ -86,4 +87,7 @@ if __name__ == '__main__':
                 # speedup=1,
         )
         
-        visualizer.visualize(net, 2)
+        visualizer.visualize(
+                network=net,
+                game_id=2,
+        )

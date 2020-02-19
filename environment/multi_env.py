@@ -15,7 +15,7 @@ class MultiEnvironment:
     def __init__(self,
                  make_net,
                  query_net,
-                 max_steps: int = 2000):
+                 max_steps: int):
         """
         Create an environment in which the genomes get evaluated across different games.
         

@@ -16,7 +16,7 @@ cdef class MultiEnvironmentCy:
     def __init__(self,
                  make_net,
                  query_net,
-                 int max_steps=2000):
+                 int max_steps):
         """
         Create an environment in which the genomes get evaluated across different games.
         

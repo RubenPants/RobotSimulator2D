@@ -113,8 +113,8 @@ class Visualizer:
             draw_sensors()
             space.debug_draw(options=options)
         
-        def update_method(dt):
-            dt = dt * self.speedup
+        def update_method(_):  # Input dt ignored
+            dt = 1 / game.fps
             
             # Stop when target is reached
             if not self.finished:

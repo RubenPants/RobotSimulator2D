@@ -25,9 +25,9 @@ class GameConfig:
         
         # [CONTROL]
         # Number of games on which a single genome is evaluated [def=8]
-        self.batch: int = 8
-        # Number of seconds it takes for one game to complete [def=100]
-        self.duration: int = 100
+        self.batch: int = 16
+        # Number of seconds it takes for one game to complete [def=50]
+        self.duration: int = 50
         # Max ID of game (starting from 1) [def=1000]
         self.max_game_id: int = 1000
         # Max ID of evaluation game (starting from max_id) [def=1200]
