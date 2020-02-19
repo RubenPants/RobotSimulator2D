@@ -27,6 +27,8 @@ class CompleteExtinctionException(Exception):
 
 
 class Population:
+    """ Container for each of the agent's control mechanisms. """
+    
     def __init__(self,
                  name: str = "",
                  version: int = 0,
@@ -108,7 +110,6 @@ class Population:
         }
         
         # Create a population from scratch, then partition into species
-        print(self.config.genome_config)
         self.population = self.reproduction.create_new(self.config.genome_type,
                                                        self.config.genome_config,
                                                        self.config.pop_size)

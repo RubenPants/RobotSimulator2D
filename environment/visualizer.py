@@ -17,6 +17,12 @@ class Visualizer:
     the use of pymunk.
     """
     
+    __slots__ = (
+        "speedup", "state", "finished",
+        "query_net",
+        "debug",
+    )
+    
     def __init__(self,
                  query_net,
                  debug: bool = True,

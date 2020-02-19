@@ -22,6 +22,11 @@ else:
 class TrainingEnv:
     """ This class is responsible evaluating and evolving the population across a set of games. """
     
+    __slots__ = (
+        "cfg",
+        "games", "batch_size",
+    )
+    
     def __init__(self):
         """ The evaluator is given a population which it then evaluates using the MultiEnvironment. """
         # Load in current configuration

@@ -12,9 +12,6 @@ from neat.math_util import mean, stdev
 from neat.six_util import iterkeys, itervalues
 
 
-# TODO: Add a curses-based reporter.
-
-
 class ReporterSet(object):
     """
     Keeps track of the set of reporters
@@ -137,17 +134,17 @@ class StdOutReporter(BaseReporter):
         fitnesses = [c.fitness for c in itervalues(population)]
         # Full population
         print(f'Full population\'s fitness overview:')
-        print(f'\t- best fitness: {max(fitnesses):3.5f}')
-        print(f'\t- mean fitness: {mean(fitnesses):3.5f}')
-        print(f'\t- worst fitness: {min(fitnesses):3.5f}')
-        print(f'\t- standard deviation: {stdev(fitnesses):3.5f}')
+        print(f'\t      best fitness: {max(fitnesses):3.5f}')
+        print(f'\t      mean fitness: {mean(fitnesses):3.5f}')
+        print(f'\t     worst fitness: {min(fitnesses):3.5f}')
+        print(f'\tstandard deviation: {stdev(fitnesses):3.5f}')
         # Best genome
         best_species_id = species.get_species_id(best_genome.key)
         print(f'Best genome overview:')
         print(f'\t- fitness: {best_genome.fitness:3.5f}')
         print(f'\t- size: {best_genome.size()!r}')
-        print(f'\t- genome id {best_genome.key}')
-        print(f'\t- belongs to specie {best_species_id}')
+        print(f'\t- genome id: {best_genome.key}')
+        print(f'\t- belongs to specie: {best_species_id}')
     
     def complete_extinction(self):
         self.num_extinctions += 1
