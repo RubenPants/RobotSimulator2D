@@ -17,16 +17,20 @@ from utils.vec2d import Vec2d
 
 
 class Sensor:
-    """
-    The baseclass used by all sensors.
-    """
+    """ The baseclass used by all sensors. """
+    
+    __slots__ = (
+        "game",
+        "id", "angle", "pos_offset", "max_dist"
+    )
     
     def __init__(self,
                  game,  # Type not specified due to circular imports
                  sensor_id: int = 0,
                  angle: float = 0,
                  pos_offset: float = 0,
-                 max_dist: float = 0):
+                 max_dist: float = 0
+                 ):
         """
         Basic characteristics of a sensor.
         

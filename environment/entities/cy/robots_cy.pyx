@@ -17,11 +17,18 @@ cdef class FootBotCy:
     The FootBot is the main bot used in this project. It is a simple circular robot with two wheels on its sides.
     """
     
+    __slots__ = (
+        "game",
+        "pos", "prev_pos", "init_pos", "init_angle", "angle", "prev_angle", "radius",
+        "angular_sensors", "distance_sensor", "proximity_sensors"
+    )
+    
     def __init__(self,
                  GameCy game,
                  Vec2dCy init_pos=None,
                  float init_orient=0,
-                 float r=0):
+                 float r=0
+                 ):
         """
         Create a new FootBot object.
         

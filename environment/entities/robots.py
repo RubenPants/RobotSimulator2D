@@ -15,11 +15,18 @@ class FootBot:
     The FootBot is the main bot used in this project. It is a simple circular robot with two wheels on its sides.
     """
     
+    __slots__ = (
+        "game",
+        "pos", "prev_pos", "init_pos", "init_angle", "angle", "prev_angle", "radius",
+        "angular_sensors", "distance_sensor", "proximity_sensors"
+    )
+    
     def __init__(self,
                  game,  # Type not specified due to circular imports
                  init_pos: Vec2d = None,
                  init_orient: float = 0,
-                 r: float = None):
+                 r: float = None
+                 ):
         """
         Create a new FootBot object.
         

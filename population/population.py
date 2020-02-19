@@ -13,6 +13,7 @@ import neat
 from neat.math_util import mean
 
 from configs.config import NeatConfig
+from population.utils.genome import DefaultGenome
 from population.utils.population_config import PopulationConfig
 from population.utils.reporting import ReporterSet, StdOutReporter
 from population.utils.statistics import StatisticsReporter
@@ -80,7 +81,7 @@ class Population:
         # Init the population's configuration
         cfg = NeatConfig()
         config = PopulationConfig(
-                genome_type=neat.DefaultGenome,
+                genome_type=DefaultGenome,
                 reproduction_type=neat.DefaultReproduction,
                 species_set_type=neat.DefaultSpeciesSet,
                 stagnation_type=neat.DefaultStagnation,
@@ -107,6 +108,7 @@ class Population:
         }
         
         # Create a population from scratch, then partition into species
+        print(self.config.genome_config)
         self.population = self.reproduction.create_new(self.config.genome_type,
                                                        self.config.genome_config,
                                                        self.config.pop_size)

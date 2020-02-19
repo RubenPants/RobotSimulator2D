@@ -26,13 +26,15 @@ class Game:
         * target: Robot that must be reached by the robot
     """
     
-    __slots__ = ("bot_driving_speed", "bot_radius", "bot_turning_speed",
-                 "fps", "p2m", "x_axis", "y_axis",
-                 "noise_time", "noise_angle", "noise_distance", "noise_proximity",
-                 "sensor_ray_distance",
-                 "target_reached",
-                 "silent", "noise", "save_path",
-                 "done", "id", "path", "player", "steps_taken", "target", "walls")
+    __slots__ = (
+        "bot_driving_speed", "bot_radius", "bot_turning_speed",
+        "fps", "p2m", "x_axis", "y_axis",
+        "noise_time", "noise_angle", "noise_distance", "noise_proximity",
+        "sensor_ray_distance",
+        "target_reached",
+        "silent", "noise", "save_path",
+        "done", "id", "path", "player", "steps_taken", "target", "walls"
+    )
     
     def __init__(self,
                  game_id: int = 0,
