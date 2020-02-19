@@ -12,8 +12,8 @@ from glob import glob
 import matplotlib.pyplot as plt
 import neat
 from neat.math_util import mean
-from neat.reporting import ReporterSet
 
+from population.utils.reporting import ReporterSet
 from population.visualizer import draw_net
 from utils.dictionary import D_FIT_COMB, D_GAME_ID, D_K, D_POS, D_TAG
 from utils.myutils import get_subfolder, update_dict
@@ -166,7 +166,7 @@ class Population:
         :param final_observations: Dictionary of all the final game observations made
         :param games: List Game-objects used during evaluation
         """
-        save_path = get_subfolder(f'control/NEAT/populations/{self}/', 'images')
+        save_path = get_subfolder(f'population/storage/NEAT/{self}/', 'images')
         genome_keys = list(final_observations.keys())
         for g in games:
             # Get the game's blueprint
@@ -206,8 +206,8 @@ class Population:
             if not name:
                 name = 'best_genome_'
         name += 'gen_{gen:05d}'.format(gen=self.generation)
-        get_subfolder(f'control/NEAT/populations/{self}/', 'images')
-        sf = get_subfolder(f'control/NEAT/populations/{self}/images/', 'architectures')
+        get_subfolder(f'population/storage/NEAT/{self}/', 'images')
+        sf = get_subfolder(f'population/storage/NEAT/{self}/images/', 'architectures')
         draw_net(self.config,
                  genome,
                  filename='{sf}{name}'.format(sf=sf, name=name),
@@ -221,7 +221,7 @@ class Population:
         
         :param eval_result: Dictionary
         """
-        sf = get_subfolder(f'control/NEAT/populations/{self}/', 'evaluation')
+        sf = get_subfolder(f'population/storage/NEAT/{self}/', 'evaluation')
         sf = get_subfolder(sf, f"{self.generation:05d}")
         update_dict(f'{sf}results', eval_result)
     
@@ -252,12 +252,12 @@ class Population:
         Save the population as the current generation.
         """
         # Create needed subfolder if not yet exist
-        get_subfolder("control/NEAT/", 'populations')
-        get_subfolder('control/NEAT/populations/', f'{self}')
-        get_subfolder(f'control/NEAT/populations/{self}/', 'generations')
+        get_subfolder('population/storage/', 'NEAT')
+        get_subfolder('population/storage/NEAT/', f'{self}')
+        get_subfolder(f'population/storage/NEAT/{self}/', 'generations')
         
         # Save the population
-        pickle.dump(self, open(f'control/NEAT/populations/{self}/generations/gen_{self.generation:05d}', 'wb'))
+        pickle.dump(self, open(f'population/storage/NEAT/{self}/generations/gen_{self.generation:05d}', 'wb'))
         print(f"Population '{self}' saved! Current generation: {self.generation}")
     
     def load(self, gen=None):
@@ -269,16 +269,16 @@ class Population:
         try:
             if gen is None:
                 # Load in all previous populations
-                populations = glob(f'control/NEAT/populations/{self}/generations/gen_*')
+                populations = glob(f'population/storage/NEAT/{self}/generations/gen_*')
                 if not populations: raise FileNotFoundError
                 
                 # Find newest population and save generation number under 'gen'
                 populations = [p.replace('\\', '/') for p in populations]
-                regex = r"(?<=" + re.escape(f'control/NEAT/populations/{self}/generations/gen_') + ")[0-9]*"
+                regex = r"(?<=" + re.escape(f'population/storage/NEAT/{self}/generations/gen_') + ")[0-9]*"
                 gen = max([int(re.findall(regex, p)[0]) for p in populations])
             
             # Load in the population under the specified generation
-            pop = pickle.load(open(f'control/NEAT/populations/{self}/generations/gen_{gen:05d}', 'rb'))
+            pop = pickle.load(open(f'population/storage/NEAT/{self}/generations/gen_{gen:05d}', 'rb'))
             self.best_genome = pop.best_genome
             self.config = pop.config
             self.fitness_config = pop.fitness_config
