@@ -1,6 +1,6 @@
 import argparse
 
-from control.entities.population import Population
+from population.population import Population
 from pytorch_neat.recurrent_net import RecurrentNet
 
 

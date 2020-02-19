@@ -14,7 +14,7 @@ import neat
 from neat.math_util import mean
 from neat.reporting import ReporterSet
 
-from control.entities.visualizer import draw_net
+from population.visualizer import draw_net
 from utils.dictionary import D_FIT_COMB, D_GAME_ID, D_K, D_POS, D_TAG
 from utils.myutils import get_subfolder, update_dict
 

@@ -11,7 +11,7 @@ from neat.six_util import iteritems, itervalues
 from tqdm import tqdm
 
 from configs.config import GameConfig
-from control.entities.fitness_functions import calc_pop_fitness
+from population.fitness_functions import calc_pop_fitness
 
 if sys.platform == 'linux':
     from environment.cy.multi_env_cy import MultiEnvironmentCy

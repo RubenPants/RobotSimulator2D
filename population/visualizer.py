@@ -1,3 +1,8 @@
+"""
+visualizer.py
+
+Create visualizations for the genomes present in the population.
+"""
 import copy
 import os
 
