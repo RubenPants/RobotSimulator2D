@@ -27,8 +27,7 @@ class Game:
     """
     
     __slots__ = ("bot_driving_speed", "bot_radius", "bot_turning_speed",
-                 "batch", "duration", "max_game_id", "max_eval_game_id", "fps",
-                 "p2m", "x_axis", "y_axis",
+                 "fps", "p2m", "x_axis", "y_axis",
                  "noise_time", "noise_angle", "noise_distance", "noise_proximity",
                  "sensor_ray_distance",
                  "target_reached",
@@ -36,8 +35,8 @@ class Game:
                  "done", "id", "path", "player", "steps_taken", "target", "walls")
     
     def __init__(self,
-                 config: GameConfig = None,
                  game_id: int = 0,
+                 config: GameConfig = None,
                  noise: bool = False,
                  overwrite: bool = False,
                  save_path: str = '',
@@ -57,10 +56,6 @@ class Game:
         self.bot_driving_speed: float = 0
         self.bot_radius: float = 0
         self.bot_turning_speed: float = 0
-        self.batch: int = 0
-        self.duration: int = 0
-        self.max_game_id: int = 0
-        self.max_eval_game_id: int = 0
         self.fps: int = 0
         self.p2m: int = 0
         self.x_axis: int = 0
@@ -220,10 +215,6 @@ class Game:
         self.bot_driving_speed: float = config.bot_driving_speed
         self.bot_radius: float = config.bot_radius
         self.bot_turning_speed: float = config.bot_turning_speed
-        self.batch: int = config.batch
-        self.duration: int = config.duration
-        self.max_game_id: int = config.max_game_id
-        self.max_eval_game_id: int = config.max_eval_game_id
         self.fps: int = config.fps
         self.p2m: int = config.p2m
         self.x_axis: int = config.x_axis
@@ -260,10 +251,6 @@ class Game:
         persist_dict[D_BOT_DRIVING_SPEED] = self.bot_driving_speed
         persist_dict[D_BOT_RADIUS] = self.bot_radius
         persist_dict[D_BOT_TURNING_SPEED] = self.bot_turning_speed
-        persist_dict[D_BATCH] = self.batch
-        persist_dict[D_DURATION] = self.duration
-        persist_dict[D_MAX_GAME_ID] = self.max_game_id
-        persist_dict[D_MAX_EVAL_GAME_ID] = self.max_eval_game_id
         persist_dict[D_FPS] = self.fps
         persist_dict[D_PTM] = self.p2m
         persist_dict[D_X_AXIS] = self.x_axis
@@ -293,10 +280,6 @@ class Game:
             self.bot_driving_speed = game[D_BOT_DRIVING_SPEED]
             self.bot_radius = game[D_BOT_RADIUS]
             self.bot_turning_speed = game[D_BOT_TURNING_SPEED]
-            self.batch = game[D_BATCH]
-            self.duration = game[D_DURATION]
-            self.max_game_id = game[D_MAX_GAME_ID]
-            self.max_eval_game_id = game[D_MAX_EVAL_GAME_ID]
             self.fps = game[D_FPS]
             self.p2m = game[D_PTM]
             self.x_axis = game[D_X_AXIS]

@@ -28,8 +28,7 @@ cdef class GameCy:
     """
 
     __slots__ = ("bot_driving_speed", "bot_radius", "bot_turning_speed",
-                 "batch", "duration", "max_game_id", "max_eval_game_id", "fps",
-                 "p2m", "x_axis", "y_axis",
+                 "fps", "p2m", "x_axis", "y_axis",
                  "noise_time", "noise_angle", "noise_distance", "noise_proximity",
                  "sensor_ray_distance",
                  "target_reached",
@@ -37,8 +36,8 @@ cdef class GameCy:
                  "done", "id", "path", "player", "steps_taken", "target", "walls")
     
     def __init__(self,
-                 config=None,
                  int game_id=0,
+                 config=None,
                  bint noise=True,
                  bint overwrite=False,
                  str save_path = '',
@@ -58,10 +57,6 @@ cdef class GameCy:
         self.bot_driving_speed = 0
         self.bot_radius = 0
         self.bot_turning_speed = 0
-        self.batch = 0
-        self.duration = 0
-        self.max_game_id = 0
-        self.max_eval_game_id = 0
         self.fps = 0
         self.p2m = 0
         self.x_axis = 0
@@ -235,10 +230,6 @@ cdef class GameCy:
         self.bot_driving_speed = config.bot_driving_speed
         self.bot_radius = config.bot_radius
         self.bot_turning_speed = config.bot_turning_speed
-        self.batch = config.batch
-        self.duration = config.duration
-        self.max_game_id = config.max_game_id
-        self.max_eval_game_id = config.max_eval_game_id
         self.fps = config.fps
         self.p2m = config.p2m
         self.x_axis = config.x_axis
@@ -275,10 +266,6 @@ cdef class GameCy:
         persist_dict[D_BOT_DRIVING_SPEED] = self.bot_driving_speed
         persist_dict[D_BOT_RADIUS] = self.bot_radius
         persist_dict[D_BOT_TURNING_SPEED] = self.bot_turning_speed
-        persist_dict[D_BATCH] = self.batch
-        persist_dict[D_DURATION] = self.duration
-        persist_dict[D_MAX_GAME_ID] = self.max_game_id
-        persist_dict[D_MAX_EVAL_GAME_ID] = self.max_eval_game_id
         persist_dict[D_FPS] = self.fps
         persist_dict[D_PTM] = self.p2m
         persist_dict[D_X_AXIS] = self.x_axis
@@ -311,10 +298,6 @@ cdef class GameCy:
             self.bot_driving_speed = game[D_BOT_DRIVING_SPEED]
             self.bot_radius = game[D_BOT_RADIUS]
             self.bot_turning_speed = game[D_BOT_TURNING_SPEED]
-            self.batch = game[D_BATCH]
-            self.duration = game[D_DURATION]
-            self.max_game_id = game[D_MAX_GAME_ID]
-            self.max_eval_game_id = game[D_MAX_EVAL_GAME_ID]
             self.fps = game[D_FPS]
             self.p2m = game[D_PTM]
             self.x_axis = game[D_X_AXIS]
