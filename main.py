@@ -9,7 +9,7 @@ def make_net(genome, config, bs):
     Create the "brains" of the candidate, based on its genetic wiring.
 
     :param genome: Genome specifies the brains internals
-    :param config: Configuration file from this folder: config.cfg
+    :param config: Configuration class
     :param bs: Batch size, which represents amount of games trained in parallel
     """
     return RecurrentNet.create(genome, config, bs)

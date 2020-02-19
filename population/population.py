@@ -6,7 +6,6 @@ functionality such as its configuration and methods used to persist the populati
 """
 import pickle
 import re
-from configparser import ConfigParser
 from glob import glob
 
 import matplotlib.pyplot as plt
@@ -15,7 +14,8 @@ from neat.math_util import mean
 
 from configs.config import NeatConfig
 from population.utils.population_config import PopulationConfig
-from population.utils.reporting import ReporterSet
+from population.utils.reporting import ReporterSet, StdOutReporter
+from population.utils.statistics import StatisticsReporter
 from population.visualizer import draw_net
 from utils.dictionary import D_FIT_COMB, D_GAME_ID, D_K, D_POS, D_TAG
 from utils.myutils import get_subfolder, update_dict
@@ -118,11 +118,11 @@ class Population:
         self.query_net = query_net_method
         
         # The StatisticsReporter gathers and provides the most-fit genomes
-        stats = neat.StatisticsReporter()
+        stats = StatisticsReporter()
         self.add_reporter(stats)
         
         # Use 'print' to output information about the run
-        reporter = neat.StdOutReporter(True)
+        reporter = StdOutReporter()
         self.add_reporter(reporter)
         
         # Save newly made population
