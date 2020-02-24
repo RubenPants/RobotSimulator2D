@@ -17,6 +17,7 @@ from population.utils.genome import DefaultGenome
 from population.utils.population_config import PopulationConfig
 from population.utils.reporting import ReporterSet, StdOutReporter
 from population.utils.reproduction import DefaultReproduction
+from population.utils.species import DefaultSpeciesSet
 from population.utils.statistics import StatisticsReporter
 from population.visualizer import draw_net
 from utils.dictionary import D_FIT_COMB, D_GAME_ID, D_K, D_POS, D_TAG
@@ -86,7 +87,7 @@ class Population:
         config = PopulationConfig(
                 genome_type=DefaultGenome,
                 reproduction_type=DefaultReproduction,
-                species_set_type=neat.DefaultSpeciesSet,
+                species_set_type=DefaultSpeciesSet,
                 stagnation_type=neat.DefaultStagnation,
                 config=cfg,
         )

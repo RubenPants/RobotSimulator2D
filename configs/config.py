@@ -140,9 +140,9 @@ class NeatConfig:
         # Probability of removing a node during mutation
         self.node_delete_prob: float = 0.075
         # Initial node activation function
-        self.activation_default: str = D_TANH
+        self.activation_default: str = D_RELU
         # All possible activation functions between whom can be switched during mutation
-        self.activation_options: str = D_TANH
+        self.activation_options: str = D_RELU
         # Probability of changing the activation function
         self.activation_mutate_rate: float = 0.0
         # The default aggregation function attribute assigned to new nodes
@@ -199,8 +199,8 @@ class NeatConfig:
         self.enabled_mutate_rate: float = 0.05
         
         # [DefaultSpeciesSet]
-        # Individuals whose genetic distance is less than this threshold are considered to be in the same species
-        self.compatibility_threshold: float = 2.0
+        # Individuals whose genetic distance is less than this threshold are considered to be in the same species # TODO
+        self.compatibility_threshold: float = 3.0
         
         # [EVALUATION]
         # Fitness functions [distance, distance_time, novelty, path, path_time]

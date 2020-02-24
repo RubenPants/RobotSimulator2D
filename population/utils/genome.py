@@ -17,7 +17,7 @@ from neat.config import ConfigParameter, write_pretty_params
 from neat.graphs import creates_cycle
 from neat.six_util import iteritems, iterkeys
 
-from population.utils.genes import DefaultConnectionGene, DefaultNodeGene
+from population.utils.genes import DefaultConnectionGene, DefaultNodeGene, OutputNodeGene
 
 
 class DefaultGenomeConfig(object):  # TODO: Force output to be tanh here!
@@ -53,6 +53,7 @@ class DefaultGenomeConfig(object):  # TODO: Force output to be tanh here!
         
         # Gather configuration data from the gene classes.
         self.node_gene_type = params['node_gene_type']
+        self.output_node_gene_type = params['output_node_gene_type']
         self._params += self.node_gene_type.get_config_params()
         self.connection_gene_type = params['connection_gene_type']
         self._params += self.connection_gene_type.get_config_params()
@@ -156,6 +157,7 @@ class DefaultGenome(object):
     @classmethod
     def parse_config(cls, param_dict):
         param_dict['node_gene_type'] = DefaultNodeGene
+        param_dict['output_node_gene_type'] = OutputNodeGene
         param_dict['connection_gene_type'] = DefaultConnectionGene
         return DefaultGenomeConfig(param_dict)
     
@@ -446,9 +448,9 @@ class DefaultGenome(object):
     def size(self):
         """
         Returns genome 'complexity', taken to be
-        (number of nodes, number of enabled connections)
+        (number of hidden nodes, number of enabled connections)
         """
-        return len(self.nodes), sum([1 for cg in self.connections.values() if cg.enabled])
+        return len(self.nodes) - 2, sum([1 for cg in self.connections.values() if cg.enabled])
     
     def __str__(self):
         s = "Key: {0}\nFitness: {1}\nNodes:".format(self.key, self.fitness)
@@ -464,6 +466,12 @@ class DefaultGenome(object):
     @staticmethod
     def create_node(config, node_id):
         node = config.node_gene_type(node_id)
+        node.init_attributes(config)
+        return node
+    
+    @staticmethod
+    def create_output_node(config, node_id):
+        node = config.output_node_gene_type(node_id)
         node.init_attributes(config)
         return node
     

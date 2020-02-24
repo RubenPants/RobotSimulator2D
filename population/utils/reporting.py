@@ -28,36 +28,28 @@ class ReporterSet(object):
         self.reporters.remove(reporter)
     
     def start_generation(self, gen):
-        for r in self.reporters:
-            r.start_generation(gen)
+        for r in self.reporters: r.start_generation(gen)
     
     def end_generation(self, config, population, species_set):
-        for r in self.reporters:
-            r.end_generation(config, population, species_set)
+        for r in self.reporters: r.end_generation(config, population, species_set)
     
     def post_evaluate(self, config, population, species, best_genome):
-        for r in self.reporters:
-            r.post_evaluate(config, population, species, best_genome)
+        for r in self.reporters: r.post_evaluate(config, population, species, best_genome)
     
     def post_reproduction(self, config, population, species):
-        for r in self.reporters:
-            r.post_reproduction(config, population, species)
+        for r in self.reporters: r.post_reproduction(config, population, species)
     
     def complete_extinction(self):
-        for r in self.reporters:
-            r.complete_extinction()
+        for r in self.reporters: r.complete_extinction()
     
     def found_solution(self, config, generation, best):
-        for r in self.reporters:
-            r.found_solution(config, generation, best)
+        for r in self.reporters: r.found_solution(config, generation, best)
     
     def species_stagnant(self, sid, species):
-        for r in self.reporters:
-            r.species_stagnant(sid, species)
+        for r in self.reporters: r.species_stagnant(sid, species)
     
     def info(self, msg):
-        for r in self.reporters:
-            r.info(msg)
+        for r in self.reporters: r.info(msg)
 
 
 class BaseReporter(object):
@@ -114,8 +106,8 @@ class StdOutReporter(BaseReporter):
             s = species_set.species[sid]
             a = self.generation - s.created
             n = len(s.members)
-            f = "--" if s.fitness is None else "{:.3f}".format(s.fitness)
-            af = "--" if s.adjusted_fitness is None else "{:.3f}".format(s.adjusted_fitness)
+            f = "--" if s.fitness is None else f"{s.fitness:.3f}"
+            af = "--" if s.adjusted_fitness is None else f"{s.adjusted_fitness:.3f}"
             st = self.generation - s.last_improved
             print(f"\t{sid:^5}  {a:^5}  {n:^6}  {f:^9}  {af:^9}  {st:^6}")
         
@@ -142,7 +134,7 @@ class StdOutReporter(BaseReporter):
         best_species_id = species.get_species_id(best_genome.key)
         print(f'Best genome overview:')
         print(f'\t- fitness: {best_genome.fitness:3.5f}')
-        print(f'\t- size: {best_genome.size()!r}')
+        print(f'\t- size (hid, conn): {best_genome.size()!r}')
         print(f'\t- genome id: {best_genome.key}')
         print(f'\t- belongs to specie: {best_species_id}')
     

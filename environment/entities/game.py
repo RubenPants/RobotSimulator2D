@@ -102,10 +102,11 @@ class Game:
             D_A_STAR:         self.path[self.player.init_pos[0], self.player.init_pos[1]],
             D_DIST_TO_TARGET: self.player.get_sensor_reading_distance(),
             D_DONE:           self.done,
+            D_FPS:            self.fps,
             D_GAME_ID:        self.id,
             D_PATH:           self.path,
             D_POS:            self.player.pos,
-            D_STEPS:          self.steps_taken,
+            D_STEPS:          self.steps_taken
         }
     
     def reset(self):

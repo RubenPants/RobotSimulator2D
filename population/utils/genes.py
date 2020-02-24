@@ -8,6 +8,8 @@ from random import random
 
 from neat.attributes import BoolAttribute, FloatAttribute, StringAttribute
 
+from utils.dictionary import D_TANH, D_ACTIVATION
+
 
 class BaseGene(object):
     """
@@ -73,6 +75,8 @@ class BaseGene(object):
 
 
 class DefaultNodeGene(BaseGene):
+    """Default node configuration, as specified by the Python-NEAT documentation."""
+    
     _gene_attributes = [FloatAttribute('bias'),
                         FloatAttribute('response'),
                         StringAttribute('activation', options='tanh'),
@@ -90,12 +94,34 @@ class DefaultNodeGene(BaseGene):
     
     def distance(self, other, config):
         d = abs(self.bias - other.bias) + abs(self.response - other.response)
-        if self.activation != other.activation: d += 1.0
+        # if self.activation != other.activation: d += 1.0  TODO: Take difference in activation into account?
         if self.aggregation != other.aggregation: d += 1.0
         return d * config.compatibility_weight_coefficient
 
 
+class OutputNodeGene(DefaultNodeGene):
+    def __init__(self, key):
+        super().__init__(key)
+    
+    def init_attributes(self, config):
+        """ Set the initial attributes as claimed by the config, but force activation to be tanh """
+        for a in self._gene_attributes:
+            if a.name == D_ACTIVATION:
+                setattr(self, a.name, D_TANH)  # Hard-coded output
+            else:
+                setattr(self, a.name, a.init_value(config))
+    
+    def mutate(self, config):
+        """ Perform the mutation operation. Prevent mutation to happen on the output's activation. """
+        for a in self._gene_attributes:
+            v = getattr(self, a.name)
+            if a.name != D_ACTIVATION:
+                setattr(self, a.name, a.mutate_value(v, config))
+
+
 class DefaultConnectionGene(BaseGene):
+    """Default connection configuration, as specified by the Python-NEAT documentation."""
+    
     _gene_attributes = [FloatAttribute('weight'),
                         BoolAttribute('enabled')]
     

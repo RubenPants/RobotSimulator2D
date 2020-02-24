@@ -163,8 +163,7 @@ class DefaultReproduction(DefaultClassConfig):
             if spawn <= 0: continue
             
             # Only use the survival threshold fraction to use as parents for the next generation.
-            repro_cutoff = int(math.ceil(self.reproduction_config.survival_threshold *
-                                         len(old_members)))
+            repro_cutoff = int(math.ceil(self.reproduction_config.survival_threshold * len(old_members)))
             # Use at least two parents no matter what the threshold fraction result is.
             repro_cutoff = max(repro_cutoff, 2)
             old_members = old_members[:repro_cutoff]
