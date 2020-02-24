@@ -179,7 +179,7 @@ class DefaultGenome(object):
     def configure_new(self, config):
         """Configure a new genome based on the given configuration."""
         # Create node genes for the output pins.
-        for node_key in config.output_keys: self.nodes[node_key] = self.create_node(config, node_key)
+        for node_key in config.output_keys: self.nodes[node_key] = self.create_output_node(config, node_key)
         
         # Add hidden nodes if requested.
         if config.num_hidden > 0:
