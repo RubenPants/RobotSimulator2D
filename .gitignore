@@ -130,7 +130,7 @@ dmypy.json
 .idea/
 
 # Ignore all experimental folders and files, but do include the 'tests' (unittest) folder
-**/test.py
+**/test*.py
 **/test*/
 
 # Ignore games made during testing
