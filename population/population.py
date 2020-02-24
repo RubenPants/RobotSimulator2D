@@ -16,6 +16,8 @@ from configs.config import NeatConfig
 from population.utils.genome import DefaultGenome
 from population.utils.population_config import PopulationConfig
 from population.utils.reporting import ReporterSet, StdOutReporter
+from population.utils.reproduction import DefaultReproduction
+from population.utils.species import DefaultSpeciesSet
 from population.utils.statistics import StatisticsReporter
 from population.visualizer import draw_net
 from utils.dictionary import D_FIT_COMB, D_GAME_ID, D_K, D_POS, D_TAG
@@ -84,8 +86,8 @@ class Population:
         cfg = NeatConfig()
         config = PopulationConfig(
                 genome_type=DefaultGenome,
-                reproduction_type=neat.DefaultReproduction,
-                species_set_type=neat.DefaultSpeciesSet,
+                reproduction_type=DefaultReproduction,
+                species_set_type=DefaultSpeciesSet,
                 stagnation_type=neat.DefaultStagnation,
                 config=cfg,
         )
@@ -194,16 +196,17 @@ class Population:
             plt.savefig('{gp}gen{gen:05d}'.format(gp=game_path, gen=self.generation))
             plt.close()
     
-    def visualize_genome(self, genome=None, name: str = '', show: bool = True):
+    def visualize_genome(self, debug=False, genome=None, name: str = '', show: bool = True):
         """
         Visualize the architecture of the given genome.
         
+        :param debug: Add excessive genome-specific details in the plot
         :param genome: Genome that must be visualized, best genome is chosen if none
         :param name: Name of the image, excluding the population's generation (auto concatenated)
         :param show: Directly visualize the architecture
         """
         if not genome:
-            genome = self.best_genome
+            genome = self.best_genome if self.best_genome else list(self.population.values())[0]
             if not name:
                 name = 'best_genome_'
         name += 'gen_{gen:05d}'.format(gen=self.generation)
@@ -211,6 +214,7 @@ class Population:
         sf = get_subfolder(f'population/storage/NEAT/{self}/images/', 'architectures')
         draw_net(self.config,
                  genome,
+                 debug=debug,
                  filename='{sf}{name}'.format(sf=sf, name=name),
                  view=show)
     

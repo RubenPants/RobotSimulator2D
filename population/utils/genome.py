@@ -1,7 +1,9 @@
 """
 genome.py
 
-Handles genomes (individuals in the population).
+Handles genomes (individuals in the population). A single genome has two types of genes:
+ * node gene: specifies the configuration of a single node (e.g. activation function)
+ * connection gene: specifies a single connection between two neurons (e.g. weight)
 """
 from __future__ import division, print_function
 
@@ -12,12 +14,13 @@ from random import choice, random, shuffle
 from neat.activations import ActivationFunctionSet
 from neat.aggregations import AggregationFunctionSet
 from neat.config import ConfigParameter, write_pretty_params
-from neat.genes import DefaultConnectionGene, DefaultNodeGene
 from neat.graphs import creates_cycle
 from neat.six_util import iteritems, iterkeys
 
+from population.utils.genes import DefaultConnectionGene, DefaultNodeGene, OutputNodeGene
 
-class DefaultGenomeConfig(object):
+
+class DefaultGenomeConfig(object):  # TODO: Force output to be tanh here!
     """Sets up and holds configuration information for the DefaultGenome class."""
     
     allowed_connectivity = ['unconnected', 'fs_neat_nohidden', 'fs_neat', 'fs_neat_hidden',
@@ -25,6 +28,9 @@ class DefaultGenomeConfig(object):
                             'partial_nodirect', 'partial', 'partial_direct']
     
     def __init__(self, params):
+        self.single_structural_mutation = None  # Placeholder
+        self.num_outputs = None  # Placeholder
+        self.num_inputs = None  # Placeholder
         # Create full set of available activation functions.
         self.activation_defs = ActivationFunctionSet()
         # ditto for aggregation functions - name difference for backward compatibility
@@ -47,6 +53,7 @@ class DefaultGenomeConfig(object):
         
         # Gather configuration data from the gene classes.
         self.node_gene_type = params['node_gene_type']
+        self.output_node_gene_type = params['output_node_gene_type']
         self._params += self.node_gene_type.get_config_params()
         self.connection_gene_type = params['connection_gene_type']
         self._params += self.connection_gene_type.get_config_params()
@@ -61,19 +68,16 @@ class DefaultGenomeConfig(object):
         self.connection_fraction = None
         
         # Verify that initial connection type is valid.
-        # pylint: disable=access-member-before-definition
         if 'partial' in self.initial_connection:
             c, p = self.initial_connection.split()
             self.initial_connection = c
             self.connection_fraction = float(p)
             if not (0 <= self.connection_fraction <= 1):
-                raise RuntimeError(
-                        "'partial' connection value must be between 0.0 and 1.0, inclusive.")
+                raise RuntimeError("'partial' connection value must be between 0.0 and 1.0, inclusive.")
         
         assert self.initial_connection in self.allowed_connectivity
         
         # Verify structural_mutation_surer is valid.
-        # pylint: disable=access-member-before-definition
         if self.structural_mutation_surer.lower() in ['1', 'yes', 'true', 'on']:
             self.structural_mutation_surer = 'true'
         elif self.structural_mutation_surer.lower() in ['0', 'no', 'false', 'off']:
@@ -81,8 +85,7 @@ class DefaultGenomeConfig(object):
         elif self.structural_mutation_surer.lower() == 'default':
             self.structural_mutation_surer = 'default'
         else:
-            error_string = "Invalid structural_mutation_surer {!r}".format(
-                    self.structural_mutation_surer)
+            error_string = f"Invalid structural_mutation_surer {self.structural_mutation_surer!r}"
             raise RuntimeError(error_string)
         
         self.node_indexer = None
@@ -97,9 +100,9 @@ class DefaultGenomeConfig(object):
         if 'partial' in self.initial_connection:
             if not (0 <= self.connection_fraction <= 1):
                 raise RuntimeError("'partial' connection value must be between 0.0 and 1.0, inclusive.")
-            f.write('initial_connection      = {0} {1}\n'.format(self.initial_connection, self.connection_fraction))
+            f.write(f'initial_connection      = {self.initial_connection} {self.connection_fraction}\n')
         else:
-            f.write('initial_connection      = {0}\n'.format(self.initial_connection))
+            f.write(f'initial_connection      = {self.initial_connection}\n')
         
         assert self.initial_connection in self.allowed_connectivity
         
@@ -154,6 +157,7 @@ class DefaultGenome(object):
     @classmethod
     def parse_config(cls, param_dict):
         param_dict['node_gene_type'] = DefaultNodeGene
+        param_dict['output_node_gene_type'] = OutputNodeGene
         param_dict['connection_gene_type'] = DefaultConnectionGene
         return DefaultGenomeConfig(param_dict)
     
@@ -193,11 +197,10 @@ class DefaultGenome(object):
                 self.connect_fs_neat_hidden(config)
             else:
                 if config.num_hidden > 0:
-                    print(
-                            "Warning: initial_connection = fs_neat will not connect to hidden nodes;",
-                            "\tif this is desired, set initial_connection = fs_neat_nohidden;",
-                            "\tif not, set initial_connection = fs_neat_hidden",
-                            sep='\n', file=sys.stderr);
+                    print("Warning: initial_connection = fs_neat will not connect to hidden nodes;",
+                          "\tif this is desired, set initial_connection = fs_neat_nohidden;",
+                          "\tif not, set initial_connection = fs_neat_hidden",
+                          sep='\n', file=sys.stderr)
                 self.connect_fs_neat_nohidden(config)
         elif 'full' in config.initial_connection:
             if config.initial_connection == 'full_nodirect':
@@ -210,7 +213,7 @@ class DefaultGenome(object):
                             "Warning: initial_connection = full with hidden nodes will not do direct input-output connections;",
                             "\tif this is desired, set initial_connection = full_nodirect;",
                             "\tif not, set initial_connection = full_direct",
-                            sep='\n', file=sys.stderr);
+                            sep='\n', file=sys.stderr)
                 self.connect_full_nodirect(config)
         elif 'partial' in config.initial_connection:
             if config.initial_connection == 'partial_nodirect':
@@ -225,10 +228,10 @@ class DefaultGenome(object):
                                     config.connection_fraction),
                             "\tif not, set initial_connection = partial_direct {0}".format(
                                     config.connection_fraction),
-                            sep='\n', file=sys.stderr);
+                            sep='\n', file=sys.stderr)
                 self.connect_partial_nodirect(config)
     
-    def configure_crossover(self, genome1, genome2, config):
+    def configure_crossover(self, genome1, genome2, _):
         """ Configure a new genome by crossover from two parent genomes. """
         assert isinstance(genome1.fitness, (int, float))
         assert isinstance(genome2.fitness, (int, float))
@@ -445,10 +448,9 @@ class DefaultGenome(object):
     def size(self):
         """
         Returns genome 'complexity', taken to be
-        (number of nodes, number of enabled connections)
+        (number of hidden nodes, number of enabled connections)
         """
-        num_enabled_connections = sum([1 for cg in self.connections.values() if cg.enabled])
-        return len(self.nodes), num_enabled_connections
+        return len(self.nodes) - 2, sum([1 for cg in self.connections.values() if cg.enabled])
     
     def __str__(self):
         s = "Key: {0}\nFitness: {1}\nNodes:".format(self.key, self.fitness)
@@ -464,6 +466,12 @@ class DefaultGenome(object):
     @staticmethod
     def create_node(config, node_id):
         node = config.node_gene_type(node_id)
+        node.init_attributes(config)
+        return node
+    
+    @staticmethod
+    def create_output_node(config, node_id):
+        node = config.output_node_gene_type(node_id)
         node.init_attributes(config)
         return node
     

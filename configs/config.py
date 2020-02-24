@@ -96,7 +96,7 @@ class NeatConfig:
         # Don't consider fitness_criterion and fitness_threshold
         self.no_fitness_termination: bool = True
         # Number of individuals in each generation  [def=256]  TODO
-        self.pop_size: int = 10
+        self.pop_size: int = 4
         # Create random population if all species become distinct due to stagnation
         self.reset_on_extinction: bool = True
         
@@ -120,7 +120,7 @@ class NeatConfig:
         # Number of input nodes (the sensors): [5x proximity_sensor, 2x angular_sensor, 1x distance_sensor]
         self.num_inputs: int = 8
         # Number of hidden nodes to add to each genome in the initial population
-        self.num_hidden: int = 0
+        self.num_hidden: int = 1
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]
         self.num_outputs: int = 2
         # Initial connectivity of newly-created genomes
@@ -140,9 +140,9 @@ class NeatConfig:
         # Probability of removing a node during mutation
         self.node_delete_prob: float = 0.075
         # Initial node activation function
-        self.activation_default: str = D_TANH
+        self.activation_default: str = D_RELU
         # All possible activation functions between whom can be switched during mutation
-        self.activation_options: str = D_TANH
+        self.activation_options: str = D_RELU
         # Probability of changing the activation function
         self.activation_mutate_rate: float = 0.0
         # The default aggregation function attribute assigned to new nodes
@@ -199,8 +199,8 @@ class NeatConfig:
         self.enabled_mutate_rate: float = 0.05
         
         # [DefaultSpeciesSet]
-        # Individuals whose genetic distance is less than this threshold are considered to be in the same species
-        self.compatibility_threshold: float = 2.0
+        # Individuals whose genetic distance is less than this threshold are considered to be in the same species # TODO
+        self.compatibility_threshold: float = 3.0
         
         # [EVALUATION]
         # Fitness functions [distance, distance_time, novelty, path, path_time]

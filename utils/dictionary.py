@@ -6,6 +6,7 @@ Words used across the project, sorted in alphabetical order.
 
 # A
 D_A_STAR = 'A*'
+D_ACTIVATION = 'activation'
 D_ANGLE = 'angle'
 D_AVG = 'avg'
 
@@ -66,6 +67,9 @@ D_PATH_TIME = 'path_time'
 D_PLAYER = 'player'
 D_POS = 'position'
 D_PTM = 'pixel2meter'
+
+# R
+D_RELU = 'relu'
 
 # S
 D_SENSOR_LIST = 'sensor_list'

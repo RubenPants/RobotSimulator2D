@@ -103,15 +103,16 @@ class Visualizer:
         # Draw the robot's sensors
         def draw_sensors():
             [space.remove(s) for s in space.shapes if s.sensor and type(s) == pymunk.Segment]
-            for s in game.player.proximity_sensors:
-                line = pymunk.Segment(space.static_body,
-                                      a=s.start_pos * game.p2m,
-                                      b=s.end_pos * game.p2m,
-                                      radius=0.5)
-                line.sensor = True
-                touch = ((s.start_pos - s.end_pos).get_length() < game.sensor_ray_distance - 0.05)
-                line.color = (100, 100, 100) if touch else (200, 200, 200)  # Brighten up ray if it makes contact
-                space.add(line)
+            for index, s in enumerate(game.player.proximity_sensors):
+                if used_sensor(network, index):
+                    line = pymunk.Segment(space.static_body,
+                                          a=s.start_pos * game.p2m,
+                                          b=s.end_pos * game.p2m,
+                                          radius=0.5)
+                    line.sensor = True
+                    touch = ((s.start_pos - s.end_pos).get_length() < game.sensor_ray_distance - 0.05)
+                    line.color = (100, 100, 100) if touch else (200, 200, 200)  # Brighten up ray if it makes contact
+                    space.add(line)
         
         @window.event
         def on_draw():
@@ -147,3 +148,12 @@ class Visualizer:
         # Run the game
         pyglet.clock.schedule_interval(update_method, 1.0 / (game.fps * self.speedup))
         pyglet.app.run()
+
+
+def used_sensor(network, sensor_index):
+    if sum([network.input_to_output[i][sensor_index] for i in range(len(network.input_to_output))]):
+        return True
+    elif 'input_to_hidden' in network.__dict__:
+        if sum([network.input_to_hidden[i][sensor_index] for i in range(len(network.input_to_hidden))]) != 0:
+            return True
+    return False
