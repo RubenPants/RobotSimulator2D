@@ -42,13 +42,12 @@ Do the build inside of each cy-folder. This build file is responsible for moving
 
 ## TODO - Urgent
 
-* Disable output activation functions from mutating
+* Disable recombination
 
 ## TODO
 
 * Update fitness functions to be more conform to that of James
 * Add obstacles to the maze (perhaps in an empty room adding a cube?)
-* Timing mechanics in `main.py`, possible to visualize this as well?
 * Automatic trigger to reset game and algorithm (e.g. also trigger training of algorithm) via control in main
 * NEAT and variants implementation:
     * Start with framework to put algorithms in that interacts with the environment (give `game` as an argument, such that calls happen efficient)

@@ -7,10 +7,10 @@ def test_intersection():
     
     # Do measures
     time_cy = timeit('test_intersection_cy.main()',
-                     setup='from tests.cy import test_intersection_cy',
+                     setup='from tests.cy import intersection_cy',
                      number=1000)
     time_py = timeit('test_intersection.main()',
-                     setup='from tests import test_intersection',
+                     setup='from tests import intersection',
                      number=1000)
     
     # Print results
@@ -24,10 +24,10 @@ def test_drive():
     
     # Do measures
     time_cy = timeit('test_drive_cy.main()',
-                     setup='from tests.cy import test_drive_cy',
+                     setup='from tests.cy import drive_cy',
                      number=10)
     time_py = timeit('test_drive.main()',
-                     setup='from tests import test_drive',
+                     setup='from tests import drive',
                      number=10)
     
     # Print results
@@ -41,10 +41,10 @@ def test_sensors():
     
     # Do measures
     time_cy = timeit('test_sensors_cy.main()',
-                     setup='from tests.cy import test_sensors_cy',
+                     setup='from tests.cy import sensors_cy',
                      number=1000)
     time_py = timeit('test_sensors.main()',
-                     setup='from tests import test_sensors',
+                     setup='from tests import sensors',
                      number=1000)
     
     # Print results

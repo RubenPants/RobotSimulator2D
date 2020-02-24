@@ -8,7 +8,7 @@ from random import random
 
 from neat.attributes import BoolAttribute, FloatAttribute, StringAttribute
 
-from utils.dictionary import D_TANH, D_ACTIVATION
+from utils.dictionary import D_ACTIVATION, D_TANH
 
 
 class BaseGene(object):
@@ -79,7 +79,7 @@ class DefaultNodeGene(BaseGene):
     
     _gene_attributes = [FloatAttribute('bias'),
                         FloatAttribute('response'),
-                        StringAttribute('activation', options='tanh'),
+                        StringAttribute('activation', options='relu'),
                         StringAttribute('aggregation', options='sum')]
     
     def __init__(self, key):
@@ -94,7 +94,8 @@ class DefaultNodeGene(BaseGene):
     
     def distance(self, other, config):
         d = abs(self.bias - other.bias) + abs(self.response - other.response)
-        # if self.activation != other.activation: d += 1.0  TODO: Take difference in activation into account?
+        if self.key not in [0, 1] and other.key not in [0, 1]:  # Exclude comparison with activation of output nodes
+            if self.activation != other.activation: d += 1.0
         if self.aggregation != other.aggregation: d += 1.0
         return d * config.compatibility_weight_coefficient
 
