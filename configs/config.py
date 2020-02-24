@@ -96,7 +96,7 @@ class NeatConfig:
         # Don't consider fitness_criterion and fitness_threshold
         self.no_fitness_termination: bool = True
         # Number of individuals in each generation  [def=256]  TODO
-        self.pop_size: int = 10
+        self.pop_size: int = 100
         # Create random population if all species become distinct due to stagnation
         self.reset_on_extinction: bool = True
         

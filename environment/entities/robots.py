@@ -60,7 +60,7 @@ class FootBot:
         # Placeholders for sensors
         self.angular_sensors = set()
         self.distance_sensor = None
-        self.proximity_sensors = set()
+        self.proximity_sensors = list()
         
         # Create the sensors
         self.create_angular_sensors()
@@ -160,10 +160,10 @@ class FootBot:
                         * 0 = the same direction as the robot is facing
                         * -np.pi / 2 = 90° to the right of the robot
         """
-        self.proximity_sensors.add(ProximitySensor(sensor_id=len(self.proximity_sensors),
-                                                   game=self.game,
-                                                   angle=angle,
-                                                   pos_offset=self.game.bot_radius))
+        self.proximity_sensors.append(ProximitySensor(sensor_id=len(self.proximity_sensors),
+                                                      game=self.game,
+                                                      angle=angle,
+                                                      pos_offset=self.game.bot_radius))
     
     def create_angular_sensors(self):
         """
