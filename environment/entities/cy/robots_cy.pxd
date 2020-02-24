@@ -14,7 +14,8 @@ cdef class FootBotCy:
     cdef public GameCy game
     cdef public Vec2dCy pos, prev_pos, init_pos
     cdef public float angle, prev_angle, init_angle, radius
-    cdef public set angular_sensors, proximity_sensors
+    cdef public set angular_sensors
+    cdef public list proximity_sensors
     cdef public DistanceSensorCy distance_sensor
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
