@@ -1,7 +1,9 @@
 """
 genome.py
 
-Handles genomes (individuals in the population).
+Handles genomes (individuals in the population). A single genome has two types of genes:
+ * node gene: specifies the configuration of a single node (e.g. activation function)
+ * connection gene: specifies a single connection between two neurons (e.g. weight)
 """
 from __future__ import division, print_function
 
@@ -15,10 +17,10 @@ from neat.config import ConfigParameter, write_pretty_params
 from neat.graphs import creates_cycle
 from neat.six_util import iteritems, iterkeys
 
-from population.utils.genes import DefaultNodeGene, DefaultConnectionGene
+from population.utils.genes import DefaultConnectionGene, DefaultNodeGene
 
 
-class DefaultGenomeConfig(object):
+class DefaultGenomeConfig(object):  # TODO: Force output to be tanh here!
     """Sets up and holds configuration information for the DefaultGenome class."""
     
     allowed_connectivity = ['unconnected', 'fs_neat_nohidden', 'fs_neat', 'fs_neat_hidden',
@@ -26,10 +28,10 @@ class DefaultGenomeConfig(object):
                             'partial_nodirect', 'partial', 'partial_direct']
     
     def __init__(self, params):
-        # Create full set of available activation functions.
         self.single_structural_mutation = None  # Placeholder
         self.num_outputs = None  # Placeholder
         self.num_inputs = None  # Placeholder
+        # Create full set of available activation functions.
         self.activation_defs = ActivationFunctionSet()
         # ditto for aggregation functions - name difference for backward compatibility
         self.aggregation_function_defs = AggregationFunctionSet()
@@ -65,19 +67,16 @@ class DefaultGenomeConfig(object):
         self.connection_fraction = None
         
         # Verify that initial connection type is valid.
-        # pylint: disable=access-member-before-definition
         if 'partial' in self.initial_connection:
             c, p = self.initial_connection.split()
             self.initial_connection = c
             self.connection_fraction = float(p)
             if not (0 <= self.connection_fraction <= 1):
-                raise RuntimeError(
-                        "'partial' connection value must be between 0.0 and 1.0, inclusive.")
+                raise RuntimeError("'partial' connection value must be between 0.0 and 1.0, inclusive.")
         
         assert self.initial_connection in self.allowed_connectivity
         
         # Verify structural_mutation_surer is valid.
-        # pylint: disable=access-member-before-definition
         if self.structural_mutation_surer.lower() in ['1', 'yes', 'true', 'on']:
             self.structural_mutation_surer = 'true'
         elif self.structural_mutation_surer.lower() in ['0', 'no', 'false', 'off']:
@@ -85,8 +84,7 @@ class DefaultGenomeConfig(object):
         elif self.structural_mutation_surer.lower() == 'default':
             self.structural_mutation_surer = 'default'
         else:
-            error_string = "Invalid structural_mutation_surer {!r}".format(
-                    self.structural_mutation_surer)
+            error_string = f"Invalid structural_mutation_surer {self.structural_mutation_surer!r}"
             raise RuntimeError(error_string)
         
         self.node_indexer = None
@@ -101,9 +99,9 @@ class DefaultGenomeConfig(object):
         if 'partial' in self.initial_connection:
             if not (0 <= self.connection_fraction <= 1):
                 raise RuntimeError("'partial' connection value must be between 0.0 and 1.0, inclusive.")
-            f.write('initial_connection      = {0} {1}\n'.format(self.initial_connection, self.connection_fraction))
+            f.write(f'initial_connection      = {self.initial_connection} {self.connection_fraction}\n')
         else:
-            f.write('initial_connection      = {0}\n'.format(self.initial_connection))
+            f.write(f'initial_connection      = {self.initial_connection}\n')
         
         assert self.initial_connection in self.allowed_connectivity
         
@@ -197,11 +195,10 @@ class DefaultGenome(object):
                 self.connect_fs_neat_hidden(config)
             else:
                 if config.num_hidden > 0:
-                    print(
-                            "Warning: initial_connection = fs_neat will not connect to hidden nodes;",
-                            "\tif this is desired, set initial_connection = fs_neat_nohidden;",
-                            "\tif not, set initial_connection = fs_neat_hidden",
-                            sep='\n', file=sys.stderr)
+                    print("Warning: initial_connection = fs_neat will not connect to hidden nodes;",
+                          "\tif this is desired, set initial_connection = fs_neat_nohidden;",
+                          "\tif not, set initial_connection = fs_neat_hidden",
+                          sep='\n', file=sys.stderr)
                 self.connect_fs_neat_nohidden(config)
         elif 'full' in config.initial_connection:
             if config.initial_connection == 'full_nodirect':
@@ -232,7 +229,7 @@ class DefaultGenome(object):
                             sep='\n', file=sys.stderr)
                 self.connect_partial_nodirect(config)
     
-    def configure_crossover(self, genome1, genome2, config):
+    def configure_crossover(self, genome1, genome2, _):
         """ Configure a new genome by crossover from two parent genomes. """
         assert isinstance(genome1.fitness, (int, float))
         assert isinstance(genome2.fitness, (int, float))
@@ -451,8 +448,7 @@ class DefaultGenome(object):
         Returns genome 'complexity', taken to be
         (number of nodes, number of enabled connections)
         """
-        num_enabled_connections = sum([1 for cg in self.connections.values() if cg.enabled])
-        return len(self.nodes), num_enabled_connections
+        return len(self.nodes), sum([1 for cg in self.connections.values() if cg.enabled])
     
     def __str__(self):
         s = "Key: {0}\nFitness: {1}\nNodes:".format(self.key, self.fitness)

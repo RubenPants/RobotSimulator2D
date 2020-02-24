@@ -28,11 +28,11 @@ def query_net(net, states):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument('--train', type=bool, default=True)
-    parser.add_argument('--iterations', type=int, default=20)
+    parser.add_argument('--train', type=bool, default=False)
+    parser.add_argument('--iterations', type=int, default=1)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
-    parser.add_argument('--genome', type=bool, default=False)
+    parser.add_argument('--genome', type=bool, default=True)
     parser.add_argument('--live', type=bool, default=False)
     args = parser.parse_args()
     
@@ -71,11 +71,16 @@ if __name__ == '__main__':
         from environment.evaluation_env import EvaluationEnv
         
         evaluator = EvaluationEnv()
-        evaluator.evaluate_genome_list(genome_list=[pop.best_genome], pop=pop)
+        evaluator.evaluate_genome_list(
+                genome_list=[pop.best_genome],
+                pop=pop,
+        )
     
     if args.genome:
         print("\n===> VISUALIZING GENOME <===\n")
-        pop.visualize_genome()
+        pop.visualize_genome(
+                debug=True,
+        )
     
     if args.live:
         print("\n===> STARTING LIVE DEMO <===\n")

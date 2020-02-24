@@ -96,7 +96,7 @@ class NeatConfig:
         # Don't consider fitness_criterion and fitness_threshold
         self.no_fitness_termination: bool = True
         # Number of individuals in each generation  [def=256]  TODO
-        self.pop_size: int = 100
+        self.pop_size: int = 4
         # Create random population if all species become distinct due to stagnation
         self.reset_on_extinction: bool = True
         
@@ -120,7 +120,7 @@ class NeatConfig:
         # Number of input nodes (the sensors): [5x proximity_sensor, 2x angular_sensor, 1x distance_sensor]
         self.num_inputs: int = 8
         # Number of hidden nodes to add to each genome in the initial population
-        self.num_hidden: int = 0
+        self.num_hidden: int = 1
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]
         self.num_outputs: int = 2
         # Initial connectivity of newly-created genomes
