@@ -1075,7 +1075,7 @@ struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy;
 struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy;
 struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9FootBotCy_add_angular_sensors;
 
-/* "environment/entities/cy/robots_cy.pxd":36
+/* "environment/entities/cy/robots_cy.pxd":37
  *     # -----------------------------------------------> SENSOR METHODS <----------------------------------------------- #
  * 
  *     cpdef void add_angular_sensors(self, bint clockwise=?)             # <<<<<<<<<<<<<<

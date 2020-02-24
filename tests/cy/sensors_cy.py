@@ -111,7 +111,7 @@ class ProximitySensorTestCy(unittest.TestCase):
         game.set_player_angle(0)
         
         # Update sensors
-        game.player.proximity_sensors = set()
+        game.player.proximity_sensors = list()
         game.player.add_proximity_sensor(np.pi / 2)  # 90° left (pointing upwards)
         game.player.add_proximity_sensor(np.pi / 4)  # 45° left
         game.player.add_proximity_sensor(0)  # 0°
@@ -140,7 +140,7 @@ class ProximitySensorTestCy(unittest.TestCase):
         game.set_player_angle(0)
         
         # Update sensors
-        game.player.proximity_sensors = set()
+        game.player.proximity_sensors = list()
         game.player.add_proximity_sensor(0)  # 0°
         
         for _ in range(100):
