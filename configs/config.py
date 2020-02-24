@@ -119,7 +119,7 @@ class NeatConfig:
         # [DefaultGenome]
         # Number of input nodes (the sensors): [5x proximity_sensor, 2x angular_sensor, 1x distance_sensor]
         self.num_inputs: int = 8
-        # Number of hidden nodes to add to each genome in the initial population
+        # Number of hidden nodes to add to each genome in the initial population  TODO
         self.num_hidden: int = 1
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]
         self.num_outputs: int = 2
