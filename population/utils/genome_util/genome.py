@@ -40,7 +40,6 @@ class DefaultGenomeConfig(object):
         self._params = [ConfigParameter('num_inputs', int),
                         ConfigParameter('num_outputs', int),
                         ConfigParameter('num_hidden', int),
-                        ConfigParameter('feed_forward', bool),
                         ConfigParameter('compatibility_disjoint_coefficient', float),
                         ConfigParameter('compatibility_weight_coefficient', float),
                         ConfigParameter('conn_add_prob', float),
@@ -365,7 +364,8 @@ class DefaultGenome(object):
         # they cannot be the output end of a connection (see above).
         
         # For feed-forward networks, avoid creating cycles.
-        if config.feed_forward and creates_cycle(list(iterkeys(self.connections)), key):
+        # if config.feed_forward and creates_cycle(list(iterkeys(self.connections)), key):  TODO: Delete!
+        if creates_cycle(list(iterkeys(self.connections)), key):
             return
         
         cg = self.create_connection(config, in_node, out_node)
@@ -515,7 +515,6 @@ class DefaultGenome(object):
         input connected to all hidden nodes
         (and output nodes if ``direct`` is set or there are no hidden nodes),
         each hidden node connected to all output nodes.
-        (Recurrent genomes will also include node self-connections.)
         """
         hidden = [i for i in iterkeys(self.nodes) if i not in config.output_keys]
         output = [i for i in iterkeys(self.nodes) if i in config.output_keys]
@@ -532,10 +531,11 @@ class DefaultGenome(object):
                 for output_id in output:
                     connections.append((input_id, output_id))
         
+        # TODO: Delete!
         # For recurrent genomes, include node self-connections.
-        if not config.feed_forward:
-            for i in iterkeys(self.nodes):
-                connections.append((i, i))
+        # if not config.feed_forward:
+        #     for i in iterkeys(self.nodes):
+        #         connections.append((i, i))
         
         return connections
     

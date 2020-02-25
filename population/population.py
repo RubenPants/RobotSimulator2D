@@ -14,7 +14,7 @@ from neat.math_util import mean
 
 from configs.config import NeatConfig
 from population.utils.genome_util.genome import DefaultGenome
-from population.utils.network_util.recurrent_net import RecurrentNet
+from population.utils.network_util.feed_forward_net import make_net
 from population.utils.population_util.population_config import PopulationConfig
 from population.utils.population_util.reproduction import DefaultReproduction
 from population.utils.population_util.species import DefaultSpeciesSet
@@ -25,22 +25,11 @@ from utils.dictionary import D_FIT_COMB, D_GAME_ID, D_K, D_POS, D_TAG
 from utils.myutils import get_subfolder, update_dict
 
 
-def make_net(genome, config, bs):
-    """
-    Create the "brains" of the candidate, based on its genetic wiring.
-
-    :param genome: Genome specifies the brains internals
-    :param config: Configuration class
-    :param bs: Batch size, which represents amount of games trained in parallel
-    """
-    return RecurrentNet.create(genome, config, bs)
-
-
 def query_net(net, states):
     """
     Call the net (brain) to determine the best suited action, given the stats (current environment observation)
 
-    :param net: RecurrentNet, created in 'make_net' (previous method)
+    :param net: Network, created in one of the 'make_net' methods
     :param states: Current observations for each of the games
     """
     outputs = net.activate(states).numpy()

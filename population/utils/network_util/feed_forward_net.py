@@ -29,7 +29,7 @@ def dense_from_coo(shape, conns, dtype=torch.float64):
     return mat
 
 
-class RecurrentNet:
+class FeedForwardNet:
     def __init__(self, n_inputs, n_hidden, n_outputs,
                  input_to_hidden, hidden_to_hidden, output_to_hidden,
                  input_to_output, hidden_to_output, output_to_output,
@@ -183,11 +183,22 @@ class RecurrentNet:
             idxs.append((o_idx, i_idx))  # to, from
             vals.append(conn.weight)
         
-        return RecurrentNet(n_inputs, n_hidden, n_outputs,
-                            input_to_hidden, hidden_to_hidden, output_to_hidden,
-                            input_to_output, hidden_to_output, output_to_output,
-                            hidden_biases, output_biases,
-                            batch_size=batch_size,
-                            activation=activation,
-                            use_current_activs=use_current_activs,
-                            n_internal_steps=n_internal_steps)
+        return FeedForwardNet(n_inputs, n_hidden, n_outputs,
+                              input_to_hidden, hidden_to_hidden, output_to_hidden,
+                              input_to_output, hidden_to_output, output_to_output,
+                              hidden_biases, output_biases,
+                              batch_size=batch_size,
+                              activation=activation,
+                              use_current_activs=use_current_activs,
+                              n_internal_steps=n_internal_steps)
+
+
+def make_net(genome, config, bs):
+    """
+    Create the "brains" of the candidate, based on its genetic wiring.
+
+    :param genome: Genome specifies the brains internals
+    :param config: Configuration class
+    :param bs: Batch size, which represents amount of games trained in parallel
+    """
+    return FeedForwardNet.create(genome, config, bs)

@@ -134,8 +134,7 @@ class OutputNodeGene(DefaultNodeGene):
 class GruNodeGene(BaseGene):
     """Custom GRU cell implementation."""
     
-    _gene_attributes = [FloatAttribute('bias'),
-                        BiasAttribute('bias_ih'),
+    _gene_attributes = [BiasAttribute('bias_ih'),
                         BiasAttribute('bias_hh'),
                         WeightAttribute('weight_ih'),
                         WeightAttribute('weight_hh')]
@@ -143,7 +142,6 @@ class GruNodeGene(BaseGene):
     def __init__(self, key):
         # Placeholders
         self.h_init = 0
-        self.bias = None
         self.weight_ih = None
         self.weight_hh = None
         self.bias_ih = None

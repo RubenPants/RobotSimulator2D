@@ -61,7 +61,6 @@ class FloatAttribute(BaseAttribute):
         init_type = getattr(config, self.init_type_name).lower()
         
         if ('gauss' in init_type) or ('normal' in init_type): return self.clamp(gauss(mean, stdev), config)
-        
         if 'uniform' in init_type:
             min_value = max(getattr(config, self.min_value_name), (mean - (2 * stdev)))
             max_value = min(getattr(config, self.max_value_name), (mean + (2 * stdev)))

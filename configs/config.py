@@ -72,7 +72,7 @@ class NeatConfig:
                                 "reset_on_extinction"],
         'DefaultStagnation':   ["species_fitness_func", "max_stagnation", "species_elitism"],
         'DefaultReproduction': ["elitism", "survival_threshold", "min_species_size"],
-        'DefaultGenome':       ["num_inputs", "num_hidden", "num_outputs", "initial_connection", "feed_forward",
+        'DefaultGenome':       ["num_inputs", "num_hidden", "num_outputs", "initial_connection",
                                 "compatibility_disjoint_coefficient", "compatibility_weight_coefficient",
                                 "conn_add_prob", "conn_delete_prob", "node_add_prob", "node_delete_prob",
                                 "activation_default", "activation_options", "activation_mutate_rate",
@@ -117,14 +117,12 @@ class NeatConfig:
         # [DefaultGenome]
         # Number of input nodes (the sensors): [5x proximity_sensor, 2x angular_sensor, 1x distance_sensor]
         self.num_inputs: int = 8
-        # Number of hidden nodes to add to each genome in the initial population  TODO
-        self.num_hidden: int = 1
+        # Number of hidden nodes to add to each genome in the initial population
+        self.num_hidden: int = 0
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]
         self.num_outputs: int = 2
         # Initial connectivity of newly-created genomes
         self.initial_connection = D_PARTIAL_DIRECT_05
-        # Generated networks will not be allowed to have recurrent connections (must be feedforward)
-        self.feed_forward: bool = True
         # Full weight of disjoint and excess nodes on determining genomic distance
         self.compatibility_disjoint_coefficient: float = 1.0
         # Only .6 weight of the connection-values on determining genomic distance
