@@ -9,7 +9,7 @@ from random import random
 import numpy as np
 import torch
 
-from population.utils.attributes import BiasAttribute, BoolAttribute, FloatAttribute, StringAttribute, WeightAttribute
+from population.utils.genome_util.attributes import BiasAttribute, BoolAttribute, FloatAttribute, StringAttribute, WeightAttribute
 from utils.dictionary import D_ACTIVATION, D_TANH
 
 

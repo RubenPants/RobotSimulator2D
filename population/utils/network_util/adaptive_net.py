@@ -14,8 +14,8 @@
 
 import torch
 
-from .activations import tanh_activation
-from .cppn import clamp_weights_, create_cppn, get_coord_inputs
+from population.utils.network_util.activations import tanh_activation
+from population.utils.network_util.cppn import clamp_weights_, create_cppn, get_coord_inputs
 
 
 class AdaptiveNet:

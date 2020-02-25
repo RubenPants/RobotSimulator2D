@@ -15,7 +15,7 @@
 import numpy as np
 import torch
 
-from .activations import sigmoid_activation
+from population.utils.network_util.activations import sigmoid_activation
 
 
 # noinspection PyArgumentList
@@ -99,8 +99,13 @@ class RecurrentNet:
         return self.outputs
     
     @staticmethod
-    def create(genome, config, batch_size=1, activation=sigmoid_activation,
-               prune_empty=False, use_current_activs=False, n_internal_steps=1):
+    def create(genome,
+               config,
+               batch_size=1,
+               activation=sigmoid_activation,
+               prune_empty=False,
+               use_current_activs=False,
+               n_internal_steps=1):
         global nonempty
         from neat.graphs import required_for_output
         
@@ -111,8 +116,7 @@ class RecurrentNet:
                     set(genome_config.input_keys))
         
         input_keys = list(genome_config.input_keys)
-        hidden_keys = [k for k in genome.nodes.keys()
-                       if k not in genome_config.output_keys]
+        hidden_keys = [k for k in genome.nodes.keys() if k not in genome_config.output_keys]
         output_keys = list(genome_config.output_keys)
         
         hidden_biases = [genome.nodes[k].bias for k in hidden_keys]

@@ -13,16 +13,16 @@ import neat
 from neat.math_util import mean
 
 from configs.config import NeatConfig
-from population.utils.genome import DefaultGenome
-from population.utils.population_config import PopulationConfig
-from population.utils.reporting import ReporterSet, StdOutReporter
-from population.utils.reproduction import DefaultReproduction
-from population.utils.species import DefaultSpeciesSet
-from population.utils.statistics import StatisticsReporter
+from population.utils.genome_util.genome import DefaultGenome
+from population.utils.network_util.recurrent_net import RecurrentNet
+from population.utils.population_util.population_config import PopulationConfig
+from population.utils.population_util.reproduction import DefaultReproduction
+from population.utils.population_util.species import DefaultSpeciesSet
+from population.utils.reporter_util.reporting import ReporterSet, StdOutReporter
+from population.utils.reporter_util.statistics import StatisticsReporter
 from population.visualizer import draw_net
 from utils.dictionary import D_FIT_COMB, D_GAME_ID, D_K, D_POS, D_TAG
 from utils.myutils import get_subfolder, update_dict
-from pytorch_neat.recurrent_net import RecurrentNet
 
 
 def make_net(genome, config, bs):

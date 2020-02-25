@@ -31,6 +31,7 @@ class Species(object):
 
 class GenomeDistanceCache(object):
     """Make sure that redundant distance-computations will not occur. (e.g. d(1,2)==d(2,1))"""
+    
     def __init__(self, config):
         self.distances = {}
         self.config = config

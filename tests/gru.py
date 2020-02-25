@@ -4,19 +4,18 @@ gru.py
 Test if the GruNodeGene is implemented correctly
 """
 import neat
-import torch
 
 from configs.config import NeatConfig
-from main import make_net, query_net
-from population.utils.genome import DefaultGenome
-from population.utils.population_config import PopulationConfig
-from population.utils.reproduction import DefaultReproduction
-from population.utils.species import DefaultSpeciesSet
+from population.utils.genome_util import DefaultGenome
+from population.population import make_net, query_net
+from population.utils.population_util.population_config import PopulationConfig
+from population.utils.population_util.reproduction import DefaultReproduction
+from population.utils.population_util.species import DefaultSpeciesSet
 
 cfg = NeatConfig()
 cfg.num_inputs = 1
 cfg.num_outputs = 1
-cfg.num_hidden = 1
+cfg.num_hidden = 0
 config = PopulationConfig(
         genome_type=DefaultGenome,
         reproduction_type=DefaultReproduction,
@@ -40,13 +39,15 @@ def create_simple_genome():
     # Node -1: input
     # --> No change needed
     # Node 0: output
-    g.nodes[0].bias = 0
+    # g.nodes[0].bias = 0
     # Node 1: GRU
-    g.nodes[1] = g.create_gru_node(genome_config, 1)
-    g.nodes[1].bias_ih[:] = torch.FloatTensor([0, 0, 0])
-    g.nodes[1].bias_hh[:] = torch.FloatTensor([0, 0, 0])
-    g.nodes[1].weight_ih[:] = torch.FloatTensor([[0], [0], [0]])
-    g.nodes[1].weight_hh[:] = torch.FloatTensor([[0], [0], [0]])
+    GRU_KEY = 0
+    g.nodes[GRU_KEY] = g.create_gru_node(genome_config, 1)
+    # g.nodes[GRU_KEY].bias_ih[:] = torch.FloatTensor([0, 0, 0])
+    # g.nodes[GRU_KEY].bias_hh[:] = torch.FloatTensor([0, 0, 0])
+    # g.nodes[GRU_KEY].weight_ih[:] = torch.FloatTensor([[0], [0], [0]])
+    # g.nodes[GRU_KEY].weight_hh[:] = torch.FloatTensor([[0], [0], [0]])
+    g.nodes[GRU_KEY].bias = 0
     
     # Connections
     for c in g.connections.values(): c.weight = 1
@@ -54,6 +55,10 @@ def create_simple_genome():
 
 
 genome = create_simple_genome()
+print(genome)
 # print(genome.input_keys)
 net = make_net(genome, config, 1)
-print(net)
+print(query_net(net, [[0]]))
+print(query_net(net, [[0]]))
+print(query_net(net, [[0]]))
+print(query_net(net, [[0]]))

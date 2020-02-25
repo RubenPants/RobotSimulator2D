@@ -14,9 +14,9 @@
 
 import torch
 from neat.graphs import required_for_output
+from pytorch_neat.aggregations import str_to_aggregation
 
-from .activations import str_to_activation
-from .aggregations import str_to_aggregation
+from population.utils.network_util.activations import str_to_activation
 
 
 class Node:

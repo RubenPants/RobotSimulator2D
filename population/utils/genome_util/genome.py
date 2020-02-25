@@ -17,7 +17,7 @@ from neat.config import ConfigParameter, write_pretty_params
 from neat.graphs import creates_cycle
 from neat.six_util import iteritems, iterkeys
 
-from population.utils.genes import DefaultConnectionGene, DefaultNodeGene, GruNodeGene, OutputNodeGene
+from population.utils.genome_util.genes import DefaultConnectionGene, DefaultNodeGene, GruNodeGene, OutputNodeGene
 
 
 class DefaultGenomeConfig(object):
