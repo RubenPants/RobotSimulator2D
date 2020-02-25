@@ -1,17 +1,8 @@
-# Copyright (c) 2018 Uber Technologies, Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-#     Unless required by applicable law or agreed to in writing, software
-#     distributed under the License is distributed on an "AS IS" BASIS,
-#     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-#     See the License for the specific language governing permissions and
-#     limitations under the License.
+"""
+recurrent_gru_net.py
 
+Modification on the FeedForwardNet, built by Uber Research.
+"""
 import numpy as np
 import torch
 
@@ -29,7 +20,7 @@ def dense_from_coo(shape, conns, dtype=torch.float64):
     return mat
 
 
-class GruNet:
+class RecurrentGruNet:
     def __init__(self, n_inputs, n_hidden, n_outputs,
                  input_to_hidden, hidden_to_hidden, output_to_hidden,
                  input_to_output, hidden_to_output, output_to_output,
@@ -183,14 +174,14 @@ class GruNet:
             idxs.append((o_idx, i_idx))  # to, from
             vals.append(conn.weight)
         
-        return GruNet(n_inputs, n_hidden, n_outputs,
-                      input_to_hidden, hidden_to_hidden, output_to_hidden,
-                      input_to_output, hidden_to_output, output_to_output,
-                      hidden_biases, output_biases,
-                      batch_size=batch_size,
-                      activation=activation,
-                      use_current_activs=use_current_activs,
-                      n_internal_steps=n_internal_steps)
+        return RecurrentGruNet(n_inputs, n_hidden, n_outputs,
+                               input_to_hidden, hidden_to_hidden, output_to_hidden,
+                               input_to_output, hidden_to_output, output_to_output,
+                               hidden_biases, output_biases,
+                               batch_size=batch_size,
+                               activation=activation,
+                               use_current_activs=use_current_activs,
+                               n_internal_steps=n_internal_steps)
 
 
 def make_net(genome, config, bs):
@@ -201,4 +192,4 @@ def make_net(genome, config, bs):
     :param config: Configuration class
     :param bs: Batch size, which represents amount of games trained in parallel
     """
-    return GruNet.create(genome, config, bs)
+    return RecurrentGruNet.create(genome, config, bs)
