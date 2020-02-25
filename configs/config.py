@@ -78,9 +78,7 @@ class NeatConfig:
                                 "activation_default", "activation_options", "activation_mutate_rate",
                                 "aggregation_default", "aggregation_options", "aggregation_mutate_rate",
                                 "bias_init_mean", "bias_init_stdev", "bias_replace_rate", "bias_mutate_rate",
-                                "bias_mutate_power", "bias_max_value", "bias_min_value", "response_init_mean",
-                                "response_init_stdev", "response_replace_rate", "response_mutate_rate",
-                                "response_mutate_power", "response_max_value", "response_min_value", "weight_max_value",
+                                "bias_mutate_power", "bias_max_value", "bias_min_value", "weight_max_value",
                                 "weight_min_value", "weight_init_mean", "weight_init_stdev", "weight_mutate_rate",
                                 "weight_replace_rate", "weight_mutate_power", "enabled_default", "enabled_mutate_rate"],
         'DefaultSpeciesSet':   ["compatibility_threshold"],
@@ -165,20 +163,6 @@ class NeatConfig:
         self.bias_max_value: float = 5.0
         # The minimum allowed bias value, biases below this threshold will be clamped to this value
         self.bias_min_value: float = -5.0
-        # By this value the response of the node is multiplied before forwarding it to the following nodes
-        self.response_init_mean: float = 1.0
-        # Standard deviation of the gaussian distribution
-        self.response_init_stdev: float = 0.0
-        # The probability that mutation will replace the response multiplier of a node
-        self.response_replace_rate: float = 0.0
-        # Probability of changing the response multiplier
-        self.response_mutate_rate: float = 0.0
-        # Standard deviation of gaussian distribution from which a response multiplier mutation is drawn
-        self.response_mutate_power: float = 0.0
-        # Maximum allowed response multiplier
-        self.response_max_value: float = 1
-        # Minimum allowed response multiplier
-        self.response_min_value: float = -1
         # Mean of the gaussian distribution used to select the weight attribute values for new connections
         self.weight_init_mean: float = 0.0
         # Standard deviation of the gaussian used to select the weight attributes values for new connections

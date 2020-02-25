@@ -80,13 +80,11 @@ class DefaultNodeGene(BaseGene):
     """Default node configuration, as specified by the Python-NEAT documentation."""
     
     _gene_attributes = [FloatAttribute('bias'),
-                        FloatAttribute('response'),
                         StringAttribute('activation', options='relu'),
                         StringAttribute('aggregation', options='sum')]
     
     def __init__(self, key):
         # Placeholders
-        self.response = None
         self.bias = None
         self.activation = None
         self.aggregation = None
@@ -95,7 +93,7 @@ class DefaultNodeGene(BaseGene):
         BaseGene.__init__(self, key)
     
     def distance(self, other, config):
-        d = abs(self.bias - other.bias) + abs(self.response - other.response)
+        d = abs(self.bias - other.bias)
         if self.key not in [0, 1] and other.key not in [0, 1]:  # Exclude comparison with activation of output nodes
             if self.activation != other.activation: d += 1.0
         if self.aggregation != other.aggregation: d += 1.0

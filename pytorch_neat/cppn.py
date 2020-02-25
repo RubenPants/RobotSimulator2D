@@ -20,11 +20,10 @@ from .aggregations import str_to_aggregation
 
 
 class Node:
-    def __init__(self, children, weights, response, bias, activation, aggregation, name=None, leaves=None):
+    def __init__(self, children, weights, bias, activation, aggregation, name=None, leaves=None):
         """
         children: list of Nodes
         weights: list of floats
-        response: float
         bias: float
         activation: torch function from .activations
         aggregation: torch function from .aggregations
@@ -34,7 +33,6 @@ class Node:
         self.children = children
         self.leaves = leaves
         self.weights = weights
-        self.response = response
         self.bias = bias
         self.activation = activation
         self.activation_name = activation
@@ -48,9 +46,8 @@ class Node:
         self.is_reset = None
     
     def __repr__(self):
-        header = "Node({}, response={}, bias={}, activation={}, aggregation={})".format(
+        header = "Node({}, bias={}, activation={}, aggregation={})".format(
                 self.name,
-                self.response,
                 self.bias,
                 self.activation_name,
                 self.aggregation_name,
@@ -71,7 +68,7 @@ class Node:
         inputs = [w * x for w, x in zip(self.weights, xs)]
         try:
             pre_activs = self.aggregation(inputs)
-            activs = self.activation(self.response * pre_activs + self.bias)
+            activs = self.activation(pre_activs + self.bias)
             assert activs.shape == shape, "Wrong shape for node {}".format(self.name)
         except Exception:
             raise Exception("Failed to activate node {}".format(self.name))
@@ -202,7 +199,6 @@ def create_cppn(genome, config, leaf_names, node_names, output_activation=None):
         nodes[idx] = Node(
                 children,
                 weights,
-                node.response,
                 node.bias,
                 activation,
                 aggregation,

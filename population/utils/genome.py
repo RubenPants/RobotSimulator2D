@@ -17,10 +17,10 @@ from neat.config import ConfigParameter, write_pretty_params
 from neat.graphs import creates_cycle
 from neat.six_util import iteritems, iterkeys
 
-from population.utils.genes import DefaultConnectionGene, DefaultNodeGene, OutputNodeGene
+from population.utils.genes import DefaultConnectionGene, DefaultNodeGene, OutputNodeGene, GruNodeGene
 
 
-class DefaultGenomeConfig(object):  # TODO: Force output to be tanh here!
+class DefaultGenomeConfig(object):
     """Sets up and holds configuration information for the DefaultGenome class."""
     
     allowed_connectivity = ['unconnected', 'fs_neat_nohidden', 'fs_neat', 'fs_neat_hidden',
@@ -157,6 +157,7 @@ class DefaultGenome(object):
     @classmethod
     def parse_config(cls, param_dict):
         param_dict['node_gene_type'] = DefaultNodeGene
+        param_dict['gru_node_gene_type'] = GruNodeGene
         param_dict['output_node_gene_type'] = OutputNodeGene
         param_dict['connection_gene_type'] = DefaultConnectionGene
         return DefaultGenomeConfig(param_dict)
@@ -298,7 +299,7 @@ class DefaultGenome(object):
         for cg in self.connections.values():
             cg.mutate(config)
         
-        # Mutate node genes (bias, response, etc.).
+        # Mutate node genes (bias etc.).
         for ng in self.nodes.values():
             ng.mutate(config)
     
