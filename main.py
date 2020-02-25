@@ -16,7 +16,9 @@ if __name__ == '__main__':
             name="test",
             version=1,
     )
-    pop.make_net(pop.best_genome, pop.config, 1)
+    net = pop.make_net(pop.best_genome, pop.config, 1)
+    inp = pop.query_net(net, [[0] * 8])
+    print(inp)
     raise Exception
     # pop.load(gen=1)
     

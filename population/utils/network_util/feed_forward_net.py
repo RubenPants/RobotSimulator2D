@@ -48,9 +48,7 @@ class FeedForwardNet:
                  input_to_hidden, input_to_output, hidden_to_hidden, hidden_to_output,
                  hidden_biases, output_biases,
                  batch_size=1,
-                 use_current_activs=False,
                  activation=tanh_activation,
-                 n_internal_steps=1,
                  dtype=torch.float64,
                  ):
         """
@@ -64,15 +62,11 @@ class FeedForwardNet:
         :param hidden_to_hidden: Connections between the hidden nodes
         :param hidden_to_output: Connections from hidden nodes towards the outputs
         :param batch_size: Needed to setup network-dimensions
-        :param use_current_activs: TODO
         :param activation: The default node-activation function (squishing)
-        :param n_internal_steps: TODO
         :param dtype: Value-type used in the tensors
         """
         # Storing the input arguments (needed later on)
-        self.use_current_activs = use_current_activs
         self.activation = activation
-        self.n_internal_steps = n_internal_steps
         self.dtype = dtype
         self.n_inputs = n_inputs
         self.n_hidden = n_hidden
@@ -107,23 +101,56 @@ class FeedForwardNet:
         Activate the network. This is used during the call of "query-net". It will feed the inputs into the network and
         return the resulting outputs.
         
-        inputs: (batch_size, n_inputs)
-        returns: (batch_size, n_outputs)
+        :param inputs: (batch_size, n_inputs)
+        :return: The output-values (i.e. floats for the differential wheels) of shape (batch_size, n_outputs)
         """
+        # TODO: Remove out-commented block
+        """
+        # Original:
         with torch.no_grad():
             inputs = torch.tensor(inputs, dtype=self.dtype)
             activs_for_output = self.activations
             if self.n_hidden > 0:
-                for _ in range(self.n_internal_steps):
+                for _ in range(1):
                     self.activations = self.activation(self.input_to_hidden.mm(inputs.t()).t() +
                                                        self.hidden_to_hidden.mm(self.activations.t()).t() +
                                                        self.hidden_biases)
-                if self.use_current_activs: activs_for_output = self.activations
+                if False:
+                    activs_for_output = self.activations
             output_inputs = self.input_to_output.mm(inputs.t()).t()
             if self.n_hidden > 0:
-                output_inputs += self.hidden_to_output.mm(activs_for_output.t()).t()
+                output_inputs += self.hidden_to_output.mm(
+                        activs_for_output.t()).t()
             self.outputs = self.activation(output_inputs + self.output_biases)
         return self.outputs
+        # """
+        # TODO: How does one propagate in NEAT? Calculate shortest path and propagate this number of times each query?
+        with torch.no_grad():
+            inputs = torch.tensor(inputs, dtype=self.dtype)  # Read in the inputs as a tensor
+            
+            # Denote the impact the inputs have directly on the outputs
+            output_inputs = self.input_to_output.mm(inputs.t()).t()
+            
+            # Denote the impact hidden nodes have on the outputs, if there are hidden nodes
+            if self.n_hidden > 0:
+                # Nice to know:
+                #  - tensor.t() will transpose the tensor
+                #  - tensor.mm(tensor2) will perform a matrix multiplication between tensor and tensor2
+                
+                # The activation is defined by:
+                #  - the inputs mapping to the hidden nodes
+                #  - the hidden nodes mapping to themselves
+                #  - the hidden nodes' biases
+                # TODO: Bug? --> how do the activiations between the hidden nodes propagate?
+                self.activations = self.activation(self.input_to_hidden.mm(inputs.t()).t() +
+                                                   self.hidden_to_hidden.mm(self.activations.t()).t() +
+                                                   self.hidden_biases)
+                output_inputs += self.hidden_to_output.mm(self.activations.t()).t()
+            
+            # Define the values of the outputs, which is the sum of their received inputs and their corresponding bias
+            self.outputs = self.activation(output_inputs + self.output_biases)
+        return self.outputs
+    
     
     @staticmethod
     def create(genome,
@@ -131,8 +158,7 @@ class FeedForwardNet:
                batch_size=1,
                activation=tanh_activation,
                prune_empty=False,
-               use_current_activs=False,
-               n_internal_steps=1):
+               ):
         """
         This class will unravel the genome and create a feed-forward network based on it. In other words, it will create
         the phenotype (network) suiting the given genome.
@@ -142,8 +168,6 @@ class FeedForwardNet:
         :param batch_size: Batch-size needed to setup network dimension
         :param activation: Default activation
         :param prune_empty: Remove nodes that do not contribute to final result
-        :param use_current_activs: TODO
-        :param n_internal_steps: TODO
         """
         global nonempty
         genome_config = config.genome_config
@@ -232,8 +256,6 @@ class FeedForwardNet:
                 hidden_biases=hidden_biases, output_biases=output_biases,
                 batch_size=batch_size,
                 activation=activation,
-                use_current_activs=use_current_activs,
-                n_internal_steps=n_internal_steps
         )
 
 

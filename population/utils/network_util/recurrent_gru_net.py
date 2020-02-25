@@ -81,8 +81,7 @@ class RecurrentGruNet:
                                                        self.hidden_biases)
                 if self.use_current_activs:
                     activs_for_output = self.activations
-            output_inputs = (self.input_to_output.mm(inputs.t()).t() +
-                             self.output_to_output.mm(self.outputs.t()).t())
+            output_inputs = (self.input_to_output.mm(inputs.t()).t() + self.output_to_output.mm(self.outputs.t()).t())
             if self.n_hidden > 0:
                 output_inputs += self.hidden_to_output.mm(
                         activs_for_output.t()).t()
