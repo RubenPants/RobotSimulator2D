@@ -17,7 +17,7 @@ from neat.config import ConfigParameter, write_pretty_params
 from neat.graphs import creates_cycle
 from neat.six_util import iteritems, iterkeys
 
-from population.utils.genes import DefaultConnectionGene, DefaultNodeGene, OutputNodeGene, GruNodeGene
+from population.utils.genes import DefaultConnectionGene, DefaultNodeGene, GruNodeGene, OutputNodeGene
 
 
 class DefaultGenomeConfig(object):
@@ -54,6 +54,7 @@ class DefaultGenomeConfig(object):
         # Gather configuration data from the gene classes.
         self.node_gene_type = params['node_gene_type']
         self.output_node_gene_type = params['output_node_gene_type']
+        self.gru_node_gene_type = params['gru_node_gene_type']
         self._params += self.node_gene_type.get_config_params()
         self.connection_gene_type = params['connection_gene_type']
         self._params += self.connection_gene_type.get_config_params()
@@ -454,14 +455,12 @@ class DefaultGenome(object):
         return len(self.nodes) - 2, sum([1 for cg in self.connections.values() if cg.enabled])
     
     def __str__(self):
-        s = "Key: {0}\nFitness: {1}\nNodes:".format(self.key, self.fitness)
-        for k, ng in iteritems(self.nodes):
-            s += "\n\t{0} {1!s}".format(k, ng)
+        s = f"Key: {self.key}\nFitness: {self.fitness}\nNodes:"
+        for k, ng in iteritems(self.nodes): s += f"\n\t{k} {ng!s}"
         s += "\nConnections:"
         connections = list(self.connections.values())
         connections.sort()
-        for c in connections:
-            s += "\n\t" + str(c)
+        for c in connections: s += "\n\t" + str(c)
         return s
     
     @staticmethod
@@ -473,6 +472,12 @@ class DefaultGenome(object):
     @staticmethod
     def create_output_node(config, node_id):
         node = config.output_node_gene_type(node_id)
+        node.init_attributes(config)
+        return node
+    
+    @staticmethod
+    def create_gru_node(config, node_id):
+        node = config.gru_node_gene_type(node_id)
         node.init_attributes(config)
         return node
     

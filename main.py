@@ -1,30 +1,6 @@
 import argparse
 
 from population.population import Population
-from pytorch_neat.recurrent_net import RecurrentNet
-
-
-def make_net(genome, config, bs):
-    """
-    Create the "brains" of the candidate, based on its genetic wiring.
-
-    :param genome: Genome specifies the brains internals
-    :param config: Configuration class
-    :param bs: Batch size, which represents amount of games trained in parallel
-    """
-    return RecurrentNet.create(genome, config, bs)
-
-
-def query_net(net, states):
-    """
-    Call the net (brain) to determine the best suited action, given the stats (current environment observation)
-
-    :param net: RecurrentNet, created in 'make_net' (previous method)
-    :param states: Current observations for each of the games
-    """
-    outputs = net.activate(states).numpy()
-    return outputs
-
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
@@ -32,15 +8,13 @@ if __name__ == '__main__':
     parser.add_argument('--iterations', type=int, default=10)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
-    parser.add_argument('--genome', type=bool, default=True)
-    parser.add_argument('--live', type=bool, default=False)
+    parser.add_argument('--genome', type=bool, default=False)
+    parser.add_argument('--live', type=bool, default=True)
     args = parser.parse_args()
     
     pop = Population(
             name="test",
             version=1,
-            make_net_method=make_net,
-            query_net_method=query_net,
     )
     # pop.load(gen=1)
     
@@ -86,9 +60,9 @@ if __name__ == '__main__':
         print("\n===> STARTING LIVE DEMO <===\n")
         from environment.visualizer import Visualizer
         
-        net = make_net(pop.best_genome, pop.config, 1)
+        net = pop.make_net(pop.best_genome, pop.config, 1)
         visualizer = Visualizer(
-                query_net=query_net,
+                query_net=pop.query_net,
                 debug=False,
                 # speedup=1,
         )

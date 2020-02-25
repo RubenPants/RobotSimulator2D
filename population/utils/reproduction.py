@@ -50,7 +50,6 @@ class DefaultReproduction(DefaultClassConfig):
             g.configure_new(genome_config)
             new_genomes[key] = g
             self.ancestors[key] = tuple()
-        
         return new_genomes
     
     @staticmethod

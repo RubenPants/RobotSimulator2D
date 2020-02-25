@@ -175,9 +175,10 @@ class BiasAttribute(object):
     """Bias attribute used in the GRU-gene. The bias can be seen as a vector of floats."""
     
     def __init__(self, name, **default_dict):
-        self.fa = FloatAttribute(name, **default_dict)  # Init FloatAttribute 'fa' to perform float calculations on
+        self.name = name
+        self.fa = FloatAttribute("bias", **default_dict)  # Init FloatAttribute 'fa' to perform float calculations on
     
-    def init_value(self, config, hidden_size):
+    def init_value(self, config, hidden_size, _):
         """Create a vector with on each specified position a FloatAttribute."""
         tensor = torch.FloatTensor(np.zeros((3 * hidden_size,)))
         
@@ -204,7 +205,8 @@ class WeightAttribute(object):
     """
     
     def __init__(self, name, **default_dict):
-        self.fa = FloatAttribute(name, **default_dict)  # Init FloatAttribute 'fa' to perform float calculations on
+        self.name = name
+        self.fa = FloatAttribute("weight", **default_dict)  # Init FloatAttribute 'fa' to perform float calculations on
     
     def init_value(self, config, hidden_size, input_size=None):
         """Create a vector with on each specified position a FloatAttribute."""

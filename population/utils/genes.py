@@ -6,6 +6,9 @@ Handles node and connection genes.
 import warnings
 from random import random
 
+import numpy as np
+import torch
+
 from population.utils.attributes import BiasAttribute, BoolAttribute, FloatAttribute, StringAttribute, WeightAttribute
 from utils.dictionary import D_ACTIVATION, D_TANH
 
@@ -24,8 +27,14 @@ class BaseGene(object):
     
     def __str__(self):
         attrib = ['key'] + [a.name for a in self._gene_attributes]
-        attrib = ['{0}={1}'.format(a, getattr(self, a)) for a in attrib]
-        return '{0}({1})'.format(self.__class__.__name__, ", ".join(attrib))
+        body = []
+        for a in attrib:
+            attr = getattr(self, a)
+            if isinstance(attr, float):
+                body.append(f"{a}={round(attr, 3)}")
+            else:
+                body.append(f"{a}={attr}")
+        return f'{self.__class__.__name__}({", ".join(body)})'
     
     def __lt__(self, other):
         """Used to sort the genes."""
@@ -125,7 +134,8 @@ class OutputNodeGene(DefaultNodeGene):
 class GruNodeGene(BaseGene):
     """Custom GRU cell implementation."""
     
-    _gene_attributes = [BiasAttribute('bias_ih'),
+    _gene_attributes = [FloatAttribute('bias'),
+                        BiasAttribute('bias_ih'),
                         BiasAttribute('bias_hh'),
                         WeightAttribute('weight_ih'),
                         WeightAttribute('weight_hh')]
@@ -133,14 +143,31 @@ class GruNodeGene(BaseGene):
     def __init__(self, key):
         # Placeholders
         self.h_init = 0
+        self.bias = None
         self.weight_ih = None
         self.weight_hh = None
         self.bias_ih = None
         self.bias_hh = None
         assert isinstance(key, int), f"OutputNodeGene key must be an int, not {key!r}"
         BaseGene.__init__(self, key)
-        
-        raise NotImplementedError("GRUCell must be implemented first: mutation, crossover?")
+    
+    def __str__(self):
+        attrib = ['key'] + [a.name for a in self._gene_attributes]
+        body = []
+        for a in attrib:
+            attr = getattr(self, a)
+            if isinstance(attr, torch.Tensor):
+                body.append(f"{a}={np.asarray(attr.tolist()).round(3).tolist()}")
+            else:
+                body.append(f"{a}={attr}")
+        return f'{self.__class__.__name__}({", ".join(body)})'
+    
+    def init_attributes(self, config):
+        for a in self._gene_attributes:
+            if a.name == 'bias':
+                setattr(self, a.name, a.init_value(config))
+            else:
+                setattr(self, a.name, a.init_value(config, 1, 1))  # TODO: setup hidden_size, input_size
 
 
 class DefaultConnectionGene(BaseGene):

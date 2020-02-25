@@ -105,8 +105,7 @@ class RecurrentNet:
         from neat.graphs import required_for_output
         
         genome_config = config.genome_config
-        required = required_for_output(
-                genome_config.input_keys, genome_config.output_keys, genome.connections)
+        required = required_for_output(genome_config.input_keys, genome_config.output_keys, genome.connections)
         if prune_empty:
             nonempty = {conn.key[1] for conn in genome.connections.values() if conn.enabled}.union(
                     set(genome_config.input_keys))

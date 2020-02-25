@@ -22,6 +22,29 @@ from population.utils.statistics import StatisticsReporter
 from population.visualizer import draw_net
 from utils.dictionary import D_FIT_COMB, D_GAME_ID, D_K, D_POS, D_TAG
 from utils.myutils import get_subfolder, update_dict
+from pytorch_neat.recurrent_net import RecurrentNet
+
+
+def make_net(genome, config, bs):
+    """
+    Create the "brains" of the candidate, based on its genetic wiring.
+
+    :param genome: Genome specifies the brains internals
+    :param config: Configuration class
+    :param bs: Batch size, which represents amount of games trained in parallel
+    """
+    return RecurrentNet.create(genome, config, bs)
+
+
+def query_net(net, states):
+    """
+    Call the net (brain) to determine the best suited action, given the stats (current environment observation)
+
+    :param net: RecurrentNet, created in 'make_net' (previous method)
+    :param states: Current observations for each of the games
+    """
+    outputs = net.activate(states).numpy()
+    return outputs
 
 
 class CompleteExtinctionException(Exception):
@@ -34,8 +57,8 @@ class Population:
     def __init__(self,
                  name: str = "",
                  version: int = 0,
-                 make_net_method=None,
-                 query_net_method=None):
+                 make_net_method=make_net,
+                 query_net_method=query_net):
         """
         The population will be concerned about everything directly and solely related to the population. These are
         reporters, persisting methods, evolution and more.
