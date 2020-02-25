@@ -6,8 +6,7 @@ Handles node and connection genes.
 import warnings
 from random import random
 
-from neat.attributes import BoolAttribute, FloatAttribute, StringAttribute
-
+from population.utils.attributes import BiasAttribute, BoolAttribute, FloatAttribute, StringAttribute, WeightAttribute
 from utils.dictionary import D_ACTIVATION, D_TANH
 
 
@@ -20,6 +19,7 @@ class BaseGene(object):
     _gene_attributes = None
     
     def __init__(self, key):
+        """Key to identify the gene."""
         self.key = key
     
     def __str__(self):
@@ -28,6 +28,7 @@ class BaseGene(object):
         return '{0}({1})'.format(self.__class__.__name__, ", ".join(attrib))
     
     def __lt__(self, other):
+        """Used to sort the genes."""
         assert isinstance(self.key, type(other.key)), f"Cannot compare keys {self.key!r} and {other.key!r}"
         return self.key < other.key
     
@@ -37,6 +38,7 @@ class BaseGene(object):
     
     @classmethod
     def get_config_params(cls):
+        """Get a list of all the configuration parameters (stored in the gene's attributes)."""
         params = []
         if not hasattr(cls, '_gene_attributes'):
             setattr(cls, '_gene_attributes', getattr(cls, '__gene_attributes__'))
@@ -89,7 +91,7 @@ class DefaultNodeGene(BaseGene):
         self.activation = None
         self.aggregation = None
         
-        assert isinstance(key, int), "DefaultNodeGene key must be an int, not {!r}".format(key)
+        assert isinstance(key, int), f"DefaultNodeGene key must be an int, not {key!r}"
         BaseGene.__init__(self, key)
     
     def distance(self, other, config):
@@ -101,7 +103,10 @@ class DefaultNodeGene(BaseGene):
 
 
 class OutputNodeGene(DefaultNodeGene):
+    """Node representation for each of the network's outputs."""
+    
     def __init__(self, key):
+        assert isinstance(key, int), f"OutputNodeGene key must be an int, not {key!r}"
         super().__init__(key)
     
     def init_attributes(self, config):
@@ -116,8 +121,28 @@ class OutputNodeGene(DefaultNodeGene):
         """ Perform the mutation operation. Prevent mutation to happen on the output's activation. """
         for a in self._gene_attributes:
             v = getattr(self, a.name)
-            if a.name != D_ACTIVATION:
-                setattr(self, a.name, a.mutate_value(v, config))
+            if a.name != D_ACTIVATION: setattr(self, a.name, a.mutate_value(v, config))
+
+
+class GruNodeGene(BaseGene):
+    """Custom GRU cell implementation."""
+    
+    _gene_attributes = [BiasAttribute('bias_ih'),
+                        BiasAttribute('bias_hh'),
+                        WeightAttribute('weight_ih'),
+                        WeightAttribute('weight_hh')]
+    
+    def __init__(self, key):
+        # Placeholders
+        self.h_init = 0
+        self.weight_ih = None
+        self.weight_hh = None
+        self.bias_ih = None
+        self.bias_hh = None
+        assert isinstance(key, int), f"OutputNodeGene key must be an int, not {key!r}"
+        BaseGene.__init__(self, key)
+        
+        raise NotImplementedError("GRUCell must be implemented first: mutation, crossover?")
 
 
 class DefaultConnectionGene(BaseGene):

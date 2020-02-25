@@ -154,17 +154,17 @@ class NeatConfig:
         # The mean of the gaussian distribution, used to select the bias attribute values for new nodes
         self.bias_init_mean: float = 0.0
         # Standard deviation of the gaussian distribution, used to select the bias attribute values of new nodes
-        self.bias_init_stdev: float = 0.5
+        self.bias_init_stdev: float = 1.0
         # The probability that mutation will replace the bias of a node with a (completely) newly chosen random value
         self.bias_replace_rate: float = 0.05
         # The probability that mutation will change the bias of a node by adding a random value
         self.bias_mutate_rate: float = 0.5
         # The standard deviation of the zero-centered gaussian distribution from which a bias value mutation is drawn
-        self.bias_mutate_power: float = 0.2
+        self.bias_mutate_power: float = 0.1
         # The maximum allowed bias value, biases above this threshold will be clamped to this value
-        self.bias_max_value: float = 2
+        self.bias_max_value: float = 5.0
         # The minimum allowed bias value, biases below this threshold will be clamped to this value
-        self.bias_min_value: float = -2
+        self.bias_min_value: float = -5.0
         # By this value the response of the node is multiplied before forwarding it to the following nodes
         self.response_init_mean: float = 1.0
         # Standard deviation of the gaussian distribution
@@ -179,20 +179,20 @@ class NeatConfig:
         self.response_max_value: float = 1
         # Minimum allowed response multiplier
         self.response_min_value: float = -1
-        # The maximum allowed weight value, weights above this value will be clipped to this value (arbitrarily chosen)
-        self.weight_max_value: float = 2
-        # The minimum allowed weight value, weights below this value will be clipped to this value (arbitrarily chosen)
-        self.weight_min_value: float = -2
         # Mean of the gaussian distribution used to select the weight attribute values for new connections
         self.weight_init_mean: float = 0.0
         # Standard deviation of the gaussian used to select the weight attributes values for new connections
-        self.weight_init_stdev: float = 0.5
+        self.weight_init_stdev: float = 1.0
         # Probability of a weight (connection) to mutate
         self.weight_mutate_rate: float = 0.5
         # Probability of assigning completely new value, based on weight_init_mean and weight_init_stdev
         self.weight_replace_rate: float = 0.05
         # The standard deviation of the zero-centered gaussian distribution from which a weight value mutation is drawn
-        self.weight_mutate_power: float = 0.2
+        self.weight_mutate_power: float = 0.1
+        # The maximum allowed weight value, weights above this value will be clipped to this value (arbitrarily chosen)
+        self.weight_max_value: float = 5.0
+        # The minimum allowed weight value, weights below this value will be clipped to this value (arbitrarily chosen)
+        self.weight_min_value: float = -5.0
         # Enable the algorithm to disable (and re-enable) existing connections
         self.enabled_default: bool = True
         # The probability that mutation will replace the 'enabled status' of a connection
