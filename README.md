@@ -16,7 +16,7 @@ The game environment is heavily inspired by OpenAI's *gym* environments. Each Op
 These are translated to my implementation as follows (respectively):
 
 * `__init__` The game initialization functions as the `make` method.
-* `reset` Same functionality.````````
+* `reset` Same functionality.
 * `render` Sequentially update the game whilst visualizing it. Since Pyglet doesn't handle Threads well, the agent must be given to the game.
 * `step` Same functionality.
 * `close` Unused.
