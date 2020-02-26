@@ -21,9 +21,8 @@ if __name__ == '__main__':
     for fitness in D_FIT_OPTIONS:
         print(f"\n----------> RUNNING FOR THE {fitness} CONFIGURATION <----------")
         cfg = NeatConfig()
-        cfg.fitness = D_FIT_OPTIONS
+        cfg.fitness = fitness
         pop = Population(
-                name=D_FIT_OPTIONS,
                 version=1,
                 config=cfg,
         )
