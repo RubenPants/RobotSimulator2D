@@ -43,6 +43,8 @@ Do the build inside of each cy-folder. This build file is responsible for moving
 ## TODO - Urgent
 
 * Disable recombination
+* What is the purpose of the gene-attributes? Figure out and write down! --> I should pay more focus on what to write 
+down such that no redundant work is needed...
 
 ## TODO
 

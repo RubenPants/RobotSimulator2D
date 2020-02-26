@@ -527,6 +527,13 @@ def create_custom_game(cfg: GameConfig, overwrite=False):
                 game_id=game_id,
                 overwrite=overwrite)
     
+    # Set game path
+    path = dict()
+    for x in range(cfg.x_axis):
+        for y in range(cfg.y_axis):
+            path[(x + 0.5, y + 0.5)] = Line2d(Vec2d(0.5, cfg.y_axis - 0.5), Vec2d(x + 0.5, y + 0.5)).get_length()
+    game.path = path
+    
     # Put the target on a fixed position
     game.target = Vec2d(0.5, cfg.y_axis - 0.5)
     
@@ -534,6 +541,13 @@ def create_custom_game(cfg: GameConfig, overwrite=False):
     game.player = FootBot(game=game,
                           init_pos=Vec2d(cfg.x_axis - 0.5, 0.5),
                           init_orient=np.pi / 2)
+    
+    # Check if implemented correctly
+    game.close()
+    game.reset()
+    game.get_blueprint()
+    game.get_observation()
+    game.step(0, 0)
     
     # Save the final game
     game.save()
@@ -578,7 +592,7 @@ if __name__ == '__main__':
     Create game, option to choose from custom or auto-generated.
     """
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument('--custom', type=bool, default=False)
+    parser.add_argument('--custom', type=bool, default=True)
     parser.add_argument('--overwrite', type=bool, default=True)
     parser.add_argument('--nr_games', type=int, default=None)
     parser.add_argument('--visualize', type=bool, default=False)

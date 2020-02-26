@@ -13,15 +13,27 @@ import neat
 from neat.math_util import mean
 
 from configs.config import NeatConfig
-from population.utils.genome import DefaultGenome
-from population.utils.population_config import PopulationConfig
-from population.utils.reporting import ReporterSet, StdOutReporter
-from population.utils.reproduction import DefaultReproduction
-from population.utils.species import DefaultSpeciesSet
-from population.utils.statistics import StatisticsReporter
+from population.utils.genome_util.genome import DefaultGenome
+from population.utils.network_util.feed_forward_net import make_net
+from population.utils.population_util.population_config import PopulationConfig
+from population.utils.population_util.reproduction import DefaultReproduction
+from population.utils.population_util.species import DefaultSpeciesSet
+from population.utils.reporter_util.reporting import ReporterSet, StdOutReporter
+from population.utils.reporter_util.statistics import StatisticsReporter
 from population.visualizer import draw_net
 from utils.dictionary import D_FIT_COMB, D_GAME_ID, D_K, D_POS, D_TAG
 from utils.myutils import get_subfolder, update_dict
+
+
+def query_net(net, states):
+    """
+    Call the net (brain) to determine the best suited action, given the stats (current environment observation)
+
+    :param net: Network, created in one of the 'make_net' methods
+    :param states: Current observations for each of the games
+    """
+    outputs = net.activate(states).numpy()
+    return outputs
 
 
 class CompleteExtinctionException(Exception):
@@ -34,8 +46,8 @@ class Population:
     def __init__(self,
                  name: str = "",
                  version: int = 0,
-                 make_net_method=None,
-                 query_net_method=None):
+                 make_net_method=make_net,
+                 query_net_method=query_net):
         """
         The population will be concerned about everything directly and solely related to the population. These are
         reporters, persisting methods, evolution and more.

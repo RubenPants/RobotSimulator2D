@@ -334,3 +334,9 @@ def get_boundary_walls(x_axis, y_axis):
     c = Vec2d(x_axis, y_axis)
     d = Vec2d(0, y_axis)
     return [Line2d(a, b), Line2d(b, c), Line2d(c, d), Line2d(d, a)]
+
+
+def initial_sensor_readings():
+    """Return a list of the sensors their maximum value."""
+    game = Game(game_id=0, silent=True)
+    return game.get_sensor_list()
