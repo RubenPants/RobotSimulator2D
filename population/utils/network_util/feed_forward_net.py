@@ -15,6 +15,7 @@
 import numpy as np
 import torch
 
+from environment.entities.game import initial_sensor_readings
 from population.utils.network_util.activations import tanh_activation
 from population.utils.network_util.graphs import required_for_output
 
@@ -89,12 +90,26 @@ class FeedForwardNet:
         self.output_biases = torch.tensor(output_biases, dtype=dtype)
         
         # Put network to initial (default) state
+        self.initial_readings = initial_sensor_readings()
         self.reset(batch_size)
     
     def reset(self, batch_size=1):
         """Set the network back to initial state."""
+        # Reset the network back to zero inputs
         self.activations = torch.zeros(batch_size, self.n_hidden, dtype=self.dtype) if self.n_hidden > 0 else None
         self.outputs = torch.zeros(batch_size, self.n_outputs, dtype=self.dtype)
+        
+        # Initialize the network on maximum sensory inputs
+        for _ in range(self.n_hidden):
+            # Code below is straight up stolen from 'activate(self, inputs)'
+            with torch.no_grad():
+                inputs = torch.tensor([self.initial_readings], dtype=self.dtype)
+                output_inputs = self.input_to_output.mm(inputs.t()).t()
+                self.activations = self.activation(self.input_to_hidden.mm(inputs.t()).t() +
+                                                   self.hidden_to_hidden.mm(self.activations.t()).t() +
+                                                   self.hidden_biases)
+                output_inputs += self.hidden_to_output.mm(self.activations.t()).t()
+                self.outputs = self.activation(output_inputs + self.output_biases)
     
     def activate(self, inputs):
         """
@@ -104,27 +119,6 @@ class FeedForwardNet:
         :param inputs: (batch_size, n_inputs)
         :return: The output-values (i.e. floats for the differential wheels) of shape (batch_size, n_outputs)
         """
-        # TODO: Remove out-commented block
-        """
-        # Original:
-        with torch.no_grad():
-            inputs = torch.tensor(inputs, dtype=self.dtype)
-            activs_for_output = self.activations
-            if self.n_hidden > 0:
-                for _ in range(1):
-                    self.activations = self.activation(self.input_to_hidden.mm(inputs.t()).t() +
-                                                       self.hidden_to_hidden.mm(self.activations.t()).t() +
-                                                       self.hidden_biases)
-                if False:
-                    activs_for_output = self.activations
-            output_inputs = self.input_to_output.mm(inputs.t()).t()
-            if self.n_hidden > 0:
-                output_inputs += self.hidden_to_output.mm(
-                        activs_for_output.t()).t()
-            self.outputs = self.activation(output_inputs + self.output_biases)
-        return self.outputs
-        # """
-        # TODO: How does one propagate in NEAT? Calculate shortest path and propagate this number of times each query?
         with torch.no_grad():
             inputs = torch.tensor(inputs, dtype=self.dtype)  # Read in the inputs as a tensor
             
@@ -141,7 +135,6 @@ class FeedForwardNet:
                 #  - the inputs mapping to the hidden nodes
                 #  - the hidden nodes mapping to themselves
                 #  - the hidden nodes' biases
-                # TODO: Bug? --> how do the activiations between the hidden nodes propagate?
                 self.activations = self.activation(self.input_to_hidden.mm(inputs.t()).t() +
                                                    self.hidden_to_hidden.mm(self.activations.t()).t() +
                                                    self.hidden_biases)
@@ -150,7 +143,6 @@ class FeedForwardNet:
             # Define the values of the outputs, which is the sum of their received inputs and their corresponding bias
             self.outputs = self.activation(output_inputs + self.output_biases)
         return self.outputs
-    
     
     @staticmethod
     def create(genome,
