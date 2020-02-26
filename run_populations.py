@@ -15,7 +15,6 @@ if __name__ == '__main__':
     parser.add_argument('--iterations', type=int, default=100)
     parser.add_argument('--blueprint', type=bool, default=True)
     parser.add_argument('--evaluate', type=bool, default=False)
-    parser.add_argument('--genome', type=bool, default=True)
     args = parser.parse_args()
     
     for fitness in D_FIT_OPTIONS:
@@ -54,11 +53,4 @@ if __name__ == '__main__':
             evaluator.evaluate_genome_list(
                     genome_list=[pop.best_genome],
                     pop=pop,
-            )
-        
-        if args.genome:
-            print("\n===> VISUALIZING GENOME <===\n")
-            pop.visualize_genome(
-                    debug=True,
-                    show=False,
             )

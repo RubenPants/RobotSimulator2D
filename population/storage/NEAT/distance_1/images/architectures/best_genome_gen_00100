@@ -1,0 +1,46 @@
+digraph {
+	overlap=false
+	"proximity -90°" [fillcolor=lightgray pos="0,0!" shape=box style=filled]
+	"proximity -45°" [fillcolor=lightgray pos="3,0!" shape=box style=filled]
+	"proximity 0°" [fillcolor=lightgray pos="6,0!" shape=box style=filled]
+	"proximity 45°" [fillcolor=lightgray pos="9,0!" shape=box style=filled]
+	"proximity 90°" [fillcolor=lightgray pos="12,0!" shape=box style=filled]
+	"angular left" [fillcolor=lightgray pos="15,0!" shape=box style=filled]
+	"angular right" [fillcolor=lightgray pos="18,0!" shape=box style=filled]
+	distance [fillcolor=lightgray pos="21,0!" shape=box style=filled]
+	"left wheel
+activation=tanh
+bias=-0.52
+aggregation=sum" [fillcolor=lightblue pos="6,-25!" style=filled]
+	"right wheel
+activation=tanh
+bias=0.23
+aggregation=sum" [fillcolor=lightblue pos="15,-25!" style=filled]
+	"hidden node=124
+activation=relu
+bias=-1.26
+aggregation=sum" [fillcolor=white style=filled]
+	"proximity 45°" -> "left wheel
+activation=tanh
+bias=-0.52
+aggregation=sum" [label=3.33 color=green penwidth=0.766186645939085]
+	"angular right" -> "right wheel
+activation=tanh
+bias=0.23
+aggregation=sum" [label=-0.75 color=red penwidth=0.2506027729341834]
+	"proximity -45°" -> "right wheel
+activation=tanh
+bias=0.23
+aggregation=sum" [label=2.66 color=green penwidth=0.6327333958855894]
+	"proximity 90°" -> "hidden node=124
+activation=relu
+bias=-1.26
+aggregation=sum" [label=2.01 color=green penwidth=0.5025645706528958]
+	"hidden node=124
+activation=relu
+bias=-1.26
+aggregation=sum" -> "right wheel
+activation=tanh
+bias=0.23
+aggregation=sum" [label=-2.9 color=red penwidth=0.6797632159203763]
+}
