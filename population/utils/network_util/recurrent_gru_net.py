@@ -2,7 +2,10 @@
 recurrent_gru_net.py
 
 Modification on the RecurrentGruNet created by the Uber Research group. This modification will extend the hidden-node
-space to also incorporate GRU-nodes.
+space to also incorporate GRU-nodes. The network will propagate one iteration at a time, doing the following:
+ 1) Update the hidden nodes their state taking the input and other hidden nodes into account (as done in feedforward)
+ 2) Execute the GRUs such that their current state is updated (input=current_state)
+ 3) Update the output nodes their state taking the input and hidden nodes into account
 """
 import torch
 
