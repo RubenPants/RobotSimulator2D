@@ -61,7 +61,6 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
         if debug:
             name += f'\nactivation={genome.nodes[key].activation}'
             name += f'\nbias={round(genome.nodes[key].bias, 2)}'
-            name += f'\nresponse={round(genome.nodes[key].response, 2)}'
             name += f'\naggregation={genome.nodes[key].aggregation}'
         node_names.update({key: name})
         dot.node(
@@ -101,7 +100,6 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
             name = f'hidden node={key}'
             name += f'\nactivation={genome.nodes[key].activation}'
             name += f'\nbias={round(genome.nodes[key].bias, 2)}'
-            name += f'\nresponse={round(genome.nodes[key].response, 2)}'
             name += f'\naggregation={genome.nodes[key].aggregation}'
         else:
             name = str(key)

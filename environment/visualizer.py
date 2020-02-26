@@ -8,6 +8,7 @@ import pymunk
 from pymunk.pyglet_util import DrawOptions
 
 from environment.entities.game import Game
+from population.utils.network_util.feed_forward_net import FeedForwardNet
 from utils.dictionary import D_DONE, D_SENSOR_LIST
 
 
@@ -150,10 +151,10 @@ class Visualizer:
         pyglet.app.run()
 
 
-def used_sensor(network, sensor_index):
-    if sum([network.input_to_output[i][sensor_index] for i in range(len(network.input_to_output))]):
+def used_sensor(network: FeedForwardNet, sensor_index):
+    if sum([network.in2out[i][sensor_index] for i in range(len(network.in2out))]):
         return True
-    elif 'input_to_hidden' in network.__dict__:
-        if sum([network.input_to_hidden[i][sensor_index] for i in range(len(network.input_to_hidden))]) != 0:
-            return True
+    elif 'in2hid' in network.__dict__ and \
+            sum([network.in2hid[i][sensor_index] for i in range(len(network.in2hid))]) != 0:
+        return True
     return False

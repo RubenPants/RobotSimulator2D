@@ -30,7 +30,7 @@ class BaseAttribute(object):
 
 
 class FloatAttribute(BaseAttribute):
-    """Class for numeric attributes, such as the response of a node or the weight of a connection."""
+    """Class for numeric attributes, such as the bias of a node or the weight of a connection."""
     
     _config_items = {"init_mean":    [float, None],
                      "init_stdev":   [float, None],

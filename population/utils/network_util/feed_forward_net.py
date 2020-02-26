@@ -46,7 +46,8 @@ def dense_from_coo(shape, conns, dtype=torch.float64):
 class FeedForwardNet:
     def __init__(self,
                  n_inputs, n_hidden, n_outputs,
-                 input_to_hidden, input_to_output, hidden_to_hidden, hidden_to_output,
+                 in2hid, in2out,
+                 hid2hid, hid2out,
                  hidden_biases, output_biases,
                  batch_size=1,
                  activation=tanh_activation,
@@ -58,10 +59,10 @@ class FeedForwardNet:
         :param n_inputs: Number of inputs (sensors)
         :param n_hidden: Number of hidden simple-nodes (DefaultGeneNode) in the network
         :param n_outputs: Number of outputs (the two differential wheels)
-        :param input_to_hidden: Connections connecting the input nodes to the hidden nodes
-        :param input_to_output: Connections directly connecting from the inputs to the outputs
-        :param hidden_to_hidden: Connections between the hidden nodes
-        :param hidden_to_output: Connections from hidden nodes towards the outputs
+        :param in2hid: Connections connecting the input nodes to the hidden nodes
+        :param in2out: Connections directly connecting from the inputs to the outputs
+        :param hid2hid: Connections between the hidden nodes
+        :param hid2out: Connections from hidden nodes towards the outputs
         :param batch_size: Needed to setup network-dimensions
         :param activation: The default node-activation function (squishing)
         :param dtype: Value-type used in the tensors
@@ -80,10 +81,10 @@ class FeedForwardNet:
         # Do not create the hidden-related matrices if hidden-nodes do not exist
         #  If they do not exist, a single matrix directly mapping inputs to outputs is only used
         if n_hidden > 0:
-            self.input_to_hidden = dense_from_coo((n_hidden, n_inputs), input_to_hidden, dtype=dtype)
-            self.hidden_to_hidden = dense_from_coo((n_hidden, n_hidden), hidden_to_hidden, dtype=dtype)
-            self.hidden_to_output = dense_from_coo((n_outputs, n_hidden), hidden_to_output, dtype=dtype)
-        self.input_to_output = dense_from_coo((n_outputs, n_inputs), input_to_output, dtype=dtype)
+            self.in2hid = dense_from_coo((n_hidden, n_inputs), in2hid, dtype=dtype)
+            self.hid2hid = dense_from_coo((n_hidden, n_hidden), hid2hid, dtype=dtype)
+            self.hid2out = dense_from_coo((n_outputs, n_hidden), hid2out, dtype=dtype)
+        self.in2out = dense_from_coo((n_outputs, n_inputs), in2out, dtype=dtype)
         
         # Fill in the biases
         if n_hidden > 0: self.hidden_biases = torch.tensor(hidden_biases, dtype=dtype)
@@ -104,11 +105,11 @@ class FeedForwardNet:
             # Code below is straight up stolen from 'activate(self, inputs)'
             with torch.no_grad():
                 inputs = torch.tensor([self.initial_readings] * batch_size, dtype=self.dtype)
-                output_inputs = self.input_to_output.mm(inputs.t()).t()
-                self.activations = self.activation(self.input_to_hidden.mm(inputs.t()).t() +
-                                                   self.hidden_to_hidden.mm(self.activations.t()).t() +
+                output_inputs = self.in2out.mm(inputs.t()).t()
+                self.activations = self.activation(self.in2hid.mm(inputs.t()).t() +
+                                                   self.hid2hid.mm(self.activations.t()).t() +
                                                    self.hidden_biases)
-                output_inputs += self.hidden_to_output.mm(self.activations.t()).t()
+                output_inputs += self.hid2out.mm(self.activations.t()).t()
                 self.outputs = self.activation(output_inputs + self.output_biases)
     
     def activate(self, inputs):
@@ -123,7 +124,7 @@ class FeedForwardNet:
             inputs = torch.tensor(inputs, dtype=self.dtype)  # Read in the inputs as a tensor
             
             # Denote the impact the inputs have directly on the outputs
-            output_inputs = self.input_to_output.mm(inputs.t()).t()
+            output_inputs = self.in2out.mm(inputs.t()).t()
             
             # Denote the impact hidden nodes have on the outputs, if there are hidden nodes
             if self.n_hidden > 0:
@@ -135,10 +136,10 @@ class FeedForwardNet:
                 #  - the inputs mapping to the hidden nodes
                 #  - the hidden nodes mapping to themselves
                 #  - the hidden nodes' biases
-                self.activations = self.activation(self.input_to_hidden.mm(inputs.t()).t() +
-                                                   self.hidden_to_hidden.mm(self.activations.t()).t() +
+                self.activations = self.activation(self.in2hid.mm(inputs.t()).t() +
+                                                   self.hid2hid.mm(self.activations.t()).t() +
                                                    self.hidden_biases)
-                output_inputs += self.hidden_to_output.mm(self.activations.t()).t()
+                output_inputs += self.hid2out.mm(self.activations.t()).t()
             
             # Define the values of the outputs, which is the sum of their received inputs and their corresponding bias
             self.outputs = self.activation(output_inputs + self.output_biases)
@@ -205,10 +206,10 @@ class FeedForwardNet:
         
         # Only feed-forward connections considered, these lists contain the connections and their weights respectively
         #  Note that the connections are index-based and not key-based!
-        input_to_hidden = ([], [])
-        hidden_to_hidden = ([], [])
-        input_to_output = ([], [])
-        hidden_to_output = ([], [])
+        in2hid = ([], [])
+        hid2hid = ([], [])
+        in2out = ([], [])
+        hid2out = ([], [])
         
         # Convert the key-based connections to index-based connections one by one, also save their weights
         for conn in genome.connections.values():
@@ -227,16 +228,17 @@ class FeedForwardNet:
             
             # Store
             if i_key in input_keys and o_key in hidden_keys:
-                idxs, vals = input_to_hidden
+                idxs, vals = in2hid
             elif i_key in hidden_keys and o_key in hidden_keys:
-                idxs, vals = hidden_to_hidden
+                idxs, vals = hid2hid
             elif i_key in input_keys and o_key in output_keys:
-                idxs, vals = input_to_output
+                idxs, vals = in2out
             elif i_key in hidden_keys and o_key in output_keys:
-                idxs, vals = hidden_to_output
+                idxs, vals = hid2out
             else:
                 # TODO: Delete! (used for debugging)
                 print(genome)
+                print(f"i_key: {i_key}, o_key: {o_key}")
                 print(f"i_key in input_keys: {i_key in input_keys}")
                 print(f"i_key in hidden_keys: {i_key in hidden_keys}")
                 print(f"i_key in output_keys: {i_key in output_keys}")
@@ -251,8 +253,8 @@ class FeedForwardNet:
         
         return FeedForwardNet(
                 n_inputs=n_inputs, n_hidden=n_hidden, n_outputs=n_outputs,
-                input_to_hidden=input_to_hidden, input_to_output=input_to_output,
-                hidden_to_hidden=hidden_to_hidden, hidden_to_output=hidden_to_output,
+                in2hid=in2hid, in2out=in2out,
+                hid2hid=hid2hid, hid2out=hid2out,
                 hidden_biases=hidden_biases, output_biases=output_biases,
                 batch_size=batch_size,
                 activation=activation,
