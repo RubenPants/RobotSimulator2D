@@ -11,7 +11,7 @@ from utils.dictionary import *
 class GameConfig:
     __slots__ = (
         "bot_driving_speed", "bot_radius", "bot_turning_speed",
-        "batch", "duration", "max_game_id", "max_eval_game_id", "time_all", "fps",
+        "batch", "duration", "max_game_id", "max_eval_game_id", "fps",
         "p2m", "x_axis", "y_axis",
         "noise_time", "noise_angle", "noise_distance", "noise_proximity",
         "sensor_ray_distance",
@@ -64,6 +64,12 @@ class GameConfig:
         # [TARGET]
         # Target is reached when within this range, expressed in meters [def=0.5]
         self.target_reached: float = 0.5
+    
+    def __str__(self):
+        result = "Game configuration:"
+        for k in self.__slots__:
+            result += f"\n\t- {k} = {self.__getattribute__(k)}"
+        return result
 
 
 class NeatConfig:
@@ -191,3 +197,9 @@ class NeatConfig:
         self.fitness_comb: str = D_GMEAN
         # Number of nearest neighbors taken into account for a NN-utilizing fitness function
         self.nn_k: int = 3
+    
+    def __str__(self):
+        result = "NEAT Configuration:"
+        for k, v in self.__dict__.items():
+            result += f"\n\t- {k} = {v}"
+        return result
