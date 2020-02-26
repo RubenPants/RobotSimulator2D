@@ -12,35 +12,12 @@
 #     See the License for the specific language governing permissions and
 #     limitations under the License.
 
-import numpy as np
 import torch
 
 from environment.entities.game import initial_sensor_readings
 from population.utils.network_util.activations import tanh_activation
 from population.utils.network_util.graphs import required_for_output
-
-
-# noinspection PyArgumentList
-def dense_from_coo(shape, conns, dtype=torch.float64):
-    """
-    Create a dense matrix based on the coordinates it will represent.
-    
-    :param shape: Tuple (output_size, input_size) ~ (nr_rows, nr_cols)
-    :param conns: The connections that are being represented by the matrix, these connections are index-based
-    :param dtype: Tensor type
-    :return: PyTorch tensor
-    """
-    # Initialize an empty matrix of correct shape
-    mat = torch.zeros(shape, dtype=dtype)
-    # Split the connections-tuple in its corresponding indices- and weight-lists
-    idxs, weights = conns
-    # If no indices (i.e. no connections), return the empty matrix
-    if len(idxs) == 0: return mat
-    # Split the idxs (e.g. [(A, B)]) to rows ([A]) and cols ([B])
-    rows, cols = np.array(idxs).transpose()
-    # Put the weights on the correct spots in the empty tensor
-    mat[torch.LongTensor(rows), torch.LongTensor(cols)] = torch.tensor(weights, dtype=dtype)
-    return mat
+from population.utils.network_util.shared import dense_from_coo
 
 
 class FeedForwardNet:
@@ -51,6 +28,7 @@ class FeedForwardNet:
                  hidden_biases, output_biases,
                  batch_size=1,
                  activation=tanh_activation,
+                 cold_start=False,
                  dtype=torch.float64,
                  ):
         """
@@ -65,6 +43,7 @@ class FeedForwardNet:
         :param hid2out: Connections from hidden nodes towards the outputs
         :param batch_size: Needed to setup network-dimensions
         :param activation: The default node-activation function (squishing)
+        :param cold_start: Do not initialize the network based on sensory inputs
         :param dtype: Value-type used in the tensors
         """
         # Storing the input arguments (needed later on)
@@ -75,8 +54,8 @@ class FeedForwardNet:
         self.n_outputs = n_outputs
         
         # Placeholders, initialized during reset
-        self.activations = None
-        self.outputs = None
+        self.hidden_act = None  # Activations of the hidden nodes
+        self.output_act = None  # Activations of the output nodes
         
         # Do not create the hidden-related matrices if hidden-nodes do not exist
         #  If they do not exist, a single matrix directly mapping inputs to outputs is only used
@@ -92,25 +71,31 @@ class FeedForwardNet:
         
         # Put network to initial (default) state
         self.initial_readings = initial_sensor_readings()
-        self.reset(batch_size)
+        self.reset(batch_size, cold_start=cold_start)
     
-    def reset(self, batch_size=1):
-        """Set the network back to initial state."""
+    def reset(self, batch_size=1, cold_start=False):
+        """
+        Set the network back to initial state.
+        
+        :param batch_size: Number of games ran in parallel
+        :param cold_start: Do not initialize the network based on sensory inputs
+        """
         # Reset the network back to zero inputs
-        self.activations = torch.zeros(batch_size, self.n_hidden, dtype=self.dtype) if self.n_hidden > 0 else None
-        self.outputs = torch.zeros(batch_size, self.n_outputs, dtype=self.dtype)
+        self.hidden_act = torch.zeros(batch_size, self.n_hidden, dtype=self.dtype) if self.n_hidden > 0 else None
+        self.output_act = torch.zeros(batch_size, self.n_outputs, dtype=self.dtype)
         
         # Initialize the network on maximum sensory inputs
-        for _ in range(self.n_hidden):
-            # Code below is straight up stolen from 'activate(self, inputs)'
-            with torch.no_grad():
-                inputs = torch.tensor([self.initial_readings] * batch_size, dtype=self.dtype)
-                output_inputs = self.in2out.mm(inputs.t()).t()
-                self.activations = self.activation(self.in2hid.mm(inputs.t()).t() +
-                                                   self.hid2hid.mm(self.activations.t()).t() +
-                                                   self.hidden_biases)
-                output_inputs += self.hid2out.mm(self.activations.t()).t()
-                self.outputs = self.activation(output_inputs + self.output_biases)
+        if not cold_start:
+            for _ in range(self.n_hidden):  # Worst case: path-length equals number of hidden nodes
+                # Code below is straight up stolen from 'activate(self, inputs)'
+                with torch.no_grad():
+                    inputs = torch.tensor([self.initial_readings] * batch_size, dtype=self.dtype)
+                    output_inputs = self.in2out.mm(inputs.t()).t()
+                    self.hidden_act = self.activation(self.in2hid.mm(inputs.t()).t() +
+                                                      self.hid2hid.mm(self.hidden_act.t()).t() +
+                                                      self.hidden_biases)
+                    output_inputs += self.hid2out.mm(self.hidden_act.t()).t()
+                    self.output_act = self.activation(output_inputs + self.output_biases)
     
     def activate(self, inputs):
         """
@@ -136,20 +121,21 @@ class FeedForwardNet:
                 #  - the inputs mapping to the hidden nodes
                 #  - the hidden nodes mapping to themselves
                 #  - the hidden nodes' biases
-                self.activations = self.activation(self.in2hid.mm(inputs.t()).t() +
-                                                   self.hid2hid.mm(self.activations.t()).t() +
-                                                   self.hidden_biases)
-                output_inputs += self.hid2out.mm(self.activations.t()).t()
+                self.hidden_act = self.activation(self.in2hid.mm(inputs.t()).t() +
+                                                  self.hid2hid.mm(self.hidden_act.t()).t() +
+                                                  self.hidden_biases)
+                output_inputs += self.hid2out.mm(self.hidden_act.t()).t()
             
             # Define the values of the outputs, which is the sum of their received inputs and their corresponding bias
-            self.outputs = self.activation(output_inputs + self.output_biases)
-        return self.outputs
+            self.output_act = self.activation(output_inputs + self.output_biases)
+        return self.output_act
     
     @staticmethod
     def create(genome,
                config,
-               batch_size=1,
                activation=tanh_activation,
+               batch_size=1,
+               cold_start=False,
                prune_empty=False,
                ):
         """
@@ -158,8 +144,9 @@ class FeedForwardNet:
         
         :param genome: The genome for which a network must be created
         :param config: Population config
-        :param batch_size: Batch-size needed to setup network dimension
         :param activation: Default activation
+        :param batch_size: Batch-size needed to setup network dimension
+        :param cold_start: Do not initialize the network based on sensory inputs
         :param prune_empty: Remove nodes that do not contribute to final result
         """
         global nonempty
@@ -236,7 +223,7 @@ class FeedForwardNet:
             elif i_key in hidden_keys and o_key in output_keys:
                 idxs, vals = hid2out
             else:
-                # TODO: Delete! (used for debugging)
+                # TODO: Delete prints! (used for debugging)
                 print(genome)
                 print(f"i_key: {i_key}, o_key: {o_key}")
                 print(f"i_key in input_keys: {i_key in input_keys}")
@@ -258,15 +245,17 @@ class FeedForwardNet:
                 hidden_biases=hidden_biases, output_biases=output_biases,
                 batch_size=batch_size,
                 activation=activation,
+                cold_start=cold_start,
         )
 
 
-def make_net(genome, config, bs=1):
+def make_net(genome, config, bs=1, cold_start=False):
     """
     Create the "brains" of the candidate, based on its genetic wiring.
 
     :param genome: Genome specifies the brains internals
     :param config: Configuration class
     :param bs: Batch size, which represents amount of games trained in parallel
+    :param cold_start: Do not initialize the network based on sensory inputs
     """
-    return FeedForwardNet.create(genome, config, bs)
+    return FeedForwardNet.create(genome, config, batch_size=bs, cold_start=cold_start)

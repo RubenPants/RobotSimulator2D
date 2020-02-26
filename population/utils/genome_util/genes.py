@@ -139,18 +139,21 @@ class GruNodeGene(BaseGene):
                         WeightAttribute('weight_ih'),
                         WeightAttribute('weight_hh')]
     
-    def __init__(self, key):
+    def __init__(self, key, input_keys):
         # Placeholders
         self.h_init = 0
+        self.hidden_size = 1  # TODO: Generalize such that output can be extended (i.e. vector with specific values for each output)
+        self.input_keys = input_keys
         self.weight_ih = None
         self.weight_hh = None
         self.bias_ih = None
         self.bias_hh = None
+        self.bias = 0  # No external bias applied
         assert isinstance(key, int), f"OutputNodeGene key must be an int, not {key!r}"
         BaseGene.__init__(self, key)
     
     def __str__(self):
-        attrib = ['key'] + [a.name for a in self._gene_attributes]
+        attrib = ['key', 'input_keys'] + [a.name for a in self._gene_attributes]
         body = []
         for a in attrib:
             attr = getattr(self, a)
@@ -161,8 +164,10 @@ class GruNodeGene(BaseGene):
         return f'{self.__class__.__name__}({", ".join(body)})'
     
     def init_attributes(self, config):
-        for a in self._gene_attributes:
-            setattr(self, a.name, a.init_value(config, 1, 1))  # TODO: setup hidden_size, input_size
+        setattr(self, 'bias_ih', self._gene_attributes[0].init_value(config, self.hidden_size))
+        setattr(self, 'bias_hh', self._gene_attributes[1].init_value(config, self.hidden_size))
+        setattr(self, 'weight_ih', self._gene_attributes[2].init_value(config, self.hidden_size, len(self.input_keys)))
+        setattr(self, 'weight_hh', self._gene_attributes[2].init_value(config, self.hidden_size, self.hidden_size))
 
 
 class DefaultConnectionGene(BaseGene):

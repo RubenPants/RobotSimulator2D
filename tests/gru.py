@@ -3,11 +3,14 @@ gru.py
 
 Test if the GruNodeGene is implemented correctly
 """
+import os
+
 import neat
 
 from configs.config import NeatConfig
+from population.population import query_net
 from population.utils.genome_util.genome import DefaultGenome
-from population.population import make_net, query_net
+from population.utils.network_util.recurrent_gru_net import make_net
 from population.utils.population_util.population_config import PopulationConfig
 from population.utils.population_util.reproduction import DefaultReproduction
 from population.utils.population_util.species import DefaultSpeciesSet
@@ -15,8 +18,8 @@ from population.utils.population_util.species import DefaultSpeciesSet
 cfg = NeatConfig()
 cfg.num_inputs = 1
 cfg.num_outputs = 1
-cfg.num_hidden = 0
-cfg.initial_connection = "full"
+cfg.num_hidden = 1
+cfg.initial_connection = "full_nodirect"  # input->hidden and hidden->output
 config = PopulationConfig(
         genome_type=DefaultGenome,
         reproduction_type=DefaultReproduction,
@@ -43,7 +46,7 @@ def create_simple_genome():
     g.nodes[0].bias = 0
     # Node 1: GRU
     GRU_KEY = 1
-    # g.nodes[GRU_KEY] = g.create_gru_node(genome_config, 1)
+    # g.nodes[GRU_KEY] = g.create_gru_node(genome_config, 1, [-1])
     # g.nodes[GRU_KEY].bias_ih[:] = torch.FloatTensor([0, 0, 0])
     # g.nodes[GRU_KEY].bias_hh[:] = torch.FloatTensor([0, 0, 0])
     # g.nodes[GRU_KEY].weight_ih[:] = torch.FloatTensor([[0], [0], [0]])
@@ -55,15 +58,14 @@ def create_simple_genome():
     return g
 
 
-genome = create_simple_genome()
-print(genome)
-# print(genome.input_keys)
-net = make_net(genome, config, 1)
-print(net)
-inp = query_net(net, [[0]])
-while inp == [[0.5]]:
+if __name__ == '__main__':
+    os.chdir("..")
+    genome = create_simple_genome()
+    print(genome)
+    # print(genome.input_keys)
+    net = make_net(genome, config, bs=1, cold_start=True)
+    print(net)
     inp = query_net(net, [[0]])
     print(inp)
-print(inp)
-# for _ in range(10):
-#     print(query_net(net, [[0]]))
+    # for _ in range(10):
+    #     print(query_net(net, [[0]]))

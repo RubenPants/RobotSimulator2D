@@ -121,8 +121,8 @@ class NeatConfig:
         self.num_hidden: int = 1
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
         self.num_outputs: int = 2
-        # Initial connectivity of newly-created genomes
-        self.initial_connection = D_PARTIAL_DIRECT_05
+        # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT_05]  TODO
+        self.initial_connection = D_FULL_DIRECT
         # Full weight of disjoint and excess nodes on determining genomic distance
         self.compatibility_disjoint_coefficient: float = 1.0
         # Only .6 weight of the connection-values on determining genomic distance

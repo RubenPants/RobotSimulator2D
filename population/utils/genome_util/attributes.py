@@ -177,7 +177,7 @@ class BiasAttribute(object):
         self.name = name
         self.fa = FloatAttribute("bias", **default_dict)  # Init FloatAttribute 'fa' to perform float calculations on
     
-    def init_value(self, config, hidden_size, _):
+    def init_value(self, config, hidden_size):
         """Create a vector with on each specified position a FloatAttribute."""
         tensor = torch.FloatTensor(np.zeros((3 * hidden_size,)))
         

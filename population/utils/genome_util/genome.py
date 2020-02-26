@@ -477,9 +477,9 @@ class DefaultGenome(object):
         return node
     
     @staticmethod
-    def create_gru_node(config, node_id):
-        node = config.gru_node_gene_type(node_id)
-        node.init_attributes(config)
+    def create_gru_node(config, node_id, input_keys):
+        node = config.gru_node_gene_type(node_id, input_keys)
+        node.init_attributes(config)  # TODO: Update such that input_size is given!
         return node
     
     @staticmethod
