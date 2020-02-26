@@ -139,12 +139,11 @@ class DefaultSpeciesSet(DefaultClassConfig):
             
             member_dict = dict((gid, population[gid]) for gid in members)
             s.update(population[rid], member_dict)
-        
         self.reporters.info(
                 f'Genetic distance:'
                 f'\n\t- Maximum: {max(itervalues(distances.distances)):.3f}'
                 f'\n\t- Mean: {mean(itervalues(distances.distances)):.3f}'
-                f'\n\t- Minimum: {min(itervalues(distances.distances)):.3f}'
+                f'\n\t- Minimum: {min([i for i in itervalues(distances.distances) if i != 0]):.3f}'
                 f'\n\t- Standard deviation: {stdev(itervalues(distances.distances)):.3f}'
         )
     

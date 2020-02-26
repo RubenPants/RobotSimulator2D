@@ -4,7 +4,7 @@ from population.population import Population
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument('--train', type=bool, default=False)
+    parser.add_argument('--train', type=bool, default=True)
     parser.add_argument('--iterations', type=int, default=10)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
@@ -73,5 +73,5 @@ if __name__ == '__main__':
         
         visualizer.visualize(
                 network=net,
-                game_id=0,
+                game_id=1,
         )

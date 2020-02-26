@@ -103,7 +103,7 @@ class FeedForwardNet:
         for _ in range(self.n_hidden):
             # Code below is straight up stolen from 'activate(self, inputs)'
             with torch.no_grad():
-                inputs = torch.tensor([self.initial_readings], dtype=self.dtype)
+                inputs = torch.tensor([self.initial_readings] * batch_size, dtype=self.dtype)
                 output_inputs = self.input_to_output.mm(inputs.t()).t()
                 self.activations = self.activation(self.input_to_hidden.mm(inputs.t()).t() +
                                                    self.hidden_to_hidden.mm(self.activations.t()).t() +
@@ -235,6 +235,14 @@ class FeedForwardNet:
             elif i_key in hidden_keys and o_key in output_keys:
                 idxs, vals = hidden_to_output
             else:
+                # TODO: Delete! (used for debugging)
+                print(genome)
+                print(f"i_key in input_keys: {i_key in input_keys}")
+                print(f"i_key in hidden_keys: {i_key in hidden_keys}")
+                print(f"i_key in output_keys: {i_key in output_keys}")
+                print(f"o_key in input_keys: {o_key in input_keys}")
+                print(f"o_key in hidden_keys: {o_key in hidden_keys}")
+                print(f"o_key in output_keys: {o_key in output_keys}")
                 raise ValueError(f'Invalid connection from key {i_key} to key {o_key}')
             
             # Append to the lists of the right tuple

@@ -10,8 +10,8 @@ def creates_cycle(connections, test):
     Returns true if the addition of the 'test' connection would create a cycle, assuming that no cycle already exists in
     the graph represented by 'connections'.
     
-    :param connections: List of connections  TODO: form?
-    :param test: Newly added connection  TODO: form?
+    :param connections: List of connections, with each connection a tuple of form (sender, receiver)
+    :param test: Newly added connection, represented by a tuple of form (sender, receiver)
     """
     i, o = test
     if i == o: return True

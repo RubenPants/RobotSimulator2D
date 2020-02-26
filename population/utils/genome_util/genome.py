@@ -324,11 +324,18 @@ class DefaultGenome(object):
         self.add_connection(config, i, new_node_id, 1.0, True)
         self.add_connection(config, new_node_id, o, conn_to_split.weight, True)
     
-    def add_connection(self, config, input_key, output_key, weight, enabled):
-        # TODO: Add further validation of this connection addition?
+    def add_connection(self,
+                       config: DefaultGenomeConfig,
+                       input_key: int,
+                       output_key: int,
+                       weight: float,
+                       enabled: bool,
+                       ):
+        """Add a connection to the genome."""
         assert isinstance(input_key, int)
         assert isinstance(output_key, int)
-        assert output_key >= 0
+        assert output_key >= 0  # output_key is not one of the inputs (sensor readings)
+        assert input_key not in config.output_keys
         assert isinstance(enabled, bool)
         key = (input_key, output_key)
         connection = config.connection_gene_type(key)
@@ -337,34 +344,28 @@ class DefaultGenome(object):
         connection.enabled = enabled
         self.connections[key] = connection
     
-    def mutate_add_connection(self, config):
+    def mutate_add_connection(self, config: DefaultGenomeConfig):
         """
-        Attempt to add a new connection, the only restriction being that the output
-        node cannot be one of the network input pins.
+        Attempt to add a new connection. A connection starts in the input_node and ends in the output_node.
+        The restrictions laid on the mutation are:
+         - An output of the network may never be an input_node (sending-end)
+         - An input of the network may never be an output_node (receiving-end)
         """
+        # List all the keys that are possible output nodes (i.e. all output and hidden nodes)
         possible_outputs = list(iterkeys(self.nodes))
         out_node = choice(possible_outputs)
         
-        possible_inputs = possible_outputs + config.input_keys
+        # List all the keys that are possible input-nodes (i.e. all input and hidden nodes)
+        possible_inputs = [i for i in possible_outputs + config.input_keys if i not in config.output_keys]
         in_node = choice(possible_inputs)
         
         # Don't duplicate connections.
         key = (in_node, out_node)
         if key in self.connections:
-            # TODO: Should this be using mutation to/from rates? Hairy to configure...
-            if config.check_structural_mutation_surer():
-                self.connections[key].enabled = True
+            if config.check_structural_mutation_surer(): self.connections[key].enabled = True
             return
         
-        # Don't allow connections between two output nodes
-        if in_node in config.output_keys and out_node in config.output_keys:
-            return
-        
-        # No need to check for connections between input nodes:
-        # they cannot be the output end of a connection (see above).
-        
-        # For feed-forward networks, avoid creating cycles.
-        # if config.feed_forward and creates_cycle(list(iterkeys(self.connections)), key):  TODO: Delete!
+        # Avoid creating cycles.
         if creates_cycle(list(iterkeys(self.connections)), key):
             return
         

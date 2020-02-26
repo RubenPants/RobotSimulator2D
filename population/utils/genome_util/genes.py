@@ -162,10 +162,7 @@ class GruNodeGene(BaseGene):
     
     def init_attributes(self, config):
         for a in self._gene_attributes:
-            if a.name == 'bias':
-                setattr(self, a.name, a.init_value(config))
-            else:
-                setattr(self, a.name, a.init_value(config, 1, 1))  # TODO: setup hidden_size, input_size
+            setattr(self, a.name, a.init_value(config, 1, 1))  # TODO: setup hidden_size, input_size
 
 
 class DefaultConnectionGene(BaseGene):
