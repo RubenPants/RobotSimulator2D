@@ -140,9 +140,10 @@ class GruNodeGene(BaseGene):
                         WeightAttribute('weight_ih'),
                         WeightAttribute('weight_hh')]
     
-    def __init__(self, key):
+    def __init__(self, key, input_size=1):
         # Placeholders
         self.h_init = 0
+        self.input_size = input_size  # Initial input-size equals 1 (added on top of connection)
         self.hidden_size = 1  # TODO: Generalize such that output can be extended (i.e. vector with specific values for each output)
         self.weight_ih = None
         self.weight_hh = None
@@ -153,7 +154,7 @@ class GruNodeGene(BaseGene):
         BaseGene.__init__(self, key)
     
     def __str__(self):
-        attrib = ['key', 'input_keys'] + [a.name for a in self._gene_attributes]
+        attrib = ['key'] + [a.name for a in self._gene_attributes]
         body = []
         for a in attrib:
             attr = getattr(self, a)
@@ -167,8 +168,18 @@ class GruNodeGene(BaseGene):
         setattr(self, 'bias_ih', self._gene_attributes[0].init_value(config, self.hidden_size))
         setattr(self, 'bias_hh', self._gene_attributes[1].init_value(config, self.hidden_size))
         # By default will the initial input_size=1 (i.e. node added on top of one connection)
-        setattr(self, 'weight_ih', self._gene_attributes[2].init_value(config, self.hidden_size, 1))
+        setattr(self, 'weight_ih', self._gene_attributes[2].init_value(config, self.hidden_size, self.input_size))
         setattr(self, 'weight_hh', self._gene_attributes[2].init_value(config, self.hidden_size, self.hidden_size))
+    
+    def get_gru(self):
+        """Return a PyTorch GRUCell based on current configuration."""
+        gru = torch.nn.GRUCell(input_size=self.input_size, hidden_size=self.hidden_size)
+        gru.weight_ih[:] = self.weight_ih
+        gru.weight_hh[:] = self.weight_hh
+        gru.bias_ih[:] = self.bias_ih
+        gru.bias_hh[:] = self.bias_hh
+        gru.shape = (self.input_size, self.hidden_size)
+        return gru
 
 
 class DefaultConnectionGene(BaseGene):

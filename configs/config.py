@@ -28,8 +28,8 @@ class GameConfig:
         self.bot_turning_speed: float = 13 * np.pi / 16
         
         # [CONTROL]
-        # Number of games on which a single genome is evaluated [def=8]
-        self.batch: int = 8
+        # Number of games on which a single genome is evaluated [def=8]  TODO: move out of game config!
+        self.batch: int = 4
         # Number of seconds it takes for one game to complete [def=50]
         self.duration: int = 50
         # Max ID of game (starting from 1) [def=1000]
@@ -203,7 +203,7 @@ class NeatConfig:
         # Enable the genomes to mutate GRU nodes  [def=True]
         self.enable_gru: bool = True
         # Mutation probability of mutating a GRU node rather than a simple node  [def=0.4]
-        self.gru_mutate_rate: float = 0.4
+        self.gru_mutate_rate: float = 1
     
     def __str__(self):
         result = "NEAT Configuration:"

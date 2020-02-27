@@ -592,7 +592,7 @@ if __name__ == '__main__':
     Create game, option to choose from custom or auto-generated.
     """
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument('--custom', type=bool, default=True)
+    parser.add_argument('--custom', type=bool, default=False)
     parser.add_argument('--overwrite', type=bool, default=True)
     parser.add_argument('--nr_games', type=int, default=None)
     parser.add_argument('--visualize', type=bool, default=False)
@@ -611,7 +611,7 @@ if __name__ == '__main__':
     if args.custom:
         create_custom_game(cfg=config, overwrite=args.overwrite)
     else:
-        for g_id in tqdm(range(1, nr_games + 1), desc="Generating Mazes"):
+        for g_id in [584]:#tqdm(range(1, nr_games + 1), desc="Generating Mazes"):
             maze = None
             while not maze:
                 try:
