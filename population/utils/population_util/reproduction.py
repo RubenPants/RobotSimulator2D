@@ -1,8 +1,6 @@
 """
 reproduction.py
 
-% TODO: Remove (a)sexual reproduction
-
 Handles creation of genomes, either from scratch or by sexual or asexual reproduction from parents.
 """
 from __future__ import division
@@ -15,11 +13,8 @@ from neat.config import ConfigParameter, DefaultClassConfig
 from neat.math_util import mean
 from neat.six_util import iteritems, itervalues
 
+from population.utils.genome_util.genome import DefaultGenome
 
-# TODO: Provide some sort of optional cross-species performance criteria, which
-# are then used to control stagnation and possibly the mutation rate
-# configuration. This scheme should be adaptive so that species do not evolve
-# to become "cautious" and only make very slow progress.
 
 class DefaultReproduction(DefaultClassConfig):
     """
@@ -35,7 +30,6 @@ class DefaultReproduction(DefaultClassConfig):
                                    ConfigParameter('min_species_size', int, 2)])
     
     def __init__(self, config, reporters, stagnation):
-        # pylint: disable=super-init-not-called
         self.reproduction_config = config
         self.reporters = reporters
         self.genome_indexer = count(1)
@@ -73,30 +67,26 @@ class DefaultReproduction(DefaultClassConfig):
                 spawn += 1
             elif d < 0:
                 spawn -= 1
-            
             spawn_amounts.append(spawn)
         
-        # Normalize the spawn amounts so that the next generation is roughly
-        # the population size requested by the user.
+        # Normalize the spawn amounts so that the next generation is roughly the population size requested by the user.
         total_spawn = sum(spawn_amounts)
         norm = pop_size / total_spawn
         spawn_amounts = [max(min_species_size, int(round(n * norm))) for n in spawn_amounts]
         
         return spawn_amounts
     
-    def reproduce(self, config, species, pop_size, generation):
+    def reproduce(self, config, species, pop_size, generation, sexual=True):
         """
-        Handles creation of genomes, either from scratch or by sexual or
-        asexual reproduction from parents.
+        Handles creation of genomes, either from scratch or by sexual or asexual reproduction from parents.
         """
         # TODO: I don't like this modification of the species and stagnation objects, because it requires internal
         #  knowledge of the objects.
         
-        # Filter out stagnated species, collect the set of non-stagnated
-        # species members, and compute their average adjusted fitness.
-        # The average adjusted fitness scheme (normalized to the interval
-        # [0, 1]) allows the use of negative fitness values without
-        # interfering with the shared fitness scheme.
+        # Filter out stagnated species, collect the set of non-stagnated species members, and compute their average
+        # adjusted fitness. The average adjusted fitness scheme (normalized to the interval [0, 1]) allows the use of
+        # negative fitness values without interfering with the shared fitness scheme.
+        # Note: only fitness of non-stagnated species are determined.
         all_fitnesses = []
         remaining_species = []
         for stag_sid, stag_s, stagnant in self.stagnation.update(species, generation):
@@ -105,19 +95,18 @@ class DefaultReproduction(DefaultClassConfig):
             else:
                 all_fitnesses.extend(m.fitness for m in itervalues(stag_s.members))
                 remaining_species.append(stag_s)
-        # The above comment was not quite what was happening - now getting fitnesses
-        # only from members of non-stagnated species.
         
         # No species left.
         if not remaining_species:
             species.species = {}
-            return {}  # was []
+            return {}
         
         # Find minimum/maximum fitness across the entire population, for use in species adjusted fitness computation.
         min_fitness = min(all_fitnesses)
         max_fitness = max(all_fitnesses)
+        
         # Do not allow the fitness range to be zero, as we divide by it below.
-        fitness_range = max(1.0, max_fitness - min_fitness)  # TODO: `1.0` is rather arbitrary, should be configurable.
+        fitness_range = max(1.0, max_fitness - min_fitness)
         for afs in remaining_species:
             # Compute adjusted fitness, which is the average fitness of a specie divided by the number of candidates
             # present in this specie.
@@ -126,14 +115,15 @@ class DefaultReproduction(DefaultClassConfig):
         
         adjusted_fitnesses = [s.adjusted_fitness for s in remaining_species]
         avg_adjusted_fitness = mean(adjusted_fitnesses)  # type: float
-        self.reporters.info("Average adjusted fitness: {:.3f}".format(avg_adjusted_fitness))
+        self.reporters.info(f"Average adjusted fitness: {avg_adjusted_fitness:.3f}")
         
         # Compute the number of new members for each species in the new generation.
         previous_sizes = [len(s.members) for s in remaining_species]
         min_species_size = self.reproduction_config.min_species_size
-        # Isn't the effective min_species_size going to be max(min_species_size,
-        # self.reproduction_config.elitism)? That would probably produce more accurate tracking
-        # of population sizes and relative fitnesses... doing. TODO: document.
+        
+        # Isn't the effective min_species_size going to be max(min_species_size, self.reproduction_config.elitism)?
+        # That would probably produce more accurate tracking of population sizes and relative fitnesses... doing.
+        # TODO: document.
         min_species_size = max(min_species_size, self.reproduction_config.elitism)
         spawn_amounts = self.compute_spawn(adjusted_fitnesses, previous_sizes, pop_size, min_species_size)
         
@@ -163,6 +153,7 @@ class DefaultReproduction(DefaultClassConfig):
             
             # Only use the survival threshold fraction to use as parents for the next generation.
             repro_cutoff = int(math.ceil(self.reproduction_config.survival_threshold * len(old_members)))
+            
             # Use at least two parents no matter what the threshold fraction result is.
             repro_cutoff = max(repro_cutoff, 2)
             old_members = old_members[:repro_cutoff]
@@ -171,15 +162,24 @@ class DefaultReproduction(DefaultClassConfig):
             while spawn > 0:
                 spawn -= 1
                 
-                parent1_id, parent1 = random.choice(old_members)
-                parent2_id, parent2 = random.choice(old_members)
+                # Choose the parents
+                if sexual:
+                    parent1_id, parent1 = random.choice(old_members)
+                    parent2_id, parent2 = random.choice(old_members)
+                else:
+                    parent1_id, parent1 = random.choice(old_members)
+                    parent2_id, parent2 = None, None
                 
-                # Note that if the parents are not distinct, crossover will produce a
-                # genetically identical clone of the parent (but with a different ID).
+                # Note that if the parents are not distinct, crossover will produce a genetically identical clone of
+                # the parent (but with a different ID).
                 gid = next(self.genome_indexer)
-                child = config.genome_type(gid)
-                child.configure_crossover(parent1, parent2, config.genome_config)
-                child.mutate(config.genome_config)  # TODO: Add option to only remain mutation
+                child: DefaultGenome = config.genome_type(gid)
+                if sexual:
+                    child.configure_crossover(parent1, parent2)
+                else:
+                    child.connections = parent1.connections.copy()
+                    child.nodes = parent1.nodes.copy()
+                child.mutate(config.genome_config)
                 new_population[gid] = child
                 self.ancestors[gid] = (parent1_id, parent2_id)
         

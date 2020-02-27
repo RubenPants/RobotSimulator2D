@@ -97,3 +97,6 @@ D_X_AXIS = 'x_axis'
 
 # Y
 D_Y_AXIS = 'y_axis'
+
+# List of dictionary-words
+D_FIT_OPTIONS = [D_DISTANCE, D_DISTANCE_TIME, D_NOVELTY, D_PATH, D_PATH_TIME]

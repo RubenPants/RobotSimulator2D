@@ -181,7 +181,7 @@ class DefaultConnectionGene(BaseGene):
         self.enabled = None
         self.weight = None
         
-        assert isinstance(key, tuple), "DefaultConnectionGene key must be a tuple, not {!r}".format(key)
+        assert isinstance(key, tuple), f"DefaultConnectionGene key must be a tuple, not {key!r}"
         BaseGene.__init__(self, key)
     
     def distance(self, other, config):

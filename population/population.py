@@ -46,22 +46,25 @@ class Population:
     def __init__(self,
                  name: str = "",
                  version: int = 0,
+                 config: NeatConfig = None,
                  make_net_method=make_net,
-                 query_net_method=query_net):
+                 query_net_method=query_net,
+                 ):
         """
         The population will be concerned about everything directly and solely related to the population. These are
         reporters, persisting methods, evolution and more.
         
         :param name: Name of population, used when specific population must be summon
         :param version: Version of the population, 0 if not versioned
+        :param config: NeatConfig object
         :param make_net_method: Method used to create a network based on a given genome
         :param query_net_method: Method used to query the action on the network, given a current state
         """
         # Set formal properties of the population
+        cfg = NeatConfig() if not config else config
         if name:
             self.name = name
         else:
-            cfg = NeatConfig()
             self.name = f"{cfg.fitness}{f'_{version}' if version else ''}"
         
         # Placeholders
@@ -80,22 +83,22 @@ class Population:
         # Try to load the population, create new if not possible
         if not self.load():
             assert (make_net_method is not None) and (query_net_method is not None)  # net-methods must be provided
-            self.create_population(make_net_method=make_net_method, query_net_method=query_net_method)
+            self.create_population(cfg=cfg, make_net_method=make_net_method, query_net_method=query_net_method)
     
     def __str__(self):
         return self.name
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     
-    def create_population(self, make_net_method, query_net_method):
+    def create_population(self, cfg, make_net_method, query_net_method):
         """
         Create a new population based on the given config file.
         
+        :param cfg: NeatConfig object
         :param make_net_method: Method used to create the genome-specific network
         :param query_net_method: Method used to query actions of the genome-specific network
         """
         # Init the population's configuration
-        cfg = NeatConfig()
         config = PopulationConfig(
                 genome_type=DefaultGenome,
                 reproduction_type=DefaultReproduction,
@@ -154,7 +157,13 @@ class Population:
         This method manipulates the population itself, so nothing has to be returned
         """
         # Create the next generation from the current generation
-        self.population = self.reproduction.reproduce(self.config, self.species, self.config.pop_size, self.generation)
+        self.population = self.reproduction.reproduce(
+                config=self.config,
+                species=self.species,
+                pop_size=self.config.pop_size,
+                generation=self.generation,
+                sexual=False,  # TODO: Crossover has been disabled!
+        )
         
         # Check for complete extinction
         if not self.species.species:
