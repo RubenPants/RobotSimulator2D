@@ -5,9 +5,10 @@ Divides the population into species based on genomic distances.
 """
 from itertools import count
 
-from neat.config import ConfigParameter, DefaultClassConfig
 from neat.math_util import mean, stdev
 from neat.six_util import iteritems, iterkeys, itervalues
+
+from population.utils.config.default_config import ConfigParameter, DefaultClassConfig
 
 
 class Species(object):

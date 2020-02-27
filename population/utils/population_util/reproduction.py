@@ -9,10 +9,10 @@ import math
 import random
 from itertools import count
 
-from neat.config import ConfigParameter, DefaultClassConfig
 from neat.math_util import mean
 from neat.six_util import iteritems, itervalues
 
+from population.utils.config.default_config import ConfigParameter, DefaultClassConfig
 from population.utils.genome_util.genome import DefaultGenome
 
 

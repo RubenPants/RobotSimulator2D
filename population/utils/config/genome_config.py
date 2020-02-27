@@ -86,6 +86,18 @@ class DefaultGenomeConfig(object):
         
         self.node_indexer = None
     
+    def __str__(self):
+        """Readable format of the genome configuration."""
+        attrib = [a.name for a in self._params]
+        result = "Default genome configuration:"
+        for a in attrib:
+            attr = getattr(self, a)
+            if isinstance(attr, float):
+                result += f"\n\t- {a} = {round(attr, 3)}"
+            else:
+                result += f"\n\t- {a} = {attr}"
+        return result
+    
     def add_activation(self, name, func):
         self.activation_defs.add(name, func)
     

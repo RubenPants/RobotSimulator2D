@@ -13,7 +13,7 @@ from random import choice, random, shuffle
 from neat.six_util import iteritems, iterkeys
 
 from population.utils.genome_util.genes import DefaultConnectionGene, DefaultNodeGene, GruNodeGene, OutputNodeGene
-from population.utils.genome_util.genome_config import DefaultGenomeConfig
+from population.utils.config.genome_config import DefaultGenomeConfig
 from population.utils.network_util.graphs import creates_cycle
 
 

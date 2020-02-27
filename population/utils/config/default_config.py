@@ -11,6 +11,7 @@ import warnings
 from neat.six_util import iterkeys
 
 from configs.config import NeatConfig
+from population.utils.config.genome_config import DefaultGenomeConfig
 from utils.dictionary import D_ENABLE_GRU
 
 
@@ -23,28 +24,18 @@ class ConfigParameter(object):
         self.default = default
     
     def __repr__(self):
-        if self.default is None:
-            return "ConfigParameter({!r}, {!r})".format(self.name,
-                                                        self.value_type)
-        return "ConfigParameter({!r}, {!r}, {!r})".format(self.name,
-                                                          self.value_type,
-                                                          self.default)
+        if self.default is None: return f"ConfigParameter({self.name!r}, {self.value_type!r})"
+        return f"ConfigParameter({self.name!r}, {self.value_type!r}, {self.default!r})"
     
     def parse(self, section, config_parser):
-        if int == self.value_type:
-            return config_parser.getint(section, self.name)
-        if bool == self.value_type:
-            return config_parser.getboolean(section, self.name)
-        if float == self.value_type:
-            return config_parser.getfloat(section, self.name)
+        if int == self.value_type: return config_parser.getint(section, self.name)
+        if bool == self.value_type: return config_parser.getboolean(section, self.name)
+        if float == self.value_type: return config_parser.getfloat(section, self.name)
         if list == self.value_type:
             v = config_parser.get(section, self.name)
             return v.split(" ")
-        if str == self.value_type:
-            return config_parser.get(section, self.name)
-        
-        raise RuntimeError("Unexpected configuration type: "
-                           + repr(self.value_type))
+        if str == self.value_type: return config_parser.get(section, self.name)
+        raise RuntimeError(f"Unexpected configuration type: {repr(self.value_type)}")
     
     def interpret(self, config_dict):
         """
@@ -54,20 +45,17 @@ class ConfigParameter(object):
         value = config_dict.get(self.name)
         if value is None:
             if self.default is None:
-                raise RuntimeError('Missing configuration item: ' + self.name)
+                raise RuntimeError(f'Missing configuration item: {self.name}')
             else:
-                warnings.warn("Using default {!r} for '{!s}'".format(self.default, self.name),
-                              DeprecationWarning)
+                warnings.warn(f"Using default {self.default!r} for '{self.name!s}'", DeprecationWarning)
                 if (str != self.value_type) and isinstance(self.default, self.value_type):
                     return self.default
                 else:
                     value = self.default
         
         try:
-            if str == self.value_type:
-                return str(value)
-            if int == self.value_type:
-                return int(value)
+            if str == self.value_type: return str(value)
+            if int == self.value_type: return int(value)
             if bool == self.value_type:
                 if value.lower() == "true":
                     return True
@@ -75,19 +63,15 @@ class ConfigParameter(object):
                     return False
                 else:
                     raise RuntimeError(self.name + " must be True or False")
-            if float == self.value_type:
-                return float(value)
-            if list == self.value_type:
-                return value.split(" ")
+            if float == self.value_type: return float(value)
+            if list == self.value_type: return value.split(" ")
         except Exception:
-            raise RuntimeError("Error interpreting config item '{}' with value {!r} and type {}".format(
-                    self.name, value, self.value_type))
-        
-        raise RuntimeError("Unexpected configuration type: " + repr(self.value_type))
+            raise RuntimeError(
+                    f"Error interpreting config '{self.name}' with value {value!r} and type {self.value_type}")
+        raise RuntimeError(f"Unexpected configuration type: {repr(self.value_type)}")
     
     def format(self, value):
-        if list == self.value_type:
-            return " ".join(value)
+        if list == self.value_type: return " ".join(value)
         return str(value)
 
 
@@ -122,17 +106,27 @@ class DefaultClassConfig(object):
         unknown_list = [x for x in iterkeys(param_dict) if not x in param_list_names]
         if unknown_list:
             if len(unknown_list) > 1:
-                raise UnknownConfigItemError("Unknown configuration items:\n" +
-                                             "\n\t".join(unknown_list))
+                raise UnknownConfigItemError("Unknown configuration items:\n" + "\n\t".join(unknown_list))
             raise UnknownConfigItemError("Unknown configuration item {!s}".format(unknown_list[0]))
+    
+    def __str__(self, name=''):
+        """Readable format for the configuration."""
+        attrib = [a.name for a in self._params]
+        result = f"Default {name + ' ' if name else ''}configuration:"
+        for a in attrib:
+            attr = getattr(self, a)
+            if isinstance(attr, float):
+                result += f"\n\t- {a} = {round(attr, 3)}"
+            else:
+                result += f"\n\t- {a} = {attr}"
+        return result
     
     @classmethod
     def write_config(cls, f, config):
-        # pylint: disable=protected-access
         write_pretty_params(f, config, config._params)
 
 
-class PopulationConfig(object):
+class Config(object):
     """A simple container for user-configurable parameters of NEAT."""
     
     __params = [ConfigParameter('pop_size', int),
@@ -171,19 +165,36 @@ class PopulationConfig(object):
         #  - Initialize the needed entities
         genome_params = self.config.__annotations__[genome_type.__name__] + [D_ENABLE_GRU]
         genome_dict = {k: str(v) for k, v in self.config.__dict__.items() if k in genome_params}
-        self.genome_config = genome_type.parse_config(genome_dict)
+        self.genome_config: DefaultGenomeConfig = genome_type.parse_config(genome_dict)
         
         specie_params = self.config.__annotations__[species_set_type.__name__]
         species_set_dict = {k: str(v) for k, v in self.config.__dict__.items() if k in specie_params}
-        self.species_set_config = species_set_type.parse_config(species_set_dict)
+        self.species_set_config: DefaultClassConfig = species_set_type.parse_config(species_set_dict)
         
         stagnation_params = self.config.__annotations__[stagnation_type.__name__]
         stagnation_dict = {k: str(v) for k, v in self.config.__dict__.items() if k in stagnation_params}
-        self.stagnation_config = stagnation_type.parse_config(stagnation_dict)
+        self.stagnation_config: DefaultClassConfig = stagnation_type.parse_config(stagnation_dict)
         
         reproduction_params = self.config.__annotations__[reproduction_type.__name__]
         reproduction_dict = {k: str(v) for k, v in self.config.__dict__.items() if k in reproduction_params}
-        self.reproduction_config = reproduction_type.parse_config(reproduction_dict)
+        self.reproduction_config: DefaultClassConfig = reproduction_type.parse_config(reproduction_dict)
+    
+    def __str__(self):
+        """Readable configuration file."""
+        result = "Population configuration:"
+        # Add genome configuration
+        result += "\n\t"
+        result += str(self.genome_config).replace("\t", "\t\t")
+        # Add specie configuration
+        result += "\n\n\t"
+        result += self.species_set_config.__str__(name='species').replace("\t", "\t\t")
+        # Add stagnation configuration
+        result += "\n\n\t"
+        result += self.stagnation_config.__str__(name='stagnation').replace("\t", "\t\t")
+        # Add reproduction configuration
+        result += "\n\n\t"
+        result += self.reproduction_config.__str__(name='reproduction').replace("\t", "\t\t")
+        return result
     
     def save(self, filename):
         with open(filename, 'w') as f:
