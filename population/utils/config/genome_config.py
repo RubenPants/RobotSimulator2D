@@ -21,8 +21,19 @@ class DefaultGenomeConfig(object):
                             'partial_nodirect', 'partial', 'partial_direct']
     
     def __init__(self, params):
-        self.num_outputs = None  # Placeholder
-        self.num_inputs = None  # Placeholder
+        # Placeholders
+        self.num_inputs: int = None
+        self.num_hidden: int = None
+        self.num_outputs: int = None
+        self.compatibility_disjoint_coefficient: float = None
+        self.compatibility_weight_coefficient: float = None
+        self.conn_add_prob: float = None
+        self.conn_delete_prob: float = None
+        self.node_add_prob: float = None
+        self.node_delete_prob: float = None
+        self.enable_gru: bool = None
+        self.gru_mutate_rate: float = None
+        
         # Create full set of available activation functions.
         self.activation_defs = ActivationFunctionSet()
         # ditto for aggregation functions - name difference for backward compatibility
@@ -31,8 +42,8 @@ class DefaultGenomeConfig(object):
         
         self._params = [
             ConfigParameter('num_inputs', int),
-            ConfigParameter('num_outputs', int),
             ConfigParameter('num_hidden', int),
+            ConfigParameter('num_outputs', int),
             ConfigParameter('compatibility_disjoint_coefficient', float),
             ConfigParameter('compatibility_weight_coefficient', float),
             ConfigParameter('conn_add_prob', float),
@@ -41,7 +52,8 @@ class DefaultGenomeConfig(object):
             ConfigParameter('node_delete_prob', float),
             ConfigParameter('structural_mutation_surer', str, 'default'),
             ConfigParameter('initial_connection', str, 'unconnected'),
-            ConfigParameter('enable_gru', bool)
+            ConfigParameter('enable_gru', bool),
+            ConfigParameter('gru_mutate_rate', float),
         ]
         
         # Gather configuration data from the gene classes.

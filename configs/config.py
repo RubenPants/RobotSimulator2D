@@ -202,6 +202,8 @@ class NeatConfig:
         # [GRU]
         # Enable the genomes to mutate GRU nodes  [def=True]
         self.enable_gru: bool = True
+        # Mutation probability of mutating a GRU node rather than a simple node  [def=0.4]
+        self.gru_mutate_rate: float = 0.4
     
     def __str__(self):
         result = "NEAT Configuration:"

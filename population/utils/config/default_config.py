@@ -163,7 +163,7 @@ class Config(object):
         #  - Filter out the wanted parameters from the configs
         #  - Create a dictionary mapping the wanted parameters to their values (str format)
         #  - Initialize the needed entities
-        genome_params = self.config.__annotations__[genome_type.__name__] + [D_ENABLE_GRU]
+        genome_params = self.config.__annotations__[genome_type.__name__] + [D_ENABLE_GRU, D_GRU_MUT]
         genome_dict = {k: str(v) for k, v in self.config.__dict__.items() if k in genome_params}
         self.genome_config: DefaultGenomeConfig = genome_type.parse_config(genome_dict)
         

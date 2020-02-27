@@ -46,6 +46,7 @@ D_GEN_ID = 'generation_id'
 D_GEN_NR = 'generation_number'
 D_GMEAN = 'gmean'
 D_GRU = 'gru'
+D_GRU_MUT = 'gru_mutate_rate'
 
 # K
 D_K = 'k'
