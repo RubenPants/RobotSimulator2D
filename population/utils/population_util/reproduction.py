@@ -1,8 +1,6 @@
 """
 reproduction.py
 
-% TODO: Remove (a)sexual reproduction
-
 Handles creation of genomes, either from scratch or by sexual or asexual reproduction from parents.
 """
 from __future__ import division
@@ -172,8 +170,8 @@ class DefaultReproduction(DefaultClassConfig):
                     parent1_id, parent1 = random.choice(old_members)
                     parent2_id, parent2 = None, None
                 
-                # Note that if the parents are not distinct, crossover will produce a
-                # genetically identical clone of the parent (but with a different ID).
+                # Note that if the parents are not distinct, crossover will produce a genetically identical clone of
+                # the parent (but with a different ID).
                 gid = next(self.genome_indexer)
                 child: DefaultGenome = config.genome_type(gid)
                 if sexual:
@@ -181,7 +179,7 @@ class DefaultReproduction(DefaultClassConfig):
                 else:
                     child.connections = parent1.connections.copy()
                     child.nodes = parent1.nodes.copy()
-                child.mutate(config.genome_config)  # TODO: Add option to only remain mutation
+                child.mutate(config.genome_config)
                 new_population[gid] = child
                 self.ancestors[gid] = (parent1_id, parent2_id)
         
