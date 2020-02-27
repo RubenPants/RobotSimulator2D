@@ -269,7 +269,7 @@ class DefaultGenome(object):
     def mutate_delete_connection(self):
         if self.connections:
             key = choice(list(self.connections.keys()))
-            if type(self.nodes[key[1]] == GruNodeGene):
+            if type(self.nodes[key[1]]) == GruNodeGene:
                 gru: GruNodeGene = self.nodes[key[1]]
                 gru.delete_key(k=key[0])
             del self.connections[key]
@@ -370,7 +370,7 @@ class DefaultGenome(object):
                           output_id: int):
         connection = config.connection_gene_type((input_id, output_id))
         connection.init_attributes(config)
-        if type(self.nodes[connection.key[1]] == GruNodeGene):
+        if type(self.nodes[connection.key[1]]) == GruNodeGene:
             gru: GruNodeGene = self.nodes[connection.key[1]]
             gru.append_key(config, k=connection.key[0])
         return connection
