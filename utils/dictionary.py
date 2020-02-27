@@ -28,6 +28,9 @@ D_DISTANCE_TIME = 'distance_time'
 D_DONE = 'done'
 D_DURATION = 'duration'
 
+# E
+D_ENABLE_GRU = 'enable_gru'
+
 # F
 D_FIT_COMB = 'fitness_combination'
 D_FIT_DISTANCE = 'fit_distance'
@@ -42,6 +45,7 @@ D_GAME_ID = 'game_id'
 D_GEN_ID = 'generation_id'
 D_GEN_NR = 'generation_number'
 D_GMEAN = 'gmean'
+D_GRU = 'gru'
 
 # K
 D_K = 'k'

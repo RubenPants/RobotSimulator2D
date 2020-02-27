@@ -11,6 +11,7 @@ import warnings
 from neat.six_util import iterkeys
 
 from configs.config import NeatConfig
+from utils.dictionary import D_ENABLE_GRU
 
 
 class ConfigParameter(object):
@@ -164,21 +165,24 @@ class PopulationConfig(object):
             setattr(self, p.name, self.config.__dict__[p.name])
             param_list_names.append(p.name)
         
-        # Parse type sections.
-        genome_dict = {k: str(v) for k, v in self.config.__dict__.items() if
-                       k in self.config.__annotations__[genome_type.__name__]}
+        # Parse type sections:
+        #  - Filter out the wanted parameters from the configs
+        #  - Create a dictionary mapping the wanted parameters to their values (str format)
+        #  - Initialize the needed entities
+        genome_params = self.config.__annotations__[genome_type.__name__] + [D_ENABLE_GRU]
+        genome_dict = {k: str(v) for k, v in self.config.__dict__.items() if k in genome_params}
         self.genome_config = genome_type.parse_config(genome_dict)
         
-        species_set_dict = {k: str(v) for k, v in self.config.__dict__.items() if
-                            k in self.config.__annotations__[species_set_type.__name__]}
+        specie_params = self.config.__annotations__[species_set_type.__name__]
+        species_set_dict = {k: str(v) for k, v in self.config.__dict__.items() if k in specie_params}
         self.species_set_config = species_set_type.parse_config(species_set_dict)
         
-        stagnation_dict = {k: str(v) for k, v in self.config.__dict__.items() if
-                           k in self.config.__annotations__[stagnation_type.__name__]}
+        stagnation_params = self.config.__annotations__[stagnation_type.__name__]
+        stagnation_dict = {k: str(v) for k, v in self.config.__dict__.items() if k in stagnation_params}
         self.stagnation_config = stagnation_type.parse_config(stagnation_dict)
         
-        reproduction_dict = {k: str(v) for k, v in self.config.__dict__.items() if
-                             k in self.config.__annotations__[reproduction_type.__name__]}
+        reproduction_params = self.config.__annotations__[reproduction_type.__name__]
+        reproduction_dict = {k: str(v) for k, v in self.config.__dict__.items() if k in reproduction_params}
         self.reproduction_config = reproduction_type.parse_config(reproduction_dict)
     
     def save(self, filename):

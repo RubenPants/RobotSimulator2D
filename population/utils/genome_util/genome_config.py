@@ -29,23 +29,28 @@ class DefaultGenomeConfig(object):
         self.aggregation_function_defs = AggregationFunctionSet()
         self.aggregation_defs = self.aggregation_function_defs
         
-        self._params = [ConfigParameter('num_inputs', int),
-                        ConfigParameter('num_outputs', int),
-                        ConfigParameter('num_hidden', int),
-                        ConfigParameter('compatibility_disjoint_coefficient', float),
-                        ConfigParameter('compatibility_weight_coefficient', float),
-                        ConfigParameter('conn_add_prob', float),
-                        ConfigParameter('conn_delete_prob', float),
-                        ConfigParameter('node_add_prob', float),
-                        ConfigParameter('node_delete_prob', float),
-                        ConfigParameter('structural_mutation_surer', str, 'default'),
-                        ConfigParameter('initial_connection', str, 'unconnected')]
+        self._params = [
+            ConfigParameter('num_inputs', int),
+            ConfigParameter('num_outputs', int),
+            ConfigParameter('num_hidden', int),
+            ConfigParameter('compatibility_disjoint_coefficient', float),
+            ConfigParameter('compatibility_weight_coefficient', float),
+            ConfigParameter('conn_add_prob', float),
+            ConfigParameter('conn_delete_prob', float),
+            ConfigParameter('node_add_prob', float),
+            ConfigParameter('node_delete_prob', float),
+            ConfigParameter('structural_mutation_surer', str, 'default'),
+            ConfigParameter('initial_connection', str, 'unconnected'),
+            ConfigParameter('enable_gru', bool)
+        ]
         
         # Gather configuration data from the gene classes.
         self.node_gene_type = params['node_gene_type']
-        self.output_node_gene_type = params['output_node_gene_type']
-        self.gru_node_gene_type = params['gru_node_gene_type']
         self._params += self.node_gene_type.get_config_params()
+        self.output_node_gene_type = params['output_node_gene_type']
+        # self._params += self.output_node_gene_type.get_config_params()  # Identical to self.node_gene_type.get_config
+        self.gru_node_gene_type = params['gru_node_gene_type']
+        # gru_node_gene_type must not be added to _params (has no relevant 'get_config_params()')
         self.connection_gene_type = params['connection_gene_type']
         self._params += self.connection_gene_type.get_config_params()
         

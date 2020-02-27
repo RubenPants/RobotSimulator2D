@@ -5,7 +5,7 @@ Class containing all the used configurations.
 """
 import numpy as np
 
-from utils.dictionary import *
+from utils.dictionary import D_DISTANCE, D_FULL_DIRECT, D_GMEAN, D_MAX, D_RELU, D_SUM
 
 
 class GameConfig:
