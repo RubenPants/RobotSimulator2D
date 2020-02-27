@@ -88,7 +88,8 @@ class NeatConfig:
                                 "weight_min_value", "weight_init_mean", "weight_init_stdev", "weight_mutate_rate",
                                 "weight_replace_rate", "weight_mutate_power", "enabled_default", "enabled_mutate_rate"],
         'DefaultSpeciesSet':   ["compatibility_threshold"],
-        'EVALUATION':          ["fitness", "fitness_comb", "nn_k"]
+        'EVALUATION':          ["fitness", "fitness_comb", "nn_k"],
+        'GRU':                 ['enable_gru'],
     }
     
     def __init__(self):
@@ -113,11 +114,11 @@ class NeatConfig:
         self.species_elitism: int = 1
         
         # [DefaultReproduction]
-        # Number of most fit individuals/species that will be preserved as-is from one generation to the next
+        # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=2]
         self.elitism: int = 2
-        # The fraction for each species allowed to reproduce each generation (parent selection)
-        self.survival_threshold: float = 0.2
-        # Minimum number of genomes per species
+        # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.3]
+        self.survival_threshold: float = 0.3
+        # Minimum number of genomes per species  [def=5]
         self.min_species_size: int = 5
         
         # [DefaultGenome]
@@ -127,8 +128,8 @@ class NeatConfig:
         self.num_hidden: int = 0
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
         self.num_outputs: int = 2
-        # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT_05]
-        self.initial_connection = D_PARTIAL_DIRECT_05
+        # Initial connectivity of newly-created genomes  [def=D_FULL_DIRECT]
+        self.initial_connection = D_FULL_DIRECT
         # Probability of adding a connection between existing nodes during mutation (1 chance per iteration)  [def=0.5]
         self.conn_add_prob: float = 0.5
         # Probability of deleting an existing connection during mutation (1 chance per iteration)  [def=0.4]
@@ -137,66 +138,70 @@ class NeatConfig:
         self.node_add_prob: float = 0.2
         # Probability of removing a node during mutation (1 chance per iteration)  [def=0.15]
         self.node_delete_prob: float = 0.15
-        # Initial node activation function
+        # Initial node activation function  [def=D_RELU]
         self.activation_default: str = D_RELU
-        # All possible activation functions between whom can be switched during mutation
+        # All possible activation functions between whom can be switched during mutation  [def=D_RELU]
         self.activation_options: str = D_RELU
-        # Probability of changing the activation function
+        # Probability of changing the activation function  [def=0]
         self.activation_mutate_rate: float = 0.0
-        # The default aggregation function attribute assigned to new nodes
+        # The default aggregation function attribute assigned to new nodes  [def=D_SUM]
         self.aggregation_default: str = D_SUM
-        # Aggregation options between whom can be mutated
+        # Aggregation options between whom can be mutated  [def=D_SUM]
         self.aggregation_options: str = D_SUM
-        # Probability of mutating towards another aggregation_option
+        # Probability of mutating towards another aggregation_option  [def=0]
         self.aggregation_mutate_rate: float = 0.0
-        # The mean of the gaussian distribution, used to select the bias attribute values for new nodes
+        # The mean of the gaussian distribution, used to select the bias attribute values for new nodes  [def=0]
         self.bias_init_mean: float = 0.0
-        # Standard deviation of the gaussian distribution, used to select the bias attribute values of new nodes
+        # Standard deviation of gaussian distribution, used to select the bias attribute values of new nodes  [def=1]
         self.bias_init_stdev: float = 1.0
-        # The probability that mutation will replace the bias of a node with a (completely) newly chosen random value
+        # The probability that mutation will replace the bias of a node with a completely random value  [def=0.05]
         self.bias_replace_rate: float = 0.05
-        # The probability that mutation will change the bias of a node by adding a random value
+        # The probability that mutation will change the bias of a node by adding a random value  [def=0.5]
         self.bias_mutate_rate: float = 0.5
-        # The standard deviation of the zero-centered gaussian distribution from which a bias value mutation is drawn
+        # The standard deviation of the zero-centered gaussian from which a bias value mutation is drawn  [def=0.1]
         self.bias_mutate_power: float = 0.1
-        # The maximum allowed bias value, biases above this threshold will be clamped to this value
+        # The maximum allowed bias value, biases above this threshold will be clamped to this value  [def=5]
         self.bias_max_value: float = 5.0
-        # The minimum allowed bias value, biases below this threshold will be clamped to this value
+        # The minimum allowed bias value, biases below this threshold will be clamped to this value  [def=-5]
         self.bias_min_value: float = -5.0
-        # Mean of the gaussian distribution used to select the weight attribute values for new connections
+        # Mean of the gaussian distribution used to select the weight attribute values for new connections  [def=0]
         self.weight_init_mean: float = 0.0
-        # Standard deviation of the gaussian used to select the weight attributes values for new connections
+        # Standard deviation of the gaussian used to select the weight attributes values for new connections  [def=1]
         self.weight_init_stdev: float = 1.0
-        # Probability of a weight (connection) to mutate
+        # Probability of a weight (connection) to mutate  [def=0.5]
         self.weight_mutate_rate: float = 0.5
-        # Probability of assigning completely new value, based on weight_init_mean and weight_init_stdev
+        # Probability of assigning completely new value, based on weight_init_mean and weight_init_stdev  [def=0.05]
         self.weight_replace_rate: float = 0.05
-        # The standard deviation of the zero-centered gaussian distribution from which a weight value mutation is drawn
+        # The standard deviation of the zero-centered gaussian from which a weight value mutation is drawn  [def=0.1]
         self.weight_mutate_power: float = 0.1
-        # The maximum allowed weight value, weights above this value will be clipped to this value (arbitrarily chosen)
+        # The maximum allowed weight value, weights above this value will be clipped to this value  [def=5]
         self.weight_max_value: float = 5.0
-        # The minimum allowed weight value, weights below this value will be clipped to this value (arbitrarily chosen)
+        # The minimum allowed weight value, weights below this value will be clipped to this value  [def=-5]
         self.weight_min_value: float = -5.0
-        # Enable the algorithm to disable (and re-enable) existing connections
+        # Enable the algorithm to disable (and re-enable) existing connections  [def=True]
         self.enabled_default: bool = True
-        # The probability that mutation will replace the 'enabled status' of a connection
+        # The probability that mutation will replace the 'enabled status' of a connection  [def=0.05]
         self.enabled_mutate_rate: float = 0.05
         
         # [DefaultSpeciesSet]
-        # Individuals whose genetic distance is less than this threshold are considered to be in the same species
+        # Individuals whose genetic distance is less than this threshold are in the same specie  [def=2]
         self.compatibility_threshold: float = 2.0
-        # Full weight of disjoint and excess nodes on determining genomic distance
+        # Full weight of disjoint and excess nodes on determining genomic distance  [def=1]
         self.compatibility_disjoint_coefficient: float = 1.0
-        # Only .2 weight of the connection-values on determining genomic distance
-        self.compatibility_weight_coefficient: float = 0.2
+        # Coefficient for each weight or bias difference contribution to the genomic distance  [def=0.1]
+        self.compatibility_weight_coefficient: float = 0.1
         
         # [EVALUATION]
         # Fitness functions [distance, distance_time, novelty, path, path_time]
         self.fitness: str = D_DISTANCE
-        # Function used to combine the fitness-values across different games, choices are: min, avg, max, gmean
+        # Function to combine the fitness-values across different games, choices are: min, avg, max, gmean  [def=gmean]
         self.fitness_comb: str = D_GMEAN
-        # Number of nearest neighbors taken into account for a NN-utilizing fitness function
+        # Number of nearest neighbors taken into account for a NN-utilizing fitness function  [def=3]
         self.nn_k: int = 3
+        
+        # [GRU]
+        # Enable the genomes to mutate GRU nodes  [def=True]
+        self.enable_gru: bool = True
     
     def __str__(self):
         result = "NEAT Configuration:"

@@ -9,7 +9,8 @@ from random import random
 import numpy as np
 import torch
 
-from population.utils.genome_util.attributes import BiasAttribute, BoolAttribute, FloatAttribute, StringAttribute, WeightAttribute
+from population.utils.genome_util.attributes import BiasAttribute, BoolAttribute, FloatAttribute, StringAttribute, \
+    WeightAttribute
 from utils.dictionary import D_ACTIVATION, D_TANH
 
 
@@ -105,7 +106,7 @@ class DefaultNodeGene(BaseGene):
         d = abs(self.bias - other.bias)
         if self.key not in [0, 1] and other.key not in [0, 1]:  # Exclude comparison with activation of output nodes
             if self.activation != other.activation: d += 1.0
-        if self.aggregation != other.aggregation: d += 1.0
+        if self.aggregation != other.aggregation: d += 1.0  # Normally, aggregation is always equal to 'sum'
         return d * config.compatibility_weight_coefficient
 
 
@@ -186,6 +187,5 @@ class DefaultConnectionGene(BaseGene):
     
     def distance(self, other, config):
         d = abs(self.weight - other.weight)
-        if self.enabled != other.enabled:
-            d += 1.0
+        if self.enabled != other.enabled: d += 1.0
         return d * config.compatibility_weight_coefficient

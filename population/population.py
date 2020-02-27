@@ -20,7 +20,7 @@ from population.utils.population_util.reproduction import DefaultReproduction
 from population.utils.population_util.species import DefaultSpeciesSet
 from population.utils.reporter_util.reporting import ReporterSet, StdOutReporter
 from population.utils.reporter_util.statistics import StatisticsReporter
-from population.visualizer import draw_net
+from population.utils.genome_util.genome_visualizer import draw_net
 from utils.dictionary import D_FIT_COMB, D_GAME_ID, D_K, D_POS, D_TAG
 from utils.myutils import get_subfolder, update_dict
 

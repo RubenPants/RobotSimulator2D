@@ -418,7 +418,12 @@ class DefaultGenome(object):
         Returns genome 'complexity', taken to be
         (number of hidden nodes, number of enabled connections)
         """
-        return len(self.nodes) - 2, sum([1 for cg in self.connections.values() if cg.enabled])
+        nodes = 0
+        ingoing = [c[0] for c in self.connections.keys()]
+        outgoing = [c[1] for c in self.connections.keys()]
+        for node_key in self.nodes:
+            if (node_key not in [0, 1]) and (node_key in ingoing) and (node_key in outgoing): nodes += 1
+        return nodes, sum([1 for cg in self.connections.values() if cg.enabled])
     
     def __str__(self):
         s = f"Key: {self.key}\nFitness: {self.fitness}\nNodes:"
