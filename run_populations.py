@@ -12,7 +12,7 @@ from utils.dictionary import D_FIT_OPTIONS
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('--train', type=bool, default=True)
-    parser.add_argument('--iterations', type=int, default=100)
+    parser.add_argument('--iterations', type=int, default=200)
     parser.add_argument('--blueprint', type=bool, default=True)
     parser.add_argument('--evaluate', type=bool, default=False)
     args = parser.parse_args()
