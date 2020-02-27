@@ -9,7 +9,8 @@ from random import random
 import numpy as np
 import torch
 
-from population.utils.genome_util.attributes import BiasAttribute, BoolAttribute, FloatAttribute, StringAttribute, WeightAttribute
+from population.utils.genome_util.attributes import BiasAttribute, BoolAttribute, FloatAttribute, StringAttribute, \
+    WeightAttribute
 from utils.dictionary import D_ACTIVATION, D_TANH
 
 
@@ -105,7 +106,7 @@ class DefaultNodeGene(BaseGene):
         d = abs(self.bias - other.bias)
         if self.key not in [0, 1] and other.key not in [0, 1]:  # Exclude comparison with activation of output nodes
             if self.activation != other.activation: d += 1.0
-        if self.aggregation != other.aggregation: d += 1.0
+        if self.aggregation != other.aggregation: d += 1.0  # Normally, aggregation is always equal to 'sum'
         return d * config.compatibility_weight_coefficient
 
 
@@ -139,11 +140,10 @@ class GruNodeGene(BaseGene):
                         WeightAttribute('weight_ih'),
                         WeightAttribute('weight_hh')]
     
-    def __init__(self, key, input_keys):
+    def __init__(self, key):
         # Placeholders
         self.h_init = 0
         self.hidden_size = 1  # TODO: Generalize such that output can be extended (i.e. vector with specific values for each output)
-        self.input_keys = input_keys
         self.weight_ih = None
         self.weight_hh = None
         self.bias_ih = None
@@ -166,7 +166,8 @@ class GruNodeGene(BaseGene):
     def init_attributes(self, config):
         setattr(self, 'bias_ih', self._gene_attributes[0].init_value(config, self.hidden_size))
         setattr(self, 'bias_hh', self._gene_attributes[1].init_value(config, self.hidden_size))
-        setattr(self, 'weight_ih', self._gene_attributes[2].init_value(config, self.hidden_size, len(self.input_keys)))
+        # By default will the initial input_size=1 (i.e. node added on top of one connection)
+        setattr(self, 'weight_ih', self._gene_attributes[2].init_value(config, self.hidden_size, 1))
         setattr(self, 'weight_hh', self._gene_attributes[2].init_value(config, self.hidden_size, self.hidden_size))
 
 
@@ -186,6 +187,5 @@ class DefaultConnectionGene(BaseGene):
     
     def distance(self, other, config):
         d = abs(self.weight - other.weight)
-        if self.enabled != other.enabled:
-            d += 1.0
+        if self.enabled != other.enabled: d += 1.0
         return d * config.compatibility_weight_coefficient

@@ -4,10 +4,8 @@ myutils.py
 Share utils used across the project.
 
 Utils overview:
- * CSV: transform_csv
  * DICT: append_dict, load_dict, store_dict
  * JSON: append_json, load_json, store_json
- * PLOT: create_bar_plot
  * SYSTEM: create_subfolder, python2_to_3
  * TIMING: drop, prep, status_out, total_time
 """

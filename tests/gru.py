@@ -11,7 +11,7 @@ from configs.config import NeatConfig
 from population.population import query_net
 from population.utils.genome_util.genome import DefaultGenome
 from population.utils.network_util.recurrent_gru_net import make_net
-from population.utils.population_util.population_config import PopulationConfig
+from population.utils.config.population_config import PopulationConfig
 from population.utils.population_util.reproduction import DefaultReproduction
 from population.utils.population_util.species import DefaultSpeciesSet
 

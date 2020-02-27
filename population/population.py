@@ -9,18 +9,18 @@ import re
 from glob import glob
 
 import matplotlib.pyplot as plt
-import neat
 from neat.math_util import mean
 
 from configs.config import NeatConfig
+from population.utils.config.default_config import Config
 from population.utils.genome_util.genome import DefaultGenome
+from population.utils.genome_util.genome_visualizer import draw_net
 from population.utils.network_util.feed_forward_net import make_net
-from population.utils.population_util.population_config import PopulationConfig
 from population.utils.population_util.reproduction import DefaultReproduction
 from population.utils.population_util.species import DefaultSpeciesSet
+from population.utils.population_util.stagnation import DefaultStagnation
 from population.utils.reporter_util.reporting import ReporterSet, StdOutReporter
 from population.utils.reporter_util.statistics import StatisticsReporter
-from population.visualizer import draw_net
 from utils.dictionary import D_FIT_COMB, D_GAME_ID, D_K, D_POS, D_TAG
 from utils.myutils import get_subfolder, update_dict
 
@@ -99,11 +99,11 @@ class Population:
         :param query_net_method: Method used to query actions of the genome-specific network
         """
         # Init the population's configuration
-        config = PopulationConfig(
+        config = Config(
                 genome_type=DefaultGenome,
                 reproduction_type=DefaultReproduction,
                 species_set_type=DefaultSpeciesSet,
-                stagnation_type=neat.DefaultStagnation,
+                stagnation_type=DefaultStagnation,
                 config=cfg,
         )
         self.reporters = ReporterSet()
@@ -147,6 +147,12 @@ class Population:
         
         # Save newly made population
         self.save()
+        
+        # Write population configuration to file
+        with open(f'population/storage/NEAT/{self}/config.txt', 'w') as f:
+            f.write(str(cfg))
+            f.write("\n\n\n")  # 2 empty lines
+            f.write(str(config))
     
     def evolve(self):
         """
