@@ -28,7 +28,6 @@ class DefaultGenomeConfig(object):
                             'partial_nodirect', 'partial', 'partial_direct']
     
     def __init__(self, params):
-        self.single_structural_mutation = None  # Placeholder
         self.num_outputs = None  # Placeholder
         self.num_inputs = None  # Placeholder
         # Create full set of available activation functions.
@@ -46,7 +45,6 @@ class DefaultGenomeConfig(object):
                         ConfigParameter('conn_delete_prob', float),
                         ConfigParameter('node_add_prob', float),
                         ConfigParameter('node_delete_prob', float),
-                        ConfigParameter('single_structural_mutation', bool, 'false'),
                         ConfigParameter('structural_mutation_surer', str, 'default'),
                         ConfigParameter('initial_connection', str, 'unconnected')]
         
@@ -118,20 +116,15 @@ class DefaultGenomeConfig(object):
         """
         If structural_mutation_surer evaluates to True, then an attempt to add a node to a genome lacking connections
         will result in adding a connection instead; furthermore, if an attempt to add a connection tries to add a
-        connection that already exists, that connection will be enabled. If this is set to default, then it acts as if
-        it had the same value as single_structural_mutation.
-        This defaults to “default”.
+        connection that already exists, that connection will be enabled.
+        This defaults to "default".
         """
         if self.structural_mutation_surer == 'true':
             return True
-        elif self.structural_mutation_surer == 'false':
+        elif self.structural_mutation_surer == 'false' or self.structural_mutation_surer == 'default':
             return False
-        elif self.structural_mutation_surer == 'default':
-            return self.single_structural_mutation
         else:
-            error_string = "Invalid structural_mutation_surer {!r}".format(
-                    self.structural_mutation_surer)
-            raise RuntimeError(error_string)
+            raise RuntimeError(f"Invalid structural_mutation_surer {self.structural_mutation_surer!r}")
 
 
 class DefaultGenome(object):
@@ -210,11 +203,11 @@ class DefaultGenome(object):
                 self.connect_full_direct(config)
             else:
                 if config.num_hidden > 0:
-                    print(
-                            "Warning: initial_connection = full with hidden nodes will not do direct input-output connections;",
-                            "\tif this is desired, set initial_connection = full_nodirect;",
-                            "\tif not, set initial_connection = full_direct",
-                            sep='\n', file=sys.stderr)
+                    print("Warning: initial_connection = full with hidden nodes will not do direct input-output "
+                          "connections;",
+                          "\tif this is desired, set initial_connection = full_nodirect;",
+                          "\tif not, set initial_connection = full_direct",
+                          sep='\n', file=sys.stderr)
                 self.connect_full_nodirect(config)
         elif 'partial' in config.initial_connection:
             if config.initial_connection == 'partial_nodirect':
@@ -223,16 +216,16 @@ class DefaultGenome(object):
                 self.connect_partial_direct(config)
             else:
                 if config.num_hidden > 0:
-                    print(
-                            "Warning: initial_connection = partial with hidden nodes will not do direct input-output connections;",
-                            "\tif this is desired, set initial_connection = partial_nodirect {0};".format(
-                                    config.connection_fraction),
-                            "\tif not, set initial_connection = partial_direct {0}".format(
-                                    config.connection_fraction),
-                            sep='\n', file=sys.stderr)
+                    print("Warning: initial_connection = partial with hidden nodes will not do direct input-output "
+                          "connections;",
+                          "\tif this is desired, set initial_connection = partial_nodirect {0};".format(
+                                  config.connection_fraction),
+                          "\tif not, set initial_connection = partial_direct {0}".format(
+                                  config.connection_fraction),
+                          sep='\n', file=sys.stderr)
                 self.connect_partial_nodirect(config)
     
-    def configure_crossover(self, genome1, genome2, _):
+    def configure_crossover(self, genome1, genome2):
         """ Configure a new genome by crossover from two parent genomes. """
         assert isinstance(genome1.fitness, (int, float))
         assert isinstance(genome2.fitness, (int, float))
@@ -267,59 +260,31 @@ class DefaultGenome(object):
     
     def mutate(self, config):
         """ Mutates this genome. """
-        
-        if config.single_structural_mutation:
-            div = max(1, (config.node_add_prob + config.node_delete_prob +
-                          config.conn_add_prob + config.conn_delete_prob))
-            r = random()
-            if r < (config.node_add_prob / div):
-                self.mutate_add_node(config)
-            elif r < ((config.node_add_prob + config.node_delete_prob) / div):
-                self.mutate_delete_node(config)
-            elif r < ((config.node_add_prob + config.node_delete_prob +
-                       config.conn_add_prob) / div):
-                self.mutate_add_connection(config)
-            elif r < ((config.node_add_prob + config.node_delete_prob +
-                       config.conn_add_prob + config.conn_delete_prob) / div):
-                self.mutate_delete_connection()
-        else:
-            if random() < config.node_add_prob:
-                self.mutate_add_node(config)
-            
-            if random() < config.node_delete_prob:
-                self.mutate_delete_node(config)
-            
-            if random() < config.conn_add_prob:
-                self.mutate_add_connection(config)
-            
-            if random() < config.conn_delete_prob:
-                self.mutate_delete_connection()
+        if random() < config.node_add_prob: self.mutate_add_node(config)
+        if random() < config.node_delete_prob: self.mutate_delete_node(config)
+        if random() < config.conn_add_prob: self.mutate_add_connection(config)
+        if random() < config.conn_delete_prob: self.mutate_delete_connection()
         
         # Mutate connection genes.
-        for cg in self.connections.values():
-            cg.mutate(config)
+        for cg in self.connections.values(): cg.mutate(config)
         
         # Mutate node genes (bias etc.).
-        for ng in self.nodes.values():
-            ng.mutate(config)
+        for ng in self.nodes.values(): ng.mutate(config)
     
     def mutate_add_node(self, config):
         if not self.connections:
-            if config.check_structural_mutation_surer():
-                self.mutate_add_connection(config)
+            if config.check_structural_mutation_surer(): self.mutate_add_connection(config)
             return
-        
         # Choose a random connection to split
         conn_to_split = choice(list(self.connections.values()))
         new_node_id = config.get_new_node_key(self.nodes)
         ng = self.create_node(config, new_node_id)
         self.nodes[new_node_id] = ng
         
-        # Disable this connection and create two new connections joining its nodes via
-        # the given node.  The new node+connections have roughly the same behavior as
-        # the original connection (depending on the activation function of the new node).
+        # Disable this connection and create two new connections joining its nodes via the given node.  The new
+        # node+connections have roughly the same behavior as the original connection (depending on the activation
+        # function of the new node).
         conn_to_split.enabled = False
-        
         i, o = conn_to_split.key
         self.add_connection(config, i, new_node_id, 1.0, True)
         self.add_connection(config, new_node_id, o, conn_to_split.weight, True)

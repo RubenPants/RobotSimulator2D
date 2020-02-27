@@ -157,7 +157,13 @@ class Population:
         This method manipulates the population itself, so nothing has to be returned
         """
         # Create the next generation from the current generation
-        self.population = self.reproduction.reproduce(self.config, self.species, self.config.pop_size, self.generation)
+        self.population = self.reproduction.reproduce(
+                config=self.config,
+                species=self.species,
+                pop_size=self.config.pop_size,
+                generation=self.generation,
+                sexual=False,  # TODO: Crossover has been disabled!
+        )
         
         # Check for complete extinction
         if not self.species.species:

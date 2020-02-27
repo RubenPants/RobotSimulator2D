@@ -99,16 +99,16 @@ class NeatConfig:
         self.fitness_threshold: int = 1
         # Don't consider fitness_criterion and fitness_threshold
         self.no_fitness_termination: bool = True
-        # Number of individuals in each generation  [def=256]
-        self.pop_size: int = 256
+        # Number of individuals in each generation  [def=256]  TODO
+        self.pop_size: int = 2
         # Create random population if all species become distinct due to stagnation
         self.reset_on_extinction: bool = True
         
         # [DefaultStagnation]
         # The function used to compute the species fitness
-        self.species_fitness_func: str = D_MEAN
+        self.species_fitness_func: str = D_MAX
         # Remove a specie if it hasn't improved over this many number of generations
-        self.max_stagnation: int = 10
+        self.max_stagnation: int = 20
         # Number of the best species that will be protected from stagnation
         self.species_elitism: int = 1
         
@@ -116,7 +116,7 @@ class NeatConfig:
         # Number of most fit individuals/species that will be preserved as-is from one generation to the next
         self.elitism: int = 2
         # The fraction for each species allowed to reproduce each generation (parent selection)
-        self.survival_threshold: float = 0.1
+        self.survival_threshold: float = 0.2
         # Minimum number of genomes per species
         self.min_species_size: int = 5
         
@@ -129,18 +129,14 @@ class NeatConfig:
         self.num_outputs: int = 2
         # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT_05]
         self.initial_connection = D_PARTIAL_DIRECT_05
-        # Full weight of disjoint and excess nodes on determining genomic distance
-        self.compatibility_disjoint_coefficient: float = 1.0
-        # Only .6 weight of the connection-values on determining genomic distance
-        self.compatibility_weight_coefficient: float = 0.6
-        # Probability of adding a connection between existing nodes during mutation
-        self.conn_add_prob: float = 0.2
-        # Probability of deleting an existing connection during mutation
-        self.conn_delete_prob: float = 0.15
-        # Probability of adding a node during mutation
-        self.node_add_prob: float = 0.1
-        # Probability of removing a node during mutation
-        self.node_delete_prob: float = 0.075
+        # Probability of adding a connection between existing nodes during mutation (1 chance per iteration)  [def=0.5]
+        self.conn_add_prob: float = 0.5
+        # Probability of deleting an existing connection during mutation (1 chance per iteration)  [def=0.4]
+        self.conn_delete_prob: float = 0.4
+        # Probability of adding a node during mutation (1 chance per iteration)  [def=0.2]
+        self.node_add_prob: float = 0.2
+        # Probability of removing a node during mutation (1 chance per iteration)  [def=0.15]
+        self.node_delete_prob: float = 0.15
         # Initial node activation function
         self.activation_default: str = D_RELU
         # All possible activation functions between whom can be switched during mutation
@@ -187,8 +183,12 @@ class NeatConfig:
         self.enabled_mutate_rate: float = 0.05
         
         # [DefaultSpeciesSet]
-        # Individuals whose genetic distance is less than this threshold are considered to be in the same species # TODO
-        self.compatibility_threshold: float = 3.0
+        # Individuals whose genetic distance is less than this threshold are considered to be in the same species
+        self.compatibility_threshold: float = 2.0
+        # Full weight of disjoint and excess nodes on determining genomic distance
+        self.compatibility_disjoint_coefficient: float = 1.0
+        # Only .2 weight of the connection-values on determining genomic distance
+        self.compatibility_weight_coefficient: float = 0.2
         
         # [EVALUATION]
         # Fitness functions [distance, distance_time, novelty, path, path_time]
