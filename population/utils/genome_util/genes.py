@@ -142,7 +142,6 @@ class GruNodeGene(BaseGene):
     
     def __init__(self, key, input_size=1):
         # Placeholders
-        self.h_init = 0
         self.input_size = input_size  # Initial input-size equals 1 (added on top of connection)
         self.hidden_size = 1  # TODO: Generalize such that output can be extended (i.e. vector with specific values for each output)
         self.weight_ih = None

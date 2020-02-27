@@ -98,7 +98,6 @@ class FeedForwardNet:
         """
         Set the network back to initial state.
         
-        :param batch_size: Number of games ran in parallel
         :param cold_start: Do not initialize the network based on sensory inputs
         """
         # Reset the network back to zero inputs
@@ -162,8 +161,6 @@ class FeedForwardNet:
                             self.gru_state[:, i],
                     )
                     self.hidden_act[:, gru_idx] = self.gru_state[:, i, 0]
-                # self.hidden_act[:,i] = outcome of GRU
-                # TODO
                 
                 # 3) Propagate hidden-values to the outputs
                 output_inputs += self.hid2out.mm(self.hidden_act.t()).t()
@@ -178,7 +175,6 @@ class FeedForwardNet:
                activation=tanh_activation,
                batch_size=1,
                cold_start=False,
-               prune_empty=False,
                ):
         """
         This class will unravel the genome and create a feed-forward network based on it. In other words, it will create
@@ -189,18 +185,11 @@ class FeedForwardNet:
         :param activation: Default activation
         :param batch_size: Batch-size needed to setup network dimension
         :param cold_start: Do not initialize the network based on sensory inputs
-        :param prune_empty: Remove nodes that do not contribute to final result
         """
-        global nonempty
         genome_config = config.genome_config
         
         # Collect the nodes whose state is required to compute the final network output(s), this excludes the inputs
         required = required_for_output(genome_config.input_keys, genome_config.output_keys, genome.connections)
-        
-        # Prune out the unneeded nodes, which is done by only remaining those nodes that receive a connection, note that
-        # the 'union' only makes sure that (all) the inputs are considered as well.
-        if prune_empty: nonempty = {conn.key[1] for conn in genome.connections.values() if conn.enabled}.union(
-                set(genome_config.input_keys))
         
         # Get a list of all the input, hidden, and output keys
         input_keys = list(genome_config.input_keys)
@@ -208,15 +197,18 @@ class FeedForwardNet:
         gru_keys = [k for k in genome.nodes.keys() if type(genome.nodes[k]) == GruNodeGene]
         output_keys = list(genome_config.output_keys)
         
+        # Prune keys of dead nodes
+        ingoing, outgoing = zip(*[conn.key for conn in genome.connections.values() if conn.enabled])
+        remove = []
+        for k in hidden_keys:
+            if not (k in ingoing and k in outgoing): remove.append(k)
+        for k in remove:
+            hidden_keys.remove(k)
+            if k in gru_keys: gru_keys.remove(k)
+        
         # Define the biases, note that inputs do not have a bias (since they aren't actually nodes!)
         hidden_biases = [genome.nodes[k].bias for k in hidden_keys]
         output_biases = [genome.nodes[k].bias for k in output_keys]
-        
-        # Put the biases of the pruned output-nodes to zero
-        if prune_empty:
-            for i, key in enumerate(output_keys):
-                if key not in nonempty:
-                    output_biases[i] = 0.0
         
         # Create a mapping of a node's key to their index in their corresponding list
         input_key_to_idx = {k: i for i, k in enumerate(input_keys)}
@@ -249,9 +241,6 @@ class FeedForwardNet:
             # Check if connection is necessary
             i_key, o_key = conn.key
             if o_key not in required and i_key not in required: continue
-            if prune_empty and i_key not in nonempty:
-                print('Pruned {}'.format(conn.key))
-                continue
             
             # Convert to index-based
             i_idx = key_to_idx(i_key)

@@ -6,9 +6,12 @@ Create visualizations for the genomes present in the population.
 import copy
 import os
 
+import numpy as np
 from graphviz import Digraph
 
 # Add graphviz to path
+from population.utils.genome_util.genes import DefaultNodeGene, GruNodeGene
+
 os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/'
 
 
@@ -97,10 +100,21 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
         if key in inputs or key in outputs:
             continue
         if debug:
-            name = f'hidden node={key}'
-            name += f'\nactivation={genome.nodes[key].activation}'
-            name += f'\nbias={round(genome.nodes[key].bias, 2)}'
-            name += f'\naggregation={genome.nodes[key].aggregation}'
+            if type(genome.nodes[key]) == GruNodeGene:
+                name = f'GRU node={key}'
+                name += f'\ninputs_size={genome.nodes[key].input_size}'
+                name += f'\nhidden_size={genome.nodes[key].hidden_size}'
+                # name += f'\nbias_ih={np.asarray(genome.nodes[key].bias_ih.tolist()).round(3).tolist()}'
+                # name += f'\nbias_hh={np.asarray(genome.nodes[key].bias_hh.tolist()).round(3).tolist()}'
+                # name += f'\nweight_ih={np.asarray(genome.nodes[key].weight_ih.tolist()).round(3).tolist()}'
+                # name += f'\nweight_hh={np.asarray(genome.nodes[key].weight_hh.tolist()).round(3).tolist()}'
+            elif type(genome.nodes[key]) == DefaultNodeGene:
+                name = f'simple node={key}'
+                name += f'\nactivation={genome.nodes[key].activation}'
+                name += f'\nbias={round(genome.nodes[key].bias, 2)}'
+                name += f'\naggregation={genome.nodes[key].aggregation}'
+            else:
+                raise Exception(f"Invalid hidden node (key={key}) of genome: \n{genome}")
         else:
             name = str(key)
         node_names.update({key: name})
