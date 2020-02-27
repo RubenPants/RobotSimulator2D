@@ -76,7 +76,7 @@ class DefaultReproduction(DefaultClassConfig):
         
         return spawn_amounts
     
-    def reproduce(self, config, species, pop_size, generation, sexual=True):
+    def reproduce(self, config, species, pop_size, generation, sexual):
         """
         Handles creation of genomes, either from scratch or by sexual or asexual reproduction from parents.
         """
