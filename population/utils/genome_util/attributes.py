@@ -179,7 +179,7 @@ class BiasAttribute(object):
     
     def init_value(self, config, hidden_size):
         """Create a vector with on each specified position a FloatAttribute."""
-        tensor = torch.FloatTensor(np.zeros((3 * hidden_size,)))
+        tensor = torch.tensor(np.zeros((3 * hidden_size,)), dtype=torch.float64)
         
         # Query the FloatAttribute for each initialization of the tensor's parameters
         for t_index in range(len(tensor)):
@@ -209,8 +209,8 @@ class WeightAttribute(object):
     
     def init_value(self, config, hidden_size, input_size=None):
         """Create a vector with on each specified position a FloatAttribute."""
-        if not input_size: input_size = hidden_size
-        tensor = torch.FloatTensor(np.zeros((3 * hidden_size, input_size)))
+        if input_size is None: input_size = hidden_size
+        tensor = torch.tensor(np.zeros((3 * hidden_size, input_size)), dtype=torch.float64)
         
         # Query the FloatAttribute for each initialization of the tensor's parameters
         for x_index, y_index in np.ndindex(tensor.shape):

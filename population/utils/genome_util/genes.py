@@ -132,7 +132,7 @@ class OutputNodeGene(DefaultNodeGene):
             if a.name != D_ACTIVATION: setattr(self, a.name, a.mutate_value(v, config))
 
 
-class GruNodeGene(BaseGene):
+class GruNodeGene(BaseGene):  # TODO: Mutate functionality
     """Custom GRU cell implementation."""
     
     _gene_attributes = [BiasAttribute('bias_ih'),
@@ -140,9 +140,9 @@ class GruNodeGene(BaseGene):
                         WeightAttribute('weight_ih'),
                         WeightAttribute('weight_hh')]
     
-    def __init__(self, key):
+    def __init__(self, key, input_keys=None):
         # Placeholders
-        self.h_init = 0
+        self.input_keys = input_keys if input_keys else []
         self.hidden_size = 1  # TODO: Generalize such that output can be extended (i.e. vector with specific values for each output)
         self.weight_ih = None
         self.weight_hh = None
@@ -166,9 +166,65 @@ class GruNodeGene(BaseGene):
     def init_attributes(self, config):
         setattr(self, 'bias_ih', self._gene_attributes[0].init_value(config, self.hidden_size))
         setattr(self, 'bias_hh', self._gene_attributes[1].init_value(config, self.hidden_size))
-        # By default will the initial input_size=1 (i.e. node added on top of one connection)
-        setattr(self, 'weight_ih', self._gene_attributes[2].init_value(config, self.hidden_size, 1))
+        setattr(self, 'weight_ih', self._gene_attributes[2].init_value(config, self.hidden_size, len(self.input_keys)))
         setattr(self, 'weight_hh', self._gene_attributes[2].init_value(config, self.hidden_size, self.hidden_size))
+    
+    def distance(self, other, config):
+        """Calculate the distance between two GRU nodes, which is determined by its coefficients."""
+        d = 0
+        d += np.linalg.norm(self.bias_ih - other.bias_ih)
+        d += np.linalg.norm(self.bias_hh - other.bias_hh)
+        d += np.linalg.norm(self.weight_hh - other.weight_hh)
+        
+        # Compare only same input keys
+        key_set = set(self.input_keys + other.input_keys)
+        input_keys = sorted([k for k in key_set if k < 0], reverse=True)
+        hidden_keys = sorted([k for k in key_set if k >= 0])
+        combined_keys = input_keys + hidden_keys
+        s = np.zeros((3 * self.hidden_size, len(combined_keys)))
+        o = np.zeros((3 * self.hidden_size, len(combined_keys)))
+        for i, k in enumerate(combined_keys):
+            if k in self.input_keys: s[:, i] = self.weight_ih[:, self.input_keys.index(k)]
+            if k in other.input_keys: o[:, i] = other.weight_ih[:, other.input_keys.index(k)]
+        d += np.linalg.norm(s - o)
+        return d * config.compatibility_weight_coefficient
+    
+    def get_gru(self, weight_map=None):
+        """Return a PyTorch GRUCell based on current configuration."""
+        if weight_map is not None:
+            gru = torch.nn.GRUCell(input_size=len(weight_map[weight_map]), hidden_size=self.hidden_size)
+            gru.weight_ih[:] = self.weight_ih[:, weight_map]
+        else:
+            gru = torch.nn.GRUCell(input_size=len(self.input_keys), hidden_size=self.hidden_size)
+            gru.weight_ih[:] = self.weight_ih
+        gru.weight_hh[:] = self.weight_hh
+        gru.bias_ih[:] = self.bias_ih
+        gru.bias_hh[:] = self.bias_hh
+        return gru
+    
+    def append_key(self, config, k):
+        """Extend the input-key list with the given key, and expand the corresponding weights."""
+        if k not in self.input_keys:
+            # Find the index to insert the key
+            lst = [i for i in range(len(self.input_keys)) if abs(self.input_keys[i]) > abs(k)]
+            idx = lst[0] if lst else len(self.input_keys)
+            
+            # Save key to list
+            self.input_keys.insert(idx, k)
+            
+            # Update weight_ih correspondingly by inserting random initialized tensor in correct position
+            new_tensor = WeightAttribute('temp').init_value(config, hidden_size=self.hidden_size, input_size=1)
+            self.weight_ih = torch.cat((self.weight_ih[:, :idx], new_tensor, self.weight_ih[:, idx:]), dim=1)
+    
+    def delete_key(self, k):
+        """Delete one of the input-keys with its corresponding weights."""
+        # Check if key in keys
+        if k in self.input_keys:
+            idx = self.input_keys.index(k)
+            self.input_keys.remove(k)
+            
+            # Remove corresponding weight-column
+            self.weight_ih = torch.cat((self.weight_ih[:, :idx], self.weight_ih[:, idx + 1:]), dim=1)
 
 
 class DefaultConnectionGene(BaseGene):
@@ -189,3 +245,23 @@ class DefaultConnectionGene(BaseGene):
         d = abs(self.weight - other.weight)
         if self.enabled != other.enabled: d += 1.0
         return d * config.compatibility_weight_coefficient
+    
+    def mutate(self, config):
+        """
+        Perform the mutation operation.
+        
+        :return: None: 'enabled' hasn't changed
+                 True: 'enabled' is set to True
+                 False: 'enabled' is set to False
+        Return True if enable has mutated."""
+        mut_enabled = None
+        for a in self._gene_attributes:
+            v = getattr(self, a.name)
+            if a.name == 'enabled':
+                v2 = a.mutate_value(v, config)
+                if v != v2:
+                    setattr(self, a.name, v2)
+                    mut_enabled = v2
+            else:
+                setattr(self, a.name, a.mutate_value(v, config))
+        return mut_enabled

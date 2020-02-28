@@ -4,18 +4,20 @@ from population.population import Population
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument('--train', type=bool, default=True)
+    parser.add_argument('--train', type=bool, default=False)
     parser.add_argument('--iterations', type=int, default=10)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
     parser.add_argument('--genome', type=bool, default=True)
-    parser.add_argument('--live', type=bool, default=True)
+    parser.add_argument('--live', type=bool, default=False)
     args = parser.parse_args()
     
     pop = Population(
             name="test",
             # version=1,
     )
+    # pop.population[9] = pop.population[list(pop.population.keys())[12]]
+    # pop.save()
     # net = pop.make_net(pop.best_genome, pop.config, 1)
     # inp = pop.query_net(net, [[0] * 8])
     # print(inp)
@@ -28,7 +30,11 @@ if __name__ == '__main__':
         
         # Train for 100 generations
         trainer = TrainingEnv()
-        trainer.evaluate_and_evolve(pop, n=args.iterations)
+        trainer.evaluate_and_evolve(
+                pop,
+                n=args.iterations,
+                parallel=False,
+        )
     
     if args.blueprint:
         print("\n===> CREATING BLUEPRINTS <===\n")
@@ -56,8 +62,12 @@ if __name__ == '__main__':
     
     if args.genome:
         print("\n===> VISUALIZING GENOME <===\n")
+        print(pop.best_genome.size())
+        genome = list(pop.population.values())[2]
+        # genome = None
         pop.visualize_genome(
                 debug=True,
+                genome=genome,
         )
     
     if args.live:

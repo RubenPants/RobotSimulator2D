@@ -3,6 +3,7 @@ feed_forward_net.py
 
 Create a simple feedforward network. The network will propagate one iteration at a time, doing the following:
  1) Update the hidden nodes their state taking the input and other hidden nodes into account
+ 2) Execute the GRUs such that their current state is updated (input=current_state)
  2) Update the output nodes their state taking the input and hidden nodes into account
 
 Copyright (c) 2018 Uber Technologies, Inc.
@@ -19,9 +20,11 @@ You may obtain a copy of the License at
     See the License for the specific language governing permissions and
     limitations under the License.
 """
+import numpy as np
 import torch
 
 from environment.entities.game import initial_sensor_readings
+from population.utils.genome_util.genes import GruNodeGene
 from population.utils.network_util.activations import tanh_activation
 from population.utils.network_util.graphs import required_for_output
 from population.utils.network_util.shared import dense_from_coo
@@ -29,10 +32,11 @@ from population.utils.network_util.shared import dense_from_coo
 
 class FeedForwardNet:
     def __init__(self,
-                 n_inputs, n_hidden, n_outputs,
+                 input_idx, hidden_idx, gru_idx, output_idx,
                  in2hid, in2out,
                  hid2hid, hid2out,
                  hidden_biases, output_biases,
+                 grus, gru_map,
                  batch_size=1,
                  activation=tanh_activation,
                  cold_start=False,
@@ -41,13 +45,16 @@ class FeedForwardNet:
         """
         Create a simple feedforward network used as the control-mechanism for the drones.
         
-        :param n_inputs: Number of inputs (sensors)
-        :param n_hidden: Number of hidden simple-nodes (DefaultGeneNode) in the network
-        :param n_outputs: Number of outputs (the two differential wheels)
+        :param input_idx: Input indices (sensors)
+        :param hidden_idx: Hidden simple-node indices (DefaultGeneNode) in the network
+        :param gru_idx: Hidden GRU-node indices (DefaultGeneNode) in the network
+        :param output_idx: Output indices (the two differential wheels)
         :param in2hid: Connections connecting the input nodes to the hidden nodes
         :param in2out: Connections directly connecting from the inputs to the outputs
         :param hid2hid: Connections between the hidden nodes
         :param hid2out: Connections from hidden nodes towards the outputs
+        :param grus: List of GRUCell objects (length equals len(gru_idx))
+        :param gru_map: Boolean matrix mapping raw inputs to inputs used by GRUCell for a single batch
         :param batch_size: Needed to setup network-dimensions
         :param activation: The default node-activation function (squishing)
         :param cold_start: Do not initialize the network based on sensory inputs
@@ -56,47 +63,63 @@ class FeedForwardNet:
         # Storing the input arguments (needed later on)
         self.activation = activation
         self.dtype = dtype
-        self.n_inputs = n_inputs
-        self.n_hidden = n_hidden
-        self.n_outputs = n_outputs
+        self.input_idx = input_idx
+        self.hidden_idx = hidden_idx
+        self.gru_idx = gru_idx
+        self.output_idx = output_idx
+        self.n_inputs = len(input_idx)
+        self.n_hidden = len(hidden_idx)
+        self.n_gru = len(gru_idx)
+        self.n_outputs = len(output_idx)
+        self.bs = batch_size
+        
+        # Setup the gru_map
+        self.gru_map = []
+        for i, m in enumerate(gru_map):
+            self.gru_map.append(np.tile(gru_map[i], (batch_size, 1)))
+        self.gru_map = torch.tensor(self.gru_map, dtype=bool)
         
         # Placeholders, initialized during reset
+        self.gru_cache = None  # Inputs for the GRUs before iterating through the hidden nodes
+        self.gru_state = None  # State of the GRUs
         self.hidden_act = None  # Activations of the hidden nodes
         self.output_act = None  # Activations of the output nodes
         
         # Do not create the hidden-related matrices if hidden-nodes do not exist
         #  If they do not exist, a single matrix directly mapping inputs to outputs is only used
-        if n_hidden > 0:
-            self.in2hid = dense_from_coo((n_hidden, n_inputs), in2hid, dtype=dtype)
-            self.hid2hid = dense_from_coo((n_hidden, n_hidden), hid2hid, dtype=dtype)
-            self.hid2out = dense_from_coo((n_outputs, n_hidden), hid2out, dtype=dtype)
-        self.in2out = dense_from_coo((n_outputs, n_inputs), in2out, dtype=dtype)
+        if self.n_hidden > 0:
+            self.in2hid = dense_from_coo((self.n_hidden, self.n_inputs), in2hid, dtype=dtype)
+            self.hid2hid = dense_from_coo((self.n_hidden, self.n_hidden), hid2hid, dtype=dtype)
+            self.hid2out = dense_from_coo((self.n_outputs, self.n_hidden), hid2out, dtype=dtype)
+            self.grus = grus
+        self.in2out = dense_from_coo((self.n_outputs, self.n_inputs), in2out, dtype=dtype)
         
         # Fill in the biases
-        if n_hidden > 0: self.hidden_biases = torch.tensor(hidden_biases, dtype=dtype)
+        if self.n_hidden > 0: self.hidden_biases = torch.tensor(hidden_biases, dtype=dtype)
         self.output_biases = torch.tensor(output_biases, dtype=dtype)
         
         # Put network to initial (default) state
         self.initial_readings = initial_sensor_readings()
-        self.reset(batch_size, cold_start=cold_start)
+        self.reset(cold_start=cold_start)
     
-    def reset(self, batch_size=1, cold_start=False):
+    def reset(self, cold_start=False):
         """
         Set the network back to initial state.
         
-        :param batch_size: Number of games ran in parallel
         :param cold_start: Do not initialize the network based on sensory inputs
         """
         # Reset the network back to zero inputs
-        self.hidden_act = torch.zeros(batch_size, self.n_hidden, dtype=self.dtype) if self.n_hidden > 0 else None
-        self.output_act = torch.zeros(batch_size, self.n_outputs, dtype=self.dtype)
+        self.gru_cache = torch.zeros(self.bs, self.n_gru, self.n_inputs + self.n_hidden)
+        self.gru_state = torch.zeros(self.bs, self.n_gru, 1)  # GRU outputs are single float
+        self.hidden_act = torch.zeros(self.bs, self.n_hidden, dtype=self.dtype) if self.n_hidden > 0 else None
+        self.output_act = torch.zeros(self.bs, self.n_outputs, dtype=self.dtype)
         
         # Initialize the network on maximum sensory inputs
         if not cold_start:
             for _ in range(self.n_hidden):  # Worst case: path-length equals number of hidden nodes
                 # Code below is straight up stolen from 'activate(self, inputs)'
                 with torch.no_grad():
-                    inputs = torch.tensor([self.initial_readings] * batch_size, dtype=self.dtype)
+                    inputs = torch.tensor([self.initial_readings] * self.bs, dtype=self.dtype)
                     output_inputs = self.in2out.mm(inputs.t()).t()
                     self.hidden_act = self.activation(self.in2hid.mm(inputs.t()).t() +
                                                       self.hid2hid.mm(self.hidden_act.t()).t() +
@@ -128,9 +151,26 @@ class FeedForwardNet:
                 #  - the inputs mapping to the hidden nodes
                 #  - the hidden nodes mapping to themselves
                 #  - the hidden nodes' biases
+                
+                # 0) Store the GRU inputs
+                for i, gru_idx in enumerate(self.gru_idx):
+                    self.gru_cache[:, i] = torch.cat((self.in2hid[gru_idx] * inputs,
+                                                      self.hid2hid[gru_idx] * self.hidden_act), dim=1)
+                
+                # 1) Propagate the hidden nodes
                 self.hidden_act = self.activation(self.in2hid.mm(inputs.t()).t() +
                                                   self.hid2hid.mm(self.hidden_act.t()).t() +
                                                   self.hidden_biases)
+                
+                # 2) Execute the GRU nodes if they exists (updating current hidden state)
+                for i, gru_idx in enumerate(self.gru_idx):
+                    self.gru_state[:, i] = self.grus[i](
+                            self.gru_cache[:, i][self.gru_map[i]].reshape(self.bs, self.grus[i].input_size),
+                            self.gru_state[:, i],
+                    )
+                    self.hidden_act[:, gru_idx] = self.gru_state[:, i, 0]
+                
+                # 3) Propagate hidden-values to the outputs
                 output_inputs += self.hid2out.mm(self.hidden_act.t()).t()
             
             # Define the values of the outputs, which is the sum of their received inputs and their corresponding bias
@@ -143,7 +183,6 @@ class FeedForwardNet:
                activation=tanh_activation,
                batch_size=1,
                cold_start=False,
-               prune_empty=False,
                ):
         """
         This class will unravel the genome and create a feed-forward network based on it. In other words, it will create
@@ -154,38 +193,25 @@ class FeedForwardNet:
         :param activation: Default activation
         :param batch_size: Batch-size needed to setup network dimension
         :param cold_start: Do not initialize the network based on sensory inputs
-        :param prune_empty: Remove nodes that do not contribute to final result
         """
-        global nonempty
         genome_config = config.genome_config
         
         # Collect the nodes whose state is required to compute the final network output(s), this excludes the inputs
-        required = required_for_output(genome_config.input_keys, genome_config.output_keys, genome.connections)
+        used_nodes, used_conn = required_for_output(
+                inputs=genome_config.input_keys,
+                outputs=genome_config.output_keys,
+                connections=genome.connections
+        )
         
-        # Prune out the unneeded nodes, which is done by only remaining those nodes that receive a connection, note that
-        # the 'union' only makes sure that (all) the inputs are considered as well.
-        if prune_empty: nonempty = {conn.key[1] for conn in genome.connections.values() if conn.enabled}.union(
-                set(genome_config.input_keys))
-        
-        # Get a list of all the input, hidden, and output keys
+        # Get a list of all the input, (used) hidden, and output keys
         input_keys = list(genome_config.input_keys)
-        hidden_keys = [k for k in genome.nodes.keys() if k not in genome_config.output_keys]
+        hidden_keys = [k for k in genome.nodes.keys() if (k not in genome_config.output_keys and k in used_nodes)]
+        gru_keys = [k for k in hidden_keys if type(genome.nodes[k]) == GruNodeGene]
         output_keys = list(genome_config.output_keys)
         
         # Define the biases, note that inputs do not have a bias (since they aren't actually nodes!)
         hidden_biases = [genome.nodes[k].bias for k in hidden_keys]
         output_biases = [genome.nodes[k].bias for k in output_keys]
-        
-        # Put the biases of the pruned output-nodes to zero
-        if prune_empty:
-            for i, key in enumerate(output_keys):
-                if key not in nonempty:
-                    output_biases[i] = 0.0
-        
-        # Define the input, hidden, and output dimensions (i.e. number of nodes)
-        n_inputs = len(input_keys)
-        n_hidden = len(hidden_keys)
-        n_outputs = len(output_keys)
         
         # Create a mapping of a node's key to their index in their corresponding list
         input_key_to_idx = {k: i for i, k in enumerate(input_keys)}
@@ -198,6 +224,12 @@ class FeedForwardNet:
                 else output_key_to_idx[k] if k in output_keys \
                 else hidden_key_to_idx[k]
         
+        # Position-encode (index) the keys
+        input_idx = [key_to_idx(k) for k in input_keys]
+        hidden_idx = [key_to_idx(k) for k in hidden_keys]
+        gru_idx = [key_to_idx(k) for k in gru_keys]
+        output_idx = [key_to_idx(k) for k in output_keys]
+        
         # Only feed-forward connections considered, these lists contain the connections and their weights respectively
         #  Note that the connections are index-based and not key-based!
         in2hid = ([], [])
@@ -206,17 +238,10 @@ class FeedForwardNet:
         hid2out = ([], [])
         
         # Convert the key-based connections to index-based connections one by one, also save their weights
-        for conn in genome.connections.values():
-            if not conn.enabled: continue
-            
-            # Check if connection is necessary
-            i_key, o_key = conn.key
-            if o_key not in required and i_key not in required: continue
-            if prune_empty and i_key not in nonempty:
-                print('Pruned {}'.format(conn.key))
-                continue
-            
+        #  At this point, it is already known that all connections are used connections
+        for conn in used_conn.values():
             # Convert to index-based
+            i_key, o_key = conn.key
             i_idx = key_to_idx(i_key)
             o_idx = key_to_idx(o_key)
             
@@ -245,11 +270,30 @@ class FeedForwardNet:
             idxs.append((o_idx, i_idx))  # Connection: to, from
             vals.append(conn.weight)  # Connection: weight
         
+        # Create the gru-cells and put them in a list
+        grus = []
+        gru_map = []
+        for gru_key in gru_keys:
+            # Query the node that contains the GRUCell's weights
+            node: GruNodeGene = genome.nodes[gru_key]
+            
+            # Create a map of all inputs/hidden nodes to the ones used by the GRUCell (as inputs)
+            mapping = np.asarray([], dtype=bool)
+            for k in input_keys: mapping = np.append(mapping, True if k in node.input_keys else False)
+            for k in hidden_keys: mapping = np.append(mapping, True if k in node.input_keys else False)
+            weight_map = np.asarray([k in input_keys + hidden_keys for k in node.input_keys])
+            
+            # Add the GRUCell and its corresponding mapping to the list of used GRUCells
+            grus.append(node.get_gru(weight_map=weight_map))
+            assert len(mapping[mapping]) == grus[-1].input_size
+            gru_map.append(mapping)
+        
         return FeedForwardNet(
-                n_inputs=n_inputs, n_hidden=n_hidden, n_outputs=n_outputs,
+                input_idx=input_idx, hidden_idx=hidden_idx, gru_idx=gru_idx, output_idx=output_idx,
                 in2hid=in2hid, in2out=in2out,
                 hid2hid=hid2hid, hid2out=hid2out,
                 hidden_biases=hidden_biases, output_biases=output_biases,
+                grus=grus, gru_map=gru_map,
                 batch_size=batch_size,
                 activation=activation,
                 cold_start=cold_start,

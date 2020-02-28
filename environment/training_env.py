@@ -51,13 +51,14 @@ class TrainingEnv:
             self.games = games
             self.batch_size = len(games)
     
-    def evaluate_and_evolve(self, pop, n: int = 1, save_interval: int = 1):
+    def evaluate_and_evolve(self, pop, n: int = 1, save_interval: int = 1, parallel=True):
         """
         Evaluate the population for a single evaluation-process.
         
         :param pop: Population object
         :param n: Number of generations
         :param save_interval: Indicates how often a population gets saved
+        :param parallel: Parallel the code (disable parallelization for debugging purposes)
         """
         # Create the environment which is responsible for evaluating the genomes
         if sys.platform == 'linux':
@@ -82,17 +83,25 @@ class TrainingEnv:
             manager = mp.Manager()
             return_dict = manager.dict()
             
-            def eval_genomes(genomes, config):
-                for genome in genomes:
-                    processes.append(mp.Process(target=multi_env.eval_genome, args=(genome, config, return_dict)))
-                
-                for p in tqdm(processes): p.start()
-                for p in processes: p.join()
-                
-                # Calculate the fitness from the given return_dict
-                fitness = calc_pop_fitness(fitness_config=pop.fitness_config, game_observations=return_dict)
-                for i, genome in genomes:
-                    genome.fitness = fitness[i]
+            if parallel:
+                def eval_genomes(genomes, config):
+                    for genome in genomes:
+                        processes.append(mp.Process(target=multi_env.eval_genome, args=(genome, config, return_dict)))
+                    
+                    for p in tqdm(processes): p.start()
+                    for p in processes: p.join()
+                    
+                    # Calculate the fitness from the given return_dict
+                    fitness = calc_pop_fitness(fitness_config=pop.fitness_config, game_observations=return_dict)
+                    for i, genome in genomes:
+                        genome.fitness = fitness[i]
+            else:
+                def eval_genomes(genomes, config):
+                    for genome in tqdm(genomes):
+                        multi_env.eval_genome(genome, config, return_dict)
+                    fitness = calc_pop_fitness(fitness_config=pop.fitness_config, game_observations=return_dict)
+                    for i, genome in genomes:
+                        genome.fitness = fitness[i]
             
             # Prepare the generation's reporters for the generation
             pop.reporters.start_generation(pop.generation)

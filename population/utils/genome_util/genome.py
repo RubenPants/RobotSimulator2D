@@ -14,7 +14,7 @@ from neat.six_util import iteritems, iterkeys
 
 from population.utils.config.genome_config import DefaultGenomeConfig
 from population.utils.genome_util.genes import DefaultConnectionGene, DefaultNodeGene, GruNodeGene, OutputNodeGene
-from population.utils.network_util.graphs import creates_cycle
+from population.utils.network_util.graphs import creates_cycle, required_for_output
 
 
 class DefaultGenome(object):
@@ -70,7 +70,11 @@ class DefaultGenome(object):
             for i in range(config.num_hidden):
                 node_key = config.get_new_node_key(self.nodes)
                 assert node_key not in self.nodes
-                node = self.create_node(config, node_key)
+                r = random()
+                if config.enable_gru and r <= config.gru_mutate_rate:
+                    node = self.create_gru_node(config, node_key)  # New nodes only have 1 ingoing connection
+                else:
+                    node = self.create_node(config, node_key)
                 self.nodes[node_key] = node
         
         # Add connections based on initial connectivity type.
@@ -116,7 +120,11 @@ class DefaultGenome(object):
                 self.connect_partial_nodirect(config)
     
     def configure_crossover(self, genome1, genome2):
-        """ Configure a new genome by crossover from two parent genomes. """
+        """
+        Configure a new genome by crossover from two parent genomes.
+        
+        TODO: Unstable if working with GRU-nodes! (no check on input-connections)
+        """
         assert isinstance(genome1.fitness, (int, float))
         assert isinstance(genome2.fitness, (int, float))
         if genome1.fitness > genome2.fitness:
@@ -156,10 +164,14 @@ class DefaultGenome(object):
         if random() < config.conn_delete_prob: self.mutate_delete_connection()
         
         # Mutate connection genes.
-        for cg in self.connections.values(): cg.mutate(config)
+        for cg in self.connections.values():
+            mut_enabled = cg.mutate(config)
+            if mut_enabled is not None:
+                self.enable_connection(config=config, conn=cg) if mut_enabled else self.disable_connection(conn=cg)
         
         # Mutate node genes (bias etc.).
-        for ng in self.nodes.values(): ng.mutate(config)
+        for ng in self.nodes.values():
+            ng.mutate(config)
     
     def mutate_add_node(self, config: DefaultGenomeConfig):
         if not self.connections:
@@ -170,40 +182,56 @@ class DefaultGenome(object):
         conn_to_split = choice(list(self.connections.values()))
         node_id = config.get_new_node_key(self.nodes)
         
-        # Disable this connection and create two new connections joining its nodes via the given node.  The new
-        # node + connections have roughly the same behavior as the original connection (depending on the activation
-        # function of the new node).
-        conn_to_split.enabled = False
-        i, o = conn_to_split.key
-        self.add_connection(config=config, input_key=i, output_key=node_id, weight=1.0, enabled=True)
-        self.add_connection(config=config, input_key=node_id, output_key=o, weight=conn_to_split.weight, enabled=True)
-        
-        # Choose type of node to mutate to and add the node
+        # Choose type of node to mutate to and add the node, must be done before adding the connection!
         r = random()
         if config.enable_gru and r <= config.gru_mutate_rate:
             ng = self.create_gru_node(config, node_id)  # New nodes only have 1 ingoing connection
         else:
             ng = self.create_node(config, node_id)
         self.nodes[node_id] = ng
+        
+        # Disable this connection and create two new connections joining its nodes via the given node. The first
+        # connection will simply forward its inputs (i.e. weight=1.0), whereas the second connection tries to mimic the
+        # original (split) connection.
+        self.disable_connection(conn_to_split)
+        i, o = conn_to_split.key
+        self.create_connection(config=config, input_key=i, output_key=node_id, weight=1.0)
+        self.create_connection(config=config, input_key=node_id, output_key=o, weight=conn_to_split.weight)
     
-    def add_connection(self,
-                       config: DefaultGenomeConfig,
-                       input_key: int,
-                       output_key: int,
-                       weight: float,
-                       enabled: bool,
-                       ):
+    def mutate_delete_node(self, config: DefaultGenomeConfig):
+        # Do nothing if there are no non-output nodes.
+        available_nodes = [k for k in iterkeys(self.nodes) if k not in config.output_keys]
+        if not available_nodes:
+            return
+        
+        del_key = choice(available_nodes)
+        connections_to_delete = set()
+        for k, v in iteritems(self.connections):
+            if del_key in v.key:
+                connections_to_delete.add(v.key)
+        
+        for key in connections_to_delete:
+            self.disable_connection(self.connections[key])
+            del self.connections[key]
+        
+        del self.nodes[del_key]
+    
+    def create_connection(self, config: DefaultGenomeConfig, input_key: int, output_key: int, weight: float = None):
         """Add a connection to the genome."""
+        # Create the connection
         assert isinstance(input_key, int)
         assert isinstance(output_key, int)
         assert output_key >= 0  # output_key is not one of the inputs (sensor readings)
         assert input_key not in config.output_keys
-        assert isinstance(enabled, bool)
         key = (input_key, output_key)
         connection = config.connection_gene_type(key)
         connection.init_attributes(config)
-        connection.weight = weight
-        connection.enabled = enabled
+        
+        if weight:
+            assert isinstance(weight, float)
+            connection.weight = weight
+        
+        self.enable_connection(config=config, conn=connection)
         self.connections[key] = connection
     
     def mutate_add_connection(self, config: DefaultGenomeConfig):
@@ -224,47 +252,43 @@ class DefaultGenome(object):
         # Don't duplicate connections.
         key = (in_node, out_node)
         if key in self.connections:
-            if config.check_structural_mutation_surer(): self.connections[key].enabled = True
+            if config.check_structural_mutation_surer():
+                self.enable_connection(config=config, conn=self.connections[key])
             return
         
         # Avoid creating cycles.
         if creates_cycle(list(iterkeys(self.connections)), key):
             return
         
-        cg = self.create_connection(config, in_node, out_node)
-        self.connections[cg.key] = cg
-    
-    def mutate_delete_node(self, config: DefaultGenomeConfig):
-        # Do nothing if there are no non-output nodes.
-        available_nodes = [k for k in iterkeys(self.nodes) if k not in config.output_keys]
-        if not available_nodes:
-            return -1
-        
-        del_key = choice(available_nodes)
-        
-        connections_to_delete = set()
-        for k, v in iteritems(self.connections):
-            if del_key in v.key:
-                connections_to_delete.add(v.key)
-        
-        for key in connections_to_delete:
-            del self.connections[key]
-        
-        del self.nodes[del_key]
-        
-        return del_key
+        # Create the new connection
+        self.create_connection(config, in_node, out_node)
     
     def mutate_delete_connection(self):
+        """Delete the connection as part of a mutation."""
         if self.connections:
             key = choice(list(self.connections.keys()))
+            self.disable_connection(self.connections[key])
             del self.connections[key]
+    
+    def enable_connection(self, config: DefaultGenomeConfig, conn: DefaultConnectionGene):
+        """Enable the connection, and ripple this through to its potential GRU cell."""
+        conn.enabled = True
+        if type(self.nodes[conn.key[1]]) == GruNodeGene:
+            gru: GruNodeGene = self.nodes[conn.key[1]]
+            gru.append_key(config, k=conn.key[0])
+    
+    def disable_connection(self, conn: DefaultConnectionGene):
+        """Disable the connection, and ripple this through to its potential GRU cell."""
+        conn.enabled = False
+        if type(self.nodes[conn.key[1]]) == GruNodeGene:
+            gru: GruNodeGene = self.nodes[conn.key[1]]
+            gru.delete_key(k=conn.key[0])
     
     def distance(self, other, config: DefaultGenomeConfig):
         """
-        Returns the genetic distance between this genome and the other. This distance value
-        is used to compute genome compatibility for speciation.
+        Returns the genetic distance between this genome and the other. This distance value is used to compute genome
+        compatibility for speciation.
         """
-        
         # Compute node gene distance component.
         node_distance = 0.0
         if self.nodes or other.nodes:
@@ -311,16 +335,14 @@ class DefaultGenome(object):
         return distance
     
     def size(self):
-        """
-        Returns genome 'complexity', taken to be
-        (number of hidden nodes, number of enabled connections)
-        """
-        nodes = 0
-        ingoing = [c[0] for c in self.connections.keys()]
-        outgoing = [c[1] for c in self.connections.keys()]
-        for node_key in self.nodes:
-            if (node_key not in [0, 1]) and (node_key in ingoing) and (node_key in outgoing): nodes += 1
-        return nodes, sum([1 for cg in self.connections.values() if cg.enabled])
+        """Returns genome 'complexity', taken to be (number of hidden nodes, number of enabled connections)"""
+        used_nodes, used_conn = required_for_output(
+                inputs=[-1, -2, -3, -4, -5, -6, -7, -8],
+                outputs=[0, 1],
+                connections=self.connections,
+        )
+        # 10 = len(inputs)+len(outputs)
+        return len(used_nodes) - 10, len(used_conn)
     
     def __str__(self):
         s = f"Key: {self.key}\nFitness: {self.fitness}\nNodes:"
@@ -344,16 +366,10 @@ class DefaultGenome(object):
         return node
     
     @staticmethod
-    def create_gru_node(config: DefaultGenomeConfig, node_id: int):
+    def create_gru_node(config: DefaultGenomeConfig, node_id: int, input_size=1):
         node = config.gru_node_gene_type(node_id)
         node.init_attributes(config)  # TODO: Update such that input_size is given!
         return node
-    
-    @staticmethod
-    def create_connection(config: DefaultGenomeConfig, input_id: int, output_id: int):
-        connection = config.connection_gene_type((input_id, output_id))
-        connection.init_attributes(config)
-        return connection
     
     def connect_fs_neat_nohidden(self, config: DefaultGenomeConfig):
         """
@@ -363,8 +379,7 @@ class DefaultGenome(object):
         """
         input_id = choice(config.input_keys)
         for output_id in config.output_keys:
-            connection = self.create_connection(config, input_id, output_id)
-            self.connections[connection.key] = connection
+            self.create_connection(config, input_id, output_id)
     
     def connect_fs_neat_hidden(self, config: DefaultGenomeConfig):
         """
@@ -374,15 +389,12 @@ class DefaultGenome(object):
         input_id = choice(config.input_keys)
         others = [i for i in iterkeys(self.nodes) if i not in config.input_keys]
         for output_id in others:
-            connection = self.create_connection(config, input_id, output_id)
-            self.connections[connection.key] = connection
+            self.create_connection(config, input_id, output_id)
     
     def compute_full_connections(self, config: DefaultGenomeConfig, direct):
         """
-        Compute connections for a fully-connected feed-forward genome--each
-        input connected to all hidden nodes
-        (and output nodes if ``direct`` is set or there are no hidden nodes),
-        each hidden node connected to all output nodes.
+        Compute connections for a fully-connected feed-forward genome--each input connected to all hidden nodes (and
+        output nodes if ``direct`` is set or there are no hidden nodes), each hidden node connected to all output nodes.
         """
         hidden = [i for i in iterkeys(self.nodes) if i not in config.output_keys]
         output = [i for i in iterkeys(self.nodes) if i in config.output_keys]
@@ -399,50 +411,33 @@ class DefaultGenome(object):
                 for output_id in output:
                     connections.append((input_id, output_id))
         
-        # TODO: Delete!
-        # For recurrent genomes, include node self-connections.
-        # if not config.feed_forward:
-        #     for i in iterkeys(self.nodes):
-        #         connections.append((i, i))
-        
         return connections
     
     def connect_full_nodirect(self, config: DefaultGenomeConfig):
-        """
-        Create a fully-connected genome
-        (except without direct input-output unless no hidden nodes).
-        """
+        """Create a fully-connected genome (except without direct input-output unless no hidden nodes)."""
         for input_id, output_id in self.compute_full_connections(config, False):
-            connection = self.create_connection(config, input_id, output_id)
-            self.connections[connection.key] = connection
+            self.create_connection(config, input_id, output_id)
     
     def connect_full_direct(self, config: DefaultGenomeConfig):
         """ Create a fully-connected genome, including direct input-output connections. """
         for input_id, output_id in self.compute_full_connections(config, True):
-            connection = self.create_connection(config, input_id, output_id)
-            self.connections[connection.key] = connection
+            self.create_connection(config, input_id, output_id)
     
     def connect_partial_nodirect(self, config: DefaultGenomeConfig):
-        """
-        Create a partially-connected genome,
-        with (unless no hidden nodes) no direct input-output connections."""
+        """Create a partially-connected genome, with (unless no hidden nodes) no direct input-output connections."""
         assert 0 <= config.connection_fraction <= 1
         all_connections = self.compute_full_connections(config, False)
         shuffle(all_connections)
         num_to_add = int(round(len(all_connections) * config.connection_fraction))
         for input_id, output_id in all_connections[:num_to_add]:
-            connection = self.create_connection(config, input_id, output_id)
-            self.connections[connection.key] = connection
+            self.create_connection(config, input_id, output_id)
     
     def connect_partial_direct(self, config: DefaultGenomeConfig):
-        """
-        Create a partially-connected genome,
-        including (possibly) direct input-output connections.
+        """Create a partially-connected genome, including (possibly) direct input-output connections.
         """
         assert 0 <= config.connection_fraction <= 1
         all_connections = self.compute_full_connections(config, True)
         shuffle(all_connections)
         num_to_add = int(round(len(all_connections) * config.connection_fraction))
         for input_id, output_id in all_connections[:num_to_add]:
-            connection = self.create_connection(config, input_id, output_id)
-            self.connections[connection.key] = connection
+            self.create_connection(config, input_id, output_id)

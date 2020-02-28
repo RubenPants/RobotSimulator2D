@@ -4,7 +4,7 @@ reproduction.py
 Handles creation of genomes, either from scratch or by sexual or asexual reproduction from parents.
 """
 from __future__ import division
-
+import copy
 import math
 import random
 from itertools import count
@@ -76,7 +76,7 @@ class DefaultReproduction(DefaultClassConfig):
         
         return spawn_amounts
     
-    def reproduce(self, config, species, pop_size, generation, sexual=True):
+    def reproduce(self, config, species, pop_size, generation, sexual):
         """
         Handles creation of genomes, either from scratch or by sexual or asexual reproduction from parents.
         """
@@ -177,8 +177,9 @@ class DefaultReproduction(DefaultClassConfig):
                 if sexual:
                     child.configure_crossover(parent1, parent2)
                 else:
-                    child.connections = parent1.connections.copy()
-                    child.nodes = parent1.nodes.copy()
+                    # Deepcopy the connections and nodes such that the values aren't shared between genomes
+                    child.connections = copy.deepcopy(parent1.connections)
+                    child.nodes = copy.deepcopy(parent1.nodes)
                 child.mutate(config.genome_config)
                 new_population[gid] = child
                 self.ancestors[gid] = (parent1_id, parent2_id)

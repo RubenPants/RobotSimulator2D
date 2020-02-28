@@ -3,12 +3,14 @@ visualizer.py
 
 Create visualizations for the genomes present in the population.
 """
-import copy
 import os
 
 from graphviz import Digraph
 
 # Add graphviz to path
+from population.utils.genome_util.genes import DefaultNodeGene, GruNodeGene
+from population.utils.network_util.graphs import required_for_output
+
 os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/'
 
 
@@ -22,7 +24,7 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
     :param filename: Name of the file
     :param view: Visualize when method is run
     """
-    # Assign names to sensors
+    # Assign names to sensors (hard-coded since immutable)
     node_names = dict()
     node_names[-1] = 'proximity -90°'
     node_names[-2] = 'proximity -45°'
@@ -35,8 +37,8 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
     node_names[0] = 'left wheel'
     node_names[1] = 'right wheel'
     
+    # Visualizer specific functionality
     node_colors = dict()
-    
     dot = Digraph(format='png', engine="neato")
     dot.attr(overlap='false')
     
@@ -70,61 +72,56 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
                 pos=f"{6 + index * 9},{-5 - (len(genome.nodes) - 2) * (5 if debug else 1)}!"
         )
     
-    # Prune unused hidden nodes
-    connections = set()
-    for cg in genome.connections.values():
-        if cg.enabled:
-            connections.add(cg.key)
-    
-    # In the beginning, the only certainty is that the outputs are used nodes
-    used_nodes = copy.copy(outputs)
-    # 'pending' is used to refer to the receiving end of a connection
-    pending = copy.copy(outputs)
-    
-    # The idea is to loop over the connections, starting from the known used_nodes going up higher in the network
-    # (towards the inputs). If a node is connected to at least one the output-nodes (albeit indirectly), we know the
-    # node is used by the network, and thus must be visualized
-    while pending:
-        new_pending = set()
-        for index, connection in connections:
-            if connection in pending and index not in used_nodes:
-                new_pending.add(index)
-                used_nodes.add(index)
-        pending = new_pending
-    
     # Visualize hidden nodes
+    used_nodes, used_conn = required_for_output(
+            inputs=config.genome_config.input_keys,
+            outputs=config.genome_config.output_keys,
+            connections=genome.connections
+    )
+    
     for key in used_nodes:
-        if key in inputs or key in outputs:
-            continue
+        if key in inputs or key in outputs: continue
         if debug:
-            name = f'hidden node={key}'
-            name += f'\nactivation={genome.nodes[key].activation}'
-            name += f'\nbias={round(genome.nodes[key].bias, 2)}'
-            name += f'\naggregation={genome.nodes[key].aggregation}'
+            if type(genome.nodes[key]) == GruNodeGene:
+                name = f'GRU node={key}'
+                name += f'\ninputs_size={len(genome.nodes[key].input_keys)}'
+                name += f'\nhidden_size={genome.nodes[key].hidden_size}'
+                # name += f'\nbias_ih={np.asarray(genome.nodes[key].bias_ih.tolist()).round(3).tolist()}'
+                # name += f'\nbias_hh={np.asarray(genome.nodes[key].bias_hh.tolist()).round(3).tolist()}'
+                # name += f'\nweight_ih={np.asarray(genome.nodes[key].weight_ih.tolist()).round(3).tolist()}'
+                # name += f'\nweight_hh={np.asarray(genome.nodes[key].weight_hh.tolist()).round(3).tolist()}'
+            elif type(genome.nodes[key]) == DefaultNodeGene:
+                name = f'simple node={key}'
+                name += f'\nactivation={genome.nodes[key].activation}'
+                name += f'\nbias={round(genome.nodes[key].bias, 2)}'
+                name += f'\naggregation={genome.nodes[key].aggregation}'
+            else:
+                raise Exception(f"Invalid hidden node (key={key}) of genome: \n{genome}")
         else:
             name = str(key)
         node_names.update({key: name})
-        dot.node(name,
-                 style='filled',
-                 fillcolor=node_colors.get(key, 'white'))
+        dot.node(
+                name,
+                style='filled',
+                fillcolor=node_colors.get(key, 'white')
+        )
     
     # Add inputs to used_nodes (i.e. all inputs will always be visualized, even if they aren't used!)
     used_nodes.update(inputs)
     
     # Visualize connections
-    for cg in genome.connections.values():
-        if cg.enabled:
-            sending_node, receiving_node = cg.key
-            if sending_node in used_nodes and receiving_node in used_nodes:
-                color = 'green' if cg.weight > 0 else 'red'
-                width = str(0.1 + abs(cg.weight / 5.0))
-                dot.edge(
-                        node_names.get(sending_node),
-                        node_names.get(receiving_node),
-                        label=str(round(cg.weight, 2)) if debug else None,
-                        color=color,
-                        penwidth=width,
-                )
+    for cg in used_conn.values():
+        sending_node, receiving_node = cg.key
+        if sending_node in used_nodes and receiving_node in used_nodes:
+            color = 'green' if cg.weight > 0 else 'red'
+            width = str(0.1 + abs(cg.weight / 5.0))
+            dot.edge(
+                    node_names.get(sending_node),
+                    node_names.get(receiving_node),
+                    label=str(round(cg.weight, 2)) if debug else None,
+                    color=color,
+                    penwidth=width,
+            )
     
     # Render and save
     dot.render(filename, view=view)
