@@ -234,8 +234,7 @@ class Population:
         """
         if not genome:
             genome = self.best_genome if self.best_genome else list(self.population.values())[0]
-            if not name:
-                name = 'best_genome_'
+            if not name: name = 'best_genome_'
         name += 'gen_{gen:05d}'.format(gen=self.generation)
         get_subfolder(f'population/storage/NEAT/{self}/', 'images')
         sf = get_subfolder(f'population/storage/NEAT/{self}/images/', 'architectures')

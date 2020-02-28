@@ -14,7 +14,7 @@ from neat.six_util import iteritems, iterkeys
 
 from population.utils.config.genome_config import DefaultGenomeConfig
 from population.utils.genome_util.genes import DefaultConnectionGene, DefaultNodeGene, GruNodeGene, OutputNodeGene
-from population.utils.network_util.graphs import creates_cycle
+from population.utils.network_util.graphs import creates_cycle, required_for_output
 
 
 class DefaultGenome(object):
@@ -336,12 +336,13 @@ class DefaultGenome(object):
     
     def size(self):
         """Returns genome 'complexity', taken to be (number of hidden nodes, number of enabled connections)"""
-        nodes = 0
-        ingoing = [c[0] for c in self.connections.keys()]
-        outgoing = [c[1] for c in self.connections.keys()]
-        for node_key in self.nodes:
-            if (node_key not in [0, 1]) and (node_key in ingoing) and (node_key in outgoing): nodes += 1
-        return nodes, sum([1 for cg in self.connections.values() if cg.enabled])
+        used_nodes, used_conn = required_for_output(
+                inputs=[-1, -2, -3, -4, -5, -6, -7, -8],
+                outputs=[0, 1],
+                connections=self.connections,
+        )
+        # 10 = len(inputs)+len(outputs)
+        return len(used_nodes) - 10, len(used_conn)
     
     def __str__(self):
         s = f"Key: {self.key}\nFitness: {self.fitness}\nNodes:"

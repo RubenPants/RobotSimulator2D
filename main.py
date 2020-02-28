@@ -62,7 +62,9 @@ if __name__ == '__main__':
     
     if args.genome:
         print("\n===> VISUALIZING GENOME <===\n")
-        genome = list(pop.population.values())[3]
+        print(pop.best_genome.size())
+        genome = list(pop.population.values())[2]
+        # genome = None
         pop.visualize_genome(
                 debug=True,
                 genome=genome,

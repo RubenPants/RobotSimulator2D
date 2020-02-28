@@ -174,8 +174,19 @@ class GruNodeGene(BaseGene):  # TODO: Mutate functionality
         d = 0
         d += np.linalg.norm(self.bias_ih - other.bias_ih)
         d += np.linalg.norm(self.bias_hh - other.bias_hh)
-        d += np.linalg.norm(self.weight_ih - other.weight_ih)
         d += np.linalg.norm(self.weight_hh - other.weight_hh)
+        
+        # Compare only same input keys
+        key_set = set(self.input_keys + other.input_keys)
+        input_keys = sorted([k for k in key_set if k < 0], reverse=True)
+        hidden_keys = sorted([k for k in key_set if k >= 0])
+        combined_keys = input_keys + hidden_keys
+        s = np.zeros((3 * self.hidden_size, len(combined_keys)))
+        o = np.zeros((3 * self.hidden_size, len(combined_keys)))
+        for i, k in enumerate(combined_keys):
+            if k in self.input_keys: s[:, i] = self.weight_ih[:, self.input_keys.index(k)]
+            if k in other.input_keys: o[:, i] = other.weight_ih[:, other.input_keys.index(k)]
+        d += np.linalg.norm(s - o)
         return d * config.compatibility_weight_coefficient
     
     def get_gru(self, weight_map=None):
