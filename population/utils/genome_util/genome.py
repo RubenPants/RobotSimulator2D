@@ -70,7 +70,11 @@ class DefaultGenome(object):
             for i in range(config.num_hidden):
                 node_key = config.get_new_node_key(self.nodes)
                 assert node_key not in self.nodes
-                node = self.create_node(config, node_key)
+                r = random()
+                if config.enable_gru and r <= config.gru_mutate_rate:
+                    node = self.create_gru_node(config, node_key)  # New nodes only have 1 ingoing connection
+                else:
+                    node = self.create_node(config, node_key)
                 self.nodes[node_key] = node
         
         # Add connections based on initial connectivity type.
@@ -360,7 +364,7 @@ class DefaultGenome(object):
     
     @staticmethod
     def create_gru_node(config: DefaultGenomeConfig, node_id: int, input_size=1):
-        node = config.gru_node_gene_type(node_id, input_size=input_size)
+        node = config.gru_node_gene_type(node_id)
         node.init_attributes(config)  # TODO: Update such that input_size is given!
         return node
     

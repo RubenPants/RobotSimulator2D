@@ -153,7 +153,7 @@ class GruNodeGene(BaseGene):  # TODO: Mutate functionality
         BaseGene.__init__(self, key)
     
     def __str__(self):
-        attrib = ['key'] + [a.name for a in self._gene_attributes]
+        attrib = ['key', 'input_keys'] + [a.name for a in self._gene_attributes]
         body = []
         for a in attrib:
             attr = getattr(self, a)
@@ -166,10 +166,17 @@ class GruNodeGene(BaseGene):  # TODO: Mutate functionality
     def init_attributes(self, config):
         setattr(self, 'bias_ih', self._gene_attributes[0].init_value(config, self.hidden_size))
         setattr(self, 'bias_hh', self._gene_attributes[1].init_value(config, self.hidden_size))
-        # By default will the initial input_size=1 (i.e. node added on top of one connection)
-        setattr(self, 'weight_ih', self._gene_attributes[2].init_value(config, self.hidden_size, len(
-                self.input_keys)))  # TODO: Handle init connections!
+        setattr(self, 'weight_ih', self._gene_attributes[2].init_value(config, self.hidden_size, len(self.input_keys)))
         setattr(self, 'weight_hh', self._gene_attributes[2].init_value(config, self.hidden_size, self.hidden_size))
+    
+    def distance(self, other, config):
+        """Calculate the distance between two GRU nodes, which is determined by its coefficients."""
+        d = 0
+        d += np.linalg.norm(self.bias_ih - other.bias_ih)
+        d += np.linalg.norm(self.bias_hh - other.bias_hh)
+        d += np.linalg.norm(self.weight_ih - other.weight_ih)
+        d += np.linalg.norm(self.weight_hh - other.weight_hh)
+        return d * config.compatibility_weight_coefficient
     
     def get_gru(self):
         """Return a PyTorch GRUCell based on current configuration."""
@@ -184,7 +191,7 @@ class GruNodeGene(BaseGene):  # TODO: Mutate functionality
         """Extend the input-key list with the given key, and expand the corresponding weights."""
         if k not in self.input_keys:
             # Find the index to insert the key
-            lst = [i for i in range(len(self.input_keys)) if self.input_keys[i] > 3]
+            lst = [i for i in range(len(self.input_keys)) if abs(self.input_keys[i]) > abs(k)]
             idx = lst[0] if lst else len(self.input_keys)
             
             # Save key to list
@@ -192,8 +199,8 @@ class GruNodeGene(BaseGene):  # TODO: Mutate functionality
             
             # Update weight_ih correspondingly by inserting random initialized tensor in correct position
             new_tensor = WeightAttribute('temp').init_value(config, hidden_size=self.hidden_size, input_size=1)
-            self.weight_ih[:] = torch.cat((self.weight_ih[:, :idx], new_tensor, self.weight_ih[:, idx:]), dim=1)
-        
+            self.weight_ih = torch.cat((self.weight_ih[:, :idx], new_tensor, self.weight_ih[:, idx:]), dim=1)
+    
     def delete_key(self, k):
         """Delete one of the input-keys with its corresponding weights."""
         # Check if key in keys
@@ -202,7 +209,7 @@ class GruNodeGene(BaseGene):  # TODO: Mutate functionality
             self.input_keys.remove(k)
             
             # Remove corresponding weight-column
-            self.weight_ih[:] = torch.cat((self.weight_ih[:, :idx], self.weight_ih[:, idx+1:]),dim=1)
+            self.weight_ih = torch.cat((self.weight_ih[:, :idx], self.weight_ih[:, idx + 1:]), dim=1)
 
 
 class DefaultConnectionGene(BaseGene):
