@@ -37,6 +37,7 @@ def required_for_output(inputs, outputs, connections):
     
     :note: It is assumed that the input identifier set and the node identifier set are disjoint. By convention, the
            output node ids are always the same as the output index.
+    :note: Only paths starting at the inputs and ending at the outputs are allowed (i.e. no floating nodes).
     
     :param inputs: list of the input identifiers
     :param outputs: list of the output node identifiers
@@ -47,7 +48,7 @@ def required_for_output(inputs, outputs, connections):
     s = set(outputs)
     while 1:
         # Find nodes not in S whose output is consumed by a node in s.
-        t = set(a for (a, b) in connections if b in s and a not in s)
+        t = set(a for ((a, b), c) in connections.items() if c.enabled and b in s and a not in s)
         if not t: break
         
         layer_nodes = set(x for x in t if x not in inputs)
@@ -55,6 +56,14 @@ def required_for_output(inputs, outputs, connections):
         
         required = required.union(layer_nodes)
         s = s.union(t)
+    
+    # Prune floating nodes (i.e. hidden nodes without inputs)
+    floating = set()
+    i_keys, o_keys = zip(*[k for (k, c) in connections.items() if c.enabled])
+    for r in required:
+        if r in inputs + outputs: continue
+        if not (r in i_keys and r in o_keys): floating.add(r)
+    for f in floating: required.remove(f)
     return required
 
 

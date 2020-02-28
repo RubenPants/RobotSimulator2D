@@ -11,6 +11,7 @@ from graphviz import Digraph
 
 # Add graphviz to path
 from population.utils.genome_util.genes import DefaultNodeGene, GruNodeGene
+from population.utils.network_util.graphs import required_for_output
 
 os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/'
 
@@ -87,7 +88,7 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
     # The idea is to loop over the connections, starting from the known used_nodes going up higher in the network
     # (towards the inputs). If a node is connected to at least one the output-nodes (albeit indirectly), we know the
     # node is used by the network, and thus must be visualized
-    while pending:
+    while pending:  # TODO: Remove
         new_pending = set()
         for index, connection in connections:
             if connection in pending and index not in used_nodes:
@@ -96,13 +97,13 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
         pending = new_pending
     
     # Visualize hidden nodes
-    for key in used_nodes:
-        if key in inputs or key in outputs:
-            continue
+    required = required_for_output(config.genome_config.input_keys, config.genome_config.output_keys, genome.connections)
+    for key in required:
+        if key in inputs or key in outputs: continue
         if debug:
             if type(genome.nodes[key]) == GruNodeGene:
                 name = f'GRU node={key}'
-                name += f'\ninputs_size={genome.nodes[key].input_size}'
+                name += f'\ninputs_size={len(genome.nodes[key].input_keys)}'
                 name += f'\nhidden_size={genome.nodes[key].hidden_size}'
                 # name += f'\nbias_ih={np.asarray(genome.nodes[key].bias_ih.tolist()).round(3).tolist()}'
                 # name += f'\nbias_hh={np.asarray(genome.nodes[key].bias_hh.tolist()).round(3).tolist()}'

@@ -20,6 +20,7 @@ You may obtain a copy of the License at
     See the License for the specific language governing permissions and
     limitations under the License.
 """
+import numpy as np
 import torch
 
 from environment.entities.game import initial_sensor_readings
@@ -35,7 +36,7 @@ class FeedForwardNet:
                  in2hid, in2out,
                  hid2hid, hid2out,
                  hidden_biases, output_biases,
-                 grus,
+                 grus, gru_map,
                  batch_size=1,
                  activation=tanh_activation,
                  cold_start=False,
@@ -53,6 +54,7 @@ class FeedForwardNet:
         :param hid2hid: Connections between the hidden nodes
         :param hid2out: Connections from hidden nodes towards the outputs
         :param grus: List of GRUCell objects (length equals len(gru_idx))
+        :param gru_map: Boolean matrix mapping raw inputs to inputs used by GRUCell for a single batch
         :param batch_size: Needed to setup network-dimensions
         :param activation: The default node-activation function (squishing)
         :param cold_start: Do not initialize the network based on sensory inputs
@@ -71,8 +73,14 @@ class FeedForwardNet:
         self.n_outputs = len(output_idx)
         self.bs = batch_size
         
+        # Setup the gru_map
+        self.gru_map = []
+        for i, m in enumerate(gru_map):
+            self.gru_map.append(np.tile(gru_map[i], (batch_size, 1)))
+        self.gru_map = torch.tensor(self.gru_map, dtype=bool)
+        
         # Placeholders, initialized during reset
-        self.gru_cache = None  # Inputs for the GRUs
+        self.gru_cache = None  # Inputs for the GRUs before iterating through the hidden nodes
         self.gru_state = None  # State of the GRUs
         self.hidden_act = None  # Activations of the hidden nodes
         self.output_act = None  # Activations of the output nodes
@@ -157,7 +165,7 @@ class FeedForwardNet:
                 # 2) Execute the GRU nodes if they exists (updating current hidden state)
                 for i, gru_idx in enumerate(self.gru_idx):
                     self.gru_state[:, i] = self.grus[i](
-                            self.gru_cache[:, i][self.gru_cache[:, i] != 0].reshape(self.bs, self.grus[i].input_size),
+                            self.gru_cache[:, i][self.gru_map[i]].reshape(self.bs, self.grus[i].input_size),
                             self.gru_state[:, i],
                     )
                     self.hidden_act[:, gru_idx] = self.gru_state[:, i, 0]
@@ -198,10 +206,9 @@ class FeedForwardNet:
         output_keys = list(genome_config.output_keys)
         
         # Prune keys of dead nodes
-        ingoing, outgoing = zip(*[conn.key for conn in genome.connections.values() if conn.enabled])
         remove = []
         for k in hidden_keys:
-            if not (k in ingoing and k in outgoing): remove.append(k)
+            if k not in required: remove.append(k)
         for k in remove:
             hidden_keys.remove(k)
             if k in gru_keys: gru_keys.remove(k)
@@ -240,7 +247,7 @@ class FeedForwardNet:
             
             # Check if connection is necessary
             i_key, o_key = conn.key
-            if o_key not in required and i_key not in required: continue
+            if o_key not in required or i_key not in required: continue
             
             # Convert to index-based
             i_idx = key_to_idx(i_key)
@@ -273,15 +280,25 @@ class FeedForwardNet:
         
         # Create the gru-cells and put them in a list
         grus = []
+        gru_map = []
         for gru_key in gru_keys:
-            grus.append(genome.nodes[gru_key].get_gru())
+            node: GruNodeGene = genome.nodes[gru_key]
+            mapping = np.asarray([], dtype=bool)
+            for k in input_keys:
+                mapping = np.append(mapping, True if k in node.input_keys else False)
+            for k in hidden_keys:
+                mapping = np.append(mapping, True if k in node.input_keys else False)
+            weight_map = np.asarray([k in input_keys + hidden_keys for k in node.input_keys])
+            grus.append(node.get_gru(weight_map=weight_map))
+            assert len(mapping[mapping]) == grus[-1].input_size  # TODO: Faulty check due to required (prunes hidden)
+            gru_map.append(mapping)
         
         return FeedForwardNet(
                 input_idx=input_idx, hidden_idx=hidden_idx, gru_idx=gru_idx, output_idx=output_idx,
                 in2hid=in2hid, in2out=in2out,
                 hid2hid=hid2hid, hid2out=hid2out,
                 hidden_biases=hidden_biases, output_biases=output_biases,
-                grus=grus,
+                grus=grus, gru_map=gru_map,
                 batch_size=batch_size,
                 activation=activation,
                 cold_start=cold_start,

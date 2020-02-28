@@ -178,10 +178,14 @@ class GruNodeGene(BaseGene):  # TODO: Mutate functionality
         d += np.linalg.norm(self.weight_hh - other.weight_hh)
         return d * config.compatibility_weight_coefficient
     
-    def get_gru(self):
+    def get_gru(self, weight_map=None):
         """Return a PyTorch GRUCell based on current configuration."""
-        gru = torch.nn.GRUCell(input_size=len(self.input_keys), hidden_size=self.hidden_size)
-        gru.weight_ih[:] = self.weight_ih
+        if weight_map is not None:
+            gru = torch.nn.GRUCell(input_size=len(weight_map[weight_map]), hidden_size=self.hidden_size)
+            gru.weight_ih[:] = self.weight_ih[:, weight_map]
+        else:
+            gru = torch.nn.GRUCell(input_size=len(self.input_keys), hidden_size=self.hidden_size)
+            gru.weight_ih[:] = self.weight_ih
         gru.weight_hh[:] = self.weight_hh
         gru.bias_ih[:] = self.bias_ih
         gru.bias_hh[:] = self.bias_hh
@@ -230,3 +234,23 @@ class DefaultConnectionGene(BaseGene):
         d = abs(self.weight - other.weight)
         if self.enabled != other.enabled: d += 1.0
         return d * config.compatibility_weight_coefficient
+    
+    def mutate(self, config):
+        """
+        Perform the mutation operation.
+        
+        :return: None: 'enabled' hasn't changed
+                 True: 'enabled' is set to True
+                 False: 'enabled' is set to False
+        Return True if enable has mutated."""
+        mut_enabled = None
+        for a in self._gene_attributes:
+            v = getattr(self, a.name)
+            if a.name == 'enabled':
+                v2 = a.mutate_value(v, config)
+                if v != v2:
+                    setattr(self, a.name, v2)
+                    mut_enabled = v2
+            else:
+                setattr(self, a.name, a.mutate_value(v, config))
+        return mut_enabled
