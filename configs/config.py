@@ -29,7 +29,7 @@ class GameConfig:
         
         # [CONTROL]
         # Number of games on which a single genome is evaluated [def=8]  TODO: move out of game config!
-        self.batch: int = 8
+        self.batch: int = 4
         # Number of seconds it takes for one game to complete [def=50]
         self.duration: int = 50
         # Max ID of game (starting from 1) [def=1000]
@@ -101,7 +101,7 @@ class NeatConfig:
         # Don't consider fitness_criterion and fitness_threshold
         self.no_fitness_termination: bool = True
         # Number of individuals in each generation  [def=256]  TODO
-        self.pop_size: int = 256
+        self.pop_size: int = 2
         # Create random population if all species become distinct due to stagnation
         self.reset_on_extinction: bool = True
         
@@ -200,8 +200,8 @@ class NeatConfig:
         self.nn_k: int = 3
         
         # [GRU]
-        # Enable the genomes to mutate GRU nodes  [def=True]
-        self.enable_gru: bool = False
+        # Enable the genomes to mutate GRU nodes  [def=True]  TODO
+        self.enable_gru: bool = True
         # Mutation probability of mutating a GRU node rather than a simple node  [def=0.4]
         self.gru_mutate_rate: float = 1
     

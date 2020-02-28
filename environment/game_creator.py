@@ -629,7 +629,9 @@ if __name__ == '__main__':
                 game = Game(
                         game_id=g_id,
                         save_path="environment/games_db/",
-                        overwrite=False)
+                        overwrite=False,
+                        silent=True,
+                )
                 game.close()
                 game.reset()
                 game.get_blueprint()
