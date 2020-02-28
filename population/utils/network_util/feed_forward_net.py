@@ -197,21 +197,17 @@ class FeedForwardNet:
         genome_config = config.genome_config
         
         # Collect the nodes whose state is required to compute the final network output(s), this excludes the inputs
-        required = required_for_output(genome_config.input_keys, genome_config.output_keys, genome.connections)
+        used_nodes, used_conn = required_for_output(
+                inputs=genome_config.input_keys,
+                outputs=genome_config.output_keys,
+                connections=genome.connections
+        )
         
-        # Get a list of all the input, hidden, and output keys
+        # Get a list of all the input, (used) hidden, and output keys
         input_keys = list(genome_config.input_keys)
-        hidden_keys = [k for k in genome.nodes.keys() if k not in genome_config.output_keys]
-        gru_keys = [k for k in genome.nodes.keys() if type(genome.nodes[k]) == GruNodeGene]
+        hidden_keys = [k for k in genome.nodes.keys() if (k not in genome_config.output_keys and k in used_nodes)]
+        gru_keys = [k for k in hidden_keys if type(genome.nodes[k]) == GruNodeGene]
         output_keys = list(genome_config.output_keys)
-        
-        # Prune keys of dead nodes
-        remove = []
-        for k in hidden_keys:
-            if k not in required: remove.append(k)
-        for k in remove:
-            hidden_keys.remove(k)
-            if k in gru_keys: gru_keys.remove(k)
         
         # Define the biases, note that inputs do not have a bias (since they aren't actually nodes!)
         hidden_biases = [genome.nodes[k].bias for k in hidden_keys]
@@ -242,14 +238,10 @@ class FeedForwardNet:
         hid2out = ([], [])
         
         # Convert the key-based connections to index-based connections one by one, also save their weights
-        for conn in genome.connections.values():
-            if not conn.enabled: continue
-            
-            # Check if connection is necessary
-            i_key, o_key = conn.key
-            if o_key not in required or i_key not in required: continue
-            
+        #  At this point, it is already known that all connections are used connections
+        for conn in used_conn.values():
             # Convert to index-based
+            i_key, o_key = conn.key
             i_idx = key_to_idx(i_key)
             o_idx = key_to_idx(o_key)
             
@@ -282,15 +274,18 @@ class FeedForwardNet:
         grus = []
         gru_map = []
         for gru_key in gru_keys:
+            # Query the node that contains the GRUCell's weights
             node: GruNodeGene = genome.nodes[gru_key]
+            
+            # Create a map of all inputs/hidden nodes to the ones used by the GRUCell (as inputs)
             mapping = np.asarray([], dtype=bool)
-            for k in input_keys:
-                mapping = np.append(mapping, True if k in node.input_keys else False)
-            for k in hidden_keys:
-                mapping = np.append(mapping, True if k in node.input_keys else False)
+            for k in input_keys: mapping = np.append(mapping, True if k in node.input_keys else False)
+            for k in hidden_keys: mapping = np.append(mapping, True if k in node.input_keys else False)
             weight_map = np.asarray([k in input_keys + hidden_keys for k in node.input_keys])
+            
+            # Add the GRUCell and its corresponding mapping to the list of used GRUCells
             grus.append(node.get_gru(weight_map=weight_map))
-            assert len(mapping[mapping]) == grus[-1].input_size  # TODO: Faulty check due to required (prunes hidden)
+            assert len(mapping[mapping]) == grus[-1].input_size
             gru_map.append(mapping)
         
         return FeedForwardNet(

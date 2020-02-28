@@ -33,38 +33,50 @@ def creates_cycle(connections, test):
 
 def required_for_output(inputs, outputs, connections):
     """
-    Collect the nodes whose state is required to compute the final network output(s).
+    Determine which nodes and connections are needed to compute the final output. It is considered that only paths
+    starting at the inputs and ending at the outputs are relevant. This decision is made since a node bias can
+    substitute for a 'floating' node (i.e. node with no input and constant output).
     
     :note: It is assumed that the input identifier set and the node identifier set are disjoint. By convention, the
            output node ids are always the same as the output index.
-    :note: Only paths starting at the inputs and ending at the outputs are allowed (i.e. no floating nodes).
     
     :param inputs: list of the input identifiers
     :param outputs: list of the output node identifiers
     :param connections: list of (input, output) connections in the network.
-    :return: Set of identifiers of required nodes
+    :return: Set of used nodes, Remaining connections
     """
-    required = set(outputs)
-    s = set(outputs)
-    while 1:
-        # Find nodes not in S whose output is consumed by a node in s.
-        t = set(a for ((a, b), c) in connections.items() if c.enabled and b in s and a not in s)
-        if not t: break
-        
-        layer_nodes = set(x for x in t if x not in inputs)
-        if not layer_nodes: break
-        
-        required = required.union(layer_nodes)
-        s = s.union(t)
+    # Get all the enabled connections and the nodes used in those
+    used_conn = {k: c for k, c in connections.items() if c.enabled}
+    used_nodes = set(a for (a, _) in used_conn.keys())
+    used_nodes.update({b for (_, b) in used_conn.keys()})
+    used_nodes.update({n for n in inputs + outputs})
     
-    # Prune floating nodes (i.e. hidden nodes without inputs)
-    floating = set()
-    i_keys, o_keys = zip(*[k for (k, c) in connections.items() if c.enabled])
-    for r in required:
-        if r in inputs + outputs: continue
-        if not (r in i_keys and r in o_keys): floating.add(r)
-    for f in floating: required.remove(f)
-    return required
+    # Initialize with dummy to get the 'while' going
+    removed_nodes = [True]
+    
+    # While new nodes get removed, keep pruning
+    while removed_nodes:
+        removed_nodes = []
+        
+        # Search for nodes to prune
+        for n in used_nodes:
+            # Inputs and outputs cannot be pruned
+            if n in inputs + outputs: continue
+            
+            # Node must be at least once both at the sender and the receiving side of a connection
+            if not (n in {a for (a, _) in used_conn.keys()} and n in {b for (_, b) in used_conn.keys()}):
+                removed_nodes.append(n)
+        
+        # Delete the removed_nodes from the used_nodes set, remove their corresponding connections as well
+        for n in removed_nodes:
+            # Remove the dangling node
+            used_nodes.remove(n)
+            
+            # Connection must span between two used nodes
+            used_conn = {(a, b): c for (a, b), c in used_conn.items() if (a in used_nodes and b in used_nodes)}
+    
+    # Return the set of used nodes, as well as all the remaining (used) connections
+    return used_nodes, used_conn
 
 
 def feed_forward_layers(inputs, outputs, connections):
