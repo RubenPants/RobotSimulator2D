@@ -4,18 +4,19 @@ from population.population import Population
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument('--train', type=bool, default=False)
+    parser.add_argument('--train', type=bool, default=True)
     parser.add_argument('--iterations', type=int, default=10)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
-    parser.add_argument('--genome', type=bool, default=True)
-    parser.add_argument('--live', type=bool, default=False)
+    parser.add_argument('--genome', type=bool, default=False)
+    parser.add_argument('--live', type=bool, default=True)
     args = parser.parse_args()
     
     pop = Population(
             name="test",
             # version=1,
     )
+    best_genome = pop.best_genome if pop.best_genome else list(pop.population.values())[0]
     # pop.population[9] = pop.population[list(pop.population.keys())[12]]
     # pop.save()
     # net = pop.make_net(pop.best_genome, pop.config, 1)
@@ -56,15 +57,15 @@ if __name__ == '__main__':
         
         evaluator = EvaluationEnv()
         evaluator.evaluate_genome_list(
-                genome_list=[pop.best_genome],
+                genome_list=[best_genome],
                 pop=pop,
         )
     
     if args.genome:
         print("\n===> VISUALIZING GENOME <===\n")
-        print(pop.best_genome.size())
-        genome = list(pop.population.values())[2]
-        # genome = None
+        genome = best_genome
+        # genome = list(pop.population.values())[2]
+        print(f"Genome size: {best_genome.size()}")
         pop.visualize_genome(
                 debug=True,
                 genome=genome,
@@ -74,7 +75,7 @@ if __name__ == '__main__':
         print("\n===> STARTING LIVE DEMO <===\n")
         from environment.visualizer import Visualizer
         
-        net = pop.make_net(pop.best_genome, pop.config, 1)
+        net = pop.make_net(best_genome, pop.config, 1)
         visualizer = Visualizer(
                 query_net=pop.query_net,
                 debug=False,

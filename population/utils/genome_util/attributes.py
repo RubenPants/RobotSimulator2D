@@ -217,11 +217,12 @@ class WeightAttribute(object):
             tensor[x_index, y_index] = self.fa.init_value(config=config)
         return tensor
     
-    def mutate_value(self, value, config):
+    def mutate_value(self, value, config, mapping=None):
         """Mutate the FloatTensor."""
         # Query the FloatAttribute for each initialization of the tensor's parameters
-        for x_index, y_index in np.ndindex(value.shape):
-            value[x_index, y_index] = self.fa.mutate_value(value=float(value[x_index, y_index]), config=config)
+        for row, col in np.ndindex(value.shape):
+            if mapping is not None and not mapping[col]: continue
+            value[row, col] = self.fa.mutate_value(value=float(value[row, col]), config=config)
         return value
     
     def validate(self, config):  # pragma: no cover
