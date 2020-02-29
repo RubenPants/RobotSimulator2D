@@ -11,6 +11,7 @@ from neat.six_util import iteritems, itervalues
 from tqdm import tqdm
 
 from configs.config import GameConfig
+from population.population import Population
 from population.utils.population_util.fitness_functions import calc_pop_fitness
 
 if sys.platform == 'linux':
@@ -51,7 +52,7 @@ class TrainingEnv:
             self.games = games
             self.batch_size = len(games)
     
-    def evaluate_and_evolve(self, pop, n: int = 1, save_interval: int = 1, parallel=True):
+    def evaluate_and_evolve(self, pop: Population, n: int = 1, save_interval: int = 1, parallel=True):
         """
         Evaluate the population for a single evaluation-process.
         

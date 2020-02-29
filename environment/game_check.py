@@ -22,4 +22,4 @@ if __name__ == '__main__':
             game.get_observation()
             game.step(0, 0)
         except Exception:
-            print(f"Faulty created game: {g_id}, please manually redo this one")
+            print(f"Bug in game: {g_id}, please manually redo this one")

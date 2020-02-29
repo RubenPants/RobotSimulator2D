@@ -77,7 +77,7 @@ class NeatConfig:
         'NEAT':                ["fitness_criterion", "fitness_threshold", "no_fitness_termination", "pop_size",
                                 "reset_on_extinction"],
         'DefaultStagnation':   ["species_fitness_func", "max_stagnation", "species_elitism"],
-        'DefaultReproduction': ["elitism", "survival_threshold", "min_species_size"],
+        'DefaultReproduction': ["elitism", "survival_threshold", "min_species_size", "sexual_reproduction"],
         'DefaultGenome':       ["num_inputs", "num_hidden", "num_outputs", "initial_connection",
                                 "compatibility_disjoint_coefficient", "compatibility_weight_coefficient",
                                 "conn_add_prob", "conn_delete_prob", "node_add_prob", "node_delete_prob",
@@ -101,7 +101,7 @@ class NeatConfig:
         # Don't consider fitness_criterion and fitness_threshold
         self.no_fitness_termination: bool = True
         # Number of individuals in each generation  [def=256]  TODO
-        self.pop_size: int = 5
+        self.pop_size: int = 10
         # Create random population if all species become distinct due to stagnation
         self.reset_on_extinction: bool = True
         
@@ -120,6 +120,8 @@ class NeatConfig:
         self.survival_threshold: float = 0.3
         # Minimum number of genomes per species  [def=5]
         self.min_species_size: int = 5
+        # Sexual reproduction  [def=True]  # TODO
+        self.sexual_reproduction: bool = True
         
         # [DefaultGenome]
         # Number of input nodes (the sensors): [5x proximity_sensor, 2x angular_sensor, 1x distance_sensor]  [def=8]
@@ -129,15 +131,15 @@ class NeatConfig:
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
         self.num_outputs: int = 2
         # Initial connectivity of newly-created genomes  [def=D_FULL_DIRECT]  TODO
-        self.initial_connection = D_FULL_DIRECT
+        self.initial_connection = D_PARTIAL_DIRECT_05
         # Probability of adding a connection between existing nodes during mutation (1 chance per iteration)  [def=0.5]  TODO
-        self.conn_add_prob: float = 0.4
+        self.conn_add_prob: float = 0.5
         # Probability of deleting an existing connection during mutation (1 chance per iteration)  [def=0.4]  TODO
-        self.conn_delete_prob: float = 0.3
+        self.conn_delete_prob: float = 0.4
         # Probability of adding a node during mutation (1 chance per iteration)  [def=0.2]  TODO
-        self.node_add_prob: float = 0.1
+        self.node_add_prob: float = 0.2
         # Probability of removing a node during mutation (1 chance per iteration)  [def=0.15]  TODO
-        self.node_delete_prob: float = 0.075
+        self.node_delete_prob: float = 0.15
         # Initial node activation function  [def=D_RELU]
         self.activation_default: str = D_RELU
         # All possible activation functions between whom can be switched during mutation  [def=D_RELU]

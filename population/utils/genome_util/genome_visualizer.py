@@ -26,14 +26,14 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
     """
     # Assign names to sensors (hard-coded since immutable)
     node_names = dict()
-    node_names[-1] = 'proximity -90°'
-    node_names[-2] = 'proximity -45°'
-    node_names[-3] = 'proximity 0°'
-    node_names[-4] = 'proximity 45°'
-    node_names[-5] = 'proximity 90°'
-    node_names[-6] = 'angular left'
-    node_names[-7] = 'angular right'
-    node_names[-8] = 'distance'
+    node_names[-8] = 'proximity -90°'
+    node_names[-7] = 'proximity -45°'
+    node_names[-6] = 'proximity 0°'
+    node_names[-5] = 'proximity 45°'
+    node_names[-4] = 'proximity 90°'
+    node_names[-3] = 'angular left'
+    node_names[-2] = 'angular right'
+    node_names[-1] = 'distance'
     node_names[0] = 'left wheel'
     node_names[1] = 'right wheel'
     

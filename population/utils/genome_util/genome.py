@@ -119,7 +119,7 @@ class DefaultGenome(object):
                           sep='\n', file=sys.stderr)
                 self.connect_partial_nodirect(config)
     
-    def configure_crossover(self, genome1, genome2):
+    def configure_crossover(self, config: DefaultGenomeConfig, genome1, genome2):
         """
         Configure a new genome by crossover from two parent genomes.
         
@@ -132,6 +132,8 @@ class DefaultGenome(object):
             parent1, parent2 = genome1, genome2
         else:
             parent1, parent2 = genome2, genome1
+        
+        # TODO: Get fitness-ratio! (likeliness of taking parent1 over parent2, based on fitness)
         
         # Inherit connection genes
         for key, cg1 in iteritems(parent1.connections):
@@ -156,9 +158,12 @@ class DefaultGenome(object):
             else:
                 # Homologous gene: combine genes from both parents.
                 self.nodes[key] = ng1.crossover(ng2)
+        
+        # Make sure that all GRU-nodes are correctly configured (input_keys)
+        self.update_gru_nodes(config)
     
     def mutate(self, config: DefaultGenomeConfig):
-        """ Mutates this genome. """
+        """Mutates this genome."""
         if random() < config.node_add_prob: self.mutate_add_node(config)
         if random() < config.node_delete_prob: self.mutate_delete_node(config)
         if random() < config.conn_add_prob: self.mutate_add_connection(config)
@@ -276,14 +281,14 @@ class DefaultGenome(object):
         conn.enabled = True
         if type(self.nodes[conn.key[1]]) == GruNodeGene:
             gru: GruNodeGene = self.nodes[conn.key[1]]
-            gru.append_key(config, k=conn.key[0])
+            gru.add_input(config, k=conn.key[0])
     
     def disable_connection(self, conn: DefaultConnectionGene):
         """Disable the connection, and ripple this through to its potential GRU cell."""
         conn.enabled = False
         if type(self.nodes[conn.key[1]]) == GruNodeGene:
             gru: GruNodeGene = self.nodes[conn.key[1]]
-            gru.delete_key(k=conn.key[0])
+            gru.remove_input(k=conn.key[0])
     
     def distance(self, other, config: DefaultGenomeConfig):
         """
@@ -303,8 +308,7 @@ class DefaultGenome(object):
                 if n2 is None:
                     disjoint_nodes += 1
                 else:
-                    # Homologous genes compute their own distance value.
-                    node_distance += n1.distance(n2, config)
+                    node_distance += n1.distance(n2, config)  # Homologous genes compute their own distance value.
             
             max_nodes = max(len(self.nodes), len(other.nodes))
             node_distance = (node_distance +
@@ -367,10 +371,29 @@ class DefaultGenome(object):
         return node
     
     @staticmethod
-    def create_gru_node(config: DefaultGenomeConfig, node_id: int, input_size=1):
+    def create_gru_node(config: DefaultGenomeConfig, node_id: int):
         node = config.gru_node_gene_type(node_id)
-        node.init_attributes(config)  # TODO: Update such that input_size is given!
+        node.init_attributes(config)
         return node
+    
+    def update_gru_nodes(self, config: DefaultGenomeConfig):
+        """Update all the hidden GRU-nodes such that their input_keys are correct."""
+        for (key, node) in self.nodes.items():
+            if type(node) == GruNodeGene:
+                # Get all the input-keys
+                input_keys = set(a for (a, b) in self.connections.keys() if b == key)
+                
+                # Remove older inputs that aren't inputs anymore
+                for k in node.input_keys:
+                    if k not in input_keys: node.remove_input(k)
+                
+                # Add new inputs that were not yet inputs
+                for k in input_keys:
+                    if k not in node.input_keys: node.add_input(config, k)
+                
+                # Change in input_keys results in a change in weight_ih
+                node.update_weight_ih()
+                assert len(node.input_keys) == len(input_keys)
     
     def connect_fs_neat_nohidden(self, config: DefaultGenomeConfig):
         """

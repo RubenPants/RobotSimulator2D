@@ -168,7 +168,6 @@ class Population:
                 species=self.species,
                 pop_size=self.config.pop_size,
                 generation=self.generation,
-                sexual=False,  # TODO: Crossover has been disabled!
         )
         
         # Check for complete extinction

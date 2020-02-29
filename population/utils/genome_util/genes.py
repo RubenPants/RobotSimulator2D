@@ -3,6 +3,7 @@ genes.py
 
 Handles node and connection genes.
 """
+import copy
 import warnings
 from random import random
 
@@ -132,7 +133,7 @@ class OutputNodeGene(DefaultNodeGene):
             if a.name != D_ACTIVATION: setattr(self, a.name, a.mutate_value(v, config))
 
 
-class GruNodeGene(BaseGene):  # TODO: Mutate functionality
+class GruNodeGene(BaseGene):
     """Custom GRU cell implementation."""
     
     _attributes = [BiasAttribute('bias_ih'),
@@ -171,6 +172,17 @@ class GruNodeGene(BaseGene):  # TODO: Mutate functionality
         setattr(self, 'full_weight_ih', self._attributes[2].init_value(config, self.hidden_size, len(self.input_keys)))
         setattr(self, 'weight_hh', self._attributes[3].init_value(config, self.hidden_size, self.hidden_size))
     
+    def copy(self):
+        """ Copy the gene (this class). """
+        new_gene: GruNodeGene = super().copy()
+        
+        # Other fields not stored in _attributes
+        new_gene.input_keys = copy.deepcopy(self.input_keys)
+        new_gene.full_input_keys = copy.deepcopy(self.full_input_keys)
+        # new_gene.hidden_size = copy.deepcopy(self.hidden_size)  # TODO: only needed if generalized
+        
+        return new_gene
+    
     def mutate(self, config):
         """ Perform the mutation operation. """
         for a in self._attributes:
@@ -180,8 +192,37 @@ class GruNodeGene(BaseGene):  # TODO: Mutate functionality
                 setattr(self, a.name, a.mutate_value(v, config, mapping))
             else:
                 setattr(self, a.name, a.mutate_value(v, config))
-            
-    # TODO: Implement crossover here!
+    
+    def crossover(self, other):
+        """
+        Creates a new gene inheriting attributes from its parents.
+        
+        TODO: The crossover at this (GRU) node is quite biased; only the inputs weights are to be crossed between the
+         two parents, with the remaining weights only inheriting from the first parent.
+        """
+        assert self.key == other.key  # Crossover only happens at own nodes
+        new_gene = self.__class__(self.key)  # Initialize empty node (used as container for crossover result)
+        new_gene.full_input_keys = sorted(set(self.full_input_keys + other.full_input_keys))
+        new_full_weight_ih = torch.tensor(
+                np.zeros((3 * self.hidden_size, len(new_gene.full_input_keys))),
+                dtype=torch.float64,
+        )
+        for i, k in enumerate(new_gene.full_input_keys):
+            if k in self.full_input_keys and k in other.full_input_keys:  # Shared by both
+                if random() > 0.5:
+                    new_full_weight_ih[:, i] = self.full_weight_ih[:, self.full_input_keys.index(k)]
+                else:
+                    new_full_weight_ih[:, i] = other.full_weight_ih[:, other.full_input_keys.index(k)]
+            elif k in self.full_input_keys:  # Only in first parent (self)
+                new_full_weight_ih[:, i] = self.full_weight_ih[:, self.full_input_keys.index(k)]
+            else:  # Only in second parent (other)
+                new_full_weight_ih[:, i] = other.full_weight_ih[:, other.full_input_keys.index(k)]
+        
+        # Assign all the parameters to the new_gene
+        for a in self._attributes:
+            setattr(new_gene, a.name, new_full_weight_ih if a.name == 'full_weight_ih' else getattr(self, a.name))
+        
+        return new_gene
     
     def distance(self, other, config):
         """Calculate the distance between two GRU nodes, which is determined by its coefficients."""
@@ -191,15 +232,12 @@ class GruNodeGene(BaseGene):  # TODO: Mutate functionality
         d += np.linalg.norm(self.weight_hh - other.weight_hh)
         
         # Compare only same input keys
-        key_set = set(self.input_keys + other.input_keys)
-        input_keys = sorted([k for k in key_set if k < 0], reverse=True)
-        hidden_keys = sorted([k for k in key_set if k >= 0])
-        combined_keys = input_keys + hidden_keys
-        s = np.zeros((3 * self.hidden_size, len(combined_keys)))
-        o = np.zeros((3 * self.hidden_size, len(combined_keys)))
-        for i, k in enumerate(combined_keys):
-            if k in self.input_keys: s[:, i] = self.weight_ih[:, self.input_keys.index(k)]
-            if k in other.input_keys: o[:, i] = other.weight_ih[:, other.input_keys.index(k)]
+        key_set = sorted(set(self.input_keys + other.input_keys))
+        s = np.zeros((3 * self.hidden_size, len(key_set)))
+        o = np.zeros((3 * self.hidden_size, len(key_set)))
+        for i, k in enumerate(key_set):
+            if k in self.input_keys: s[:, i] = self.full_weight_ih[:, self.full_input_keys.index(k)]
+            if k in other.input_keys: o[:, i] = other.full_weight_ih[:, other.full_input_keys.index(k)]
         d += np.linalg.norm(s - o)
         return d * config.compatibility_weight_coefficient
     
@@ -223,33 +261,30 @@ class GruNodeGene(BaseGene):  # TODO: Mutate functionality
         gru.bias_hh[:] = self.bias_hh
         return gru
     
-    def append_key(self, config, k):
+    def add_input(self, config, k):
         """Extend the input-key list with the given key, and expand the corresponding weights."""
         # Update self.full_weight_ih if key never seen before
         if k not in self.full_input_keys:
             # Find the index to insert the key
-            lst = [i for i in range(len(self.full_input_keys)) if abs(self.full_input_keys[i]) > abs(k)]
-            idx = lst[0] if lst else len(self.full_input_keys)
+            lst = [i + 1 for i in range(len(self.full_input_keys)) if self.full_input_keys[i] < k]  # List of indices
+            i = lst[-1] if lst else 0  # Index to insert key in
             
             # Save key to list
-            self.full_input_keys.insert(idx, k)
+            self.full_input_keys.insert(i, k)
             
             # Update full_weight_ih correspondingly by inserting random initialized tensor in correct position
             new_tensor = WeightAttribute('temp').init_value(config, hidden_size=self.hidden_size, input_size=1)
-            self.full_weight_ih = torch.cat((self.full_weight_ih[:, :idx], new_tensor, self.full_weight_ih[:, idx:]),
-                                            dim=1)
+            self.full_weight_ih = torch.cat((self.full_weight_ih[:, :i], new_tensor, self.full_weight_ih[:, i:]), dim=1)
         
         # Update input_keys (current key-set) analogously
         if k not in self.input_keys:
-            lst = [i for i in range(len(self.input_keys)) if abs(self.input_keys[i]) > abs(k)]
-            idx = lst[0] if lst else len(self.input_keys)
-            self.input_keys.insert(idx, k)
+            lst = [i + 1 for i in range(len(self.input_keys)) if self.input_keys[i] < k]  # List of indices
+            i = lst[-1] if lst else 0
+            self.input_keys.insert(i, k)
     
-    def delete_key(self, k):
+    def remove_input(self, k):
         """Delete one of the input_keys, full_input_keys and full_weight_ih are left unchanged."""
         if k in self.input_keys: self.input_keys.remove(k)
-    
-    # TODO: Crossover implementation
 
 
 class DefaultConnectionGene(BaseGene):
