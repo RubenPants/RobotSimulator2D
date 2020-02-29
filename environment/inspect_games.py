@@ -1,3 +1,8 @@
+"""
+inspect_games.py
+
+Check if all games are created correctly.
+"""
 import os
 
 from tqdm import tqdm

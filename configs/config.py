@@ -29,7 +29,7 @@ class GameConfig:
         
         # [CONTROL]
         # Number of games on which a single genome is evaluated [def=8]  TODO: move out of game config!
-        self.batch: int = 2
+        self.batch: int = 8
         # Number of seconds it takes for one game to complete [def=50]
         self.duration: int = 50
         # Max ID of game (starting from 1) [def=1000]
@@ -101,7 +101,7 @@ class NeatConfig:
         # Don't consider fitness_criterion and fitness_threshold
         self.no_fitness_termination: bool = True
         # Number of individuals in each generation  [def=256]  TODO
-        self.pop_size: int = 10
+        self.pop_size: int = 100
         # Create random population if all species become distinct due to stagnation
         self.reset_on_extinction: bool = True
         
@@ -121,13 +121,13 @@ class NeatConfig:
         # Minimum number of genomes per species  [def=5]
         self.min_species_size: int = 5
         # Sexual reproduction  [def=True]  # TODO
-        self.sexual_reproduction: bool = True
+        self.sexual_reproduction: bool = False
         
         # [DefaultGenome]
         # Number of input nodes (the sensors): [5x proximity_sensor, 2x angular_sensor, 1x distance_sensor]  [def=8]
         self.num_inputs: int = 8
         # Number of hidden nodes to add to each genome in the initial population  [def=0]  TODO
-        self.num_hidden: int = 1
+        self.num_hidden: int = 0
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
         self.num_outputs: int = 2
         # Initial connectivity of newly-created genomes  [def=D_FULL_DIRECT]  TODO
@@ -187,7 +187,7 @@ class NeatConfig:
         
         # [DefaultSpeciesSet]
         # Individuals whose genetic distance is less than this threshold are in the same specie  [def=2]
-        self.compatibility_threshold: float = 3.0
+        self.compatibility_threshold: float = 2.0
         # Full weight of disjoint and excess nodes on determining genomic distance  [def=1]
         self.compatibility_disjoint_coefficient: float = 1.0
         # Coefficient for each weight or bias difference contribution to the genomic distance  [def=0.1]
@@ -205,7 +205,7 @@ class NeatConfig:
         # Enable the genomes to mutate GRU nodes  [def=True]  TODO
         self.enable_gru: bool = True
         # Mutation probability of mutating a GRU node rather than a simple node  [def=0.4]  TODO
-        self.gru_mutate_rate: float = 1
+        self.gru_mutate_rate: float = 0.4
     
     def __str__(self):
         result = "NEAT Configuration:"
