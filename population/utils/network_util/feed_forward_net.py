@@ -204,7 +204,7 @@ class FeedForwardNet:
         )
         
         # Get a list of all the input, (used) hidden, and output keys
-        input_keys = list(genome_config.input_keys)
+        input_keys = sorted(genome_config.input_keys)
         hidden_keys = [k for k in genome.nodes.keys() if (k not in genome_config.output_keys and k in used_nodes)]
         gru_keys = [k for k in hidden_keys if type(genome.nodes[k]) == GruNodeGene]
         output_keys = list(genome_config.output_keys)

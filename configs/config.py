@@ -29,7 +29,7 @@ class GameConfig:
         
         # [CONTROL]
         # Number of games on which a single genome is evaluated [def=8]  TODO: move out of game config!
-        self.batch: int = 2
+        self.batch: int = 8
         # Number of seconds it takes for one game to complete [def=50]
         self.duration: int = 50
         # Max ID of game (starting from 1) [def=1000]
@@ -101,7 +101,7 @@ class NeatConfig:
         # Don't consider fitness_criterion and fitness_threshold
         self.no_fitness_termination: bool = True
         # Number of individuals in each generation  [def=256]  TODO
-        self.pop_size: int = 5
+        self.pop_size: int = 100
         # Create random population if all species become distinct due to stagnation
         self.reset_on_extinction: bool = True
         
@@ -125,19 +125,19 @@ class NeatConfig:
         # Number of input nodes (the sensors): [5x proximity_sensor, 2x angular_sensor, 1x distance_sensor]  [def=8]
         self.num_inputs: int = 8
         # Number of hidden nodes to add to each genome in the initial population  [def=0]  TODO
-        self.num_hidden: int = 1
+        self.num_hidden: int = 0
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
         self.num_outputs: int = 2
         # Initial connectivity of newly-created genomes  [def=D_FULL_DIRECT]  TODO
-        self.initial_connection = D_FULL_DIRECT
+        self.initial_connection = D_PARTIAL_DIRECT_05
         # Probability of adding a connection between existing nodes during mutation (1 chance per iteration)  [def=0.5]  TODO
-        self.conn_add_prob: float = 0.4
+        self.conn_add_prob: float = 0.5
         # Probability of deleting an existing connection during mutation (1 chance per iteration)  [def=0.4]  TODO
-        self.conn_delete_prob: float = 0.3
+        self.conn_delete_prob: float = 0.4
         # Probability of adding a node during mutation (1 chance per iteration)  [def=0.2]  TODO
-        self.node_add_prob: float = 0.1
+        self.node_add_prob: float = 0.2
         # Probability of removing a node during mutation (1 chance per iteration)  [def=0.15]  TODO
-        self.node_delete_prob: float = 0.075
+        self.node_delete_prob: float = 0.15
         # Initial node activation function  [def=D_RELU]
         self.activation_default: str = D_RELU
         # All possible activation functions between whom can be switched during mutation  [def=D_RELU]
@@ -201,7 +201,7 @@ class NeatConfig:
         
         # [GRU]
         # Enable the genomes to mutate GRU nodes  [def=True]  TODO
-        self.enable_gru: bool = True
+        self.enable_gru: bool = False
         # Mutation probability of mutating a GRU node rather than a simple node  [def=0.4]  TODO
         self.gru_mutate_rate: float = 1
     
