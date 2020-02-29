@@ -29,7 +29,7 @@ class GameConfig:
         
         # [CONTROL]
         # Number of games on which a single genome is evaluated [def=8]  TODO: move out of game config!
-        self.batch: int = 8
+        self.batch: int = 2
         # Number of seconds it takes for one game to complete [def=50]
         self.duration: int = 50
         # Max ID of game (starting from 1) [def=1000]
@@ -101,7 +101,7 @@ class NeatConfig:
         # Don't consider fitness_criterion and fitness_threshold
         self.no_fitness_termination: bool = True
         # Number of individuals in each generation  [def=256]  TODO
-        self.pop_size: int = 100
+        self.pop_size: int = 10
         # Create random population if all species become distinct due to stagnation
         self.reset_on_extinction: bool = True
         
@@ -129,7 +129,7 @@ class NeatConfig:
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
         self.num_outputs: int = 2
         # Initial connectivity of newly-created genomes  [def=D_FULL_DIRECT]  TODO
-        self.initial_connection = D_PARTIAL_DIRECT_05
+        self.initial_connection = D_FULL_DIRECT
         # Probability of adding a connection between existing nodes during mutation (1 chance per iteration)  [def=0.5]  TODO
         self.conn_add_prob: float = 0.5
         # Probability of deleting an existing connection during mutation (1 chance per iteration)  [def=0.4]  TODO
@@ -201,7 +201,7 @@ class NeatConfig:
         
         # [GRU]
         # Enable the genomes to mutate GRU nodes  [def=True]  TODO
-        self.enable_gru: bool = False
+        self.enable_gru: bool = True
         # Mutation probability of mutating a GRU node rather than a simple node  [def=0.4]  TODO
         self.gru_mutate_rate: float = 1
     

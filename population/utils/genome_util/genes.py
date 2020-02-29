@@ -228,22 +228,21 @@ class GruNodeGene(BaseGene):  # TODO: Mutate functionality
         # Update self.full_weight_ih if key never seen before
         if k not in self.full_input_keys:
             # Find the index to insert the key
-            lst = [i for i in range(len(self.full_input_keys)) if abs(self.full_input_keys[i]) > abs(k)]
-            idx = lst[0] if lst else len(self.full_input_keys)
+            lst = [i+1 for i in range(len(self.full_input_keys)) if self.full_input_keys[i] < k]  # List of indices
+            i = lst[-1] if lst else 0  # Index to insert key in
             
             # Save key to list
-            self.full_input_keys.insert(idx, k)
+            self.full_input_keys.insert(i, k)
             
             # Update full_weight_ih correspondingly by inserting random initialized tensor in correct position
             new_tensor = WeightAttribute('temp').init_value(config, hidden_size=self.hidden_size, input_size=1)
-            self.full_weight_ih = torch.cat((self.full_weight_ih[:, :idx], new_tensor, self.full_weight_ih[:, idx:]),
-                                            dim=1)
+            self.full_weight_ih = torch.cat((self.full_weight_ih[:, :i], new_tensor, self.full_weight_ih[:, i:]), dim=1)
         
         # Update input_keys (current key-set) analogously
         if k not in self.input_keys:
-            lst = [i for i in range(len(self.input_keys)) if abs(self.input_keys[i]) > abs(k)]
-            idx = lst[0] if lst else len(self.input_keys)
-            self.input_keys.insert(idx, k)
+            lst = [i+1 for i in range(len(self.input_keys)) if self.input_keys[i] < k]  # List of indices
+            i = lst[-1] if lst else 0
+            self.input_keys.insert(i, k)
     
     def delete_key(self, k):
         """Delete one of the input_keys, full_input_keys and full_weight_ih are left unchanged."""

@@ -33,7 +33,7 @@ def get_config(num_inputs=4, num_hidden=1, num_outputs=1):
     )
 
 
-def create_simple_genome(config):
+def create_simple_genome(config):  # TODO: Delete!
     """
     A simple genome has one input, one output, and one hidden recurrent node (GRU). All weight parameters are forced to
     be 1, where all biases are forced to be 0.
@@ -75,18 +75,36 @@ class TestGruNodeGene(unittest.TestCase):
         gru.append_key(config.genome_config, 1)
         assert len(gru.input_keys) == len(gru.full_input_keys) == 1
         
-        # Remove non-existing connection
+        # Remove non-existing connection --> changes nothing
         gru.delete_key(2)
         assert len(gru.input_keys) == len(gru.full_input_keys) == 1
         
+        # Add connection with lower key
+        gru.append_key(config.genome_config, -1)
+        assert len(gru.input_keys) == len(gru.full_input_keys) == 2
+        assert gru.input_keys == gru.full_input_keys == [-1, 1]
+        
+        # Add connection with key in the middle
+        gru.append_key(config.genome_config, 0)
+        assert len(gru.input_keys) == len(gru.full_input_keys) == 3
+        assert gru.input_keys == gru.full_input_keys == [-1, 0, 1]
+        
+        # Add connection with key at the end
+        gru.append_key(config.genome_config, 2)
+        assert len(gru.input_keys) == len(gru.full_input_keys) == 4
+        assert gru.input_keys == gru.full_input_keys == [-1, 0, 1, 2]
+        
         # Remove existing connection
         gru.delete_key(1)
-        assert len(gru.input_keys) == 0
-        assert len(gru.full_input_keys) == 1
+        assert len(gru.input_keys) == 3
+        assert len(gru.full_input_keys) == 4
+        assert gru.input_keys == [-1, 0, 2]
+        assert gru.full_input_keys == [-1, 0, 1, 2]
         
         # Add previously added connection back
         gru.append_key(config.genome_config, 1)
-        assert len(gru.input_keys) == len(gru.full_input_keys) == 1
+        assert len(gru.input_keys) == len(gru.full_input_keys) == 4
+        assert gru.input_keys == gru.full_input_keys == [-1, 0, 1, 2]
     
     def test_weight_ih(self):
         """Test if the weight_ih tensor is expanded and contracted correctly."""
@@ -152,7 +170,7 @@ class TestGruNodeGene(unittest.TestCase):
         assert all(gru.full_weight_ih[:, 0] == gru.weight_ih[:, 0]) and all(gru.weight_ih[:, 0] == first_col)
         assert all(gru.full_weight_ih[:, 1] == gru.weight_ih[:, 1]) and all(gru.weight_ih[:, 1] == second_col)
         assert all(gru.full_weight_ih[:, 2] == gru.weight_ih[:, 2]) and all(gru.weight_ih[:, 2] == third_col)
-        
+    
     def test_mutate(self):
         """Unused keys' values may never be mutated."""
         gru = GruNodeGene(0)
@@ -161,23 +179,28 @@ class TestGruNodeGene(unittest.TestCase):
         gru.append_key(config.genome_config, 1)
         gru.append_key(config.genome_config, 2)
         gru.append_key(config.genome_config, 3)
+        gru.append_key(config.genome_config, 4)
         gru.delete_key(2)
+        gru.delete_key(4)
         gru.update_weight_ih()
         
         # Get current configuration
         first_col = copy.deepcopy(gru.full_weight_ih[:, 0])
         second_col = copy.deepcopy(gru.full_weight_ih[:, 1])
         third_col = copy.deepcopy(gru.full_weight_ih[:, 2])
+        forth_col = copy.deepcopy(gru.full_weight_ih[:, 3])
         
         # Mutate a lot
         for _ in range(100): gru.mutate(config.genome_config)
         
         # Append second column back
         gru.append_key(config.genome_config, 2)
+        gru.append_key(config.genome_config, 4)
         gru.update_weight_ih()
         
-        # Check if second col hasn't changed
+        # Check if second and forth columns haven't changed
         assert all(gru.weight_ih[:, 1] == second_col)
+        assert all(gru.weight_ih[:, 3] == forth_col)
         
         # Check if other two columns have changed (almost impossible to obtain exactly the same after 100x mutation)
         assert not all(gru.weight_ih[:, 0] == first_col)
