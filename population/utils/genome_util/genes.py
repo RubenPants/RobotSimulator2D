@@ -171,6 +171,18 @@ class GruNodeGene(BaseGene):  # TODO: Mutate functionality
         setattr(self, 'full_weight_ih', self._attributes[2].init_value(config, self.hidden_size, len(self.input_keys)))
         setattr(self, 'weight_hh', self._attributes[3].init_value(config, self.hidden_size, self.hidden_size))
     
+    def mutate(self, config):
+        """ Perform the mutation operation. """
+        for a in self._attributes:
+            v = getattr(self, a.name)
+            if a.name == 'full_weight_ih':
+                mapping = [k in self.input_keys for k in self.full_input_keys]
+                setattr(self, a.name, a.mutate_value(v, config, mapping))
+            else:
+                setattr(self, a.name, a.mutate_value(v, config))
+            
+    # TODO: Implement crossover here!
+    
     def distance(self, other, config):
         """Calculate the distance between two GRU nodes, which is determined by its coefficients."""
         d = 0
