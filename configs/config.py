@@ -29,7 +29,7 @@ class GameConfig:
         
         # [CONTROL]
         # Number of games on which a single genome is evaluated [def=8]  TODO: move out of game config!
-        self.batch: int = 8
+        self.batch: int = 2
         # Number of seconds it takes for one game to complete [def=50]
         self.duration: int = 50
         # Max ID of game (starting from 1) [def=1000]
@@ -101,7 +101,7 @@ class NeatConfig:
         # Don't consider fitness_criterion and fitness_threshold
         self.no_fitness_termination: bool = True
         # Number of individuals in each generation  [def=256]  TODO
-        self.pop_size: int = 100
+        self.pop_size: int = 10
         # Create random population if all species become distinct due to stagnation
         self.reset_on_extinction: bool = True
         
@@ -121,7 +121,7 @@ class NeatConfig:
         # Minimum number of genomes per species  [def=5]
         self.min_species_size: int = 5
         # Sexual reproduction  [def=True]  # TODO
-        self.sexual_reproduction: bool = False
+        self.sexual_reproduction: bool = True
         
         # [DefaultGenome]
         # Number of input nodes (the sensors): [5x proximity_sensor, 2x angular_sensor, 1x distance_sensor]  [def=8]
