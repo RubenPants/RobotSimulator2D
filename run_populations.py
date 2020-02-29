@@ -12,7 +12,7 @@ from utils.dictionary import D_FIT_OPTIONS
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('--train', type=bool, default=True)
-    parser.add_argument('--iterations', type=int, default=100)
+    parser.add_argument('--iterations', type=int, default=100)  # must be multiple of 10
     parser.add_argument('--blueprint', type=bool, default=True)
     parser.add_argument('--evaluate', type=bool, default=False)
     args = parser.parse_args()
@@ -32,7 +32,9 @@ if __name__ == '__main__':
             
             # Train for 100 generations
             trainer = TrainingEnv()
-            trainer.evaluate_and_evolve(pop, n=args.iterations)
+            # TODO: Train in batches of 10 due to weird multiprocess bug (keeps waiting to acquire lock!)
+            for _ in range(args.iterations // 10):
+                trainer.evaluate_and_evolve(pop, n=10)
         
         if args.blueprint:
             print("\n===> CREATING BLUEPRINTS <===\n")

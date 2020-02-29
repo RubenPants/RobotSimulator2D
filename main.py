@@ -4,16 +4,16 @@ from population.population import Population
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument('--train', type=bool, default=True)
+    parser.add_argument('--train', type=bool, default=False)
     parser.add_argument('--iterations', type=int, default=10)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
-    parser.add_argument('--genome', type=bool, default=True)
-    parser.add_argument('--live', type=bool, default=False)
+    parser.add_argument('--genome', type=bool, default=False)
+    parser.add_argument('--live', type=bool, default=True)
     args = parser.parse_args()
     
     pop = Population(
-            name="test",
+            name="distance_1",
             # version=1,
     )
     if not pop.best_genome: pop.best_genome = list(pop.population.values())[0]
@@ -84,5 +84,5 @@ if __name__ == '__main__':
         
         visualizer.visualize(
                 network=net,
-                game_id=3,
+                game_id=1,
         )

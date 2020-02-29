@@ -28,8 +28,8 @@ class GameConfig:
         self.bot_turning_speed: float = 13 * np.pi / 16
         
         # [CONTROL]
-        # Number of games on which a single genome is evaluated [def=8]  TODO: move out of game config!
-        self.batch: int = 8
+        # Number of games on which a single genome is evaluated [def=16]  TODO: move out of game config!
+        self.batch: int = 16
         # Number of seconds it takes for one game to complete [def=50]
         self.duration: int = 50
         # Max ID of game (starting from 1) [def=1000]
@@ -101,7 +101,7 @@ class NeatConfig:
         # Don't consider fitness_criterion and fitness_threshold
         self.no_fitness_termination: bool = True
         # Number of individuals in each generation  [def=256]  TODO
-        self.pop_size: int = 256
+        self.pop_size: int = 128
         # Create random population if all species become distinct due to stagnation
         self.reset_on_extinction: bool = True
         
@@ -109,9 +109,9 @@ class NeatConfig:
         # The function used to compute the species fitness
         self.species_fitness_func: str = D_MAX
         # Remove a specie if it hasn't improved over this many number of generations
-        self.max_stagnation: int = 20
+        self.max_stagnation: int = 15
         # Number of the best species that will be protected from stagnation
-        self.species_elitism: int = 1
+        self.species_elitism: int = 2
         
         # [DefaultReproduction]
         # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=1]  TODO
@@ -162,10 +162,10 @@ class NeatConfig:
         self.bias_mutate_rate: float = 0.5
         # The standard deviation of the zero-centered gaussian from which a bias value mutation is drawn  [def=0.1]
         self.bias_mutate_power: float = 0.1
-        # The maximum allowed bias value, biases above this threshold will be clamped to this value  [def=5]
-        self.bias_max_value: float = 5.0
-        # The minimum allowed bias value, biases below this threshold will be clamped to this value  [def=-5]
-        self.bias_min_value: float = -5.0
+        # The maximum allowed bias value, biases above this threshold will be clamped to this value  [def=2]
+        self.bias_max_value: float = 2.0
+        # The minimum allowed bias value, biases below this threshold will be clamped to this value  [def=-2]
+        self.bias_min_value: float = -2.0
         # Mean of the gaussian distribution used to select the weight attribute values for new connections  [def=0]
         self.weight_init_mean: float = 0.0
         # Standard deviation of the gaussian used to select the weight attributes values for new connections  [def=1]
@@ -176,10 +176,10 @@ class NeatConfig:
         self.weight_replace_rate: float = 0.05
         # The standard deviation of the zero-centered gaussian from which a weight value mutation is drawn  [def=0.1]
         self.weight_mutate_power: float = 0.1
-        # The maximum allowed weight value, weights above this value will be clipped to this value  [def=5]
-        self.weight_max_value: float = 5.0
-        # The minimum allowed weight value, weights below this value will be clipped to this value  [def=-5]
-        self.weight_min_value: float = -5.0
+        # The maximum allowed weight value, weights above this value will be clipped to this value  [def=2]
+        self.weight_max_value: float = 2.0
+        # The minimum allowed weight value, weights below this value will be clipped to this value  [def=-2]
+        self.weight_min_value: float = -2.0
         # Enable the algorithm to disable (and re-enable) existing connections  [def=True]
         self.enabled_default: bool = True
         # The probability that mutation will replace the 'enabled status' of a connection  [def=0.05]
