@@ -4,6 +4,7 @@ reproduction.py
 Handles creation of genomes, either from scratch or by sexual or asexual reproduction from parents.
 """
 from __future__ import division
+
 import copy
 import math
 import random
@@ -27,7 +28,9 @@ class DefaultReproduction(DefaultClassConfig):
         return DefaultClassConfig(param_dict,
                                   [ConfigParameter('elitism', int, 0),
                                    ConfigParameter('survival_threshold', float, 0.2),
-                                   ConfigParameter('min_species_size', int, 2)])
+                                   ConfigParameter('min_species_size', int, 2),
+                                   ConfigParameter('sexual_reproduction', bool, True),
+                                   ])
     
     def __init__(self, config, reporters, stagnation):
         self.reproduction_config = config
@@ -76,7 +79,7 @@ class DefaultReproduction(DefaultClassConfig):
         
         return spawn_amounts
     
-    def reproduce(self, config, species, pop_size, generation, sexual):
+    def reproduce(self, config, species, pop_size, generation):
         """
         Handles creation of genomes, either from scratch or by sexual or asexual reproduction from parents.
         """
@@ -161,17 +164,17 @@ class DefaultReproduction(DefaultClassConfig):
             # Randomly choose parents and produce the number of offspring allotted to the species.
             while spawn > 0:
                 spawn -= 1
-    
+                
                 # Init genome dummy (values are overwritten later)
                 gid = next(self.genome_indexer)
                 child: DefaultGenome = config.genome_type(gid)
-    
+                
                 # Choose the parents, note that if the parents are not distinct, crossover will produce a genetically
                 # identical clone of the parent (but with a different ID).
                 parent1_id, parent1 = random.choice(old_members)
-                if sexual:
+                if self.reproduction_config.sexual_reproduction:
                     parent2_id, parent2 = random.choice(old_members)
-                    child.configure_crossover(parent1, parent2)
+                    child.configure_crossover(config=config.genome_config, genome1=parent1, genome2=parent2)
                 else:
                     parent2_id, parent2 = None, None
                     child.connections = copy.deepcopy(parent1.connections)

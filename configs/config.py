@@ -77,7 +77,7 @@ class NeatConfig:
         'NEAT':                ["fitness_criterion", "fitness_threshold", "no_fitness_termination", "pop_size",
                                 "reset_on_extinction"],
         'DefaultStagnation':   ["species_fitness_func", "max_stagnation", "species_elitism"],
-        'DefaultReproduction': ["elitism", "survival_threshold", "min_species_size"],
+        'DefaultReproduction': ["elitism", "survival_threshold", "min_species_size", "sexual_reproduction"],
         'DefaultGenome':       ["num_inputs", "num_hidden", "num_outputs", "initial_connection",
                                 "compatibility_disjoint_coefficient", "compatibility_weight_coefficient",
                                 "conn_add_prob", "conn_delete_prob", "node_add_prob", "node_delete_prob",
@@ -120,16 +120,18 @@ class NeatConfig:
         self.survival_threshold: float = 0.3
         # Minimum number of genomes per species  [def=5]
         self.min_species_size: int = 5
+        # Sexual reproduction  [def=True]  # TODO
+        self.sexual_reproduction: bool = True
         
         # [DefaultGenome]
         # Number of input nodes (the sensors): [5x proximity_sensor, 2x angular_sensor, 1x distance_sensor]  [def=8]
         self.num_inputs: int = 8
         # Number of hidden nodes to add to each genome in the initial population  [def=0]  TODO
-        self.num_hidden: int = 0
+        self.num_hidden: int = 1
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
         self.num_outputs: int = 2
         # Initial connectivity of newly-created genomes  [def=D_FULL_DIRECT]  TODO
-        self.initial_connection = D_FULL_DIRECT
+        self.initial_connection = D_PARTIAL_DIRECT_05
         # Probability of adding a connection between existing nodes during mutation (1 chance per iteration)  [def=0.5]  TODO
         self.conn_add_prob: float = 0.5
         # Probability of deleting an existing connection during mutation (1 chance per iteration)  [def=0.4]  TODO
