@@ -48,6 +48,7 @@ down such that no redundant work is needed...
 
 ## TODO
 
+* Use `set()` when possible to increase performance
 * Update fitness functions to be more conform to that of James
 * Add obstacles to the maze (perhaps in an empty room adding a cube?)
 * Automatic trigger to reset game and algorithm (e.g. also trigger training of algorithm) via control in main

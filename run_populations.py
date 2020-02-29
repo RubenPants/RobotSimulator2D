@@ -7,7 +7,7 @@ import argparse
 
 from configs.config import NeatConfig
 from population.population import Population
-from utils.dictionary import D_FIT_OPTIONS
+from utils.dictionary import D_FIT_OPTIONS, D_PATH
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
@@ -17,7 +17,7 @@ if __name__ == '__main__':
     parser.add_argument('--evaluate', type=bool, default=False)
     args = parser.parse_args()
     
-    for fitness in D_FIT_OPTIONS:
+    for fitness in [D_PATH]:  # D_FIT_OPTIONS
         print(f"\n----------> RUNNING FOR THE {fitness} CONFIGURATION <----------")
         cfg = NeatConfig()
         cfg.fitness = fitness
