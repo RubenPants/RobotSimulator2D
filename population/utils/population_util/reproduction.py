@@ -161,23 +161,19 @@ class DefaultReproduction(DefaultClassConfig):
             # Randomly choose parents and produce the number of offspring allotted to the species.
             while spawn > 0:
                 spawn -= 1
-                
-                # Choose the parents
-                if sexual:
-                    parent1_id, parent1 = random.choice(old_members)
-                    parent2_id, parent2 = random.choice(old_members)
-                else:
-                    parent1_id, parent1 = random.choice(old_members)
-                    parent2_id, parent2 = None, None
-                
-                # Note that if the parents are not distinct, crossover will produce a genetically identical clone of
-                # the parent (but with a different ID).
+    
+                # Init genome dummy (values are overwritten later)
                 gid = next(self.genome_indexer)
                 child: DefaultGenome = config.genome_type(gid)
+    
+                # Choose the parents, note that if the parents are not distinct, crossover will produce a genetically
+                # identical clone of the parent (but with a different ID).
+                parent1_id, parent1 = random.choice(old_members)
                 if sexual:
+                    parent2_id, parent2 = random.choice(old_members)
                     child.configure_crossover(parent1, parent2)
                 else:
-                    # Deepcopy the connections and nodes such that the values aren't shared between genomes
+                    parent2_id, parent2 = None, None
                     child.connections = copy.deepcopy(parent1.connections)
                     child.nodes = copy.deepcopy(parent1.nodes)
                 child.mutate(config.genome_config)

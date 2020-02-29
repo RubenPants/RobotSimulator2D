@@ -4,7 +4,7 @@ from population.population import Population
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument('--train', type=bool, default=False)
+    parser.add_argument('--train', type=bool, default=True)
     parser.add_argument('--iterations', type=int, default=10)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
@@ -63,9 +63,9 @@ if __name__ == '__main__':
     
     if args.genome:
         print("\n===> VISUALIZING GENOME <===\n")
-        print(best_genome.size())
-        genome = list(pop.population.values())[2]
-        # genome = None
+        genome = best_genome
+        # genome = list(pop.population.values())[2]
+        print(f"Genome size: {best_genome.size()}")
         pop.visualize_genome(
                 debug=True,
                 genome=genome,

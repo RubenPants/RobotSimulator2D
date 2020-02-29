@@ -125,7 +125,8 @@ class DefaultGenome(object):
         
         TODO: Unstable if working with GRU-nodes! (no check on input-connections)
         """
-        assert isinstance(genome1.fitness, (int, float))
+        # Rank the parents based on fitness
+        assert isinstance(genome1.fitness, (int, float))  # (key, fitness)
         assert isinstance(genome2.fitness, (int, float))
         if genome1.fitness > genome2.fitness:
             parent1, parent2 = genome1, genome2

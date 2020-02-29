@@ -20,14 +20,14 @@ class BaseGene(object):
     mutation methods.
     """
     
-    _gene_attributes = None
+    _attributes = None
     
     def __init__(self, key):
         """Key to identify the gene."""
         self.key = key
     
     def __str__(self):
-        attrib = ['key'] + [a.name for a in self._gene_attributes]
+        attrib = ['key'] + [a.name for a in self._attributes]
         body = []
         for a in attrib:
             attr = getattr(self, a)
@@ -50,34 +50,34 @@ class BaseGene(object):
     def get_config_params(cls):
         """Get a list of all the configuration parameters (stored in the gene's attributes)."""
         params = []
-        if not hasattr(cls, '_gene_attributes'):
-            setattr(cls, '_gene_attributes', getattr(cls, '__gene_attributes__'))
-            warnings.warn(f"Class '{cls.__name__:!s}' {cls:!r} needs '_gene_attributes' not '__gene_attributes__'",
+        if not hasattr(cls, '_attributes'):
+            setattr(cls, '_attributes', getattr(cls, '__attributes__'))
+            warnings.warn(f"Class '{cls.__name__:!s}' {cls:!r} needs '_attributes' not '__attributes__'",
                           DeprecationWarning)
-        for a in cls._gene_attributes: params += a.get_config_params()
+        for a in cls._attributes: params += a.get_config_params()
         return params
     
     def init_attributes(self, config):
         """ Set the initial attributes as claimed by the config. """
-        for a in self._gene_attributes: setattr(self, a.name, a.init_value(config))
+        for a in self._attributes: setattr(self, a.name, a.init_value(config))
     
     def mutate(self, config):
         """ Perform the mutation operation. """
-        for a in self._gene_attributes:
+        for a in self._attributes:
             v = getattr(self, a.name)
             setattr(self, a.name, a.mutate_value(v, config))
     
     def copy(self):
         """ Copy the gene (this class). """
         new_gene = self.__class__(self.key)
-        for a in self._gene_attributes: setattr(new_gene, a.name, getattr(self, a.name))
+        for a in self._attributes: setattr(new_gene, a.name, getattr(self, a.name))
         return new_gene
     
     def crossover(self, gene2):
         """ Creates a new gene randomly inheriting attributes from its parents."""
         assert self.key == gene2.key
         new_gene = self.__class__(self.key)
-        for a in self._gene_attributes:
+        for a in self._attributes:
             if random() > 0.5:
                 setattr(new_gene, a.name, getattr(self, a.name))
             else:
@@ -89,9 +89,9 @@ class BaseGene(object):
 class DefaultNodeGene(BaseGene):
     """Default node configuration, as specified by the Python-NEAT documentation."""
     
-    _gene_attributes = [FloatAttribute('bias'),
-                        StringAttribute('activation', options='relu'),
-                        StringAttribute('aggregation', options='sum')]
+    _attributes = [FloatAttribute('bias'),
+                   StringAttribute('activation', options='relu'),
+                   StringAttribute('aggregation', options='sum')]
     
     def __init__(self, key):
         # Placeholders
@@ -119,7 +119,7 @@ class OutputNodeGene(DefaultNodeGene):
     
     def init_attributes(self, config):
         """ Set the initial attributes as claimed by the config, but force activation to be tanh """
-        for a in self._gene_attributes:
+        for a in self._attributes:
             if a.name == D_ACTIVATION:
                 setattr(self, a.name, D_TANH)  # Hard-coded output
             else:
@@ -127,7 +127,7 @@ class OutputNodeGene(DefaultNodeGene):
     
     def mutate(self, config):
         """ Perform the mutation operation. Prevent mutation to happen on the output's activation. """
-        for a in self._gene_attributes:
+        for a in self._attributes:
             v = getattr(self, a.name)
             if a.name != D_ACTIVATION: setattr(self, a.name, a.mutate_value(v, config))
 
@@ -135,16 +135,18 @@ class OutputNodeGene(DefaultNodeGene):
 class GruNodeGene(BaseGene):  # TODO: Mutate functionality
     """Custom GRU cell implementation."""
     
-    _gene_attributes = [BiasAttribute('bias_ih'),
-                        BiasAttribute('bias_hh'),
-                        WeightAttribute('weight_ih'),
-                        WeightAttribute('weight_hh')]
+    _attributes = [BiasAttribute('bias_ih'),
+                   BiasAttribute('bias_hh'),
+                   WeightAttribute('full_weight_ih'),
+                   WeightAttribute('weight_hh')]
     
     def __init__(self, key, input_keys=None):
         # Placeholders
         self.input_keys = input_keys if input_keys else []
-        self.hidden_size = 1  # TODO: Generalize such that output can be extended (i.e. vector with specific values for each output)
-        self.weight_ih = None
+        self.full_input_keys = input_keys if input_keys else []  # Full set of all seen input-keys
+        self.hidden_size = 1  # TODO: Generalize to output vector
+        self.full_weight_ih = None  # Full weight-vector mapping from full_input_set
+        self.weight_ih = None  # Part of full_weight_ih that relates to current input_keys
         self.weight_hh = None
         self.bias_ih = None
         self.bias_hh = None
@@ -153,7 +155,7 @@ class GruNodeGene(BaseGene):  # TODO: Mutate functionality
         BaseGene.__init__(self, key)
     
     def __str__(self):
-        attrib = ['key', 'input_keys'] + [a.name for a in self._gene_attributes]
+        attrib = ['key', 'input_keys'] + [a.name for a in self._attributes]
         body = []
         for a in attrib:
             attr = getattr(self, a)
@@ -164,10 +166,10 @@ class GruNodeGene(BaseGene):  # TODO: Mutate functionality
         return f'{self.__class__.__name__}({", ".join(body)})'
     
     def init_attributes(self, config):
-        setattr(self, 'bias_ih', self._gene_attributes[0].init_value(config, self.hidden_size))
-        setattr(self, 'bias_hh', self._gene_attributes[1].init_value(config, self.hidden_size))
-        setattr(self, 'weight_ih', self._gene_attributes[2].init_value(config, self.hidden_size, len(self.input_keys)))
-        setattr(self, 'weight_hh', self._gene_attributes[2].init_value(config, self.hidden_size, self.hidden_size))
+        setattr(self, 'bias_ih', self._attributes[0].init_value(config, self.hidden_size))
+        setattr(self, 'bias_hh', self._attributes[1].init_value(config, self.hidden_size))
+        setattr(self, 'full_weight_ih', self._attributes[2].init_value(config, self.hidden_size, len(self.input_keys)))
+        setattr(self, 'weight_hh', self._attributes[3].init_value(config, self.hidden_size, self.hidden_size))
     
     def distance(self, other, config):
         """Calculate the distance between two GRU nodes, which is determined by its coefficients."""
@@ -189,8 +191,15 @@ class GruNodeGene(BaseGene):  # TODO: Mutate functionality
         d += np.linalg.norm(s - o)
         return d * config.compatibility_weight_coefficient
     
+    def update_weight_ih(self):
+        """Update weight_ih to be conform with the current input_keys-set."""
+        self.weight_ih = torch.tensor(np.zeros((3 * self.hidden_size, len(self.input_keys))), dtype=torch.float64)
+        for i, k in enumerate(self.input_keys):
+            self.weight_ih[:, i] = self.full_weight_ih[:, self.full_input_keys.index(k)]
+    
     def get_gru(self, weight_map=None):
         """Return a PyTorch GRUCell based on current configuration."""
+        self.update_weight_ih()
         if weight_map is not None:
             gru = torch.nn.GRUCell(input_size=len(weight_map[weight_map]), hidden_size=self.hidden_size)
             gru.weight_ih[:] = self.weight_ih[:, weight_map]
@@ -204,34 +213,38 @@ class GruNodeGene(BaseGene):  # TODO: Mutate functionality
     
     def append_key(self, config, k):
         """Extend the input-key list with the given key, and expand the corresponding weights."""
-        if k not in self.input_keys:
+        # Update self.full_weight_ih if key never seen before
+        if k not in self.full_input_keys:
             # Find the index to insert the key
-            lst = [i for i in range(len(self.input_keys)) if abs(self.input_keys[i]) > abs(k)]
-            idx = lst[0] if lst else len(self.input_keys)
+            lst = [i for i in range(len(self.full_input_keys)) if abs(self.full_input_keys[i]) > abs(k)]
+            idx = lst[0] if lst else len(self.full_input_keys)
             
             # Save key to list
-            self.input_keys.insert(idx, k)
+            self.full_input_keys.insert(idx, k)
             
-            # Update weight_ih correspondingly by inserting random initialized tensor in correct position
+            # Update full_weight_ih correspondingly by inserting random initialized tensor in correct position
             new_tensor = WeightAttribute('temp').init_value(config, hidden_size=self.hidden_size, input_size=1)
-            self.weight_ih = torch.cat((self.weight_ih[:, :idx], new_tensor, self.weight_ih[:, idx:]), dim=1)
+            self.full_weight_ih = torch.cat((self.full_weight_ih[:, :idx], new_tensor, self.full_weight_ih[:, idx:]),
+                                            dim=1)
+        
+        # Update input_keys (current key-set) analogously
+        if k not in self.input_keys:
+            lst = [i for i in range(len(self.input_keys)) if abs(self.input_keys[i]) > abs(k)]
+            idx = lst[0] if lst else len(self.input_keys)
+            self.input_keys.insert(idx, k)
     
     def delete_key(self, k):
-        """Delete one of the input-keys with its corresponding weights."""
-        # Check if key in keys
-        if k in self.input_keys:
-            idx = self.input_keys.index(k)
-            self.input_keys.remove(k)
-            
-            # Remove corresponding weight-column
-            self.weight_ih = torch.cat((self.weight_ih[:, :idx], self.weight_ih[:, idx + 1:]), dim=1)
+        """Delete one of the input_keys, full_input_keys and full_weight_ih are left unchanged."""
+        if k in self.input_keys: self.input_keys.remove(k)
+    
+    # TODO: Crossover implementation
 
 
 class DefaultConnectionGene(BaseGene):
     """Default connection configuration, as specified by the Python-NEAT documentation."""
     
-    _gene_attributes = [FloatAttribute('weight'),
-                        BoolAttribute('enabled')]
+    _attributes = [FloatAttribute('weight'),
+                   BoolAttribute('enabled')]
     
     def __init__(self, key):
         # Placeholders
@@ -255,7 +268,7 @@ class DefaultConnectionGene(BaseGene):
                  False: 'enabled' is set to False
         Return True if enable has mutated."""
         mut_enabled = None
-        for a in self._gene_attributes:
+        for a in self._attributes:
             v = getattr(self, a.name)
             if a.name == 'enabled':
                 v2 = a.mutate_value(v, config)
