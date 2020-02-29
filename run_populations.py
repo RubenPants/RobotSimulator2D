@@ -7,7 +7,7 @@ import argparse
 
 from configs.config import NeatConfig
 from population.population import Population
-from utils.dictionary import D_FIT_OPTIONS, D_PATH
+from utils.dictionary import *
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
