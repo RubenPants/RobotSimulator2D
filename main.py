@@ -6,9 +6,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('--train', type=bool, default=False)
     parser.add_argument('--iterations', type=int, default=100)
-    parser.add_argument('--blueprint', type=bool, default=True)
+    parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
-    parser.add_argument('--genome', type=bool, default=False)
+    parser.add_argument('--genome', type=bool, default=True)
     parser.add_argument('--live', type=bool, default=False)
     args = parser.parse_args()
     
