@@ -4,17 +4,16 @@ inspect.py
 Inspect a population of choice.
 """
 import argparse
-import os
 from collections import Counter
 
 from population.population import Population
 
 
-def count_genome_sizes(pop):
-    counter = Counter()
-    for g in pop.population.values():
-        counter[g.size()] += 1
-    return counter
+def count_genome_sizes(population):
+    c = Counter()
+    for g in population.population.values():
+        c[g.size()] += 1
+    return c
 
 
 if __name__ == '__main__':
@@ -22,7 +21,7 @@ if __name__ == '__main__':
     parser.add_argument('--pop', type=str, default='test')
     parser.add_argument('--count_size', type=bool, default=True)
     args = parser.parse_args()
-
+    
     pop = Population(
             name=args.pop,
             # version=1,
