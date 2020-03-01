@@ -18,7 +18,7 @@ class GameWallCollision(unittest.TestCase):
     """Test the collision mechanism of the game."""
     
     def test_wall_force(self):
-        """Check if drone cannot force itself through a wall."""
+        """> Check if drone cannot force itself through a wall."""
         # Folder must be root to load in make_net properly
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
@@ -35,7 +35,7 @@ class GameWallCollision(unittest.TestCase):
                                delta=EPSILON)
     
     def test_wall_force_reverse(self):
-        """Check if a drone cannot force itself through a wall while driving backwards."""
+        """> Check if a drone cannot force itself through a wall while driving backwards."""
         # Folder must be root to load in make_net properly
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
@@ -56,7 +56,7 @@ class GameDrive(unittest.TestCase):
     """Test the robot's drive mechanics."""
     
     def test_360(self):
-        """Let bot spin 360s and check if position has changed."""
+        """> Let bot spin 360s and check if position has changed."""
         # Folder must be root to load in make_net properly
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
@@ -72,7 +72,7 @@ class GameDrive(unittest.TestCase):
         self.assertAlmostEqual(game.player.pos.y, 0.5, delta=EPSILON)
     
     def test_remain_in_box(self):
-        """Set drone in small box in the middle of the game to check if it stays in this box."""
+        """> Set drone in small box in the middle of the game to check if it stays in this box."""
         # Folder must be root to load in make_net properly
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         

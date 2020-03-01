@@ -20,7 +20,7 @@ class AngularSensorTest(unittest.TestCase):
     """Test the angular sensor."""
     
     def test_front(self):
-        """Test angular sensors when target straight in the front."""
+        """> Test angular sensors when target straight in the front."""
         # Folder must be root to load in make_net properly
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
@@ -39,7 +39,7 @@ class AngularSensorTest(unittest.TestCase):
             self.assertAlmostEqual(s, 0.0, delta=EPSILON_ANGLE)
     
     def test_left_angle(self):
-        """Test the angular sensors when target on the left."""
+        """> Test the angular sensors when target on the left."""
         # Folder must be root to load in make_net properly
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
@@ -63,7 +63,7 @@ class DistanceSensorTest(unittest.TestCase):
     """
     
     def test_front(self):
-        """Test the distance sensor when target straight in the front."""
+        """> Test the distance sensor when target straight in the front."""
         # Folder must be root to load in make_net properly
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
@@ -78,7 +78,7 @@ class DistanceSensorTest(unittest.TestCase):
         self.assertAlmostEqual(game.player.get_sensor_reading_distance(), 1.0, delta=EPSILON_DISTANCE)
     
     def test_left_angle(self):
-        """Test distance sensor when target under an angle (towards the left)."""
+        """> Test distance sensor when target under an angle (towards the left)."""
         # Folder must be root to load in make_net properly
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
@@ -97,7 +97,7 @@ class ProximitySensorTest(unittest.TestCase):
     """Test the proximity sensor."""
     
     def test_no_walls(self):
-        """Test proximity sensors with empty readings (i.e. no walls in proximity)."""
+        """> Test proximity sensors with empty readings (i.e. no walls in proximity)."""
         # Folder must be root to load in make_net properly
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
@@ -120,7 +120,7 @@ class ProximitySensorTest(unittest.TestCase):
             self.assertAlmostEqual(s, float(game.sensor_ray_distance), delta=EPSILON_DISTANCE)
     
     def test_cubed(self):
-        """Test proximity sensors when fully surrounded by walls."""
+        """> Test proximity sensors when fully surrounded by walls."""
         # Folder must be root to load in make_net properly
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
@@ -156,7 +156,7 @@ class ProximitySensorTest(unittest.TestCase):
         self.assertAlmostEqual(sensors[5], game.sensor_ray_distance, delta=EPSILON_DISTANCE)
     
     def test_force(self):
-        """Test proximity sensors when bot is grinding against a wall."""
+        """> Test proximity sensors when bot is grinding against a wall."""
         # Folder must be root to load in make_net properly
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         

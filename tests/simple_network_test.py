@@ -1,5 +1,5 @@
 """
-network_test.py
+simple_network_test.py
 
 Test the possible network configurations for the simple networks (i.e. feedforward network with simple hidden nodes).
 """
@@ -20,14 +20,18 @@ from population.utils.population_util.species import DefaultSpeciesSet
 from population.utils.population_util.stagnation import DefaultStagnation
 from utils.dictionary import *
 
+# Precision
+EPSILON = 1e-5
+
 
 def get_genome(inputs, hidden, outputs):
-    """Create a simple feedforward neuron."""  # Get the configuration
+    """Create a simple feedforward neuron."""
+    # Get the configuration
     cfg = NeatConfig()
     cfg.num_inputs = inputs
     cfg.num_hidden = hidden
     cfg.num_outputs = outputs
-    cfg.initial_connection = D_FULL_NODIRECT
+    cfg.initial_connection = D_FULL_NODIRECT  # input -> hidden -> output
     cfg.enable_gru = False  # Only simple hidden nodes allowed
     config = Config(
             genome_type=DefaultGenome,
@@ -45,7 +49,7 @@ def get_genome(inputs, hidden, outputs):
 
 class TestFeedForward(unittest.TestCase):
     def test_1inp_1out(self, debug=False):
-        """Test single feedforward network with one input and one output.
+        """> Test single feedforward network with one input and one output.
         
         :note: Bias will be put to zero, and connection weights to 1.
         
@@ -72,11 +76,12 @@ class TestFeedForward(unittest.TestCase):
         # Query the network; each input is directly mapped on the output (under tanh activation function)
         for _ in range(100):
             r = random() * 2 - 1
-            o = query_net(net, [[r]])
-            assert float(tanh_activation(torch.tensor(r, dtype=torch.float64))) == o
+            self.assertAlmostEqual(float(tanh_activation(torch.tensor(r, dtype=torch.float64))),
+                                   query_net(net, [[r]]),
+                                   delta=EPSILON)
     
     def test_1inp_1hid_1out(self, debug=False):
-        """Test single feedforward network with one input, one hidden node, and one output.
+        """> Test single feedforward network with one input, one hidden node, and one output.
         
         :note: Bias will be put to zero, and connection weights to 1.
         
@@ -115,10 +120,12 @@ class TestFeedForward(unittest.TestCase):
         # Query the network for the values
         for idx, inp in enumerate(inputs):
             [[r]] = query_net(net, [[inp]])
-            assert r == float(output_values[idx])
+            self.assertAlmostEqual(r,
+                                   float(output_values[idx]),
+                                   delta=EPSILON)
     
     def test_1inp_2hid_1out(self, debug=False):
-        """Test single feedforward network with one input, two hidden nodes, and one output.
+        """> Test single feedforward network with one input, two hidden nodes, and one output.
         
         :note: Bias will be put to zero, and connection weights to 1.
         
@@ -159,10 +166,12 @@ class TestFeedForward(unittest.TestCase):
         # Query the network for the values
         for idx, inp in enumerate(inputs):
             [[r]] = query_net(net, [[inp]])
-            assert r == float(output_values[idx])
+            self.assertAlmostEqual(r,
+                                   float(output_values[idx]),
+                                   delta=EPSILON)
     
     def test_2inp_1out(self, debug=False):
-        """Test single feedforward network with two inputs and one output.
+        """> Test single feedforward network with two inputs and one output.
         
         :note: Bias will be put to zero, and connection weights to 1.
         
@@ -197,10 +206,12 @@ class TestFeedForward(unittest.TestCase):
         # Query the network for the values
         for idx, inp in enumerate(inputs):
             [[r]] = query_net(net, [[inp[0], inp[1]]])
-            assert r == float(output_values[idx])
+            self.assertAlmostEqual(r,
+                                   float(output_values[idx]),
+                                   delta=EPSILON)
     
     def test_1inp_2hid_parallel_1out(self, debug=False):
-        """Test single feedforward network with one input, two hidden nodes in parallel, and one output.
+        """> Test single feedforward network with one input, two hidden nodes in parallel, and one output.
         
         :note: Bias will be put to zero, and connection weights to 1.
         
@@ -240,7 +251,9 @@ class TestFeedForward(unittest.TestCase):
         # Query the network for the values
         for idx, inp in enumerate(inputs):
             [[r]] = query_net(net, [[inp]])
-            assert r == float(output_values[idx])
+            self.assertAlmostEqual(r,
+                                   float(output_values[idx]),
+                                   delta=EPSILON)
 
 
 def main():

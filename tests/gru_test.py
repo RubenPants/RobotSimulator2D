@@ -35,7 +35,7 @@ def get_config(num_inputs=4, num_hidden=1, num_outputs=1):
 
 class TestGruNodeGene(unittest.TestCase):
     def test_input_keys(self):
-        """Test if the input_keys list is expanded and contracted correctly."""
+        """> Test if the input_keys list is expanded and contracted correctly."""
         gru = GruNodeGene(0)
         config = get_config()
         gru.init_attributes(config.genome_config)
@@ -79,7 +79,7 @@ class TestGruNodeGene(unittest.TestCase):
         assert gru.input_keys == gru.full_input_keys == [-1, 0, 1, 2]
     
     def test_weight_ih(self):
-        """Test if the weight_ih tensor is expanded and contracted correctly."""
+        """> Test if the weight_ih tensor is expanded and contracted correctly."""
         gru = GruNodeGene(0)
         config = get_config()
         gru.init_attributes(config.genome_config)
@@ -144,7 +144,7 @@ class TestGruNodeGene(unittest.TestCase):
         assert all(gru.full_weight_ih[:, 2] == gru.weight_ih[:, 2]) and all(gru.weight_ih[:, 2] == third_col)
     
     def test_mutate(self):
-        """Unused keys' values may never be mutated."""
+        """> Unused keys' values may never be mutated."""
         gru = GruNodeGene(0)
         config = get_config()
         gru.init_attributes(config.genome_config)
