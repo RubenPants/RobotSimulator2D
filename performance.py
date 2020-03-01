@@ -6,11 +6,11 @@ def test_intersection():
     print("--> Running the intersection test <--")
     
     # Do measures
-    time_cy = timeit('intersection_cy.main()',
-                     setup='from tests.cy import intersection_cy',
+    time_cy = timeit('intersection_test_cy.main()',
+                     setup='from tests.cy import intersection_test_cy',
                      number=1000)
-    time_py = timeit('intersection.main()',
-                     setup='from tests import intersection',
+    time_py = timeit('intersection_test.main()',
+                     setup='from tests import intersection_test',
                      number=1000)
     
     # Print results
@@ -23,11 +23,11 @@ def test_drive():
     print("--> Running the drive test <--")
     
     # Do measures
-    time_cy = timeit('drive_cy.main()',
-                     setup='from tests.cy import drive_cy',
+    time_cy = timeit('drive_test_cy.main()',
+                     setup='from tests.cy import drive_test_cy',
                      number=10)
-    time_py = timeit('drive.main()',
-                     setup='from tests import drive',
+    time_py = timeit('drive_test.main()',
+                     setup='from tests import drive_test',
                      number=10)
     
     # Print results
@@ -40,11 +40,11 @@ def test_sensors():
     print("--> Running the sensor test <--")
     
     # Do measures
-    time_cy = timeit('sensors_cy.main()',
-                     setup='from tests.cy import sensors_cy',
+    time_cy = timeit('sensors_test_cy.main()',
+                     setup='from tests.cy import sensors_test_cy',
                      number=1000)
-    time_py = timeit('sensors.main()',
-                     setup='from tests import sensors',
+    time_py = timeit('sensors_test.main()',
+                     setup='from tests import sensors_test',
                      number=1000)
     
     # Print results
