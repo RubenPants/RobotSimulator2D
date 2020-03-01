@@ -282,7 +282,7 @@ cdef class GameCy:
         persist_dict[D_POS] = (self.player.init_pos.x, self.player.init_pos.y)  # Initial position of player
         persist_dict[D_TARGET] = (self.target.x, self.target.y)
         persist_dict[D_WALLS] = [((w.x.x, w.x.y), (w.y.x, w.y.y)) for w in self.walls]
-        with open(f'environment/games_db/{self}', 'wb') as f: pickle.dump(persist_dict, f)
+        with open(f'{self.save_path}{self}', 'wb') as f: pickle.dump(persist_dict, f)
     
     cpdef bint load(self):
         """
@@ -294,7 +294,7 @@ cdef class GameCy:
         cdef dict game
         
         try:
-            with open(f'environment/games_db/{self}', 'rb') as f:
+            with open(f'{self.save_path}{self}', 'rb') as f:
                 game = pickle.load(f)
             self.bot_driving_speed = game[D_BOT_DRIVING_SPEED]
             self.bot_radius = game[D_BOT_RADIUS]
