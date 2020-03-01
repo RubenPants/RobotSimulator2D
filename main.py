@@ -84,5 +84,5 @@ if __name__ == '__main__':
         
         visualizer.visualize(
                 network=net,
-                game_id=3,
+                game_id=1,
         )
