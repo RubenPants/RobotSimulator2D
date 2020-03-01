@@ -161,21 +161,53 @@ class ProximitySensorTest(unittest.TestCase):
 
 
 def main():
+    success, fail = 0, 0
+    
     # Test angular sensors
     ast = AngularSensorTest()
-    ast.test_front(save_path="tests/games_db/")
-    ast.test_left_angle(save_path="tests/games_db/")
+    try:
+        ast.test_front(save_path="tests/games_db/")
+        success += 1
+    except AssertionError:
+        fail += 1
+    try:
+        ast.test_left_angle(save_path="tests/games_db/")
+        success += 1
+    except AssertionError:
+        fail += 1
     
     # Test distance sensor
     dst = DistanceSensorTest()
-    dst.test_front(save_path="tests/games_db/")
-    dst.test_left_angle(save_path="tests/games_db/")
+    try:
+        dst.test_front(save_path="tests/games_db/")
+        success += 1
+    except AssertionError:
+        fail += 1
+    try:
+        dst.test_left_angle(save_path="tests/games_db/")
+        success += 1
+    except AssertionError:
+        fail += 1
     
     # Test proximity sensors
     pst = ProximitySensorTest()
-    pst.test_no_walls(save_path="tests/games_db/")
-    pst.test_cubed(save_path="tests/games_db/")
-    pst.test_force(save_path="tests/games_db/")
+    try:
+        pst.test_no_walls(save_path="tests/games_db/")
+        success += 1
+    except AssertionError:
+        fail += 1
+    try:
+        pst.test_cubed(save_path="tests/games_db/")
+        success += 1
+    except AssertionError:
+        fail += 1
+    try:
+        pst.test_force(save_path="tests/games_db/")
+        success += 1
+    except AssertionError:
+        fail += 1
+    
+    return success, fail
 
 
 if __name__ == '__main__':

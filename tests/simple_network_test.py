@@ -243,5 +243,39 @@ class TestFeedForward(unittest.TestCase):
             assert r == float(output_values[idx])
 
 
+def main():
+    success, fail = 0, 0
+    
+    # Test the feedforward network that contains only simple hidden nodes
+    ff = TestFeedForward()
+    try:
+        ff.test_1inp_1out()
+        success += 1
+    except AssertionError:
+        fail += 1
+    try:
+        ff.test_1inp_1hid_1out()
+        success += 1
+    except AssertionError:
+        fail += 1
+    try:
+        ff.test_1inp_2hid_1out()
+        success += 1
+    except AssertionError:
+        fail += 1
+    try:
+        ff.test_1inp_2hid_parallel_1out()
+        success += 1
+    except AssertionError:
+        fail += 1
+    try:
+        ff.test_2inp_1out()
+        success += 1
+    except AssertionError:
+        fail += 1
+        
+    return success, fail
+
+
 if __name__ == '__main__':
     unittest.main()

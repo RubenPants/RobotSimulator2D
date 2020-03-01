@@ -207,6 +207,30 @@ class TestGruNodeGene(unittest.TestCase):
         assert not all(gru.weight_ih[:, 2] == third_col)
 
 
+def main():
+    success, fail = 0, 0
+    
+    # Test basic GruNodeGene test cases
+    gng = TestGruNodeGene()
+    try:
+        gng.test_input_keys()
+        success += 1
+    except AssertionError:
+        fail += 1
+    try:
+        gng.test_weight_ih()
+        success += 1
+    except AssertionError:
+        fail += 1
+    try:
+        gng.test_mutate()
+        success += 1
+    except AssertionError:
+        fail += 1
+    
+    return success, fail
+
+
 if __name__ == '__main__':
     unittest.main()
 

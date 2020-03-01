@@ -43,6 +43,7 @@ class GameWallCollision(unittest.TestCase):
         # Check if robot in fixed position
         self.assertAlmostEqual(game.player.pos.x, int(game.x_axis) - 0.5, delta=EPSILON)
         self.assertAlmostEqual(game.player.pos.y, float(game.bot_radius), delta=EPSILON)
+        self.assertAlmostEqual(game.player.pos.y, float(game.bot_radius), delta=EPSILON)
 
 
 class GameDrive(unittest.TestCase):
@@ -90,15 +91,36 @@ class GameDrive(unittest.TestCase):
 
 
 def main():
+    # Counters
+    success, fail = 0, 0
+    
     # Test wall collision
     gwc = GameWallCollision()
-    gwc.test_wall_force(save_path="tests/games_db/")
-    gwc.test_wall_force_reverse(save_path="tests/games_db/")
+    try:
+        gwc.test_wall_force(save_path="tests/games_db/")
+        success += 1
+    except AssertionError:
+        fail += 1
+    try:
+        gwc.test_wall_force_reverse(save_path="tests/games_db/")
+        success += 1
+    except AssertionError:
+        fail += 1
     
     # Test driving mechanics
     gd = GameDrive()
-    gd.test_360(save_path="tests/games_db/")
-    gd.test_remain_in_box(save_path="tests/games_db/")
+    try:
+        gd.test_360(save_path="tests/games_db/")
+        success += 1
+    except AssertionError:
+        fail += 1
+    try:
+        gd.test_remain_in_box(save_path="tests/games_db/")
+        success += 1
+    except AssertionError:
+        fail += 1
+    
+    return success, fail
 
 
 if __name__ == '__main__':

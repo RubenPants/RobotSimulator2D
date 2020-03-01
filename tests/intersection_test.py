@@ -109,31 +109,91 @@ class CircleLineIntersection(unittest.TestCase):
 
 
 def main():
+    success, fail = 0, 0
+    
     # Test line line intersections
     lli = LineLineIntersection()
-    lli.test_intersect()
-    lli.test_intersect_cross()
-    lli.test_intersect_edge()
-    lli.test_intersect_small()
-    lli.test_no_intersect()
+    try:
+        lli.test_intersect()
+        success += 1
+    except AssertionError:
+        fail += 1
+    try:
+        lli.test_intersect_cross()
+        success += 1
+    except AssertionError:
+        fail += 1
+    try:
+        lli.test_intersect_edge()
+        success += 1
+    except AssertionError:
+        fail += 1
+    try:
+        lli.test_intersect_small()
+        success += 1
+    except AssertionError:
+        fail += 1
+    try:
+        lli.test_no_intersect()
+        success += 1
+    except AssertionError:
+        fail += 1
     
     # Test point circle intersections
     pci = PointCircleIntersection()
-    pci.test_intersect()
-    pci.test_intersect_edge()
-    pci.test_no_intersect()
+    try:
+        pci.test_intersect()
+        success += 1
+    except AssertionError:
+        fail += 1
+    try:
+        pci.test_intersect_edge()
+        success += 1
+    except AssertionError:
+        fail += 1
+    try:
+        pci.test_no_intersect()
+        success += 1
+    except AssertionError:
+        fail += 1
     
     # Test point line intersections
     pli = PointLineIntersection()
-    pli.test_intersect()
-    pli.test_intersect_edge()
-    pli.test_no_intersect()
+    try:
+        pli.test_intersect()
+        success += 1
+    except AssertionError:
+        fail += 1
+    try:
+        pli.test_intersect_edge()
+        success += 1
+    except AssertionError:
+        fail += 1
+    try:
+        pli.test_no_intersect()
+        success += 1
+    except AssertionError:
+        fail += 1
     
     # Test circle line intersections
     cli = CircleLineIntersection()
-    cli.test_intersect()
-    cli.test_intersect_edge()
-    cli.test_no_intersect()
+    try:
+        cli.test_intersect()
+        success += 1
+    except AssertionError:
+        fail += 1
+    try:
+        cli.test_intersect_edge()
+        success += 1
+    except AssertionError:
+        fail += 1
+    try:
+        cli.test_no_intersect()
+        success += 1
+    except AssertionError:
+        fail += 1
+    
+    return success, fail
 
 
 if __name__ == '__main__':
