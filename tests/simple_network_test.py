@@ -45,9 +45,9 @@ def get_genome(inputs, hidden, outputs):
 
 class TestFeedForward(unittest.TestCase):
     def test_1inp_1out(self, debug=False):
-        """
-        Test the functionality of a simple network with only one input, one output, and no hidden nodes.
-        Bias will be put to zero, and connection weights to 1.
+        """Test single feedforward network with one input and one output.
+        
+        :note: Bias will be put to zero, and connection weights to 1.
         
         In this test, the value of the input will be mapped directly onto the output, where it will be squished by the
         output's squishing function (tanh).
@@ -76,9 +76,9 @@ class TestFeedForward(unittest.TestCase):
             assert float(tanh_activation(torch.tensor(r, dtype=torch.float64))) == o
     
     def test_1inp_1hid_1out(self, debug=False):
-        """
-        Test the functionality of a simple network with only one input, one output, and one hidden node.
-        Bias will be put to zero, and connection weights to 1.
+        """Test single feedforward network with one input, one hidden node, and one output.
+        
+        :note: Bias will be put to zero, and connection weights to 1.
         
         In this test, the value of the input progresses in two steps to reach the output:
           1) input-to-hidden: The value of the input node squished by the hidden node's relu function
@@ -118,9 +118,9 @@ class TestFeedForward(unittest.TestCase):
             assert r == float(output_values[idx])
     
     def test_1inp_2hid_1out(self, debug=False):
-        """
-        Test the functionality of a simple network with only one input, one output, and two hidden nodes.
-        Bias will be put to zero, and connection weights to 1.
+        """Test single feedforward network with one input, two hidden nodes, and one output.
+        
+        :note: Bias will be put to zero, and connection weights to 1.
         
         For this test, in contrast to 'test_1inp_1hid_1out', the outputs aren't directly mapped from the inputs, but
         are delayed with one time-step (due to the double hidden nodes).
@@ -162,9 +162,9 @@ class TestFeedForward(unittest.TestCase):
             assert r == float(output_values[idx])
     
     def test_2inp_1out(self, debug=False):
-        """
-        Test the functionality of a simple network with two inputs and one output.
-        Bias will be put to zero, and connection weights to 1.
+        """Test single feedforward network with two inputs and one output.
+        
+        :note: Bias will be put to zero, and connection weights to 1.
         
         This test will check on the aggregation function of the output node.
 
@@ -200,9 +200,9 @@ class TestFeedForward(unittest.TestCase):
             assert r == float(output_values[idx])
     
     def test_1inp_2hid_parallel_1out(self, debug=False):
-        """
-        Test the functionality of a simple network with one input, two hidden in parallel, and one output.
-        Bias will be put to zero, and connection weights to 1.
+        """Test single feedforward network with one input, two hidden nodes in parallel, and one output.
+        
+        :note: Bias will be put to zero, and connection weights to 1.
         
         This test will check on the aggregation function of the output node, which should be doubled in value from its
         inputs.
@@ -244,37 +244,13 @@ class TestFeedForward(unittest.TestCase):
 
 
 def main():
-    success, fail = 0, 0
-    
     # Test the feedforward network that contains only simple hidden nodes
     ff = TestFeedForward()
-    try:
-        ff.test_1inp_1out()
-        success += 1
-    except AssertionError:
-        fail += 1
-    try:
-        ff.test_1inp_1hid_1out()
-        success += 1
-    except AssertionError:
-        fail += 1
-    try:
-        ff.test_1inp_2hid_1out()
-        success += 1
-    except AssertionError:
-        fail += 1
-    try:
-        ff.test_1inp_2hid_parallel_1out()
-        success += 1
-    except AssertionError:
-        fail += 1
-    try:
-        ff.test_2inp_1out()
-        success += 1
-    except AssertionError:
-        fail += 1
-        
-    return success, fail
+    ff.test_1inp_1out()
+    ff.test_1inp_1hid_1out()
+    ff.test_1inp_2hid_1out()
+    ff.test_1inp_2hid_parallel_1out()
+    ff.test_2inp_1out()
 
 
 if __name__ == '__main__':

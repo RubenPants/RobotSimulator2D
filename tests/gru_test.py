@@ -33,34 +33,6 @@ def get_config(num_inputs=4, num_hidden=1, num_outputs=1):
     )
 
 
-def create_simple_genome(config):  # TODO: Delete!
-    """
-    A simple genome has one input, one output, and one hidden recurrent node (GRU). All weight parameters are forced to
-    be 1, where all biases are forced to be 0.
-    """
-    g = DefaultGenome(key=1)
-    
-    # Init with randomized configuration
-    g.configure_new(config.genome_config)
-    
-    # Node -1: input
-    # --> No change needed
-    # Node 0: output
-    g.nodes[0].bias = 0
-    # Node 1: GRU
-    GRU_KEY = 1
-    g.nodes[GRU_KEY] = g.create_gru_node(config.genome_config, 1)
-    # g.nodes[GRU_KEY].bias_ih[:] = torch.FloatTensor([0, 0, 0])
-    # g.nodes[GRU_KEY].bias_hh[:] = torch.FloatTensor([0, 0, 0])
-    # g.nodes[GRU_KEY].weight_ih[:] = torch.FloatTensor([[0], [0], [0]])
-    # g.nodes[GRU_KEY].weight_hh[:] = torch.FloatTensor([[0], [0], [0]])
-    g.nodes[2].bias = 0
-    
-    # Connections
-    for c in g.connections.values(): c.weight = 1
-    return g
-
-
 class TestGruNodeGene(unittest.TestCase):
     def test_input_keys(self):
         """Test if the input_keys list is expanded and contracted correctly."""
@@ -208,53 +180,12 @@ class TestGruNodeGene(unittest.TestCase):
 
 
 def main():
-    success, fail = 0, 0
-    
     # Test basic GruNodeGene test cases
     gng = TestGruNodeGene()
-    try:
-        gng.test_input_keys()
-        success += 1
-    except AssertionError:
-        fail += 1
-    try:
-        gng.test_weight_ih()
-        success += 1
-    except AssertionError:
-        fail += 1
-    try:
-        gng.test_mutate()
-        success += 1
-    except AssertionError:
-        fail += 1
-    
-    return success, fail
+    gng.test_input_keys()
+    gng.test_weight_ih()
+    gng.test_mutate()
 
 
 if __name__ == '__main__':
     unittest.main()
-
-# TODO: Delete!
-"""
-if __name__ == '__main__':
-    os.chdir("..")
-    config = get_config()
-    genome = create_simple_genome(config)
-    print(genome, end="\n" * 3)
-    # print(genome.input_keys)
-    net = make_net(genome, config, bs=1, cold_start=True)
-    
-    # Query the network
-    print("Querying the network:")
-    inp = query_net(net, [[1, 1, 1, 1]])
-    # inp = query_net(net, [[1, 1, 1, 1], [1, 1, 1, 1]])
-    print(f" - iteration1: {inp}")
-    inp = query_net(net, [[1, 1, 1, 1]])
-    # inp = query_net(net, [[1, 1, 1, 1], [1, 1, 1, 1]])
-    print(f" - iteration2: {inp}")
-    inp = query_net(net, [[1, 1, 1, 1]])
-    # inp = query_net(net, [[1, 1, 1, 1], [1, 1, 1, 1]])
-    print(f" - iteration3: {inp}")
-    # for _ in range(10):
-    #     print(query_net(net, [[0]]))
-"""
