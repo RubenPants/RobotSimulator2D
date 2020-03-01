@@ -240,7 +240,7 @@ class Population:
         draw_net(self.config,
                  genome,
                  debug=debug,
-                 filename='{sf}{name}'.format(sf=sf, name=name),
+                 filename=f'{sf}{name}',
                  view=show)
     
     # ---------------------------------------------> FUNCTIONAL METHODS <--------------------------------------------- #

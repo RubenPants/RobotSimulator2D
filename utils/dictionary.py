@@ -38,6 +38,7 @@ D_FIT_NOVELTY_SEARCH = 'fit_novelty_search'
 D_FIT_QUALITY_DIVERSITY = 'fit_quality_diversity'
 D_FPS = 'fps'
 D_FULL_DIRECT = 'full_direct'
+D_FULL_NODIRECT = 'full_nodirect'
 
 # G
 D_GAME_ENV = 'game_environment'
