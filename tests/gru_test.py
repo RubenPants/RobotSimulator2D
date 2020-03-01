@@ -210,6 +210,7 @@ class TestGruNodeGene(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main()
 
+# TODO: Delete!
 """
 if __name__ == '__main__':
     os.chdir("..")

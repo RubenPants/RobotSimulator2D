@@ -28,6 +28,10 @@ def abs_activation(x):
     return torch.abs(x)
 
 
+def linear_activation(x):
+    return x
+
+
 def gauss_activation(x):
     return torch.exp(-5.0 * x ** 2)
 
@@ -48,6 +52,7 @@ str_to_activation = {
     'sigmoid':  sigmoid_activation,
     'tanh':     tanh_activation,
     'abs':      abs_activation,
+    'linear':   linear_activation,
     'gauss':    gauss_activation,
     'identity': identity_activation,
     'sin':      sin_activation,

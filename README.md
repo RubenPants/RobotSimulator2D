@@ -48,6 +48,7 @@ down such that no redundant work is needed...
 
 ## TODO
 
+* Activation functions of hidden vs output nodes not taken into account! (hard-coded on tanh!)
 * Use `set()` when possible to increase performance
 * Update fitness functions to be more conform to that of James
 * Add obstacles to the maze (perhaps in an empty room adding a cube?)
