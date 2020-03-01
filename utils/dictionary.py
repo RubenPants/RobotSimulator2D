@@ -51,6 +51,9 @@ D_GRU_MUT = 'gru_mutate_rate'
 # K
 D_K = 'k'
 
+# L
+D_LINEAR = 'linear'
+
 # M
 D_MAX = 'max'
 D_MAX_EVAL_GAME_ID = 'max_eval_game_id'

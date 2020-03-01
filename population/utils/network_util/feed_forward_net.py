@@ -25,7 +25,7 @@ import torch
 
 from environment.entities.game import initial_sensor_readings
 from population.utils.genome_util.genes import GruNodeGene
-from population.utils.network_util.activations import tanh_activation
+from population.utils.network_util.activations import relu_activation, tanh_activation
 from population.utils.network_util.graphs import required_for_output
 from population.utils.network_util.shared import dense_from_coo
 
@@ -38,7 +38,7 @@ class FeedForwardNet:
                  hidden_biases, output_biases,
                  grus, gru_map,
                  batch_size=1,
-                 activation=tanh_activation,
+                 hidden_activation=relu_activation, output_activation=tanh_activation,  # TODO: Make configurable?
                  cold_start=False,
                  dtype=torch.float64,
                  ):
@@ -56,12 +56,14 @@ class FeedForwardNet:
         :param grus: List of GRUCell objects (length equals len(gru_idx))
         :param gru_map: Boolean matrix mapping raw inputs to inputs used by GRUCell for a single batch
         :param batch_size: Needed to setup network-dimensions
-        :param activation: The default node-activation function (squishing)
+        :param hidden_activation: The default hidden-node activation function (squishing)
+        :param output_activation: The default output-node activation function (squishing)
         :param cold_start: Do not initialize the network based on sensory inputs
         :param dtype: Value-type used in the tensors
         """
         # Storing the input arguments (needed later on)
-        self.activation = activation
+        self.hidden_act_f = hidden_activation
+        self.output_act_f = output_activation
         self.dtype = dtype
         self.input_idx = input_idx
         self.hidden_idx = hidden_idx
@@ -121,11 +123,11 @@ class FeedForwardNet:
                 with torch.no_grad():
                     inputs = torch.tensor([self.initial_readings] * self.bs, dtype=self.dtype)
                     output_inputs = self.in2out.mm(inputs.t()).t()
-                    self.hidden_act = self.activation(self.in2hid.mm(inputs.t()).t() +
-                                                      self.hid2hid.mm(self.hidden_act.t()).t() +
-                                                      self.hidden_biases)
+                    self.hidden_act = self.hidden_act_f(self.in2hid.mm(inputs.t()).t() +
+                                                        self.hid2hid.mm(self.hidden_act.t()).t() +
+                                                        self.hidden_biases)
                     output_inputs += self.hid2out.mm(self.hidden_act.t()).t()
-                    self.output_act = self.activation(output_inputs + self.output_biases)
+                    self.output_act = self.output_act_f(output_inputs + self.output_biases)
     
     def activate(self, inputs):
         """
@@ -158,9 +160,9 @@ class FeedForwardNet:
                                                       self.hid2hid[gru_idx] * self.hidden_act), dim=1)
                 
                 # 1) Propagate the hidden nodes
-                self.hidden_act = self.activation(self.in2hid.mm(inputs.t()).t() +
-                                                  self.hid2hid.mm(self.hidden_act.t()).t() +
-                                                  self.hidden_biases)
+                self.hidden_act = self.hidden_act_f(self.in2hid.mm(inputs.t()).t() +
+                                                    self.hid2hid.mm(self.hidden_act.t()).t() +
+                                                    self.hidden_biases)
                 
                 # 2) Execute the GRU nodes if they exists (updating current hidden state)
                 for i, gru_idx in enumerate(self.gru_idx):
@@ -174,13 +176,12 @@ class FeedForwardNet:
                 output_inputs += self.hid2out.mm(self.hidden_act.t()).t()
             
             # Define the values of the outputs, which is the sum of their received inputs and their corresponding bias
-            self.output_act = self.activation(output_inputs + self.output_biases)
+            self.output_act = self.output_act_f(output_inputs + self.output_biases)
         return self.output_act
     
     @staticmethod
     def create(genome,
                config,
-               activation=tanh_activation,
                batch_size=1,
                cold_start=False,
                ):
@@ -190,7 +191,6 @@ class FeedForwardNet:
         
         :param genome: The genome for which a network must be created
         :param config: Population config
-        :param activation: Default activation
         :param batch_size: Batch-size needed to setup network dimension
         :param cold_start: Do not initialize the network based on sensory inputs
         """
@@ -295,7 +295,6 @@ class FeedForwardNet:
                 hidden_biases=hidden_biases, output_biases=output_biases,
                 grus=grus, gru_map=gru_map,
                 batch_size=batch_size,
-                activation=activation,
                 cold_start=cold_start,
         )
 
