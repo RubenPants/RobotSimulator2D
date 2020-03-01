@@ -10,7 +10,7 @@ from neat.six_util import iteritems
 from tqdm import tqdm
 
 from configs.config import GameConfig
-from utils.dictionary import D_DIST_TO_TARGET, D_DONE, D_STEPS, D_FPS
+from utils.dictionary import D_DIST_TO_TARGET, D_DONE, D_FPS, D_STEPS
 
 if sys.platform == 'linux':
     from environment.cy.multi_env_cy import MultiEnvironmentCy
@@ -76,25 +76,28 @@ class EvaluationEnv:
         # Evaluate on all the games
         multi_env.set_games(self.games)
         
-        processes = []
+        pool = mp.Pool(mp.cpu_count())
         manager = mp.Manager()
         return_dict = manager.dict()
         
-        def eval_genomes(genomes, config):
-            for genome in genomes:
-                processes.append(mp.Process(target=multi_env.eval_genome, args=(genome, config, return_dict)))
-            
-            for p in tqdm(processes): p.start()
-            for p in processes: p.join()
-            
-            # No need to validate the fitness in this scenario
-            return return_dict
+        # Fetch the dictionary of genomes
+        genomes = list(iteritems(pop.population))
         
-        # Evaluate the current population
-        result_dict = eval_genomes(list(zip(range(len(genome_list)), genome_list)), pop.config)
+        # Progress bar during evaluation
+        pbar = tqdm(total=len(genomes), desc="parallel training")
+        
+        def cb(*_):
+            """Update progressbar after finishing a single genome's evaluation."""
+            pbar.update()
+        
+        for genome in genomes:
+            pool.apply_async(func=multi_env.eval_genome, args=(genome, pop.config, return_dict), callback=cb)
+        pool.close()  # Close the pool
+        pool.join()  # Postpone continuation until everything is finished
+        pbar.close()  # Close the progressbar
         
         eval_result = dict()
-        for k in result_dict.keys(): eval_result[str(genome_list[k].key)] = create_answer(result_dict[k])
+        for k in return_dict.keys(): eval_result[str(genome_list[k].key)] = create_answer(return_dict[k])
         pop.add_evaluation_result(eval_result)
     
     def evaluate_population(self, pop, game_ids=None):
@@ -123,16 +126,26 @@ class EvaluationEnv:
             )
         
         # Initialize the evaluation-pool
-        processes = []
+        pool = mp.Pool(mp.cpu_count())
         manager = mp.Manager()
         return_dict = manager.dict()
         
-        # Evaluate the genomes
-        for genome in list(iteritems(pop.population)):
-            processes.append(mp.Process(target=multi_env.eval_genome, args=(genome, pop.config, return_dict)))
+        # Fetch the dictionary of genomes
+        genomes = list(iteritems(pop.population))
         
-        for p in tqdm(processes): p.start()
-        for p in processes: p.join()
+        # Progress bar during evaluation
+        pbar = tqdm(total=len(genomes), desc="parallel training")
+        
+        def cb(*_):
+            """Update progressbar after finishing a single genome's evaluation."""
+            pbar.update()
+        
+        # Evaluate the genomes
+        for genome in genomes:
+            pool.apply_async(func=multi_env.eval_genome, args=(genome, pop.config, return_dict), callback=cb)
+        pool.close()  # Close the pool
+        pool.join()  # Postpone continuation until everything is finished
+        pbar.close()  # Close the progressbar
         
         # Create blueprint of final result
         game_objects = [multi_env.create_game(g) for g in self.games]

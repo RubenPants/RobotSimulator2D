@@ -133,7 +133,8 @@ class DefaultGenome(object):
         else:
             parent1, parent2 = genome2, genome1
         
-        # TODO: Get fitness-ratio! (likeliness of taking parent1 over parent2, based on fitness)
+        # Get the fitness ratio of the two parents (determines from which parent a child is most likely to inherit from)
+        ratio = parent1.fitness / (parent1.fitness + parent2.fitness)
         
         # Inherit connection genes
         for key, cg1 in iteritems(parent1.connections):
@@ -143,7 +144,7 @@ class DefaultGenome(object):
                 self.connections[key] = cg1.copy()
             else:
                 # Homologous gene: combine genes from both parents.
-                self.connections[key] = cg1.crossover(cg2)
+                self.connections[key] = cg1.crossover(cg2, ratio)
         
         # Inherit node genes
         parent1_set = parent1.nodes
@@ -157,7 +158,7 @@ class DefaultGenome(object):
                 self.nodes[key] = ng1.copy()
             else:
                 # Homologous gene: combine genes from both parents.
-                self.nodes[key] = ng1.crossover(ng2)
+                self.nodes[key] = ng1.crossover(ng2, ratio)
         
         # Make sure that all GRU-nodes are correctly configured (input_keys)
         self.update_gru_nodes(config)

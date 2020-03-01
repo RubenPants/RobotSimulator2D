@@ -28,8 +28,8 @@ class GameConfig:
         self.bot_turning_speed: float = 13 * np.pi / 16
         
         # [CONTROL]
-        # Number of games on which a single genome is evaluated [def=8]  TODO: move out of game config!
-        self.batch: int = 2
+        # Number of games on which a single genome is evaluated [def=16]  TODO: move out of game config!
+        self.batch: int = 16
         # Number of seconds it takes for one game to complete [def=50]
         self.duration: int = 50
         # Max ID of game (starting from 1) [def=1000]
@@ -101,7 +101,7 @@ class NeatConfig:
         # Don't consider fitness_criterion and fitness_threshold
         self.no_fitness_termination: bool = True
         # Number of individuals in each generation  [def=256]  TODO
-        self.pop_size: int = 10
+        self.pop_size: int = 128
         # Create random population if all species become distinct due to stagnation
         self.reset_on_extinction: bool = True
         
@@ -109,15 +109,15 @@ class NeatConfig:
         # The function used to compute the species fitness
         self.species_fitness_func: str = D_MAX
         # Remove a specie if it hasn't improved over this many number of generations
-        self.max_stagnation: int = 20
+        self.max_stagnation: int = 15
         # Number of the best species that will be protected from stagnation
-        self.species_elitism: int = 1
+        self.species_elitism: int = 2
         
         # [DefaultReproduction]
-        # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=2]
-        self.elitism: int = 2
-        # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.3]
-        self.survival_threshold: float = 0.3
+        # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=1]  TODO
+        self.elitism: int = 1
+        # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.2]  TODO
+        self.survival_threshold: float = 0.2
         # Minimum number of genomes per species  [def=5]
         self.min_species_size: int = 5
         # Sexual reproduction  [def=True]  # TODO
@@ -127,7 +127,7 @@ class NeatConfig:
         # Number of input nodes (the sensors): [5x proximity_sensor, 2x angular_sensor, 1x distance_sensor]  [def=8]
         self.num_inputs: int = 8
         # Number of hidden nodes to add to each genome in the initial population  [def=0]  TODO
-        self.num_hidden: int = 1
+        self.num_hidden: int = 0
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
         self.num_outputs: int = 2
         # Initial connectivity of newly-created genomes  [def=D_FULL_DIRECT]  TODO
@@ -162,10 +162,10 @@ class NeatConfig:
         self.bias_mutate_rate: float = 0.5
         # The standard deviation of the zero-centered gaussian from which a bias value mutation is drawn  [def=0.1]
         self.bias_mutate_power: float = 0.1
-        # The maximum allowed bias value, biases above this threshold will be clamped to this value  [def=5]
-        self.bias_max_value: float = 5.0
-        # The minimum allowed bias value, biases below this threshold will be clamped to this value  [def=-5]
-        self.bias_min_value: float = -5.0
+        # The maximum allowed bias value, biases above this threshold will be clamped to this value  [def=2]
+        self.bias_max_value: float = 2.0
+        # The minimum allowed bias value, biases below this threshold will be clamped to this value  [def=-2]
+        self.bias_min_value: float = -2.0
         # Mean of the gaussian distribution used to select the weight attribute values for new connections  [def=0]
         self.weight_init_mean: float = 0.0
         # Standard deviation of the gaussian used to select the weight attributes values for new connections  [def=1]
@@ -176,18 +176,18 @@ class NeatConfig:
         self.weight_replace_rate: float = 0.05
         # The standard deviation of the zero-centered gaussian from which a weight value mutation is drawn  [def=0.1]
         self.weight_mutate_power: float = 0.1
-        # The maximum allowed weight value, weights above this value will be clipped to this value  [def=5]
-        self.weight_max_value: float = 5.0
-        # The minimum allowed weight value, weights below this value will be clipped to this value  [def=-5]
-        self.weight_min_value: float = -5.0
+        # The maximum allowed weight value, weights above this value will be clipped to this value  [def=2]
+        self.weight_max_value: float = 2.0
+        # The minimum allowed weight value, weights below this value will be clipped to this value  [def=-2]
+        self.weight_min_value: float = -2.0
         # Enable the algorithm to disable (and re-enable) existing connections  [def=True]
         self.enabled_default: bool = True
         # The probability that mutation will replace the 'enabled status' of a connection  [def=0.05]
-        self.enabled_mutate_rate: float = 0.05
+        self.enabled_mutate_rate: float = 0.01
         
         # [DefaultSpeciesSet]
         # Individuals whose genetic distance is less than this threshold are in the same specie  [def=2]
-        self.compatibility_threshold: float = 3.0
+        self.compatibility_threshold: float = 2.0
         # Full weight of disjoint and excess nodes on determining genomic distance  [def=1]
         self.compatibility_disjoint_coefficient: float = 1.0
         # Coefficient for each weight or bias difference contribution to the genomic distance  [def=0.1]
@@ -203,9 +203,9 @@ class NeatConfig:
         
         # [GRU]
         # Enable the genomes to mutate GRU nodes  [def=True]  TODO
-        self.enable_gru: bool = True
+        self.enable_gru: bool = False
         # Mutation probability of mutating a GRU node rather than a simple node  [def=0.4]  TODO
-        self.gru_mutate_rate: float = 1
+        self.gru_mutate_rate: float = 0.4
     
     def __str__(self):
         result = "NEAT Configuration:"

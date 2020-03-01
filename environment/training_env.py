@@ -79,36 +79,38 @@ class TrainingEnv:
             # Set random set of games
             self.sample_games(multi_env)
             
-            # Initialize the evaluation-pool
-            processes = []
-            manager = mp.Manager()
-            return_dict = manager.dict()
-            
-            if parallel:
-                def eval_genomes(genomes, config):
-                    for genome in genomes:
-                        processes.append(mp.Process(target=multi_env.eval_genome, args=(genome, config, return_dict)))
-                    
-                    for p in tqdm(processes): p.start()
-                    for p in processes: p.join()
-                    
-                    # Calculate the fitness from the given return_dict
-                    fitness = calc_pop_fitness(fitness_config=pop.fitness_config, game_observations=return_dict)
-                    for i, genome in genomes:
-                        genome.fitness = fitness[i]
-            else:
-                def eval_genomes(genomes, config):
-                    for genome in tqdm(genomes):
-                        multi_env.eval_genome(genome, config, return_dict)
-                    fitness = calc_pop_fitness(fitness_config=pop.fitness_config, game_observations=return_dict)
-                    for i, genome in genomes:
-                        genome.fitness = fitness[i]
-            
             # Prepare the generation's reporters for the generation
             pop.reporters.start_generation(pop.generation)
             
-            # Evaluate the current population
-            eval_genomes(list(iteritems(pop.population)), pop.config)
+            # Initialize the evaluation-pool
+            pool = mp.Pool(mp.cpu_count())
+            manager = mp.Manager()
+            return_dict = manager.dict()
+            
+            # Fetch the dictionary of genomes
+            genomes = list(iteritems(pop.population))
+            
+            if parallel:
+                pbar = tqdm(total=len(genomes), desc="parallel training")
+                
+                def cb(*_):
+                    """Update progressbar after finishing a single genome's evaluation."""
+                    pbar.update()
+                
+                for genome in genomes:
+                    pool.apply_async(func=multi_env.eval_genome, args=(genome, pop.config, return_dict), callback=cb)
+                pool.close()  # Close the pool
+                pool.join()  # Postpone continuation until everything is finished
+                pbar.close()  # Close the progressbar
+                
+                # Calculate the fitness from the given return_dict
+                fitness = calc_pop_fitness(fitness_config=pop.fitness_config, game_observations=return_dict)
+                for i, genome in genomes: genome.fitness = fitness[i]
+            else:
+                for genome in tqdm(genomes, desc="sequential training"):
+                    multi_env.eval_genome(genome, pop.config, return_dict)
+                fitness = calc_pop_fitness(fitness_config=pop.fitness_config, game_observations=return_dict)
+                for i, genome in genomes: genome.fitness = fitness[i]
             
             # Gather and report statistics
             best = None
@@ -164,16 +166,25 @@ class TrainingEnv:
         multi_env.set_games(self.games)
         
         # Initialize the evaluation-pool
-        processes = []
+        pool = mp.Pool(mp.cpu_count())
         manager = mp.Manager()
         return_dict = manager.dict()
+            
+        # Fetch the dictionary of genomes
+        genomes = list(iteritems(pop.population))
+        
+        # Progress bar during evaluation
+        pbar = tqdm(total=len(genomes), desc="parallel training")
+        
+        def cb(*_):
+            """Update progressbar after finishing a single genome's evaluation."""
+            pbar.update()
         
         # Evaluate the genomes
-        for genome in list(iteritems(pop.population)):
-            processes.append(mp.Process(target=multi_env.eval_genome, args=(genome, pop.config, return_dict)))
-        
-        for p in tqdm(processes): p.start()
-        for p in processes: p.join()
+        for genome in genomes:
+            pool.apply_async(func=multi_env.eval_genome, args=(genome, pop.config, return_dict), callback=cb)
+        pool.close()  # Close the pool
+        pool.join()  # Postpone continuation until everything is finished
         
         # Create blueprint of final result
         game_objects = [multi_env.create_game(g) for g in self.games]

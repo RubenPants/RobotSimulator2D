@@ -4,8 +4,8 @@ from population.population import Population
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument('--train', type=bool, default=True)
-    parser.add_argument('--iterations', type=int, default=20)
+    parser.add_argument('--train', type=bool, default=False)
+    parser.add_argument('--iterations', type=int, default=10)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
     parser.add_argument('--genome', type=bool, default=False)
@@ -13,7 +13,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     pop = Population(
-            name="test",
+            name="path_1",
             # version=1,
     )
     if not pop.best_genome: pop.best_genome = list(pop.population.values())[0]

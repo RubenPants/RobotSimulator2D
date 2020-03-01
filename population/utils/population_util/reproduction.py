@@ -170,10 +170,11 @@ class DefaultReproduction(DefaultClassConfig):
                 child: DefaultGenome = config.genome_type(gid)
                 
                 # Choose the parents, note that if the parents are not distinct, crossover will produce a genetically
-                # identical clone of the parent (but with a different ID).
+                # identical clone of the parent (but with a different ID). Note: crossover with the same parent would
+                # result in a identical copy of this parent.
                 parent1_id, parent1 = random.choice(old_members)
-                if self.reproduction_config.sexual_reproduction:
-                    parent2_id, parent2 = random.choice(old_members)
+                parent2_id, parent2 = random.choice(old_members)
+                if self.reproduction_config.sexual_reproduction and (parent1_id != parent2_id):
                     child.configure_crossover(config=config.genome_config, genome1=parent1, genome2=parent2)
                 else:
                     parent2_id, parent2 = None, None

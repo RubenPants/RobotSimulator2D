@@ -74,12 +74,12 @@ class BaseGene(object):
         for a in self._attributes: setattr(new_gene, a.name, getattr(self, a.name))
         return new_gene
     
-    def crossover(self, gene2):
+    def crossover(self, gene2, ratio):
         """ Creates a new gene randomly inheriting attributes from its parents."""
         assert self.key == gene2.key
         new_gene = self.__class__(self.key)
         for a in self._attributes:
-            if random() > 0.5:
+            if random() > ratio:
                 setattr(new_gene, a.name, getattr(self, a.name))
             else:
                 setattr(new_gene, a.name, getattr(gene2, a.name))
@@ -193,7 +193,7 @@ class GruNodeGene(BaseGene):
             else:
                 setattr(self, a.name, a.mutate_value(v, config))
     
-    def crossover(self, other):
+    def crossover(self, other, ratio):
         """
         Creates a new gene inheriting attributes from its parents.
         
@@ -207,9 +207,11 @@ class GruNodeGene(BaseGene):
                 np.zeros((3 * self.hidden_size, len(new_gene.full_input_keys))),
                 dtype=torch.float64,
         )
+        
+        # Add weights column by column to the new gene
         for i, k in enumerate(new_gene.full_input_keys):
             if k in self.full_input_keys and k in other.full_input_keys:  # Shared by both
-                if random() > 0.5:
+                if random() > ratio:
                     new_full_weight_ih[:, i] = self.full_weight_ih[:, self.full_input_keys.index(k)]
                 else:
                     new_full_weight_ih[:, i] = other.full_weight_ih[:, other.full_input_keys.index(k)]

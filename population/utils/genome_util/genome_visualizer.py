@@ -7,10 +7,10 @@ import os
 
 from graphviz import Digraph
 
-# Add graphviz to path
 from population.utils.genome_util.genes import DefaultNodeGene, GruNodeGene
 from population.utils.network_util.graphs import required_for_output
 
+# Add graphviz to path
 os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/'
 
 
@@ -39,8 +39,15 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
     
     # Visualizer specific functionality
     node_colors = dict()
-    dot = Digraph(format='png', engine="neato")
+    dot = Digraph(format='png', engine="fdp")
     dot.attr(overlap='false')
+    
+    # Get the used hidden nodes and all used connections
+    used_nodes, used_conn = required_for_output(
+            inputs=config.genome_config.input_keys,
+            outputs=config.genome_config.output_keys,
+            connections=genome.connections
+    )
     
     # Visualize input nodes
     inputs = set()
@@ -59,7 +66,7 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
     outputs = set()
     for index, key in enumerate(config.genome_config.output_keys):
         outputs.add(key)
-        name = node_names.get(key)
+        name = node_names[key]
         if debug:
             name += f'\nactivation={genome.nodes[key].activation}'
             name += f'\nbias={round(genome.nodes[key].bias, 2)}'
@@ -68,19 +75,15 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
         dot.node(
                 name,
                 style='filled',
-                fillcolor=node_colors.get(key, 'lightblue'),
-                pos=f"{6 + index * 9},{-5 - (len(genome.nodes) - 2) * (5 if debug else 1)}!"
+                shape='box',
+                fillcolor=node_colors.get(key, '#bdc5ff'),
+                pos=f"{6 + index * 9},{-10 - (len(used_nodes) - 10) * (5 if debug else 2)}!",
         )
     
     # Visualize hidden nodes
-    used_nodes, used_conn = required_for_output(
-            inputs=config.genome_config.input_keys,
-            outputs=config.genome_config.output_keys,
-            connections=genome.connections
-    )
-    
-    for key in used_nodes:
+    for key in sorted(used_nodes):
         if key in inputs or key in outputs: continue
+        fillcolor = 'white'
         if debug:
             if type(genome.nodes[key]) == GruNodeGene:
                 name = f'GRU node={key}'
@@ -90,6 +93,7 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
                 # name += f'\nbias_hh={np.asarray(genome.nodes[key].bias_hh.tolist()).round(3).tolist()}'
                 # name += f'\nweight_ih={np.asarray(genome.nodes[key].weight_ih.tolist()).round(3).tolist()}'
                 # name += f'\nweight_hh={np.asarray(genome.nodes[key].weight_hh.tolist()).round(3).tolist()}'
+                fillcolor = '#f5c484'  # Fancy orange
             elif type(genome.nodes[key]) == DefaultNodeGene:
                 name = f'simple node={key}'
                 name += f'\nactivation={genome.nodes[key].activation}'
@@ -103,7 +107,8 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
         dot.node(
                 name,
                 style='filled',
-                fillcolor=node_colors.get(key, 'white')
+                shape='box',
+                fillcolor=node_colors.get(key, fillcolor),
         )
     
     # Add inputs to used_nodes (i.e. all inputs will always be visualized, even if they aren't used!)
