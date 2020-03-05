@@ -13,9 +13,9 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     pop = Population(
-            name="test_1",
+            name="distance_1",
             # version=1,
-            folder_name='test',
+            folder_name='NEAT-GRU',
     )
     if not pop.best_genome: pop.best_genome = list(pop.population.values())[0]
     # pop.population[9] = pop.population[list(pop.population.keys())[12]]
