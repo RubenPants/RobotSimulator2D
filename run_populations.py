@@ -31,7 +31,15 @@ def main(folder,
     :param blueprint: Create a blueprint evaluation for the population
     :param evaluate: Evaluate the best genome of the population
     """
-    print(f"\n----------> RUNNING FOR THE {folder} - {fitness} CONFIGURATION <----------")
+    # Give overview of population
+    print(f"\n--> RUNNING FOR THE FOLLOWING CONFIGURATION:")
+    print(f"\t> fitness: {fitness}")
+    print(f"\t> enable_gru: {gru}")
+    print(f"\t> sexual_reproduction: {reproduce}")
+    print(f"\t> Saving under folder: {folder}")
+    print()
+    
+    # Modify configuration correspondingly and create the population
     cfg = NeatConfig()
     cfg.fitness = fitness
     cfg.enable_gru = gru

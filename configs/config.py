@@ -158,8 +158,8 @@ class NeatConfig:
         self.bias_init_stdev: float = 1.0
         # The probability that mutation will replace the bias of a node with a completely random value  [def=0.05]
         self.bias_replace_rate: float = 0.05
-        # The probability that mutation will change the bias of a node by adding a random value  [def=0.5]
-        self.bias_mutate_rate: float = 0.5
+        # The probability that mutation will change the bias of a node by adding a random value  [def=0.6]
+        self.bias_mutate_rate: float = 0.6
         # The standard deviation of the zero-centered gaussian from which a bias value mutation is drawn  [def=0.1]
         self.bias_mutate_power: float = 0.1
         # The maximum allowed bias value, biases above this threshold will be clamped to this value  [def=2]
