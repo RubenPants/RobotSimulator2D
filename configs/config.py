@@ -100,7 +100,7 @@ class NeatConfig:
         self.fitness_threshold: int = 1
         # Don't consider fitness_criterion and fitness_threshold
         self.no_fitness_termination: bool = True
-        # Number of individuals in each generation  [def=256]  TODO
+        # Number of individuals in each generation  [def=128]
         self.pop_size: int = 128
         # Create random population if all species become distinct due to stagnation
         self.reset_on_extinction: bool = True
@@ -203,7 +203,7 @@ class NeatConfig:
         
         # [GRU]
         # Enable the genomes to mutate GRU nodes  [def=True]  TODO
-        self.enable_gru: bool = False
+        self.enable_gru: bool = True
         # Mutation probability of mutating a GRU node rather than a simple node  [def=0.4]  TODO
         self.gru_mutate_rate: float = 0.4
     
