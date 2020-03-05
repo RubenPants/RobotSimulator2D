@@ -13,7 +13,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     pop = Population(
-            name="distance_1",
+            name="novelty_1",
             # version=1,
     )
     if not pop.best_genome: pop.best_genome = list(pop.population.values())[0]
