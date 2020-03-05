@@ -114,13 +114,13 @@ class NeatConfig:
         self.species_elitism: int = 2
         
         # [DefaultReproduction]
-        # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=1]  TODO
+        # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=1]
         self.elitism: int = 1
-        # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.2]  TODO
+        # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.2]
         self.survival_threshold: float = 0.2
         # Minimum number of genomes per species  [def=5]
         self.min_species_size: int = 5
-        # Sexual reproduction  [def=True]  # TODO
+        # Sexual reproduction  [def=True]
         self.sexual_reproduction: bool = True
         
         # [DefaultGenome]
@@ -186,12 +186,12 @@ class NeatConfig:
         self.enabled_mutate_rate: float = 0.01
         
         # [DefaultSpeciesSet]
-        # Individuals whose genetic distance is less than this threshold are in the same specie  [def=2]
-        self.compatibility_threshold: float = 2.0
-        # Full weight of disjoint and excess nodes on determining genomic distance  [def=1]
+        # Individuals whose genetic distance is less than this threshold are in the same specie  [def=3.0]
+        self.compatibility_threshold: float = 3.0
+        # Full weight of disjoint and excess nodes on determining genomic distance  [def=1.0]
         self.compatibility_disjoint_coefficient: float = 1.0
-        # Coefficient for each weight or bias difference contribution to the genomic distance  [def=0.1]
-        self.compatibility_weight_coefficient: float = 0.2
+        # Coefficient for each weight or bias difference contribution to the genomic distance  [def=0.5]
+        self.compatibility_weight_coefficient: float = 0.5
         
         # [EVALUATION]
         # Fitness functions [distance, distance_time, novelty, path, path_time]
