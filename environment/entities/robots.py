@@ -186,4 +186,10 @@ class FootBot:
         
         Sensors are added from the left-side of the drone to the right
         """
-        for i in range(5): self.add_proximity_sensor(angle=np.pi / 2 - i * np.pi / 4)
+        self.add_proximity_sensor(angle=np.pi / 2)  # -90°
+        self.add_proximity_sensor(angle=np.pi / 3)  # -60°
+        self.add_proximity_sensor(angle=np.pi / 6)  # -30°
+        self.add_proximity_sensor(angle=0)  # 0°
+        self.add_proximity_sensor(angle=-np.pi / 6)  # 30°
+        self.add_proximity_sensor(angle=-np.pi / 3)  # 60°
+        self.add_proximity_sensor(angle=-np.pi / 2)  # 90°

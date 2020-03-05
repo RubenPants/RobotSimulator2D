@@ -125,13 +125,13 @@ class NeatConfig:
         
         # [DefaultGenome]
         # Number of input nodes (the sensors): [5x proximity_sensor, 2x angular_sensor, 1x distance_sensor]  [def=8]
-        self.num_inputs: int = 8
+        self.num_inputs: int = 10
         # Number of hidden nodes to add to each genome in the initial population  [def=0]  TODO
         self.num_hidden: int = 0
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
         self.num_outputs: int = 2
         # Initial connectivity of newly-created genomes  [def=D_FULL_DIRECT]  TODO
-        self.initial_connection = D_PARTIAL_DIRECT_05
+        self.initial_connection = D_FULL_NODIRECT
         # Probability of adding a connection between existing nodes during mutation (1 chance per iteration)  [def=0.5]  TODO
         self.conn_add_prob: float = 0.5
         # Probability of deleting an existing connection during mutation (1 chance per iteration)  [def=0.4]  TODO
