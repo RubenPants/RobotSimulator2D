@@ -60,7 +60,7 @@ def main(folder,
             trainer.evaluate_and_evolve(
                     pop,
                     n=min(train_iterations, 10),
-                    parallel=False,
+                    # parallel=False,
             )
             train_iterations -= 10
     
