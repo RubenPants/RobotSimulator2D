@@ -5,10 +5,13 @@ This file contains multiple possible fitness functions. Each of the fitness func
 the ID of the corresponding candidate, and as value a list of all its final observations (i.e. list of game.close()
 dictionaries). Based on this input, a suitable fitness value for each of the candidates is determined.
 """
+import math
+
 import numpy as np
 from scipy import stats
 from sklearn.neighbors import NearestNeighbors
 
+from configs.config import GameConfig
 from utils.dictionary import *
 
 
@@ -95,8 +98,9 @@ def distance(game_observations):
     :return: { genome_id, [fitness_floats] }
     """
     fitness = dict()
+    cfg = GameConfig()
     for k, v in game_observations.items():  # Iterate over the candidates
-        fitness[k] = [max(0, 1 - o[D_DIST_TO_TARGET] / o[D_A_STAR]) for o in v]
+        fitness[k] = [max(0, 1 - o[D_DIST_TO_TARGET] / math.sqrt(cfg.x_axis ** 2 + cfg.y_axis ** 2)) for o in v]
     return fitness
 
 
@@ -106,6 +110,8 @@ def distance_time(game_observations):
     goal relative to its peers (if the agent did in fact reach the goal). The fitness is calculated as the sum of the
     relative distance to target (1-distance/max_distance) and the steps it took to reach the target (1-steps/max_steps).
     The fitness ranges between 0 and 1.
+    
+    TODO: Extremely slow!
     
     :param game_observations: List of game.close() results (Dictionary)
     :return: { genome_id, [fitness_floats] }
@@ -224,6 +230,8 @@ def fitness_path_time(game_observations):
     """
     This fitness score is based on both the fitness calculated by fitness_path and the time it takes to reach the target
     (calculated in number of steps).
+    
+    TODO: Extremely slow!
     
     :param game_observations: List of game.close() results (Dictionary)
     :return: { genome_id, [fitness_floats] }
