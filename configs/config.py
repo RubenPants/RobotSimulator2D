@@ -28,14 +28,14 @@ class GameConfig:
         self.bot_turning_speed: float = 13 * np.pi / 16
         
         # [CONTROL]
-        # Number of games on which a single genome is evaluated [def=16]  TODO: move out of game config!
-        self.batch: int = 16
+        # Number of games on which a single genome is evaluated [def=10]
+        self.batch: int = 10
         # Number of seconds it takes for one game to complete [def=50]
         self.duration: int = 50
         # Max ID of game (starting from 1) [def=1000]
         self.max_game_id: int = 1000
-        # Max ID of evaluation game (starting from max_id) [def=1200]
-        self.max_eval_game_id: int = 1200
+        # Max ID of evaluation game (starting from max_id) [def=1100]
+        self.max_eval_game_id: int = 1100
         # Number of frames each second  [def=20]
         self.fps: int = 20
         
@@ -186,8 +186,8 @@ class NeatConfig:
         self.enabled_mutate_rate: float = 0.01
         
         # [DefaultSpeciesSet]
-        # Individuals whose genetic distance is less than this threshold are in the same specie  [def=3.0]
-        self.compatibility_threshold: float = 3.0
+        # Individuals whose genetic distance is less than this threshold are in the same specie  [def=2.0]
+        self.compatibility_threshold: float = 2.5
         # Full weight of disjoint and excess nodes on determining genomic distance  [def=1.0]
         self.compatibility_disjoint_coefficient: float = 1.0
         # Coefficient for each weight or bias difference contribution to the genomic distance  [def=0.5]

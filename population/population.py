@@ -66,7 +66,7 @@ class Population:
         if name:
             self.name = name
         else:
-            self.name = f"{cfg.fitness}{f'_{version}' if version else ''}"
+            self.name = f"{cfg.fitness}{f'_repr' if cfg.sexual_reproduction else ''}{f'_{version}' if version else ''}"
         self.folder_name = folder_name
         
         # Placeholders

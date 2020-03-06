@@ -10,8 +10,7 @@ from population.population import Population
 from utils.dictionary import *
 
 
-def main(folder,
-         fitness,
+def main(fitness,
          gru,
          reproduce,
          train=False,
@@ -22,7 +21,6 @@ def main(folder,
     """
     Run a population's configuration.
     
-    :param folder: Folder to which the population is stored (NEAT, NEAT-GRU, ...)
     :param fitness: Fitness function used to evaluate the population
     :param gru: Enable GRU-mutations in the population
     :param reproduce: Have sexual reproduction
@@ -31,12 +29,16 @@ def main(folder,
     :param blueprint: Create a blueprint evaluation for the population
     :param evaluate: Evaluate the best genome of the population
     """
+    folder = D_NEAT_GRU if gru else D_NEAT
+    
     # Give overview of population
-    print(f"\n--> RUNNING FOR THE FOLLOWING CONFIGURATION:")
+    print(f"\n===> RUNNING FOR THE FOLLOWING CONFIGURATION: <===")
     print(f"\t> fitness: {fitness}")
     print(f"\t> enable_gru: {gru}")
     print(f"\t> sexual_reproduction: {reproduce}")
     print(f"\t> Saving under folder: {folder}")
+    print(f"\t> Train: {train} ({train_iterations} iterations)")
+    print(f"\t> Create blueprints: {blueprint}")
     print()
     
     # Modify configuration correspondingly and create the population
@@ -56,13 +58,11 @@ def main(folder,
         
         # Train for 100 generations
         trainer = TrainingEnv()
-        while train_iterations > 0:  # Error in multiprocess else
-            trainer.evaluate_and_evolve(
-                    pop,
-                    n=min(train_iterations, 10),
-                    # parallel=False,
-            )
-            train_iterations -= 10
+        trainer.evaluate_and_evolve(
+                pop,
+                n=train_iterations,
+                # parallel=False,
+        )
     
     if blueprint:
         print("\n===> CREATING BLUEPRINTS <===\n")
@@ -88,24 +88,21 @@ def main(folder,
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument('--train', type=bool, default=True)
-    parser.add_argument('--iterations', type=int, default=200)
-    parser.add_argument('--blueprint', type=bool, default=True)
-    parser.add_argument('--evaluate', type=bool, default=False)
+    parser.add_argument('--train', type=int, default=0)
+    parser.add_argument('--iterations', type=int, default=0)
+    parser.add_argument('--reproduce', type=int, default=0)
+    parser.add_argument('--enable_gru', type=int, default=0)
+    parser.add_argument('--fitness', type=str, default='')
+    parser.add_argument('--blueprint', type=int, default=0)
+    parser.add_argument('--evaluate', type=int, default=0)
     args = parser.parse_args()
     
-    for reproduce in [True, False]:
-        for gru in [True, False]:
-            folder = 'NEAT-GRU' if gru else 'NEAT'
-            for fitness in D_FIT_OPTIONS:
-                main(
-                        folder=folder,
-                        fitness=fitness,
-                        gru=gru,
-                        reproduce=reproduce,
-                        train=args.train,
-                        train_iterations=args.iterations,
-                        blueprint=args.blueprint,
-                        evaluate=args.evaluate,
-                
-                )
+    main(
+            fitness=args.fitness,
+            gru=bool(args.enable_gru),
+            reproduce=bool(args.reproduce),
+            train=bool(args.train),
+            train_iterations=args.iterations,
+            blueprint=bool(args.blueprint),
+            evaluate=bool(args.evaluate),
+    )

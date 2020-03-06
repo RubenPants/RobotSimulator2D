@@ -63,6 +63,8 @@ D_MEAN = 'mean'
 D_MIN = 'min'
 
 # N
+D_NEAT = 'NEAT'
+D_NEAT_GRU = 'NEAT-GRU'
 D_NOISE_ANGLE = 'noise_angle'
 D_NOISE_DISTANCE = 'noise_distance'
 D_NOISE_PROXIMITY = 'noise_proximity'
