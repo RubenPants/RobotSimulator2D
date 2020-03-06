@@ -4,7 +4,6 @@ population.py
 This class is responsible for containing the population. It will simply be used as a container for the population's core
 functionality such as its configuration and methods used to persist the population properly.
 """
-import pickle
 import re
 from glob import glob
 
@@ -22,7 +21,7 @@ from population.utils.population_util.stagnation import DefaultStagnation
 from population.utils.reporter_util.reporting import ReporterSet, StdOutReporter
 from population.utils.reporter_util.statistics import StatisticsReporter
 from utils.dictionary import D_FIT_COMB, D_GAME_ID, D_K, D_POS, D_TAG
-from utils.myutils import get_subfolder, update_dict
+from utils.myutils import get_subfolder, load_pickle, store_pickle, update_dict
 
 
 def query_net(net, states):
@@ -290,8 +289,7 @@ class Population:
         get_subfolder(f'population/storage/{self.folder_name}/{self}/', 'generations')
         
         # Save the population
-        pickle.dump(self,
-                    open(f'population/storage/{self.folder_name}/{self}/generations/gen_{self.generation:05d}', 'wb'))
+        store_pickle(self, f'population/storage/{self.folder_name}/{self}/generations/gen_{self.generation:05d}')
         print(f"Population '{self}' saved! Current generation: {self.generation}")
     
     def load(self, gen=None):
@@ -314,7 +312,7 @@ class Population:
                 gen = max([int(re.findall(regex, p)[0]) for p in populations])
             
             # Load in the population under the specified generation
-            pop = pickle.load(open(f'population/storage/{self.folder_name}/{self}/generations/gen_{gen:05d}', 'rb'))
+            pop = load_pickle(f'population/storage/{self.folder_name}/{self}/generations/gen_{gen:05d}')
             self.best_genome = pop.best_genome
             self.config = pop.config
             self.fitness_config = pop.fitness_config

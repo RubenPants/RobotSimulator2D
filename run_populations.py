@@ -57,7 +57,11 @@ def main(folder,
         # Train for 100 generations
         trainer = TrainingEnv()
         while train_iterations > 0:  # Error in multiprocess else
-            trainer.evaluate_and_evolve(pop, n=min(train_iterations, 10))
+            trainer.evaluate_and_evolve(
+                    pop,
+                    n=min(train_iterations, 10),
+                    parallel=False,
+            )
             train_iterations -= 10
     
     if blueprint:

@@ -3,7 +3,6 @@ game.py
 
 Game class which contains the player, target, and all the walls.
 """
-import pickle
 import random
 
 import numpy as np
@@ -15,6 +14,7 @@ from environment.entities.robots import FootBot
 from utils.dictionary import *
 from utils.intersection import circle_line_intersection
 from utils.line2d import Line2d
+from utils.myutils import load_pickle, store_pickle
 from utils.vec2d import Vec2d
 
 
@@ -269,7 +269,7 @@ class Game:
         persist_dict[D_POS] = (self.player.init_pos.x, self.player.init_pos.y)  # Initial position of player
         persist_dict[D_TARGET] = (self.target.x, self.target.y)
         persist_dict[D_WALLS] = [((w.x.x, w.x.y), (w.y.x, w.y.y)) for w in self.walls]
-        with open(f'{self.save_path}{self}', 'wb') as f: pickle.dump(persist_dict, f)
+        store_pickle(persist_dict, f'{self.save_path}{self}')
     
     def load(self):
         """
@@ -278,8 +278,7 @@ class Game:
         :return: True: game successfully loaded | False: otherwise
         """
         try:
-            with open(f'{self.save_path}{self}', 'rb') as f:
-                game = pickle.load(f)
+            game = load_pickle(f'{self.save_path}{self}')
             self.bot_driving_speed = game[D_BOT_DRIVING_SPEED]
             self.bot_radius = game[D_BOT_RADIUS]
             self.bot_turning_speed = game[D_BOT_TURNING_SPEED]
