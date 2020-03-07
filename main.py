@@ -8,14 +8,14 @@ if __name__ == '__main__':
     parser.add_argument('--iterations', type=int, default=1)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
-    parser.add_argument('--genome', type=bool, default=False)
+    parser.add_argument('--genome', type=bool, default=True)
     parser.add_argument('--live', type=bool, default=True)
     args = parser.parse_args()
     
     pop = Population(
-            name="distance_1",
+            name="novelty_repr_1",
             # version=1,
-            folder_name='NEAT',
+            folder_name='NEAT-GRU',
     )
     if not pop.best_genome: pop.best_genome = list(pop.population.values())[0]
     # pop.population[9] = pop.population[list(pop.population.keys())[12]]
