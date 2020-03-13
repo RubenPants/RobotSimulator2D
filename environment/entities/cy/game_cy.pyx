@@ -96,7 +96,7 @@ cdef class GameCy:
     cpdef dict close(self):
         """Final state of the agent's statistics."""
         return {
-            D_DIST_TO_TARGET: self.player.get_sensor_reading_distance(),
+            D_DIST_TO_TARGET: self.player.get_sensor_readings_distance(),
             D_DONE:           self.done,
             D_GAME_ID:        self.id,
             D_POS:            self.player.pos,
@@ -117,7 +117,7 @@ cdef class GameCy:
         return {
             D_DONE:        self.done,
             D_GAME_ID:     self.id,
-            D_SENSOR_LIST: self.get_sensor_list(),
+            D_SENSOR_LIST: self.player.get_sensor_readings(),
         }
     
     cpdef dict reset(self):
@@ -173,7 +173,7 @@ cdef class GameCy:
                 break
         
         # Check if target reached
-        if self.player.get_sensor_reading_distance() <= self.target_reached: self.done = True
+        if self.player.get_sensor_readings_distance() <= self.target_reached: self.done = True
         
         # Return the current observations
         return self.get_observation()
@@ -194,30 +194,6 @@ cdef class GameCy:
         # Save the new game
         self.save()
         if not self.silent: print("New game created under id: {}".format(self.id))
-    
-    cpdef list get_sensor_list(self):
-        """
-        Return a list of sensory-readings, with first the proximity sensors, then the angular sensors and at the end the
-        distance-sensor.
-        """
-        cdef dict sensor_readings
-        cdef dict proximity
-        cdef dict angular
-        cdef float distance
-        cdef list result
-        cdef int i
-        
-        # Read the sensors
-        sensor_readings = self.player.get_sensor_readings()
-        proximity = sensor_readings[D_SENSOR_PROXIMITY]
-        angular = sensor_readings[D_SENSOR_ANGLE]
-        distance = sensor_readings[D_SENSOR_DISTANCE]
-        
-        result = []  # Add sensory-readings in one list
-        for i in range(len(proximity)): result.append(proximity[i])  # Proximity IDs go from 0 to proximity_length
-        for i in range(len(angular)): result.append(angular[i])  # Angular IDs go from 0 to angular_length
-        result.append(distance)
-        return result
     
     cpdef void set_config_params(self, config):
         """ Store all the configured parameters locally. """

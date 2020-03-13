@@ -13,14 +13,12 @@ from utils.myutils import drop, prep
 from utils.cy.vec2d_cy cimport angle_to_vec, Vec2dCy
 
 cdef class FootBotCy:
-    """
-    The FootBot is the main bot used in this project. It is a simple circular robot with two wheels on its sides.
-    """
+    """The FootBot is the main bot used in this project. It is a simple circular robot with two wheels on its sides."""
     
     __slots__ = (
         "game",
         "pos", "prev_pos", "init_pos", "init_angle", "angle", "prev_angle", "radius",
-        "angular_sensors", "distance_sensor", "proximity_sensors"
+        "sensors",
     )
     
     def __init__(self,
@@ -59,22 +57,20 @@ cdef class FootBotCy:
         self.prev_angle = init_orient  # Previous angle
         self.radius = r  # Radius of the bot
         
-        # Placeholders for sensors
-        self.angular_sensors = set()
-        self.distance_sensor = None
-        self.proximity_sensors = list()
+        # Container of all the sensors
+        self.sensors = dict()
         
         # Create the sensors
-        self.create_angular_sensors()
-        self.create_distance_sensor()
         self.create_proximity_sensors()
+        self.create_angular_sensors()
+        self.add_distance_sensor()
     
     def __str__(self):
         return "foot_bot"
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     
-    cdef void drive(self, float dt, float lw, float rw):
+    cpdef void drive(self, float dt, float lw, float rw):
         """
         Update the robot's position and orientation based on the action of the wheels.
         
@@ -97,16 +93,14 @@ cdef class FootBotCy:
         # Update position is the average of the two wheels times the maximum driving speed
         self.pos += angle_to_vec(self.angle) * float((((lw + rw) / 2) * self.game.bot_driving_speed * dt))
     
-    cdef dict get_sensor_readings(self):
-        """
-        :return: Dictionary of the current sensory-readings
-        """
-        cdef dict sensor_readings
-        sensor_readings = dict()
-        sensor_readings[D_SENSOR_PROXIMITY] = self.get_sensor_reading_proximity()
-        sensor_readings[D_SENSOR_DISTANCE] = self.get_sensor_reading_distance()
-        sensor_readings[D_SENSOR_ANGLE] = self.get_sensor_reading_angle()
-        return sensor_readings
+    cpdef list get_sensor_readings(self):
+        """List of the current sensory-readings."""
+        for s in self.sensors.values(): s.measure()
+        return [self.sensors[i].value for i in sorted(self.sensors.keys())]
+    
+    cpdef float get_sensor_readings_distance(self):
+        """Value of current distance-reading."""
+        return self.sensors[len(self.sensors) - 1].value  # Distance is always the last sensor
     
     def reset(self):
         """
@@ -118,32 +112,6 @@ cdef class FootBotCy:
         self.prev_pos.y = self.init_pos.y
         self.angle = self.init_angle
     
-    # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
-    
-    cpdef dict get_sensor_reading_angle(self):
-        """
-        :return: The current values of the proximity sensors
-        """
-        cdef dict readings = dict()
-        cdef AngularSensorCy a
-        for a in self.angular_sensors: readings[a.id] = a.get_measure()
-        return readings
-    
-    cpdef float get_sensor_reading_distance(self):
-        """
-        :return: The current distance to the target
-        """
-        return self.distance_sensor.get_measure()
-    
-    cpdef dict get_sensor_reading_proximity(self):
-        """
-        :return: The current values of the proximity sensors
-        """
-        cdef dict readings = dict()
-        cdef ProximitySensorCy p
-        for p in self.proximity_sensors: readings[p.id] = p.get_measure()
-        return readings
-    
     # -----------------------------------------------> SENSOR METHODS <----------------------------------------------- #
     
     cpdef void add_angular_sensors(self, bint clockwise=True):
@@ -151,9 +119,14 @@ cdef class FootBotCy:
         Add an angular sensor to the agent and give it an idea one greater than the last sensor added, or 0 if it is the
         first sensor that is added.
         """
-        self.angular_sensors.add(AngularSensorCy(sensor_id=len(self.angular_sensors),
-                                                 game=self.game,
-                                                 clockwise=clockwise))
+        self.sensors[len(self.sensors)] = AngularSensorCy(sensor_id=len(self.sensors),
+                                                          game=self.game,
+                                                          clockwise=clockwise)
+    
+    cpdef void add_distance_sensor(self):
+        """Single distance sensor which determines distance between agent's center and target's center."""
+        self.sensors[len(self.sensors)] = DistanceSensorCy(sensor_id=len(self.sensors),
+                                                           game=self.game)
     
     cpdef void add_proximity_sensor(self, float angle):
         """
@@ -165,12 +138,12 @@ cdef class FootBotCy:
                         * 0 = the same direction as the robot is facing
                         * -np.pi / 2 = 90° to the right of the robot
         """
-        self.proximity_sensors.append(ProximitySensorCy(sensor_id=len(self.proximity_sensors),
-                                                        game=self.game,
-                                                        angle=angle,
-                                                        pos_offset=self.game.bot_radius))
+        self.sensors[len(self.sensors)] = ProximitySensorCy(sensor_id=len(self.sensors),
+                                                            game=self.game,
+                                                            angle=angle,
+                                                            pos_offset=self.game.bot_radius)
     
-    cdef void create_angular_sensors(self):
+    cpdef void create_angular_sensors(self):
         """
         Two angular sensors that define the angle between the orientation the agent is heading and the agent towards the
         target 'in crows flight'. One measures this angle in clockwise, the other counterclockwise.
@@ -178,13 +151,7 @@ cdef class FootBotCy:
         self.add_angular_sensors(clockwise=True)
         self.add_angular_sensors(clockwise=False)
     
-    cdef void create_distance_sensor(self):
-        """
-        Single distance sensor which determines distance between agent's center and target's center.
-        """
-        self.distance_sensor = DistanceSensorCy(game=self.game)
-    
-    cdef void create_proximity_sensors(self):
+    cpdef void create_proximity_sensors(self):
         """
         24 equally spaced proximity sensors, which measure the distance between the agent and an object, if this object
         is within 1.5 meters of distance.
@@ -198,3 +165,7 @@ cdef class FootBotCy:
         self.add_proximity_sensor(angle=-np.pi / 6)  # 30°
         self.add_proximity_sensor(angle=-np.pi / 3)  # 60°
         self.add_proximity_sensor(angle=-np.pi / 2)  # 90°
+
+    cpdef list get_proximity_sensors(self):
+        """Get a list of all proximity sensors."""
+        return [self.sensors[i] for i in range(7)]

@@ -1075,12 +1075,12 @@ struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy;
 struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy;
 struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9FootBotCy_add_angular_sensors;
 
-/* "environment/entities/cy/robots_cy.pxd":37
+/* "environment/entities/cy/robots_cy.pxd":29
  *     # -----------------------------------------------> SENSOR METHODS <----------------------------------------------- #
  * 
  *     cpdef void add_angular_sensors(self, bint clockwise=?)             # <<<<<<<<<<<<<<
  * 
- *     cpdef void add_proximity_sensor(self, float angle)
+ *     cpdef void add_distance_sensor(self)
  */
 struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9FootBotCy_add_angular_sensors {
   int __pyx_n;
@@ -1124,7 +1124,7 @@ typedef npy_clongdouble __pyx_t_5numpy_clongdouble_t;
 typedef npy_cdouble __pyx_t_5numpy_complex_t;
 struct __pyx_opt_args_11environment_8entities_2cy_7game_cy_6GameCy_get_blueprint;
 
-/* "environment/entities/cy/game_cy.pxd":59
+/* "environment/entities/cy/game_cy.pxd":57
  *     cpdef bint load(self)
  * 
  *     cpdef get_blueprint(self, ax=?)             # <<<<<<<<<<<<<<
@@ -1166,6 +1166,7 @@ struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_SensorCy {
   float angle;
   float pos_offset;
   float max_dist;
+  float value;
 };
 
 
@@ -1226,9 +1227,7 @@ struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy {
   float prev_angle;
   float init_angle;
   float radius;
-  PyObject *angular_sensors;
-  PyObject *proximity_sensors;
-  struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_DistanceSensorCy *distance_sensor;
+  PyObject *sensors;
 };
 
 
@@ -1316,7 +1315,7 @@ static struct __pyx_vtabstruct_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_vtabptr_5util
  */
 
 struct __pyx_vtabstruct_11environment_8entities_2cy_10sensors_cy_SensorCy {
-  float (*get_measure)(struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_SensorCy *);
+  void (*measure)(struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_SensorCy *, int __pyx_skip_dispatch);
 };
 static struct __pyx_vtabstruct_11environment_8entities_2cy_10sensors_cy_SensorCy *__pyx_vtabptr_11environment_8entities_2cy_10sensors_cy_SensorCy;
 
@@ -1372,16 +1371,15 @@ static struct __pyx_vtabstruct_11environment_8entities_2cy_10sensors_cy_Proximit
  */
 
 struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy {
-  void (*drive)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, float, float, float);
-  PyObject *(*get_sensor_readings)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *);
-  PyObject *(*get_sensor_reading_angle)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
-  float (*get_sensor_reading_distance)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
-  PyObject *(*get_sensor_reading_proximity)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
+  void (*drive)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, float, float, float, int __pyx_skip_dispatch);
+  PyObject *(*get_sensor_readings)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
+  float (*get_sensor_readings_distance)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
   void (*add_angular_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch, struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9FootBotCy_add_angular_sensors *__pyx_optional_args);
+  void (*add_distance_sensor)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
   void (*add_proximity_sensor)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, float, int __pyx_skip_dispatch);
-  void (*create_angular_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *);
-  void (*create_distance_sensor)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *);
-  void (*create_proximity_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *);
+  void (*create_angular_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
+  void (*create_proximity_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
+  PyObject *(*get_proximity_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
 };
 static struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy *__pyx_vtabptr_11environment_8entities_2cy_9robots_cy_FootBotCy;
 
@@ -1417,7 +1415,6 @@ struct __pyx_vtabstruct_11environment_8entities_2cy_7game_cy_GameCy {
   PyObject *(*step)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, float, float, int __pyx_skip_dispatch);
   PyObject *(*step_dt)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, float, float, float, int __pyx_skip_dispatch);
   void (*create_empty_game)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
-  PyObject *(*get_sensor_list)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
   void (*set_config_params)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, PyObject *, int __pyx_skip_dispatch);
   void (*set_player_angle)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, float, int __pyx_skip_dispatch);
   void (*set_player_pos)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
@@ -1491,16 +1488,6 @@ static struct __pyx_vtabstruct_11environment_8entities_2cy_7game_cy_GameCy *__py
 #define __Pyx_CLEAR(r)    do { PyObject* tmp = ((PyObject*)(r)); r = NULL; __Pyx_DECREF(tmp);} while(0)
 #define __Pyx_XCLEAR(r)   do { if((r) != NULL) {PyObject* tmp = ((PyObject*)(r)); r = NULL; __Pyx_DECREF(tmp);}} while(0)
 
-/* PyObjectGetAttrStr.proto */
-#if CYTHON_USE_TYPE_SLOTS
-static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject* attr_name);
-#else
-#define __Pyx_PyObject_GetAttrStr(o,n) PyObject_GetAttr(o,n)
-#endif
-
-/* GetBuiltinName.proto */
-static PyObject *__Pyx_GetBuiltinName(PyObject *name);
-
 /* RaiseDoubleKeywords.proto */
 static void __Pyx_RaiseDoubleKeywordsError(const char* func_name, PyObject* kw_name);
 
@@ -1518,6 +1505,16 @@ static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
     ((likely((Py_TYPE(obj) == type) | (none_allowed && (obj == Py_None)))) ? 1 :\
         __Pyx__ArgTypeTest(obj, type, name, exact))
 static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *name, int exact);
+
+/* PyObjectGetAttrStr.proto */
+#if CYTHON_USE_TYPE_SLOTS
+static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject* attr_name);
+#else
+#define __Pyx_PyObject_GetAttrStr(o,n) PyObject_GetAttr(o,n)
+#endif
+
+/* GetBuiltinName.proto */
+static PyObject *__Pyx_GetBuiltinName(PyObject *name);
 
 /* PyDictVersioning.proto */
 #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_TYPE_SLOTS
@@ -1736,23 +1733,6 @@ static void __Pyx_WriteUnraisable(const char *name, int clineno,
                                   int lineno, const char *filename,
                                   int full_traceback, int nogil);
 
-/* ListAppend.proto */
-#if CYTHON_USE_PYLIST_INTERNALS && CYTHON_ASSUME_SAFE_MACROS
-static CYTHON_INLINE int __Pyx_PyList_Append(PyObject* list, PyObject* x) {
-    PyListObject* L = (PyListObject*) list;
-    Py_ssize_t len = Py_SIZE(list);
-    if (likely(L->allocated > len) & likely(len > (L->allocated >> 1))) {
-        Py_INCREF(x);
-        PyList_SET_ITEM(list, len, x);
-        Py_SIZE(list) = len+1;
-        return 0;
-    }
-    return PyList_Append(list, x);
-}
-#else
-#define __Pyx_PyList_Append(L,x) PyList_Append(L,x)
-#endif
-
 /* py_dict_items.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyDict_Items(PyObject* d);
 
@@ -1863,6 +1843,23 @@ static int __Pyx_GetException(PyObject **type, PyObject **value, PyObject **tb);
 
 /* UnpackItemEndCheck.proto */
 static int __Pyx_IternextUnpackEndCheck(PyObject *retval, Py_ssize_t expected);
+
+/* ListAppend.proto */
+#if CYTHON_USE_PYLIST_INTERNALS && CYTHON_ASSUME_SAFE_MACROS
+static CYTHON_INLINE int __Pyx_PyList_Append(PyObject* list, PyObject* x) {
+    PyListObject* L = (PyListObject*) list;
+    Py_ssize_t len = Py_SIZE(list);
+    if (likely(L->allocated > len) & likely(len > (L->allocated >> 1))) {
+        Py_INCREF(x);
+        PyList_SET_ITEM(list, len, x);
+        Py_SIZE(list) = len+1;
+        return 0;
+    }
+    return PyList_Append(list, x);
+}
+#else
+#define __Pyx_PyList_Append(L,x) PyList_Append(L,x)
+#endif
 
 /* PyErrExceptionMatches.proto */
 #if CYTHON_FAST_THREAD_STATE
@@ -2095,7 +2092,6 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_reset(stru
 static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_step(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, float __pyx_v_l, float __pyx_v_r, int __pyx_skip_dispatch); /* proto*/
 static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_step_dt(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, float __pyx_v_dt, float __pyx_v_l, float __pyx_v_r, int __pyx_skip_dispatch); /* proto*/
 static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_create_empty_game(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
-static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_sensor_list(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
 static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_config_params(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_config, int __pyx_skip_dispatch); /* proto*/
 static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_angle(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, float __pyx_v_a, int __pyx_skip_dispatch); /* proto*/
 static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_pos(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_p, int __pyx_skip_dispatch); /* proto*/
@@ -2159,8 +2155,8 @@ extern int __pyx_module_is_main_environment__entities__cy__game_cy;
 int __pyx_module_is_main_environment__entities__cy__game_cy = 0;
 
 /* Implementation of 'environment.entities.cy.game_cy' */
-static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_ValueError;
+static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_RuntimeError;
 static PyObject *__pyx_builtin_ImportError;
 static const char __pyx_k_[] = "";
@@ -2274,7 +2270,6 @@ static const char __pyx_k_D_SENSOR_LIST[] = "D_SENSOR_LIST";
 static const char __pyx_k_get_blueprint[] = "get_blueprint";
 static const char __pyx_k_reduce_cython[] = "__reduce_cython__";
 static const char __pyx_k_utils_myutils[] = "utils.myutils";
-static const char __pyx_k_D_SENSOR_ANGLE[] = "D_SENSOR_ANGLE";
 static const char __pyx_k_LineCollection[] = "LineCollection";
 static const char __pyx_k_add_collection[] = "add_collection";
 static const char __pyx_k_configs_config[] = "configs.config";
@@ -2282,7 +2277,6 @@ static const char __pyx_k_noise_distance[] = "noise_distance";
 static const char __pyx_k_set_player_pos[] = "set_player_pos";
 static const char __pyx_k_target_reached[] = "target_reached";
 static const char __pyx_k_get_observation[] = "get_observation";
-static const char __pyx_k_get_sensor_list[] = "get_sensor_list";
 static const char __pyx_k_noise_proximity[] = "noise_proximity";
 static const char __pyx_k_pyx_PickleError[] = "__pyx_PickleError";
 static const char __pyx_k_setstate_cython[] = "__setstate_cython__";
@@ -2292,13 +2286,11 @@ static const char __pyx_k_D_TARGET_REACHED[] = "D_TARGET_REACHED";
 static const char __pyx_k_set_player_angle[] = "set_player_angle";
 static const char __pyx_k_utils_dictionary[] = "utils.dictionary";
 static const char __pyx_k_D_NOISE_PROXIMITY[] = "D_NOISE_PROXIMITY";
-static const char __pyx_k_D_SENSOR_DISTANCE[] = "D_SENSOR_DISTANCE";
 static const char __pyx_k_FileNotFoundError[] = "FileNotFoundError";
 static const char __pyx_k_bot_driving_speed[] = "bot_driving_speed";
 static const char __pyx_k_bot_turning_speed[] = "bot_turning_speed";
 static const char __pyx_k_create_empty_game[] = "create_empty_game";
 static const char __pyx_k_set_config_params[] = "set_config_params";
-static const char __pyx_k_D_SENSOR_PROXIMITY[] = "D_SENSOR_PROXIMITY";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_D_BOT_DRIVING_SPEED[] = "D_BOT_DRIVING_SPEED";
 static const char __pyx_k_D_BOT_TURNING_SPEED[] = "D_BOT_TURNING_SPEED";
@@ -2337,10 +2329,7 @@ static PyObject *__pyx_n_s_D_NOISE_TIME;
 static PyObject *__pyx_n_s_D_PATH;
 static PyObject *__pyx_n_s_D_POS;
 static PyObject *__pyx_n_s_D_PTM;
-static PyObject *__pyx_n_s_D_SENSOR_ANGLE;
-static PyObject *__pyx_n_s_D_SENSOR_DISTANCE;
 static PyObject *__pyx_n_s_D_SENSOR_LIST;
-static PyObject *__pyx_n_s_D_SENSOR_PROXIMITY;
 static PyObject *__pyx_n_s_D_SENSOR_RAY_DISTANCE;
 static PyObject *__pyx_n_s_D_STEPS;
 static PyObject *__pyx_n_s_D_TARGET;
@@ -2391,7 +2380,6 @@ static PyObject *__pyx_n_s_game_params;
 static PyObject *__pyx_n_s_gauss;
 static PyObject *__pyx_n_s_get_blueprint;
 static PyObject *__pyx_n_s_get_observation;
-static PyObject *__pyx_n_s_get_sensor_list;
 static PyObject *__pyx_n_s_getstate;
 static PyObject *__pyx_n_s_go;
 static PyObject *__pyx_n_s_id;
@@ -2483,13 +2471,12 @@ static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_10reset(s
 static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_12step(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, float __pyx_v_l, float __pyx_v_r); /* proto */
 static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_14step_dt(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, float __pyx_v_dt, float __pyx_v_l, float __pyx_v_r); /* proto */
 static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_16create_empty_game(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_18get_sensor_list(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_20set_config_params(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_config); /* proto */
-static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_22set_player_angle(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, float __pyx_v_a); /* proto */
-static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_24set_player_pos(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_p); /* proto */
-static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_26save(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_28load(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_30get_blueprint(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_ax); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_18set_config_params(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_config); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_20set_player_angle(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, float __pyx_v_a); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_22set_player_pos(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_p); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_24save(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_26load(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_28get_blueprint(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_ax); /* proto */
 static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_4done___get__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
 static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_4done_2__set__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_5noise___get__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
@@ -2549,8 +2536,8 @@ static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_14target_reache
 static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_9save_path___get__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
 static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_9save_path_2__set__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_9save_path_4__del__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_32__reduce_cython__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_34__setstate_cython__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_30__reduce_cython__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_32__setstate_cython__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
 static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_get_boundary_walls(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_x_axis, int __pyx_v_y_axis); /* proto */
 static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_2__pyx_unpickle_GameCy(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
@@ -3245,7 +3232,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_close(stru
  *     cpdef dict close(self):
  *         """Final state of the agent's statistics."""
  *         return {             # <<<<<<<<<<<<<<
- *             D_DIST_TO_TARGET: self.player.get_sensor_reading_distance(),
+ *             D_DIST_TO_TARGET: self.player.get_sensor_readings_distance(),
  *             D_DONE:           self.done,
  */
   __Pyx_XDECREF(__pyx_r);
@@ -3253,7 +3240,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_close(stru
   /* "environment/entities/cy/game_cy.pyx":99
  *         """Final state of the agent's statistics."""
  *         return {
- *             D_DIST_TO_TARGET: self.player.get_sensor_reading_distance(),             # <<<<<<<<<<<<<<
+ *             D_DIST_TO_TARGET: self.player.get_sensor_readings_distance(),             # <<<<<<<<<<<<<<
  *             D_DONE:           self.done,
  *             D_GAME_ID:        self.id,
  */
@@ -3261,7 +3248,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_close(stru
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_DIST_TO_TARGET); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 99, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyFloat_FromDouble(((struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy *)__pyx_v_self->player->__pyx_vtab)->get_sensor_reading_distance(__pyx_v_self->player, 0)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 99, __pyx_L1_error)
+  __pyx_t_3 = PyFloat_FromDouble(((struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy *)__pyx_v_self->player->__pyx_vtab)->get_sensor_readings_distance(__pyx_v_self->player, 0)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 99, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_t_1, __pyx_t_2, __pyx_t_3) < 0) __PYX_ERR(0, 99, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -3269,7 +3256,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_close(stru
 
   /* "environment/entities/cy/game_cy.pyx":100
  *         return {
- *             D_DIST_TO_TARGET: self.player.get_sensor_reading_distance(),
+ *             D_DIST_TO_TARGET: self.player.get_sensor_readings_distance(),
  *             D_DONE:           self.done,             # <<<<<<<<<<<<<<
  *             D_GAME_ID:        self.id,
  *             D_POS:            self.player.pos,
@@ -3283,7 +3270,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_close(stru
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "environment/entities/cy/game_cy.pyx":101
- *             D_DIST_TO_TARGET: self.player.get_sensor_reading_distance(),
+ *             D_DIST_TO_TARGET: self.player.get_sensor_readings_distance(),
  *             D_DONE:           self.done,
  *             D_GAME_ID:        self.id,             # <<<<<<<<<<<<<<
  *             D_POS:            self.player.pos,
@@ -3679,7 +3666,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_observ
  *         return {
  *             D_DONE:        self.done,             # <<<<<<<<<<<<<<
  *             D_GAME_ID:     self.id,
- *             D_SENSOR_LIST: self.get_sensor_list(),
+ *             D_SENSOR_LIST: self.player.get_sensor_readings(),
  */
   __pyx_t_1 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -3695,7 +3682,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_observ
  *         return {
  *             D_DONE:        self.done,
  *             D_GAME_ID:     self.id,             # <<<<<<<<<<<<<<
- *             D_SENSOR_LIST: self.get_sensor_list(),
+ *             D_SENSOR_LIST: self.player.get_sensor_readings(),
  *         }
  */
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_D_GAME_ID); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 119, __pyx_L1_error)
@@ -3709,13 +3696,13 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_observ
   /* "environment/entities/cy/game_cy.pyx":120
  *             D_DONE:        self.done,
  *             D_GAME_ID:     self.id,
- *             D_SENSOR_LIST: self.get_sensor_list(),             # <<<<<<<<<<<<<<
+ *             D_SENSOR_LIST: self.player.get_sensor_readings(),             # <<<<<<<<<<<<<<
  *         }
  * 
  */
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_SENSOR_LIST); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 120, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = ((struct __pyx_vtabstruct_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self->__pyx_vtab)->get_sensor_list(__pyx_v_self, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 120, __pyx_L1_error)
+  __pyx_t_3 = ((struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy *)__pyx_v_self->player->__pyx_vtab)->get_sensor_readings(__pyx_v_self->player, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 120, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_t_1, __pyx_t_2, __pyx_t_3) < 0) __PYX_ERR(0, 118, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -4411,7 +4398,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_step_dt(st
  * 
  *         # Check if intersected with a wall, if so then set player back to old position
  */
-  ((struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy *)__pyx_v_self->player->__pyx_vtab)->drive(__pyx_v_self->player, __pyx_v_dt, __pyx_v_l, __pyx_v_r);
+  ((struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy *)__pyx_v_self->player->__pyx_vtab)->drive(__pyx_v_self->player, __pyx_v_dt, __pyx_v_l, __pyx_v_r, 0);
 
   /* "environment/entities/cy/game_cy.pyx":167
  * 
@@ -4540,11 +4527,11 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_step_dt(st
   /* "environment/entities/cy/game_cy.pyx":176
  * 
  *         # Check if target reached
- *         if self.player.get_sensor_reading_distance() <= self.target_reached: self.done = True             # <<<<<<<<<<<<<<
+ *         if self.player.get_sensor_readings_distance() <= self.target_reached: self.done = True             # <<<<<<<<<<<<<<
  * 
  *         # Return the current observations
  */
-  __pyx_t_13 = ((((struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy *)__pyx_v_self->player->__pyx_vtab)->get_sensor_reading_distance(__pyx_v_self->player, 0) <= __pyx_v_self->target_reached) != 0);
+  __pyx_t_13 = ((((struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy *)__pyx_v_self->player->__pyx_vtab)->get_sensor_readings_distance(__pyx_v_self->player, 0) <= __pyx_v_self->target_reached) != 0);
   if (__pyx_t_13) {
     __pyx_v_self->done = 1;
   }
@@ -4873,7 +4860,7 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_create_empty_ga
  *         self.save()
  *         if not self.silent: print("New game created under id: {}".format(self.id))             # <<<<<<<<<<<<<<
  * 
- *     cpdef list get_sensor_list(self):
+ *     cpdef void set_config_params(self, config):
  */
   __pyx_t_5 = ((!(__pyx_v_self->silent != 0)) != 0);
   if (__pyx_t_5) {
@@ -4961,315 +4948,12 @@ static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_16create_
 /* "environment/entities/cy/game_cy.pyx":198
  *         if not self.silent: print("New game created under id: {}".format(self.id))
  * 
- *     cpdef list get_sensor_list(self):             # <<<<<<<<<<<<<<
- *         """
- *         Return a list of sensory-readings, with first the proximity sensors, then the angular sensors and at the end the
- */
-
-static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_19get_sensor_list(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_sensor_list(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch) {
-  PyObject *__pyx_v_sensor_readings = 0;
-  PyObject *__pyx_v_proximity = 0;
-  PyObject *__pyx_v_angular = 0;
-  float __pyx_v_distance;
-  PyObject *__pyx_v_result = 0;
-  int __pyx_v_i;
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  PyObject *__pyx_t_3 = NULL;
-  PyObject *__pyx_t_4 = NULL;
-  float __pyx_t_5;
-  Py_ssize_t __pyx_t_6;
-  Py_ssize_t __pyx_t_7;
-  int __pyx_t_8;
-  int __pyx_t_9;
-  __Pyx_RefNannySetupContext("get_sensor_list", 0);
-  /* Check if called by wrapper */
-  if (unlikely(__pyx_skip_dispatch)) ;
-  /* Check if overridden in Python */
-  else if (unlikely((Py_TYPE(((PyObject *)__pyx_v_self))->tp_dictoffset != 0) || (Py_TYPE(((PyObject *)__pyx_v_self))->tp_flags & (Py_TPFLAGS_IS_ABSTRACT | Py_TPFLAGS_HEAPTYPE)))) {
-    #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
-    static PY_UINT64_T __pyx_tp_dict_version = __PYX_DICT_VERSION_INIT, __pyx_obj_dict_version = __PYX_DICT_VERSION_INIT;
-    if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
-      PY_UINT64_T __pyx_type_dict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
-      #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_sensor_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 198, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_19get_sensor_list)) {
-        __Pyx_XDECREF(__pyx_r);
-        __Pyx_INCREF(__pyx_t_1);
-        __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
-        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
-          __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
-          if (likely(__pyx_t_4)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-            __Pyx_INCREF(__pyx_t_4);
-            __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_3, function);
-          }
-        }
-        __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
-        __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 198, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        if (!(likely(PyList_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_2)->tp_name), 0))) __PYX_ERR(0, 198, __pyx_L1_error)
-        __pyx_r = ((PyObject*)__pyx_t_2);
-        __pyx_t_2 = 0;
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        goto __pyx_L0;
-      }
-      #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
-      __pyx_tp_dict_version = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
-      __pyx_obj_dict_version = __Pyx_get_object_dict_version(((PyObject *)__pyx_v_self));
-      if (unlikely(__pyx_type_dict_guard != __pyx_tp_dict_version)) {
-        __pyx_tp_dict_version = __pyx_obj_dict_version = __PYX_DICT_VERSION_INIT;
-      }
-      #endif
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
-    }
-    #endif
-  }
-
-  /* "environment/entities/cy/game_cy.pyx":211
- * 
- *         # Read the sensors
- *         sensor_readings = self.player.get_sensor_readings()             # <<<<<<<<<<<<<<
- *         proximity = sensor_readings[D_SENSOR_PROXIMITY]
- *         angular = sensor_readings[D_SENSOR_ANGLE]
- */
-  __pyx_t_1 = ((struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy *)__pyx_v_self->player->__pyx_vtab)->get_sensor_readings(__pyx_v_self->player); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 211, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_sensor_readings = ((PyObject*)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "environment/entities/cy/game_cy.pyx":212
- *         # Read the sensors
- *         sensor_readings = self.player.get_sensor_readings()
- *         proximity = sensor_readings[D_SENSOR_PROXIMITY]             # <<<<<<<<<<<<<<
- *         angular = sensor_readings[D_SENSOR_ANGLE]
- *         distance = sensor_readings[D_SENSOR_DISTANCE]
- */
-  if (unlikely(__pyx_v_sensor_readings == Py_None)) {
-    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 212, __pyx_L1_error)
-  }
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_D_SENSOR_PROXIMITY); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 212, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_sensor_readings, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 212, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (!(likely(PyDict_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_t_2)->tp_name), 0))) __PYX_ERR(0, 212, __pyx_L1_error)
-  __pyx_v_proximity = ((PyObject*)__pyx_t_2);
-  __pyx_t_2 = 0;
-
-  /* "environment/entities/cy/game_cy.pyx":213
- *         sensor_readings = self.player.get_sensor_readings()
- *         proximity = sensor_readings[D_SENSOR_PROXIMITY]
- *         angular = sensor_readings[D_SENSOR_ANGLE]             # <<<<<<<<<<<<<<
- *         distance = sensor_readings[D_SENSOR_DISTANCE]
- * 
- */
-  if (unlikely(__pyx_v_sensor_readings == Py_None)) {
-    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 213, __pyx_L1_error)
-  }
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_SENSOR_ANGLE); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 213, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_sensor_readings, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 213, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(PyDict_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 213, __pyx_L1_error)
-  __pyx_v_angular = ((PyObject*)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "environment/entities/cy/game_cy.pyx":214
- *         proximity = sensor_readings[D_SENSOR_PROXIMITY]
- *         angular = sensor_readings[D_SENSOR_ANGLE]
- *         distance = sensor_readings[D_SENSOR_DISTANCE]             # <<<<<<<<<<<<<<
- * 
- *         result = []  # Add sensory-readings in one list
- */
-  if (unlikely(__pyx_v_sensor_readings == Py_None)) {
-    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 214, __pyx_L1_error)
-  }
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_D_SENSOR_DISTANCE); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 214, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_sensor_readings, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 214, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 214, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_v_distance = __pyx_t_5;
-
-  /* "environment/entities/cy/game_cy.pyx":216
- *         distance = sensor_readings[D_SENSOR_DISTANCE]
- * 
- *         result = []  # Add sensory-readings in one list             # <<<<<<<<<<<<<<
- *         for i in range(len(proximity)): result.append(proximity[i])  # Proximity IDs go from 0 to proximity_length
- *         for i in range(len(angular)): result.append(angular[i])  # Angular IDs go from 0 to angular_length
- */
-  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 216, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_v_result = ((PyObject*)__pyx_t_2);
-  __pyx_t_2 = 0;
-
-  /* "environment/entities/cy/game_cy.pyx":217
- * 
- *         result = []  # Add sensory-readings in one list
- *         for i in range(len(proximity)): result.append(proximity[i])  # Proximity IDs go from 0 to proximity_length             # <<<<<<<<<<<<<<
- *         for i in range(len(angular)): result.append(angular[i])  # Angular IDs go from 0 to angular_length
- *         result.append(distance)
- */
-  if (unlikely(__pyx_v_proximity == Py_None)) {
-    PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 217, __pyx_L1_error)
-  }
-  __pyx_t_6 = PyDict_Size(__pyx_v_proximity); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 217, __pyx_L1_error)
-  __pyx_t_7 = __pyx_t_6;
-  for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
-    __pyx_v_i = __pyx_t_8;
-    if (unlikely(__pyx_v_proximity == Py_None)) {
-      PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 217, __pyx_L1_error)
-    }
-    __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 217, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_proximity, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 217, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_result, __pyx_t_1); if (unlikely(__pyx_t_9 == ((int)-1))) __PYX_ERR(0, 217, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  }
-
-  /* "environment/entities/cy/game_cy.pyx":218
- *         result = []  # Add sensory-readings in one list
- *         for i in range(len(proximity)): result.append(proximity[i])  # Proximity IDs go from 0 to proximity_length
- *         for i in range(len(angular)): result.append(angular[i])  # Angular IDs go from 0 to angular_length             # <<<<<<<<<<<<<<
- *         result.append(distance)
- *         return result
- */
-  if (unlikely(__pyx_v_angular == Py_None)) {
-    PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 218, __pyx_L1_error)
-  }
-  __pyx_t_6 = PyDict_Size(__pyx_v_angular); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 218, __pyx_L1_error)
-  __pyx_t_7 = __pyx_t_6;
-  for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
-    __pyx_v_i = __pyx_t_8;
-    if (unlikely(__pyx_v_angular == Py_None)) {
-      PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 218, __pyx_L1_error)
-    }
-    __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 218, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_angular, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 218, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_result, __pyx_t_2); if (unlikely(__pyx_t_9 == ((int)-1))) __PYX_ERR(0, 218, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  }
-
-  /* "environment/entities/cy/game_cy.pyx":219
- *         for i in range(len(proximity)): result.append(proximity[i])  # Proximity IDs go from 0 to proximity_length
- *         for i in range(len(angular)): result.append(angular[i])  # Angular IDs go from 0 to angular_length
- *         result.append(distance)             # <<<<<<<<<<<<<<
- *         return result
- * 
- */
-  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_distance); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 219, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_result, __pyx_t_2); if (unlikely(__pyx_t_9 == ((int)-1))) __PYX_ERR(0, 219, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-  /* "environment/entities/cy/game_cy.pyx":220
- *         for i in range(len(angular)): result.append(angular[i])  # Angular IDs go from 0 to angular_length
- *         result.append(distance)
- *         return result             # <<<<<<<<<<<<<<
- * 
- *     cpdef void set_config_params(self, config):
- */
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(__pyx_v_result);
-  __pyx_r = __pyx_v_result;
-  goto __pyx_L0;
-
-  /* "environment/entities/cy/game_cy.pyx":198
- *         if not self.silent: print("New game created under id: {}".format(self.id))
- * 
- *     cpdef list get_sensor_list(self):             # <<<<<<<<<<<<<<
- *         """
- *         Return a list of sensory-readings, with first the proximity sensors, then the angular sensors and at the end the
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.get_sensor_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = 0;
-  __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_sensor_readings);
-  __Pyx_XDECREF(__pyx_v_proximity);
-  __Pyx_XDECREF(__pyx_v_angular);
-  __Pyx_XDECREF(__pyx_v_result);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* Python wrapper */
-static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_19get_sensor_list(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_18get_sensor_list[] = "\n        Return a list of sensory-readings, with first the proximity sensors, then the angular sensors and at the end the\n        distance-sensor.\n        ";
-static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_19get_sensor_list(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("get_sensor_list (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_18get_sensor_list(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_18get_sensor_list(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  __Pyx_RefNannySetupContext("get_sensor_list", 0);
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_sensor_list(__pyx_v_self, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 198, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.get_sensor_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "environment/entities/cy/game_cy.pyx":222
- *         return result
- * 
  *     cpdef void set_config_params(self, config):             # <<<<<<<<<<<<<<
  *         """ Store all the configured parameters locally. """
  *         self.bot_driving_speed = config.bot_driving_speed
  */
 
-static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_21set_config_params(PyObject *__pyx_v_self, PyObject *__pyx_v_config); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_19set_config_params(PyObject *__pyx_v_self, PyObject *__pyx_v_config); /*proto*/
 static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_config_params(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_config, int __pyx_skip_dispatch) {
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5288,9 +4972,9 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_config_para
     if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
       PY_UINT64_T __pyx_type_dict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
       #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_config_params); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 222, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_config_params); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 198, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_21set_config_params)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_19set_config_params)) {
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
         if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
@@ -5304,7 +4988,7 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_config_para
         }
         __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_4, __pyx_v_config) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_config);
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 222, __pyx_L1_error)
+        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 198, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -5324,177 +5008,177 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_config_para
     #endif
   }
 
-  /* "environment/entities/cy/game_cy.pyx":224
+  /* "environment/entities/cy/game_cy.pyx":200
  *     cpdef void set_config_params(self, config):
  *         """ Store all the configured parameters locally. """
  *         self.bot_driving_speed = config.bot_driving_speed             # <<<<<<<<<<<<<<
  *         self.bot_radius = config.bot_radius
  *         self.bot_turning_speed = config.bot_turning_speed
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_config, __pyx_n_s_bot_driving_speed); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 224, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_config, __pyx_n_s_bot_driving_speed); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 200, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 224, __pyx_L1_error)
+  __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 200, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_self->bot_driving_speed = __pyx_t_5;
 
-  /* "environment/entities/cy/game_cy.pyx":225
+  /* "environment/entities/cy/game_cy.pyx":201
  *         """ Store all the configured parameters locally. """
  *         self.bot_driving_speed = config.bot_driving_speed
  *         self.bot_radius = config.bot_radius             # <<<<<<<<<<<<<<
  *         self.bot_turning_speed = config.bot_turning_speed
  *         self.fps = config.fps
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_config, __pyx_n_s_bot_radius); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 225, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_config, __pyx_n_s_bot_radius); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 201, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 225, __pyx_L1_error)
+  __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 201, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_self->bot_radius = __pyx_t_5;
 
-  /* "environment/entities/cy/game_cy.pyx":226
+  /* "environment/entities/cy/game_cy.pyx":202
  *         self.bot_driving_speed = config.bot_driving_speed
  *         self.bot_radius = config.bot_radius
  *         self.bot_turning_speed = config.bot_turning_speed             # <<<<<<<<<<<<<<
  *         self.fps = config.fps
  *         self.p2m = config.p2m
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_config, __pyx_n_s_bot_turning_speed); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 226, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_config, __pyx_n_s_bot_turning_speed); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 202, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 226, __pyx_L1_error)
+  __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 202, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_self->bot_turning_speed = __pyx_t_5;
 
-  /* "environment/entities/cy/game_cy.pyx":227
+  /* "environment/entities/cy/game_cy.pyx":203
  *         self.bot_radius = config.bot_radius
  *         self.bot_turning_speed = config.bot_turning_speed
  *         self.fps = config.fps             # <<<<<<<<<<<<<<
  *         self.p2m = config.p2m
  *         self.x_axis = config.x_axis
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_config, __pyx_n_s_fps); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 227, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_config, __pyx_n_s_fps); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 203, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 227, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 203, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_self->fps = __pyx_t_6;
 
-  /* "environment/entities/cy/game_cy.pyx":228
+  /* "environment/entities/cy/game_cy.pyx":204
  *         self.bot_turning_speed = config.bot_turning_speed
  *         self.fps = config.fps
  *         self.p2m = config.p2m             # <<<<<<<<<<<<<<
  *         self.x_axis = config.x_axis
  *         self.y_axis = config.y_axis
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_config, __pyx_n_s_p2m); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 228, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_config, __pyx_n_s_p2m); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 204, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 228, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 204, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_self->p2m = __pyx_t_6;
 
-  /* "environment/entities/cy/game_cy.pyx":229
+  /* "environment/entities/cy/game_cy.pyx":205
  *         self.fps = config.fps
  *         self.p2m = config.p2m
  *         self.x_axis = config.x_axis             # <<<<<<<<<<<<<<
  *         self.y_axis = config.y_axis
  *         self.noise_time = config.noise_time
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_config, __pyx_n_s_x_axis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 229, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_config, __pyx_n_s_x_axis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 205, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 229, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 205, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_self->x_axis = __pyx_t_6;
 
-  /* "environment/entities/cy/game_cy.pyx":230
+  /* "environment/entities/cy/game_cy.pyx":206
  *         self.p2m = config.p2m
  *         self.x_axis = config.x_axis
  *         self.y_axis = config.y_axis             # <<<<<<<<<<<<<<
  *         self.noise_time = config.noise_time
  *         self.noise_angle = config.noise_angle
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_config, __pyx_n_s_y_axis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 230, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_config, __pyx_n_s_y_axis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 206, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 230, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 206, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_self->y_axis = __pyx_t_6;
 
-  /* "environment/entities/cy/game_cy.pyx":231
+  /* "environment/entities/cy/game_cy.pyx":207
  *         self.x_axis = config.x_axis
  *         self.y_axis = config.y_axis
  *         self.noise_time = config.noise_time             # <<<<<<<<<<<<<<
  *         self.noise_angle = config.noise_angle
  *         self.noise_distance = config.noise_distance
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_config, __pyx_n_s_noise_time); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_config, __pyx_n_s_noise_time); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 207, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 231, __pyx_L1_error)
+  __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 207, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_self->noise_time = __pyx_t_5;
 
-  /* "environment/entities/cy/game_cy.pyx":232
+  /* "environment/entities/cy/game_cy.pyx":208
  *         self.y_axis = config.y_axis
  *         self.noise_time = config.noise_time
  *         self.noise_angle = config.noise_angle             # <<<<<<<<<<<<<<
  *         self.noise_distance = config.noise_distance
  *         self.noise_proximity = config.noise_proximity
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_config, __pyx_n_s_noise_angle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 232, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_config, __pyx_n_s_noise_angle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 208, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 232, __pyx_L1_error)
+  __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 208, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_self->noise_angle = __pyx_t_5;
 
-  /* "environment/entities/cy/game_cy.pyx":233
+  /* "environment/entities/cy/game_cy.pyx":209
  *         self.noise_time = config.noise_time
  *         self.noise_angle = config.noise_angle
  *         self.noise_distance = config.noise_distance             # <<<<<<<<<<<<<<
  *         self.noise_proximity = config.noise_proximity
  *         self.sensor_ray_distance = config.sensor_ray_distance
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_config, __pyx_n_s_noise_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 233, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_config, __pyx_n_s_noise_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 209, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 233, __pyx_L1_error)
+  __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 209, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_self->noise_distance = __pyx_t_5;
 
-  /* "environment/entities/cy/game_cy.pyx":234
+  /* "environment/entities/cy/game_cy.pyx":210
  *         self.noise_angle = config.noise_angle
  *         self.noise_distance = config.noise_distance
  *         self.noise_proximity = config.noise_proximity             # <<<<<<<<<<<<<<
  *         self.sensor_ray_distance = config.sensor_ray_distance
  *         self.target_reached = config.target_reached
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_config, __pyx_n_s_noise_proximity); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 234, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_config, __pyx_n_s_noise_proximity); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 210, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 234, __pyx_L1_error)
+  __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 210, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_self->noise_proximity = __pyx_t_5;
 
-  /* "environment/entities/cy/game_cy.pyx":235
+  /* "environment/entities/cy/game_cy.pyx":211
  *         self.noise_distance = config.noise_distance
  *         self.noise_proximity = config.noise_proximity
  *         self.sensor_ray_distance = config.sensor_ray_distance             # <<<<<<<<<<<<<<
  *         self.target_reached = config.target_reached
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_config, __pyx_n_s_sensor_ray_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 235, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_config, __pyx_n_s_sensor_ray_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 211, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 235, __pyx_L1_error)
+  __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 211, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_self->sensor_ray_distance = __pyx_t_5;
 
-  /* "environment/entities/cy/game_cy.pyx":236
+  /* "environment/entities/cy/game_cy.pyx":212
  *         self.noise_proximity = config.noise_proximity
  *         self.sensor_ray_distance = config.sensor_ray_distance
  *         self.target_reached = config.target_reached             # <<<<<<<<<<<<<<
  * 
  *     cpdef void set_player_angle(self, float a):
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_config, __pyx_n_s_target_reached); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 236, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_config, __pyx_n_s_target_reached); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 212, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 236, __pyx_L1_error)
+  __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 212, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_self->target_reached = __pyx_t_5;
 
-  /* "environment/entities/cy/game_cy.pyx":222
- *         return result
+  /* "environment/entities/cy/game_cy.pyx":198
+ *         if not self.silent: print("New game created under id: {}".format(self.id))
  * 
  *     cpdef void set_config_params(self, config):             # <<<<<<<<<<<<<<
  *         """ Store all the configured parameters locally. """
@@ -5514,26 +5198,26 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_config_para
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_21set_config_params(PyObject *__pyx_v_self, PyObject *__pyx_v_config); /*proto*/
-static char __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_20set_config_params[] = " Store all the configured parameters locally. ";
-static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_21set_config_params(PyObject *__pyx_v_self, PyObject *__pyx_v_config) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_19set_config_params(PyObject *__pyx_v_self, PyObject *__pyx_v_config); /*proto*/
+static char __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_18set_config_params[] = " Store all the configured parameters locally. ";
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_19set_config_params(PyObject *__pyx_v_self, PyObject *__pyx_v_config) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_config_params (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_20set_config_params(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self), ((PyObject *)__pyx_v_config));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_18set_config_params(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self), ((PyObject *)__pyx_v_config));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_20set_config_params(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_config) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_18set_config_params(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_config) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("set_config_params", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_void_to_None(__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_config_params(__pyx_v_self, __pyx_v_config, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 222, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_void_to_None(__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_config_params(__pyx_v_self, __pyx_v_config, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 198, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -5550,7 +5234,7 @@ static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_20set_con
   return __pyx_r;
 }
 
-/* "environment/entities/cy/game_cy.pyx":238
+/* "environment/entities/cy/game_cy.pyx":214
  *         self.target_reached = config.target_reached
  * 
  *     cpdef void set_player_angle(self, float a):             # <<<<<<<<<<<<<<
@@ -5558,7 +5242,7 @@ static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_20set_con
  *         Set a new initial angle for the player.
  */
 
-static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_23set_player_angle(PyObject *__pyx_v_self, PyObject *__pyx_arg_a); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_21set_player_angle(PyObject *__pyx_v_self, PyObject *__pyx_arg_a); /*proto*/
 static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_angle(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, float __pyx_v_a, int __pyx_skip_dispatch) {
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5576,10 +5260,10 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_angl
     if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
       PY_UINT64_T __pyx_type_dict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
       #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_player_angle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 238, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_player_angle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 214, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_23set_player_angle)) {
-        __pyx_t_3 = PyFloat_FromDouble(__pyx_v_a); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 238, __pyx_L1_error)
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_21set_player_angle)) {
+        __pyx_t_3 = PyFloat_FromDouble(__pyx_v_a); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 214, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_4 = __pyx_t_1; __pyx_t_5 = NULL;
@@ -5595,7 +5279,7 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_angl
         __pyx_t_2 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_t_3) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_3);
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 238, __pyx_L1_error)
+        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 214, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -5615,7 +5299,7 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_angl
     #endif
   }
 
-  /* "environment/entities/cy/game_cy.pyx":242
+  /* "environment/entities/cy/game_cy.pyx":218
  *         Set a new initial angle for the player.
  *         """
  *         self.player.init_angle = a             # <<<<<<<<<<<<<<
@@ -5624,7 +5308,7 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_angl
  */
   __pyx_v_self->player->init_angle = __pyx_v_a;
 
-  /* "environment/entities/cy/game_cy.pyx":243
+  /* "environment/entities/cy/game_cy.pyx":219
  *         """
  *         self.player.init_angle = a
  *         self.player.angle = a             # <<<<<<<<<<<<<<
@@ -5633,7 +5317,7 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_angl
  */
   __pyx_v_self->player->angle = __pyx_v_a;
 
-  /* "environment/entities/cy/game_cy.pyx":238
+  /* "environment/entities/cy/game_cy.pyx":214
  *         self.target_reached = config.target_reached
  * 
  *     cpdef void set_player_angle(self, float a):             # <<<<<<<<<<<<<<
@@ -5655,15 +5339,15 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_angl
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_23set_player_angle(PyObject *__pyx_v_self, PyObject *__pyx_arg_a); /*proto*/
-static char __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_22set_player_angle[] = "\n        Set a new initial angle for the player.\n        ";
-static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_23set_player_angle(PyObject *__pyx_v_self, PyObject *__pyx_arg_a) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_21set_player_angle(PyObject *__pyx_v_self, PyObject *__pyx_arg_a); /*proto*/
+static char __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_20set_player_angle[] = "\n        Set a new initial angle for the player.\n        ";
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_21set_player_angle(PyObject *__pyx_v_self, PyObject *__pyx_arg_a) {
   float __pyx_v_a;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_player_angle (wrapper)", 0);
   assert(__pyx_arg_a); {
-    __pyx_v_a = __pyx_PyFloat_AsFloat(__pyx_arg_a); if (unlikely((__pyx_v_a == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 238, __pyx_L3_error)
+    __pyx_v_a = __pyx_PyFloat_AsFloat(__pyx_arg_a); if (unlikely((__pyx_v_a == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 214, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -5671,20 +5355,20 @@ static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_23set_pla
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_22set_player_angle(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self), ((float)__pyx_v_a));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_20set_player_angle(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self), ((float)__pyx_v_a));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_22set_player_angle(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, float __pyx_v_a) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_20set_player_angle(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, float __pyx_v_a) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("set_player_angle", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_void_to_None(__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_angle(__pyx_v_self, __pyx_v_a, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 238, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_void_to_None(__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_angle(__pyx_v_self, __pyx_v_a, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 214, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -5701,7 +5385,7 @@ static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_22set_pla
   return __pyx_r;
 }
 
-/* "environment/entities/cy/game_cy.pyx":245
+/* "environment/entities/cy/game_cy.pyx":221
  *         self.player.angle = a
  * 
  *     cpdef void set_player_pos(self, Vec2dCy p):             # <<<<<<<<<<<<<<
@@ -5709,7 +5393,7 @@ static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_22set_pla
  *         Set a new initial position for the player.
  */
 
-static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_25set_player_pos(PyObject *__pyx_v_self, PyObject *__pyx_v_p); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_23set_player_pos(PyObject *__pyx_v_self, PyObject *__pyx_v_p); /*proto*/
 static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_pos(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_p, int __pyx_skip_dispatch) {
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5727,9 +5411,9 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_pos(
     if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
       PY_UINT64_T __pyx_type_dict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
       #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_player_pos); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 245, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_player_pos); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 221, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_25set_player_pos)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_23set_player_pos)) {
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
         if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
@@ -5743,7 +5427,7 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_pos(
         }
         __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_4, ((PyObject *)__pyx_v_p)) : __Pyx_PyObject_CallOneArg(__pyx_t_3, ((PyObject *)__pyx_v_p));
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 245, __pyx_L1_error)
+        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 221, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -5763,7 +5447,7 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_pos(
     #endif
   }
 
-  /* "environment/entities/cy/game_cy.pyx":249
+  /* "environment/entities/cy/game_cy.pyx":225
  *         Set a new initial position for the player.
  *         """
  *         self.player.init_pos.x = p.x             # <<<<<<<<<<<<<<
@@ -5773,7 +5457,7 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_pos(
   __pyx_t_5 = __pyx_v_p->x;
   __pyx_v_self->player->init_pos->x = __pyx_t_5;
 
-  /* "environment/entities/cy/game_cy.pyx":250
+  /* "environment/entities/cy/game_cy.pyx":226
  *         """
  *         self.player.init_pos.x = p.x
  *         self.player.init_pos.y = p.y             # <<<<<<<<<<<<<<
@@ -5783,7 +5467,7 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_pos(
   __pyx_t_5 = __pyx_v_p->y;
   __pyx_v_self->player->init_pos->y = __pyx_t_5;
 
-  /* "environment/entities/cy/game_cy.pyx":251
+  /* "environment/entities/cy/game_cy.pyx":227
  *         self.player.init_pos.x = p.x
  *         self.player.init_pos.y = p.y
  *         self.player.pos.x = p.x             # <<<<<<<<<<<<<<
@@ -5793,7 +5477,7 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_pos(
   __pyx_t_5 = __pyx_v_p->x;
   __pyx_v_self->player->pos->x = __pyx_t_5;
 
-  /* "environment/entities/cy/game_cy.pyx":252
+  /* "environment/entities/cy/game_cy.pyx":228
  *         self.player.init_pos.y = p.y
  *         self.player.pos.x = p.x
  *         self.player.pos.y = p.y             # <<<<<<<<<<<<<<
@@ -5803,7 +5487,7 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_pos(
   __pyx_t_5 = __pyx_v_p->y;
   __pyx_v_self->player->pos->y = __pyx_t_5;
 
-  /* "environment/entities/cy/game_cy.pyx":253
+  /* "environment/entities/cy/game_cy.pyx":229
  *         self.player.pos.x = p.x
  *         self.player.pos.y = p.y
  *         self.player.prev_pos.x = p.x             # <<<<<<<<<<<<<<
@@ -5813,7 +5497,7 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_pos(
   __pyx_t_5 = __pyx_v_p->x;
   __pyx_v_self->player->prev_pos->x = __pyx_t_5;
 
-  /* "environment/entities/cy/game_cy.pyx":254
+  /* "environment/entities/cy/game_cy.pyx":230
  *         self.player.pos.y = p.y
  *         self.player.prev_pos.x = p.x
  *         self.player.prev_pos.y = p.y             # <<<<<<<<<<<<<<
@@ -5823,7 +5507,7 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_pos(
   __pyx_t_5 = __pyx_v_p->y;
   __pyx_v_self->player->prev_pos->y = __pyx_t_5;
 
-  /* "environment/entities/cy/game_cy.pyx":245
+  /* "environment/entities/cy/game_cy.pyx":221
  *         self.player.angle = a
  * 
  *     cpdef void set_player_pos(self, Vec2dCy p):             # <<<<<<<<<<<<<<
@@ -5844,14 +5528,14 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_pos(
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_25set_player_pos(PyObject *__pyx_v_self, PyObject *__pyx_v_p); /*proto*/
-static char __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_24set_player_pos[] = "\n        Set a new initial position for the player.\n        ";
-static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_25set_player_pos(PyObject *__pyx_v_self, PyObject *__pyx_v_p) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_23set_player_pos(PyObject *__pyx_v_self, PyObject *__pyx_v_p); /*proto*/
+static char __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_22set_player_pos[] = "\n        Set a new initial position for the player.\n        ";
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_23set_player_pos(PyObject *__pyx_v_self, PyObject *__pyx_v_p) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_player_pos (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_p), __pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy, 1, "p", 0))) __PYX_ERR(0, 245, __pyx_L1_error)
-  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_24set_player_pos(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self), ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)__pyx_v_p));
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_p), __pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy, 1, "p", 0))) __PYX_ERR(0, 221, __pyx_L1_error)
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_22set_player_pos(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self), ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)__pyx_v_p));
 
   /* function exit code */
   goto __pyx_L0;
@@ -5862,13 +5546,13 @@ static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_25set_pla
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_24set_player_pos(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_p) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_22set_player_pos(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_p) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("set_player_pos", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_void_to_None(__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_pos(__pyx_v_self, __pyx_v_p, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 245, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_void_to_None(__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_pos(__pyx_v_self, __pyx_v_p, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 221, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -5885,7 +5569,7 @@ static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_24set_pla
   return __pyx_r;
 }
 
-/* "environment/entities/cy/game_cy.pyx":258
+/* "environment/entities/cy/game_cy.pyx":234
  *     # ---------------------------------------------> FUNCTIONAL METHODS <--------------------------------------------- #
  * 
  *     cpdef void save(self):             # <<<<<<<<<<<<<<
@@ -5893,7 +5577,7 @@ static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_24set_pla
  *         persist_dict[D_BOT_DRIVING_SPEED] = self.bot_driving_speed
  */
 
-static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_27save(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_25save(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
 static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_save(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch) {
   PyObject *__pyx_v_persist_dict = 0;
   PyObject *__pyx_v_p = NULL;
@@ -5921,9 +5605,9 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_save(struct __p
     if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
       PY_UINT64_T __pyx_type_dict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
       #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_save); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 258, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_save); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 234, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_27save)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_25save)) {
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
         if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
@@ -5937,7 +5621,7 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_save(struct __p
         }
         __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 258, __pyx_L1_error)
+        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 234, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -5957,252 +5641,252 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_save(struct __p
     #endif
   }
 
-  /* "environment/entities/cy/game_cy.pyx":259
+  /* "environment/entities/cy/game_cy.pyx":235
  * 
  *     cpdef void save(self):
  *         cdef dict persist_dict = dict()             # <<<<<<<<<<<<<<
  *         persist_dict[D_BOT_DRIVING_SPEED] = self.bot_driving_speed
  *         persist_dict[D_BOT_RADIUS] = self.bot_radius
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 235, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_persist_dict = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":260
+  /* "environment/entities/cy/game_cy.pyx":236
  *     cpdef void save(self):
  *         cdef dict persist_dict = dict()
  *         persist_dict[D_BOT_DRIVING_SPEED] = self.bot_driving_speed             # <<<<<<<<<<<<<<
  *         persist_dict[D_BOT_RADIUS] = self.bot_radius
  *         persist_dict[D_BOT_TURNING_SPEED] = self.bot_turning_speed
  */
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->bot_driving_speed); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->bot_driving_speed); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 236, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_BOT_DRIVING_SPEED); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_BOT_DRIVING_SPEED); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 236, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 260, __pyx_L1_error)
+  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 236, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":261
+  /* "environment/entities/cy/game_cy.pyx":237
  *         cdef dict persist_dict = dict()
  *         persist_dict[D_BOT_DRIVING_SPEED] = self.bot_driving_speed
  *         persist_dict[D_BOT_RADIUS] = self.bot_radius             # <<<<<<<<<<<<<<
  *         persist_dict[D_BOT_TURNING_SPEED] = self.bot_turning_speed
  *         persist_dict[D_FPS] = self.fps
  */
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->bot_radius); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 261, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->bot_radius); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 237, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_BOT_RADIUS); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 261, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_BOT_RADIUS); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 237, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 261, __pyx_L1_error)
+  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 237, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":262
+  /* "environment/entities/cy/game_cy.pyx":238
  *         persist_dict[D_BOT_DRIVING_SPEED] = self.bot_driving_speed
  *         persist_dict[D_BOT_RADIUS] = self.bot_radius
  *         persist_dict[D_BOT_TURNING_SPEED] = self.bot_turning_speed             # <<<<<<<<<<<<<<
  *         persist_dict[D_FPS] = self.fps
  *         persist_dict[D_PTM] = self.p2m
  */
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->bot_turning_speed); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 262, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->bot_turning_speed); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 238, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_BOT_TURNING_SPEED); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 262, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_BOT_TURNING_SPEED); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 238, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 262, __pyx_L1_error)
+  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 238, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":263
+  /* "environment/entities/cy/game_cy.pyx":239
  *         persist_dict[D_BOT_RADIUS] = self.bot_radius
  *         persist_dict[D_BOT_TURNING_SPEED] = self.bot_turning_speed
  *         persist_dict[D_FPS] = self.fps             # <<<<<<<<<<<<<<
  *         persist_dict[D_PTM] = self.p2m
  *         persist_dict[D_X_AXIS] = self.x_axis
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->fps); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 263, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->fps); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 239, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_FPS); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 263, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_FPS); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 239, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 263, __pyx_L1_error)
+  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 239, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":264
+  /* "environment/entities/cy/game_cy.pyx":240
  *         persist_dict[D_BOT_TURNING_SPEED] = self.bot_turning_speed
  *         persist_dict[D_FPS] = self.fps
  *         persist_dict[D_PTM] = self.p2m             # <<<<<<<<<<<<<<
  *         persist_dict[D_X_AXIS] = self.x_axis
  *         persist_dict[D_Y_AXIS] = self.y_axis
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->p2m); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 264, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->p2m); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 240, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_PTM); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 264, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_PTM); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 240, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 264, __pyx_L1_error)
+  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 240, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":265
+  /* "environment/entities/cy/game_cy.pyx":241
  *         persist_dict[D_FPS] = self.fps
  *         persist_dict[D_PTM] = self.p2m
  *         persist_dict[D_X_AXIS] = self.x_axis             # <<<<<<<<<<<<<<
  *         persist_dict[D_Y_AXIS] = self.y_axis
  *         persist_dict[D_NOISE_TIME] = self.noise_time
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->x_axis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 265, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->x_axis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 241, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_X_AXIS); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 265, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_X_AXIS); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 241, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 265, __pyx_L1_error)
+  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 241, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":266
+  /* "environment/entities/cy/game_cy.pyx":242
  *         persist_dict[D_PTM] = self.p2m
  *         persist_dict[D_X_AXIS] = self.x_axis
  *         persist_dict[D_Y_AXIS] = self.y_axis             # <<<<<<<<<<<<<<
  *         persist_dict[D_NOISE_TIME] = self.noise_time
  *         persist_dict[D_NOISE_ANGLE] = self.noise_angle
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->y_axis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 266, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->y_axis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 242, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_Y_AXIS); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 266, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_Y_AXIS); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 242, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 266, __pyx_L1_error)
+  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 242, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":267
+  /* "environment/entities/cy/game_cy.pyx":243
  *         persist_dict[D_X_AXIS] = self.x_axis
  *         persist_dict[D_Y_AXIS] = self.y_axis
  *         persist_dict[D_NOISE_TIME] = self.noise_time             # <<<<<<<<<<<<<<
  *         persist_dict[D_NOISE_ANGLE] = self.noise_angle
  *         persist_dict[D_NOISE_DISTANCE] = self.noise_distance
  */
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->noise_time); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 267, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->noise_time); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 243, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_NOISE_TIME); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 267, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_NOISE_TIME); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 243, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 267, __pyx_L1_error)
+  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 243, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":268
+  /* "environment/entities/cy/game_cy.pyx":244
  *         persist_dict[D_Y_AXIS] = self.y_axis
  *         persist_dict[D_NOISE_TIME] = self.noise_time
  *         persist_dict[D_NOISE_ANGLE] = self.noise_angle             # <<<<<<<<<<<<<<
  *         persist_dict[D_NOISE_DISTANCE] = self.noise_distance
  *         persist_dict[D_NOISE_PROXIMITY] = self.noise_proximity
  */
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->noise_angle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 268, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->noise_angle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 244, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_NOISE_ANGLE); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 268, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_NOISE_ANGLE); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 244, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 268, __pyx_L1_error)
+  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 244, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":269
+  /* "environment/entities/cy/game_cy.pyx":245
  *         persist_dict[D_NOISE_TIME] = self.noise_time
  *         persist_dict[D_NOISE_ANGLE] = self.noise_angle
  *         persist_dict[D_NOISE_DISTANCE] = self.noise_distance             # <<<<<<<<<<<<<<
  *         persist_dict[D_NOISE_PROXIMITY] = self.noise_proximity
  *         persist_dict[D_SENSOR_RAY_DISTANCE] = self.sensor_ray_distance
  */
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->noise_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 269, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->noise_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 245, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_NOISE_DISTANCE); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 269, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_NOISE_DISTANCE); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 245, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 269, __pyx_L1_error)
+  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 245, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":270
+  /* "environment/entities/cy/game_cy.pyx":246
  *         persist_dict[D_NOISE_ANGLE] = self.noise_angle
  *         persist_dict[D_NOISE_DISTANCE] = self.noise_distance
  *         persist_dict[D_NOISE_PROXIMITY] = self.noise_proximity             # <<<<<<<<<<<<<<
  *         persist_dict[D_SENSOR_RAY_DISTANCE] = self.sensor_ray_distance
  *         persist_dict[D_TARGET_REACHED] = self.target_reached
  */
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->noise_proximity); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 270, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->noise_proximity); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 246, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_NOISE_PROXIMITY); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 270, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_NOISE_PROXIMITY); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 246, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 270, __pyx_L1_error)
+  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 246, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":271
+  /* "environment/entities/cy/game_cy.pyx":247
  *         persist_dict[D_NOISE_DISTANCE] = self.noise_distance
  *         persist_dict[D_NOISE_PROXIMITY] = self.noise_proximity
  *         persist_dict[D_SENSOR_RAY_DISTANCE] = self.sensor_ray_distance             # <<<<<<<<<<<<<<
  *         persist_dict[D_TARGET_REACHED] = self.target_reached
  *         persist_dict[D_ANGLE] = self.player.init_angle  # Initial angle of player
  */
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->sensor_ray_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 271, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->sensor_ray_distance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 247, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_SENSOR_RAY_DISTANCE); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 271, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_SENSOR_RAY_DISTANCE); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 271, __pyx_L1_error)
+  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 247, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":272
+  /* "environment/entities/cy/game_cy.pyx":248
  *         persist_dict[D_NOISE_PROXIMITY] = self.noise_proximity
  *         persist_dict[D_SENSOR_RAY_DISTANCE] = self.sensor_ray_distance
  *         persist_dict[D_TARGET_REACHED] = self.target_reached             # <<<<<<<<<<<<<<
  *         persist_dict[D_ANGLE] = self.player.init_angle  # Initial angle of player
  *         if self.path: persist_dict[D_PATH] = [(p[0], p[1]) for p in self.path.items()]
  */
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->target_reached); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 272, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->target_reached); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_TARGET_REACHED); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 272, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_TARGET_REACHED); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 272, __pyx_L1_error)
+  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 248, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":273
+  /* "environment/entities/cy/game_cy.pyx":249
  *         persist_dict[D_SENSOR_RAY_DISTANCE] = self.sensor_ray_distance
  *         persist_dict[D_TARGET_REACHED] = self.target_reached
  *         persist_dict[D_ANGLE] = self.player.init_angle  # Initial angle of player             # <<<<<<<<<<<<<<
  *         if self.path: persist_dict[D_PATH] = [(p[0], p[1]) for p in self.path.items()]
  *         persist_dict[D_POS] = (self.player.init_pos.x, self.player.init_pos.y)  # Initial position of player
  */
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->player->init_angle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 273, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->player->init_angle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_ANGLE); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 273, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_ANGLE); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 249, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 273, __pyx_L1_error)
+  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 249, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":274
+  /* "environment/entities/cy/game_cy.pyx":250
  *         persist_dict[D_TARGET_REACHED] = self.target_reached
  *         persist_dict[D_ANGLE] = self.player.init_angle  # Initial angle of player
  *         if self.path: persist_dict[D_PATH] = [(p[0], p[1]) for p in self.path.items()]             # <<<<<<<<<<<<<<
  *         persist_dict[D_POS] = (self.player.init_pos.x, self.player.init_pos.y)  # Initial position of player
  *         persist_dict[D_TARGET] = (self.target.x, self.target.y)
  */
-  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_v_self->path); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 274, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_v_self->path); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 250, __pyx_L1_error)
   if (__pyx_t_5) {
-    __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 274, __pyx_L1_error)
+    __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 250, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     if (unlikely(__pyx_v_self->path == Py_None)) {
       PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "items");
-      __PYX_ERR(0, 274, __pyx_L1_error)
+      __PYX_ERR(0, 250, __pyx_L1_error)
     }
-    __pyx_t_2 = __Pyx_PyDict_Items(__pyx_v_self->path); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 274, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyDict_Items(__pyx_v_self->path); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 250, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     if (likely(PyList_CheckExact(__pyx_t_2)) || PyTuple_CheckExact(__pyx_t_2)) {
       __pyx_t_3 = __pyx_t_2; __Pyx_INCREF(__pyx_t_3); __pyx_t_6 = 0;
       __pyx_t_7 = NULL;
     } else {
-      __pyx_t_6 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 274, __pyx_L1_error)
+      __pyx_t_6 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 250, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_7 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 274, __pyx_L1_error)
+      __pyx_t_7 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 250, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     for (;;) {
@@ -6210,17 +5894,17 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_save(struct __p
         if (likely(PyList_CheckExact(__pyx_t_3))) {
           if (__pyx_t_6 >= PyList_GET_SIZE(__pyx_t_3)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_2 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_2); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 274, __pyx_L1_error)
+          __pyx_t_2 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_2); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 250, __pyx_L1_error)
           #else
-          __pyx_t_2 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 274, __pyx_L1_error)
+          __pyx_t_2 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 250, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
           #endif
         } else {
           if (__pyx_t_6 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_2); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 274, __pyx_L1_error)
+          __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_2); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 250, __pyx_L1_error)
           #else
-          __pyx_t_2 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 274, __pyx_L1_error)
+          __pyx_t_2 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 250, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
           #endif
         }
@@ -6230,7 +5914,7 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_save(struct __p
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 274, __pyx_L1_error)
+            else __PYX_ERR(0, 250, __pyx_L1_error)
           }
           break;
         }
@@ -6238,11 +5922,11 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_save(struct __p
       }
       __Pyx_XDECREF_SET(__pyx_v_p, __pyx_t_2);
       __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_p, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 274, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_p, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 250, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_p, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 274, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_p, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 250, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 274, __pyx_L1_error)
+      __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 250, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_GIVEREF(__pyx_t_2);
       PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_2);
@@ -6250,29 +5934,29 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_save(struct __p
       PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_4);
       __pyx_t_2 = 0;
       __pyx_t_4 = 0;
-      if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_8))) __PYX_ERR(0, 274, __pyx_L1_error)
+      if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_8))) __PYX_ERR(0, 250, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_D_PATH); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 274, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_D_PATH); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 250, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_3, __pyx_t_1) < 0)) __PYX_ERR(0, 274, __pyx_L1_error)
+    if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_3, __pyx_t_1) < 0)) __PYX_ERR(0, 250, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
 
-  /* "environment/entities/cy/game_cy.pyx":275
+  /* "environment/entities/cy/game_cy.pyx":251
  *         persist_dict[D_ANGLE] = self.player.init_angle  # Initial angle of player
  *         if self.path: persist_dict[D_PATH] = [(p[0], p[1]) for p in self.path.items()]
  *         persist_dict[D_POS] = (self.player.init_pos.x, self.player.init_pos.y)  # Initial position of player             # <<<<<<<<<<<<<<
  *         persist_dict[D_TARGET] = (self.target.x, self.target.y)
  *         persist_dict[D_WALLS] = [((w.x.x, w.x.y), (w.y.x, w.y.y)) for w in self.walls]
  */
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->player->init_pos->x); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 275, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->player->init_pos->x); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 251, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_self->player->init_pos->y); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 275, __pyx_L1_error)
+  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_self->player->init_pos->y); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 251, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 275, __pyx_L1_error)
+  __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 251, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_1);
@@ -6280,24 +5964,24 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_save(struct __p
   PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_3);
   __pyx_t_1 = 0;
   __pyx_t_3 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_D_POS); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 275, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_D_POS); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 251, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_3, __pyx_t_8) < 0)) __PYX_ERR(0, 275, __pyx_L1_error)
+  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_3, __pyx_t_8) < 0)) __PYX_ERR(0, 251, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":276
+  /* "environment/entities/cy/game_cy.pyx":252
  *         if self.path: persist_dict[D_PATH] = [(p[0], p[1]) for p in self.path.items()]
  *         persist_dict[D_POS] = (self.player.init_pos.x, self.player.init_pos.y)  # Initial position of player
  *         persist_dict[D_TARGET] = (self.target.x, self.target.y)             # <<<<<<<<<<<<<<
  *         persist_dict[D_WALLS] = [((w.x.x, w.x.y), (w.y.x, w.y.y)) for w in self.walls]
  *         store_pickle(persist_dict, f'{self.save_path}{self}')
  */
-  __pyx_t_8 = PyFloat_FromDouble(__pyx_v_self->target->x); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 276, __pyx_L1_error)
+  __pyx_t_8 = PyFloat_FromDouble(__pyx_v_self->target->x); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 252, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_self->target->y); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 276, __pyx_L1_error)
+  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_self->target->y); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 252, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 276, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 252, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_8);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_8);
@@ -6305,23 +5989,23 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_save(struct __p
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_t_3);
   __pyx_t_8 = 0;
   __pyx_t_3 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_D_TARGET); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 276, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_D_TARGET); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 252, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_3, __pyx_t_1) < 0)) __PYX_ERR(0, 276, __pyx_L1_error)
+  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_3, __pyx_t_1) < 0)) __PYX_ERR(0, 252, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":277
+  /* "environment/entities/cy/game_cy.pyx":253
  *         persist_dict[D_POS] = (self.player.init_pos.x, self.player.init_pos.y)  # Initial position of player
  *         persist_dict[D_TARGET] = (self.target.x, self.target.y)
  *         persist_dict[D_WALLS] = [((w.x.x, w.x.y), (w.y.x, w.y.y)) for w in self.walls]             # <<<<<<<<<<<<<<
  *         store_pickle(persist_dict, f'{self.save_path}{self}')
  * 
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 277, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 253, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_6 = 0;
-  __pyx_t_8 = __Pyx_set_iterator(__pyx_v_self->walls, 1, (&__pyx_t_9), (&__pyx_t_10)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 277, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_set_iterator(__pyx_v_self->walls, 1, (&__pyx_t_9), (&__pyx_t_10)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 253, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_3);
   __pyx_t_3 = __pyx_t_8;
@@ -6329,21 +6013,21 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_save(struct __p
   while (1) {
     __pyx_t_11 = __Pyx_set_iter_next(__pyx_t_3, __pyx_t_9, &__pyx_t_6, &__pyx_t_8, __pyx_t_10);
     if (unlikely(__pyx_t_11 == 0)) break;
-    if (unlikely(__pyx_t_11 == -1)) __PYX_ERR(0, 277, __pyx_L1_error)
+    if (unlikely(__pyx_t_11 == -1)) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_XDECREF_SET(__pyx_v_w, __pyx_t_8);
     __pyx_t_8 = 0;
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_w, __pyx_n_s_x); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 277, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_w, __pyx_n_s_x); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_x); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 277, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_x); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_w, __pyx_n_s_x); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 277, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_w, __pyx_n_s_x); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_y); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 277, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_y); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 277, __pyx_L1_error)
+    __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_GIVEREF(__pyx_t_4);
     PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_4);
@@ -6351,17 +6035,17 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_save(struct __p
     PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_2);
     __pyx_t_4 = 0;
     __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_w, __pyx_n_s_y); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 277, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_w, __pyx_n_s_y); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_x); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 277, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_x); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_w, __pyx_n_s_y); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 277, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_w, __pyx_n_s_y); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_y); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 277, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_y); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 277, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_GIVEREF(__pyx_t_4);
     PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_4);
@@ -6369,7 +6053,7 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_save(struct __p
     PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_12);
     __pyx_t_4 = 0;
     __pyx_t_12 = 0;
-    __pyx_t_12 = PyTuple_New(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 277, __pyx_L1_error)
+    __pyx_t_12 = PyTuple_New(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_GIVEREF(__pyx_t_8);
     PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_8);
@@ -6377,30 +6061,30 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_save(struct __p
     PyTuple_SET_ITEM(__pyx_t_12, 1, __pyx_t_2);
     __pyx_t_8 = 0;
     __pyx_t_2 = 0;
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_12))) __PYX_ERR(0, 277, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_12))) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_D_WALLS); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 277, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_D_WALLS); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 253, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_3, __pyx_t_1) < 0)) __PYX_ERR(0, 277, __pyx_L1_error)
+  if (unlikely(PyDict_SetItem(__pyx_v_persist_dict, __pyx_t_3, __pyx_t_1) < 0)) __PYX_ERR(0, 253, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":278
+  /* "environment/entities/cy/game_cy.pyx":254
  *         persist_dict[D_TARGET] = (self.target.x, self.target.y)
  *         persist_dict[D_WALLS] = [((w.x.x, w.x.y), (w.y.x, w.y.y)) for w in self.walls]
  *         store_pickle(persist_dict, f'{self.save_path}{self}')             # <<<<<<<<<<<<<<
  * 
  *     cpdef bint load(self):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_store_pickle); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 278, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_store_pickle); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 254, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_12 = __Pyx_PyObject_FormatSimple(__pyx_v_self->save_path, __pyx_empty_unicode); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 278, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_FormatSimple(__pyx_v_self->save_path, __pyx_empty_unicode); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 254, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
-  __pyx_t_2 = __Pyx_PyObject_FormatSimple(((PyObject *)__pyx_v_self), __pyx_empty_unicode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 278, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_FormatSimple(((PyObject *)__pyx_v_self), __pyx_empty_unicode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 254, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_8 = __Pyx_PyUnicode_Concat(__pyx_t_12, __pyx_t_2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 278, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyUnicode_Concat(__pyx_t_12, __pyx_t_2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 254, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -6419,7 +6103,7 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_save(struct __p
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_3)) {
     PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_v_persist_dict, __pyx_t_8};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 278, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -6428,14 +6112,14 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_save(struct __p
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
     PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_v_persist_dict, __pyx_t_8};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 278, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   } else
   #endif
   {
-    __pyx_t_12 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 278, __pyx_L1_error)
+    __pyx_t_12 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     if (__pyx_t_2) {
       __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_2); __pyx_t_2 = NULL;
@@ -6446,14 +6130,14 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_save(struct __p
     __Pyx_GIVEREF(__pyx_t_8);
     PyTuple_SET_ITEM(__pyx_t_12, 1+__pyx_t_10, __pyx_t_8);
     __pyx_t_8 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_12, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 278, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_12, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":258
+  /* "environment/entities/cy/game_cy.pyx":234
  *     # ---------------------------------------------> FUNCTIONAL METHODS <--------------------------------------------- #
  * 
  *     cpdef void save(self):             # <<<<<<<<<<<<<<
@@ -6479,25 +6163,25 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_save(struct __p
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_27save(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_27save(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_25save(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_25save(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("save (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_26save(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_24save(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_26save(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_24save(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("save", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_void_to_None(__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_save(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_void_to_None(__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_save(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 234, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -6514,7 +6198,7 @@ static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_26save(st
   return __pyx_r;
 }
 
-/* "environment/entities/cy/game_cy.pyx":280
+/* "environment/entities/cy/game_cy.pyx":256
  *         store_pickle(persist_dict, f'{self.save_path}{self}')
  * 
  *     cpdef bint load(self):             # <<<<<<<<<<<<<<
@@ -6522,7 +6206,7 @@ static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_26save(st
  *         Load in a game, specified by its current id.
  */
 
-static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_29load(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_27load(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
 static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch) {
   PyObject *__pyx_v_game = 0;
   PyObject *__pyx_7genexpr__pyx_v_p = NULL;
@@ -6553,9 +6237,9 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
     if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
       PY_UINT64_T __pyx_type_dict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
       #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_load); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 280, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_load); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 256, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_29load)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_27load)) {
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
         if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
@@ -6569,10 +6253,10 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
         }
         __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 280, __pyx_L1_error)
+        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 256, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 280, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 256, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_r = __pyx_t_5;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -6591,7 +6275,7 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
     #endif
   }
 
-  /* "environment/entities/cy/game_cy.pyx":289
+  /* "environment/entities/cy/game_cy.pyx":265
  *         cdef dict game
  * 
  *         try:             # <<<<<<<<<<<<<<
@@ -6607,20 +6291,20 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
     __Pyx_XGOTREF(__pyx_t_8);
     /*try:*/ {
 
-      /* "environment/entities/cy/game_cy.pyx":290
+      /* "environment/entities/cy/game_cy.pyx":266
  * 
  *         try:
  *             game = load_pickle(f'{self.save_path}{self}')             # <<<<<<<<<<<<<<
  *             self.bot_driving_speed = game[D_BOT_DRIVING_SPEED]
  *             self.bot_radius = game[D_BOT_RADIUS]
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_load_pickle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 290, __pyx_L3_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_load_pickle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 266, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_3 = __Pyx_PyObject_FormatSimple(__pyx_v_self->save_path, __pyx_empty_unicode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 290, __pyx_L3_error)
+      __pyx_t_3 = __Pyx_PyObject_FormatSimple(__pyx_v_self->save_path, __pyx_empty_unicode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 266, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_4 = __Pyx_PyObject_FormatSimple(((PyObject *)__pyx_v_self), __pyx_empty_unicode); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 290, __pyx_L3_error)
+      __pyx_t_4 = __Pyx_PyObject_FormatSimple(((PyObject *)__pyx_v_self), __pyx_empty_unicode); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 266, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_9 = __Pyx_PyUnicode_Concat(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 290, __pyx_L3_error)
+      __pyx_t_9 = __Pyx_PyUnicode_Concat(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 266, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -6637,14 +6321,14 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
       __pyx_t_1 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_4, __pyx_t_9) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_9);
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 290, __pyx_L3_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 266, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      if (!(likely(PyDict_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 290, __pyx_L3_error)
+      if (!(likely(PyDict_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 266, __pyx_L3_error)
       __pyx_v_game = ((PyObject*)__pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "environment/entities/cy/game_cy.pyx":291
+      /* "environment/entities/cy/game_cy.pyx":267
  *         try:
  *             game = load_pickle(f'{self.save_path}{self}')
  *             self.bot_driving_speed = game[D_BOT_DRIVING_SPEED]             # <<<<<<<<<<<<<<
@@ -6653,18 +6337,18 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
  */
       if (unlikely(__pyx_v_game == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 291, __pyx_L3_error)
+        __PYX_ERR(0, 267, __pyx_L3_error)
       }
-      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_D_BOT_DRIVING_SPEED); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 291, __pyx_L3_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_D_BOT_DRIVING_SPEED); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 267, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 291, __pyx_L3_error)
+      __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 267, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_10 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_10 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 291, __pyx_L3_error)
+      __pyx_t_10 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_10 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 267, __pyx_L3_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_v_self->bot_driving_speed = __pyx_t_10;
 
-      /* "environment/entities/cy/game_cy.pyx":292
+      /* "environment/entities/cy/game_cy.pyx":268
  *             game = load_pickle(f'{self.save_path}{self}')
  *             self.bot_driving_speed = game[D_BOT_DRIVING_SPEED]
  *             self.bot_radius = game[D_BOT_RADIUS]             # <<<<<<<<<<<<<<
@@ -6673,18 +6357,18 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
  */
       if (unlikely(__pyx_v_game == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 292, __pyx_L3_error)
+        __PYX_ERR(0, 268, __pyx_L3_error)
       }
-      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_BOT_RADIUS); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 292, __pyx_L3_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_BOT_RADIUS); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 268, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 292, __pyx_L3_error)
+      __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 268, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_10 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_10 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 292, __pyx_L3_error)
+      __pyx_t_10 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_10 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 268, __pyx_L3_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_v_self->bot_radius = __pyx_t_10;
 
-      /* "environment/entities/cy/game_cy.pyx":293
+      /* "environment/entities/cy/game_cy.pyx":269
  *             self.bot_driving_speed = game[D_BOT_DRIVING_SPEED]
  *             self.bot_radius = game[D_BOT_RADIUS]
  *             self.bot_turning_speed = game[D_BOT_TURNING_SPEED]             # <<<<<<<<<<<<<<
@@ -6693,18 +6377,18 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
  */
       if (unlikely(__pyx_v_game == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 293, __pyx_L3_error)
+        __PYX_ERR(0, 269, __pyx_L3_error)
       }
-      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_D_BOT_TURNING_SPEED); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 293, __pyx_L3_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_D_BOT_TURNING_SPEED); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 269, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 293, __pyx_L3_error)
+      __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 269, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_10 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_10 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 293, __pyx_L3_error)
+      __pyx_t_10 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_10 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 269, __pyx_L3_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_v_self->bot_turning_speed = __pyx_t_10;
 
-      /* "environment/entities/cy/game_cy.pyx":294
+      /* "environment/entities/cy/game_cy.pyx":270
  *             self.bot_radius = game[D_BOT_RADIUS]
  *             self.bot_turning_speed = game[D_BOT_TURNING_SPEED]
  *             self.fps = game[D_FPS]             # <<<<<<<<<<<<<<
@@ -6713,18 +6397,18 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
  */
       if (unlikely(__pyx_v_game == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 294, __pyx_L3_error)
+        __PYX_ERR(0, 270, __pyx_L3_error)
       }
-      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_FPS); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 294, __pyx_L3_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_FPS); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 270, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 294, __pyx_L3_error)
+      __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 270, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_11 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_11 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 294, __pyx_L3_error)
+      __pyx_t_11 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_11 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 270, __pyx_L3_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_v_self->fps = __pyx_t_11;
 
-      /* "environment/entities/cy/game_cy.pyx":295
+      /* "environment/entities/cy/game_cy.pyx":271
  *             self.bot_turning_speed = game[D_BOT_TURNING_SPEED]
  *             self.fps = game[D_FPS]
  *             self.p2m = game[D_PTM]             # <<<<<<<<<<<<<<
@@ -6733,18 +6417,18 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
  */
       if (unlikely(__pyx_v_game == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 295, __pyx_L3_error)
+        __PYX_ERR(0, 271, __pyx_L3_error)
       }
-      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_D_PTM); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 295, __pyx_L3_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_D_PTM); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 271, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 295, __pyx_L3_error)
+      __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 271, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_11 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_11 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 295, __pyx_L3_error)
+      __pyx_t_11 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_11 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 271, __pyx_L3_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_v_self->p2m = __pyx_t_11;
 
-      /* "environment/entities/cy/game_cy.pyx":296
+      /* "environment/entities/cy/game_cy.pyx":272
  *             self.fps = game[D_FPS]
  *             self.p2m = game[D_PTM]
  *             self.x_axis = game[D_X_AXIS]             # <<<<<<<<<<<<<<
@@ -6753,18 +6437,18 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
  */
       if (unlikely(__pyx_v_game == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 296, __pyx_L3_error)
+        __PYX_ERR(0, 272, __pyx_L3_error)
       }
-      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_X_AXIS); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 296, __pyx_L3_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_X_AXIS); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 272, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 296, __pyx_L3_error)
+      __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 272, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_11 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_11 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 296, __pyx_L3_error)
+      __pyx_t_11 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_11 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 272, __pyx_L3_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_v_self->x_axis = __pyx_t_11;
 
-      /* "environment/entities/cy/game_cy.pyx":297
+      /* "environment/entities/cy/game_cy.pyx":273
  *             self.p2m = game[D_PTM]
  *             self.x_axis = game[D_X_AXIS]
  *             self.y_axis = game[D_Y_AXIS]             # <<<<<<<<<<<<<<
@@ -6773,18 +6457,18 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
  */
       if (unlikely(__pyx_v_game == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 297, __pyx_L3_error)
+        __PYX_ERR(0, 273, __pyx_L3_error)
       }
-      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_D_Y_AXIS); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 297, __pyx_L3_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_D_Y_AXIS); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 273, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 297, __pyx_L3_error)
+      __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 273, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_11 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_11 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 297, __pyx_L3_error)
+      __pyx_t_11 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_11 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 273, __pyx_L3_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_v_self->y_axis = __pyx_t_11;
 
-      /* "environment/entities/cy/game_cy.pyx":298
+      /* "environment/entities/cy/game_cy.pyx":274
  *             self.x_axis = game[D_X_AXIS]
  *             self.y_axis = game[D_Y_AXIS]
  *             self.noise_time = game[D_NOISE_TIME]             # <<<<<<<<<<<<<<
@@ -6793,18 +6477,18 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
  */
       if (unlikely(__pyx_v_game == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 298, __pyx_L3_error)
+        __PYX_ERR(0, 274, __pyx_L3_error)
       }
-      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_NOISE_TIME); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 298, __pyx_L3_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_NOISE_TIME); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 274, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 298, __pyx_L3_error)
+      __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 274, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_10 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_10 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 298, __pyx_L3_error)
+      __pyx_t_10 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_10 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 274, __pyx_L3_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_v_self->noise_time = __pyx_t_10;
 
-      /* "environment/entities/cy/game_cy.pyx":299
+      /* "environment/entities/cy/game_cy.pyx":275
  *             self.y_axis = game[D_Y_AXIS]
  *             self.noise_time = game[D_NOISE_TIME]
  *             self.noise_angle = game[D_NOISE_ANGLE]             # <<<<<<<<<<<<<<
@@ -6813,18 +6497,18 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
  */
       if (unlikely(__pyx_v_game == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 299, __pyx_L3_error)
+        __PYX_ERR(0, 275, __pyx_L3_error)
       }
-      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_D_NOISE_ANGLE); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 299, __pyx_L3_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_D_NOISE_ANGLE); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 275, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 299, __pyx_L3_error)
+      __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 275, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_10 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_10 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 299, __pyx_L3_error)
+      __pyx_t_10 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_10 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 275, __pyx_L3_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_v_self->noise_angle = __pyx_t_10;
 
-      /* "environment/entities/cy/game_cy.pyx":300
+      /* "environment/entities/cy/game_cy.pyx":276
  *             self.noise_time = game[D_NOISE_TIME]
  *             self.noise_angle = game[D_NOISE_ANGLE]
  *             self.noise_distance = game[D_NOISE_DISTANCE]             # <<<<<<<<<<<<<<
@@ -6833,18 +6517,18 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
  */
       if (unlikely(__pyx_v_game == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 300, __pyx_L3_error)
+        __PYX_ERR(0, 276, __pyx_L3_error)
       }
-      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_NOISE_DISTANCE); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 300, __pyx_L3_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_NOISE_DISTANCE); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 276, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 300, __pyx_L3_error)
+      __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 276, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_10 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_10 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 300, __pyx_L3_error)
+      __pyx_t_10 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_10 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 276, __pyx_L3_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_v_self->noise_distance = __pyx_t_10;
 
-      /* "environment/entities/cy/game_cy.pyx":301
+      /* "environment/entities/cy/game_cy.pyx":277
  *             self.noise_angle = game[D_NOISE_ANGLE]
  *             self.noise_distance = game[D_NOISE_DISTANCE]
  *             self.noise_proximity = game[D_NOISE_PROXIMITY]             # <<<<<<<<<<<<<<
@@ -6853,18 +6537,18 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
  */
       if (unlikely(__pyx_v_game == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 301, __pyx_L3_error)
+        __PYX_ERR(0, 277, __pyx_L3_error)
       }
-      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_D_NOISE_PROXIMITY); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 301, __pyx_L3_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_D_NOISE_PROXIMITY); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 277, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 301, __pyx_L3_error)
+      __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 277, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_10 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_10 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 301, __pyx_L3_error)
+      __pyx_t_10 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_10 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 277, __pyx_L3_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_v_self->noise_proximity = __pyx_t_10;
 
-      /* "environment/entities/cy/game_cy.pyx":302
+      /* "environment/entities/cy/game_cy.pyx":278
  *             self.noise_distance = game[D_NOISE_DISTANCE]
  *             self.noise_proximity = game[D_NOISE_PROXIMITY]
  *             self.sensor_ray_distance = game[D_SENSOR_RAY_DISTANCE]             # <<<<<<<<<<<<<<
@@ -6873,18 +6557,18 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
  */
       if (unlikely(__pyx_v_game == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 302, __pyx_L3_error)
+        __PYX_ERR(0, 278, __pyx_L3_error)
       }
-      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_SENSOR_RAY_DISTANCE); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 302, __pyx_L3_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_SENSOR_RAY_DISTANCE); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 278, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 302, __pyx_L3_error)
+      __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 278, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_10 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_10 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 302, __pyx_L3_error)
+      __pyx_t_10 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_10 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 278, __pyx_L3_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_v_self->sensor_ray_distance = __pyx_t_10;
 
-      /* "environment/entities/cy/game_cy.pyx":303
+      /* "environment/entities/cy/game_cy.pyx":279
  *             self.noise_proximity = game[D_NOISE_PROXIMITY]
  *             self.sensor_ray_distance = game[D_SENSOR_RAY_DISTANCE]
  *             self.target_reached = game[D_TARGET_REACHED]             # <<<<<<<<<<<<<<
@@ -6893,28 +6577,28 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
  */
       if (unlikely(__pyx_v_game == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 303, __pyx_L3_error)
+        __PYX_ERR(0, 279, __pyx_L3_error)
       }
-      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_D_TARGET_REACHED); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 303, __pyx_L3_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_D_TARGET_REACHED); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 279, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 303, __pyx_L3_error)
+      __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 279, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_10 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_10 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 303, __pyx_L3_error)
+      __pyx_t_10 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_10 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 279, __pyx_L3_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_v_self->target_reached = __pyx_t_10;
 
-      /* "environment/entities/cy/game_cy.pyx":304
+      /* "environment/entities/cy/game_cy.pyx":280
  *             self.sensor_ray_distance = game[D_SENSOR_RAY_DISTANCE]
  *             self.target_reached = game[D_TARGET_REACHED]
  *             self.player = FootBotCy(game=self)  # Create a dummy-player to set values on             # <<<<<<<<<<<<<<
  *             self.set_player_angle(game[D_ANGLE])
  *             self.set_player_pos(Vec2dCy(game[D_POS][0], game[D_POS][1]))
  */
-      __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 304, __pyx_L3_error)
+      __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 280, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_2);
-      if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_game_2, ((PyObject *)__pyx_v_self)) < 0) __PYX_ERR(0, 304, __pyx_L3_error)
-      __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_8entities_2cy_9robots_cy_FootBotCy), __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 304, __pyx_L3_error)
+      if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_game_2, ((PyObject *)__pyx_v_self)) < 0) __PYX_ERR(0, 280, __pyx_L3_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_8entities_2cy_9robots_cy_FootBotCy), __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 280, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GIVEREF(__pyx_t_1);
@@ -6923,7 +6607,7 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
       __pyx_v_self->player = ((struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *)__pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "environment/entities/cy/game_cy.pyx":305
+      /* "environment/entities/cy/game_cy.pyx":281
  *             self.target_reached = game[D_TARGET_REACHED]
  *             self.player = FootBotCy(game=self)  # Create a dummy-player to set values on
  *             self.set_player_angle(game[D_ANGLE])             # <<<<<<<<<<<<<<
@@ -6932,18 +6616,18 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
  */
       if (unlikely(__pyx_v_game == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 305, __pyx_L3_error)
+        __PYX_ERR(0, 281, __pyx_L3_error)
       }
-      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_D_ANGLE); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 305, __pyx_L3_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_D_ANGLE); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 281, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 305, __pyx_L3_error)
+      __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 281, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_10 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_10 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 305, __pyx_L3_error)
+      __pyx_t_10 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_10 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 281, __pyx_L3_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       ((struct __pyx_vtabstruct_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self->__pyx_vtab)->set_player_angle(__pyx_v_self, __pyx_t_10, 0);
 
-      /* "environment/entities/cy/game_cy.pyx":306
+      /* "environment/entities/cy/game_cy.pyx":282
  *             self.player = FootBotCy(game=self)  # Create a dummy-player to set values on
  *             self.set_player_angle(game[D_ANGLE])
  *             self.set_player_pos(Vec2dCy(game[D_POS][0], game[D_POS][1]))             # <<<<<<<<<<<<<<
@@ -6952,29 +6636,29 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
  */
       if (unlikely(__pyx_v_game == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 306, __pyx_L3_error)
+        __PYX_ERR(0, 282, __pyx_L3_error)
       }
-      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_POS); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 306, __pyx_L3_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_POS); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 282, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 306, __pyx_L3_error)
+      __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 282, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 306, __pyx_L3_error)
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 282, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       if (unlikely(__pyx_v_game == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 306, __pyx_L3_error)
+        __PYX_ERR(0, 282, __pyx_L3_error)
       }
-      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_D_POS); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 306, __pyx_L3_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_D_POS); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 282, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_9 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 306, __pyx_L3_error)
+      __pyx_t_9 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 282, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_9, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 306, __pyx_L3_error)
+      __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_9, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 282, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __pyx_t_9 = PyTuple_New(2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 306, __pyx_L3_error)
+      __pyx_t_9 = PyTuple_New(2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 282, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_GIVEREF(__pyx_t_2);
       PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_2);
@@ -6982,13 +6666,13 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
       PyTuple_SET_ITEM(__pyx_t_9, 1, __pyx_t_1);
       __pyx_t_2 = 0;
       __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy), __pyx_t_9, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 306, __pyx_L3_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy), __pyx_t_9, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 282, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       ((struct __pyx_vtabstruct_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self->__pyx_vtab)->set_player_pos(__pyx_v_self, ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)__pyx_t_1), 0);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "environment/entities/cy/game_cy.pyx":307
+      /* "environment/entities/cy/game_cy.pyx":283
  *             self.set_player_angle(game[D_ANGLE])
  *             self.set_player_pos(Vec2dCy(game[D_POS][0], game[D_POS][1]))
  *             self.path = {p[0]: p[1] for p in game[D_PATH]}             # <<<<<<<<<<<<<<
@@ -6996,24 +6680,24 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
  *             self.walls = {Line2dCy(Vec2dCy(w[0][0], w[0][1]), Vec2dCy(w[1][0], w[1][1])) for w in game[D_WALLS]}
  */
       { /* enter inner scope */
-        __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 307, __pyx_L11_error)
+        __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 283, __pyx_L11_error)
         __Pyx_GOTREF(__pyx_t_1);
         if (unlikely(__pyx_v_game == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-          __PYX_ERR(0, 307, __pyx_L11_error)
+          __PYX_ERR(0, 283, __pyx_L11_error)
         }
-        __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_D_PATH); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 307, __pyx_L11_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_D_PATH); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 283, __pyx_L11_error)
         __Pyx_GOTREF(__pyx_t_9);
-        __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_9); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 307, __pyx_L11_error)
+        __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_9); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 283, __pyx_L11_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
         if (likely(PyList_CheckExact(__pyx_t_2)) || PyTuple_CheckExact(__pyx_t_2)) {
           __pyx_t_9 = __pyx_t_2; __Pyx_INCREF(__pyx_t_9); __pyx_t_12 = 0;
           __pyx_t_13 = NULL;
         } else {
-          __pyx_t_12 = -1; __pyx_t_9 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 307, __pyx_L11_error)
+          __pyx_t_12 = -1; __pyx_t_9 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 283, __pyx_L11_error)
           __Pyx_GOTREF(__pyx_t_9);
-          __pyx_t_13 = Py_TYPE(__pyx_t_9)->tp_iternext; if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 307, __pyx_L11_error)
+          __pyx_t_13 = Py_TYPE(__pyx_t_9)->tp_iternext; if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 283, __pyx_L11_error)
         }
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         for (;;) {
@@ -7021,17 +6705,17 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
             if (likely(PyList_CheckExact(__pyx_t_9))) {
               if (__pyx_t_12 >= PyList_GET_SIZE(__pyx_t_9)) break;
               #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-              __pyx_t_2 = PyList_GET_ITEM(__pyx_t_9, __pyx_t_12); __Pyx_INCREF(__pyx_t_2); __pyx_t_12++; if (unlikely(0 < 0)) __PYX_ERR(0, 307, __pyx_L11_error)
+              __pyx_t_2 = PyList_GET_ITEM(__pyx_t_9, __pyx_t_12); __Pyx_INCREF(__pyx_t_2); __pyx_t_12++; if (unlikely(0 < 0)) __PYX_ERR(0, 283, __pyx_L11_error)
               #else
-              __pyx_t_2 = PySequence_ITEM(__pyx_t_9, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 307, __pyx_L11_error)
+              __pyx_t_2 = PySequence_ITEM(__pyx_t_9, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 283, __pyx_L11_error)
               __Pyx_GOTREF(__pyx_t_2);
               #endif
             } else {
               if (__pyx_t_12 >= PyTuple_GET_SIZE(__pyx_t_9)) break;
               #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-              __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_9, __pyx_t_12); __Pyx_INCREF(__pyx_t_2); __pyx_t_12++; if (unlikely(0 < 0)) __PYX_ERR(0, 307, __pyx_L11_error)
+              __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_9, __pyx_t_12); __Pyx_INCREF(__pyx_t_2); __pyx_t_12++; if (unlikely(0 < 0)) __PYX_ERR(0, 283, __pyx_L11_error)
               #else
-              __pyx_t_2 = PySequence_ITEM(__pyx_t_9, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 307, __pyx_L11_error)
+              __pyx_t_2 = PySequence_ITEM(__pyx_t_9, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 283, __pyx_L11_error)
               __Pyx_GOTREF(__pyx_t_2);
               #endif
             }
@@ -7041,7 +6725,7 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
               PyObject* exc_type = PyErr_Occurred();
               if (exc_type) {
                 if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-                else __PYX_ERR(0, 307, __pyx_L11_error)
+                else __PYX_ERR(0, 283, __pyx_L11_error)
               }
               break;
             }
@@ -7049,11 +6733,11 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
           }
           __Pyx_XDECREF_SET(__pyx_7genexpr__pyx_v_p, __pyx_t_2);
           __pyx_t_2 = 0;
-          __pyx_t_2 = __Pyx_GetItemInt(__pyx_7genexpr__pyx_v_p, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 307, __pyx_L11_error)
+          __pyx_t_2 = __Pyx_GetItemInt(__pyx_7genexpr__pyx_v_p, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 283, __pyx_L11_error)
           __Pyx_GOTREF(__pyx_t_2);
-          __pyx_t_4 = __Pyx_GetItemInt(__pyx_7genexpr__pyx_v_p, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 307, __pyx_L11_error)
+          __pyx_t_4 = __Pyx_GetItemInt(__pyx_7genexpr__pyx_v_p, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 283, __pyx_L11_error)
           __Pyx_GOTREF(__pyx_t_4);
-          if (unlikely(PyDict_SetItem(__pyx_t_1, (PyObject*)__pyx_t_2, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 307, __pyx_L11_error)
+          if (unlikely(PyDict_SetItem(__pyx_t_1, (PyObject*)__pyx_t_2, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 283, __pyx_L11_error)
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         }
@@ -7071,7 +6755,7 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
       __pyx_v_self->path = ((PyObject*)__pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "environment/entities/cy/game_cy.pyx":308
+      /* "environment/entities/cy/game_cy.pyx":284
  *             self.set_player_pos(Vec2dCy(game[D_POS][0], game[D_POS][1]))
  *             self.path = {p[0]: p[1] for p in game[D_PATH]}
  *             self.target = Vec2dCy(game[D_TARGET][0], game[D_TARGET][1])             # <<<<<<<<<<<<<<
@@ -7080,29 +6764,29 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
  */
       if (unlikely(__pyx_v_game == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 308, __pyx_L3_error)
+        __PYX_ERR(0, 284, __pyx_L3_error)
       }
-      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_D_TARGET); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 308, __pyx_L3_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_D_TARGET); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 284, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_9 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 308, __pyx_L3_error)
+      __pyx_t_9 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 284, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_9, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 308, __pyx_L3_error)
+      __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_9, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 284, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       if (unlikely(__pyx_v_game == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 308, __pyx_L3_error)
+        __PYX_ERR(0, 284, __pyx_L3_error)
       }
-      __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_D_TARGET); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 308, __pyx_L3_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_D_TARGET); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 284, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_9);
-      __pyx_t_4 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_9); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 308, __pyx_L3_error)
+      __pyx_t_4 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_9); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 284, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __pyx_t_9 = __Pyx_GetItemInt(__pyx_t_4, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 308, __pyx_L3_error)
+      __pyx_t_9 = __Pyx_GetItemInt(__pyx_t_4, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 284, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 308, __pyx_L3_error)
+      __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 284, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_GIVEREF(__pyx_t_1);
       PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_1);
@@ -7110,7 +6794,7 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
       PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_9);
       __pyx_t_1 = 0;
       __pyx_t_9 = 0;
-      __pyx_t_9 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy), __pyx_t_4, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 308, __pyx_L3_error)
+      __pyx_t_9 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy), __pyx_t_4, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 284, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GIVEREF(__pyx_t_9);
@@ -7119,7 +6803,7 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
       __pyx_v_self->target = ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)__pyx_t_9);
       __pyx_t_9 = 0;
 
-      /* "environment/entities/cy/game_cy.pyx":309
+      /* "environment/entities/cy/game_cy.pyx":285
  *             self.path = {p[0]: p[1] for p in game[D_PATH]}
  *             self.target = Vec2dCy(game[D_TARGET][0], game[D_TARGET][1])
  *             self.walls = {Line2dCy(Vec2dCy(w[0][0], w[0][1]), Vec2dCy(w[1][0], w[1][1])) for w in game[D_WALLS]}             # <<<<<<<<<<<<<<
@@ -7127,24 +6811,24 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
  *             return True
  */
       { /* enter inner scope */
-        __pyx_t_9 = PySet_New(NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 309, __pyx_L17_error)
+        __pyx_t_9 = PySet_New(NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 285, __pyx_L17_error)
         __Pyx_GOTREF(__pyx_t_9);
         if (unlikely(__pyx_v_game == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-          __PYX_ERR(0, 309, __pyx_L17_error)
+          __PYX_ERR(0, 285, __pyx_L17_error)
         }
-        __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_D_WALLS); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 309, __pyx_L17_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_D_WALLS); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 285, __pyx_L17_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 309, __pyx_L17_error)
+        __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_game, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 285, __pyx_L17_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
           __pyx_t_4 = __pyx_t_1; __Pyx_INCREF(__pyx_t_4); __pyx_t_12 = 0;
           __pyx_t_13 = NULL;
         } else {
-          __pyx_t_12 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 309, __pyx_L17_error)
+          __pyx_t_12 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 285, __pyx_L17_error)
           __Pyx_GOTREF(__pyx_t_4);
-          __pyx_t_13 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 309, __pyx_L17_error)
+          __pyx_t_13 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 285, __pyx_L17_error)
         }
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         for (;;) {
@@ -7152,17 +6836,17 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
             if (likely(PyList_CheckExact(__pyx_t_4))) {
               if (__pyx_t_12 >= PyList_GET_SIZE(__pyx_t_4)) break;
               #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-              __pyx_t_1 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_12); __Pyx_INCREF(__pyx_t_1); __pyx_t_12++; if (unlikely(0 < 0)) __PYX_ERR(0, 309, __pyx_L17_error)
+              __pyx_t_1 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_12); __Pyx_INCREF(__pyx_t_1); __pyx_t_12++; if (unlikely(0 < 0)) __PYX_ERR(0, 285, __pyx_L17_error)
               #else
-              __pyx_t_1 = PySequence_ITEM(__pyx_t_4, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 309, __pyx_L17_error)
+              __pyx_t_1 = PySequence_ITEM(__pyx_t_4, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 285, __pyx_L17_error)
               __Pyx_GOTREF(__pyx_t_1);
               #endif
             } else {
               if (__pyx_t_12 >= PyTuple_GET_SIZE(__pyx_t_4)) break;
               #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-              __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_12); __Pyx_INCREF(__pyx_t_1); __pyx_t_12++; if (unlikely(0 < 0)) __PYX_ERR(0, 309, __pyx_L17_error)
+              __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_12); __Pyx_INCREF(__pyx_t_1); __pyx_t_12++; if (unlikely(0 < 0)) __PYX_ERR(0, 285, __pyx_L17_error)
               #else
-              __pyx_t_1 = PySequence_ITEM(__pyx_t_4, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 309, __pyx_L17_error)
+              __pyx_t_1 = PySequence_ITEM(__pyx_t_4, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 285, __pyx_L17_error)
               __Pyx_GOTREF(__pyx_t_1);
               #endif
             }
@@ -7172,7 +6856,7 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
               PyObject* exc_type = PyErr_Occurred();
               if (exc_type) {
                 if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-                else __PYX_ERR(0, 309, __pyx_L17_error)
+                else __PYX_ERR(0, 285, __pyx_L17_error)
               }
               break;
             }
@@ -7180,17 +6864,17 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
           }
           __Pyx_XDECREF_SET(__pyx_8genexpr1__pyx_v_w, __pyx_t_1);
           __pyx_t_1 = 0;
-          __pyx_t_1 = __Pyx_GetItemInt(__pyx_8genexpr1__pyx_v_w, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 309, __pyx_L17_error)
+          __pyx_t_1 = __Pyx_GetItemInt(__pyx_8genexpr1__pyx_v_w, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 285, __pyx_L17_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 309, __pyx_L17_error)
+          __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 285, __pyx_L17_error)
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __pyx_t_1 = __Pyx_GetItemInt(__pyx_8genexpr1__pyx_v_w, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 309, __pyx_L17_error)
+          __pyx_t_1 = __Pyx_GetItemInt(__pyx_8genexpr1__pyx_v_w, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 285, __pyx_L17_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 309, __pyx_L17_error)
+          __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 285, __pyx_L17_error)
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 309, __pyx_L17_error)
+          __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 285, __pyx_L17_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_GIVEREF(__pyx_t_2);
           PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_2);
@@ -7198,20 +6882,20 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
           PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_t_3);
           __pyx_t_2 = 0;
           __pyx_t_3 = 0;
-          __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy), __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 309, __pyx_L17_error)
+          __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy), __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 285, __pyx_L17_error)
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __pyx_t_1 = __Pyx_GetItemInt(__pyx_8genexpr1__pyx_v_w, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 309, __pyx_L17_error)
+          __pyx_t_1 = __Pyx_GetItemInt(__pyx_8genexpr1__pyx_v_w, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 285, __pyx_L17_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 309, __pyx_L17_error)
+          __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 285, __pyx_L17_error)
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __pyx_t_1 = __Pyx_GetItemInt(__pyx_8genexpr1__pyx_v_w, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 309, __pyx_L17_error)
+          __pyx_t_1 = __Pyx_GetItemInt(__pyx_8genexpr1__pyx_v_w, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 285, __pyx_L17_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_14 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 309, __pyx_L17_error)
+          __pyx_t_14 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 285, __pyx_L17_error)
           __Pyx_GOTREF(__pyx_t_14);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 309, __pyx_L17_error)
+          __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 285, __pyx_L17_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_GIVEREF(__pyx_t_2);
           PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_2);
@@ -7219,10 +6903,10 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
           PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_t_14);
           __pyx_t_2 = 0;
           __pyx_t_14 = 0;
-          __pyx_t_14 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy), __pyx_t_1, NULL); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 309, __pyx_L17_error)
+          __pyx_t_14 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy), __pyx_t_1, NULL); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 285, __pyx_L17_error)
           __Pyx_GOTREF(__pyx_t_14);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 309, __pyx_L17_error)
+          __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 285, __pyx_L17_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_GIVEREF(__pyx_t_3);
           PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_3);
@@ -7230,10 +6914,10 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
           PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_t_14);
           __pyx_t_3 = 0;
           __pyx_t_14 = 0;
-          __pyx_t_14 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy), __pyx_t_1, NULL); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 309, __pyx_L17_error)
+          __pyx_t_14 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy), __pyx_t_1, NULL); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 285, __pyx_L17_error)
           __Pyx_GOTREF(__pyx_t_14);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          if (unlikely(PySet_Add(__pyx_t_9, (PyObject*)__pyx_t_14))) __PYX_ERR(0, 309, __pyx_L17_error)
+          if (unlikely(PySet_Add(__pyx_t_9, (PyObject*)__pyx_t_14))) __PYX_ERR(0, 285, __pyx_L17_error)
           __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
         }
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -7250,7 +6934,7 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
       __pyx_v_self->walls = ((PyObject*)__pyx_t_9);
       __pyx_t_9 = 0;
 
-      /* "environment/entities/cy/game_cy.pyx":310
+      /* "environment/entities/cy/game_cy.pyx":286
  *             self.target = Vec2dCy(game[D_TARGET][0], game[D_TARGET][1])
  *             self.walls = {Line2dCy(Vec2dCy(w[0][0], w[0][1]), Vec2dCy(w[1][0], w[1][1])) for w in game[D_WALLS]}
  *             if not self.silent: print(f"Existing game loaded with id: {self.id}")             # <<<<<<<<<<<<<<
@@ -7259,16 +6943,16 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
  */
       __pyx_t_5 = ((!(__pyx_v_self->silent != 0)) != 0);
       if (__pyx_t_5) {
-        __pyx_t_9 = __Pyx_PyUnicode_From_int(__pyx_v_self->id, 0, ' ', 'd'); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 310, __pyx_L3_error)
+        __pyx_t_9 = __Pyx_PyUnicode_From_int(__pyx_v_self->id, 0, ' ', 'd'); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 286, __pyx_L3_error)
         __Pyx_GOTREF(__pyx_t_9);
-        __pyx_t_4 = __Pyx_PyUnicode_Concat(__pyx_kp_u_Existing_game_loaded_with_id, __pyx_t_9); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 310, __pyx_L3_error)
+        __pyx_t_4 = __Pyx_PyUnicode_Concat(__pyx_kp_u_Existing_game_loaded_with_id, __pyx_t_9); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 286, __pyx_L3_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-        if (__Pyx_PrintOne(0, __pyx_t_4) < 0) __PYX_ERR(0, 310, __pyx_L3_error)
+        if (__Pyx_PrintOne(0, __pyx_t_4) < 0) __PYX_ERR(0, 286, __pyx_L3_error)
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       }
 
-      /* "environment/entities/cy/game_cy.pyx":311
+      /* "environment/entities/cy/game_cy.pyx":287
  *             self.walls = {Line2dCy(Vec2dCy(w[0][0], w[0][1]), Vec2dCy(w[1][0], w[1][1])) for w in game[D_WALLS]}
  *             if not self.silent: print(f"Existing game loaded with id: {self.id}")
  *             return True             # <<<<<<<<<<<<<<
@@ -7278,7 +6962,7 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
       __pyx_r = 1;
       goto __pyx_L7_try_return;
 
-      /* "environment/entities/cy/game_cy.pyx":289
+      /* "environment/entities/cy/game_cy.pyx":265
  *         cdef dict game
  * 
  *         try:             # <<<<<<<<<<<<<<
@@ -7294,7 +6978,7 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-    /* "environment/entities/cy/game_cy.pyx":312
+    /* "environment/entities/cy/game_cy.pyx":288
  *             if not self.silent: print(f"Existing game loaded with id: {self.id}")
  *             return True
  *         except FileNotFoundError:             # <<<<<<<<<<<<<<
@@ -7302,7 +6986,7 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
  * 
  */
     __Pyx_ErrFetch(&__pyx_t_4, &__pyx_t_9, &__pyx_t_14);
-    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_FileNotFoundError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 312, __pyx_L5_except_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_FileNotFoundError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 288, __pyx_L5_except_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_11 = __Pyx_PyErr_GivenExceptionMatches(__pyx_t_4, __pyx_t_1);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -7310,12 +6994,12 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
     __pyx_t_4 = 0; __pyx_t_9 = 0; __pyx_t_14 = 0;
     if (__pyx_t_11) {
       __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.load", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_14, &__pyx_t_9, &__pyx_t_4) < 0) __PYX_ERR(0, 312, __pyx_L5_except_error)
+      if (__Pyx_GetException(&__pyx_t_14, &__pyx_t_9, &__pyx_t_4) < 0) __PYX_ERR(0, 288, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_14);
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_GOTREF(__pyx_t_4);
 
-      /* "environment/entities/cy/game_cy.pyx":313
+      /* "environment/entities/cy/game_cy.pyx":289
  *             return True
  *         except FileNotFoundError:
  *             return False             # <<<<<<<<<<<<<<
@@ -7331,7 +7015,7 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
     goto __pyx_L5_except_error;
     __pyx_L5_except_error:;
 
-    /* "environment/entities/cy/game_cy.pyx":289
+    /* "environment/entities/cy/game_cy.pyx":265
  *         cdef dict game
  * 
  *         try:             # <<<<<<<<<<<<<<
@@ -7357,7 +7041,7 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
     goto __pyx_L0;
   }
 
-  /* "environment/entities/cy/game_cy.pyx":280
+  /* "environment/entities/cy/game_cy.pyx":256
  *         store_pickle(persist_dict, f'{self.save_path}{self}')
  * 
  *     cpdef bint load(self):             # <<<<<<<<<<<<<<
@@ -7384,26 +7068,26 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_29load(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_28load[] = "\n        Load in a game, specified by its current id.\n\n        :return: True: game successfully loaded | False: otherwise\n        ";
-static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_29load(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_27load(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_26load[] = "\n        Load in a game, specified by its current id.\n\n        :return: True: game successfully loaded | False: otherwise\n        ";
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_27load(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("load (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_28load(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_26load(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_28load(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_26load(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("load", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 280, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 256, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -7420,7 +7104,7 @@ static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_28load(st
   return __pyx_r;
 }
 
-/* "environment/entities/cy/game_cy.pyx":315
+/* "environment/entities/cy/game_cy.pyx":291
  *             return False
  * 
  *     cpdef get_blueprint(self, ax=None):             # <<<<<<<<<<<<<<
@@ -7428,7 +7112,7 @@ static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_28load(st
  *         :return: The blue-print map of the board (matplotlib Figure)
  */
 
-static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_31get_blueprint(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_29get_blueprint(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
 static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_blueprint(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, int __pyx_skip_dispatch, struct __pyx_opt_args_11environment_8entities_2cy_7game_cy_6GameCy_get_blueprint *__pyx_optional_args) {
   PyObject *__pyx_v_ax = ((PyObject *)Py_None);
   PyObject *__pyx_v_walls = 0;
@@ -7466,9 +7150,9 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_bluepr
     if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
       PY_UINT64_T __pyx_type_dict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
       #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_blueprint); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 315, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_blueprint); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 291, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_31get_blueprint)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_29get_blueprint)) {
         __Pyx_XDECREF(__pyx_r);
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
@@ -7483,7 +7167,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_bluepr
         }
         __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_4, __pyx_v_ax) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_ax);
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 315, __pyx_L1_error)
+        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 291, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __pyx_r = __pyx_t_2;
@@ -7504,19 +7188,19 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_bluepr
     #endif
   }
 
-  /* "environment/entities/cy/game_cy.pyx":323
+  /* "environment/entities/cy/game_cy.pyx":299
  *         cdef Line2dCy w
  * 
  *         if not ax: fig, ax = pl.subplots()             # <<<<<<<<<<<<<<
  * 
  *         # Draw all the walls
  */
-  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_v_ax); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 323, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_v_ax); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 299, __pyx_L1_error)
   __pyx_t_6 = ((!__pyx_t_5) != 0);
   if (__pyx_t_6) {
-    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_pl); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 323, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_pl); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 299, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_subplots); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 323, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_subplots); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 299, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_2 = NULL;
@@ -7531,7 +7215,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_bluepr
     }
     __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 323, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 299, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     if ((likely(PyTuple_CheckExact(__pyx_t_1))) || (PyList_CheckExact(__pyx_t_1))) {
@@ -7540,7 +7224,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_bluepr
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 323, __pyx_L1_error)
+        __PYX_ERR(0, 299, __pyx_L1_error)
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -7553,15 +7237,15 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_bluepr
       __Pyx_INCREF(__pyx_t_3);
       __Pyx_INCREF(__pyx_t_2);
       #else
-      __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 323, __pyx_L1_error)
+      __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 299, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_2 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 323, __pyx_L1_error)
+      __pyx_t_2 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 299, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       #endif
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_4 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 323, __pyx_L1_error)
+      __pyx_t_4 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 299, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_7 = Py_TYPE(__pyx_t_4)->tp_iternext;
@@ -7569,7 +7253,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_bluepr
       __Pyx_GOTREF(__pyx_t_3);
       index = 1; __pyx_t_2 = __pyx_t_7(__pyx_t_4); if (unlikely(!__pyx_t_2)) goto __pyx_L4_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_2);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_7(__pyx_t_4), 2) < 0) __PYX_ERR(0, 323, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_7(__pyx_t_4), 2) < 0) __PYX_ERR(0, 299, __pyx_L1_error)
       __pyx_t_7 = NULL;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       goto __pyx_L5_unpacking_done;
@@ -7577,7 +7261,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_bluepr
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __pyx_t_7 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 323, __pyx_L1_error)
+      __PYX_ERR(0, 299, __pyx_L1_error)
       __pyx_L5_unpacking_done:;
     }
     __pyx_v_fig = __pyx_t_3;
@@ -7586,19 +7270,19 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_bluepr
     __pyx_t_2 = 0;
   }
 
-  /* "environment/entities/cy/game_cy.pyx":326
+  /* "environment/entities/cy/game_cy.pyx":302
  * 
  *         # Draw all the walls
  *         walls = []             # <<<<<<<<<<<<<<
  *         for w in self.walls: walls.append([(w.x.x, w.x.y), (w.y.x, w.y.y)])
  *         lc = mc.LineCollection(walls, linewidths=2, colors='k')
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 326, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 302, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_walls = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":327
+  /* "environment/entities/cy/game_cy.pyx":303
  *         # Draw all the walls
  *         walls = []
  *         for w in self.walls: walls.append([(w.x.x, w.x.y), (w.y.x, w.y.y)])             # <<<<<<<<<<<<<<
@@ -7606,7 +7290,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_bluepr
  *         ax.add_collection(lc)
  */
   __pyx_t_8 = 0;
-  __pyx_t_2 = __Pyx_set_iterator(__pyx_v_self->walls, 1, (&__pyx_t_9), (&__pyx_t_10)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 327, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_set_iterator(__pyx_v_self->walls, 1, (&__pyx_t_9), (&__pyx_t_10)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 303, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_1);
   __pyx_t_1 = __pyx_t_2;
@@ -7614,16 +7298,16 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_bluepr
   while (1) {
     __pyx_t_11 = __Pyx_set_iter_next(__pyx_t_1, __pyx_t_9, &__pyx_t_8, &__pyx_t_2, __pyx_t_10);
     if (unlikely(__pyx_t_11 == 0)) break;
-    if (unlikely(__pyx_t_11 == -1)) __PYX_ERR(0, 327, __pyx_L1_error)
+    if (unlikely(__pyx_t_11 == -1)) __PYX_ERR(0, 303, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy))))) __PYX_ERR(0, 327, __pyx_L1_error)
+    if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy))))) __PYX_ERR(0, 303, __pyx_L1_error)
     __Pyx_XDECREF_SET(__pyx_v_w, ((struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *)__pyx_t_2));
     __pyx_t_2 = 0;
-    __pyx_t_2 = PyFloat_FromDouble(__pyx_v_w->x->x); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 327, __pyx_L1_error)
+    __pyx_t_2 = PyFloat_FromDouble(__pyx_v_w->x->x); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 303, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = PyFloat_FromDouble(__pyx_v_w->x->y); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 327, __pyx_L1_error)
+    __pyx_t_3 = PyFloat_FromDouble(__pyx_v_w->x->y); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 303, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 327, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 303, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_GIVEREF(__pyx_t_2);
     PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2);
@@ -7631,11 +7315,11 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_bluepr
     PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_3);
     __pyx_t_2 = 0;
     __pyx_t_3 = 0;
-    __pyx_t_3 = PyFloat_FromDouble(__pyx_v_w->y->x); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 327, __pyx_L1_error)
+    __pyx_t_3 = PyFloat_FromDouble(__pyx_v_w->y->x); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 303, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_2 = PyFloat_FromDouble(__pyx_v_w->y->y); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 327, __pyx_L1_error)
+    __pyx_t_2 = PyFloat_FromDouble(__pyx_v_w->y->y); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 303, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_12 = PyTuple_New(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 327, __pyx_L1_error)
+    __pyx_t_12 = PyTuple_New(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 303, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_GIVEREF(__pyx_t_3);
     PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_3);
@@ -7643,7 +7327,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_bluepr
     PyTuple_SET_ITEM(__pyx_t_12, 1, __pyx_t_2);
     __pyx_t_3 = 0;
     __pyx_t_2 = 0;
-    __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 327, __pyx_L1_error)
+    __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 303, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_GIVEREF(__pyx_t_4);
     PyList_SET_ITEM(__pyx_t_2, 0, __pyx_t_4);
@@ -7651,33 +7335,33 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_bluepr
     PyList_SET_ITEM(__pyx_t_2, 1, __pyx_t_12);
     __pyx_t_4 = 0;
     __pyx_t_12 = 0;
-    __pyx_t_13 = __Pyx_PyList_Append(__pyx_v_walls, __pyx_t_2); if (unlikely(__pyx_t_13 == ((int)-1))) __PYX_ERR(0, 327, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyList_Append(__pyx_v_walls, __pyx_t_2); if (unlikely(__pyx_t_13 == ((int)-1))) __PYX_ERR(0, 303, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":328
+  /* "environment/entities/cy/game_cy.pyx":304
  *         walls = []
  *         for w in self.walls: walls.append([(w.x.x, w.x.y), (w.y.x, w.y.y)])
  *         lc = mc.LineCollection(walls, linewidths=2, colors='k')             # <<<<<<<<<<<<<<
  *         ax.add_collection(lc)
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_mc); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 328, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_mc); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 304, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_LineCollection); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 328, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_LineCollection); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 304, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 328, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 304, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_v_walls);
   __Pyx_GIVEREF(__pyx_v_walls);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_walls);
-  __pyx_t_12 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 328, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 304, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
-  if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_linewidths, __pyx_int_2) < 0) __PYX_ERR(0, 328, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_colors, __pyx_n_s_k) < 0) __PYX_ERR(0, 328, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, __pyx_t_12); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 328, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_linewidths, __pyx_int_2) < 0) __PYX_ERR(0, 304, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_colors, __pyx_n_s_k) < 0) __PYX_ERR(0, 304, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, __pyx_t_12); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 304, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -7685,14 +7369,14 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_bluepr
   __pyx_v_lc = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":329
+  /* "environment/entities/cy/game_cy.pyx":305
  *         for w in self.walls: walls.append([(w.x.x, w.x.y), (w.y.x, w.y.y)])
  *         lc = mc.LineCollection(walls, linewidths=2, colors='k')
  *         ax.add_collection(lc)             # <<<<<<<<<<<<<<
  * 
  *         # Add target to map
  */
-  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_ax, __pyx_n_s_add_collection); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 329, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_ax, __pyx_n_s_add_collection); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 305, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __pyx_t_1 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_12))) {
@@ -7706,24 +7390,24 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_bluepr
   }
   __pyx_t_4 = (__pyx_t_1) ? __Pyx_PyObject_Call2Args(__pyx_t_12, __pyx_t_1, __pyx_v_lc) : __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_v_lc);
   __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 329, __pyx_L1_error)
+  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 305, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":332
+  /* "environment/entities/cy/game_cy.pyx":308
  * 
  *         # Add target to map
  *         pl.plot(0.5, self.y_axis - 0.5, 'go')             # <<<<<<<<<<<<<<
  * 
  *         # Adjust the boundaries
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_pl); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 332, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_pl); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 308, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_plot); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 332, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_plot); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 308, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-  __pyx_t_12 = PyFloat_FromDouble((__pyx_v_self->y_axis - 0.5)); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 332, __pyx_L1_error)
+  __pyx_t_12 = PyFloat_FromDouble((__pyx_v_self->y_axis - 0.5)); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 308, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __pyx_t_2 = NULL;
   __pyx_t_10 = 0;
@@ -7740,7 +7424,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_bluepr
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_1)) {
     PyObject *__pyx_temp[4] = {__pyx_t_2, __pyx_float_0_5, __pyx_t_12, __pyx_n_s_go};
-    __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_10, 3+__pyx_t_10); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 332, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_10, 3+__pyx_t_10); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 308, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
@@ -7749,14 +7433,14 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_bluepr
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
     PyObject *__pyx_temp[4] = {__pyx_t_2, __pyx_float_0_5, __pyx_t_12, __pyx_n_s_go};
-    __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_10, 3+__pyx_t_10); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 332, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_10, 3+__pyx_t_10); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 308, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
   } else
   #endif
   {
-    __pyx_t_3 = PyTuple_New(3+__pyx_t_10); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 332, __pyx_L1_error)
+    __pyx_t_3 = PyTuple_New(3+__pyx_t_10); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 308, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     if (__pyx_t_2) {
       __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2); __pyx_t_2 = NULL;
@@ -7770,26 +7454,26 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_bluepr
     __Pyx_GIVEREF(__pyx_n_s_go);
     PyTuple_SET_ITEM(__pyx_t_3, 2+__pyx_t_10, __pyx_n_s_go);
     __pyx_t_12 = 0;
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 332, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 308, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":335
+  /* "environment/entities/cy/game_cy.pyx":311
  * 
  *         # Adjust the boundaries
  *         pl.xlim(0, self.x_axis)             # <<<<<<<<<<<<<<
  *         pl.ylim(0, self.y_axis)
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pl); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 335, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pl); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 311, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_xlim); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 335, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_xlim); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 311, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->x_axis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 335, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->x_axis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 311, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_12 = NULL;
   __pyx_t_10 = 0;
@@ -7806,7 +7490,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_bluepr
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_3)) {
     PyObject *__pyx_temp[3] = {__pyx_t_12, __pyx_int_0, __pyx_t_1};
-    __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 335, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 311, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -7815,14 +7499,14 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_bluepr
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
     PyObject *__pyx_temp[3] = {__pyx_t_12, __pyx_int_0, __pyx_t_1};
-    __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 335, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 311, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   } else
   #endif
   {
-    __pyx_t_2 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 335, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 311, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     if (__pyx_t_12) {
       __Pyx_GIVEREF(__pyx_t_12); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_12); __pyx_t_12 = NULL;
@@ -7833,26 +7517,26 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_bluepr
     __Pyx_GIVEREF(__pyx_t_1);
     PyTuple_SET_ITEM(__pyx_t_2, 1+__pyx_t_10, __pyx_t_1);
     __pyx_t_1 = 0;
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_2, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 335, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_2, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 311, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":336
+  /* "environment/entities/cy/game_cy.pyx":312
  *         # Adjust the boundaries
  *         pl.xlim(0, self.x_axis)
  *         pl.ylim(0, self.y_axis)             # <<<<<<<<<<<<<<
  * 
  *         # Return the figure in its current state
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_pl); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 336, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_pl); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 312, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_ylim); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 336, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_ylim); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 312, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_self->y_axis); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 336, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_self->y_axis); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 312, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_1 = NULL;
   __pyx_t_10 = 0;
@@ -7869,7 +7553,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_bluepr
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_int_0, __pyx_t_3};
-    __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 336, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 312, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -7878,14 +7562,14 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_bluepr
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_int_0, __pyx_t_3};
-    __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 336, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 312, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else
   #endif
   {
-    __pyx_t_12 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 336, __pyx_L1_error)
+    __pyx_t_12 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 312, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     if (__pyx_t_1) {
       __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_1); __pyx_t_1 = NULL;
@@ -7896,14 +7580,14 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_bluepr
     __Pyx_GIVEREF(__pyx_t_3);
     PyTuple_SET_ITEM(__pyx_t_12, 1+__pyx_t_10, __pyx_t_3);
     __pyx_t_3 = 0;
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_12, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 336, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_12, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 312, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":339
+  /* "environment/entities/cy/game_cy.pyx":315
  * 
  *         # Return the figure in its current state
  *         return ax             # <<<<<<<<<<<<<<
@@ -7915,7 +7599,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_bluepr
   __pyx_r = __pyx_v_ax;
   goto __pyx_L0;
 
-  /* "environment/entities/cy/game_cy.pyx":315
+  /* "environment/entities/cy/game_cy.pyx":291
  *             return False
  * 
  *     cpdef get_blueprint(self, ax=None):             # <<<<<<<<<<<<<<
@@ -7944,9 +7628,9 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_bluepr
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_31get_blueprint(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_30get_blueprint[] = "\n        :return: The blue-print map of the board (matplotlib Figure)\n        ";
-static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_31get_blueprint(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_29get_blueprint(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_28get_blueprint[] = "\n        :return: The blue-print map of the board (matplotlib Figure)\n        ";
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_29get_blueprint(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_ax = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -7973,7 +7657,7 @@ static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_31get_blu
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get_blueprint") < 0)) __PYX_ERR(0, 315, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get_blueprint") < 0)) __PYX_ERR(0, 291, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -7987,20 +7671,20 @@ static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_31get_blu
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("get_blueprint", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 315, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("get_blueprint", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 291, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.get_blueprint", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_30get_blueprint(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self), __pyx_v_ax);
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_28get_blueprint(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self), __pyx_v_ax);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_30get_blueprint(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_ax) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_28get_blueprint(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v_ax) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -8009,7 +7693,7 @@ static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_30get_blu
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_2.__pyx_n = 1;
   __pyx_t_2.ax = __pyx_v_ax;
-  __pyx_t_1 = __pyx_vtabptr_11environment_8entities_2cy_7game_cy_GameCy->get_blueprint(__pyx_v_self, 1, &__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 315, __pyx_L1_error)
+  __pyx_t_1 = __pyx_vtabptr_11environment_8entities_2cy_7game_cy_GameCy->get_blueprint(__pyx_v_self, 1, &__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 291, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -10094,19 +9778,19 @@ static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_9save_path_4__d
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_33__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_33__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_31__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_31__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_32__reduce_cython__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_30__reduce_cython__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_32__reduce_cython__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_30__reduce_cython__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self) {
   PyObject *__pyx_v_state = 0;
   PyObject *__pyx_v__dict = 0;
   int __pyx_v_use_setstate;
@@ -10520,19 +10204,19 @@ static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_32__reduc
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_35__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
-static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_35__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_33__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_33__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_34__setstate_cython__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+  __pyx_r = __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_32__setstate_cython__(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_34__setstate_cython__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_32__setstate_cython__(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -10568,7 +10252,7 @@ static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_34__setst
   return __pyx_r;
 }
 
-/* "environment/entities/cy/game_cy.pyx":342
+/* "environment/entities/cy/game_cy.pyx":318
  * 
  * 
  * cpdef list get_boundary_walls(int x_axis, int y_axis):             # <<<<<<<<<<<<<<
@@ -10591,28 +10275,28 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_get_boundary_walls
   PyObject *__pyx_t_5 = NULL;
   __Pyx_RefNannySetupContext("get_boundary_walls", 0);
 
-  /* "environment/entities/cy/game_cy.pyx":344
+  /* "environment/entities/cy/game_cy.pyx":320
  * cpdef list get_boundary_walls(int x_axis, int y_axis):
  *     """ :return: Set of the four boundary walls """
  *     a = Vec2dCy(0, 0)             # <<<<<<<<<<<<<<
  *     b = Vec2dCy(x_axis, 0)
  *     c = Vec2dCy(x_axis, y_axis)
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy), __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 344, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy), __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 320, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_a = ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":345
+  /* "environment/entities/cy/game_cy.pyx":321
  *     """ :return: Set of the four boundary walls """
  *     a = Vec2dCy(0, 0)
  *     b = Vec2dCy(x_axis, 0)             # <<<<<<<<<<<<<<
  *     c = Vec2dCy(x_axis, y_axis)
  *     d = Vec2dCy(0, y_axis)
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_x_axis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 345, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_x_axis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 321, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 345, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 321, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
@@ -10620,24 +10304,24 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_get_boundary_walls
   __Pyx_GIVEREF(__pyx_int_0);
   PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_int_0);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 345, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 321, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_b = ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":346
+  /* "environment/entities/cy/game_cy.pyx":322
  *     a = Vec2dCy(0, 0)
  *     b = Vec2dCy(x_axis, 0)
  *     c = Vec2dCy(x_axis, y_axis)             # <<<<<<<<<<<<<<
  *     d = Vec2dCy(0, y_axis)
  *     return {Line2dCy(a, b), Line2dCy(b, c), Line2dCy(c, d), Line2dCy(d, a)}
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_x_axis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 346, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_x_axis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 322, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_y_axis); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 346, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_y_axis); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 322, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 346, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 322, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
@@ -10645,21 +10329,21 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_get_boundary_walls
   PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_2);
   __pyx_t_1 = 0;
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy), __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 346, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy), __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 322, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_c = ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":347
+  /* "environment/entities/cy/game_cy.pyx":323
  *     b = Vec2dCy(x_axis, 0)
  *     c = Vec2dCy(x_axis, y_axis)
  *     d = Vec2dCy(0, y_axis)             # <<<<<<<<<<<<<<
  *     return {Line2dCy(a, b), Line2dCy(b, c), Line2dCy(c, d), Line2dCy(d, a)}
  */
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_y_axis); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 347, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_y_axis); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 323, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 347, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 323, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_INCREF(__pyx_int_0);
   __Pyx_GIVEREF(__pyx_int_0);
@@ -10667,19 +10351,19 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_get_boundary_walls
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy), __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 347, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy), __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 323, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_d = ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "environment/entities/cy/game_cy.pyx":348
+  /* "environment/entities/cy/game_cy.pyx":324
  *     c = Vec2dCy(x_axis, y_axis)
  *     d = Vec2dCy(0, y_axis)
  *     return {Line2dCy(a, b), Line2dCy(b, c), Line2dCy(c, d), Line2dCy(d, a)}             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 348, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 324, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(((PyObject *)__pyx_v_a));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_a));
@@ -10687,10 +10371,10 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_get_boundary_walls
   __Pyx_INCREF(((PyObject *)__pyx_v_b));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_b));
   PyTuple_SET_ITEM(__pyx_t_2, 1, ((PyObject *)__pyx_v_b));
-  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 348, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 324, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 348, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 324, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(((PyObject *)__pyx_v_b));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_b));
@@ -10698,10 +10382,10 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_get_boundary_walls
   __Pyx_INCREF(((PyObject *)__pyx_v_c));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_c));
   PyTuple_SET_ITEM(__pyx_t_2, 1, ((PyObject *)__pyx_v_c));
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 348, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 324, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 348, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 324, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(((PyObject *)__pyx_v_c));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_c));
@@ -10709,10 +10393,10 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_get_boundary_walls
   __Pyx_INCREF(((PyObject *)__pyx_v_d));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_d));
   PyTuple_SET_ITEM(__pyx_t_2, 1, ((PyObject *)__pyx_v_d));
-  __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 348, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 324, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 348, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 324, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(((PyObject *)__pyx_v_d));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_d));
@@ -10720,25 +10404,25 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_get_boundary_walls
   __Pyx_INCREF(((PyObject *)__pyx_v_a));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_a));
   PyTuple_SET_ITEM(__pyx_t_2, 1, ((PyObject *)__pyx_v_a));
-  __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 348, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy), __pyx_t_2, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 324, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PySet_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 348, __pyx_L1_error)
+  __pyx_t_2 = PySet_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 324, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PySet_Add(__pyx_t_2, __pyx_t_3) < 0) __PYX_ERR(0, 348, __pyx_L1_error)
+  if (PySet_Add(__pyx_t_2, __pyx_t_3) < 0) __PYX_ERR(0, 324, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PySet_Add(__pyx_t_2, __pyx_t_1) < 0) __PYX_ERR(0, 348, __pyx_L1_error)
+  if (PySet_Add(__pyx_t_2, __pyx_t_1) < 0) __PYX_ERR(0, 324, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PySet_Add(__pyx_t_2, __pyx_t_4) < 0) __PYX_ERR(0, 348, __pyx_L1_error)
+  if (PySet_Add(__pyx_t_2, __pyx_t_4) < 0) __PYX_ERR(0, 324, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PySet_Add(__pyx_t_2, __pyx_t_5) < 0) __PYX_ERR(0, 348, __pyx_L1_error)
+  if (PySet_Add(__pyx_t_2, __pyx_t_5) < 0) __PYX_ERR(0, 324, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (!(likely(PyList_CheckExact(__pyx_t_2))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_2)->tp_name), 0))) __PYX_ERR(0, 348, __pyx_L1_error)
+  if (!(likely(PyList_CheckExact(__pyx_t_2))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_2)->tp_name), 0))) __PYX_ERR(0, 324, __pyx_L1_error)
   __pyx_r = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "environment/entities/cy/game_cy.pyx":342
+  /* "environment/entities/cy/game_cy.pyx":318
  * 
  * 
  * cpdef list get_boundary_walls(int x_axis, int y_axis):             # <<<<<<<<<<<<<<
@@ -10797,11 +10481,11 @@ static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_1get_boundary_wal
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_y_axis)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("get_boundary_walls", 1, 2, 2, 1); __PYX_ERR(0, 342, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("get_boundary_walls", 1, 2, 2, 1); __PYX_ERR(0, 318, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get_boundary_walls") < 0)) __PYX_ERR(0, 342, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get_boundary_walls") < 0)) __PYX_ERR(0, 318, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -10809,12 +10493,12 @@ static PyObject *__pyx_pw_11environment_8entities_2cy_7game_cy_1get_boundary_wal
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
-    __pyx_v_x_axis = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_x_axis == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 342, __pyx_L3_error)
-    __pyx_v_y_axis = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_y_axis == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 342, __pyx_L3_error)
+    __pyx_v_x_axis = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_x_axis == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 318, __pyx_L3_error)
+    __pyx_v_y_axis = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_y_axis == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 318, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("get_boundary_walls", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 342, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("get_boundary_walls", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 318, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("environment.entities.cy.game_cy.get_boundary_walls", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -10833,7 +10517,7 @@ static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_get_boundary_wall
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_boundary_walls", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_11environment_8entities_2cy_7game_cy_get_boundary_walls(__pyx_v_x_axis, __pyx_v_y_axis, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 342, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_11environment_8entities_2cy_7game_cy_get_boundary_walls(__pyx_v_x_axis, __pyx_v_y_axis, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 318, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -14358,15 +14042,14 @@ static PyMethodDef __pyx_methods_11environment_8entities_2cy_7game_cy_GameCy[] =
   {"step", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_13step, METH_VARARGS|METH_KEYWORDS, __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_12step},
   {"step_dt", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_15step_dt, METH_VARARGS|METH_KEYWORDS, __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_14step_dt},
   {"create_empty_game", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_17create_empty_game, METH_NOARGS, __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_16create_empty_game},
-  {"get_sensor_list", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_19get_sensor_list, METH_NOARGS, __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_18get_sensor_list},
-  {"set_config_params", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_21set_config_params, METH_O, __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_20set_config_params},
-  {"set_player_angle", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_23set_player_angle, METH_O, __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_22set_player_angle},
-  {"set_player_pos", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_25set_player_pos, METH_O, __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_24set_player_pos},
-  {"save", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_27save, METH_NOARGS, 0},
-  {"load", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_29load, METH_NOARGS, __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_28load},
-  {"get_blueprint", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_31get_blueprint, METH_VARARGS|METH_KEYWORDS, __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_30get_blueprint},
-  {"__reduce_cython__", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_33__reduce_cython__, METH_NOARGS, 0},
-  {"__setstate_cython__", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_35__setstate_cython__, METH_O, 0},
+  {"set_config_params", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_19set_config_params, METH_O, __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_18set_config_params},
+  {"set_player_angle", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_21set_player_angle, METH_O, __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_20set_player_angle},
+  {"set_player_pos", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_23set_player_pos, METH_O, __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_22set_player_pos},
+  {"save", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_25save, METH_NOARGS, 0},
+  {"load", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_27load, METH_NOARGS, __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_26load},
+  {"get_blueprint", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_29get_blueprint, METH_VARARGS|METH_KEYWORDS, __pyx_doc_11environment_8entities_2cy_7game_cy_6GameCy_28get_blueprint},
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_31__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_11environment_8entities_2cy_7game_cy_6GameCy_33__setstate_cython__, METH_O, 0},
   {0, 0, 0, 0}
 };
 
@@ -14481,8 +14164,6 @@ static int __pyx_import_star_set(PyObject *o, PyObject* py_name, char *name) {
     "GameCy",
     "Line2dCy",
     "Vec2dCy",
-    "__pyx_ctuple_Py_ssize_t",
-    "__pyx_ctuple_Py_ssize_t_struct",
     "__pyx_ctuple_double__and_double",
     "__pyx_ctuple_double__and_double_struct",
     "__pyx_ctuple_float",
@@ -14689,10 +14370,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_D_PATH, __pyx_k_D_PATH, sizeof(__pyx_k_D_PATH), 0, 0, 1, 1},
   {&__pyx_n_s_D_POS, __pyx_k_D_POS, sizeof(__pyx_k_D_POS), 0, 0, 1, 1},
   {&__pyx_n_s_D_PTM, __pyx_k_D_PTM, sizeof(__pyx_k_D_PTM), 0, 0, 1, 1},
-  {&__pyx_n_s_D_SENSOR_ANGLE, __pyx_k_D_SENSOR_ANGLE, sizeof(__pyx_k_D_SENSOR_ANGLE), 0, 0, 1, 1},
-  {&__pyx_n_s_D_SENSOR_DISTANCE, __pyx_k_D_SENSOR_DISTANCE, sizeof(__pyx_k_D_SENSOR_DISTANCE), 0, 0, 1, 1},
   {&__pyx_n_s_D_SENSOR_LIST, __pyx_k_D_SENSOR_LIST, sizeof(__pyx_k_D_SENSOR_LIST), 0, 0, 1, 1},
-  {&__pyx_n_s_D_SENSOR_PROXIMITY, __pyx_k_D_SENSOR_PROXIMITY, sizeof(__pyx_k_D_SENSOR_PROXIMITY), 0, 0, 1, 1},
   {&__pyx_n_s_D_SENSOR_RAY_DISTANCE, __pyx_k_D_SENSOR_RAY_DISTANCE, sizeof(__pyx_k_D_SENSOR_RAY_DISTANCE), 0, 0, 1, 1},
   {&__pyx_n_s_D_STEPS, __pyx_k_D_STEPS, sizeof(__pyx_k_D_STEPS), 0, 0, 1, 1},
   {&__pyx_n_s_D_TARGET, __pyx_k_D_TARGET, sizeof(__pyx_k_D_TARGET), 0, 0, 1, 1},
@@ -14743,7 +14421,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_gauss, __pyx_k_gauss, sizeof(__pyx_k_gauss), 0, 0, 1, 1},
   {&__pyx_n_s_get_blueprint, __pyx_k_get_blueprint, sizeof(__pyx_k_get_blueprint), 0, 0, 1, 1},
   {&__pyx_n_s_get_observation, __pyx_k_get_observation, sizeof(__pyx_k_get_observation), 0, 0, 1, 1},
-  {&__pyx_n_s_get_sensor_list, __pyx_k_get_sensor_list, sizeof(__pyx_k_get_sensor_list), 0, 0, 1, 1},
   {&__pyx_n_s_getstate, __pyx_k_getstate, sizeof(__pyx_k_getstate), 0, 0, 1, 1},
   {&__pyx_n_s_go, __pyx_k_go, sizeof(__pyx_k_go), 0, 0, 1, 1},
   {&__pyx_n_s_id, __pyx_k_id, sizeof(__pyx_k_id), 0, 0, 1, 1},
@@ -14829,8 +14506,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 217, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(3, 272, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(3, 285, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(3, 856, __pyx_L1_error)
   __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(3, 1038, __pyx_L1_error)
   return 0;
@@ -14842,14 +14519,14 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "environment/entities/cy/game_cy.pyx":344
+  /* "environment/entities/cy/game_cy.pyx":320
  * cpdef list get_boundary_walls(int x_axis, int y_axis):
  *     """ :return: Set of the four boundary walls """
  *     a = Vec2dCy(0, 0)             # <<<<<<<<<<<<<<
  *     b = Vec2dCy(x_axis, 0)
  *     c = Vec2dCy(x_axis, y_axis)
  */
-  __pyx_tuple__2 = PyTuple_Pack(2, __pyx_int_0, __pyx_int_0); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 344, __pyx_L1_error)
+  __pyx_tuple__2 = PyTuple_Pack(2, __pyx_int_0, __pyx_int_0); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 320, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
@@ -15017,7 +14694,6 @@ static int __Pyx_modinit_type_init_code(void) {
   __pyx_vtable_11environment_8entities_2cy_7game_cy_GameCy.step = (PyObject *(*)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, float, float, int __pyx_skip_dispatch))__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_step;
   __pyx_vtable_11environment_8entities_2cy_7game_cy_GameCy.step_dt = (PyObject *(*)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, float, float, float, int __pyx_skip_dispatch))__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_step_dt;
   __pyx_vtable_11environment_8entities_2cy_7game_cy_GameCy.create_empty_game = (void (*)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch))__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_create_empty_game;
-  __pyx_vtable_11environment_8entities_2cy_7game_cy_GameCy.get_sensor_list = (PyObject *(*)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch))__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_sensor_list;
   __pyx_vtable_11environment_8entities_2cy_7game_cy_GameCy.set_config_params = (void (*)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, PyObject *, int __pyx_skip_dispatch))__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_config_params;
   __pyx_vtable_11environment_8entities_2cy_7game_cy_GameCy.set_player_angle = (void (*)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, float, int __pyx_skip_dispatch))__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_angle;
   __pyx_vtable_11environment_8entities_2cy_7game_cy_GameCy.set_player_pos = (void (*)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch))__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_set_player_pos;
@@ -15549,34 +15225,6 @@ end:
 }
 #endif
 
-/* PyObjectGetAttrStr */
-#if CYTHON_USE_TYPE_SLOTS
-static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject* attr_name) {
-    PyTypeObject* tp = Py_TYPE(obj);
-    if (likely(tp->tp_getattro))
-        return tp->tp_getattro(obj, attr_name);
-#if PY_MAJOR_VERSION < 3
-    if (likely(tp->tp_getattr))
-        return tp->tp_getattr(obj, PyString_AS_STRING(attr_name));
-#endif
-    return PyObject_GetAttr(obj, attr_name);
-}
-#endif
-
-/* GetBuiltinName */
-static PyObject *__Pyx_GetBuiltinName(PyObject *name) {
-    PyObject* result = __Pyx_PyObject_GetAttrStr(__pyx_b, name);
-    if (unlikely(!result)) {
-        PyErr_Format(PyExc_NameError,
-#if PY_MAJOR_VERSION >= 3
-            "name '%U' is not defined", name);
-#else
-            "name '%.200s' is not defined", PyString_AS_STRING(name));
-#endif
-    }
-    return result;
-}
-
 /* RaiseDoubleKeywords */
 static void __Pyx_RaiseDoubleKeywordsError(
     const char* func_name,
@@ -15738,6 +15386,34 @@ static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *nam
         "Argument '%.200s' has incorrect type (expected %.200s, got %.200s)",
         name, type->tp_name, Py_TYPE(obj)->tp_name);
     return 0;
+}
+
+/* PyObjectGetAttrStr */
+#if CYTHON_USE_TYPE_SLOTS
+static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject* attr_name) {
+    PyTypeObject* tp = Py_TYPE(obj);
+    if (likely(tp->tp_getattro))
+        return tp->tp_getattro(obj, attr_name);
+#if PY_MAJOR_VERSION < 3
+    if (likely(tp->tp_getattr))
+        return tp->tp_getattr(obj, PyString_AS_STRING(attr_name));
+#endif
+    return PyObject_GetAttr(obj, attr_name);
+}
+#endif
+
+/* GetBuiltinName */
+static PyObject *__Pyx_GetBuiltinName(PyObject *name) {
+    PyObject* result = __Pyx_PyObject_GetAttrStr(__pyx_b, name);
+    if (unlikely(!result)) {
+        PyErr_Format(PyExc_NameError,
+#if PY_MAJOR_VERSION >= 3
+            "name '%U' is not defined", name);
+#else
+            "name '%.200s' is not defined", PyString_AS_STRING(name));
+#endif
+    }
+    return result;
 }
 
 /* PyDictVersioning */

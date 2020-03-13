@@ -14,32 +14,26 @@ cdef class FootBotCy:
     cdef public GameCy game
     cdef public Vec2dCy pos, prev_pos, init_pos
     cdef public float angle, prev_angle, init_angle, radius
-    cdef public set angular_sensors
-    cdef public list proximity_sensors
-    cdef public DistanceSensorCy distance_sensor
+    cdef public dict sensors
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     
-    cdef void drive(self, float dt, float lw, float rw)
+    cpdef void drive(self, float dt, float lw, float rw)
     
-    cdef dict get_sensor_readings(self)
+    cpdef list get_sensor_readings(self)
     
-    # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
-    
-    cpdef dict get_sensor_reading_angle(self)
-    
-    cpdef float get_sensor_reading_distance(self)
-    
-    cpdef dict get_sensor_reading_proximity(self)
+    cpdef float get_sensor_readings_distance(self)
     
     # -----------------------------------------------> SENSOR METHODS <----------------------------------------------- #
     
     cpdef void add_angular_sensors(self, bint clockwise=?)
     
+    cpdef void add_distance_sensor(self)
+    
     cpdef void add_proximity_sensor(self, float angle)
     
-    cdef void create_angular_sensors(self)
+    cpdef void create_angular_sensors(self)
     
-    cdef void create_distance_sensor(self)
+    cpdef void create_proximity_sensors(self)
     
-    cdef void create_proximity_sensors(self)
+    cpdef list get_proximity_sensors(self)

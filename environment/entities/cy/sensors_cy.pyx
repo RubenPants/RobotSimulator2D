@@ -20,7 +20,7 @@ cdef class SensorCy:
     
     __slots__ = (
         "game",
-        "id", "angle", "pos_offset", "max_dist"
+        "id", "angle", "pos_offset", "max_dist", "value"
     )
     
     def __init__(self,
@@ -47,25 +47,19 @@ cdef class SensorCy:
         self.angle = angle
         self.pos_offset = pos_offset
         self.max_dist = max_dist
+        self.value = 0.0
     
     def __str__(self):
         """ :return: Name of the sensor """
         raise NotImplemented
     
-    cdef float get_measure(self):
-        """
-        Read the distance to the first object in the given space. Give visualization of the sensor if VISUALIZE_SENSOR
-        is set on True.
-        
-        :return: Distance
-        """
+    cpdef void measure(self):
+        """Store the sensor's current value in self.value."""
         raise NotImplemented
 
 
 cdef class AngularSensorCy(SensorCy):
-    """
-    Angle deviation between bot and wanted direction in 'crow flight'.
-    """
+    """Angle deviation between bot and wanted direction in 'crows flight'."""
     
     def __init__(self,
                  GameCy game,  # Type not specified due to circular imports
@@ -83,35 +77,29 @@ cdef class AngularSensorCy(SensorCy):
     def __str__(self):
         return f"{D_SENSOR_ANGLE}_{self.id:02d}"
     
-    cdef float get_measure(self):
-        """
-        :return: Float between 0 and 2*PI
-        """
+    cpdef void measure(self):
+        """Update self.value, result is a float between 0 and 2*PI."""
         cdef float start_a
         cdef float req_a
-        cdef float diff
         
         # Get relative angle
         start_a = self.game.player.angle
         req_a = (self.game.target - self.game.player.pos).get_angle()
         
         # Normalize
-        diff = 2 * np.pi + start_a - req_a
-        diff %= 2 * np.pi
+        self.value = 2 * np.pi + start_a - req_a
+        self.value %= 2 * np.pi
         
         # Check direction
         if not self.clockwise:
-            diff = abs(2 * np.pi - diff)
-            diff %= 2 * np.pi
+            self.value = abs(2 * np.pi - self.value)
+            self.value %= 2 * np.pi
         
         # Add noise
-        if self.game.noise: diff += random.gauss(0, self.game.noise_angle)
-        return diff
+        if self.game.noise: self.value += random.gauss(0, self.game.noise_angle)
 
 cdef class DistanceSensorCy(SensorCy):
-    """
-    Distance from bot to the target in 'crows flight'.
-    """
+    """Distance from bot to the target in 'crows flight'."""
     
     def __init__(self,
                  GameCy game,  # Type not specified due to circular imports
@@ -125,20 +113,16 @@ cdef class DistanceSensorCy(SensorCy):
     def __str__(self):
         return f"{D_SENSOR_DISTANCE}_{self.id:02d}"
     
-    cdef float get_measure(self):
-        """
-        :return: Distance between target and robot's center coordinate, which is a float
-        """
+    cpdef void measure(self):
+        """Update self.value to current distance between target and robot's center coordinate."""
         cdef Vec2dCy start_p
         cdef Vec2dCy end_p
-        cdef float distance
         
         # Calculations
         start_p = self.game.player.pos
         end_p = self.game.target
-        distance = (start_p - end_p).get_length()
-        if self.game.noise: distance += random.gauss(0, self.game.noise_distance)
-        return distance
+        self.value = (start_p - end_p).get_length()
+        if self.game.noise: self.value += random.gauss(0, self.game.noise_distance)
 
 cdef class ProximitySensorCy(SensorCy):
     """
@@ -172,7 +156,7 @@ cdef class ProximitySensorCy(SensorCy):
     def __str__(self):
         return f"{D_SENSOR_PROXIMITY}_{self.id:02d}"
     
-    cdef float get_measure(self):
+    cpdef void measure(self):
         """
         Get the distance to the closest wall. If all the walls are 'far enough', as determined by self.max_dist, then
         the maximum sensor-distance is returned.
@@ -181,7 +165,6 @@ cdef class ProximitySensorCy(SensorCy):
         """
         cdef Vec2dCy normalized_offset
         cdef Line2dCy sensor_line
-        cdef float closest_dist
         cdef Line2dCy wall
         cdef bint inter
         cdef Vec2dCy pos
@@ -194,16 +177,15 @@ cdef class ProximitySensorCy(SensorCy):
         sensor_line = Line2dCy(x=self.game.player.pos, y=self.end_pos)
         
         # Check if there is a wall intersecting with the sensor and return the closest distance to a wall
-        closest_dist = self.max_dist
+        self.value = self.max_dist
         for wall in self.game.walls:
             inter, pos = line_line_intersection_cy(sensor_line, wall)
             if inter:
                 new_dist = (pos - self.start_pos).get_length()
-                if closest_dist > new_dist:
+                if self.value > new_dist:
                     self.end_pos = pos
-                    closest_dist = new_dist
+                    self.value = new_dist
         
         if self.game.noise:
-            closest_dist += random.gauss(0, self.game.noise_proximity)
-            closest_dist = max(0, min(closest_dist, self.max_dist))
-        return closest_dist
+            self.value += random.gauss(0, self.game.noise_proximity)
+            self.value = max(0, min(self.value, self.max_dist))

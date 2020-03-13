@@ -42,8 +42,6 @@ cdef class GameCy:
     
     cpdef void create_empty_game(self)
     
-    cpdef list get_sensor_list(self)
-    
     cpdef void set_config_params(self, config)
     
     cpdef void set_player_angle(self, float a)

@@ -1075,12 +1075,12 @@ struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy;
 struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy;
 struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9FootBotCy_add_angular_sensors;
 
-/* "environment/entities/cy/robots_cy.pxd":37
+/* "environment/entities/cy/robots_cy.pxd":29
  *     # -----------------------------------------------> SENSOR METHODS <----------------------------------------------- #
  * 
  *     cpdef void add_angular_sensors(self, bint clockwise=?)             # <<<<<<<<<<<<<<
  * 
- *     cpdef void add_proximity_sensor(self, float angle)
+ *     cpdef void add_distance_sensor(self)
  */
 struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9FootBotCy_add_angular_sensors {
   int __pyx_n;
@@ -1088,7 +1088,7 @@ struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9FootBotCy_add_angu
 };
 struct __pyx_opt_args_11environment_8entities_2cy_7game_cy_6GameCy_get_blueprint;
 
-/* "environment/entities/cy/game_cy.pxd":59
+/* "environment/entities/cy/game_cy.pxd":57
  *     cpdef bint load(self)
  * 
  *     cpdef get_blueprint(self, ax=?)             # <<<<<<<<<<<<<<
@@ -1180,6 +1180,7 @@ struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_SensorCy {
   float angle;
   float pos_offset;
   float max_dist;
+  float value;
 };
 
 
@@ -1240,9 +1241,7 @@ struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy {
   float prev_angle;
   float init_angle;
   float radius;
-  PyObject *angular_sensors;
-  PyObject *proximity_sensors;
-  struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_DistanceSensorCy *distance_sensor;
+  PyObject *sensors;
 };
 
 
@@ -1334,7 +1333,7 @@ static struct __pyx_vtabstruct_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_vtabptr_5util
  */
 
 struct __pyx_vtabstruct_11environment_8entities_2cy_10sensors_cy_SensorCy {
-  float (*get_measure)(struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_SensorCy *);
+  void (*measure)(struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_SensorCy *, int __pyx_skip_dispatch);
 };
 static struct __pyx_vtabstruct_11environment_8entities_2cy_10sensors_cy_SensorCy *__pyx_vtabptr_11environment_8entities_2cy_10sensors_cy_SensorCy;
 
@@ -1390,16 +1389,15 @@ static struct __pyx_vtabstruct_11environment_8entities_2cy_10sensors_cy_Proximit
  */
 
 struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy {
-  void (*drive)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, float, float, float);
-  PyObject *(*get_sensor_readings)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *);
-  PyObject *(*get_sensor_reading_angle)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
-  float (*get_sensor_reading_distance)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
-  PyObject *(*get_sensor_reading_proximity)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
+  void (*drive)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, float, float, float, int __pyx_skip_dispatch);
+  PyObject *(*get_sensor_readings)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
+  float (*get_sensor_readings_distance)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
   void (*add_angular_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch, struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9FootBotCy_add_angular_sensors *__pyx_optional_args);
+  void (*add_distance_sensor)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
   void (*add_proximity_sensor)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, float, int __pyx_skip_dispatch);
-  void (*create_angular_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *);
-  void (*create_distance_sensor)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *);
-  void (*create_proximity_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *);
+  void (*create_angular_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
+  void (*create_proximity_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
+  PyObject *(*get_proximity_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
 };
 static struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy *__pyx_vtabptr_11environment_8entities_2cy_9robots_cy_FootBotCy;
 
@@ -1420,7 +1418,6 @@ struct __pyx_vtabstruct_11environment_8entities_2cy_7game_cy_GameCy {
   PyObject *(*step)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, float, float, int __pyx_skip_dispatch);
   PyObject *(*step_dt)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, float, float, float, int __pyx_skip_dispatch);
   void (*create_empty_game)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
-  PyObject *(*get_sensor_list)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
   void (*set_config_params)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, PyObject *, int __pyx_skip_dispatch);
   void (*set_player_angle)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, float, int __pyx_skip_dispatch);
   void (*set_player_pos)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);

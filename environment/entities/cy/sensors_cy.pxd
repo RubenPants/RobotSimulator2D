@@ -10,9 +10,9 @@ from utils.cy.vec2d_cy cimport Vec2dCy
 cdef class SensorCy:
     cdef public GameCy game
     cdef public int id
-    cdef public float angle, pos_offset, max_dist
+    cdef public float angle, pos_offset, max_dist, value
     
-    cdef float get_measure(self)
+    cpdef void measure(self)
 
 
 cdef class AngularSensorCy(SensorCy):
@@ -21,7 +21,7 @@ cdef class AngularSensorCy(SensorCy):
     """
     cdef public bint clockwise
     
-    cdef float get_measure(self)
+    cpdef void measure(self)
 
 
 cdef class DistanceSensorCy(SensorCy):
@@ -29,7 +29,7 @@ cdef class DistanceSensorCy(SensorCy):
     Distance from bot to the target in 'crows flight'.
     """
     
-    cdef float get_measure(self)
+    cpdef void measure(self)
 
 
 cdef class ProximitySensorCy(SensorCy):
@@ -41,4 +41,4 @@ cdef class ProximitySensorCy(SensorCy):
     cdef public Vec2dCy start_pos
     cdef public Vec2dCy end_pos
     
-    cdef float get_measure(self)
+    cpdef void measure(self)
