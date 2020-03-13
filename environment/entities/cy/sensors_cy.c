@@ -1729,6 +1729,17 @@ static PyObject *__Pyx_PyLong_AbsNeg(PyObject *num);
 /* PyObjectCall2Args.proto */
 static CYTHON_UNUSED PyObject* __Pyx_PyObject_Call2Args(PyObject* function, PyObject* arg1, PyObject* arg2);
 
+/* IterFinish.proto */
+static CYTHON_INLINE int __Pyx_IterFinish(void);
+
+/* set_iter.proto */
+static CYTHON_INLINE PyObject* __Pyx_set_iterator(PyObject* iterable, int is_set,
+                                                  Py_ssize_t* p_orig_length, int* p_source_is_set);
+static CYTHON_INLINE int __Pyx_set_iter_next(
+        PyObject* iter_obj, Py_ssize_t orig_length,
+        Py_ssize_t* ppos, PyObject **value,
+        int source_is_set);
+
 /* RaiseTooManyValuesToUnpack.proto */
 static CYTHON_INLINE void __Pyx_RaiseTooManyValuesError(Py_ssize_t expected);
 
@@ -5415,12 +5426,14 @@ static float __pyx_f_11environment_8entities_2cy_10sensors_cy_17ProximitySensorC
   PyObject *__pyx_t_5 = NULL;
   float __pyx_t_6;
   Py_ssize_t __pyx_t_7;
-  int __pyx_t_8;
+  Py_ssize_t __pyx_t_8;
   int __pyx_t_9;
-  PyObject *__pyx_t_10 = NULL;
-  float __pyx_t_11;
-  float __pyx_t_12;
-  long __pyx_t_13;
+  int __pyx_t_10;
+  int __pyx_t_11;
+  PyObject *__pyx_t_12 = NULL;
+  float __pyx_t_13;
+  float __pyx_t_14;
+  long __pyx_t_15;
   __Pyx_RefNannySetupContext("get_measure", 0);
 
   /* "environment/entities/cy/sensors_cy.pyx":190
@@ -5584,19 +5597,17 @@ static float __pyx_f_11environment_8entities_2cy_10sensors_cy_17ProximitySensorC
  *             inter, pos = line_line_intersection_cy(sensor_line, wall)
  *             if inter:
  */
-  if (unlikely(__pyx_v_self->__pyx_base.game->walls == Py_None)) {
-    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-    __PYX_ERR(0, 198, __pyx_L1_error)
-  }
-  __pyx_t_4 = __pyx_v_self->__pyx_base.game->walls; __Pyx_INCREF(__pyx_t_4); __pyx_t_7 = 0;
-  for (;;) {
-    if (__pyx_t_7 >= PyList_GET_SIZE(__pyx_t_4)) break;
-    #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    __pyx_t_3 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_7); __Pyx_INCREF(__pyx_t_3); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 198, __pyx_L1_error)
-    #else
-    __pyx_t_3 = PySequence_ITEM(__pyx_t_4, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 198, __pyx_L1_error)
+  __pyx_t_7 = 0;
+  __pyx_t_3 = __Pyx_set_iterator(__pyx_v_self->__pyx_base.game->walls, 1, (&__pyx_t_8), (&__pyx_t_9)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 198, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __pyx_t_4 = __pyx_t_3;
+  __pyx_t_3 = 0;
+  while (1) {
+    __pyx_t_10 = __Pyx_set_iter_next(__pyx_t_4, __pyx_t_8, &__pyx_t_7, &__pyx_t_3, __pyx_t_9);
+    if (unlikely(__pyx_t_10 == 0)) break;
+    if (unlikely(__pyx_t_10 == -1)) __PYX_ERR(0, 198, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    #endif
     if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy))))) __PYX_ERR(0, 198, __pyx_L1_error)
     __Pyx_XDECREF_SET(__pyx_v_wall, ((struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *)__pyx_t_3));
     __pyx_t_3 = 0;
@@ -5633,10 +5644,10 @@ static float __pyx_f_11environment_8entities_2cy_10sensors_cy_17ProximitySensorC
     } else {
       __Pyx_RaiseNoneNotIterableError(); __PYX_ERR(0, 199, __pyx_L1_error)
     }
-    __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 199, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_11 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 199, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy))))) __PYX_ERR(0, 199, __pyx_L1_error)
-    __pyx_v_inter = __pyx_t_8;
+    __pyx_v_inter = __pyx_t_11;
     __Pyx_XDECREF_SET(__pyx_v_pos, ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)__pyx_t_2));
     __pyx_t_2 = 0;
 
@@ -5647,8 +5658,8 @@ static float __pyx_f_11environment_8entities_2cy_10sensors_cy_17ProximitySensorC
  *                 new_dist = (pos - self.start_pos).get_length()
  *                 if closest_dist > new_dist:
  */
-    __pyx_t_8 = (__pyx_v_inter != 0);
-    if (__pyx_t_8) {
+    __pyx_t_11 = (__pyx_v_inter != 0);
+    if (__pyx_t_11) {
 
       /* "environment/entities/cy/sensors_cy.pyx":201
  *             inter, pos = line_line_intersection_cy(sensor_line, wall)
@@ -5691,9 +5702,9 @@ static float __pyx_f_11environment_8entities_2cy_10sensors_cy_17ProximitySensorC
       __Pyx_GOTREF(__pyx_t_3);
       __pyx_t_1 = PyObject_RichCompare(__pyx_t_3, __pyx_v_new_dist, Py_GT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 202, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 202, __pyx_L1_error)
+      __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_11 < 0)) __PYX_ERR(0, 202, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      if (__pyx_t_8) {
+      if (__pyx_t_11) {
 
         /* "environment/entities/cy/sensors_cy.pyx":203
  *                 new_dist = (pos - self.start_pos).get_length()
@@ -5735,14 +5746,6 @@ static float __pyx_f_11environment_8entities_2cy_10sensors_cy_17ProximitySensorC
  *                 if closest_dist > new_dist:
  */
     }
-
-    /* "environment/entities/cy/sensors_cy.pyx":198
- *         # Check if there is a wall intersecting with the sensor and return the closest distance to a wall
- *         closest_dist = self.max_dist
- *         for wall in self.game.walls:             # <<<<<<<<<<<<<<
- *             inter, pos = line_line_intersection_cy(sensor_line, wall)
- *             if inter:
- */
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
@@ -5753,8 +5756,8 @@ static float __pyx_f_11environment_8entities_2cy_10sensors_cy_17ProximitySensorC
  *             closest_dist += random.gauss(0, self.game.noise_proximity)
  *             closest_dist = max(0, min(closest_dist, self.max_dist))
  */
-  __pyx_t_8 = (__pyx_v_self->__pyx_base.game->noise != 0);
-  if (__pyx_t_8) {
+  __pyx_t_11 = (__pyx_v_self->__pyx_base.game->noise != 0);
+  if (__pyx_t_11) {
 
     /* "environment/entities/cy/sensors_cy.pyx":207
  * 
@@ -5803,20 +5806,20 @@ static float __pyx_f_11environment_8entities_2cy_10sensors_cy_17ProximitySensorC
     } else
     #endif
     {
-      __pyx_t_10 = PyTuple_New(2+__pyx_t_9); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 207, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_10);
+      __pyx_t_12 = PyTuple_New(2+__pyx_t_9); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 207, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_12);
       if (__pyx_t_5) {
-        __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_5); __pyx_t_5 = NULL;
+        __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_5); __pyx_t_5 = NULL;
       }
       __Pyx_INCREF(__pyx_int_0);
       __Pyx_GIVEREF(__pyx_int_0);
-      PyTuple_SET_ITEM(__pyx_t_10, 0+__pyx_t_9, __pyx_int_0);
+      PyTuple_SET_ITEM(__pyx_t_12, 0+__pyx_t_9, __pyx_int_0);
       __Pyx_GIVEREF(__pyx_t_3);
-      PyTuple_SET_ITEM(__pyx_t_10, 1+__pyx_t_9, __pyx_t_3);
+      PyTuple_SET_ITEM(__pyx_t_12, 1+__pyx_t_9, __pyx_t_3);
       __pyx_t_3 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_10, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 207, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_12, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 207, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+      __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_2 = PyNumber_InPlaceAdd(__pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 207, __pyx_L1_error)
@@ -5834,20 +5837,20 @@ static float __pyx_f_11environment_8entities_2cy_10sensors_cy_17ProximitySensorC
  *         return closest_dist
  */
     __pyx_t_6 = __pyx_v_self->__pyx_base.max_dist;
-    __pyx_t_11 = __pyx_v_closest_dist;
-    if (((__pyx_t_6 < __pyx_t_11) != 0)) {
-      __pyx_t_12 = __pyx_t_6;
+    __pyx_t_13 = __pyx_v_closest_dist;
+    if (((__pyx_t_6 < __pyx_t_13) != 0)) {
+      __pyx_t_14 = __pyx_t_6;
     } else {
-      __pyx_t_12 = __pyx_t_11;
+      __pyx_t_14 = __pyx_t_13;
     }
-    __pyx_t_6 = __pyx_t_12;
-    __pyx_t_13 = 0;
-    if (((__pyx_t_6 > __pyx_t_13) != 0)) {
-      __pyx_t_12 = __pyx_t_6;
+    __pyx_t_6 = __pyx_t_14;
+    __pyx_t_15 = 0;
+    if (((__pyx_t_6 > __pyx_t_15) != 0)) {
+      __pyx_t_14 = __pyx_t_6;
     } else {
-      __pyx_t_12 = __pyx_t_13;
+      __pyx_t_14 = __pyx_t_15;
     }
-    __pyx_v_closest_dist = __pyx_t_12;
+    __pyx_v_closest_dist = __pyx_t_14;
 
     /* "environment/entities/cy/sensors_cy.pyx":206
  *                     closest_dist = new_dist
@@ -5881,7 +5884,7 @@ static float __pyx_f_11environment_8entities_2cy_10sensors_cy_17ProximitySensorC
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_XDECREF(__pyx_t_10);
+  __Pyx_XDECREF(__pyx_t_12);
   __Pyx_WriteUnraisable("environment.entities.cy.sensors_cy.ProximitySensorCy.get_measure", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __pyx_r = 0;
   __pyx_L0:;
@@ -13229,6 +13232,92 @@ static CYTHON_UNUSED PyObject* __Pyx_PyObject_Call2Args(PyObject* function, PyOb
     Py_DECREF(function);
 done:
     return result;
+}
+
+/* IterFinish */
+static CYTHON_INLINE int __Pyx_IterFinish(void) {
+#if CYTHON_FAST_THREAD_STATE
+    PyThreadState *tstate = __Pyx_PyThreadState_Current;
+    PyObject* exc_type = tstate->curexc_type;
+    if (unlikely(exc_type)) {
+        if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) {
+            PyObject *exc_value, *exc_tb;
+            exc_value = tstate->curexc_value;
+            exc_tb = tstate->curexc_traceback;
+            tstate->curexc_type = 0;
+            tstate->curexc_value = 0;
+            tstate->curexc_traceback = 0;
+            Py_DECREF(exc_type);
+            Py_XDECREF(exc_value);
+            Py_XDECREF(exc_tb);
+            return 0;
+        } else {
+            return -1;
+        }
+    }
+    return 0;
+#else
+    if (unlikely(PyErr_Occurred())) {
+        if (likely(PyErr_ExceptionMatches(PyExc_StopIteration))) {
+            PyErr_Clear();
+            return 0;
+        } else {
+            return -1;
+        }
+    }
+    return 0;
+#endif
+}
+
+/* set_iter */
+static CYTHON_INLINE PyObject* __Pyx_set_iterator(PyObject* iterable, int is_set,
+                                                  Py_ssize_t* p_orig_length, int* p_source_is_set) {
+#if CYTHON_COMPILING_IN_CPYTHON
+    is_set = is_set || likely(PySet_CheckExact(iterable) || PyFrozenSet_CheckExact(iterable));
+    *p_source_is_set = is_set;
+    if (likely(is_set)) {
+        *p_orig_length = PySet_Size(iterable);
+        Py_INCREF(iterable);
+        return iterable;
+    }
+#else
+    (void)is_set;
+    *p_source_is_set = 0;
+#endif
+    *p_orig_length = 0;
+    return PyObject_GetIter(iterable);
+}
+static CYTHON_INLINE int __Pyx_set_iter_next(
+        PyObject* iter_obj, Py_ssize_t orig_length,
+        Py_ssize_t* ppos, PyObject **value,
+        int source_is_set) {
+    if (!CYTHON_COMPILING_IN_CPYTHON || unlikely(!source_is_set)) {
+        *value = PyIter_Next(iter_obj);
+        if (unlikely(!*value)) {
+            return __Pyx_IterFinish();
+        }
+        (void)orig_length;
+        (void)ppos;
+        return 1;
+    }
+#if CYTHON_COMPILING_IN_CPYTHON
+    if (unlikely(PySet_GET_SIZE(iter_obj) != orig_length)) {
+        PyErr_SetString(
+            PyExc_RuntimeError,
+            "set changed size during iteration");
+        return -1;
+    }
+    {
+        Py_hash_t hash;
+        int ret = _PySet_NextEntry(iter_obj, ppos, value, &hash);
+        assert (ret != -1);
+        if (likely(ret)) {
+            Py_INCREF(*value);
+            return 1;
+        }
+    }
+#endif
+    return 0;
 }
 
 /* RaiseTooManyValuesToUnpack */

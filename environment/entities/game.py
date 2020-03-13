@@ -81,7 +81,7 @@ class Game:
         self.player: FootBot = None  # Candidate-robot
         self.steps_taken: int = 0  # Number of steps taken by the agent
         self.target: Vec2d = None  # Target-robot
-        self.walls: list = None  # List of all walls in the game
+        self.walls: set = None  # Set of all walls in the game
         
         # Check if game already exists, if not create new game
         if overwrite or not self.load():
@@ -286,7 +286,7 @@ class Game:
             self.set_player_pos(Vec2d(game[D_POS][0], game[D_POS][1]))
             self.path = {p[0]: p[1] for p in game[D_PATH]}
             self.target = Vec2d(game[D_TARGET][0], game[D_TARGET][1])
-            self.walls = [Line2d(Vec2d(w[0][0], w[0][1]), Vec2d(w[1][0], w[1][1])) for w in game[D_WALLS]]
+            self.walls = {Line2d(Vec2d(w[0][0], w[0][1]), Vec2d(w[1][0], w[1][1])) for w in game[D_WALLS]}
             if not self.silent: print(f"Existing game loaded with id: {self.id}")
             return True
         except FileNotFoundError:
@@ -321,7 +321,7 @@ def get_boundary_walls(x_axis, y_axis):
     b = Vec2d(x_axis, 0)
     c = Vec2d(x_axis, y_axis)
     d = Vec2d(0, y_axis)
-    return [Line2d(a, b), Line2d(b, c), Line2d(c, d), Line2d(d, a)]
+    return {Line2d(a, b), Line2d(b, c), Line2d(c, d), Line2d(d, a)}
 
 
 def initial_sensor_readings():

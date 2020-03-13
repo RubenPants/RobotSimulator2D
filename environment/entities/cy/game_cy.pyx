@@ -306,7 +306,7 @@ cdef class GameCy:
             self.set_player_pos(Vec2dCy(game[D_POS][0], game[D_POS][1]))
             self.path = {p[0]: p[1] for p in game[D_PATH]}
             self.target = Vec2dCy(game[D_TARGET][0], game[D_TARGET][1])
-            self.walls = [Line2dCy(Vec2dCy(w[0][0], w[0][1]), Vec2dCy(w[1][0], w[1][1])) for w in game[D_WALLS]]
+            self.walls = {Line2dCy(Vec2dCy(w[0][0], w[0][1]), Vec2dCy(w[1][0], w[1][1])) for w in game[D_WALLS]}
             if not self.silent: print(f"Existing game loaded with id: {self.id}")
             return True
         except FileNotFoundError:
@@ -345,4 +345,4 @@ cpdef list get_boundary_walls(int x_axis, int y_axis):
     b = Vec2dCy(x_axis, 0)
     c = Vec2dCy(x_axis, y_axis)
     d = Vec2dCy(0, y_axis)
-    return [Line2dCy(a, b), Line2dCy(b, c), Line2dCy(c, d), Line2dCy(d, a)]
+    return {Line2dCy(a, b), Line2dCy(b, c), Line2dCy(c, d), Line2dCy(d, a)}

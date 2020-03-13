@@ -15,6 +15,12 @@ class Vec2d(object):
         self.x: float = x
         self.y: float = y
     
+    def __str__(self):
+        return f"Vec2d({self.x}, {self.y})"
+    
+    def __hash__(self):
+        return hash(str(self))
+    
     def __getitem__(self, i):
         if i == 0:
             return self.x

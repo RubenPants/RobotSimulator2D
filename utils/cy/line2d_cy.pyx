@@ -16,6 +16,12 @@ cdef class Line2dCy:
         self.x = x if x else Vec2dCy(0, 0)
         self.y = y if y else Vec2dCy(0, 0)
     
+    def __str__(self):
+        return f"Line2d({self.x}, {self.y})"
+    
+    def __hash__(self):
+        return hash(str(self))
+    
     def __getitem__(self, i):
         if i == 0:
             return self.x
@@ -43,7 +49,7 @@ cdef class Line2dCy:
     
     def __eq__(self, other):
         if hasattr(other, "__getitem__") and len(other) == 2:
-            return self.x == other[0] and self.y == other[1]
+            return (self.x == other[0] and self.y == other[1]) or (self.x == other[1] and self.y == other[0])
         else:
             return False
     

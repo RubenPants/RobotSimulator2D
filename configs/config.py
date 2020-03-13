@@ -195,7 +195,7 @@ class NeatConfig:
         
         # [EVALUATION]
         # Fitness functions [distance, distance_time, novelty, path, path_time]
-        self.fitness: str = D_NOVELTY
+        self.fitness: str = D_DISTANCE
         # Function to combine the fitness-values across different games, choices are: min, avg, max, gmean  [def=gmean]
         self.fitness_comb: str = D_GMEAN
         # Number of nearest neighbors taken into account for a NN-utilizing fitness function  [def=3]
