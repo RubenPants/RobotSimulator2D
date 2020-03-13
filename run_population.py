@@ -5,7 +5,7 @@ Run a sequence of populations for each a different configuration.
 """
 import argparse
 
-from configs.config import NeatConfig
+from config import NeatConfig
 from population.population import Population
 from utils.dictionary import *
 

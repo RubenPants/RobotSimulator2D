@@ -10,7 +10,7 @@ from random import sample
 from neat.six_util import iteritems, itervalues
 from tqdm import tqdm
 
-from configs.config import GameConfig
+from config import GameConfig
 from population.population import Population
 from population.utils.population_util.fitness_functions import calc_pop_fitness
 

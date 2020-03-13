@@ -8,7 +8,7 @@ import unittest
 
 import torch
 
-from configs.config import NeatConfig
+from config import NeatConfig
 from population.utils.config.default_config import Config
 from population.utils.genome_util.genes import GruNodeGene
 from population.utils.genome_util.genome import DefaultGenome

@@ -22,9 +22,8 @@ from math import sqrt
 
 import matplotlib.pyplot as plt
 import numpy as np
-from tqdm import tqdm
 
-from configs.config import GameConfig
+from config import GameConfig
 from environment.entities.game import Game
 from environment.entities.robots import FootBot
 from utils.line2d import Line2d

@@ -11,7 +11,7 @@ import numpy as np
 from scipy import stats
 from sklearn.neighbors import NearestNeighbors
 
-from configs.config import GameConfig
+from config import GameConfig
 from utils.dictionary import *
 
 

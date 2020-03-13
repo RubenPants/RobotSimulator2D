@@ -9,7 +9,7 @@ import sys
 from neat.six_util import iteritems
 from tqdm import tqdm
 
-from configs.config import GameConfig
+from config import GameConfig
 from utils.dictionary import D_DIST_TO_TARGET, D_DONE, D_FPS, D_STEPS
 
 if sys.platform == 'linux':

@@ -7,7 +7,7 @@ import os
 
 from tqdm import tqdm
 
-from configs.config import GameConfig
+from config import GameConfig
 from environment.entities.game import Game
 
 if __name__ == '__main__':
