@@ -100,7 +100,7 @@ class MultiEnvironment:
         """
         self.games = games
         self.batch_size = len(games)
-        
+    
     def get_game_params(self):
         """Return list of all game-parameters currently in self.games."""
         return [self.create_game(i).game_params() for i in self.games]

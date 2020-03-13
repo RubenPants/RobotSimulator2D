@@ -1,7 +1,7 @@
 """
 visualizer.py
 
-TODO
+The visualizer gives a live visualization of a bot's run.
 """
 import pyglet
 import pymunk
@@ -19,7 +19,7 @@ class Visualizer:
     """
     
     __slots__ = (
-        "speedup", "state", "finished",
+        "speedup", "state", "finished", "time",
         "query_net",
         "debug",
     )
@@ -39,6 +39,7 @@ class Visualizer:
         self.speedup = speedup
         self.state = None
         self.finished = False
+        self.time = 0
         
         # Network specific parameters
         self.query_net = query_net
@@ -100,6 +101,11 @@ class Visualizer:
                                      radius=game.bot_radius * game.p2m)
         player_shape.color = (255, 0, 0)
         space.add(player_body, player_shape)
+        label = pyglet.text.Label(f'{self.time}',  # TODO: Creates error in WeakMethod after run (during termination)
+                                  font_size=16,
+                                  color=(100, 100, 100, 100),
+                                  x=window.width - 20, y=window.height - 20,
+                                  anchor_x='center', anchor_y='center')
         
         # Draw the robot's sensors
         def draw_sensors():
@@ -119,10 +125,13 @@ class Visualizer:
         def on_draw():
             window.clear()
             draw_sensors()
+            label.draw()
             space.debug_draw(options=options)
         
         def update_method(_):  # Input dt ignored
             dt = 1 / game.fps
+            self.time += dt
+            label.text = str(int(self.time))
             
             # Stop when target is reached
             if not self.finished:
