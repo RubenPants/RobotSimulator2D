@@ -222,7 +222,7 @@ def fitness_path(game_observations):
     # Calculate the score
     fitness = dict()
     for k, v in game_observations.items():  # Iterate over the candidates
-        fitness[k] = [max(0, 1 - o[D_PATH][int(o[D_POS][0]) + 0.5, int(o[D_POS][1]) + 0.5] / o[D_A_STAR]) for o in v]
+        fitness[k] = [max(0, 1 - o[D_PATH][round(o[D_POS][0], 1), round(o[D_POS][1], 1)] / o[D_A_STAR]) for o in v]
     return fitness
 
 
