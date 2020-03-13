@@ -131,15 +131,15 @@ class NeatConfig:
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
         self.num_outputs: int = 2
         # Initial connectivity of newly-created genomes  [def=D_FULL_DIRECT]  TODO
-        self.initial_connection = D_PARTIAL_DIRECT_05
+        self.initial_connection = D_FULL_DIRECT
         # Probability of adding a connection between existing nodes during mutation (1 chance per iteration)  [def=0.5]  TODO
         self.conn_add_prob: float = 0.5
-        # Probability of deleting an existing connection during mutation (1 chance per iteration)  [def=0.4]  TODO
-        self.conn_delete_prob: float = 0.4
+        # Probability of deleting an existing connection during mutation (1 chance per iteration)  [def=0.5]  TODO
+        self.conn_delete_prob: float = 0.5
         # Probability of adding a node during mutation (1 chance per iteration)  [def=0.2]  TODO
         self.node_add_prob: float = 0.2
-        # Probability of removing a node during mutation (1 chance per iteration)  [def=0.15]  TODO
-        self.node_delete_prob: float = 0.15
+        # Probability of removing a node during mutation (1 chance per iteration)  [def=0.2]  TODO
+        self.node_delete_prob: float = 0.2
         # Initial node activation function  [def=D_RELU]
         self.activation_default: str = D_RELU
         # All possible activation functions between whom can be switched during mutation  [def=D_RELU]
@@ -156,10 +156,10 @@ class NeatConfig:
         self.bias_init_mean: float = 0.0
         # Standard deviation of gaussian distribution, used to select the bias attribute values of new nodes  [def=1]
         self.bias_init_stdev: float = 1.0
-        # The probability that mutation will replace the bias of a node with a completely random value  [def=0.05]
-        self.bias_replace_rate: float = 0.05
         # The probability that mutation will change the bias of a node by adding a random value  [def=0.6]
         self.bias_mutate_rate: float = 0.6
+        # The probability that mutation will replace the bias of a node with a completely random value  [def=0.05]
+        self.bias_replace_rate: float = 0.05
         # The standard deviation of the zero-centered gaussian from which a bias value mutation is drawn  [def=0.1]
         self.bias_mutate_power: float = 0.1
         # The maximum allowed bias value, biases above this threshold will be clamped to this value  [def=2]
@@ -170,8 +170,8 @@ class NeatConfig:
         self.weight_init_mean: float = 0.0
         # Standard deviation of the gaussian used to select the weight attributes values for new connections  [def=1]
         self.weight_init_stdev: float = 1.0
-        # Probability of a weight (connection) to mutate  [def=0.5]
-        self.weight_mutate_rate: float = 0.5
+        # Probability of a weight (connection) to mutate  [def=0.8]
+        self.weight_mutate_rate: float = 0.8
         # Probability of assigning completely new value, based on weight_init_mean and weight_init_stdev  [def=0.05]
         self.weight_replace_rate: float = 0.05
         # The standard deviation of the zero-centered gaussian from which a weight value mutation is drawn  [def=0.1]
@@ -186,16 +186,16 @@ class NeatConfig:
         self.enabled_mutate_rate: float = 0.01
         
         # [DefaultSpeciesSet]
-        # Individuals whose genetic distance is less than this threshold are in the same specie  [def=2.0]
-        self.compatibility_threshold: float = 2.5
+        # Individuals whose genetic distance is less than this threshold are in the same specie  [def=3.0]
+        self.compatibility_threshold: float = 3.0
         # Full weight of disjoint and excess nodes on determining genomic distance  [def=1.0]
         self.compatibility_disjoint_coefficient: float = 1.0
         # Coefficient for each weight or bias difference contribution to the genomic distance  [def=0.5]
         self.compatibility_weight_coefficient: float = 0.5
         
         # [EVALUATION]
-        # Fitness functions [distance, distance_time, novelty, path, path_time]
-        self.fitness: str = D_DISTANCE
+        # Fitness functions [distance, distance_time, novelty, path, path_time]  TODO
+        self.fitness: str = D_PATH
         # Function to combine the fitness-values across different games, choices are: min, avg, max, gmean  [def=gmean]
         self.fitness_comb: str = D_GMEAN
         # Number of nearest neighbors taken into account for a NN-utilizing fitness function  [def=3]
