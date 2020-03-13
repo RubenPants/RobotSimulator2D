@@ -2,26 +2,16 @@
  Custom low-level robot simulator.
 
 
-## TODO - Urgent
+## TODO
 
 * [x,y] vs [col, row] in maze --> confusion?
 * Test all of the fitness-functions!
-* Novelty not in crows-flight? (do intersection with walls for example)
+* Novelty not in crows-flight? (do intersection with walls! i.e. find reachable neighbours, the k-NN on those)
 * What is the purpose of the gene-attributes? Figure out and write down! --> I should pay more focus on what to write 
 down such that no redundant work is needed...
-
-
-## TODO
-
 * Activation functions of hidden vs output nodes not taken into account! (hard-coded on tanh!)
-* Use `set()` when possible to increase performance
 * Update fitness functions to be more conform to that of James
-* Add obstacles to the maze (perhaps in an empty room adding a cube?)
-* Automatic trigger to reset game and algorithm (e.g. also trigger training of algorithm) via control in main
 * NEAT and variants implementation:
-    * Start with framework to put algorithms in that interacts with the environment (give `game` as an argument, such that calls happen efficient)
-    * Implement NEAT with novelty search
-    * Implement GRU-cells in NEAT
     * Implement Hyper-NEAT
     * Implement adaptive Hyper-NEAT
 
