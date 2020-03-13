@@ -100,7 +100,7 @@ class NeatConfig:
         self.fitness_threshold: int = 1
         # Don't consider fitness_criterion and fitness_threshold
         self.no_fitness_termination: bool = True
-        # Number of individuals in each generation  [def=128]
+        # Number of individuals in each generation  [def=128]  TODO
         self.pop_size: int = 128
         # Create random population if all species become distinct due to stagnation
         self.reset_on_extinction: bool = True
@@ -195,7 +195,7 @@ class NeatConfig:
         
         # [EVALUATION]
         # Fitness functions [distance, distance_time, novelty, path, path_time]
-        self.fitness: str = D_PATH
+        self.fitness: str = D_NOVELTY
         # Function to combine the fitness-values across different games, choices are: min, avg, max, gmean  [def=gmean]
         self.fitness_comb: str = D_GMEAN
         # Number of nearest neighbors taken into account for a NN-utilizing fitness function  [def=3]

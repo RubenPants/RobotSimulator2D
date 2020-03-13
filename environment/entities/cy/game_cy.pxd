@@ -28,6 +28,10 @@ cdef class GameCy:
     
     cpdef dict close(self)
     
+    cpdef dict game_params(self)
+    
+    cpdef dict get_observation(self)
+    
     cpdef dict reset(self)
     
     cpdef step(self, float l, float r)
@@ -37,8 +41,6 @@ cdef class GameCy:
     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
     
     cpdef void create_empty_game(self)
-    
-    cpdef dict get_observation(self)
     
     cpdef list get_sensor_list(self)
     

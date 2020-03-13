@@ -1088,7 +1088,7 @@ struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9FootBotCy_add_angu
 };
 struct __pyx_opt_args_11environment_8entities_2cy_7game_cy_6GameCy_get_blueprint;
 
-/* "environment/entities/cy/game_cy.pxd":57
+/* "environment/entities/cy/game_cy.pxd":59
  *     cpdef bint load(self)
  * 
  *     cpdef get_blueprint(self, ax=?)             # <<<<<<<<<<<<<<
@@ -1340,11 +1340,12 @@ static struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy 
 
 struct __pyx_vtabstruct_11environment_8entities_2cy_7game_cy_GameCy {
   PyObject *(*close)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
+  PyObject *(*game_params)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
+  PyObject *(*get_observation)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
   PyObject *(*reset)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
   PyObject *(*step)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, float, float, int __pyx_skip_dispatch);
   PyObject *(*step_dt)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, float, float, float, int __pyx_skip_dispatch);
   void (*create_empty_game)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
-  PyObject *(*get_observation)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
   PyObject *(*get_sensor_list)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
   void (*set_config_params)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, PyObject *, int __pyx_skip_dispatch);
   void (*set_player_angle)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, float, int __pyx_skip_dispatch);

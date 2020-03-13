@@ -33,9 +33,6 @@ D_ENABLE_GRU = 'enable_gru'
 
 # F
 D_FIT_COMB = 'fitness_combination'
-D_FIT_DISTANCE = 'fit_distance'
-D_FIT_NOVELTY_SEARCH = 'fit_novelty_search'
-D_FIT_QUALITY_DIVERSITY = 'fit_quality_diversity'
 D_FPS = 'fps'
 D_FULL_DIRECT = 'full_direct'
 D_FULL_NODIRECT = 'full_nodirect'
@@ -79,6 +76,9 @@ D_PATH_TIME = 'path_time'
 D_PLAYER = 'player'
 D_POS = 'position'
 D_PTM = 'pixel2meter'
+
+# Q
+D_QUALITY_DIVERSITY = 'quality_diversity'
 
 # R
 D_RELU = 'relu'

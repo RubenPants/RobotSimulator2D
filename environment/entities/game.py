@@ -95,26 +95,34 @@ class Game:
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     
     def close(self):
-        """
-        :return: Final state and useful statistics
-        """
+        """Final state of the agent's statistics."""
         return {
-            D_A_STAR:         self.path[self.player.init_pos[0], self.player.init_pos[1]],
             D_DIST_TO_TARGET: self.player.get_sensor_reading_distance(),
             D_DONE:           self.done,
-            D_FPS:            self.fps,
             D_GAME_ID:        self.id,
-            D_PATH:           self.path,
             D_POS:            self.player.pos,
             D_STEPS:          self.steps_taken
         }
     
+    def game_params(self):
+        """Get all the game-related parameters."""
+        return {
+            D_A_STAR:  self.path[self.player.init_pos[0], self.player.init_pos[1]],
+            D_PATH:    self.path,
+            D_FPS:     self.fps,
+            D_GAME_ID: self.id,
+        }
+    
+    def get_observation(self):
+        """Get the current observation of the game in the form of a dictionary."""
+        return {
+            D_DONE:        self.done,
+            D_GAME_ID:     self.id,
+            D_SENSOR_LIST: self.get_sensor_list(),
+        }
+    
     def reset(self):
-        """
-        Reset the game.
-
-        :return: Observation
-        """
+        """Reset the game and return initial observations."""
         self.steps_taken = 0
         self.player.reset()
         return self.get_observation()
@@ -174,25 +182,6 @@ class Game:
         # Save the new game
         self.save()
         if not self.silent: print("New game created under id: {}".format(self.id))
-    
-    def get_observation(self):
-        """
-        Get the current observation of the game. The following gets returned as a dictionary:
-         * D_ANGLE: The angle the player is currently heading
-         * D_DIST_TO_TARGET: Distance from player's current position to target in crows flight
-         * D_GAME_ID: The game's ID
-         * D_POS: The current position of the player in the maze (expressed in pixels)
-         * D_SENSOR_LIST: List of all the sensors (proximity, angular, distance)
-        """
-        return {
-            D_ANGLE:          self.player.angle,
-            D_DIST_TO_TARGET: self.player.get_sensor_reading_distance(),
-            D_DONE:           self.done,
-            D_GAME_ID:        self.id,
-            D_POS:            self.player.pos,
-            D_SENSOR_LIST:    self.get_sensor_list(),
-            D_STEPS:          self.steps_taken,
-        }
     
     def get_sensor_list(self):
         """

@@ -1088,7 +1088,7 @@ struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9FootBotCy_add_angu
 };
 struct __pyx_opt_args_11environment_8entities_2cy_7game_cy_6GameCy_get_blueprint;
 
-/* "environment/entities/cy/game_cy.pxd":57
+/* "environment/entities/cy/game_cy.pxd":59
  *     cpdef bint load(self)
  * 
  *     cpdef get_blueprint(self, ax=?)             # <<<<<<<<<<<<<<
@@ -1414,11 +1414,12 @@ static struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy 
 
 struct __pyx_vtabstruct_11environment_8entities_2cy_7game_cy_GameCy {
   PyObject *(*close)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
+  PyObject *(*game_params)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
+  PyObject *(*get_observation)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
   PyObject *(*reset)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
   PyObject *(*step)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, float, float, int __pyx_skip_dispatch);
   PyObject *(*step_dt)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, float, float, float, int __pyx_skip_dispatch);
   void (*create_empty_game)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
-  PyObject *(*get_observation)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
   PyObject *(*get_sensor_list)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
   void (*set_config_params)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, PyObject *, int __pyx_skip_dispatch);
   void (*set_player_angle)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, float, int __pyx_skip_dispatch);
@@ -1442,6 +1443,7 @@ struct __pyx_vtabstruct_11environment_2cy_12multi_env_cy_MultiEnvironmentCy {
   void (*eval_genome)(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *, PyObject *, PyObject *, int __pyx_skip_dispatch, struct __pyx_opt_args_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_eval_genome *__pyx_optional_args);
   struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *(*create_game)(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *, int, int __pyx_skip_dispatch);
   void (*set_games)(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *, PyObject *, int __pyx_skip_dispatch);
+  PyObject *(*get_game_params)(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *, int __pyx_skip_dispatch);
 };
 static struct __pyx_vtabstruct_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *__pyx_vtabptr_11environment_2cy_12multi_env_cy_MultiEnvironmentCy;
 
@@ -2018,6 +2020,7 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 static void __pyx_f_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_eval_genome(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *__pyx_v_self, PyObject *__pyx_v_genome, PyObject *__pyx_v_config, int __pyx_skip_dispatch, struct __pyx_opt_args_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_eval_genome *__pyx_optional_args); /* proto*/
 static struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *__pyx_f_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_create_game(CYTHON_UNUSED struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *__pyx_v_self, int __pyx_v_i, int __pyx_skip_dispatch); /* proto*/
 static void __pyx_f_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_set_games(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *__pyx_v_self, PyObject *__pyx_v_games, int __pyx_skip_dispatch); /* proto*/
+static PyObject *__pyx_f_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_get_game_params(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
 
 /* Module declarations from 'utils.cy.vec2d_cy' */
 static PyTypeObject *__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy = 0;
@@ -2130,6 +2133,7 @@ static const char __pyx_k_pyx_checksum[] = "__pyx_checksum";
 static const char __pyx_k_stringsource[] = "stringsource";
 static const char __pyx_k_D_SENSOR_LIST[] = "D_SENSOR_LIST";
 static const char __pyx_k_reduce_cython[] = "__reduce_cython__";
+static const char __pyx_k_get_game_params[] = "get_game_params";
 static const char __pyx_k_pyx_PickleError[] = "__pyx_PickleError";
 static const char __pyx_k_setstate_cython[] = "__setstate_cython__";
 static const char __pyx_k_utils_dictionary[] = "utils.dictionary";
@@ -2172,6 +2176,7 @@ static PyObject *__pyx_n_s_eval_genome;
 static PyObject *__pyx_n_s_game_id;
 static PyObject *__pyx_n_s_games;
 static PyObject *__pyx_n_s_genome;
+static PyObject *__pyx_n_s_get_game_params;
 static PyObject *__pyx_n_s_getstate;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_l;
@@ -2219,6 +2224,7 @@ static int __pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy___init
 static PyObject *__pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_2eval_genome(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *__pyx_v_self, PyObject *__pyx_v_genome, PyObject *__pyx_v_config, PyObject *__pyx_v_return_dict, int __pyx_v_debug); /* proto */
 static PyObject *__pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_4create_game(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *__pyx_v_self, int __pyx_v_i); /* proto */
 static PyObject *__pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_6set_games(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *__pyx_v_self, PyObject *__pyx_v_games); /* proto */
+static PyObject *__pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_8get_game_params(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_10batch_size___get__(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *__pyx_v_self); /* proto */
 static int __pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_10batch_size_2__set__(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static PyObject *__pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_9max_steps___get__(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *__pyx_v_self); /* proto */
@@ -2235,8 +2241,8 @@ static int __pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_8make_
 static PyObject *__pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_9query_net___get__(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *__pyx_v_self); /* proto */
 static int __pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_9query_net_2__set__(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static int __pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_9query_net_4__del__(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_8__reduce_cython__(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_10__setstate_cython__(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_10__reduce_cython__(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_12__setstate_cython__(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
 static PyObject *__pyx_pf_11environment_2cy_12multi_env_cy___pyx_unpickle_MultiEnvironmentCy(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
@@ -3662,6 +3668,7 @@ static void __pyx_f_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_set_ga
  *         """
  *         self.games = games             # <<<<<<<<<<<<<<
  *         self.batch_size = len(games)
+ * 
  */
   __Pyx_INCREF(__pyx_v_games);
   __Pyx_GIVEREF(__pyx_v_games);
@@ -3673,6 +3680,8 @@ static void __pyx_f_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_set_ga
  *         """
  *         self.games = games
  *         self.batch_size = len(games)             # <<<<<<<<<<<<<<
+ * 
+ *     cpdef list get_game_params(self):
  */
   if (unlikely(__pyx_v_games == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
@@ -3736,6 +3745,171 @@ static PyObject *__pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_AddTraceback("environment.cy.multi_env_cy.MultiEnvironmentCy.set_games", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "environment/cy/multi_env_cy.pyx":109
+ *         self.batch_size = len(games)
+ * 
+ *     cpdef list get_game_params(self):             # <<<<<<<<<<<<<<
+ *         """Return list of all game-parameters currently in self.games."""
+ *         return [self.create_game(i).game_params() for i in self.games]
+ */
+
+static PyObject *__pyx_pw_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_9get_game_params(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_f_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_get_game_params(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *__pyx_v_self, int __pyx_skip_dispatch) {
+  PyObject *__pyx_v_i = NULL;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  Py_ssize_t __pyx_t_5;
+  int __pyx_t_6;
+  __Pyx_RefNannySetupContext("get_game_params", 0);
+  /* Check if called by wrapper */
+  if (unlikely(__pyx_skip_dispatch)) ;
+  /* Check if overridden in Python */
+  else if (unlikely((Py_TYPE(((PyObject *)__pyx_v_self))->tp_dictoffset != 0) || (Py_TYPE(((PyObject *)__pyx_v_self))->tp_flags & (Py_TPFLAGS_IS_ABSTRACT | Py_TPFLAGS_HEAPTYPE)))) {
+    #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
+    static PY_UINT64_T __pyx_tp_dict_version = __PYX_DICT_VERSION_INIT, __pyx_obj_dict_version = __PYX_DICT_VERSION_INIT;
+    if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
+      PY_UINT64_T __pyx_type_dict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
+      #endif
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_game_params); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 109, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_9get_game_params)) {
+        __Pyx_XDECREF(__pyx_r);
+        __Pyx_INCREF(__pyx_t_1);
+        __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
+        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
+          __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
+          if (likely(__pyx_t_4)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+            __Pyx_INCREF(__pyx_t_4);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_3, function);
+          }
+        }
+        __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
+        __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 109, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        if (!(likely(PyList_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_2)->tp_name), 0))) __PYX_ERR(0, 109, __pyx_L1_error)
+        __pyx_r = ((PyObject*)__pyx_t_2);
+        __pyx_t_2 = 0;
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        goto __pyx_L0;
+      }
+      #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
+      __pyx_tp_dict_version = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
+      __pyx_obj_dict_version = __Pyx_get_object_dict_version(((PyObject *)__pyx_v_self));
+      if (unlikely(__pyx_type_dict_guard != __pyx_tp_dict_version)) {
+        __pyx_tp_dict_version = __pyx_obj_dict_version = __PYX_DICT_VERSION_INIT;
+      }
+      #endif
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
+    }
+    #endif
+  }
+
+  /* "environment/cy/multi_env_cy.pyx":111
+ *     cpdef list get_game_params(self):
+ *         """Return list of all game-parameters currently in self.games."""
+ *         return [self.create_game(i).game_params() for i in self.games]             # <<<<<<<<<<<<<<
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (unlikely(__pyx_v_self->games == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
+    __PYX_ERR(0, 111, __pyx_L1_error)
+  }
+  __pyx_t_2 = __pyx_v_self->games; __Pyx_INCREF(__pyx_t_2); __pyx_t_5 = 0;
+  for (;;) {
+    if (__pyx_t_5 >= PyList_GET_SIZE(__pyx_t_2)) break;
+    #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+    __pyx_t_3 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_5); __Pyx_INCREF(__pyx_t_3); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 111, __pyx_L1_error)
+    #else
+    __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 111, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    #endif
+    __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_3);
+    __pyx_t_3 = 0;
+    __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_v_i); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 111, __pyx_L1_error)
+    __pyx_t_3 = ((PyObject *)((struct __pyx_vtabstruct_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *)__pyx_v_self->__pyx_vtab)->create_game(__pyx_v_self, __pyx_t_6, 0)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 111, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_4 = ((struct __pyx_vtabstruct_11environment_8entities_2cy_7game_cy_GameCy *)((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_t_3)->__pyx_vtab)->game_params(((struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_t_3), 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 111, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 111, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_r = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "environment/cy/multi_env_cy.pyx":109
+ *         self.batch_size = len(games)
+ * 
+ *     cpdef list get_game_params(self):             # <<<<<<<<<<<<<<
+ *         """Return list of all game-parameters currently in self.games."""
+ *         return [self.create_game(i).game_params() for i in self.games]
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_AddTraceback("environment.cy.multi_env_cy.MultiEnvironmentCy.get_game_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_i);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static PyObject *__pyx_pw_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_9get_game_params(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_8get_game_params[] = "Return list of all game-parameters currently in self.games.";
+static PyObject *__pyx_pw_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_9get_game_params(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("get_game_params (wrapper)", 0);
+  __pyx_r = __pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_8get_game_params(((struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_8get_game_params(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("get_game_params", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __pyx_f_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_get_game_params(__pyx_v_self, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 109, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("environment.cy.multi_env_cy.MultiEnvironmentCy.get_game_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4294,19 +4468,19 @@ static int __pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_9query
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_9__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_9__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_11__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_11__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_8__reduce_cython__(((struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_10__reduce_cython__(((struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_8__reduce_cython__(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *__pyx_v_self) {
+static PyObject *__pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_10__reduce_cython__(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *__pyx_v_self) {
   PyObject *__pyx_v_state = 0;
   PyObject *__pyx_v__dict = 0;
   int __pyx_v_use_setstate;
@@ -4570,19 +4744,19 @@ static PyObject *__pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_11__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
-static PyObject *__pyx_pw_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_11__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pw_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_13__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_13__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_10__setstate_cython__(((struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+  __pyx_r = __pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_12__setstate_cython__(((struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_10__setstate_cython__(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_12__setstate_cython__(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -7626,8 +7800,9 @@ static PyMethodDef __pyx_methods_11environment_2cy_12multi_env_cy_MultiEnvironme
   {"eval_genome", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_3eval_genome, METH_VARARGS|METH_KEYWORDS, __pyx_doc_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_2eval_genome},
   {"create_game", (PyCFunction)__pyx_pw_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_5create_game, METH_O, __pyx_doc_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_4create_game},
   {"set_games", (PyCFunction)__pyx_pw_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_7set_games, METH_O, __pyx_doc_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_6set_games},
-  {"__reduce_cython__", (PyCFunction)__pyx_pw_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_9__reduce_cython__, METH_NOARGS, 0},
-  {"__setstate_cython__", (PyCFunction)__pyx_pw_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_11__setstate_cython__, METH_O, 0},
+  {"get_game_params", (PyCFunction)__pyx_pw_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_9get_game_params, METH_NOARGS, __pyx_doc_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_8get_game_params},
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_11__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_13__setstate_cython__, METH_O, 0},
   {0, 0, 0, 0}
 };
 
@@ -7781,6 +7956,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_game_id, __pyx_k_game_id, sizeof(__pyx_k_game_id), 0, 0, 1, 1},
   {&__pyx_n_s_games, __pyx_k_games, sizeof(__pyx_k_games), 0, 0, 1, 1},
   {&__pyx_n_s_genome, __pyx_k_genome, sizeof(__pyx_k_genome), 0, 0, 1, 1},
+  {&__pyx_n_s_get_game_params, __pyx_k_get_game_params, sizeof(__pyx_k_get_game_params), 0, 0, 1, 1},
   {&__pyx_n_s_getstate, __pyx_k_getstate, sizeof(__pyx_k_getstate), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_l, __pyx_k_l, sizeof(__pyx_k_l), 0, 0, 1, 1},
@@ -7997,6 +8173,7 @@ static int __Pyx_modinit_type_init_code(void) {
   __pyx_vtable_11environment_2cy_12multi_env_cy_MultiEnvironmentCy.eval_genome = (void (*)(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *, PyObject *, PyObject *, int __pyx_skip_dispatch, struct __pyx_opt_args_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_eval_genome *__pyx_optional_args))__pyx_f_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_eval_genome;
   __pyx_vtable_11environment_2cy_12multi_env_cy_MultiEnvironmentCy.create_game = (struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *(*)(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *, int, int __pyx_skip_dispatch))__pyx_f_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_create_game;
   __pyx_vtable_11environment_2cy_12multi_env_cy_MultiEnvironmentCy.set_games = (void (*)(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *, PyObject *, int __pyx_skip_dispatch))__pyx_f_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_set_games;
+  __pyx_vtable_11environment_2cy_12multi_env_cy_MultiEnvironmentCy.get_game_params = (PyObject *(*)(struct __pyx_obj_11environment_2cy_12multi_env_cy_MultiEnvironmentCy *, int __pyx_skip_dispatch))__pyx_f_11environment_2cy_12multi_env_cy_18MultiEnvironmentCy_get_game_params;
   if (PyType_Ready(&__pyx_type_11environment_2cy_12multi_env_cy_MultiEnvironmentCy) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_11environment_2cy_12multi_env_cy_MultiEnvironmentCy.tp_print = 0;

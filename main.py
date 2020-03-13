@@ -15,7 +15,7 @@ if __name__ == '__main__':
     pop = Population(
             name="test",
             # version=1,
-            folder_name='NEAT',
+            folder_name='test',
     )
     if not pop.best_genome: pop.best_genome = list(pop.population.values())[0]
     # pop.population[9] = pop.population[list(pop.population.keys())[12]]
@@ -85,5 +85,5 @@ if __name__ == '__main__':
         
         visualizer.visualize(
                 network=net,
-                game_id=-1,
+                game_id=1,
         )
