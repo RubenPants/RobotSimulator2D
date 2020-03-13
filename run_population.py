@@ -39,7 +39,7 @@ def main(fitness,
     # Give overview of population
     print(f"\n===> RUNNING FOR THE FOLLOWING CONFIGURATION: <===")
     print(f"\t> fitness: {cfg.fitness}")
-    print(f"\t> enable_gru: {cfg.gru}")
+    print(f"\t> enable_gru: {cfg.enable_gru}")
     print(f"\t> sexual_reproduction: {cfg.sexual_reproduction}")
     print(f"\t> Saving under folder: {folder}")
     print(f"\t> Train: {train} ({train_iterations} iterations)")
