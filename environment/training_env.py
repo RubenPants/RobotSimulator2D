@@ -169,7 +169,7 @@ class TrainingEnv:
         pool = mp.Pool(mp.cpu_count())
         manager = mp.Manager()
         return_dict = manager.dict()
-            
+        
         # Fetch the dictionary of genomes
         genomes = list(iteritems(pop.population))
         

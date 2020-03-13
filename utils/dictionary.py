@@ -63,6 +63,8 @@ D_MEAN = 'mean'
 D_MIN = 'min'
 
 # N
+D_NEAT = 'NEAT'
+D_NEAT_GRU = 'NEAT-GRU'
 D_NOISE_ANGLE = 'noise_angle'
 D_NOISE_DISTANCE = 'noise_distance'
 D_NOISE_PROXIMITY = 'noise_proximity'
@@ -108,4 +110,4 @@ D_X_AXIS = 'x_axis'
 D_Y_AXIS = 'y_axis'
 
 # List of dictionary-words
-D_FIT_OPTIONS = [D_DISTANCE, D_DISTANCE_TIME, D_NOVELTY, D_PATH, D_PATH_TIME]
+D_FIT_OPTIONS = [D_DISTANCE, D_NOVELTY, D_PATH]

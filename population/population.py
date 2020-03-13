@@ -4,7 +4,6 @@ population.py
 This class is responsible for containing the population. It will simply be used as a container for the population's core
 functionality such as its configuration and methods used to persist the population properly.
 """
-import pickle
 import re
 from glob import glob
 
@@ -22,7 +21,7 @@ from population.utils.population_util.stagnation import DefaultStagnation
 from population.utils.reporter_util.reporting import ReporterSet, StdOutReporter
 from population.utils.reporter_util.statistics import StatisticsReporter
 from utils.dictionary import D_FIT_COMB, D_GAME_ID, D_K, D_POS, D_TAG
-from utils.myutils import get_subfolder, update_dict
+from utils.myutils import get_subfolder, load_pickle, store_pickle, update_dict
 
 
 def query_net(net, states):
@@ -45,6 +44,7 @@ class Population:
     
     def __init__(self,
                  name: str = "",
+                 folder_name: str = "NEAT",
                  version: int = 0,
                  config: NeatConfig = None,
                  make_net_method=make_net,
@@ -55,6 +55,7 @@ class Population:
         reporters, persisting methods, evolution and more.
         
         :param name: Name of population, used when specific population must be summon
+        :param folder_name: Name of the folder to which the population belongs (NEAT, GRU-NEAT, ...)
         :param version: Version of the population, 0 if not versioned
         :param config: NeatConfig object
         :param make_net_method: Method used to create a network based on a given genome
@@ -65,7 +66,8 @@ class Population:
         if name:
             self.name = name
         else:
-            self.name = f"{cfg.fitness}{f'_{version}' if version else ''}"
+            self.name = f"{cfg.fitness}{f'_repr' if cfg.sexual_reproduction else ''}{f'_{version}' if version else ''}"
+        self.folder_name = folder_name
         
         # Placeholders
         self.best_genome = None
@@ -149,7 +151,7 @@ class Population:
         self.save()
         
         # Write population configuration to file
-        with open(f'population/storage/NEAT/{self}/config.txt', 'w') as f:
+        with open(f'population/storage/{self.folder_name}/{self}/config.txt', 'w') as f:
             f.write(str(cfg))
             f.write("\n\n\n")  # 2 empty lines
             f.write(str(config))
@@ -195,7 +197,7 @@ class Population:
         :param final_observations: Dictionary of all the final game observations made
         :param games: List Game-objects used during evaluation
         """
-        save_path = get_subfolder(f'population/storage/NEAT/{self}/', 'images')
+        save_path = get_subfolder(f'population/storage/{self.folder_name}/{self}/', 'images')
         genome_keys = list(final_observations.keys())
         for g in games:
             # Get the game's blueprint
@@ -235,8 +237,8 @@ class Population:
             genome = self.best_genome if self.best_genome else list(self.population.values())[0]
             if not name: name = 'best_genome_'
         name += 'gen_{gen:05d}'.format(gen=self.generation)
-        get_subfolder(f'population/storage/NEAT/{self}/', 'images')
-        sf = get_subfolder(f'population/storage/NEAT/{self}/images/', 'architectures')
+        get_subfolder(f'population/storage/{self.folder_name}/{self}/', 'images')
+        sf = get_subfolder(f'population/storage/{self.folder_name}/{self}/images/', 'architectures')
         draw_net(self.config,
                  genome,
                  debug=debug,
@@ -251,7 +253,7 @@ class Population:
         
         :param eval_result: Dictionary
         """
-        sf = get_subfolder(f'population/storage/NEAT/{self}/', 'evaluation')
+        sf = get_subfolder(f'population/storage/{self.folder_name}/{self}/', 'evaluation')
         sf = get_subfolder(sf, f"{self.generation:05d}")
         update_dict(f'{sf}results', eval_result)
     
@@ -282,12 +284,12 @@ class Population:
         Save the population as the current generation.
         """
         # Create needed subfolder if not yet exist
-        get_subfolder('population/storage/', 'NEAT')
-        get_subfolder('population/storage/NEAT/', f'{self}')
-        get_subfolder(f'population/storage/NEAT/{self}/', 'generations')
+        get_subfolder('population/storage/', f'{self.folder_name}')
+        get_subfolder(f'population/storage/{self.folder_name}/', f'{self}')
+        get_subfolder(f'population/storage/{self.folder_name}/{self}/', 'generations')
         
         # Save the population
-        pickle.dump(self, open(f'population/storage/NEAT/{self}/generations/gen_{self.generation:05d}', 'wb'))
+        store_pickle(self, f'population/storage/{self.folder_name}/{self}/generations/gen_{self.generation:05d}')
         print(f"Population '{self}' saved! Current generation: {self.generation}")
     
     def load(self, gen=None):
@@ -299,16 +301,18 @@ class Population:
         try:
             if gen is None:
                 # Load in all previous populations
-                populations = glob(f'population/storage/NEAT/{self}/generations/gen_*')
+                populations = glob(f'population/storage/{self.folder_name}/{self}/generations/gen_*')
                 if not populations: raise FileNotFoundError
                 
                 # Find newest population and save generation number under 'gen'
                 populations = [p.replace('\\', '/') for p in populations]
-                regex = r"(?<=" + re.escape(f'population/storage/NEAT/{self}/generations/gen_') + ")[0-9]*"
+                regex = r"(?<=" + \
+                        re.escape(f'population/storage/{self.folder_name}/{self}/generations/gen_') + \
+                        ")[0-9]*"
                 gen = max([int(re.findall(regex, p)[0]) for p in populations])
             
             # Load in the population under the specified generation
-            pop = pickle.load(open(f'population/storage/NEAT/{self}/generations/gen_{gen:05d}', 'rb'))
+            pop = load_pickle(f'population/storage/{self.folder_name}/{self}/generations/gen_{gen:05d}')
             self.best_genome = pop.best_genome
             self.config = pop.config
             self.fitness_config = pop.fitness_config

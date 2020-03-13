@@ -117,22 +117,19 @@ class StatisticsReporter(BaseReporter):
                                                       cv_avg_fitness):
                     w.writerow([best, avg, cv_best, cv_avg])
             else:
-                for best, avg in zip(best_fitness, avg_fitness):
-                    w.writerow([best, avg])
+                for best, avg in zip(best_fitness, avg_fitness): w.writerow([best, avg])
     
     def save_species_count(self, delimiter=' ', filename='speciation.csv'):
         """ Log speciation throughout evolution. """
         with open(filename, 'w') as f:
             w = csv.writer(f, delimiter=delimiter)
-            for s in self.get_species_sizes():
-                w.writerow(s)
+            for s in self.get_species_sizes(): w.writerow(s)
     
     def save_species_fitness(self, delimiter=' ', null_value='NA', filename='species_fitness.csv'):
         """ Log species' average fitness throughout evolution. """
         with open(filename, 'w') as f:
             w = csv.writer(f, delimiter=delimiter)
-            for s in self.get_species_fitness(null_value):
-                w.writerow(s)
+            for s in self.get_species_fitness(null_value): w.writerow(s)
     
     def get_species_sizes(self):
         all_species = set()

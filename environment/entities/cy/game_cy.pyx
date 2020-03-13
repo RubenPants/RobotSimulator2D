@@ -4,7 +4,6 @@ game_cy.pyx
 Cython version of the game.py file. Note that this file co-exists with a .pxd file (needed to import the game methods
 in other files).
 """
-import pickle
 import random
 
 import numpy as np
@@ -18,6 +17,7 @@ from utils.dictionary import *
 from utils.cy.intersection_cy cimport circle_line_intersection_cy
 from utils.cy.line2d_cy cimport Line2dCy
 from utils.cy.vec2d_cy cimport Vec2dCy
+from utils.myutils import store_pickle, load_pickle
 
 cdef class GameCy:
     """
@@ -282,7 +282,7 @@ cdef class GameCy:
         persist_dict[D_POS] = (self.player.init_pos.x, self.player.init_pos.y)  # Initial position of player
         persist_dict[D_TARGET] = (self.target.x, self.target.y)
         persist_dict[D_WALLS] = [((w.x.x, w.x.y), (w.y.x, w.y.y)) for w in self.walls]
-        with open(f'{self.save_path}{self}', 'wb') as f: pickle.dump(persist_dict, f)
+        store_pickle(persist_dict, f'{self.save_path}{self}')
     
     cpdef bint load(self):
         """
@@ -294,8 +294,7 @@ cdef class GameCy:
         cdef dict game
         
         try:
-            with open(f'{self.save_path}{self}', 'rb') as f:
-                game = pickle.load(f)
+            game = load_pickle(f'{self.save_path}{self}')
             self.bot_driving_speed = game[D_BOT_DRIVING_SPEED]
             self.bot_radius = game[D_BOT_RADIUS]
             self.bot_turning_speed = game[D_BOT_TURNING_SPEED]

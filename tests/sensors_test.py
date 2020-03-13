@@ -1,6 +1,7 @@
 """
 Test of all the sensors.
 """
+import os
 import unittest
 
 import numpy as np
@@ -16,13 +17,15 @@ EPSILON_DISTANCE_L = 0.1  # 10 centimeter offset allowed
 
 
 class AngularSensorTest(unittest.TestCase):
-    """
-    Test the angular sensor.
-    """
+    """Test the angular sensor."""
     
-    def test_front(self, save_path="games_db/"):
+    def test_front(self):
+        """> Test angular sensors when target straight in the front."""
+        # Folder must be root to load in make_net properly
+        if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
+        
         # Create empty game
-        game = Game(silent=True, save_path=save_path, overwrite=True, noise=False)
+        game = Game(silent=True, save_path="tests/games_db/", overwrite=True, noise=False)
         
         # Update player and target position
         game.target = Vec2d(1, 0)
@@ -35,9 +38,13 @@ class AngularSensorTest(unittest.TestCase):
             s = min(s, abs(s - 2 * np.pi))
             self.assertAlmostEqual(s, 0.0, delta=EPSILON_ANGLE)
     
-    def test_left_angle(self, save_path="games_db/"):
+    def test_left_angle(self):
+        """> Test the angular sensors when target on the left."""
+        # Folder must be root to load in make_net properly
+        if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
+        
         # Create empty game
-        game = Game(silent=True, save_path=save_path, overwrite=True, noise=False)
+        game = Game(silent=True, save_path="tests/games_db/", overwrite=True, noise=False)
         
         # Update player and target position
         game.target = Vec2d(1, 1)
@@ -55,9 +62,13 @@ class DistanceSensorTest(unittest.TestCase):
     Test the distance sensor.
     """
     
-    def test_front(self, save_path="games_db/"):
+    def test_front(self):
+        """> Test the distance sensor when target straight in the front."""
+        # Folder must be root to load in make_net properly
+        if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
+        
         # Create empty game
-        game = Game(silent=True, save_path=save_path, overwrite=True, noise=False)
+        game = Game(silent=True, save_path="tests/games_db/", overwrite=True, noise=False)
         
         # Update player and target position
         game.target = Vec2d(1, 0)
@@ -66,9 +77,13 @@ class DistanceSensorTest(unittest.TestCase):
         
         self.assertAlmostEqual(game.player.get_sensor_reading_distance(), 1.0, delta=EPSILON_DISTANCE)
     
-    def test_left_angle(self, save_path="games_db/"):
+    def test_left_angle(self):
+        """> Test distance sensor when target under an angle (towards the left)."""
+        # Folder must be root to load in make_net properly
+        if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
+        
         # Create empty game
-        game = Game(silent=True, save_path=save_path, overwrite=True, noise=False)
+        game = Game(silent=True, save_path="tests/games_db/", overwrite=True, noise=False)
         
         # Update player and target position
         game.target = Vec2d(1, 1)
@@ -79,13 +94,15 @@ class DistanceSensorTest(unittest.TestCase):
 
 
 class ProximitySensorTest(unittest.TestCase):
-    """
-    Test the proximity sensor.
-    """
+    """Test the proximity sensor."""
     
-    def test_no_walls(self, save_path="games_db/"):
+    def test_no_walls(self):
+        """> Test proximity sensors with empty readings (i.e. no walls in proximity)."""
+        # Folder must be root to load in make_net properly
+        if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
+        
         # Create empty game
-        game = Game(silent=True, save_path=save_path, overwrite=True, noise=False)
+        game = Game(silent=True, save_path="tests/games_db/", overwrite=True, noise=False)
         
         # Add walls to maze that are far enough from agent
         a = Vec2d(2, 2)
@@ -102,9 +119,13 @@ class ProximitySensorTest(unittest.TestCase):
         for s in sensors.values():
             self.assertAlmostEqual(s, float(game.sensor_ray_distance), delta=EPSILON_DISTANCE)
     
-    def test_cubed(self, save_path="games_db/"):
+    def test_cubed(self):
+        """> Test proximity sensors when fully surrounded by walls."""
+        # Folder must be root to load in make_net properly
+        if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
+        
         # Create empty game
-        game = Game(silent=True, save_path=save_path, overwrite=True, noise=False)
+        game = Game(silent=True, save_path="tests/games_db/", overwrite=True, noise=False)
         
         # Add walls to maze
         a = Vec2d(4, 5)
@@ -134,9 +155,13 @@ class ProximitySensorTest(unittest.TestCase):
         self.assertAlmostEqual(sensors[4], 1 - float(game.bot_radius), delta=EPSILON_DISTANCE)
         self.assertAlmostEqual(sensors[5], game.sensor_ray_distance, delta=EPSILON_DISTANCE)
     
-    def test_force(self, save_path="games_db/"):
+    def test_force(self):
+        """> Test proximity sensors when bot is grinding against a wall."""
+        # Folder must be root to load in make_net properly
+        if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
+        
         # Create empty game
-        game = Game(silent=True, save_path=save_path, overwrite=True, noise=False)
+        game = Game(silent=True, save_path="tests/games_db/", overwrite=True, noise=False)
         
         # Add walls to maze
         b = Vec2d(5, 5)
@@ -151,8 +176,7 @@ class ProximitySensorTest(unittest.TestCase):
         game.player.proximity_sensors = list()
         game.player.add_proximity_sensor(0)  # 0°
         
-        for _ in range(100):
-            game.step(l=1, r=1)
+        for _ in range(100): game.step(l=1, r=1)
         
         # Flat facing the wall, so upper sensor must always (approximately) equal zero
         for _ in range(50):
@@ -163,19 +187,19 @@ class ProximitySensorTest(unittest.TestCase):
 def main():
     # Test angular sensors
     ast = AngularSensorTest()
-    ast.test_front(save_path="tests/games_db/")
-    ast.test_left_angle(save_path="tests/games_db/")
+    ast.test_front()
+    ast.test_left_angle()
     
     # Test distance sensor
     dst = DistanceSensorTest()
-    dst.test_front(save_path="tests/games_db/")
-    dst.test_left_angle(save_path="tests/games_db/")
+    dst.test_front()
+    dst.test_left_angle()
     
     # Test proximity sensors
     pst = ProximitySensorTest()
-    pst.test_no_walls(save_path="tests/games_db/")
-    pst.test_cubed(save_path="tests/games_db/")
-    pst.test_force(save_path="tests/games_db/")
+    pst.test_no_walls()
+    pst.test_cubed()
+    pst.test_force()
 
 
 if __name__ == '__main__':

@@ -12,6 +12,7 @@ Utils overview:
 import glob
 import json
 import os
+import pickle
 import sys
 from timeit import default_timer as timer
 
@@ -165,6 +166,21 @@ def store_json(new_json, full_path, indent=2):
     """
     with open(full_path, 'w') as f:
         json.dump(new_json, f, indent=indent)
+
+
+# -----------------------------------------------------> PICKLE <----------------------------------------------------- #
+
+
+def load_pickle(full_path):
+    """Load pickled object."""
+    with open(full_path, 'rb') as f:
+        return pickle.load(f)
+
+
+def store_pickle(obj, full_path):
+    """Store object as pickle."""
+    with open(full_path, 'wb') as f:
+        pickle.dump(obj, f)
 
 
 # -----------------------------------------------------> SYSTEM <----------------------------------------------------- #

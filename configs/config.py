@@ -28,14 +28,14 @@ class GameConfig:
         self.bot_turning_speed: float = 13 * np.pi / 16
         
         # [CONTROL]
-        # Number of games on which a single genome is evaluated [def=16]  TODO: move out of game config!
-        self.batch: int = 16
+        # Number of games on which a single genome is evaluated [def=10]
+        self.batch: int = 10
         # Number of seconds it takes for one game to complete [def=50]
         self.duration: int = 50
         # Max ID of game (starting from 1) [def=1000]
         self.max_game_id: int = 1000
-        # Max ID of evaluation game (starting from max_id) [def=1200]
-        self.max_eval_game_id: int = 1200
+        # Max ID of evaluation game (starting from max_id) [def=1100]
+        self.max_eval_game_id: int = 1100
         # Number of frames each second  [def=20]
         self.fps: int = 20
         
@@ -100,7 +100,7 @@ class NeatConfig:
         self.fitness_threshold: int = 1
         # Don't consider fitness_criterion and fitness_threshold
         self.no_fitness_termination: bool = True
-        # Number of individuals in each generation  [def=256]  TODO
+        # Number of individuals in each generation  [def=128]
         self.pop_size: int = 128
         # Create random population if all species become distinct due to stagnation
         self.reset_on_extinction: bool = True
@@ -114,18 +114,18 @@ class NeatConfig:
         self.species_elitism: int = 2
         
         # [DefaultReproduction]
-        # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=1]  TODO
+        # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=1]
         self.elitism: int = 1
-        # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.2]  TODO
+        # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.2]
         self.survival_threshold: float = 0.2
         # Minimum number of genomes per species  [def=5]
         self.min_species_size: int = 5
-        # Sexual reproduction  [def=True]  # TODO
+        # Sexual reproduction  [def=True]
         self.sexual_reproduction: bool = True
         
         # [DefaultGenome]
         # Number of input nodes (the sensors): [5x proximity_sensor, 2x angular_sensor, 1x distance_sensor]  [def=8]
-        self.num_inputs: int = 8
+        self.num_inputs: int = 10
         # Number of hidden nodes to add to each genome in the initial population  [def=0]  TODO
         self.num_hidden: int = 0
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
@@ -158,8 +158,8 @@ class NeatConfig:
         self.bias_init_stdev: float = 1.0
         # The probability that mutation will replace the bias of a node with a completely random value  [def=0.05]
         self.bias_replace_rate: float = 0.05
-        # The probability that mutation will change the bias of a node by adding a random value  [def=0.5]
-        self.bias_mutate_rate: float = 0.5
+        # The probability that mutation will change the bias of a node by adding a random value  [def=0.6]
+        self.bias_mutate_rate: float = 0.6
         # The standard deviation of the zero-centered gaussian from which a bias value mutation is drawn  [def=0.1]
         self.bias_mutate_power: float = 0.1
         # The maximum allowed bias value, biases above this threshold will be clamped to this value  [def=2]
@@ -186,12 +186,12 @@ class NeatConfig:
         self.enabled_mutate_rate: float = 0.01
         
         # [DefaultSpeciesSet]
-        # Individuals whose genetic distance is less than this threshold are in the same specie  [def=2]
-        self.compatibility_threshold: float = 2.0
-        # Full weight of disjoint and excess nodes on determining genomic distance  [def=1]
+        # Individuals whose genetic distance is less than this threshold are in the same specie  [def=2.0]
+        self.compatibility_threshold: float = 2.5
+        # Full weight of disjoint and excess nodes on determining genomic distance  [def=1.0]
         self.compatibility_disjoint_coefficient: float = 1.0
-        # Coefficient for each weight or bias difference contribution to the genomic distance  [def=0.1]
-        self.compatibility_weight_coefficient: float = 0.2
+        # Coefficient for each weight or bias difference contribution to the genomic distance  [def=0.5]
+        self.compatibility_weight_coefficient: float = 0.5
         
         # [EVALUATION]
         # Fitness functions [distance, distance_time, novelty, path, path_time]
@@ -203,7 +203,7 @@ class NeatConfig:
         
         # [GRU]
         # Enable the genomes to mutate GRU nodes  [def=True]  TODO
-        self.enable_gru: bool = False
+        self.enable_gru: bool = True
         # Mutation probability of mutating a GRU node rather than a simple node  [def=0.4]  TODO
         self.gru_mutate_rate: float = 0.4
     
