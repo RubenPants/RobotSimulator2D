@@ -9,7 +9,7 @@ from random import random
 
 import torch
 
-from configs.config import NeatConfig
+from config import NeatConfig
 from population.population import query_net
 from population.utils.config.default_config import Config
 from population.utils.genome_util.genome import DefaultGenome

@@ -9,7 +9,7 @@ import numpy as np
 import pylab as pl
 from matplotlib import collections as mc
 
-from configs.config import GameConfig
+from config import GameConfig
 from environment.entities.robots import FootBot
 from utils.dictionary import *
 from utils.intersection import circle_line_intersection

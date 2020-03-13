@@ -5,7 +5,7 @@ Run a sequence of populations for each a different configuration.
 """
 import argparse
 
-from configs.config import NeatConfig
+from config import NeatConfig
 from population.population import Population
 from utils.dictionary import *
 
@@ -29,23 +29,24 @@ def main(fitness,
     :param blueprint: Create a blueprint evaluation for the population
     :param evaluate: Evaluate the best genome of the population
     """
+    # Let inputs apply to configuration
     folder = D_NEAT_GRU if gru else D_NEAT
+    cfg = NeatConfig()
+    cfg.fitness = fitness
+    cfg.enable_gru = gru
+    cfg.sexual_reproduction = reproduce
     
     # Give overview of population
     print(f"\n===> RUNNING FOR THE FOLLOWING CONFIGURATION: <===")
-    print(f"\t> fitness: {fitness}")
-    print(f"\t> enable_gru: {gru}")
-    print(f"\t> sexual_reproduction: {reproduce}")
+    print(f"\t> fitness: {cfg.fitness}")
+    print(f"\t> enable_gru: {cfg.gru}")
+    print(f"\t> sexual_reproduction: {cfg.sexual_reproduction}")
     print(f"\t> Saving under folder: {folder}")
     print(f"\t> Train: {train} ({train_iterations} iterations)")
     print(f"\t> Create blueprints: {blueprint}")
     print()
     
-    # Modify configuration correspondingly and create the population
-    cfg = NeatConfig()
-    cfg.fitness = fitness
-    cfg.enable_gru = gru
-    cfg.sexual_reproduction = reproduce
+    # Create the population
     pop = Population(
             version=1,
             config=cfg,

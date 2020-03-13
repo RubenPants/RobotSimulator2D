@@ -10,7 +10,7 @@ from glob import glob
 import matplotlib.pyplot as plt
 from neat.math_util import mean
 
-from configs.config import NeatConfig
+from config import NeatConfig
 from population.utils.config.default_config import Config
 from population.utils.genome_util.genome import DefaultGenome
 from population.utils.genome_util.genome_visualizer import draw_net

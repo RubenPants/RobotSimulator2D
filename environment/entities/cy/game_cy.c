@@ -2272,7 +2272,6 @@ static const char __pyx_k_reduce_cython[] = "__reduce_cython__";
 static const char __pyx_k_utils_myutils[] = "utils.myutils";
 static const char __pyx_k_LineCollection[] = "LineCollection";
 static const char __pyx_k_add_collection[] = "add_collection";
-static const char __pyx_k_configs_config[] = "configs.config";
 static const char __pyx_k_noise_distance[] = "noise_distance";
 static const char __pyx_k_set_player_pos[] = "set_player_pos";
 static const char __pyx_k_target_reached[] = "target_reached";
@@ -2362,7 +2361,6 @@ static PyObject *__pyx_n_s_close;
 static PyObject *__pyx_n_s_collections;
 static PyObject *__pyx_n_s_colors;
 static PyObject *__pyx_n_s_config;
-static PyObject *__pyx_n_s_configs_config;
 static PyObject *__pyx_n_s_create_empty_game;
 static PyObject *__pyx_n_s_dict;
 static PyObject *__pyx_n_s_done;
@@ -14403,7 +14401,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_collections, __pyx_k_collections, sizeof(__pyx_k_collections), 0, 0, 1, 1},
   {&__pyx_n_s_colors, __pyx_k_colors, sizeof(__pyx_k_colors), 0, 0, 1, 1},
   {&__pyx_n_s_config, __pyx_k_config, sizeof(__pyx_k_config), 0, 0, 1, 1},
-  {&__pyx_n_s_configs_config, __pyx_k_configs_config, sizeof(__pyx_k_configs_config), 0, 0, 1, 1},
   {&__pyx_n_s_create_empty_game, __pyx_k_create_empty_game, sizeof(__pyx_k_create_empty_game), 0, 0, 1, 1},
   {&__pyx_n_s_dict, __pyx_k_dict, sizeof(__pyx_k_dict), 0, 0, 1, 1},
   {&__pyx_n_s_done, __pyx_k_done, sizeof(__pyx_k_done), 0, 0, 1, 1},
@@ -15061,7 +15058,7 @@ if (!__Pyx_RefNanny) {
  * import pylab as pl
  * from matplotlib import collections as mc             # <<<<<<<<<<<<<<
  * 
- * from configs.config import GameConfig
+ * from config import GameConfig
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -15080,7 +15077,7 @@ if (!__Pyx_RefNanny) {
   /* "environment/entities/cy/game_cy.pyx":14
  * from matplotlib import collections as mc
  * 
- * from configs.config import GameConfig             # <<<<<<<<<<<<<<
+ * from config import GameConfig             # <<<<<<<<<<<<<<
  * from environment.entities.cy.robots_cy cimport FootBotCy
  * from utils.dictionary import *
  */
@@ -15089,7 +15086,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_INCREF(__pyx_n_s_GameConfig);
   __Pyx_GIVEREF(__pyx_n_s_GameConfig);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_GameConfig);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_configs_config, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 14, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_config, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 14, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_GameConfig); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 14, __pyx_L1_error)
@@ -15099,7 +15096,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "environment/entities/cy/game_cy.pyx":16
- * from configs.config import GameConfig
+ * from config import GameConfig
  * from environment.entities.cy.robots_cy cimport FootBotCy
  * from utils.dictionary import *             # <<<<<<<<<<<<<<
  * from utils.cy.intersection_cy cimport circle_line_intersection_cy

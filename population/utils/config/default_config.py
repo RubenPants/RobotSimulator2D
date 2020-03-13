@@ -10,7 +10,7 @@ import warnings
 
 from neat.six_util import iterkeys
 
-from configs.config import NeatConfig
+from config import NeatConfig
 from population.utils.config.genome_config import DefaultGenomeConfig
 from utils.dictionary import D_ENABLE_GRU, D_GRU_MUT
 
