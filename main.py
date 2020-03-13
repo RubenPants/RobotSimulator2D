@@ -8,7 +8,7 @@ if __name__ == '__main__':
     parser.add_argument('--iterations', type=int, default=1)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
-    parser.add_argument('--genome', type=bool, default=True)
+    parser.add_argument('--genome', type=bool, default=False)
     parser.add_argument('--live', type=bool, default=True)
     args = parser.parse_args()
     
@@ -85,5 +85,5 @@ if __name__ == '__main__':
         
         visualizer.visualize(
                 network=net,
-                game_id=1,
+                game_id=-1,
         )
