@@ -16,7 +16,7 @@ cdef class GameCy:
     cdef public bint done, noise, silent
     cdef public int id, steps_taken
     cdef public dict path
-    cdef public list walls
+    cdef public set walls
     cdef public FootBotCy player
     cdef public Vec2dCy target
     cdef public float bot_driving_speed, bot_radius, bot_turning_speed
@@ -41,8 +41,6 @@ cdef class GameCy:
     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
     
     cpdef void create_empty_game(self)
-    
-    cpdef list get_sensor_list(self)
     
     cpdef void set_config_params(self, config)
     

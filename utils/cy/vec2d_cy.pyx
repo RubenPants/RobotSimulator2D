@@ -22,6 +22,12 @@ cdef class Vec2dCy:
         self.x = x
         self.y = y
     
+    def __str__(self):
+        return f"Vec2d({self.x}, {self.y})"
+    
+    def __hash__(self):
+        return hash(str(self))
+    
     def __getitem__(self, int i):
         if i == 0:
             return self.x

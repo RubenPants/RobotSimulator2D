@@ -104,7 +104,7 @@ class Visualizer:
         # Draw the robot's sensors
         def draw_sensors():
             [space.remove(s) for s in space.shapes if s.sensor and type(s) == pymunk.Segment]
-            for index, s in enumerate(game.player.proximity_sensors):
+            for index, s in enumerate(game.player.get_proximity_sensors()):
                 if used_sensor(network, index):
                     line = pymunk.Segment(space.static_body,
                                           a=s.start_pos * game.p2m,

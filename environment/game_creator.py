@@ -608,7 +608,7 @@ def create_game(cfg: GameConfig, game_id=0, path_list=None, wall_list=None, over
     :param cfg: The game config
     :param game_id: ID of the game (Integer)
     :param path_list: List of paths together with value [0..1] indicating how close the tile is to the target
-    :param wall_list: List of tuples containing the begin and end coordinate of a wall, excluding boundary walls
+    :param wall_list: List of Line2d objects containing the begin and end coordinate of a wall, excluding boundary walls
     :param overwrite: Overwrite pre-existing games
     """
     # Create empty Game instance
@@ -618,7 +618,7 @@ def create_game(cfg: GameConfig, game_id=0, path_list=None, wall_list=None, over
                 silent=True)
     
     # Add additional walls to the game
-    game.walls += wall_list
+    game.walls.update(set(wall_list))
     
     # App path to the game
     game.path = {p[0]: p[1] for p in path_list}
@@ -659,7 +659,7 @@ if __name__ == '__main__':
     if args.custom:
         create_custom_game(cfg=config, overwrite=args.overwrite)
     else:
-        for g_id in tqdm(range(1, nr_games + 1), desc="Generating Mazes"):
+        for g_id in [-1]:#tqdm(range(1, nr_games + 1), desc="Generating Mazes"):
             maze = None
             while not maze:
                 try:

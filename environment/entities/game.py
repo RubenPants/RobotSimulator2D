@@ -81,7 +81,7 @@ class Game:
         self.player: FootBot = None  # Candidate-robot
         self.steps_taken: int = 0  # Number of steps taken by the agent
         self.target: Vec2d = None  # Target-robot
-        self.walls: list = None  # List of all walls in the game
+        self.walls: set = None  # Set of all walls in the game
         
         # Check if game already exists, if not create new game
         if overwrite or not self.load():
@@ -97,7 +97,7 @@ class Game:
     def close(self):
         """Final state of the agent's statistics."""
         return {
-            D_DIST_TO_TARGET: self.player.get_sensor_reading_distance(),
+            D_DIST_TO_TARGET: self.player.get_sensor_readings_distance(),
             D_DONE:           self.done,
             D_GAME_ID:        self.id,
             D_POS:            self.player.pos,
@@ -118,7 +118,7 @@ class Game:
         return {
             D_DONE:        self.done,
             D_GAME_ID:     self.id,
-            D_SENSOR_LIST: self.get_sensor_list(),
+            D_SENSOR_LIST: self.player.get_sensor_readings(),
         }
     
     def reset(self):
@@ -163,7 +163,7 @@ class Game:
                 break
         
         # Check if target reached
-        if self.player.get_sensor_reading_distance() <= self.target_reached: self.done = True
+        if self.player.get_sensor_readings_distance() <= self.target_reached: self.done = True
         
         # Return the current observations
         return self.get_observation()
@@ -182,25 +182,6 @@ class Game:
         # Save the new game
         self.save()
         if not self.silent: print("New game created under id: {}".format(self.id))
-    
-    def get_sensor_list(self):
-        """
-        Return a list of sensory-readings, with first the proximity sensors, then the angular sensors and at the end the
-        distance-sensor.
-        
-        :return: [proximity_sensors, angular_sensors, distance_sensor]
-        """
-        # Read the sensors
-        sensor_readings = self.player.get_sensor_readings()
-        proximity = sensor_readings[D_SENSOR_PROXIMITY]
-        angular = sensor_readings[D_SENSOR_ANGLE]
-        distance = sensor_readings[D_SENSOR_DISTANCE]
-        
-        result = []  # Add sensory-readings in one list
-        for i in range(len(proximity)): result.append(proximity[i])  # Proximity IDs go from 0 to proximity_length
-        for i in range(len(angular)): result.append(angular[i])  # Angular IDs go from 0 to angular_length
-        result.append(distance)
-        return result
     
     def set_config_params(self, config):
         """ Store all the configured parameters locally. """
@@ -286,7 +267,7 @@ class Game:
             self.set_player_pos(Vec2d(game[D_POS][0], game[D_POS][1]))
             self.path = {p[0]: p[1] for p in game[D_PATH]}
             self.target = Vec2d(game[D_TARGET][0], game[D_TARGET][1])
-            self.walls = [Line2d(Vec2d(w[0][0], w[0][1]), Vec2d(w[1][0], w[1][1])) for w in game[D_WALLS]]
+            self.walls = {Line2d(Vec2d(w[0][0], w[0][1]), Vec2d(w[1][0], w[1][1])) for w in game[D_WALLS]}
             if not self.silent: print(f"Existing game loaded with id: {self.id}")
             return True
         except FileNotFoundError:
@@ -321,10 +302,10 @@ def get_boundary_walls(x_axis, y_axis):
     b = Vec2d(x_axis, 0)
     c = Vec2d(x_axis, y_axis)
     d = Vec2d(0, y_axis)
-    return [Line2d(a, b), Line2d(b, c), Line2d(c, d), Line2d(d, a)]
+    return {Line2d(a, b), Line2d(b, c), Line2d(c, d), Line2d(d, a)}
 
 
 def initial_sensor_readings():
     """Return a list of the sensors their maximum value."""
     game = Game(game_id=0, silent=True)
-    return game.get_sensor_list()
+    return game.player.get_sensor_readings()
