@@ -6,28 +6,28 @@ def test_intersection():
     print("--> Running the intersection test <--")
     
     # Do measures
-    time_cy = timeit('test_intersection_cy.main()',
-                     setup='from environment.cy_entities.tests import test_intersection_cy',
+    time_cy = timeit('intersection_test_cy.main()',
+                     setup='from tests.cy import intersection_test_cy',
                      number=1000)
-    time_py = timeit('test_intersection.main()',
-                     setup='from tests import test_intersection',
+    time_py = timeit('intersection_test.main()',
+                     setup='from tests import intersection_test',
                      number=1000)
     
     # Print results
     print("Time Python:", time_py)
     print("Time Cython:", time_cy)
-    print("Cython is {} times faster on the intersection test".format(round(time_py / time_cy, 2)))
+    print(f"Cython is {round(time_py / time_cy, 2)} times faster on the intersection test")
 
 
 def test_drive():
     print("--> Running the drive test <--")
     
     # Do measures
-    time_cy = timeit('test_drive_cy.main()',
-                     setup='from environment.cy_entities.tests import test_drive_cy',
+    time_cy = timeit('drive_test_cy.main()',
+                     setup='from tests.cy import drive_test_cy',
                      number=10)
-    time_py = timeit('test_drive.main()',
-                     setup='from tests import test_drive',
+    time_py = timeit('drive_test.main()',
+                     setup='from tests import drive_test',
                      number=10)
     
     # Print results
@@ -40,11 +40,11 @@ def test_sensors():
     print("--> Running the sensor test <--")
     
     # Do measures
-    time_cy = timeit('test_sensors_cy.main()',
-                     setup='from environment.cy_entities.tests import test_sensors_cy',
+    time_cy = timeit('sensors_test_cy.main()',
+                     setup='from tests.cy import sensors_test_cy',
                      number=1000)
-    time_py = timeit('test_sensors.main()',
-                     setup='from tests import test_sensors',
+    time_py = timeit('sensors_test.main()',
+                     setup='from tests import sensors_test',
                      number=1000)
     
     # Print results

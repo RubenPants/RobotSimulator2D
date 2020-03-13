@@ -16,27 +16,39 @@ The creation of a stage will happen in three different stages:
 After successfully creating the maze-matrix, it is converted to a Pymunk game and then saved in the 'games_db' folder.
 """
 import argparse
+import os
 import random
+from math import sqrt
 
 import matplotlib.pyplot as plt
-from tqdm import tqdm
+import numpy as np
 
+from config import GameConfig
 from environment.entities.game import Game
 from environment.entities.robots import FootBot
-from utils.config import *
 from utils.line2d import Line2d
 from utils.vec2d import Vec2d
 
+# Constants
+MIN_ROOM_WIDTH = 5
+ROOM_ATTEMPTS = 5
+FILLED_ROOM_RATIO = 0.2
+
 
 class Maze:
-    def __init__(self, x_width, y_width, visualize=False):
+    def __init__(self, cfg: GameConfig, visualize: bool = False):
         """
-        :param x_width: Width of the x-axis
-        :param y_width: Width of the y-axis
+        Auto-generate a maze, which is a model for the final games.
+        
+        :param cfg: Config file
         :param visualize: Visualize intermediate steps of creation
         """
-        self.x_width = 2 * x_width + 1
-        self.y_width = 2 * y_width + 1
+        # Load in the config file
+        self.cfg = cfg
+        
+        # Set the maze's main parameters
+        self.x_width = 2 * self.cfg.x_axis + 1
+        self.y_width = 2 * self.cfg.y_axis + 1
         self.tiles_amount = self.x_width * self.y_width
         self.maze = np.zeros((self.y_width, self.x_width))
         
@@ -51,18 +63,15 @@ class Maze:
         
         # Generate rooms
         self.generate_rooms()
-        if visualize:
-            self.visualize()
+        if visualize: self.visualize()
         
         # Add division-walls
         self.generate_division_walls()
-        if visualize:
-            self.visualize()
+        if visualize: self.visualize()
         
         # Add doors in walls such that every room is connected
         self.connect_rooms()
-        if visualize:
-            self.visualize()
+        if visualize: self.visualize()
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     
@@ -128,49 +137,88 @@ class Maze:
         combine_walls(wall_list)
         return wall_list
     
-    def get_path_coordinates(self, visualize=False):
-        """
-        :return: All free-positions together with their distance to the target
-        """
+    def get_path_coordinates(self, visualize: bool = False):
+        """ Define all free-positions together with their distance to the target """
         
-        def get_neighbour_values(p):
-            neighbours = [self.maze[p[0], p[1]]]
-            if self.in_maze([p[0] + 1, p[1]]): neighbours.append(self.maze[p[0] + 1, p[1]] - 1)
-            if self.in_maze([p[0] - 1, p[1]]): neighbours.append(self.maze[p[0] - 1, p[1]] - 1)
-            if self.in_maze([p[0], p[1] + 1]): neighbours.append(self.maze[p[0], p[1] + 1] - 1)
-            if self.in_maze([p[0], p[1] - 1]): neighbours.append(self.maze[p[0], p[1] - 1] - 1)
-            return neighbours
+        # Expand the maze such that every 10cm gets a tile
+        y_tiles = self.cfg.y_axis * 11 + 1
+        x_tiles = self.cfg.x_axis * 11 + 1
+        maze_expanded = np.zeros((y_tiles, x_tiles))
+        
+        # Copy tiles from current maze to the extended maze
+        for row in range(y_tiles):
+            for col in range(x_tiles):
+                #  Cross-section
+                if row % 11 == 0 and col % 11 == 0:
+                    maze_expanded[row, col] = -1
+                
+                # Horizontal walls
+                elif row % 11 == 0 and self.maze[(row // 11) * 2, (col // 11) * 2 + 1] < 0:
+                    maze_expanded[row, col] = -1
+                
+                # Vertical walls
+                elif col % 11 == 0 and self.maze[(row // 11) * 2 + 1, (col // 11) * 2] < 0:
+                    maze_expanded[row, col] = -1
+        
+        def update(pos_1, pos_2, dist=0.1):
+            """
+            Update a single position based on its neighbour position.
+            
+            :param pos_1: Current position
+            :param pos_2: Neighbour position that needs to update
+            :param dist: Distance (real-life) between the two positions
+            """
+            if self.in_maze([pos_2[0], pos_2[1]], maze=maze_expanded) and \
+                    0 <= maze_expanded[pos_2[0], pos_2[1]] < maze_expanded[pos_1[0], pos_1[1]] - dist:
+                maze_expanded[pos_2[0], pos_2[1]] = maze_expanded[pos_1[0], pos_1[1]] - dist
+                return True
+            return False
+        
+        def update_neighbours(p):
+            updated = set()
+            for i in [-1, 1]:
+                if update(p, [p[0] + i, p[1]]): updated.add((p[0] + i, p[1]))  # Horizontal
+                if update(p, [p[0], p[1] + i]): updated.add((p[0], p[1] + i))  # Vertical
+                if update(p, [p[0] + i, p[1] + i], dist=sqrt(0.02)): updated.add((p[0] + i, p[1] + i))  # Diagonal
+                if update(p, [p[0] + i, p[1] - i], dist=sqrt(0.02)): updated.add((p[0] + i, p[1] - i))  # V-shaped
+            return updated
+        
+        # Constant
+        VALUE_START = 100
         
         # Find distance to target
-        if visualize:
-            self.visualize(clip=False)
-        self.maze[self.y_width - 2, 1] = 100
-        for _ in range(50):  # Definitely enough time to cover all non-wall tiles
-            for x in range(1, self.x_width - 1):
-                for y in range(1, self.y_width - 1):
-                    if self.maze[x, y] > -1:
-                        self.maze[x, y] = max(get_neighbour_values([x, y]))
-        if visualize:
-            self.visualize(clip=False)
+        if visualize: self.visualize_extend(maze=maze_expanded)
+        maze_expanded[y_tiles - 6, 5] = VALUE_START
+        updated_pos = {(y_tiles - 6, 5)}
         
-        # Normalize on 100-scale
-        min_value = min([self.maze[x, y] for x in range(1, self.x_width - 2) for y in range(1, self.y_width - 2)
-                         if self.maze[x, y] >= 1])
-        for x in range(1, self.x_width - 1):
-            for y in range(1, self.y_width - 1):
-                if self.maze[x, y] > -1:
-                    self.maze[x, y] = (self.maze[x, y] - min_value) / (100 - min_value)
+        # Keep updating all the set_positions' neighbours while change occurs
+        while updated_pos:
+            new_pos = set()
+            for pos in updated_pos:
+                new_updated_pos = update_neighbours(pos)
+                if new_updated_pos:
+                    new_pos.update(new_updated_pos)
+            updated_pos = new_pos
+        if visualize: self.visualize_extend(maze=maze_expanded)
+        
+        # Invert values such that distance to target @target equals 0, and distance at start equals |X-VALUE_START| / 2
+        # Note the /2 since 1m in-game is 2 squared here
+        for row in range(y_tiles):
+            for col in range(x_tiles):
+                if maze_expanded[row, col] > 0:
+                    maze_expanded[row, col] = abs(maze_expanded[row, col] - VALUE_START)
         
         # Put values in list
         values = []
-        for x in range(1, self.x_width - 1, 2):
-            for y in range(1, self.y_width - 1, 2):
-                values.append(((x / 2, y / 2), self.maze[y, x]))
+        for row in range(y_tiles - 1):
+            for col in range(x_tiles - 1):
+                if row % 11 == 0 or col % 11 == 0: continue
+                # Note the maze_expanded[col, row] which is a bug rippled through whole project (everywhere switched!)
+                values.append((((row - row // 11) / 10, (col - col // 11) / 10), maze_expanded[col, row]))
         if visualize:
-            self.visualize(clip=False)
+            self.visualize_extend(maze=maze_expanded)
             print("Coordinate (fitness) values:")
-            for v in values:
-                print(v)
+            for v in values: print(v)
         return values
     
     # -------------------------------------------> MAIN SECONDARY METHODS <------------------------------------------- #
@@ -258,7 +306,7 @@ class Maze:
             self.maze[start_new[1] + direction[1] * x + direction_ort[1] * room_depth,
                       start_new[0] + direction[0] * x + direction_ort[0] * room_depth] = -1
     
-    def add_wall(self, lst, hor=True):
+    def add_wall(self, lst: list, hor: bool = True):
         """
         Add a random straight wall starting on one of the given positions, such that it connects two walls.
         
@@ -326,7 +374,7 @@ class Maze:
     
     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
     
-    def fill_room(self, pos, reset=False):
+    def fill_room(self, pos, reset: bool = False):
         """
         Fill a room (integer > 0) and count the number of tiles in it.
         
@@ -407,7 +455,8 @@ class Maze:
                     wall_positions.append((x, y))
         return wall_positions
     
-    def in_maze(self, pos):
+    def in_maze(self, pos, maze=None):
+        if maze is not None: return 0 <= pos[0] < maze.shape[0] and 0 <= pos[1] < maze.shape[1]
         return 0 <= pos[0] < self.x_width and 0 <= pos[1] < self.y_width
     
     def reset_empty_tiles(self):
@@ -419,7 +468,8 @@ class Maze:
                 if self.maze[y, x] > 0:
                     self.maze[y, x] = 0
     
-    def visualize(self, clip=True):
+    def visualize(self, clip: bool = True):
+        """Visualize the main maze representation."""
         c = self.maze.copy()
         if clip:
             c = np.clip(c, a_min=-1, a_max=0)
@@ -436,6 +486,17 @@ class Maze:
         plt.show()
         plt.close()
     
+    def visualize_extend(self, maze, clip: bool = True):
+        """Visualize maze where 1 meter is represented by 10 tiles. No matrix-processing must be done."""
+        c = maze.copy()
+        plt.figure(figsize=(8, 8))
+        plt.imshow(c, origin='lower')
+        plt.xticks([i * 11 for i in range(self.cfg.y_axis + 1)])
+        plt.yticks([i * 11 for i in range(self.cfg.x_axis + 1)])
+        plt.colorbar()
+        plt.show()
+        plt.close()
+    
     def get_random_wall_position(self):
         self.wall_tiles = self.get_wall_tiles()
         return random.choice(self.wall_tiles)
@@ -448,7 +509,7 @@ class Maze:
                     (self.in_maze((x, y)) and self.maze[y, x] >= 0)])
 
 
-def combine_walls(wall_list):
+def combine_walls(wall_list: list):
     """
     Combine every two wall-segments (Line2d) together that can be represented by only one line segment. This will
     increase the performance later on, since the intersection methods must loop over less wall-segments.
@@ -503,55 +564,70 @@ def combine_walls(wall_list):
             i += 1
 
 
-def create_custom_game(overwrite=False):
+def create_custom_game(cfg: GameConfig, overwrite=False):
+    """ Dummy to create a custom-defined game. """
     # Initial parameters
     game_id = 0
     
     # Create empty Game instance
-    game = Game(game_id=game_id,
-                rel_path='',
+    game = Game(config=cfg,
+                game_id=game_id,
                 overwrite=overwrite)
     
+    # Set game path
+    path = dict()
+    for x in range(cfg.x_axis):
+        for y in range(cfg.y_axis):
+            path[(x + 0.5, y + 0.5)] = Line2d(Vec2d(0.5, cfg.y_axis - 0.5), Vec2d(x + 0.5, y + 0.5)).get_length()
+    game.path = path
+    
     # Put the target on a fixed position
-    game.target = Vec2d(0.5, AXIS_Y - 0.5)
+    game.target = Vec2d(0.5, cfg.y_axis - 0.5)
     
     # Create random player
     game.player = FootBot(game=game,
-                          init_pos=Vec2d(AXIS_X - 0.5, 0.5),
+                          init_pos=Vec2d(cfg.x_axis - 0.5, 0.5),
                           init_orient=np.pi / 2)
+    
+    # Check if implemented correctly
+    game.close()
+    game.reset()
+    game.get_blueprint()
+    game.get_observation()
+    game.step(0, 0)
     
     # Save the final game
     game.save()
 
 
-def create_game(game_id=0, path_list=None, rel_path='', wall_list=None, overwrite=False):
+def create_game(cfg: GameConfig, game_id=0, path_list=None, wall_list=None, overwrite=False):
     """
     Create a game based on a list of walls.
     
+    :param cfg: The game config
     :param game_id: ID of the game (Integer)
     :param path_list: List of paths together with value [0..1] indicating how close the tile is to the target
-    :param rel_path: Relative path to the 'games'-folder
-    :param wall_list: List of tuples containing the begin and end coordinate of a wall, excluding boundary walls
+    :param wall_list: List of Line2d objects containing the begin and end coordinate of a wall, excluding boundary walls
     :param overwrite: Overwrite pre-existing games
     """
     # Create empty Game instance
-    game = Game(game_id=game_id,
-                rel_path=rel_path,
+    game = Game(config=cfg,
+                game_id=game_id,
                 overwrite=overwrite,
                 silent=True)
     
     # Add additional walls to the game
-    game.walls += wall_list
+    game.walls.update(set(wall_list))
     
     # App path to the game
     game.path = {p[0]: p[1] for p in path_list}
     
     # Put the target on a fixed position
-    game.target = Vec2d(0.5, AXIS_Y - 0.5)
+    game.target = Vec2d(0.5, cfg.y_axis - 0.5)
     
     # Create random player
     game.player = FootBot(game=game,
-                          init_pos=Vec2d(AXIS_X - 0.5, 0.5),
+                          init_pos=Vec2d(cfg.x_axis - 0.5, 0.5),
                           init_orient=np.pi / 2)
     
     # Save the final game
@@ -565,21 +641,49 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('--custom', type=bool, default=False)
     parser.add_argument('--overwrite', type=bool, default=True)
-    parser.add_argument('--nr_games', type=int, default=GAMES_AMOUNT)
+    parser.add_argument('--nr_games', type=int, default=None)
     parser.add_argument('--visualize', type=bool, default=False)
     args = parser.parse_args()
     
+    # Point back to root
+    os.chdir('..')
+    
+    # Load in the config file
+    config = GameConfig()
+    
+    # Setup the params
+    nr_games = args.nr_games
+    if not nr_games: nr_games = config.max_eval_game_id
+    
     if args.custom:
-        create_custom_game(overwrite=args.overwrite)
+        create_custom_game(cfg=config, overwrite=args.overwrite)
     else:
-        for game in tqdm(range(1, args.nr_games + 1), desc="Generating Mazes"):
+        for g_id in [-1]:#tqdm(range(1, nr_games + 1), desc="Generating Mazes"):
             maze = None
             while not maze:
                 try:
-                    maze = Maze(AXIS_X, AXIS_Y, visualize=args.visualize)
-                except (IndexError, Exception):
+                    maze = Maze(cfg=config, visualize=args.visualize)
+                except IndexError:
                     maze = None  # Reset and try again
-            create_game(game_id=game,
-                        path_list=maze.get_path_coordinates(),
+            create_game(cfg=config,
+                        game_id=g_id,
+                        path_list=maze.get_path_coordinates(visualize=args.visualize),
                         wall_list=maze.get_wall_coordinates(),
                         overwrite=args.overwrite)
+            
+            # Quality check the created game
+            try:
+                game = Game(
+                        game_id=g_id,
+                        save_path="environment/games_db/",
+                        overwrite=False,
+                        silent=True,
+                )
+                game.close()
+                game.reset()
+                game.get_blueprint()
+                game.get_observation()
+                game.step(0, 0)
+            except Exception:
+                print(f"Faulty created game: {g_id}, please manually redo this one")
+                os.remove(f"environment/games_db/game_{g_id:05d}")

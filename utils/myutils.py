@@ -4,16 +4,15 @@ myutils.py
 Share utils used across the project.
 
 Utils overview:
- * CSV: transform_csv
  * DICT: append_dict, load_dict, store_dict
  * JSON: append_json, load_json, store_json
- * PLOT: create_bar_plot
  * SYSTEM: create_subfolder, python2_to_3
  * TIMING: drop, prep, status_out, total_time
 """
 import glob
 import json
 import os
+import pickle
 import sys
 from timeit import default_timer as timer
 
@@ -167,6 +166,21 @@ def store_json(new_json, full_path, indent=2):
     """
     with open(full_path, 'w') as f:
         json.dump(new_json, f, indent=indent)
+
+
+# -----------------------------------------------------> PICKLE <----------------------------------------------------- #
+
+
+def load_pickle(full_path):
+    """Load pickled object."""
+    with open(full_path, 'rb') as f:
+        return pickle.load(f)
+
+
+def store_pickle(obj, full_path):
+    """Store object as pickle."""
+    with open(full_path, 'wb') as f:
+        pickle.dump(obj, f)
 
 
 # -----------------------------------------------------> SYSTEM <----------------------------------------------------- #

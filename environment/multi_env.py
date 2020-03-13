@@ -1,39 +1,33 @@
-import sys
+"""
+multi_env.py
 
-from utils.config import FPS
-from utils.dictionary import D_SENSOR_LIST
-
-if sys.platform == 'linux':
-    from environment.cy_entities.game_cy import GameCy
-else:
-    from environment.entities.game import Game
+TODO
+"""
+from environment.entities.game import Game
+from utils.dictionary import D_DONE, D_SENSOR_LIST
 
 
-# TODO: Create Cython MultiEnvironment, since this environment communicates a lot with god_class
 class MultiEnvironment:
-    """
-    This class provides an environment to evaluate a single genome on multiple games.
-    """
+    """ This class provides an environment to evaluate a single genome on multiple games. """
+    
+    __slots__ = ("batch_size", "games", "make_net", "max_steps", "query_net")
     
     def __init__(self,
                  make_net,
                  query_net,
-                 max_duration: int = 100,
-                 rel_path: str = ''):
+                 max_steps: int):
         """
         Create an environment in which the genomes get evaluated across different games.
         
         :param make_net: Method to create a network based on the given genome
         :param query_net: Method to evaluate the network given the current state
-        :param max_duration: Maximum number of seconds a candidate drives around in a single environment
-        :param rel_path: Relative path pointing to the 'environment/' folder
+        :param max_steps: Maximum number of steps a candidate drives around in a single environment
         """
         self.batch_size = None
         self.games = None
         self.make_net = make_net
-        self.max_steps = max_duration * FPS
+        self.max_steps = max_steps
         self.query_net = query_net
-        self.rel_path = rel_path
     
     def eval_genome(self,
                     genome,
@@ -60,8 +54,7 @@ class MultiEnvironment:
         step_num = 0
         while True:
             # Check if maximum iterations is reached
-            if self.max_steps is not None and step_num == self.max_steps:
-                break
+            if step_num == self.max_steps: break
             
             # Determine the actions made by the agent for each of the states
             if debug:
@@ -76,19 +69,18 @@ class MultiEnvironment:
                 # Ignore if game has finished
                 if not f:
                     # Proceed the game with one step, based on the predicted action
-                    obs, finished[i] = g.step(l=a[0], r=a[1])
+                    obs = g.step(l=a[0], r=a[1])
+                    finished[i] = obs[D_DONE]
                     
                     # Update the candidate's current state
                     states[i] = obs[D_SENSOR_LIST]
             
             # Stop if agent reached target in all the games
-            if all(finished):
-                break
+            if all(finished): break
             step_num += 1
         
         # Return the final observations
-        if return_dict is not None:
-            return_dict[genome_id] = [g.close() for g in games]
+        if return_dict is not None: return_dict[genome_id] = [g.close() for g in games]
     
     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
     
@@ -97,20 +89,18 @@ class MultiEnvironment:
         :param i: Game-ID
         :return: Game or GameCy object
         """
-        if sys.platform == 'linux':
-            return GameCy(game_id=i,
-                          rel_path=self.rel_path,
-                          silent=True)
-        else:
-            return Game(game_id=i,
-                        rel_path=self.rel_path,
-                        silent=True)
+        return Game(game_id=i,
+                    silent=True)
     
     def set_games(self, games):
         """
         Set the games-set with new games.
         
-        :param games: List of Game (or GameCy) objects
+        :param games: List of Game-IDs
         """
         self.games = games
         self.batch_size = len(games)
+    
+    def get_game_params(self):
+        """Return list of all game-parameters currently in self.games."""
+        return [self.create_game(i).game_params() for i in self.games]

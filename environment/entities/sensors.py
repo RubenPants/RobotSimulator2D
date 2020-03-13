@@ -10,7 +10,6 @@ import random
 
 import numpy as np
 
-from utils.config import NOISE_SENSOR_ANGLE, NOISE_SENSOR_DIST, NOISE_SENSOR_PROXY, SENSOR_RAY_DISTANCE
 from utils.dictionary import *
 from utils.intersection import line_line_intersection
 from utils.line2d import Line2d
@@ -18,16 +17,20 @@ from utils.vec2d import Vec2d
 
 
 class Sensor:
-    """
-    The baseclass used by all sensors.
-    """
+    """ The baseclass used by all sensors. """
+    
+    __slots__ = (
+        "game",
+        "id", "angle", "pos_offset", "max_dist", "value",
+    )
     
     def __init__(self,
                  game,  # Type not specified due to circular imports
                  sensor_id: int = 0,
                  angle: float = 0,
                  pos_offset: float = 0,
-                 max_dist: float = 0):
+                 max_dist: float = 0
+                 ):
         """
         Basic characteristics of a sensor.
         
@@ -45,27 +48,19 @@ class Sensor:
         self.angle = angle
         self.pos_offset = pos_offset
         self.max_dist = max_dist
+        self.value = None  # Current value of the sensor
     
     def __str__(self):
-        """
-        :return: Name of the sensor
-        """
+        """ :return: Name of the sensor """
         raise NotImplemented
     
-    def get_measure(self):
-        """
-        Read the distance to the first object in the given space. Give visualization of the sensor if VISUALIZE_SENSOR
-        is set on True.
-        
-        :return: Distance
-        """
+    def measure(self):
+        """Store the sensor's current value in self.value."""
         raise NotImplemented
 
 
 class AngularSensor(Sensor):
-    """
-    Angle deviation between bot and wanted direction in 'crow flight'.
-    """
+    """Angle deviation between bot and wanted direction in 'crows flight'."""
     
     def __init__(self,
                  game,  # Type not specified due to circular imports
@@ -77,40 +72,33 @@ class AngularSensor(Sensor):
         :param sensor_id: Identification number for the sensor
         """
         # noinspection PyCompatibility
-        super().__init__(game=game,
-                         sensor_id=sensor_id)
+        super().__init__(game=game, sensor_id=sensor_id)
         self.clockwise = clockwise
     
     def __str__(self):
-        return "{sensor}_{id:02d}".format(sensor=D_SENSOR_ANGLE, id=self.id)
+        return f"{D_SENSOR_ANGLE}_{self.id:02d}"
     
-    def get_measure(self):
-        """
-        :return: Float between 0 and 2*PI
-        """
+    def measure(self):
+        """Update self.value, result is a float between 0 and 2*PI."""
         # Get relative angle
         start_a = self.game.player.angle
         req_a = (self.game.target - self.game.player.pos).get_angle()
         
         # Normalize
-        diff = 2 * np.pi + start_a - req_a
-        diff %= 2 * np.pi
+        self.value = 2 * np.pi + start_a - req_a
+        self.value %= 2 * np.pi
         
         # Check direction
         if not self.clockwise:
-            diff = abs(2 * np.pi - diff)
-            diff %= 2 * np.pi
+            self.value = abs(2 * np.pi - self.value)
+            self.value %= 2 * np.pi
         
         # Add noise
-        if self.game.noise:
-            diff += random.gauss(0, NOISE_SENSOR_ANGLE)
-        return diff
+        if self.game.noise: self.value += random.gauss(0, self.game.noise_angle)
 
 
 class DistanceSensor(Sensor):
-    """
-    Distance from bot to the target in 'crows flight'.
-    """
+    """Distance from bot to the target in 'crows flight'."""
     
     def __init__(self,
                  game,  # Type not specified due to circular imports
@@ -119,22 +107,17 @@ class DistanceSensor(Sensor):
         :param game: Reference to the game in which the sensor is used
         :param sensor_id: Identification number for the sensor
         """
-        super().__init__(game=game,
-                         sensor_id=sensor_id)
+        super().__init__(game=game, sensor_id=sensor_id)
     
     def __str__(self):
-        return "{sensor}_{id:02d}".format(sensor=D_SENSOR_DISTANCE, id=self.id)
+        return f"{D_SENSOR_DISTANCE}_{self.id:02d}"
     
-    def get_measure(self):
-        """
-        :return: Distance between target and robot's center coordinate, which is a float
-        """
+    def measure(self):
+        """Update self.value to current distance between target and robot's center coordinate."""
         start_p = self.game.player.pos
         end_p = self.game.target
-        distance = (start_p - end_p).get_length()
-        if self.game.noise:
-            distance += random.gauss(0, NOISE_SENSOR_DIST)
-        return distance
+        self.value = (start_p - end_p).get_length()
+        if self.game.noise: self.value += random.gauss(0, self.game.noise_distance)
 
 
 class ProximitySensor(Sensor):
@@ -149,7 +132,7 @@ class ProximitySensor(Sensor):
                  sensor_id: int = 0,
                  angle: float = 0,
                  pos_offset: float = 0,
-                 max_dist: float = SENSOR_RAY_DISTANCE):
+                 max_dist: float = None):
         """
         :param game: Reference to the game in which the sensor is used
         :param sensor_id: Identification number for the sensor
@@ -157,6 +140,7 @@ class ProximitySensor(Sensor):
         :param pos_offset: Distance to the agent's center of mass and orientation
         :param max_dist: Maximum distance the sensor can reach, infinite if set to zero
         """
+        if not max_dist: max_dist = game.sensor_ray_distance
         super().__init__(game=game,
                          sensor_id=sensor_id,
                          angle=angle,
@@ -166,9 +150,9 @@ class ProximitySensor(Sensor):
         self.end_pos = None  # Placeholder for end-point of proximity sensor
     
     def __str__(self):
-        return "{sensor}_{id:02d}".format(sensor=D_SENSOR_PROXIMITY, id=self.id)
+        return f"{D_SENSOR_PROXIMITY}_{self.id:02d}"
     
-    def get_measure(self):
+    def measure(self):
         """
         Get the distance to the closest wall. If all the walls are 'far enough', as determined by self.max_dist, then
         the maximum sensor-distance is returned.
@@ -180,20 +164,18 @@ class ProximitySensor(Sensor):
                                   np.sin(self.game.player.angle + self.angle))
         self.start_pos = self.game.player.pos + normalized_offset * self.pos_offset
         self.end_pos = self.game.player.pos + normalized_offset * (self.pos_offset + self.max_dist)
-        sensor_line = Line2d(x=self.game.player.pos,
-                             y=self.end_pos)
+        sensor_line = Line2d(x=self.game.player.pos, y=self.end_pos)
         
         # Check if there is a wall intersecting with the sensor and return the closest distance to a wall
-        closest_dist = self.max_dist
+        self.value = self.max_dist
         for wall in self.game.walls:
             inter, pos = line_line_intersection(sensor_line, wall)
             if inter:
                 new_dist = (pos - self.start_pos).get_length()
-                if closest_dist > new_dist:
+                if self.value > new_dist:
                     self.end_pos = pos
-                    closest_dist = new_dist
+                    self.value = new_dist
         
         if self.game.noise:
-            closest_dist += random.gauss(0, NOISE_SENSOR_PROXY)
-            closest_dist = max(0, min(closest_dist, self.max_dist))
-        return closest_dist
+            self.value += random.gauss(0, self.game.noise_proximity)
+            self.value = max(0, min(self.value, self.max_dist))

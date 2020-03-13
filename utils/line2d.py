@@ -1,16 +1,25 @@
+"""
+line2d.py
+
+Representation for two-dimensional lines.
+"""
 from utils.vec2d import Vec2d
 
 
 class Line2d(object):
-    """
-    Create a two dimensional line setup of the connection between two 2D vectors.
-    """
+    """ Create a two dimensional line setup of the connection between two 2D vectors. """
     
     __slots__ = ("x", "y")
     
     def __init__(self, x: Vec2d = None, y: Vec2d = None):
-        self.x = x if x else Vec2d(0, 0)
-        self.y = y if y else Vec2d(0, 0)
+        self.x: Vec2d = x if x else Vec2d(0, 0)
+        self.y: Vec2d = y if y else Vec2d(0, 0)
+    
+    def __str__(self):
+        return f"Line2d({self.x}, {self.y})"
+    
+    def __hash__(self):
+        return hash(str(self))
     
     def __getitem__(self, i):
         if i == 0:
@@ -39,7 +48,7 @@ class Line2d(object):
     
     def __eq__(self, other):
         if hasattr(other, "__getitem__") and len(other) == 2:
-            return self.x == other[0] and self.y == other[1]
+            return (self.x == other[0] and self.y == other[1]) or (self.x == other[1] and self.y == other[0])
         else:
             return False
     

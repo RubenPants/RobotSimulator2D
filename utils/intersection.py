@@ -1,3 +1,8 @@
+"""
+intersection.py
+
+Simple intersection methods used during the run of the program.
+"""
 from utils.line2d import Line2d
 from utils.vec2d import Vec2d
 
