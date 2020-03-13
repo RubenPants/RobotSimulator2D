@@ -8,8 +8,6 @@ import numpy as np
 cimport numpy as np
 
 from sensors_cy cimport AngularSensorCy, DistanceSensorCy, ProximitySensorCy
-from utils.dictionary import *
-from utils.myutils import drop, prep
 from utils.cy.vec2d_cy cimport angle_to_vec, Vec2dCy
 
 cdef class FootBotCy:
