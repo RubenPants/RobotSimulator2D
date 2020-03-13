@@ -40,20 +40,19 @@ def game_blueprint(game):
 
 def path_heatmap(game):
     path = game.path
-    path_norm = dict((k, v / max(path.values())) for k, v in path.items())
+    max_dist = max(path.values())
+    path_norm = dict((k, v / max_dist) for k, v in path.items())
     
     def fill(x1, x2, y1, y2):
-        x12 = (x1 + x2) / 2
-        y12 = (y1 + y2) / 2
-        c = clr.to_hex([1, path_norm[(x12, y12)] * 2 / 3 + 0.33, 0])
+        c = clr.to_hex([1, path_norm[(x2, y2)] * 2 / 3 + 0.33, 0])
         plt.fill([x1, x1, x2, x2], [y1, y2, y2, y1], c)
     
     fig, ax = plt.subplots()
     divider = make_axes_locatable(ax)
     game.get_blueprint(ax)
-    for x in range(14):
-        for y in range(14):
-            fill(x, x + 1, y, y + 1)
+    for x in range(0, 140):
+        for y in range(0, 140):
+            fill(round(x / 10, 1), round((x + 1) / 10, 1), round(y / 10, 1), round((y + 1) / 10, 1))
     game.get_blueprint(ax)
     
     # Set the title for the plot
@@ -61,7 +60,7 @@ def path_heatmap(game):
     
     # Create the colorbar
     cax = divider.append_axes('right', size='5%', pad=0.05)
-    norm = mpl.colors.Normalize(vmin=0, vmax=max(path.values()))
+    norm = mpl.colors.Normalize(vmin=0, vmax=max_dist)
     data = np.ones((256, 3))
     data[:, 1] = np.linspace(0.33, 1, 256)
     data[:, 2] = 0
@@ -74,9 +73,9 @@ def path_heatmap(game):
 if __name__ == '__main__':
     os.chdir("..")
     # Load the game
-    for g_id in range(1, 11):
+    for g_id in [-1]:  # range(1, 11): TODO
         g = load_game(g_id)
         
         # Create visualizations
-        game_blueprint(g)
+        # game_blueprint(g)  TODO
         path_heatmap(g)

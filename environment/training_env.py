@@ -104,12 +104,20 @@ class TrainingEnv:
                 pbar.close()  # Close the progressbar
                 
                 # Calculate the fitness from the given return_dict
-                fitness = calc_pop_fitness(fitness_config=pop.fitness_config, game_observations=return_dict)
+                fitness = calc_pop_fitness(
+                        fitness_config=pop.fitness_config,
+                        game_observations=return_dict,
+                        game_params=multi_env.get_game_params(),
+                )
                 for i, genome in genomes: genome.fitness = fitness[i]
             else:
                 for genome in tqdm(genomes, desc="sequential training"):
                     multi_env.eval_genome(genome, pop.config, return_dict)
-                fitness = calc_pop_fitness(fitness_config=pop.fitness_config, game_observations=return_dict)
+                fitness = calc_pop_fitness(
+                        fitness_config=pop.fitness_config,
+                        game_observations=return_dict,
+                        game_params=multi_env.get_game_params(),
+                )
                 for i, genome in genomes: genome.fitness = fitness[i]
             
             # Gather and report statistics

@@ -28,10 +28,10 @@ class GameConfig:
         self.bot_turning_speed: float = 13 * np.pi / 16
         
         # [CONTROL]
-        # Number of games on which a single genome is evaluated [def=10]
+        # Number of games on which a single genome is evaluated [def=10]  # TODO: Put in population?
         self.batch: int = 10
-        # Number of seconds it takes for one game to complete [def=50]
-        self.duration: int = 50
+        # Number of seconds it takes for one game to complete [def=60]
+        self.duration: int = 60
         # Max ID of game (starting from 1) [def=1000]
         self.max_game_id: int = 1000
         # Max ID of evaluation game (starting from max_id) [def=1100]
@@ -100,7 +100,7 @@ class NeatConfig:
         self.fitness_threshold: int = 1
         # Don't consider fitness_criterion and fitness_threshold
         self.no_fitness_termination: bool = True
-        # Number of individuals in each generation  [def=128]
+        # Number of individuals in each generation  [def=128]  TODO
         self.pop_size: int = 128
         # Create random population if all species become distinct due to stagnation
         self.reset_on_extinction: bool = True
@@ -195,7 +195,7 @@ class NeatConfig:
         
         # [EVALUATION]
         # Fitness functions [distance, distance_time, novelty, path, path_time]
-        self.fitness: str = D_DISTANCE
+        self.fitness: str = D_NOVELTY
         # Function to combine the fitness-values across different games, choices are: min, avg, max, gmean  [def=gmean]
         self.fitness_comb: str = D_GMEAN
         # Number of nearest neighbors taken into account for a NN-utilizing fitness function  [def=3]
@@ -203,7 +203,7 @@ class NeatConfig:
         
         # [GRU]
         # Enable the genomes to mutate GRU nodes  [def=True]  TODO
-        self.enable_gru: bool = True
+        self.enable_gru: bool = False
         # Mutation probability of mutating a GRU node rather than a simple node  [def=0.4]  TODO
         self.gru_mutate_rate: float = 0.4
     

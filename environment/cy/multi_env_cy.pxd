@@ -19,3 +19,5 @@ cdef class MultiEnvironmentCy:
     cpdef GameCy create_game(self, int i)
 
     cpdef void set_games(self, list games)
+    
+    cpdef list get_game_params(self)
