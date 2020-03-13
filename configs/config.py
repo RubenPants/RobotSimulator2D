@@ -28,10 +28,10 @@ class GameConfig:
         self.bot_turning_speed: float = 13 * np.pi / 16
         
         # [CONTROL]
-        # Number of games on which a single genome is evaluated [def=10]
+        # Number of games on which a single genome is evaluated [def=10]  # TODO: Put in population?
         self.batch: int = 10
-        # Number of seconds it takes for one game to complete [def=50]
-        self.duration: int = 50
+        # Number of seconds it takes for one game to complete [def=60]
+        self.duration: int = 60
         # Max ID of game (starting from 1) [def=1000]
         self.max_game_id: int = 1000
         # Max ID of evaluation game (starting from max_id) [def=1100]
