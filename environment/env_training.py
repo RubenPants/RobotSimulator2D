@@ -1,5 +1,5 @@
 """
-training_env.py
+env_training.py
 
 Train and evaluate the population on a random batch of training games.
 """
@@ -15,9 +15,9 @@ from population.population import Population
 from population.utils.population_util.fitness_functions import calc_pop_fitness
 
 if sys.platform == 'linux':
-    from environment.cy.multi_env_cy import MultiEnvironmentCy
+    from environment.cy.env_multi_cy import MultiEnvironmentCy
 else:
-    from environment.multi_env import MultiEnvironment
+    from environment.env_multi import MultiEnvironment
 
 
 class TrainingEnv:
@@ -77,10 +77,10 @@ class TrainingEnv:
         
         for iteration in range(n):
             # Set random set of games
-            self.sample_games(multi_env)
+            self.sample_games(multi_env, pop.log)
             
             # Prepare the generation's reporters for the generation
-            pop.reporters.start_generation(pop.generation)
+            pop.reporters.start_generation(gen=pop.generation, logger=pop.log)
             
             # Initialize the evaluation-pool
             pool = mp.Pool(mp.cpu_count())
@@ -124,7 +124,11 @@ class TrainingEnv:
             best = None
             for g in itervalues(pop.population):
                 if best is None or g.fitness > best.fitness: best = g
-            pop.reporters.post_evaluate(pop.config, pop.population, pop.species, best)
+            pop.reporters.post_evaluate(config=pop.config,
+                                        population=pop.population,
+                                        species=pop.species,
+                                        best_genome=best,
+                                        logger=pop.log)
             
             # Track best genome ever seen
             if pop.best_genome is None or best.fitness > pop.best_genome.fitness: pop.best_genome = best
@@ -133,67 +137,23 @@ class TrainingEnv:
             pop.evolve()
             
             # End generation
-            pop.reporters.end_generation(pop.config, pop.population, pop.species)
+            pop.reporters.end_generation(config=pop.config,
+                                         population=pop.population,
+                                         species_set=pop.species,
+                                         logger=pop.log)
             
             # Save the population
             if iteration % save_interval == 0: pop.save()
     
-    def sample_games(self, multi_env):
+    def sample_games(self, multi_env, logger=None):
         """
         Set the list on which the agents will be trained.
         
         :param multi_env: The environment on which the game-id list will be set
+        :param logger: Log-reporter of population
         """
         s = sample(self.games, self.batch_size)
-        print("Sample chosen:", s)
+        msg = f"Sample chosen: {s}"
+        logger(msg) if logger else print(msg)
         multi_env.set_games(s)
         return s
-    
-    def blueprint_genomes(self, pop):
-        """
-        Create blueprints for all the requested mazes.
-        
-        :param pop: Population object
-        """
-        if sys.platform == 'linux':
-            multi_env = MultiEnvironmentCy(
-                    make_net=pop.make_net,
-                    query_net=pop.query_net,
-                    max_steps=self.cfg.duration * self.cfg.fps
-            )
-        else:
-            multi_env = MultiEnvironment(
-                    make_net=pop.make_net,
-                    query_net=pop.query_net,
-                    max_steps=self.cfg.duration * self.cfg.fps
-            )
-        
-        if len(self.games) > 20:
-            raise Exception("It is not advised to evaluate on more than 20 at once")
-        
-        multi_env.set_games(self.games)
-        
-        # Initialize the evaluation-pool
-        pool = mp.Pool(mp.cpu_count())
-        manager = mp.Manager()
-        return_dict = manager.dict()
-        
-        # Fetch the dictionary of genomes
-        genomes = list(iteritems(pop.population))
-        
-        # Progress bar during evaluation
-        pbar = tqdm(total=len(genomes), desc="parallel training")
-        
-        def cb(*_):
-            """Update progressbar after finishing a single genome's evaluation."""
-            pbar.update()
-        
-        # Evaluate the genomes
-        for genome in genomes:
-            pool.apply_async(func=multi_env.eval_genome, args=(genome, pop.config, return_dict), callback=cb)
-        pool.close()  # Close the pool
-        pool.join()  # Postpone continuation until everything is finished
-        
-        # Create blueprint of final result
-        game_objects = [multi_env.create_game(g) for g in self.games]
-        pop.create_blueprints(final_observations=return_dict, games=game_objects)

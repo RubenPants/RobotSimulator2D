@@ -1,5 +1,5 @@
 """
-visualizer.py
+env_visualizing_live.py
 
 The visualizer gives a live visualization of a bot's run.
 """
@@ -12,7 +12,7 @@ from population.utils.network_util.feed_forward_net import FeedForwardNet
 from utils.dictionary import D_DONE, D_SENSOR_LIST
 
 
-class Visualizer:
+class LiveVisualizer:
     """
     The visualizer will visualize the run of a single genome from the population in a game of choice. This is done by
     the use of pymunk.

@@ -39,12 +39,12 @@ class DefaultReproduction(DefaultClassConfig):
         self.stagnation = stagnation
         self.ancestors = {}
     
-    def create_new(self, genome_type, genome_config, num_genomes):
+    def create_new(self, genome_type, genome_config, num_genomes, logger=None):
         new_genomes = {}
         for i in range(num_genomes):
             key = next(self.genome_indexer)
             g = genome_type(key)
-            g.configure_new(genome_config)
+            g.configure_new(genome_config, logger=logger)
             new_genomes[key] = g
             self.ancestors[key] = tuple()
         return new_genomes
@@ -79,7 +79,7 @@ class DefaultReproduction(DefaultClassConfig):
         
         return spawn_amounts
     
-    def reproduce(self, config, species, pop_size, generation):
+    def reproduce(self, config, species, pop_size, generation, logger=None):
         """
         Handles creation of genomes, either from scratch or by sexual or asexual reproduction from parents.
         """
@@ -94,7 +94,7 @@ class DefaultReproduction(DefaultClassConfig):
         remaining_species = []
         for stag_sid, stag_s, stagnant in self.stagnation.update(species, generation):
             if stagnant:
-                self.reporters.species_stagnant(stag_sid, stag_s)
+                self.reporters.species_stagnant(stag_sid, stag_s, logger=logger)
             else:
                 all_fitnesses.extend(m.fitness for m in itervalues(stag_s.members))
                 remaining_species.append(stag_s)
@@ -118,7 +118,7 @@ class DefaultReproduction(DefaultClassConfig):
         
         adjusted_fitnesses = [s.adjusted_fitness for s in remaining_species]
         avg_adjusted_fitness = mean(adjusted_fitnesses)  # type: float
-        self.reporters.info(f"Average adjusted fitness: {avg_adjusted_fitness:.3f}")
+        self.reporters.info(f"Average adjusted fitness: {avg_adjusted_fitness:.3f}", logger=logger)
         
         # Compute the number of new members for each species in the new generation.
         previous_sizes = [len(s.members) for s in remaining_species]

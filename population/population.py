@@ -21,7 +21,7 @@ from population.utils.population_util.stagnation import DefaultStagnation
 from population.utils.reporter_util.reporting import ReporterSet, StdOutReporter
 from population.utils.reporter_util.statistics import StatisticsReporter
 from utils.dictionary import D_FIT_COMB, D_GAME_ID, D_K, D_POS, D_TAG
-from utils.myutils import get_subfolder, load_pickle, store_pickle, update_dict
+from utils.myutils import append_log, get_subfolder, load_pickle, store_pickle, update_dict
 
 
 def query_net(net, states):
@@ -129,11 +129,15 @@ class Population:
         }
         
         # Create a population from scratch, then partition into species
-        self.population = self.reproduction.create_new(self.config.genome_type,
-                                                       self.config.genome_config,
-                                                       self.config.pop_size)
+        self.population = self.reproduction.create_new(genome_type=self.config.genome_type,
+                                                       genome_config=self.config.genome_config,
+                                                       num_genomes=self.config.pop_size,
+                                                       logger=self.log)
         self.species = self.config.species_set_type(self.config.species_set_config, self.reporters)
-        self.species.speciate(self.config, self.population, self.generation)
+        self.species.speciate(config=self.config,
+                              population=self.population,
+                              generation=self.generation,
+                              logger=self.log)
         
         # Create network method containers
         self.make_net = make_net_method
@@ -146,6 +150,8 @@ class Population:
         # Use 'print' to output information about the run
         reporter = StdOutReporter()
         self.add_reporter(reporter)
+        
+        # Make log-file
         
         # Save newly made population
         self.save()
@@ -170,59 +176,30 @@ class Population:
                 species=self.species,
                 pop_size=self.config.pop_size,
                 generation=self.generation,
+                logger=self.log,
         )
         
         # Check for complete extinction
         if not self.species.species:
-            self.reporters.complete_extinction()
+            self.reporters.complete_extinction(logger=self.log)
             
             # If requested by the user, create a completely new population, otherwise raise an exception
             if self.config.reset_on_extinction:
-                self.population = self.reproduction.create_new(self.config.genome_type,
-                                                               self.config.genome_config,
-                                                               self.config.pop_size)
+                self.population = self.reproduction.create_new(genome_type=self.config.genome_type,
+                                                               genome_config=self.config.genome_config,
+                                                               num_genomes=self.config.pop_size,
+                                                               logger=self.log)
             else:
                 raise CompleteExtinctionException()
         
         # Divide the new population into species
-        self.species.speciate(self.config, self.population, self.generation)
+        self.species.speciate(config=self.config,
+                              population=self.population,
+                              generation=self.generation,
+                              logger=self.log)
         
         # Increment generation count
         self.generation += 1
-    
-    def create_blueprints(self, final_observations: dict, games: list):
-        """
-        Save images in the relative 'images/' subfolder of the population.
-        
-        :param final_observations: Dictionary of all the final game observations made
-        :param games: List Game-objects used during evaluation
-        """
-        save_path = get_subfolder(f'population/storage/{self.folder_name}/{self}/', 'images')
-        genome_keys = list(final_observations.keys())
-        for g in games:
-            # Get the game's blueprint
-            g.get_blueprint()
-            
-            # Get all the final positions of the agents
-            positions = []
-            for gk in genome_keys:
-                positions += [fo[D_POS] for fo in final_observations[gk] if fo[D_GAME_ID] == g.id]
-            
-            # Plot the positions
-            dot_x = [p[0] for p in positions]
-            dot_y = [p[1] for p in positions]
-            plt.plot(dot_x, dot_y, 'ro')
-            
-            # Add target again to map
-            plt.plot(0.5, g.y_axis - 0.5, 'go')
-            
-            # Add title
-            plt.title("Blueprint - Game {id:05d} - Generation {gen:05d}".format(id=g.id, gen=self.generation))
-            
-            # Save figure
-            game_path = get_subfolder(save_path, 'game{id:05d}'.format(id=g.id))
-            plt.savefig('{gp}gen{gen:05d}'.format(gp=game_path, gen=self.generation))
-            plt.close()
     
     def visualize_genome(self, debug=False, genome=None, name: str = '', show: bool = True):
         """
@@ -290,7 +267,7 @@ class Population:
         
         # Save the population
         store_pickle(self, f'population/storage/{self.folder_name}/{self}/generations/gen_{self.generation:05d}')
-        print(f"Population '{self}' saved! Current generation: {self.generation}")
+        self.log(f"Population '{self}' saved! Current generation: {self.generation}")
     
     def load(self, gen=None):
         """
@@ -324,7 +301,26 @@ class Population:
             self.reporters = pop.reporters
             self.reproduction = pop.reproduction
             self.species = pop.species
-            print(f"Population '{self}' loaded successfully! Current generation: {self.generation}")
+            self.log(f"Population '{self}' loaded successfully! Current generation: {self.generation}")
             return True
         except FileNotFoundError:
             return False
+    
+    def log(self, inp, print_result: bool = True):
+        """
+        Append input to the population's log-file.
+        
+        :param inp: Input that must be logged, supported types: str, json, dict.
+        :param print_result: Print out the result that will be logged.
+        """
+        # Parse input
+        if type(inp) == str:
+            logged_inp = inp
+        else:
+            raise NotImplementedError(f"Given type '{type(inp)}' is not supported for logging.")
+        
+        # Print if requested
+        if print_result: print(logged_inp)
+        
+        # Append the string to the file
+        append_log(logged_inp, f'population/storage/{self.folder_name}/{self}/logbook.log')

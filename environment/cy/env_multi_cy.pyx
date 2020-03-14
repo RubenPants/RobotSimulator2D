@@ -1,7 +1,7 @@
 """
-multi_env.py
+env_multi_cy.py
 
-TODO
+Environment where a single genome gets evaluated over multiple games. This environment will be called in a process.
 """
 import numpy as np
 cimport numpy as np
@@ -86,6 +86,62 @@ cdef class MultiEnvironmentCy:
         
         # Return the final observations
         if return_dict is not None: return_dict[genome_id] = [g.close() for g in games]
+    
+    cpdef void trace_genome(self,
+                            genome,
+                            config,
+                            return_dict=None,
+                            bint debug=False):
+        """
+        Get the trace of a single genome for a pre-defined game-environment.
+        
+        :param genome: Tuple (genome_id, genome_class)
+        :param config: Config file specifying how genome's network will be made
+        :param return_dict: Dictionary used to return the traces corresponding the genome-game combination
+        :param debug: Boolean specifying if debugging is enabled or not
+        """
+        cdef int genome_id, step_num, max_steps
+        cdef list games, states, traces
+        cdef np.ndarray a, actions
+        
+        genome_id, genome = genome  # Split up genome by id and genome itself
+        net = self.make_net(genome, config, self.batch_size)
+        
+        # Placeholders
+        games = [self.create_game(g) for g in self.games]
+        states = [g.reset()[D_SENSOR_LIST] for g in games]
+        traces = [[g.player.pos.get_tuple()] for g in games]
+        
+        # Start iterating the environments
+        step_num = 0
+        while True:
+            # Check if maximum iterations is reached
+            if step_num == self.max_steps: break
+            
+            # Determine the actions made by the agent for each of the states
+            if debug:
+                actions = self.query_net(net, states, debug=True, step_num=step_num)
+            else:
+                actions = self.query_net(net, states)
+            
+            # Check if each game received an action
+            assert len(actions) == len(games)
+            
+            for i, (g, a) in enumerate(zip(games, actions)):
+                # Proceed the game with one step, based on the predicted action
+                obs = g.step(l=a[0], r=a[1])
+                
+                # Update the candidate's current state
+                states[i] = obs[D_SENSOR_LIST]
+                
+                # Update the trace
+                traces[i].append(g.player.pos.get_tuple())
+            
+            # Next step
+            step_num += 1
+        
+        # Return the final observations
+        if return_dict is not None: return_dict[genome_id] = traces
     
     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
     

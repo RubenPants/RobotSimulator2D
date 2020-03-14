@@ -8,8 +8,9 @@ import copy
 import csv
 
 from neat.math_util import mean, median2, stdev
-from neat.reporting import BaseReporter
 from neat.six_util import iteritems
+
+from population.utils.reporter_util.reporting import BaseReporter
 
 
 class StatisticsReporter(BaseReporter):
@@ -22,18 +23,15 @@ class StatisticsReporter(BaseReporter):
         BaseReporter.__init__(self)
         self.most_fit_genomes = []
         self.generation_statistics = []
-        # self.generation_cross_validation_statistics = []
     
-    def post_evaluate(self, config, population, species, best_genome):
+    def post_evaluate(self, config, population, species, best_genome, logger=None):
         self.most_fit_genomes.append(copy.deepcopy(best_genome))
         
         # Store the fitnesses of the members of each currently active species.
         species_stats = {}
-        # species_cross_validation_stats = {}
         for sid, s in iteritems(species.species):
             species_stats[sid] = dict((k, v.fitness) for k, v in iteritems(s.members))
         self.generation_statistics.append(species_stats)
-        # self.generation_cross_validation_statistics.append(species_cross_validation_stats)
     
     def get_fitness_stat(self, f):
         stat = []
@@ -56,17 +54,6 @@ class StatisticsReporter(BaseReporter):
     def get_fitness_median(self):
         """Get the per-generation median fitness."""
         return self.get_fitness_stat(median2)
-    
-    def get_average_cross_validation_fitness(self):  # pragma: no cover
-        """Get the per-generation average cross_validation fitness."""
-        avg_cross_validation_fitness = []
-        for stats in self.generation_cross_validation_statistics:
-            scores = []
-            for fitness in stats.values():
-                scores.extend(fitness)
-            avg_cross_validation_fitness.append(mean(scores))
-        
-        return avg_cross_validation_fitness
     
     def best_unique_genomes(self, n):
         """Returns the most n fit genomes, with no duplication."""
@@ -110,12 +97,10 @@ class StatisticsReporter(BaseReporter):
             
             if with_cross_validation:  # pragma: no cover
                 cv_best_fitness = [c.cross_fitness for c in self.most_fit_genomes]
-                cv_avg_fitness = self.get_average_cross_validation_fitness()
-                for best, avg, cv_best, cv_avg in zip(best_fitness,
-                                                      avg_fitness,
-                                                      cv_best_fitness,
-                                                      cv_avg_fitness):
-                    w.writerow([best, avg, cv_best, cv_avg])
+                for best, avg, cv_best in zip(best_fitness,
+                                              avg_fitness,
+                                              cv_best_fitness):
+                    w.writerow([best, avg, cv_best])
             else:
                 for best, avg in zip(best_fitness, avg_fitness): w.writerow([best, avg])
     

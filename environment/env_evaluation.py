@@ -10,7 +10,9 @@ from neat.six_util import iteritems
 from tqdm import tqdm
 
 from config import GameConfig
-from utils.dictionary import D_DIST_TO_TARGET, D_DONE, D_FPS, D_STEPS
+from population.utils.population_util.population_visualizer import create_blueprints
+from utils.dictionary import D_DIST_TO_TARGET, D_DONE, D_STEPS
+from utils.myutils import get_subfolder
 
 if sys.platform == 'linux':
     from environment.cy.multi_env_cy import MultiEnvironmentCy
@@ -53,7 +55,7 @@ class EvaluationEnv:
         """
         Evaluate the population for a single evaluation-process.
 
-        :param genome_list: List of genomes
+        :param genome_list: List of genomes that will be evaluated
         :param pop: The population to which the genomes belong (used to setup the network and query the config)
         """
         # Evaluate on all the evaluation games
@@ -80,11 +82,11 @@ class EvaluationEnv:
         manager = mp.Manager()
         return_dict = manager.dict()
         
-        # Fetch the dictionary of genomes
-        genomes = list(iteritems(pop.population))
+        # Fetch requested genomes
+        genomes = [(g.key, g) for g in genome_list]
         
         # Progress bar during evaluation
-        pbar = tqdm(total=len(genomes), desc="parallel training")
+        pbar = tqdm(total=len(list(genomes)), desc="parallel evaluating")
         
         def cb(*_):
             """Update progressbar after finishing a single genome's evaluation."""
@@ -97,7 +99,7 @@ class EvaluationEnv:
         pbar.close()  # Close the progressbar
         
         eval_result = dict()
-        for k in return_dict.keys(): eval_result[str(genome_list[k].key)] = create_answer(return_dict[k])
+        for k in return_dict.keys(): eval_result[str(k)] = create_answer(return_dict[k])
         pop.add_evaluation_result(eval_result)
     
     def evaluate_population(self, pop, game_ids=None):
@@ -149,14 +151,18 @@ class EvaluationEnv:
         
         # Create blueprint of final result
         game_objects = [multi_env.create_game(g) for g in self.games]
-        pop.create_blueprints(final_observations=return_dict, games=game_objects)
+        create_blueprints(final_observations=return_dict,
+                          games=game_objects,
+                          gen=pop.generation,
+                          save_path=get_subfolder(f'population/storage/{pop.folder_name}/{pop}/', 'images'))
 
 
 def create_answer(games: list):
+    cfg = GameConfig()
     answer = ""
     answer += f"Percentage finished: {100 * len([g for g in games if g[D_DONE]]) / len(games):.1f}"
     answer += f" - Average distance to target {sum([g[D_DIST_TO_TARGET] for g in games]) / len(games):.1f}"
     answer += f" - Max distance to target {max([g[D_DIST_TO_TARGET] for g in games]):.1f}"
-    answer += f" - Average time taken {sum([g[D_STEPS] / g[D_FPS] for g in games]) / len(games):.1f}"
-    answer += f" - Max time taken {max([g[D_STEPS] / g[D_FPS] for g in games]):.1f}"
+    answer += f" - Average time taken {sum([g[D_STEPS] / cfg.fps for g in games]) / len(games):.1f}"
+    answer += f" - Max time taken {max([g[D_STEPS] / cfg.fps for g in games]):.1f}"
     return answer
