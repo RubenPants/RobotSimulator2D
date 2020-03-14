@@ -10,7 +10,7 @@ from neat.six_util import iteritems
 from tqdm import tqdm
 
 from config import GameConfig
-from utils.dictionary import D_DIST_TO_TARGET, D_DONE, D_FPS, D_STEPS
+from utils.dictionary import D_DIST_TO_TARGET, D_DONE, D_STEPS
 
 if sys.platform == 'linux':
     from environment.cy.multi_env_cy import MultiEnvironmentCy
@@ -153,10 +153,11 @@ class EvaluationEnv:
 
 
 def create_answer(games: list):
+    cfg = GameConfig()
     answer = ""
     answer += f"Percentage finished: {100 * len([g for g in games if g[D_DONE]]) / len(games):.1f}"
     answer += f" - Average distance to target {sum([g[D_DIST_TO_TARGET] for g in games]) / len(games):.1f}"
     answer += f" - Max distance to target {max([g[D_DIST_TO_TARGET] for g in games]):.1f}"
-    answer += f" - Average time taken {sum([g[D_STEPS] / g[D_FPS] for g in games]) / len(games):.1f}"
-    answer += f" - Max time taken {max([g[D_STEPS] / g[D_FPS] for g in games]):.1f}"
+    answer += f" - Average time taken {sum([g[D_STEPS] / cfg.fps for g in games]) / len(games):.1f}"
+    answer += f" - Max time taken {max([g[D_STEPS] / cfg.fps for g in games]):.1f}"
     return answer
