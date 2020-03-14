@@ -201,40 +201,6 @@ class Population:
         # Increment generation count
         self.generation += 1
     
-    def create_blueprints(self, final_observations: dict, games: list):
-        """
-        Save images in the relative 'images/' subfolder of the population.
-        
-        :param final_observations: Dictionary of all the final game observations made
-        :param games: List Game-objects used during evaluation
-        """
-        save_path = get_subfolder(f'population/storage/{self.folder_name}/{self}/', 'images')
-        genome_keys = list(final_observations.keys())
-        for g in games:
-            # Get the game's blueprint
-            g.get_blueprint()
-            
-            # Get all the final positions of the agents
-            positions = []
-            for gk in genome_keys:
-                positions += [fo[D_POS] for fo in final_observations[gk] if fo[D_GAME_ID] == g.id]
-            
-            # Plot the positions
-            dot_x = [p[0] for p in positions]
-            dot_y = [p[1] for p in positions]
-            plt.plot(dot_x, dot_y, 'ro')
-            
-            # Add target again to map
-            plt.plot(0.5, g.y_axis - 0.5, 'go')
-            
-            # Add title
-            plt.title("Blueprint - Game {id:05d} - Generation {gen:05d}".format(id=g.id, gen=self.generation))
-            
-            # Save figure
-            game_path = get_subfolder(save_path, 'game{id:05d}'.format(id=g.id))
-            plt.savefig('{gp}gen{gen:05d}'.format(gp=game_path, gen=self.generation))
-            plt.close()
-    
     def visualize_genome(self, debug=False, genome=None, name: str = '', show: bool = True):
         """
         Visualize the architecture of the given genome.

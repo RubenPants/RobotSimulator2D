@@ -10,7 +10,9 @@ from neat.six_util import iteritems
 from tqdm import tqdm
 
 from config import GameConfig
+from population.utils.population_util.population_visualizer import create_blueprints
 from utils.dictionary import D_DIST_TO_TARGET, D_DONE, D_STEPS
+from utils.myutils import get_subfolder
 
 if sys.platform == 'linux':
     from environment.cy.multi_env_cy import MultiEnvironmentCy
@@ -149,7 +151,10 @@ class EvaluationEnv:
         
         # Create blueprint of final result
         game_objects = [multi_env.create_game(g) for g in self.games]
-        pop.create_blueprints(final_observations=return_dict, games=game_objects)
+        create_blueprints(final_observations=return_dict,
+                          games=game_objects,
+                          gen=pop.generation,
+                          save_path=get_subfolder(f'population/storage/{pop.folder_name}/{pop}/', 'images'))
 
 
 def create_answer(games: list):

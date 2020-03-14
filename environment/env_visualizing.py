@@ -10,6 +10,8 @@ from neat.six_util import iteritems
 from tqdm import tqdm
 
 from config import GameConfig
+from population.utils.population_util.population_visualizer import create_blueprints, create_traces
+from utils.myutils import get_subfolder
 
 if sys.platform == 'linux':
     from environment.cy.env_multi_cy import MultiEnvironmentCy
@@ -82,7 +84,7 @@ class VisualizingEnv:
         genomes = list(iteritems(pop.population))
         
         # Progress bar during evaluation
-        pbar = tqdm(total=len(genomes), desc="parallel training")
+        pbar = tqdm(total=len(genomes), desc="parallel evaluating")
         
         def cb(*_):
             """Update progressbar after finishing a single genome's evaluation."""
@@ -96,4 +98,59 @@ class VisualizingEnv:
         
         # Create blueprint of final result
         game_objects = [multi_env.create_game(g) for g in self.games]
-        pop.create_blueprints(final_observations=return_dict, games=game_objects)
+        create_blueprints(final_observations=return_dict,
+                          games=game_objects,
+                          gen=pop.generation,
+                          save_path=get_subfolder(f'population/storage/{pop.folder_name}/{pop}/', 'images'))
+    
+    def trace_genomes(self, pop):
+        """
+        Create blueprints that contain the walking-traces for all the requested mazes.
+
+        :param pop: Population object
+        """
+        if sys.platform == 'linux':
+            multi_env = MultiEnvironmentCy(
+                    make_net=pop.make_net,
+                    query_net=pop.query_net,
+                    max_steps=self.cfg.duration * self.cfg.fps
+            )
+        else:
+            multi_env = MultiEnvironment(
+                    make_net=pop.make_net,
+                    query_net=pop.query_net,
+                    max_steps=self.cfg.duration * self.cfg.fps
+            )
+        
+        if len(self.games) > 20:
+            raise Exception("It is not advised to evaluate on more than 20 at once")
+        
+        multi_env.set_games(self.games)
+        
+        # Initialize the evaluation-pool
+        pool = mp.Pool(mp.cpu_count())
+        manager = mp.Manager()
+        return_dict = manager.dict()
+        
+        # Fetch the dictionary of genomes
+        genomes = list(iteritems(pop.population))
+        
+        # Progress bar during evaluation
+        pbar = tqdm(total=len(genomes), desc="parallel evaluating")
+        
+        def cb(*_):
+            """Update progressbar after finishing a single genome's evaluation."""
+            pbar.update()
+        
+        # Evaluate the genomes
+        for genome in genomes:
+            pool.apply_async(func=multi_env.trace_genome, args=(genome, pop.config, return_dict), callback=cb)
+        pool.close()  # Close the pool
+        pool.join()  # Postpone continuation until everything is finished
+        
+        # Create blueprint of final result
+        game_objects = [multi_env.create_game(g) for g in self.games]
+        create_traces(traces=return_dict,
+                      games=game_objects,
+                      gen=pop.generation,
+                      save_path=get_subfolder(f'population/storage/{pop.folder_name}/{pop}/', 'images'))

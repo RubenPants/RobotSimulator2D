@@ -200,6 +200,9 @@ class Vec2d(object):
     def __round__(self, n=0):
         return Vec2d(round(self.x, n), round(self.y, n))
     
+    def __copy__(self):
+        return Vec2d(self.x, self.y)
+    
     def get_angle(self):
         if self.get_length() == 0:
             return 0
@@ -213,6 +216,9 @@ class Vec2d(object):
         if length != 0:
             return self / length
         return Vec2d(self)
+    
+    def get_tuple(self):
+        return self.x, self.y
 
 
 def angle_to_vec(angle: float):

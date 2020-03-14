@@ -207,6 +207,9 @@ cdef class Vec2dCy:
     def __round__(self, n=0):
         return Vec2dCy(round(self.x, n), round(self.y, n))
     
+    def __copy__(self):
+        return Vec2dCy(self.x, self.y)
+    
     cpdef float get_angle(self):
         return 0 if self.get_length() == 0 else math.atan2(self.y, self.x)
     
@@ -215,6 +218,9 @@ cdef class Vec2dCy:
     
     cpdef Vec2dCy normalized(self):
         return self / self.get_length() if self.get_length() != 0 else Vec2dCy(self)
+    
+    cpdef tuple get_tuple(self):
+        return self.x, self.y
 
 cpdef Vec2dCy angle_to_vec(float angle):
     """
