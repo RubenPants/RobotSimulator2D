@@ -10,10 +10,10 @@ from population.population import Population
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument('--train', type=bool, default=True)
-    parser.add_argument('--iterations', type=int, default=1)
-    parser.add_argument('--blueprint', type=bool, default=True)
-    parser.add_argument('--trace', type=bool, default=True)
+    parser.add_argument('--train', type=bool, default=False)
+    parser.add_argument('--iterations', type=int, default=10)
+    parser.add_argument('--blueprint', type=bool, default=False)
+    parser.add_argument('--trace', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
     parser.add_argument('--genome', type=bool, default=False)
     parser.add_argument('--live', type=bool, default=False)
@@ -53,7 +53,7 @@ if __name__ == '__main__':
             # Create the blueprints for first 5 games
             visualizer = VisualizingEnv()
             games = [g for g in range(1, 6)]
-            pop.log(f"Creating blueprints for  games: {games}")
+            pop.log(f"Creating blueprints for games: {games}")
             visualizer.set_games(games)
             visualizer.blueprint_genomes(pop)
         
@@ -64,7 +64,7 @@ if __name__ == '__main__':
             # Create the traces for first 5 games
             visualizer = VisualizingEnv()
             games = [g for g in range(1, 6)]
-            pop.log(f"Creating traces for  games: {games}")
+            pop.log(f"Creating traces for games: {games}")
             visualizer.set_games(games)
             visualizer.trace_genomes(pop)
         

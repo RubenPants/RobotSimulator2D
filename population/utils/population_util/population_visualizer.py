@@ -66,8 +66,8 @@ def create_traces(traces: dict, games: list, gen: int, save_path: str):
             
             # Plot the trace (gradient)
             size = len(x_pos)
-            for p in range(0, size - 10, 10):
-                plt.plot((x_pos[p], x_pos[p + 10]), (y_pos[p], y_pos[p + 10]), color=(1, p / (1 * size), 0))
+            for p in range(0, size - g.fps, g.fps):  # Trace each second of the run
+                plt.plot((x_pos[p], x_pos[p + g.fps]), (y_pos[p], y_pos[p + g.fps]), color=(1, p / (1 * size), 0))
         
         # Add title
         plt.title(f"Traces - Game {g.id:05d} - Generation {gen:05d}")
