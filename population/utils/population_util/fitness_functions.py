@@ -108,7 +108,7 @@ def distance(game_observations: dict, game_params: list):
     cfg = GameConfig()
     diagonal = math.sqrt(cfg.x_axis ** 2 + cfg.y_axis ** 2)
     for k, v in game_observations.items():  # Iterate over the candidates
-        fitness[k] = [max(0, 1 - o[D_DIST_TO_TARGET] / diagonal) for o in v]
+        fitness[k] = [max(0, 1 - o[D_DIST_TO_TARGET] / diagonal) ** 2 for o in v]
     return fitness
 
 
