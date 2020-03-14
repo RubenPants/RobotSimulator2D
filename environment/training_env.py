@@ -77,10 +77,10 @@ class TrainingEnv:
         
         for iteration in range(n):
             # Set random set of games
-            self.sample_games(multi_env)
+            self.sample_games(multi_env, pop.log)
             
             # Prepare the generation's reporters for the generation
-            pop.reporters.start_generation(pop.generation)
+            pop.reporters.start_generation(gen=pop.generation, logger=pop.log)
             
             # Initialize the evaluation-pool
             pool = mp.Pool(mp.cpu_count())
@@ -124,7 +124,11 @@ class TrainingEnv:
             best = None
             for g in itervalues(pop.population):
                 if best is None or g.fitness > best.fitness: best = g
-            pop.reporters.post_evaluate(pop.config, pop.population, pop.species, best)
+            pop.reporters.post_evaluate(config=pop.config,
+                                        population=pop.population,
+                                        species=pop.species,
+                                        best_genome=best,
+                                        logger=pop.log)
             
             # Track best genome ever seen
             if pop.best_genome is None or best.fitness > pop.best_genome.fitness: pop.best_genome = best
@@ -133,19 +137,24 @@ class TrainingEnv:
             pop.evolve()
             
             # End generation
-            pop.reporters.end_generation(pop.config, pop.population, pop.species)
+            pop.reporters.end_generation(config=pop.config,
+                                         population=pop.population,
+                                         species_set=pop.species,
+                                         logger=pop.log)
             
             # Save the population
             if iteration % save_interval == 0: pop.save()
     
-    def sample_games(self, multi_env):
+    def sample_games(self, multi_env, logger=None):
         """
         Set the list on which the agents will be trained.
         
         :param multi_env: The environment on which the game-id list will be set
+        :param logger: Log-reporter of population
         """
         s = sample(self.games, self.batch_size)
-        print("Sample chosen:", s)
+        msg = f"Sample chosen: {s}"
+        logger(msg) if logger else print(msg)
         multi_env.set_games(s)
         return s
     

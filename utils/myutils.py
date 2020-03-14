@@ -4,9 +4,9 @@ myutils.py
 Share utils used across the project.
 
 Utils overview:
- * DICT: append_dict, load_dict, store_dict
- * JSON: append_json, load_json, store_json
- * SYSTEM: create_subfolder, python2_to_3
+ * DICT: update_dict
+ * PICKLE: load_pickle, store_pickle
+ * SYSTEM: get_subfolder
  * TIMING: drop, prep, status_out, total_time
 """
 import glob
@@ -18,76 +18,6 @@ from timeit import default_timer as timer
 
 
 # ------------------------------------------------------> DICT <------------------------------------------------------ #
-
-
-def append_dict(full_path, new_dict):
-    """
-    Append existing dictionary if exists, otherwise create new.
-    
-    :param full_path: Path with name of JSON file (including '.json')
-    :param new_dict: The JSON file that must be stored
-    """
-    files = glob.glob(full_path)
-    
-    if files:
-        # Append new json
-        with open(full_path, 'r') as f:
-            original = json.load(f)
-        
-        for k in new_dict:
-            original[k] += new_dict[k]
-        
-        store_json(new_json=original,
-                   full_path=full_path,
-                   indent=2)
-    else:
-        # Create new file to save json in
-        store_json(new_json=new_dict,
-                   full_path=full_path,
-                   indent=2)
-
-
-def clip_dict(full_path, i):
-    """
-    Clip the dictionary to only the first i elements, if the type of a key's value is a list.
-    
-    :param full_path: Path with name of JSON file (including '.json')
-    :param i: Clipping index: only the first i elements in a list are considered
-    """
-    with open(full_path, 'r') as f:
-        original = json.load(f)
-    for k in original:
-        v = original[k]
-        if type(v) == list:
-            original[k] = v[:i]
-    store_json(new_json=original,
-               full_path=full_path,
-               indent=2)
-
-
-def get_fancy_string_dict(d, title=None):
-    """
-    Return the string result of the fancy-print for a given dictionary.
-    
-    :param d: Dictionary
-    :param title: [Optional] Title before print
-    :return: String
-    """
-    s = title + '\n' if title else ''
-    space = max(map(lambda x: len(x), d.keys()))
-    for k, v in d.items():
-        s += '\t{key:>{s}s} : {value}\n'.format(s=space, key=k, value=v)
-    return s
-
-
-def load_dict(full_path):
-    """
-    Load the dictionary stored under 'full_path'.
-    
-    :param full_path: Path with name of JSON file (including '.json')
-    :return: Dictionary or FileNotFound (Exception)
-    """
-    return load_json(full_path)
 
 
 def update_dict(full_path, new_dict):
@@ -105,67 +35,21 @@ def update_dict(full_path, new_dict):
             original = json.load(f)
         
         original.update(new_dict)
-        
-        store_json(new_json=original,
-                   full_path=full_path,
-                   indent=2)
+        with open(full_path, 'w') as f:
+            json.dump(original, f, indent=2)
     else:
         # Create new file to save json in
-        store_json(new_json=new_dict,
-                   full_path=full_path,
-                   indent=2)
+        with open(full_path, 'w') as f:
+            json.dump(new_dict, f, indent=2)
 
 
-# ------------------------------------------------------> JSON <------------------------------------------------------ #
+# -----------------------------------------------------> LOGGING <---------------------------------------------------- #
 
 
-def append_json(full_path, new_json):
-    """
-    Append existing JSON file if exists, otherwise create new json.
-    
-    :param full_path: Path with name of JSON file (including '.json')
-    :param new_json: The JSON file that must be stored
-    """
-    files = glob.glob(full_path)
-    
-    if files:
-        # Append new json
-        with open(full_path, 'r') as f:
-            original = json.load(f)
-        
-        original += new_json
-        
-        store_json(new_json=original,
-                   full_path=full_path,
-                   indent=2)
-    else:
-        # Create new file to save json in
-        store_json(new_json=new_json,
-                   full_path=full_path,
-                   indent=2)
-
-
-def load_json(full_path):
-    """
-    Load the JSON file stored under 'full_path'.
-    
-    :param full_path: Path with name of JSON file (including '.json')
-    :return: JSON or FileNotFound (Exception)
-    """
-    with open(full_path, 'r') as f:
-        return json.load(f)
-
-
-def store_json(new_json, full_path, indent=2):
-    """
-    Write a JSON file, if one already exists under the same 'full_path' then this file will be overwritten.
-    
-    :param full_path: Path with name of JSON file (including '.json')
-    :param new_json: The JSON file that must be stored
-    :param indent: Indentation used to pretty-print JSON
-    """
-    with open(full_path, 'w') as f:
-        json.dump(new_json, f, indent=indent)
+def append_log(inp: str, full_path: str):
+    """Append the log-file with the given string. Creates the file if not yet exist."""
+    with open(full_path, 'a', encoding="utf-8") as file:
+        file.write("%s\n" % inp)
 
 
 # -----------------------------------------------------> PICKLE <----------------------------------------------------- #
@@ -317,8 +201,7 @@ def print_all_stats():
                 t += v['sum']
                 print(line.format(k, get_fancy_time(v['sum'])))
             except KeyError:
-                print("KeyError: Probably you forgot to place a 'drop()' in the {} section".format(k))
-                raise KeyError
+                raise KeyError(f"KeyError: Probably you forgot to place a 'drop()' in the {k} section")
         end_line = line.format('Total time', get_fancy_time(t))
         print("-" * (len(end_line)))
         print(end_line)
