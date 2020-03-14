@@ -130,8 +130,8 @@ class NeatConfig:
         self.num_hidden: int = 0
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
         self.num_outputs: int = 2
-        # Initial connectivity of newly-created genomes  [def=D_FULL_DIRECT]  TODO
-        self.initial_connection = D_FULL_DIRECT
+        # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT_05]
+        self.initial_connection = D_PARTIAL_DIRECT_05
         # Probability of adding a connection between existing nodes during mutation (1 chance per iteration)  [def=0.5]  TODO
         self.conn_add_prob: float = 0.5
         # Probability of deleting an existing connection during mutation (1 chance per iteration)  [def=0.5]  TODO
