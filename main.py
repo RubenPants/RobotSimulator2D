@@ -10,9 +10,10 @@ from population.population import Population
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument('--train', type=bool, default=True)
+    parser.add_argument('--train', type=bool, default=False)
     parser.add_argument('--iterations', type=int, default=1)
-    parser.add_argument('--blueprint', type=bool, default=False)
+    parser.add_argument('--blueprint', type=bool, default=True)
+    parser.add_argument('--trace', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
     parser.add_argument('--genome', type=bool, default=False)
     parser.add_argument('--live', type=bool, default=False)
@@ -35,7 +36,7 @@ if __name__ == '__main__':
     try:
         if args.train:
             pop.log("\n===> TRAINING <===\n")
-            from environment.training_env import TrainingEnv
+            from environment.env_training import TrainingEnv
             
             # Train for 100 generations
             trainer = TrainingEnv()
@@ -47,21 +48,21 @@ if __name__ == '__main__':
         
         if args.blueprint:
             pop.log("\n===> CREATING BLUEPRINTS <===\n")
-            from environment.training_env import TrainingEnv
+            from environment.env_visualizing import VisualizingEnv
             
             # Create the blueprints for first 5 games
-            trainer = TrainingEnv()
-            for g in range(1, 6):
-                pop.log(f"Creating blueprints for  game {g}")
-                trainer.set_games([g])
-                # for i in range(11):
-                #     pop.load(gen=int(i * 10))
-                #     trainer.blueprint_genomes(pop)
-                trainer.blueprint_genomes(pop)
+            visualizer = VisualizingEnv()
+            games = [g for g in range(1, 6)]
+            pop.log(f"Creating blueprints for  games: {games}")
+            visualizer.set_games(games)
+            visualizer.blueprint_genomes(pop)
+        
+        if args.trace:
+            raise NotImplementedError("Implementation of trace-visualizer not yet finished!")
         
         if args.evaluate:
             pop.log("\n===> EVALUATING <===\n")
-            from environment.evaluation_env import EvaluationEnv
+            from environment.env_evaluation import EvaluationEnv
             
             evaluator = EvaluationEnv()
             evaluator.evaluate_genome_list(
@@ -81,10 +82,10 @@ if __name__ == '__main__':
         
         if args.live:
             print("\n===> STARTING LIVE DEMO <===\n")
-            from environment.visualizer import Visualizer
+            from environment.env_visualizing_live import LiveVisualizer
             
             net = pop.make_net(pop.best_genome, pop.config, 1)
-            visualizer = Visualizer(
+            visualizer = LiveVisualizer(
                     query_net=pop.query_net,
                     debug=False,
                     # speedup=1,
@@ -95,5 +96,5 @@ if __name__ == '__main__':
                     game_id=1,
             )
     except Exception as e:
-        pop.log(traceback.format_exc())
+        pop.log(traceback.format_exc(), print_result=False)
         raise e

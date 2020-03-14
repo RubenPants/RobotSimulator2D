@@ -1,5 +1,5 @@
 """
-training_env.py
+env_training.py
 
 Train and evaluate the population on a random batch of training games.
 """
@@ -15,9 +15,9 @@ from population.population import Population
 from population.utils.population_util.fitness_functions import calc_pop_fitness
 
 if sys.platform == 'linux':
-    from environment.cy.multi_env_cy import MultiEnvironmentCy
+    from environment.cy.env_multi_cy import MultiEnvironmentCy
 else:
-    from environment.multi_env import MultiEnvironment
+    from environment.env_multi import MultiEnvironment
 
 
 class TrainingEnv:
@@ -157,52 +157,3 @@ class TrainingEnv:
         logger(msg) if logger else print(msg)
         multi_env.set_games(s)
         return s
-    
-    def blueprint_genomes(self, pop):
-        """
-        Create blueprints for all the requested mazes.
-        
-        :param pop: Population object
-        """
-        if sys.platform == 'linux':
-            multi_env = MultiEnvironmentCy(
-                    make_net=pop.make_net,
-                    query_net=pop.query_net,
-                    max_steps=self.cfg.duration * self.cfg.fps
-            )
-        else:
-            multi_env = MultiEnvironment(
-                    make_net=pop.make_net,
-                    query_net=pop.query_net,
-                    max_steps=self.cfg.duration * self.cfg.fps
-            )
-        
-        if len(self.games) > 20:
-            raise Exception("It is not advised to evaluate on more than 20 at once")
-        
-        multi_env.set_games(self.games)
-        
-        # Initialize the evaluation-pool
-        pool = mp.Pool(mp.cpu_count())
-        manager = mp.Manager()
-        return_dict = manager.dict()
-        
-        # Fetch the dictionary of genomes
-        genomes = list(iteritems(pop.population))
-        
-        # Progress bar during evaluation
-        pbar = tqdm(total=len(genomes), desc="parallel training")
-        
-        def cb(*_):
-            """Update progressbar after finishing a single genome's evaluation."""
-            pbar.update()
-        
-        # Evaluate the genomes
-        for genome in genomes:
-            pool.apply_async(func=multi_env.eval_genome, args=(genome, pop.config, return_dict), callback=cb)
-        pool.close()  # Close the pool
-        pool.join()  # Postpone continuation until everything is finished
-        
-        # Create blueprint of final result
-        game_objects = [multi_env.create_game(g) for g in self.games]
-        pop.create_blueprints(final_observations=return_dict, games=game_objects)

@@ -53,7 +53,7 @@ class EvaluationEnv:
         """
         Evaluate the population for a single evaluation-process.
 
-        :param genome_list: List of genomes
+        :param genome_list: List of genomes that will be evaluated
         :param pop: The population to which the genomes belong (used to setup the network and query the config)
         """
         # Evaluate on all the evaluation games
@@ -80,11 +80,11 @@ class EvaluationEnv:
         manager = mp.Manager()
         return_dict = manager.dict()
         
-        # Fetch the dictionary of genomes
-        genomes = list(iteritems(pop.population))
+        # Fetch requested genomes
+        genomes = [(g.key, g) for g in genome_list]
         
         # Progress bar during evaluation
-        pbar = tqdm(total=len(genomes), desc="parallel training")
+        pbar = tqdm(total=len(list(genomes)), desc="parallel evaluating")
         
         def cb(*_):
             """Update progressbar after finishing a single genome's evaluation."""
@@ -97,7 +97,7 @@ class EvaluationEnv:
         pbar.close()  # Close the progressbar
         
         eval_result = dict()
-        for k in return_dict.keys(): eval_result[str(genome_list[k].key)] = create_answer(return_dict[k])
+        for k in return_dict.keys(): eval_result[str(k)] = create_answer(return_dict[k])
         pop.add_evaluation_result(eval_result)
     
     def evaluate_population(self, pop, game_ids=None):

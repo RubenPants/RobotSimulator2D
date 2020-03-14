@@ -57,7 +57,7 @@ def main(fitness,
     try:
         if train:
             pop.log("\n===> TRAINING <===\n")
-            from environment.training_env import TrainingEnv
+            from environment.env_training import TrainingEnv
             
             # Train for 100 generations
             trainer = TrainingEnv()
@@ -69,18 +69,18 @@ def main(fitness,
         
         if blueprint:
             pop.log("\n===> CREATING BLUEPRINTS <===\n")
-            from environment.training_env import TrainingEnv
+            from environment.env_visualizing import VisualizingEnv
             
             # Create the blueprints for first 5 games
-            trainer = TrainingEnv()
+            visualizer = VisualizingEnv()
             for g in range(1, 6):
                 pop.log(f"Creating blueprints for  game {g}")
-                trainer.set_games([g])
-                trainer.blueprint_genomes(pop)
+                visualizer.set_games([g])
+                visualizer.blueprint_genomes(pop)
         
         if evaluate:
             pop.log("\n===> EVALUATING <===\n")
-            from environment.evaluation_env import EvaluationEnv
+            from environment.env_evaluation import EvaluationEnv
             
             evaluator = EvaluationEnv()
             evaluator.evaluate_genome_list(
@@ -88,7 +88,7 @@ def main(fitness,
                     pop=pop,
             )
     except Exception as e:
-        pop.log(traceback.format_exc())
+        pop.log(traceback.format_exc(), print_result=False)
         raise e
 
 
