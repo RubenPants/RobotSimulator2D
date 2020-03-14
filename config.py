@@ -186,8 +186,8 @@ class NeatConfig:
         self.enabled_mutate_rate: float = 0.01
         
         # [DefaultSpeciesSet]
-        # Individuals whose genetic distance is less than this threshold are in the same specie  [def=3.0]
-        self.compatibility_threshold: float = 3.0
+        # Individuals whose genetic distance is less than this threshold are in the same specie  [def=2.0]
+        self.compatibility_threshold: float = 2.0
         # Full weight of disjoint and excess nodes on determining genomic distance  [def=1.0]
         self.compatibility_disjoint_coefficient: float = 1.0
         # Coefficient for each weight or bias difference contribution to the genomic distance  [def=0.5]
