@@ -26,7 +26,7 @@ class DefaultReproduction(DefaultClassConfig):
     def parse_config(cls, param_dict):
         return DefaultClassConfig(param_dict,
                                   [ConfigParameter('elitism', int, 0),
-                                   ConfigParameter('survival_threshold', float, 0.2),
+                                   ConfigParameter('parent_selection', float, 0.2),
                                    ConfigParameter('min_species_size', int, 2),
                                    ConfigParameter('sexual_reproduction', bool, True),
                                    ])
@@ -143,7 +143,7 @@ class DefaultReproduction(DefaultClassConfig):
             
             # Only use the survival threshold fraction to use as parents for the next generation, use at least all the
             #  elite of a population as parents
-            reproduction_cutoff = max(round(self.reproduction_config.survival_threshold * len(old_members)),
+            reproduction_cutoff = max(round(self.reproduction_config.parent_selection * len(old_members)),
                                       self.reproduction_config.elitism)
             
             # Use at least two parents no matter what the threshold fraction result is
