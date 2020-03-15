@@ -103,12 +103,14 @@ class NeatConfig:
         self.pop_size: int = 10
         
         # [DefaultStagnation]
-        # The function used to compute the species fitness
+        # The function used to compute the species fitness  [def=D_MAX]
         self.species_fitness_func: str = D_MAX
-        # Remove a specie if it hasn't improved over this many number of generations
+        # Remove a specie if it hasn't improved over this many number of generations  [def=15]
         self.max_stagnation: int = 15
-        # Number of the best species that will be protected from stagnation
+        # Number of the best species that will be protected from stagnation  [def=2]
         self.species_elitism: int = 2
+        # Maximum number of species that can live along each other  [def=15]
+        self.species_max: int = 15
         
         # [DefaultReproduction]
         # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=2]  TODO: Enforce that these are different!

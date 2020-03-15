@@ -12,7 +12,9 @@ from population.utils.config.default_config import ConfigParameter, DefaultClass
 
 
 class Species(object):
-    def __init__(self, key, generation):
+    """Create a specie, which is a container for similar genomes."""
+    
+    def __init__(self, key, generation):  # TODO: Update such that stagnation can be weighted!
         self.key = key
         self.created = generation
         self.last_improved = generation
@@ -82,62 +84,77 @@ class DefaultSpeciesSet(DefaultClassConfig):
         new_members = {}  # Members of the species
         for specie_id, specie in iteritems(self.species):
             # Calculate the distances for each of the specie's members relative to the specie's previous representative
-            candidates = []
+            specie_distance = []
             for gid in unspeciated:
                 genome = population[gid]
                 distance = distances(specie.representative, genome)
-                candidates.append((distance, genome))
+                specie_distance.append((distance, genome))
             
             # The new representative is the genome closest to the current representative
-            _, new_representative = min(candidates, key=lambda x: x[0])
+            _, new_representative = min(specie_distance, key=lambda x: x[0])
             
             # Add the new representative to the current specie
             new_representatives[specie_id] = new_representative.key
             new_members[specie_id] = [new_representative.key]
             unspeciated.remove(new_representative.key)
         
-        # Partition population into species based on genetic similarity.
+        # Partition population into species based on genetic similarity
         while unspeciated:
-            gid = unspeciated.pop()
-            genome = population[gid]
+            gid = unspeciated.pop()  # Pop a genome-identifier from the unspeciated-set
+            genome = population[gid]  # Load in the genome corresponding the identifier
             
-            # Find the species with the most similar representative.
-            candidates = []
-            for specie_id, rid in iteritems(new_representatives):
-                rep = population[rid]
+            # No species exist, create one
+            if not new_representatives:
+                specie_id = next(self.indexer)
+                new_representatives[specie_id] = gid
+                new_members[specie_id] = [gid]
+                continue
+            
+            # Determine the distance to each specie's representative
+            specie_distance = []
+            for specie_id, representative_id in iteritems(new_representatives):
+                rep = population[representative_id]
                 distance = distances(rep, genome)
-                if distance < self.species_set_config.compatibility_threshold:
-                    candidates.append((distance, specie_id))
+                specie_distance.append((distance, specie_id))
             
-            if candidates:
-                ignored_sdist, specie_id = min(candidates, key=lambda x: x[0])
-                new_members[specie_id].append(gid)
+            # Determine the smallest distance
+            smallest_distance, closest_specie_id = min(specie_distance, key=lambda x: x[0])
+            
+            # Check if distance falls within threshold and maximum number of species is not exceeded
+            if (smallest_distance < self.species_set_config.compatibility_threshold) or \
+                    (len(new_representatives) >= self.species_set_config.species_max):
+                # Add genome to closest specie
+                new_members[closest_specie_id].append(gid)
             else:
-                # No species is similar enough, create a new species, using
-                # this genome as its representative.
+                # Create new specie with genome exceeding threshold as representative
                 specie_id = next(self.indexer)
                 new_representatives[specie_id] = gid
                 new_members[specie_id] = [gid]
         
-        # Update species collection based on new speciation.
-        self.genome_to_species = {}
-        for specie_id, rid in iteritems(new_representatives):
+        # Update species collection based on new speciation
+        self.genome_to_species = {}  # Dictionary mapping genome to specie identifiers
+        for specie_id, representative_id in iteritems(new_representatives):
             specie = self.species.get(specie_id)
+            
+            # Create specie if not yet existed
             if specie is None:
                 specie = Species(specie_id, generation)
                 self.species[specie_id] = specie
             
+            # Update the specie's current members with all the new members
             members = new_members[specie_id]
-            for gid in members:
-                self.genome_to_species[gid] = specie_id
+            for gid in members: self.genome_to_species[gid] = specie_id
             
+            # Update the specie's current representative and members
             member_dict = dict((gid, population[gid]) for gid in members)
-            specie.update(population[rid], member_dict)
+            specie.update(population[representative_id], member_dict)
+        
+        # Report over the current species (distances)
         self.reporters.info(
                 f'Genetic distance:'
                 f'\n\t- Maximum: {max(itervalues(distances.distances)):.3f}'
                 f'\n\t- Mean: {mean(itervalues(distances.distances)):.3f}'
-                f'\n\t- Minimum: {min([i for i in itervalues(distances.distances)]):.3f}'
+                f'\n\t- Minimum: {min(itervalues(distances.distances)):.3f}'
                 f'\n\t- Standard deviation: {stdev(itervalues(distances.distances)):.3f}',
                 logger=logger,
         )
