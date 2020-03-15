@@ -29,7 +29,7 @@ def main(fitness,
     :param train: Train the population
     :param train_iterations: Number of training generations
     :param blueprint: Create a blueprint evaluation for the population for the first 5 games
-    :param blueprint: Create a trace evaluation for the population for the first 5 games
+    :param trace: Create a trace evaluation for the population for the first 5 games
     :param evaluate: Evaluate the best genome of the population
     """
     # Let inputs apply to configuration
@@ -53,7 +53,8 @@ def main(fitness,
           f"\n\t> sexual_reproduction: {cfg.sexual_reproduction}" \
           f"\n\t> Saving under folder: {folder}" \
           f"\n\t> Train: {train} ({train_iterations} iterations)" \
-          f"\n\t> Create blueprints: {blueprint}\n"
+          f"\n\t> Create blueprints: {blueprint}" \
+          f"\n\t> Create traces: {trace}\n"
     pop.log(msg)
     
     try:
