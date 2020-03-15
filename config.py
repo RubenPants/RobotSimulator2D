@@ -100,8 +100,8 @@ class NeatConfig:
         self.fitness_threshold: int = 1
         # Don't consider fitness_criterion and fitness_threshold
         self.no_fitness_termination: bool = True
-        # Number of individuals in each generation  [def=128]  TODO
-        self.pop_size: int = 128
+        # Number of individuals in each generation  [def=256]  TODO
+        self.pop_size: int = 256
         # Create random population if all species become distinct due to stagnation
         self.reset_on_extinction: bool = True
         
@@ -116,10 +116,10 @@ class NeatConfig:
         # [DefaultReproduction]
         # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=1]
         self.elitism: int = 1
-        # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.2]
-        self.survival_threshold: float = 0.2
-        # Minimum number of genomes per species  [def=5]
-        self.min_species_size: int = 5
+        # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.4]
+        self.survival_threshold: float = 0.4
+        # Minimum number of genomes per species, keeping low prevents number of individuals blowing up  [def=2]
+        self.min_species_size: int = 2
         # Sexual reproduction  [def=True]
         self.sexual_reproduction: bool = True
         
