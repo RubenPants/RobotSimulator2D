@@ -56,4 +56,4 @@ cdef class GameCy:
     
     cpdef get_blueprint(self, ax=?)
 
-cpdef list get_boundary_walls(int x_axis, int y_axis)
+cpdef set get_boundary_walls(int x_axis, int y_axis)

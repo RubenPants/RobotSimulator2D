@@ -4,12 +4,8 @@
 
 ## TODO
 
-* Enforce that elite species are different
-* Itervalues when looping over dictionary! (improves performance!)
-* Make stagnation a decaying function
-* Possible to set maximum number of species?
 * Test all of the fitness-functions!
-* [x,y] vs [col, row] in maze --> confusion?
+* [x,y] vs [col, row] in maze --> confusing to work with!
 * Novelty not in crows-flight? (do intersection with walls! i.e. find reachable neighbours, the k-NN on those)
 * What is the purpose of the gene-attributes? Figure out and write down! --> I should pay more focus on what to write down such that no redundant work is needed...
 * Activation functions of hidden vs output nodes not taken into account! (hard-coded on tanh!)

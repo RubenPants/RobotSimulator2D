@@ -27,7 +27,7 @@ def get_config(num_inputs=4, num_hidden=1, num_outputs=1):
     return Config(
             genome_type=DefaultGenome,
             reproduction_type=DefaultReproduction,
-            species_set_type=DefaultSpeciesSet,
+            species_type=DefaultSpeciesSet,
             stagnation_type=DefaultStagnation,
             config=cfg,
     )

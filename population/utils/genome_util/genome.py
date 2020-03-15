@@ -71,7 +71,7 @@ class DefaultGenome(object):
                 node_key = config.get_new_node_key(self.nodes)
                 assert node_key not in self.nodes
                 r = random()
-                if config.enable_gru and r <= config.gru_mutate_rate:
+                if config.gru_enabled and r <= config.gru_mutate_rate:
                     node = self.create_gru_node(config, node_key)  # New nodes only have 1 ingoing connection
                 else:
                     node = self.create_node(config, node_key)
@@ -182,7 +182,7 @@ class DefaultGenome(object):
         
         # Choose type of node to mutate to and add the node, must be done before adding the connection!
         r = random()
-        if config.enable_gru and r <= config.gru_mutate_rate:
+        if config.gru_enabled and r <= config.gru_mutate_rate:
             ng = self.create_gru_node(config, node_id)  # New nodes only have 1 ingoing connection
         else:
             ng = self.create_node(config, node_id)

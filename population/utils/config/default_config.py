@@ -12,7 +12,6 @@ from neat.six_util import iterkeys
 
 from config import NeatConfig
 from population.utils.config.genome_config import DefaultGenomeConfig
-from utils.dictionary import D_ENABLE_GRU, D_GRU_MUT
 
 
 class ConfigParameter(object):
@@ -137,19 +136,19 @@ class Config(object):
     def __init__(self,
                  genome_type,
                  reproduction_type,
-                 species_set_type,
+                 species_type,
                  stagnation_type,
                  config: NeatConfig):
         # config: NeatConfig):
         # Check that the provided types have the required methods.
         assert hasattr(genome_type, 'parse_config')
         assert hasattr(reproduction_type, 'parse_config')
-        assert hasattr(species_set_type, 'parse_config')
+        assert hasattr(species_type, 'parse_config')
         assert hasattr(stagnation_type, 'parse_config')
         
         self.genome_type = genome_type
         self.reproduction_type = reproduction_type
-        self.species_set_type = species_set_type
+        self.species_type = species_type
         self.stagnation_type = stagnation_type
         self.config = config
         
@@ -162,21 +161,18 @@ class Config(object):
         #  - Filter out the wanted parameters from the configs
         #  - Create a dictionary mapping the wanted parameters to their values (str format)
         #  - Initialize the needed entities
-        genome_params = self.config.__annotations__[genome_type.__name__] + [D_ENABLE_GRU, D_GRU_MUT]
-        genome_dict = {k: str(v) for k, v in self.config.__dict__.items() if k in genome_params}
-        self.genome_config: DefaultGenomeConfig = genome_type.parse_config(genome_dict)
+        genome_params = self.config.__annotations__[genome_type.__name__]
+        genome_config = {k: str(v) for k, v in self.config.__dict__.items() if k in genome_params}
+        self.genome_config: DefaultGenomeConfig = genome_type.parse_config(genome_config)
         
-        specie_params = self.config.__annotations__[species_set_type.__name__]
-        species_set_dict = {k: str(v) for k, v in self.config.__dict__.items() if k in specie_params}
-        self.species_set_config: DefaultClassConfig = species_set_type.parse_config(species_set_dict)
-        
-        stagnation_params = self.config.__annotations__[stagnation_type.__name__]
-        stagnation_dict = {k: str(v) for k, v in self.config.__dict__.items() if k in stagnation_params}
-        self.stagnation_config: DefaultClassConfig = stagnation_type.parse_config(stagnation_dict)
+        specie_params = self.config.__annotations__[species_type.__name__]
+        species_config = {k: str(v) for k, v in self.config.__dict__.items() if k in specie_params}
+        self.species_config: DefaultClassConfig = species_type.parse_config(species_config)
+        self.stagnation_config: DefaultClassConfig = stagnation_type.parse_config(species_config)  # TODO: Merge?
         
         reproduction_params = self.config.__annotations__[reproduction_type.__name__]
-        reproduction_dict = {k: str(v) for k, v in self.config.__dict__.items() if k in reproduction_params}
-        self.reproduction_config: DefaultClassConfig = reproduction_type.parse_config(reproduction_dict)
+        reproduction_config = {k: str(v) for k, v in self.config.__dict__.items() if k in reproduction_params}
+        self.reproduction_config: DefaultClassConfig = reproduction_type.parse_config(reproduction_config)
     
     def __str__(self):
         """Readable configuration file."""
@@ -186,7 +182,7 @@ class Config(object):
         result += str(self.genome_config).replace("\t", "\t\t")
         # Add specie configuration
         result += "\n\n\t"
-        result += self.species_set_config.__str__(name='species').replace("\t", "\t\t")
+        result += self.species_config.__str__(name='species').replace("\t", "\t\t")
         # Add stagnation configuration
         result += "\n\n\t"
         result += self.stagnation_config.__str__(name='stagnation').replace("\t", "\t\t")
@@ -205,8 +201,8 @@ class Config(object):
             f.write('\n[{0}]\n'.format(self.genome_type.__name__))
             self.genome_type.write_config(f, self.genome_config)
             
-            f.write('\n[{0}]\n'.format(self.species_set_type.__name__))
-            self.species_set_type.write_config(f, self.species_set_config)
+            f.write('\n[{0}]\n'.format(self.species_type.__name__))
+            self.species_type.write_config(f, self.species_config)
             
             f.write('\n[{0}]\n'.format(self.stagnation_type.__name__))
             self.stagnation_type.write_config(f, self.stagnation_config)

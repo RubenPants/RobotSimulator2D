@@ -31,12 +31,12 @@ def get_genome(inputs, hidden, outputs):
     cfg.num_hidden = hidden
     cfg.num_outputs = outputs
     cfg.initial_connection = D_FULL_NODIRECT  # input -> hidden -> output
-    cfg.enable_gru = True  # Only simple hidden nodes allowed
+    cfg.gru_enabled = True  # Only simple hidden nodes allowed
     cfg.gru_mutate_rate = 1  # Force that all hidden nodes will be GRUs
     config = Config(
             genome_type=DefaultGenome,
             reproduction_type=DefaultReproduction,
-            species_set_type=DefaultSpeciesSet,
+            species_type=DefaultSpeciesSet,
             stagnation_type=DefaultStagnation,
             config=cfg,
     )
