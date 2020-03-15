@@ -161,6 +161,7 @@ class DefaultSpecies(DefaultClassConfig):
                 f'\n\t- Minimum: {min(itervalues(distances.distances)):.3f}'
                 f'\n\t- Standard deviation: {stdev(itervalues(distances.distances)):.3f}',
                 logger=logger,
+                print_result=False,
         )
     
     def get_species_id(self, individual_id):
