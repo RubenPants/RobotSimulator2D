@@ -133,13 +133,13 @@ class NeatConfig:
         # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT_05]
         self.initial_connection = D_PARTIAL_DIRECT_05
         # Probability of adding a connection between existing nodes during mutation (1 chance per iteration)  [def=0.5]  TODO
-        self.conn_add_prob: float = 0.5
+        self.conn_add_prob: float = 0.6
         # Probability of deleting an existing connection during mutation (1 chance per iteration)  [def=0.5]  TODO
-        self.conn_delete_prob: float = 0.5
+        self.conn_delete_prob: float = 0.6
         # Probability of adding a node during mutation (1 chance per iteration)  [def=0.2]  TODO
-        self.node_add_prob: float = 0.2
+        self.node_add_prob: float = 0.3
         # Probability of removing a node during mutation (1 chance per iteration)  [def=0.2]  TODO
-        self.node_delete_prob: float = 0.2
+        self.node_delete_prob: float = 0.3
         # Initial node activation function  [def=D_RELU]
         self.activation_default: str = D_RELU
         # All possible activation functions between whom can be switched during mutation  [def=D_RELU]
@@ -187,7 +187,7 @@ class NeatConfig:
         
         # [DefaultSpeciesSet]
         # Individuals whose genetic distance is less than this threshold are in the same specie  [def=3.0]
-        self.compatibility_threshold: float = 3.0
+        self.compatibility_threshold: float = 2.5
         # Full weight of disjoint and excess nodes on determining genomic distance  [def=1.0]  # TODO: Separate for GRU?
         self.compatibility_disjoint_coefficient: float = 1.0
         # Coefficient for each weight or bias difference contribution to the genomic distance  [def=0.5]
