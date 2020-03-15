@@ -7,7 +7,6 @@ functionality such as its configuration and methods used to persist the populati
 import re
 from glob import glob
 
-import matplotlib.pyplot as plt
 from neat.math_util import mean
 
 from config import NeatConfig
@@ -16,11 +15,11 @@ from population.utils.genome_util.genome import DefaultGenome
 from population.utils.genome_util.genome_visualizer import draw_net
 from population.utils.network_util.feed_forward_net import make_net
 from population.utils.population_util.reproduction import DefaultReproduction
-from population.utils.population_util.species import DefaultSpeciesSet
+from population.utils.population_util.species import DefaultSpecies
 from population.utils.population_util.stagnation import DefaultStagnation
 from population.utils.reporter_util.reporting import ReporterSet, StdOutReporter
 from population.utils.reporter_util.statistics import StatisticsReporter
-from utils.dictionary import D_FIT_COMB, D_GAME_ID, D_K, D_POS, D_TAG
+from utils.dictionary import D_FIT_COMB, D_K, D_TAG
 from utils.myutils import append_log, get_subfolder, load_pickle, store_pickle, update_dict
 
 
@@ -104,7 +103,7 @@ class Population:
         config = Config(
                 genome_type=DefaultGenome,
                 reproduction_type=DefaultReproduction,
-                species_set_type=DefaultSpeciesSet,
+                species_type=DefaultSpecies,
                 stagnation_type=DefaultStagnation,
                 config=cfg,
         )
@@ -133,7 +132,7 @@ class Population:
                                                        genome_config=self.config.genome_config,
                                                        num_genomes=self.config.pop_size,
                                                        logger=self.log)
-        self.species = self.config.species_set_type(self.config.species_set_config, self.reporters)
+        self.species = self.config.species_type(self.config.species_config, self.reporters)
         self.species.speciate(config=self.config,
                               population=self.population,
                               generation=self.generation,

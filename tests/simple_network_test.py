@@ -36,7 +36,7 @@ def get_genome(inputs, hidden, outputs):
     config = Config(
             genome_type=DefaultGenome,
             reproduction_type=DefaultReproduction,
-            species_set_type=DefaultSpeciesSet,
+            species_type=DefaultSpeciesSet,
             stagnation_type=DefaultStagnation,
             config=cfg,
     )

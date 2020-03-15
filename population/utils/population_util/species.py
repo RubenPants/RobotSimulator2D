@@ -51,12 +51,12 @@ class GenomeDistanceCache(object):
         return d
 
 
-class DefaultSpeciesSet(DefaultClassConfig):
+class DefaultSpecies(DefaultClassConfig):
     """ Encapsulates the default speciation scheme. """
     
     def __init__(self, config, reporters):
         # pylint: disable=super-init-not-called
-        self.species_set_config = config
+        self.species_config = config
         self.reporters = reporters
         self.indexer = count(1)
         self.species = {}
@@ -64,7 +64,10 @@ class DefaultSpeciesSet(DefaultClassConfig):
     
     @classmethod
     def parse_config(cls, param_dict):
-        return DefaultClassConfig(param_dict, [ConfigParameter('compatibility_threshold', float),
+        return DefaultClassConfig(param_dict, [ConfigParameter('compatibility_threshold', float, 3.0),
+                                               ConfigParameter('max_stagnation', int, 15),
+                                               ConfigParameter('species_elitism', int, 1),
+                                               ConfigParameter('species_fitness_func', str, 'max'),
                                                ConfigParameter('species_max', int, 15)])
     
     def speciate(self, config, population, generation, logger=None):
@@ -122,8 +125,8 @@ class DefaultSpeciesSet(DefaultClassConfig):
             smallest_distance, closest_specie_id = min(specie_distance, key=lambda x: x[0])
             
             # Check if distance falls within threshold and maximum number of species is not exceeded
-            if (smallest_distance < self.species_set_config.compatibility_threshold) or \
-                    (len(new_representatives) >= self.species_set_config.species_max):
+            if (smallest_distance < self.species_config.compatibility_threshold) or \
+                    (len(new_representatives) >= self.species_config.species_max):
                 # Add genome to closest specie
                 new_members[closest_specie_id].append(gid)
             else:

@@ -18,21 +18,21 @@ class DefaultStagnation(DefaultClassConfig):
     """Keeps track of whether species are making progress and helps remove ones that are not."""
     
     @classmethod
-    def parse_config(cls, param_dict):
-        return DefaultClassConfig(param_dict,
-                                  [ConfigParameter('species_fitness_func', str, 'max'),
-                                   ConfigParameter('max_stagnation', int, 15),
-                                   ConfigParameter('species_elitism', int, 1)])
+    def parse_config(cls, param_dict):  # TODO: Duplicate with species.py!
+        return DefaultClassConfig(param_dict, [ConfigParameter('compatibility_threshold', float, 3.0),
+                                               ConfigParameter('max_stagnation', int, 15),
+                                               ConfigParameter('species_elitism', int, 1),
+                                               ConfigParameter('species_fitness_func', str, 'max'),
+                                               ConfigParameter('species_max', int, 15)])
     
     def __init__(self, config, reporters):
         # pylint: disable=super-init-not-called
-        self.stagnation_config = config
+        self.species_config = config
+        self.reporters = reporters
         
         self.species_fitness_func = stat_functions.get(config.species_fitness_func)
         if self.species_fitness_func is None:
             raise RuntimeError(f"Unexpected species fitness func: {config.species_fitness_func!r}")
-        
-        self.reporters = reporters
     
     def update(self, species_set, generation):
         """
@@ -69,10 +69,10 @@ class DefaultStagnation(DefaultClassConfig):
             # will be marked as stagnant first.
             stagnant_time = generation - s.last_improved
             is_stagnant = False
-            if num_non_stagnant > self.stagnation_config.species_elitism:
-                is_stagnant = stagnant_time >= self.stagnation_config.max_stagnation
+            if num_non_stagnant > self.species_config.species_elitism:
+                is_stagnant = stagnant_time >= self.species_config.max_stagnation
             
-            if (len(species_data) - idx) <= self.stagnation_config.species_elitism:
+            if (len(species_data) - idx) <= self.species_config.species_elitism:
                 is_stagnant = False
             
             if is_stagnant:

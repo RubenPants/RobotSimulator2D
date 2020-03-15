@@ -31,7 +31,7 @@ class DefaultGenomeConfig(object):
         self.conn_delete_prob: float = None
         self.node_add_prob: float = None
         self.node_delete_prob: float = None
-        self.enable_gru: bool = None
+        self.gru_enabled: bool = None
         self.gru_mutate_rate: float = None
         
         # Create full set of available activation functions.
@@ -52,7 +52,7 @@ class DefaultGenomeConfig(object):
             ConfigParameter('node_delete_prob', float),
             ConfigParameter('structural_mutation_surer', str, 'default'),
             ConfigParameter('initial_connection', str, 'unconnected'),
-            ConfigParameter('enable_gru', bool),
+            ConfigParameter('gru_enabled', bool),
             ConfigParameter('gru_mutate_rate', float),
         ]
         

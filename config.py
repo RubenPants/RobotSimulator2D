@@ -76,24 +76,23 @@ class GameConfig:
 
 class NeatConfig:
     """Default configuration for the population."""
-    # TODO: DefaultStagnation and DefaultSpeciesSet (difference? species_elitism?)
     
     __annotations__ = {  # Not as it should, but I'll do it anyways
         'NEAT':                ["fitness_criterion", "fitness_threshold", "no_fitness_termination", "pop_size"],
-        'DefaultStagnation':   ["species_fitness_func", "max_stagnation", "species_elitism"],
-        'DefaultReproduction': ["elitism", "parent_selection", "min_species_size", "sexual_reproduction"],
-        'DefaultGenome':       ["num_inputs", "num_hidden", "num_outputs", "initial_connection",
-                                "compatibility_disjoint_coefficient", "compatibility_weight_coefficient",
-                                "conn_add_prob", "conn_delete_prob", "node_add_prob", "node_delete_prob",
-                                "activation_default", "activation_options", "activation_mutate_rate",
-                                "aggregation_default", "aggregation_options", "aggregation_mutate_rate",
-                                "bias_init_mean", "bias_init_stdev", "bias_replace_rate", "bias_mutate_rate",
-                                "bias_mutate_power", "bias_max_value", "bias_min_value", "weight_max_value",
-                                "weight_min_value", "weight_init_mean", "weight_init_stdev", "weight_mutate_rate",
-                                "weight_replace_rate", "weight_mutate_power", "enabled_default", "enabled_mutate_rate"],
-        'DefaultSpeciesSet':   ["compatibility_threshold", "species_max"],
-        'EVALUATION':          ["fitness", "fitness_comb", "nn_k"],
-        'GRU':                 ['enable_gru'],
+        'DefaultReproduction': ['elitism', 'min_species_size', 'parent_selection', 'sexual_reproduction'],
+        'DefaultGenome':       ['activation_default', 'activation_mutate_rate', 'activation_options',
+                                'aggregation_default', 'aggregation_mutate_rate', 'aggregation_options',
+                                'bias_init_mean', 'bias_init_stdev', 'bias_max_value', 'bias_min_value',
+                                'bias_mutate_power', 'bias_mutate_rate', 'bias_replace_rate',
+                                'compatibility_disjoint_coefficient', 'compatibility_weight_coefficient',
+                                'conn_add_prob', 'conn_delete_prob', 'enabled_default', 'enabled_mutate_rate',
+                                'gru_enabled', 'gru_mutate_rate', 'initial_connection', 'node_add_prob',
+                                'node_delete_prob', 'num_hidden', 'num_inputs', 'num_outputs', 'weight_init_mean',
+                                'weight_init_stdev', 'weight_max_value', 'weight_min_value', 'weight_mutate_power',
+                                'weight_mutate_rate', 'weight_replace_rate'],
+        'DefaultSpecies':      ['compatibility_threshold', 'max_stagnation', 'species_elitism', 'species_fitness_func',
+                                'species_max'],
+        'Evaluation':          ["fitness", "fitness_comb", "nn_k"],
     }
     
     def __init__(self):
@@ -107,14 +106,6 @@ class NeatConfig:
         # Number of individuals in each generation  [def=128]  TODO
         self.pop_size: int = 128
         
-        # [DefaultStagnation]
-        # The function used to compute the species fitness  [def=D_MAX]
-        self.species_fitness_func: str = D_MAX
-        # Remove a specie if it hasn't improved over this many number of generations  [def=15]
-        self.max_stagnation: int = 15
-        # Number of the best species that will be protected from stagnation  [def=2]
-        self.species_elitism: int = 2
-        
         # [DefaultReproduction]
         # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=2]
         self.elitism: int = 2
@@ -126,74 +117,80 @@ class NeatConfig:
         self.sexual_reproduction: bool = True
         
         # [DefaultGenome]
-        # Number of input nodes (the sensors): [5x proximity_sensor, 2x angular_sensor, 1x distance_sensor]  [def=8]
-        self.num_inputs: int = 10
-        # Number of hidden nodes to add to each genome in the initial population  [def=0]  TODO
-        self.num_hidden: int = 0
-        # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
-        self.num_outputs: int = 2
-        # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT_05]
-        self.initial_connection = D_PARTIAL_DIRECT_05
-        # Probability of adding a connection between existing nodes during mutation (1 chance per iteration)  [def=0.4]  TODO
-        self.conn_add_prob: float = 0.4
-        # Probability of deleting an existing connection during mutation (1 chance per iteration)  [def=0.3]  TODO
-        self.conn_delete_prob: float = 0.3
-        # Probability of adding a node during mutation (1 chance per iteration)  [def=0.2]  TODO
-        self.node_add_prob: float = 0.2
-        # Probability of removing a node during mutation (1 chance per iteration)  [def=0.15]  TODO
-        self.node_delete_prob: float = 0.15
         # Initial node activation function  [def=D_RELU]
         self.activation_default: str = D_RELU
-        # All possible activation functions between whom can be switched during mutation  [def=D_RELU]
-        self.activation_options: str = D_RELU
         # Probability of changing the activation function  [def=0]
         self.activation_mutate_rate: float = 0.0
+        # All possible activation functions between whom can be switched during mutation  [def=D_RELU]
+        self.activation_options: str = D_RELU
         # The default aggregation function attribute assigned to new nodes  [def=D_SUM]
         self.aggregation_default: str = D_SUM
-        # Aggregation options between whom can be mutated  [def=D_SUM]
-        self.aggregation_options: str = D_SUM
         # Probability of mutating towards another aggregation_option  [def=0]
         self.aggregation_mutate_rate: float = 0.0
+        # Aggregation options between whom can be mutated  [def=D_SUM]
+        self.aggregation_options: str = D_SUM
         # The mean of the gaussian distribution, used to select the bias attribute values for new nodes  [def=0]
         self.bias_init_mean: float = 0.0
         # Standard deviation of gaussian distribution, used to select the bias attribute values of new nodes  [def=1]
         self.bias_init_stdev: float = 1.0
-        # The probability that mutation will change the bias of a node by adding a random value  [def=0.4]  TODO
-        self.bias_mutate_rate: float = 0.4
-        # The probability that mutation will replace the bias of a node with a completely random value  [def=0.05]
-        self.bias_replace_rate: float = 0.05
-        # The standard deviation of the zero-centered gaussian from which a bias value mutation is drawn  [def=0.1]
-        self.bias_mutate_power: float = 0.1
         # The maximum allowed bias value, biases above this threshold will be clamped to this value  [def=2]
         self.bias_max_value: float = 2.0
         # The minimum allowed bias value, biases below this threshold will be clamped to this value  [def=-2]
         self.bias_min_value: float = -2.0
-        # Mean of the gaussian distribution used to select the weight attribute values for new connections  [def=0]
-        self.weight_init_mean: float = 0.0
-        # Standard deviation of the gaussian used to select the weight attributes values for new connections  [def=1]
-        self.weight_init_stdev: float = 1.0
-        # Probability of a weight (connection) to mutate  [def=0.4]  TODO
-        self.weight_mutate_rate: float = 0.4
-        # Probability of assigning completely new value, based on weight_init_mean and weight_init_stdev  [def=0.05]
-        self.weight_replace_rate: float = 0.05
-        # The standard deviation of the zero-centered gaussian from which a weight value mutation is drawn  [def=0.1]
-        self.weight_mutate_power: float = 0.1
-        # The maximum allowed weight value, weights above this value will be clipped to this value  [def=2]
-        self.weight_max_value: float = 2.0
-        # The minimum allowed weight value, weights below this value will be clipped to this value  [def=-2]
-        self.weight_min_value: float = -2.0
-        # Enable the algorithm to disable (and re-enable) existing connections  [def=True]
-        self.enabled_default: bool = True
-        # The probability that mutation will replace the 'enabled status' of a connection  [def=0.05]
-        self.enabled_mutate_rate: float = 0.01
-        
-        # [DefaultSpeciesSet]
-        # Individuals whose genetic distance is less than this threshold are in the same specie  [def=2.5]
-        self.compatibility_threshold: float = 2.5
+        # The standard deviation of the zero-centered gaussian from which a bias value mutation is drawn  [def=0.1]
+        self.bias_mutate_power: float = 0.1
+        # The probability that mutation will change the bias of a node by adding a random value  [def=0.4]  TODO
+        self.bias_mutate_rate: float = 0.4
+        # The probability that mutation will replace the bias of a node with a completely random value  [def=0.05]
+        self.bias_replace_rate: float = 0.05
         # Full weight of disjoint and excess nodes on determining genomic distance  [def=1.0]  # TODO: Separate for GRU?
         self.compatibility_disjoint_coefficient: float = 1.0
         # Coefficient for each weight or bias difference contribution to the genomic distance  [def=0.5]
         self.compatibility_weight_coefficient: float = 0.5
+        # Probability of adding a connection between existing nodes during mutation (1 chance per iteration)  [def=0.4]  TODO
+        self.conn_add_prob: float = 0.4
+        # Probability of deleting an existing connection during mutation (1 chance per iteration)  [def=0.3]  TODO
+        self.conn_delete_prob: float = 0.3
+        # Enable the algorithm to disable (and re-enable) existing connections  [def=True]
+        self.enabled_default: bool = True
+        # The probability that mutation will replace the 'enabled status' of a connection  [def=0.05]
+        self.enabled_mutate_rate: float = 0.01
+        # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT_05]
+        self.initial_connection = D_PARTIAL_DIRECT_05
+        # Probability of adding a node during mutation (1 chance per iteration)  [def=0.2]  TODO
+        self.node_add_prob: float = 0.2
+        # Probability of removing a node during mutation (1 chance per iteration)  [def=0.15]  TODO
+        self.node_delete_prob: float = 0.15
+        # Number of hidden nodes to add to each genome in the initial population  [def=0]  TODO
+        self.num_hidden: int = 0
+        # Number of input nodes (the sensors): [5x proximity_sensor, 2x angular_sensor, 1x distance_sensor]  [def=8]
+        self.num_inputs: int = 10
+        # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
+        self.num_outputs: int = 2
+        # Mean of the gaussian distribution used to select the weight attribute values for new connections  [def=0]
+        self.weight_init_mean: float = 0.0
+        # Standard deviation of the gaussian used to select the weight attributes values for new connections  [def=1]
+        self.weight_init_stdev: float = 1.0
+        # The maximum allowed weight value, weights above this value will be clipped to this value  [def=2]
+        self.weight_max_value: float = 2.0
+        # The minimum allowed weight value, weights below this value will be clipped to this value  [def=-2]
+        self.weight_min_value: float = -2.0
+        # The standard deviation of the zero-centered gaussian from which a weight value mutation is drawn  [def=0.1]
+        self.weight_mutate_power: float = 0.1
+        # Probability of a weight (connection) to mutate  [def=0.4]  TODO
+        self.weight_mutate_rate: float = 0.4
+        # Probability of assigning completely new value, based on weight_init_mean and weight_init_stdev  [def=0.05]
+        self.weight_replace_rate: float = 0.05
+        
+        # [DefaultSpeciesSet]
+        # Individuals whose genetic distance is less than this threshold are in the same specie  [def=2.5]
+        self.compatibility_threshold: float = 2.5
+        # Remove a specie if it hasn't improved over this many number of generations  [def=15]
+        self.max_stagnation: int = 15
+        # Number of the best species that will be protected from stagnation  [def=2]
+        self.species_elitism: int = 2
+        # The function used to compute the species fitness  [def=D_MAX]
+        self.species_fitness_func: str = D_MAX
         # Maximum number of species that can live along each other  [def=15]
         self.species_max: int = 15
         
@@ -207,7 +204,7 @@ class NeatConfig:
         
         # [GRU]
         # Enable the genomes to mutate GRU nodes  [def=True]  TODO
-        self.enable_gru: bool = False
+        self.gru_enabled: bool = False
         # Mutation probability of mutating a GRU node rather than a simple node  [def=0.4]  TODO
         self.gru_mutate_rate: float = 0.4
     
