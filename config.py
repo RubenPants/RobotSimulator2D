@@ -114,9 +114,9 @@ class NeatConfig:
         self.species_elitism: int = 2
         
         # [DefaultReproduction]
-        # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=1]
-        self.elitism: int = 1
-        # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.4]
+        # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=1]  TODO: Enforce that these are different!
+        self.elitism: int = 2
+        # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.4]  TODO
         self.survival_threshold: float = 0.4
         # Minimum number of genomes per species, keeping low prevents number of individuals blowing up  [def=2]
         self.min_species_size: int = 2
@@ -132,14 +132,14 @@ class NeatConfig:
         self.num_outputs: int = 2
         # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT_05]
         self.initial_connection = D_PARTIAL_DIRECT_05
-        # Probability of adding a connection between existing nodes during mutation (1 chance per iteration)  [def=0.5]  TODO
-        self.conn_add_prob: float = 0.6
-        # Probability of deleting an existing connection during mutation (1 chance per iteration)  [def=0.5]  TODO
-        self.conn_delete_prob: float = 0.6
+        # Probability of adding a connection between existing nodes during mutation (1 chance per iteration)  [def=0.4]  TODO
+        self.conn_add_prob: float = 0.4
+        # Probability of deleting an existing connection during mutation (1 chance per iteration)  [def=0.3]  TODO
+        self.conn_delete_prob: float = 0.3
         # Probability of adding a node during mutation (1 chance per iteration)  [def=0.2]  TODO
-        self.node_add_prob: float = 0.3
-        # Probability of removing a node during mutation (1 chance per iteration)  [def=0.2]  TODO
-        self.node_delete_prob: float = 0.3
+        self.node_add_prob: float = 0.2
+        # Probability of removing a node during mutation (1 chance per iteration)  [def=0.15]  TODO
+        self.node_delete_prob: float = 0.15
         # Initial node activation function  [def=D_RELU]
         self.activation_default: str = D_RELU
         # All possible activation functions between whom can be switched during mutation  [def=D_RELU]
@@ -156,8 +156,8 @@ class NeatConfig:
         self.bias_init_mean: float = 0.0
         # Standard deviation of gaussian distribution, used to select the bias attribute values of new nodes  [def=1]
         self.bias_init_stdev: float = 1.0
-        # The probability that mutation will change the bias of a node by adding a random value  [def=0.6]
-        self.bias_mutate_rate: float = 0.6
+        # The probability that mutation will change the bias of a node by adding a random value  [def=0.4]  TODO
+        self.bias_mutate_rate: float = 0.4
         # The probability that mutation will replace the bias of a node with a completely random value  [def=0.05]
         self.bias_replace_rate: float = 0.05
         # The standard deviation of the zero-centered gaussian from which a bias value mutation is drawn  [def=0.1]
@@ -170,8 +170,8 @@ class NeatConfig:
         self.weight_init_mean: float = 0.0
         # Standard deviation of the gaussian used to select the weight attributes values for new connections  [def=1]
         self.weight_init_stdev: float = 1.0
-        # Probability of a weight (connection) to mutate  [def=0.8]
-        self.weight_mutate_rate: float = 0.8
+        # Probability of a weight (connection) to mutate  [def=0.4]  TODO
+        self.weight_mutate_rate: float = 0.4
         # Probability of assigning completely new value, based on weight_init_mean and weight_init_stdev  [def=0.05]
         self.weight_replace_rate: float = 0.05
         # The standard deviation of the zero-centered gaussian from which a weight value mutation is drawn  [def=0.1]

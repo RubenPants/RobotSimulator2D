@@ -4,6 +4,7 @@
 
 ## TODO
 
+* Enforce that elite species are different
 * Make stagnation a decaying function
 * Possible to set maximum number of species?
 * Test all of the fitness-functions!
