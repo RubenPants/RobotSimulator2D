@@ -184,6 +184,7 @@ class FeedForwardNet:
                config,
                batch_size=1,
                cold_start=False,
+               logger=None,
                ):
         """
         This class will unravel the genome and create a feed-forward network based on it. In other words, it will create
@@ -193,6 +194,7 @@ class FeedForwardNet:
         :param config: Population config
         :param batch_size: Batch-size needed to setup network dimension
         :param cold_start: Do not initialize the network based on sensory inputs
+        :param logger: A population's logger
         """
         genome_config = config.genome_config
         
@@ -256,14 +258,15 @@ class FeedForwardNet:
                 idxs, vals = hid2out
             else:
                 # TODO: Delete prints! (used for debugging)
-                print(genome)
-                print(f"i_key: {i_key}, o_key: {o_key}")
-                print(f"i_key in input_keys: {i_key in input_keys}")
-                print(f"i_key in hidden_keys: {i_key in hidden_keys}")
-                print(f"i_key in output_keys: {i_key in output_keys}")
-                print(f"o_key in input_keys: {o_key in input_keys}")
-                print(f"o_key in hidden_keys: {o_key in hidden_keys}")
-                print(f"o_key in output_keys: {o_key in output_keys}")
+                msg = f"{genome}" \
+                          f"\ni_key: {i_key}, o_key: {o_key}" \
+                          f"\ni_key in input_keys: {i_key in input_keys}" \
+                          f"\ni_key in hidden_keys: {i_key in hidden_keys}" \
+                          f"\ni_key in output_keys: {i_key in output_keys}" \
+                          f"\no_key in input_keys: {o_key in input_keys}" \
+                          f"\no_key in hidden_keys: {o_key in hidden_keys}" \
+                          f"\no_key in output_keys: {o_key in output_keys}"
+                logger(msg) if logger else print(msg)
                 raise ValueError(f'Invalid connection from key {i_key} to key {o_key}')
             
             # Append to the lists of the right tuple

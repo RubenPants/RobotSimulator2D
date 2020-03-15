@@ -18,5 +18,7 @@ cdef class Vec2dCy:
     cpdef float get_length(self)
     
     cpdef Vec2dCy normalized(self)
+    
+    cpdef tuple get_tuple(self)
 
 cpdef Vec2dCy angle_to_vec(float angle)

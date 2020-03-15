@@ -70,7 +70,7 @@ class DefaultSpeciesSet(DefaultClassConfig):
     def parse_config(cls, param_dict):
         return DefaultClassConfig(param_dict, [ConfigParameter('compatibility_threshold', float)])
     
-    def speciate(self, config, population, generation):
+    def speciate(self, config, population, generation, logger=None):
         """
         Place genomes into species by genetic similarity.
 
@@ -145,7 +145,8 @@ class DefaultSpeciesSet(DefaultClassConfig):
                 f'\n\t- Maximum: {max(itervalues(distances.distances)):.3f}'
                 f'\n\t- Mean: {mean(itervalues(distances.distances)):.3f}'
                 f'\n\t- Minimum: {min([i for i in itervalues(distances.distances)]):.3f}'
-                f'\n\t- Standard deviation: {stdev(itervalues(distances.distances)):.3f}'
+                f'\n\t- Standard deviation: {stdev(itervalues(distances.distances)):.3f}',
+                logger=logger,
         )
     
     def get_species_id(self, individual_id):
