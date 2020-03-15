@@ -1129,7 +1129,7 @@ struct __pyx_opt_args_11environment_8entities_2cy_7game_cy_6GameCy_get_blueprint
  * 
  *     cpdef get_blueprint(self, ax=?)             # <<<<<<<<<<<<<<
  * 
- * cpdef list get_boundary_walls(int x_axis, int y_axis)
+ * cpdef set get_boundary_walls(int x_axis, int y_axis)
  */
 struct __pyx_opt_args_11environment_8entities_2cy_7game_cy_6GameCy_get_blueprint {
   int __pyx_n;
@@ -4744,7 +4744,6 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_create_empty_ga
  */
   __pyx_t_1 = __pyx_f_11environment_8entities_2cy_7game_cy_get_boundary_walls(__pyx_v_self->x_axis, __pyx_v_self->y_axis, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 188, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(PySet_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "set", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 188, __pyx_L1_error)
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v_self->walls);
   __Pyx_DECREF(__pyx_v_self->walls);
@@ -10254,7 +10253,7 @@ static PyObject *__pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_32__setst
 /* "environment/entities/cy/game_cy.pyx":318
  * 
  * 
- * cpdef list get_boundary_walls(int x_axis, int y_axis):             # <<<<<<<<<<<<<<
+ * cpdef set get_boundary_walls(int x_axis, int y_axis):             # <<<<<<<<<<<<<<
  *     """ :return: Set of the four boundary walls """
  *     a = Vec2dCy(0, 0)
  */
@@ -10275,7 +10274,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_get_boundary_walls
   __Pyx_RefNannySetupContext("get_boundary_walls", 0);
 
   /* "environment/entities/cy/game_cy.pyx":320
- * cpdef list get_boundary_walls(int x_axis, int y_axis):
+ * cpdef set get_boundary_walls(int x_axis, int y_axis):
  *     """ :return: Set of the four boundary walls """
  *     a = Vec2dCy(0, 0)             # <<<<<<<<<<<<<<
  *     b = Vec2dCy(x_axis, 0)
@@ -10416,7 +10415,6 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_get_boundary_walls
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (PySet_Add(__pyx_t_2, __pyx_t_5) < 0) __PYX_ERR(0, 324, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (!(likely(PyList_CheckExact(__pyx_t_2))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_2)->tp_name), 0))) __PYX_ERR(0, 324, __pyx_L1_error)
   __pyx_r = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
   goto __pyx_L0;
@@ -10424,7 +10422,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_get_boundary_walls
   /* "environment/entities/cy/game_cy.pyx":318
  * 
  * 
- * cpdef list get_boundary_walls(int x_axis, int y_axis):             # <<<<<<<<<<<<<<
+ * cpdef set get_boundary_walls(int x_axis, int y_axis):             # <<<<<<<<<<<<<<
  *     """ :return: Set of the four boundary walls """
  *     a = Vec2dCy(0, 0)
  */
@@ -14518,7 +14516,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
   /* "environment/entities/cy/game_cy.pyx":320
- * cpdef list get_boundary_walls(int x_axis, int y_axis):
+ * cpdef set get_boundary_walls(int x_axis, int y_axis):
  *     """ :return: Set of the four boundary walls """
  *     a = Vec2dCy(0, 0)             # <<<<<<<<<<<<<<
  *     b = Vec2dCy(x_axis, 0)

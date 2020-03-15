@@ -80,7 +80,7 @@ cdef class GameCy:
         self.player = None  # Candidate-robot
         self.steps_taken = 0  # Number of steps taken by the agent
         self.target = None  # Target-robot
-        self.walls = None  # List of all walls in the game
+        self.walls = None  # Set of all walls in the game
         
         # Check if game already exists, if not create new game
         if overwrite or not self.load():
@@ -315,7 +315,7 @@ cdef class GameCy:
         return ax
 
 
-cpdef list get_boundary_walls(int x_axis, int y_axis):
+cpdef set get_boundary_walls(int x_axis, int y_axis):
     """ :return: Set of the four boundary walls """
     a = Vec2dCy(0, 0)
     b = Vec2dCy(x_axis, 0)

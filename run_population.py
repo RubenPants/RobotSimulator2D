@@ -36,7 +36,7 @@ def main(fitness,
     folder = D_NEAT_GRU if gru else D_NEAT
     cfg = NeatConfig()
     cfg.fitness = fitness
-    cfg.enable_gru = gru
+    cfg.gru_enabled = gru
     cfg.sexual_reproduction = reproduce
     
     # Create the population
@@ -49,7 +49,7 @@ def main(fitness,
     # Give overview of population
     msg = f"\n===> RUNNING FOR THE FOLLOWING CONFIGURATION: <===" \
           f"\n\t> fitness: {cfg.fitness}" \
-          f"\n\t> enable_gru: {cfg.enable_gru}" \
+          f"\n\t> gru_enabled: {cfg.gru_enabled}" \
           f"\n\t> sexual_reproduction: {cfg.sexual_reproduction}" \
           f"\n\t> Saving under folder: {folder}" \
           f"\n\t> Train: {train} ({train_iterations} iterations)" \
@@ -111,7 +111,7 @@ if __name__ == '__main__':
     parser.add_argument('--train', type=int, default=0)
     parser.add_argument('--iterations', type=int, default=0)
     parser.add_argument('--reproduce', type=int, default=0)
-    parser.add_argument('--enable_gru', type=int, default=0)
+    parser.add_argument('--gru_enabled', type=int, default=0)
     parser.add_argument('--fitness', type=str, default='')
     parser.add_argument('--blueprint', type=int, default=0)
     parser.add_argument('--trace', type=int, default=0)
@@ -120,7 +120,7 @@ if __name__ == '__main__':
     
     main(
             fitness=args.fitness,
-            gru=bool(args.enable_gru),
+            gru=bool(args.gru_enabled),
             reproduce=bool(args.reproduce),
             train=bool(args.train),
             train_iterations=args.iterations,

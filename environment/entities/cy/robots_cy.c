@@ -1078,7 +1078,7 @@ struct __pyx_opt_args_11environment_8entities_2cy_7game_cy_6GameCy_get_blueprint
  * 
  *     cpdef get_blueprint(self, ax=?)             # <<<<<<<<<<<<<<
  * 
- * cpdef list get_boundary_walls(int x_axis, int y_axis)
+ * cpdef set get_boundary_walls(int x_axis, int y_axis)
  */
 struct __pyx_opt_args_11environment_8entities_2cy_7game_cy_6GameCy_get_blueprint {
   int __pyx_n;
