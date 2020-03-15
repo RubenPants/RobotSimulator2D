@@ -184,16 +184,13 @@ class Population:
             self.reporters.complete_extinction(logger=self.log)
             
             # If requested by the user, create a completely new population, otherwise raise an exception
-            if self.config.reset_on_extinction:
-                self.population = self.reproduction.create_new(genome_type=self.config.genome_type,
-                                                               genome_config=self.config.genome_config,
-                                                               num_genomes=self.config.pop_size,
-                                                               logger=self.log)
-            else:
-                raise CompleteExtinctionException()
+            self.population = self.reproduction.create_new(genome_type=self.config.genome_type,
+                                                           genome_config=self.config.genome_config,
+                                                           num_genomes=self.config.pop_size,
+                                                           logger=self.log)
         
         # Divide the new population into species
-        self.species.speciate(config=self.config,
+        self.species.speciate(config=self.config,  # TODO: investigate!
                               population=self.population,
                               generation=self.generation,
                               logger=self.log)

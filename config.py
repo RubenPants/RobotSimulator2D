@@ -9,6 +9,8 @@ from utils.dictionary import *
 
 
 class GameConfig:
+    """Default configuration for the games."""
+    
     __slots__ = (
         "bot_driving_speed", "bot_radius", "bot_turning_speed",
         "batch", "duration", "max_game_id", "max_eval_game_id", "fps",
@@ -73,11 +75,13 @@ class GameConfig:
 
 
 class NeatConfig:
+    """Default configuration for the population."""
+    # TODO: DefaultStagnation and DefaultSpeciesSet (difference? species_elitism?)
+    
     __annotations__ = {  # Not as it should, but I'll do it anyways
-        'NEAT':                ["fitness_criterion", "fitness_threshold", "no_fitness_termination", "pop_size",
-                                "reset_on_extinction"],
+        'NEAT':                ["fitness_criterion", "fitness_threshold", "no_fitness_termination", "pop_size"],
         'DefaultStagnation':   ["species_fitness_func", "max_stagnation", "species_elitism"],
-        'DefaultReproduction': ["elitism", "survival_threshold", "min_species_size", "sexual_reproduction"],
+        'DefaultReproduction': ["elitism", "parent_selection", "min_species_size", "sexual_reproduction"],
         'DefaultGenome':       ["num_inputs", "num_hidden", "num_outputs", "initial_connection",
                                 "compatibility_disjoint_coefficient", "compatibility_weight_coefficient",
                                 "conn_add_prob", "conn_delete_prob", "node_add_prob", "node_delete_prob",
@@ -87,7 +91,7 @@ class NeatConfig:
                                 "bias_mutate_power", "bias_max_value", "bias_min_value", "weight_max_value",
                                 "weight_min_value", "weight_init_mean", "weight_init_stdev", "weight_mutate_rate",
                                 "weight_replace_rate", "weight_mutate_power", "enabled_default", "enabled_mutate_rate"],
-        'DefaultSpeciesSet':   ["compatibility_threshold"],
+        'DefaultSpeciesSet':   ["compatibility_threshold", "species_max"],
         'EVALUATION':          ["fitness", "fitness_comb", "nn_k"],
         'GRU':                 ['enable_gru'],
     }
@@ -102,24 +106,22 @@ class NeatConfig:
         self.no_fitness_termination: bool = True
         # Number of individuals in each generation  [def=128]  TODO
         self.pop_size: int = 128
-        # Create random population if all species become distinct due to stagnation
-        self.reset_on_extinction: bool = True
         
         # [DefaultStagnation]
-        # The function used to compute the species fitness
+        # The function used to compute the species fitness  [def=D_MAX]
         self.species_fitness_func: str = D_MAX
-        # Remove a specie if it hasn't improved over this many number of generations
+        # Remove a specie if it hasn't improved over this many number of generations  [def=15]
         self.max_stagnation: int = 15
-        # Number of the best species that will be protected from stagnation
+        # Number of the best species that will be protected from stagnation  [def=2]
         self.species_elitism: int = 2
         
         # [DefaultReproduction]
-        # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=1]  TODO: Enforce that these are different!
+        # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=2]
         self.elitism: int = 2
         # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.4]  TODO
-        self.survival_threshold: float = 0.4
-        # Minimum number of genomes per species, keeping low prevents number of individuals blowing up  [def=2]
-        self.min_species_size: int = 2
+        self.parent_selection: float = 0.4
+        # Minimum number of genomes per species, keeping low prevents number of individuals blowing up  [def=5]  TODO
+        self.min_species_size: int = 5
         # Sexual reproduction  [def=True]
         self.sexual_reproduction: bool = True
         
@@ -186,12 +188,14 @@ class NeatConfig:
         self.enabled_mutate_rate: float = 0.01
         
         # [DefaultSpeciesSet]
-        # Individuals whose genetic distance is less than this threshold are in the same specie  [def=3.0]
+        # Individuals whose genetic distance is less than this threshold are in the same specie  [def=2.5]
         self.compatibility_threshold: float = 2.5
         # Full weight of disjoint and excess nodes on determining genomic distance  [def=1.0]  # TODO: Separate for GRU?
         self.compatibility_disjoint_coefficient: float = 1.0
         # Coefficient for each weight or bias difference contribution to the genomic distance  [def=0.5]
         self.compatibility_weight_coefficient: float = 0.5
+        # Maximum number of species that can live along each other  [def=15]
+        self.species_max: int = 15
         
         # [EVALUATION]
         # Fitness functions [distance, distance_time, novelty, path, path_time]  TODO

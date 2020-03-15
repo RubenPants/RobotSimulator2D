@@ -5,6 +5,7 @@
 ## TODO
 
 * Enforce that elite species are different
+* Itervalues when looping over dictionary! (improves performance!)
 * Make stagnation a decaying function
 * Possible to set maximum number of species?
 * Test all of the fitness-functions!

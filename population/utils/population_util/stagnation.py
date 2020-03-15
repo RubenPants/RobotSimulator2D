@@ -20,9 +20,9 @@ class DefaultStagnation(DefaultClassConfig):
     @classmethod
     def parse_config(cls, param_dict):
         return DefaultClassConfig(param_dict,
-                                  [ConfigParameter('species_fitness_func', str, 'mean'),
+                                  [ConfigParameter('species_fitness_func', str, 'max'),
                                    ConfigParameter('max_stagnation', int, 15),
-                                   ConfigParameter('species_elitism', int, 0)])
+                                   ConfigParameter('species_elitism', int, 1)])
     
     def __init__(self, config, reporters):
         # pylint: disable=super-init-not-called
@@ -30,19 +30,16 @@ class DefaultStagnation(DefaultClassConfig):
         
         self.species_fitness_func = stat_functions.get(config.species_fitness_func)
         if self.species_fitness_func is None:
-            raise RuntimeError(
-                    "Unexpected species fitness func: {0!r}".format(config.species_fitness_func))
+            raise RuntimeError(f"Unexpected species fitness func: {config.species_fitness_func!r}")
         
         self.reporters = reporters
     
     def update(self, species_set, generation):
         """
-        Required interface method. Updates species fitness history information,
-        checking for ones that have not improved in max_stagnation generations,
-        and - unless it would result in the number of species dropping below the configured
-        species_elitism parameter if they were removed,
-        in which case the highest-fitness species are spared -
-        returns a list with stagnant species marked for removal.
+        Required interface method. Updates species fitness history information, checking for ones that have not improved
+        in max_stagnation generations, and - unless it would result in the number of species dropping below the
+        configured species_elitism parameter if they were removed, in which case the highest-fitness species are spared
+        - returns a list with stagnant species marked for removal.
         """
         species_data = []
         for sid, s in iteritems(species_set.species):

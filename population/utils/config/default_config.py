@@ -132,7 +132,6 @@ class Config(object):
     __params = [ConfigParameter('pop_size', int),
                 ConfigParameter('fitness_criterion', str),
                 ConfigParameter('fitness_threshold', float),
-                ConfigParameter('reset_on_extinction', bool),
                 ConfigParameter('no_fitness_termination', bool)]
     
     def __init__(self,

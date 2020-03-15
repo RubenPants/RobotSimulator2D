@@ -116,25 +116,22 @@ class DefaultGenome(object):
                 self.connect_partial_nodirect(config)
     
     def configure_crossover(self, config: DefaultGenomeConfig, genome1, genome2):
-        """
-        Configure a new genome by crossover from two parent genomes.
-        
-        TODO: Unstable if working with GRU-nodes! (no check on input-connections)
-        """
+        """Configure a new genome by crossover from two parent genomes."""
         # Rank the parents based on fitness
         assert isinstance(genome1.fitness, (int, float))  # (key, fitness)
         assert isinstance(genome2.fitness, (int, float))
-        if genome1.fitness > genome2.fitness:
-            parent1, parent2 = genome1, genome2
+        if genome1.fitness >= genome2.fitness:
+            p1, p2 = genome1, genome2
         else:
-            parent1, parent2 = genome2, genome1
+            p1, p2 = genome2, genome1
         
         # Get the fitness ratio of the two parents (determines from which parent a child is most likely to inherit from)
-        ratio = parent1.fitness / (parent1.fitness + parent2.fitness)
+        #  If very similar fitness values, ratio will be fixed to 0.5 (prevent division by ~0+0)
+        ratio = 0.5 if abs(p1.fitness - p2.fitness) < 0.001 else p1.fitness / (p1.fitness + p2.fitness)
         
-        # Inherit connection genes
-        for key, cg1 in iteritems(parent1.connections):
-            cg2 = parent2.connections.get(key)
+        # Inherit connection genes of the most fit genome, crossover the connection if present at both parents
+        for key, cg1 in iteritems(p1.connections):
+            cg2 = p2.connections.get(key)
             if cg2 is None:
                 # Excess or disjoint gene: copy from the fittest parent.
                 self.connections[key] = cg1.copy()
@@ -143,11 +140,8 @@ class DefaultGenome(object):
                 self.connections[key] = cg1.crossover(cg2, ratio)
         
         # Inherit node genes
-        parent1_set = parent1.nodes
-        parent2_set = parent2.nodes
-        
-        for key, ng1 in iteritems(parent1_set):
-            ng2 = parent2_set.get(key)
+        for key, ng1 in iteritems(p1.nodes):
+            ng2 = p2.nodes.get(key)
             assert key not in self.nodes
             if ng2 is None:
                 # Extra gene: copy from the fittest parent
@@ -177,6 +171,7 @@ class DefaultGenome(object):
             ng.mutate(config)
     
     def mutate_add_node(self, config: DefaultGenomeConfig):
+        """Add (or enable) a node as part of a mutation."""
         if not self.connections:
             if config.check_structural_mutation_surer(): self.mutate_add_connection(config)
             return
@@ -202,6 +197,7 @@ class DefaultGenome(object):
         self.create_connection(config=config, input_key=node_id, output_key=o, weight=conn_to_split.weight)
     
     def mutate_delete_node(self, config: DefaultGenomeConfig):
+        """Delete (disable) a node as part of a mutation."""
         # Do nothing if there are no non-output nodes.
         available_nodes = [k for k in iterkeys(self.nodes) if k not in config.output_keys]
         if not available_nodes:
