@@ -29,7 +29,7 @@ class GameConfig:
         
         # [CONTROL]
         # Number of games on which a single genome is evaluated [def=10]  # TODO: Put in population?
-        self.batch: int = 10
+        self.batch: int = 16
         # Number of seconds it takes for one game to complete [def=60]
         self.duration: int = 60
         # Max ID of game (starting from 1) [def=1000]
@@ -100,8 +100,8 @@ class NeatConfig:
         self.fitness_threshold: int = 1
         # Don't consider fitness_criterion and fitness_threshold
         self.no_fitness_termination: bool = True
-        # Number of individuals in each generation  [def=256]  TODO
-        self.pop_size: int = 256
+        # Number of individuals in each generation  [def=128]  TODO
+        self.pop_size: int = 128
         # Create random population if all species become distinct due to stagnation
         self.reset_on_extinction: bool = True
         
