@@ -1,17 +1,12 @@
 """
 stagnation.py
 
-Keeps track of whether species are making progress and helps remove ones that are not.
+Keeps track of whether species are making progress and indicates the ones that are not to be removed.
 """
-import sys
-
 from neat.math_util import stat_functions
 from neat.six_util import iteritems
 
 from population.utils.config.default_config import ConfigParameter, DefaultClassConfig
-
-
-# TODO: Add a method for the user to change the "is stagnant" computation.
 
 
 class DefaultStagnation(DefaultClassConfig):
@@ -36,49 +31,46 @@ class DefaultStagnation(DefaultClassConfig):
     
     def update(self, species_set, generation):
         """
-        Required interface method. Updates species fitness history information, checking for ones that have not improved
-        in max_stagnation generations, and - unless it would result in the number of species dropping below the
-        configured species_elitism parameter if they were removed, in which case the highest-fitness species are spared
-        - returns a list with stagnant species marked for removal.
+        Update each specie's fitness history information, checks if it has improved the last max_stagnation generations,
+        and returns list with stagnant species that need to be removed.
         """
+        # Update each of the species' fitness-related statistics (i.e. fitness, fitness_history, and last_improved)
         species_data = []
-        for sid, s in iteritems(species_set.species):
-            if s.fitness_history:
-                prev_fitness = max(s.fitness_history)
-            else:
-                prev_fitness = -sys.float_info.max
+        for specie_id, specie in iteritems(species_set.species):
+            # Get previous fitness
+            prev_fitness = max(specie.fitness_history) if specie.fitness_history else float("-inf")
             
-            s.fitness = self.species_fitness_func(s.get_fitnesses())
-            s.fitness_history.append(s.fitness)
-            s.adjusted_fitness = None
-            if prev_fitness is None or s.fitness > prev_fitness:
-                s.last_improved = generation
-            
-            species_data.append((sid, s))
+            # Update specie's fitness stats
+            specie.fitness = self.species_fitness_func(specie.get_fitnesses())
+            specie.fitness_history.append(specie.fitness)
+            specie.adjusted_fitness = None
+            if specie.fitness > prev_fitness: specie.last_improved = generation
+            species_data.append((specie_id, specie))
         
-        # Sort in ascending fitness order.
+        # Sort the species in ascending fitness order
         species_data.sort(key=lambda x: x[1].fitness)
         
+        # Define if the population is stagnant or not
         result = []
-        species_fitnesses = []
-        num_non_stagnant = len(species_data)
-        for idx, (sid, s) in enumerate(species_data):
-            # Override stagnant state if marking this species as stagnant would
-            # result in the total number of species dropping below the limit.
-            # Because species are in ascending fitness order, less fit species
-            # will be marked as stagnant first.
-            stagnant_time = generation - s.last_improved
+        for idx, (specie_id, specie) in enumerate(species_data):
             is_stagnant = False
-            if num_non_stagnant > self.species_config.species_elitism:
-                is_stagnant = stagnant_time >= self.species_config.max_stagnation
             
-            if (len(species_data) - idx) <= self.species_config.species_elitism:
-                is_stagnant = False
+            # Most elite species cannot become stagnant (>= since idx start counting at 0)
+            #  Calculating stagnation is only useful when population can be removed
+            # if idx >= self.species_config.species_elitism and \
+            #         hist_length > self.species_config.max_stagnation+3:
+            hist_length = len(specie.fitness_history)
+            if hist_length > self.species_config.max_stagnation + 3:
+                history_decayed = [stagnation_decay(specie.fitness_history[i:i + 3]) for i in range(hist_length - 2)]
+                is_stagnant = max(history_decayed) in history_decayed[:-self.species_config.max_stagnation]
             
-            if is_stagnant:
-                num_non_stagnant -= 1
-            
-            result.append((sid, s, is_stagnant))
-            species_fitnesses.append(s.fitness)
+            # Append to the result
+            result.append((specie_id, specie, is_stagnant))
         
         return result
+
+
+def stagnation_decay(lst):
+    """Define decay function to define the stagnation."""
+    assert len(lst) == 3
+    return (lst[-1] + 0.5 * lst[-2] + 0.5 * lst[-3]) / 2
