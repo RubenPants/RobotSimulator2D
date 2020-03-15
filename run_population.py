@@ -17,6 +17,7 @@ def main(fitness,
          train=False,
          train_iterations=0,
          blueprint=False,
+         trace=False,
          evaluate=False,
          ):
     """
@@ -27,7 +28,8 @@ def main(fitness,
     :param reproduce: Have sexual reproduction
     :param train: Train the population
     :param train_iterations: Number of training generations
-    :param blueprint: Create a blueprint evaluation for the population
+    :param blueprint: Create a blueprint evaluation for the population for the first 5 games
+    :param blueprint: Create a trace evaluation for the population for the first 5 games
     :param evaluate: Evaluate the best genome of the population
     """
     # Let inputs apply to configuration
@@ -73,10 +75,21 @@ def main(fitness,
             
             # Create the blueprints for first 5 games
             visualizer = VisualizingEnv()
-            for g in range(1, 6):
-                pop.log(f"Creating blueprints for  game {g}")
-                visualizer.set_games([g])
-                visualizer.blueprint_genomes(pop)
+            games = [g for g in range(1, 6)]
+            pop.log(f"Creating blueprints for games: {games}")
+            visualizer.set_games([games])
+            visualizer.blueprint_genomes(pop)
+        
+        if trace:
+            pop.log("\n===> CREATING TRACES <===\n")
+            from environment.env_visualizing import VisualizingEnv
+            
+            # Create the blueprints for first 5 games
+            visualizer = VisualizingEnv()
+            games = [g for g in range(1, 6)]
+            pop.log(f"Creating blueprints for games: {games}")
+            visualizer.set_games([games])
+            visualizer.trace_genomes(pop)
         
         if evaluate:
             pop.log("\n===> EVALUATING <===\n")
@@ -100,6 +113,7 @@ if __name__ == '__main__':
     parser.add_argument('--enable_gru', type=int, default=0)
     parser.add_argument('--fitness', type=str, default='')
     parser.add_argument('--blueprint', type=int, default=0)
+    parser.add_argument('--trace', type=int, default=0)
     parser.add_argument('--evaluate', type=int, default=0)
     args = parser.parse_args()
     
@@ -110,5 +124,6 @@ if __name__ == '__main__':
             train=bool(args.train),
             train_iterations=args.iterations,
             blueprint=bool(args.blueprint),
+            trace=bool(args.trace),
             evaluate=bool(args.evaluate),
     )
