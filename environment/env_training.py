@@ -83,7 +83,7 @@ class TrainingEnv:
             pop.reporters.start_generation(gen=pop.generation, logger=pop.log)
             
             # Initialize the evaluation-pool
-            pool = mp.Pool(mp.cpu_count())
+            pool = mp.Pool(mp.cpu_count() - 2)  # TODO: Make sure laptop remains 'editable' during training
             manager = mp.Manager()
             return_dict = manager.dict()
             

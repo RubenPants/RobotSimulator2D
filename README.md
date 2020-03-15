@@ -4,6 +4,7 @@
 
 ## TODO
 
+* Make stagnation a decaying function
 * Possible to set maximum number of species?
 * Test all of the fitness-functions!
 * [x,y] vs [col, row] in maze --> confusion?
