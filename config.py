@@ -10,7 +10,7 @@ from utils.dictionary import *
 
 class GameConfig:
     """Default configuration for the games."""
-
+    
     __slots__ = (
         "bot_driving_speed", "bot_radius", "bot_turning_speed",
         "batch", "duration", "max_game_id", "max_eval_game_id", "fps",
@@ -188,7 +188,7 @@ class NeatConfig:
         self.enabled_mutate_rate: float = 0.01
         
         # [DefaultSpeciesSet]
-        # Individuals whose genetic distance is less than this threshold are in the same specie  [def=3.0]
+        # Individuals whose genetic distance is less than this threshold are in the same specie  [def=2.5]
         self.compatibility_threshold: float = 2.5
         # Full weight of disjoint and excess nodes on determining genomic distance  [def=1.0]  # TODO: Separate for GRU?
         self.compatibility_disjoint_coefficient: float = 1.0

@@ -39,7 +39,7 @@ if __name__ == '__main__':
             from environment.env_training import TrainingEnv
             
             # Train for 100 generations
-            trainer = TrainingEnv()
+            trainer = TrainingEnv(unused_cpu=2)  # Don't use two cores to keep laptop usable
             trainer.evaluate_and_evolve(
                     pop,
                     n=args.iterations,

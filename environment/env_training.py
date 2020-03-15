@@ -24,14 +24,15 @@ class TrainingEnv:
     """ This class is responsible evaluating and evolving the population across a set of games. """
     
     __slots__ = (
-        "cfg",
+        "cfg", "unused_cpu",
         "games", "batch_size",
     )
     
-    def __init__(self):
+    def __init__(self, unused_cpu: int = 0):
         """ The evaluator is given a population which it then evaluates using the MultiEnvironment. """
         # Load in current configuration
         self.cfg: GameConfig = GameConfig()
+        self.unused_cpu = unused_cpu
         
         #  Create a list of all the possible games
         self.games = None
@@ -83,7 +84,7 @@ class TrainingEnv:
             pop.reporters.start_generation(gen=pop.generation, logger=pop.log)
             
             # Initialize the evaluation-pool
-            pool = mp.Pool(mp.cpu_count() - 2)  # TODO: Make sure laptop remains 'editable' during training
+            pool = mp.Pool(mp.cpu_count() - self.unused_cpu)
             manager = mp.Manager()
             return_dict = manager.dict()
             
