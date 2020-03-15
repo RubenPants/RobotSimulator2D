@@ -78,7 +78,7 @@ def main(fitness,
             visualizer = VisualizingEnv()
             games = [g for g in range(1, 6)]
             pop.log(f"Creating blueprints for games: {games}")
-            visualizer.set_games([games])
+            visualizer.set_games(games)
             visualizer.blueprint_genomes(pop)
         
         if trace:
@@ -89,7 +89,7 @@ def main(fitness,
             visualizer = VisualizingEnv()
             games = [g for g in range(1, 6)]
             pop.log(f"Creating blueprints for games: {games}")
-            visualizer.set_games([games])
+            visualizer.set_games(games)
             visualizer.trace_genomes(pop)
         
         if evaluate:
