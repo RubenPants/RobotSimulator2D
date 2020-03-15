@@ -27,56 +27,56 @@ class ReporterSet(object):
     def remove(self, reporter):
         self.reporters.remove(reporter)
     
-    def start_generation(self, gen):
-        for r in self.reporters: r.start_generation(gen)
+    def start_generation(self, gen, logger=None):
+        for r in self.reporters: r.start_generation(gen, logger=logger)
     
-    def end_generation(self, config, population, species_set):
-        for r in self.reporters: r.end_generation(config, population, species_set)
+    def end_generation(self, config, population, species_set, logger=None):
+        for r in self.reporters: r.end_generation(config, population, species_set, logger=logger)
     
-    def post_evaluate(self, config, population, species, best_genome):
-        for r in self.reporters: r.post_evaluate(config, population, species, best_genome)
+    def post_evaluate(self, config, population, species, best_genome, logger=None):
+        for r in self.reporters: r.post_evaluate(config, population, species, best_genome, logger=logger)
     
-    def post_reproduction(self, config, population, species):
-        for r in self.reporters: r.post_reproduction(config, population, species)
+    def post_reproduction(self, config, population, species, logger=None):
+        for r in self.reporters: r.post_reproduction(config, population, species, logger=logger)
     
-    def complete_extinction(self):
-        for r in self.reporters: r.complete_extinction()
+    def complete_extinction(self, logger=None):
+        for r in self.reporters: r.complete_extinction(logger=logger)
     
-    def found_solution(self, config, generation, best):
-        for r in self.reporters: r.found_solution(config, generation, best)
+    def found_solution(self, config, generation, best, logger=None):
+        for r in self.reporters: r.found_solution(config, generation, best, logger=logger)
     
-    def species_stagnant(self, sid, species):
-        for r in self.reporters: r.species_stagnant(sid, species)
+    def species_stagnant(self, sid, species, logger=None):
+        for r in self.reporters: r.species_stagnant(sid, species, logger=logger)
     
-    def info(self, msg):
-        for r in self.reporters: r.info(msg)
+    def info(self, msg, logger=None):
+        for r in self.reporters: r.info(msg, logger=logger)
 
 
 class BaseReporter(object):
     """Definition of the reporter interface expected by ReporterSet."""
     
-    def start_generation(self, generation):
+    def start_generation(self, generation, logger=None):
         pass
     
-    def end_generation(self, config, population, species_set):
+    def end_generation(self, config, population, species_set, logger=None):
         pass
     
-    def post_evaluate(self, config, population, species, best_genome):
+    def post_evaluate(self, config, population, species, best_genome, logger=None):
         pass
     
-    def post_reproduction(self, config, population, species):
+    def post_reproduction(self, config, population, species, logger=None):
         pass
     
-    def complete_extinction(self):
+    def complete_extinction(self, logger=None):
         pass
     
-    def found_solution(self, config, generation, best):
+    def found_solution(self, config, generation, best, logger=None):
         pass
     
-    def species_stagnant(self, sid, species):
+    def species_stagnant(self, sid, species, logger=None):
         pass
     
-    def info(self, msg):
+    def info(self, msg, logger=None):
         pass
 
 
@@ -89,19 +89,19 @@ class StdOutReporter(BaseReporter):
         self.generation_times = []
         self.num_extinctions = 0
     
-    def start_generation(self, generation):
+    def start_generation(self, generation, logger=None):
         self.generation = generation
-        print('\n ****** Running generation {0} ****** \n'.format(generation))
+        msg = f"\n\n********** Running generation {generation} **********\n"
+        logger(msg) if logger else print(msg)
         self.generation_start_time = time.time()
     
-    def end_generation(self, config, population, species_set):
-        ng = len(population)
-        ns = len(species_set.species)
-        print('Population of {0:d} members in {1:d} species:'.format(ng, ns))
+    def end_generation(self, config, population, species_set, logger=None):
         sids = list(iterkeys(species_set.species))
         sids.sort()
-        print("\t SID    age    size    fitness    adj fit    stag ")
-        print("\t=====  =====  ======  =========  =========  ======")
+        msg = f"\nPopulation of {len(population):d} members in {len(species_set.species):d} species:" \
+              f"\n\t SID    age    size    fitness    adj fit    stag " \
+              f"\n\t=====  =====  ======  =========  =========  ======"
+        logger(msg) if logger else print(msg)
         for sid in sids:
             s = species_set.species[sid]
             a = self.generation - s.created
@@ -109,44 +109,56 @@ class StdOutReporter(BaseReporter):
             f = "--" if s.fitness is None else f"{s.fitness:.3f}"
             af = "--" if s.adjusted_fitness is None else f"{s.adjusted_fitness:.3f}"
             st = self.generation - s.last_improved
-            print(f"\t{sid:^5}  {a:^5}  {n:^6}  {f:^9}  {af:^9}  {st:^6}")
+            msg = f"\t{sid:^5}  {a:^5}  {n:^6}  {f:^9}  {af:^9}  {st:^6}"
+            logger(msg) if logger else print(msg)
+        logger("") if logger else print()
         
         elapsed = time.time() - self.generation_start_time
         self.generation_times.append(elapsed)
         self.generation_times = self.generation_times[-10:]
         average = sum(self.generation_times) / len(self.generation_times)
         if self.num_extinctions > 0:
-            print(f'Total extinctions: {self.num_extinctions:d}')
+            msg = f'Total extinctions: {self.num_extinctions:d}'
+            logger(msg) if logger else print(msg)
         if len(self.generation_times) > 1:
-            print(f"Generation time: {elapsed:.3f} sec  ({average:.3f} average)")
+            msg = f"Generation time: {elapsed:.3f} sec  ({average:.3f} average)"
+            logger(msg) if logger else print(msg)
         else:
-            print(f"Generation time: {elapsed:.3f} sec")
+            msg = f"Generation time: {elapsed:.3f} sec"
+            logger(msg) if logger else print(msg)
     
-    def post_evaluate(self, config, population, species, best_genome):
+    def post_evaluate(self, config, population, species, best_genome, logger=None):
         fitnesses = [c.fitness for c in itervalues(population)]
+        
         # Full population
-        print(f'Full population\'s fitness overview:')
-        print(f'\t-       best fitness: {max(fitnesses):3.5f}')
-        print(f'\t-       mean fitness: {mean(fitnesses):3.5f}')
-        print(f'\t-      worst fitness: {min(fitnesses):3.5f}')
-        print(f'\t- standard deviation: {stdev(fitnesses):3.5f}')
+        msg = f'Full population\'s fitness overview:' \
+              f'\n\t-       best fitness: {max(fitnesses):3.5f}' \
+              f'\n\t-       mean fitness: {mean(fitnesses):3.5f}' \
+              f'\n\t-      worst fitness: {min(fitnesses):3.5f}' \
+              f'\n\t- standard deviation: {stdev(fitnesses):3.5f}'
+        logger(msg) if logger else print(msg)
+        
         # Best genome
         best_species_id = species.get_species_id(best_genome.key)
-        print(f'Best genome overview:')
-        print(f'\t- fitness: {best_genome.fitness:3.5f}')
-        print(f'\t- size (hid, conn): {best_genome.size()!r}')
-        print(f'\t- genome id: {best_genome.key}')
-        print(f'\t- belongs to specie: {best_species_id}')
+        msg = f'Best genome overview:' \
+              f'\n\t- fitness: {best_genome.fitness:3.5f}' \
+              f'\n\t- size (hid, conn): {best_genome.size()!r}' \
+              f'\n\t- genome id: {best_genome.key}' \
+              f'\n\t- belongs to specie: {best_species_id}'
+        logger(msg) if logger else print(msg)
     
-    def complete_extinction(self):
+    def complete_extinction(self, logger=None):
         self.num_extinctions += 1
-        print('All species extinct.')
+        msg = "All species are extinct."
+        logger(msg) if logger else print(msg)
     
-    def found_solution(self, config, generation, best):
-        print(f'\nBest individual in generation {self.generation} meets fitness threshold - size: {best.size()!r}')
+    def found_solution(self, config, generation, best, logger=None):
+        msg = f'\nBest individual in generation {self.generation} meets fitness threshold - size: {best.size()!r}'
+        logger(msg) if logger else print(msg)
     
-    def species_stagnant(self, sid, species):
-        print(f"\nSpecies {sid} with {len(species.members)} members is stagnated: removing it")
+    def species_stagnant(self, sid, species, logger=None):
+        msg = f"\nSpecies {sid} with {len(species.members)} members is stagnated: removing it"
+        logger(msg) if logger else print(msg)
     
-    def info(self, msg):
-        print(msg)
+    def info(self, msg, logger=None):
+        logger(msg) if logger else print(msg)

@@ -112,6 +112,9 @@ cdef class Line2dCy:
     def __round__(self, n=0):
         return Line2dCy(round(self.x, n), round(self.y, n))
     
+    def __copy__(self):
+        return Line2dCy(self.x.__copy__(), self.y.__copy__())
+    
     cpdef float get_length(self):
         return (self.x - self.y).get_length()
     

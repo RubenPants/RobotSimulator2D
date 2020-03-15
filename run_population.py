@@ -4,6 +4,7 @@ run_populations.py
 Run a sequence of populations for each a different configuration.
 """
 import argparse
+import traceback
 
 from config import NeatConfig
 from population.population import Population
@@ -16,6 +17,7 @@ def main(fitness,
          train=False,
          train_iterations=0,
          blueprint=False,
+         trace=False,
          evaluate=False,
          ):
     """
@@ -26,7 +28,8 @@ def main(fitness,
     :param reproduce: Have sexual reproduction
     :param train: Train the population
     :param train_iterations: Number of training generations
-    :param blueprint: Create a blueprint evaluation for the population
+    :param blueprint: Create a blueprint evaluation for the population for the first 5 games
+    :param trace: Create a trace evaluation for the population for the first 5 games
     :param evaluate: Evaluate the best genome of the population
     """
     # Let inputs apply to configuration
@@ -36,16 +39,6 @@ def main(fitness,
     cfg.enable_gru = gru
     cfg.sexual_reproduction = reproduce
     
-    # Give overview of population
-    print(f"\n===> RUNNING FOR THE FOLLOWING CONFIGURATION: <===")
-    print(f"\t> fitness: {cfg.fitness}")
-    print(f"\t> enable_gru: {cfg.gru}")
-    print(f"\t> sexual_reproduction: {cfg.sexual_reproduction}")
-    print(f"\t> Saving under folder: {folder}")
-    print(f"\t> Train: {train} ({train_iterations} iterations)")
-    print(f"\t> Create blueprints: {blueprint}")
-    print()
-    
     # Create the population
     pop = Population(
             version=1,
@@ -53,38 +46,64 @@ def main(fitness,
             folder_name=folder,
     )
     
-    if train:
-        print("\n===> TRAINING <===\n")
-        from environment.training_env import TrainingEnv
-        
-        # Train for 100 generations
-        trainer = TrainingEnv()
-        trainer.evaluate_and_evolve(
-                pop,
-                n=train_iterations,
-                # parallel=False,
-        )
+    # Give overview of population
+    msg = f"\n===> RUNNING FOR THE FOLLOWING CONFIGURATION: <===" \
+          f"\n\t> fitness: {cfg.fitness}" \
+          f"\n\t> enable_gru: {cfg.enable_gru}" \
+          f"\n\t> sexual_reproduction: {cfg.sexual_reproduction}" \
+          f"\n\t> Saving under folder: {folder}" \
+          f"\n\t> Train: {train} ({train_iterations} iterations)" \
+          f"\n\t> Create blueprints: {blueprint}" \
+          f"\n\t> Create traces: {trace}\n"
+    pop.log(msg)
     
-    if blueprint:
-        print("\n===> CREATING BLUEPRINTS <===\n")
-        from environment.training_env import TrainingEnv
+    try:
+        if train:
+            pop.log("\n===> TRAINING <===\n")
+            from environment.env_training import TrainingEnv
+            
+            # Train for 100 generations
+            trainer = TrainingEnv()
+            trainer.evaluate_and_evolve(
+                    pop,
+                    n=train_iterations,
+                    # parallel=False,
+            )
         
-        # Create the blueprints for first 5 games
-        trainer = TrainingEnv()
-        for g in range(1, 6):
-            print(f"Creating blueprints for  game {g}")
-            trainer.set_games([g])
-            trainer.blueprint_genomes(pop)
-    
-    if evaluate:
-        print("\n===> EVALUATING <===\n")
-        from environment.evaluation_env import EvaluationEnv
+        if blueprint:
+            pop.log("\n===> CREATING BLUEPRINTS <===\n")
+            from environment.env_visualizing import VisualizingEnv
+            
+            # Create the blueprints for first 5 games
+            visualizer = VisualizingEnv()
+            games = [g for g in range(1, 6)]
+            pop.log(f"Creating blueprints for games: {games}")
+            visualizer.set_games(games)
+            visualizer.blueprint_genomes(pop)
         
-        evaluator = EvaluationEnv()
-        evaluator.evaluate_genome_list(
-                genome_list=[pop.best_genome],
-                pop=pop,
-        )
+        if trace:
+            pop.log("\n===> CREATING TRACES <===\n")
+            from environment.env_visualizing import VisualizingEnv
+            
+            # Create the blueprints for first 5 games
+            visualizer = VisualizingEnv()
+            games = [g for g in range(1, 6)]
+            pop.log(f"Creating blueprints for games: {games}")
+            visualizer.set_games(games)
+            visualizer.trace_genomes(pop)
+        
+        if evaluate:
+            pop.log("\n===> EVALUATING <===\n")
+            from environment.env_evaluation import EvaluationEnv
+            
+            evaluator = EvaluationEnv()
+            evaluator.evaluate_genome_list(
+                    genome_list=[pop.best_genome],
+                    pop=pop,
+            )
+    except Exception as e:
+        pop.log(traceback.format_exc(), print_result=False)
+        raise e
 
 
 if __name__ == '__main__':
@@ -95,6 +114,7 @@ if __name__ == '__main__':
     parser.add_argument('--enable_gru', type=int, default=0)
     parser.add_argument('--fitness', type=str, default='')
     parser.add_argument('--blueprint', type=int, default=0)
+    parser.add_argument('--trace', type=int, default=0)
     parser.add_argument('--evaluate', type=int, default=0)
     args = parser.parse_args()
     
@@ -105,5 +125,6 @@ if __name__ == '__main__':
             train=bool(args.train),
             train_iterations=args.iterations,
             blueprint=bool(args.blueprint),
+            trace=bool(args.trace),
             evaluate=bool(args.evaluate),
     )

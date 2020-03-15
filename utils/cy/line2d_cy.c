@@ -883,6 +883,7 @@ struct __pyx_vtabstruct_5utils_2cy_8vec2d_cy_Vec2dCy {
   float (*get_angle)(struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
   float (*get_length)(struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
   struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *(*normalized)(struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
+  PyObject *(*get_tuple)(struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, int __pyx_skip_dispatch);
 };
 static struct __pyx_vtabstruct_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_vtabptr_5utils_2cy_8vec2d_cy_Vec2dCy;
 
@@ -1444,6 +1445,7 @@ static const char __pyx_k__3[] = ")";
 static const char __pyx_k_add[] = "__add__";
 static const char __pyx_k_new[] = "__new__";
 static const char __pyx_k_args[] = "args";
+static const char __pyx_k_copy[] = "__copy__";
 static const char __pyx_k_dict[] = "__dict__";
 static const char __pyx_k_iter[] = "__iter__";
 static const char __pyx_k_main[] = "__main__";
@@ -1502,6 +1504,7 @@ static PyObject *__pyx_n_s_add;
 static PyObject *__pyx_n_s_args;
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_close;
+static PyObject *__pyx_n_s_copy;
 static PyObject *__pyx_n_s_dict;
 static PyObject *__pyx_n_s_get_angle;
 static PyObject *__pyx_n_s_get_length;
@@ -1555,16 +1558,17 @@ static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_25__sub__(PyObject *__
 static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_27__rsub__(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
 static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_29__isub__(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
 static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_31__round__(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self, PyObject *__pyx_v_n); /* proto */
-static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_33get_length(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_35get_orientation(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_33__copy__(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_35get_length(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_37get_orientation(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_1x___get__(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self); /* proto */
 static int __pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_1x_2__set__(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static int __pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_1x_4__del__(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_1y___get__(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self); /* proto */
 static int __pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_1y_2__set__(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static int __pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_1y_4__del__(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_37__reduce_cython__(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_39__setstate_cython__(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_39__reduce_cython__(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_41__setstate_cython__(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
 static PyObject *__pyx_pf_5utils_2cy_9line2d_cy___pyx_unpickle_Line2dCy(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
 static PyObject *__pyx_tp_new_5utils_2cy_9line2d_cy_Line2dCy(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_5utils_2cy_9line2d_cy___pyx_scope_struct____iter__(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
@@ -3798,7 +3802,7 @@ static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_31__round__(struct __p
  *     def __round__(self, n=0):
  *         return Line2dCy(round(self.x, n), round(self.y, n))             # <<<<<<<<<<<<<<
  * 
- *     cpdef float get_length(self):
+ *     def __copy__(self):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
@@ -3862,12 +3866,121 @@ static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_31__round__(struct __p
 /* "utils/cy/line2d_cy.pyx":115
  *         return Line2dCy(round(self.x, n), round(self.y, n))
  * 
+ *     def __copy__(self):             # <<<<<<<<<<<<<<
+ *         return Line2dCy(self.x.__copy__(), self.y.__copy__())
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_34__copy__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_34__copy__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__copy__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_33__copy__(((struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_33__copy__(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  __Pyx_RefNannySetupContext("__copy__", 0);
+
+  /* "utils/cy/line2d_cy.pyx":116
+ * 
+ *     def __copy__(self):
+ *         return Line2dCy(self.x.__copy__(), self.y.__copy__())             # <<<<<<<<<<<<<<
+ * 
+ *     cpdef float get_length(self):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self->x), __pyx_n_s_copy); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 116, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 116, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self->y), __pyx_n_s_copy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 116, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_4 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
+    }
+  }
+  __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 116, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 116, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_2);
+  PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_2);
+  __pyx_t_1 = 0;
+  __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5utils_2cy_9line2d_cy_Line2dCy), __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 116, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_r = __pyx_t_2;
+  __pyx_t_2 = 0;
+  goto __pyx_L0;
+
+  /* "utils/cy/line2d_cy.pyx":115
+ *         return Line2dCy(round(self.x, n), round(self.y, n))
+ * 
+ *     def __copy__(self):             # <<<<<<<<<<<<<<
+ *         return Line2dCy(self.x.__copy__(), self.y.__copy__())
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_AddTraceback("utils.cy.line2d_cy.Line2dCy.__copy__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "utils/cy/line2d_cy.pyx":118
+ *         return Line2dCy(self.x.__copy__(), self.y.__copy__())
+ * 
  *     cpdef float get_length(self):             # <<<<<<<<<<<<<<
  *         return (self.x - self.y).get_length()
  * 
  */
 
-static PyObject *__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_34get_length(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_36get_length(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
 static float __pyx_f_5utils_2cy_9line2d_cy_8Line2dCy_get_length(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self, int __pyx_skip_dispatch) {
   float __pyx_r;
   __Pyx_RefNannyDeclarations
@@ -3886,163 +3999,9 @@ static float __pyx_f_5utils_2cy_9line2d_cy_8Line2dCy_get_length(struct __pyx_obj
     if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
       PY_UINT64_T __pyx_type_dict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
       #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 115, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_34get_length)) {
-        __Pyx_INCREF(__pyx_t_1);
-        __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
-        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
-          __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
-          if (likely(__pyx_t_4)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-            __Pyx_INCREF(__pyx_t_4);
-            __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_3, function);
-          }
-        }
-        __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
-        __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 115, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 115, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_r = __pyx_t_5;
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        goto __pyx_L0;
-      }
-      #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
-      __pyx_tp_dict_version = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
-      __pyx_obj_dict_version = __Pyx_get_object_dict_version(((PyObject *)__pyx_v_self));
-      if (unlikely(__pyx_type_dict_guard != __pyx_tp_dict_version)) {
-        __pyx_tp_dict_version = __pyx_obj_dict_version = __PYX_DICT_VERSION_INIT;
-      }
-      #endif
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
-    }
-    #endif
-  }
-
-  /* "utils/cy/line2d_cy.pyx":116
- * 
- *     cpdef float get_length(self):
- *         return (self.x - self.y).get_length()             # <<<<<<<<<<<<<<
- * 
- *     cpdef float get_orientation(self):
- */
-  __pyx_t_2 = PyNumber_Subtract(((PyObject *)__pyx_v_self->x), ((PyObject *)__pyx_v_self->y)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 116, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_get_length); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 116, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = NULL;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
-    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_3);
-    if (likely(__pyx_t_2)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-      __Pyx_INCREF(__pyx_t_2);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_3, function);
-    }
-  }
-  __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
-  __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 116, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 116, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_r = __pyx_t_5;
-  goto __pyx_L0;
-
-  /* "utils/cy/line2d_cy.pyx":115
- *         return Line2dCy(round(self.x, n), round(self.y, n))
- * 
- *     cpdef float get_length(self):             # <<<<<<<<<<<<<<
- *         return (self.x - self.y).get_length()
- * 
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_WriteUnraisable("utils.cy.line2d_cy.Line2dCy.get_length", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
-  __pyx_r = 0;
-  __pyx_L0:;
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* Python wrapper */
-static PyObject *__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_34get_length(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_34get_length(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("get_length (wrapper)", 0);
-  __pyx_r = __pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_33get_length(((struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_33get_length(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  __Pyx_RefNannySetupContext("get_length", 0);
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_f_5utils_2cy_9line2d_cy_8Line2dCy_get_length(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 115, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("utils.cy.line2d_cy.Line2dCy.get_length", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "utils/cy/line2d_cy.pyx":118
- *         return (self.x - self.y).get_length()
- * 
- *     cpdef float get_orientation(self):             # <<<<<<<<<<<<<<
- *         """
- *         Get the orientation from start to end.
- */
-
-static PyObject *__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_36get_orientation(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static float __pyx_f_5utils_2cy_9line2d_cy_8Line2dCy_get_orientation(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self, int __pyx_skip_dispatch) {
-  float __pyx_r;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  PyObject *__pyx_t_3 = NULL;
-  PyObject *__pyx_t_4 = NULL;
-  float __pyx_t_5;
-  __Pyx_RefNannySetupContext("get_orientation", 0);
-  /* Check if called by wrapper */
-  if (unlikely(__pyx_skip_dispatch)) ;
-  /* Check if overridden in Python */
-  else if (unlikely((Py_TYPE(((PyObject *)__pyx_v_self))->tp_dictoffset != 0) || (Py_TYPE(((PyObject *)__pyx_v_self))->tp_flags & (Py_TPFLAGS_IS_ABSTRACT | Py_TPFLAGS_HEAPTYPE)))) {
-    #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
-    static PY_UINT64_T __pyx_tp_dict_version = __PYX_DICT_VERSION_INIT, __pyx_obj_dict_version = __PYX_DICT_VERSION_INIT;
-    if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
-      PY_UINT64_T __pyx_type_dict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
-      #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_orientation); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_36get_orientation)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_36get_length)) {
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
         if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
@@ -4078,14 +4037,16 @@ static float __pyx_f_5utils_2cy_9line2d_cy_8Line2dCy_get_orientation(struct __py
     #endif
   }
 
-  /* "utils/cy/line2d_cy.pyx":122
- *         Get the orientation from start to end.
- *         """
- *         return (self.x - self.y).get_angle()             # <<<<<<<<<<<<<<
+  /* "utils/cy/line2d_cy.pyx":119
+ * 
+ *     cpdef float get_length(self):
+ *         return (self.x - self.y).get_length()             # <<<<<<<<<<<<<<
+ * 
+ *     cpdef float get_orientation(self):
  */
-  __pyx_t_2 = PyNumber_Subtract(((PyObject *)__pyx_v_self->x), ((PyObject *)__pyx_v_self->y)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 122, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Subtract(((PyObject *)__pyx_v_self->x), ((PyObject *)__pyx_v_self->y)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_get_angle); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 122, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_get_length); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -4100,15 +4061,167 @@ static float __pyx_f_5utils_2cy_9line2d_cy_8Line2dCy_get_orientation(struct __py
   }
   __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 122, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 122, __pyx_L1_error)
+  __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_5;
   goto __pyx_L0;
 
   /* "utils/cy/line2d_cy.pyx":118
+ *         return Line2dCy(self.x.__copy__(), self.y.__copy__())
+ * 
+ *     cpdef float get_length(self):             # <<<<<<<<<<<<<<
+ *         return (self.x - self.y).get_length()
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_WriteUnraisable("utils.cy.line2d_cy.Line2dCy.get_length", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_36get_length(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_36get_length(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("get_length (wrapper)", 0);
+  __pyx_r = __pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_35get_length(((struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_35get_length(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("get_length", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_f_5utils_2cy_9line2d_cy_8Line2dCy_get_length(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("utils.cy.line2d_cy.Line2dCy.get_length", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "utils/cy/line2d_cy.pyx":121
+ *         return (self.x - self.y).get_length()
+ * 
+ *     cpdef float get_orientation(self):             # <<<<<<<<<<<<<<
+ *         """
+ *         Get the orientation from start to end.
+ */
+
+static PyObject *__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_38get_orientation(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static float __pyx_f_5utils_2cy_9line2d_cy_8Line2dCy_get_orientation(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self, int __pyx_skip_dispatch) {
+  float __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  float __pyx_t_5;
+  __Pyx_RefNannySetupContext("get_orientation", 0);
+  /* Check if called by wrapper */
+  if (unlikely(__pyx_skip_dispatch)) ;
+  /* Check if overridden in Python */
+  else if (unlikely((Py_TYPE(((PyObject *)__pyx_v_self))->tp_dictoffset != 0) || (Py_TYPE(((PyObject *)__pyx_v_self))->tp_flags & (Py_TPFLAGS_IS_ABSTRACT | Py_TPFLAGS_HEAPTYPE)))) {
+    #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
+    static PY_UINT64_T __pyx_tp_dict_version = __PYX_DICT_VERSION_INIT, __pyx_obj_dict_version = __PYX_DICT_VERSION_INIT;
+    if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
+      PY_UINT64_T __pyx_type_dict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
+      #endif
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_orientation); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 121, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_38get_orientation)) {
+        __Pyx_INCREF(__pyx_t_1);
+        __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
+        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
+          __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
+          if (likely(__pyx_t_4)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+            __Pyx_INCREF(__pyx_t_4);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_3, function);
+          }
+        }
+        __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
+        __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 121, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 121, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __pyx_r = __pyx_t_5;
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        goto __pyx_L0;
+      }
+      #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
+      __pyx_tp_dict_version = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
+      __pyx_obj_dict_version = __Pyx_get_object_dict_version(((PyObject *)__pyx_v_self));
+      if (unlikely(__pyx_type_dict_guard != __pyx_tp_dict_version)) {
+        __pyx_tp_dict_version = __pyx_obj_dict_version = __PYX_DICT_VERSION_INIT;
+      }
+      #endif
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
+    }
+    #endif
+  }
+
+  /* "utils/cy/line2d_cy.pyx":125
+ *         Get the orientation from start to end.
+ *         """
+ *         return (self.x - self.y).get_angle()             # <<<<<<<<<<<<<<
+ */
+  __pyx_t_2 = PyNumber_Subtract(((PyObject *)__pyx_v_self->x), ((PyObject *)__pyx_v_self->y)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 125, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_get_angle); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 125, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_2)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_2);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
+    }
+  }
+  __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 125, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 125, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_r = __pyx_t_5;
+  goto __pyx_L0;
+
+  /* "utils/cy/line2d_cy.pyx":121
  *         return (self.x - self.y).get_length()
  * 
  *     cpdef float get_orientation(self):             # <<<<<<<<<<<<<<
@@ -4130,26 +4243,26 @@ static float __pyx_f_5utils_2cy_9line2d_cy_8Line2dCy_get_orientation(struct __py
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_36get_orientation(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_5utils_2cy_9line2d_cy_8Line2dCy_35get_orientation[] = "\n        Get the orientation from start to end.\n        ";
-static PyObject *__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_36get_orientation(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_38get_orientation(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_5utils_2cy_9line2d_cy_8Line2dCy_37get_orientation[] = "\n        Get the orientation from start to end.\n        ";
+static PyObject *__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_38get_orientation(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_orientation (wrapper)", 0);
-  __pyx_r = __pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_35get_orientation(((struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_37get_orientation(((struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_35get_orientation(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self) {
+static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_37get_orientation(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_orientation", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_f_5utils_2cy_9line2d_cy_8Line2dCy_get_orientation(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_f_5utils_2cy_9line2d_cy_8Line2dCy_get_orientation(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 121, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -4375,19 +4488,19 @@ static int __pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_1y_4__del__(struct __pyx_obj
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_38__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_38__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_40__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_40__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_37__reduce_cython__(((struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_39__reduce_cython__(((struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_37__reduce_cython__(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self) {
+static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_39__reduce_cython__(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self) {
   PyObject *__pyx_v_state = 0;
   PyObject *__pyx_v__dict = 0;
   int __pyx_v_use_setstate;
@@ -4621,19 +4734,19 @@ static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_37__reduce_cython__(st
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_40__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
-static PyObject *__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_40__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_42__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_42__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_39__setstate_cython__(((struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+  __pyx_r = __pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_41__setstate_cython__(((struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_39__setstate_cython__(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_41__setstate_cython__(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5185,10 +5298,11 @@ static int __pyx_setprop_5utils_2cy_9line2d_cy_8Line2dCy_y(PyObject *o, PyObject
 static PyMethodDef __pyx_methods_5utils_2cy_9line2d_cy_Line2dCy[] = {
   {"__rsub__", (PyCFunction)__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_28__rsub__, METH_O, 0},
   {"__round__", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_32__round__, METH_VARARGS|METH_KEYWORDS, 0},
-  {"get_length", (PyCFunction)__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_34get_length, METH_NOARGS, 0},
-  {"get_orientation", (PyCFunction)__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_36get_orientation, METH_NOARGS, __pyx_doc_5utils_2cy_9line2d_cy_8Line2dCy_35get_orientation},
-  {"__reduce_cython__", (PyCFunction)__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_38__reduce_cython__, METH_NOARGS, 0},
-  {"__setstate_cython__", (PyCFunction)__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_40__setstate_cython__, METH_O, 0},
+  {"__copy__", (PyCFunction)__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_34__copy__, METH_NOARGS, 0},
+  {"get_length", (PyCFunction)__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_36get_length, METH_NOARGS, 0},
+  {"get_orientation", (PyCFunction)__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_38get_orientation, METH_NOARGS, __pyx_doc_5utils_2cy_9line2d_cy_8Line2dCy_37get_orientation},
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_40__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_42__setstate_cython__, METH_O, 0},
   {0, 0, 0, 0}
 };
 
@@ -5514,6 +5628,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_args, __pyx_k_args, sizeof(__pyx_k_args), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_n_s_close, __pyx_k_close, sizeof(__pyx_k_close), 0, 0, 1, 1},
+  {&__pyx_n_s_copy, __pyx_k_copy, sizeof(__pyx_k_copy), 0, 0, 1, 1},
   {&__pyx_n_s_dict, __pyx_k_dict, sizeof(__pyx_k_dict), 0, 0, 1, 1},
   {&__pyx_n_s_get_angle, __pyx_k_get_angle, sizeof(__pyx_k_get_angle), 0, 0, 1, 1},
   {&__pyx_n_s_get_length, __pyx_k_get_length, sizeof(__pyx_k_get_length), 0, 0, 1, 1},

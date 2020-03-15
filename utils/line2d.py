@@ -111,6 +111,9 @@ class Line2d(object):
     def __round__(self, n=0):
         return Line2d(round(self.x, n), round(self.y, n))
     
+    def __copy__(self):
+        return Line2d(self.x.__copy__(), self.y.__copy__())
+    
     def get_length(self):
         return (self.x - self.y).get_length()
     
