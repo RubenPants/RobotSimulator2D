@@ -10,19 +10,19 @@ from population.population import Population
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument('--train', type=bool, default=False)
-    parser.add_argument('--iterations', type=int, default=10)
+    parser.add_argument('--train', type=bool, default=True)
+    parser.add_argument('--iterations', type=int, default=1)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--trace', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
-    parser.add_argument('--genome', type=bool, default=True)
-    parser.add_argument('--live', type=bool, default=True)
+    parser.add_argument('--genome', type=bool, default=False)
+    parser.add_argument('--live', type=bool, default=False)
     args = parser.parse_args()
     
     pop = Population(
-            name="path_repr_1",
+            name="test",
             # version=1,
-            folder_name='NEAT',
+            folder_name='test',
     )
     if not pop.best_genome: pop.best_genome = list(pop.population.values())[0]
     # pop.population[9] = pop.population[list(pop.population.keys())[12]]

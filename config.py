@@ -74,8 +74,7 @@ class GameConfig:
 
 class NeatConfig:
     __annotations__ = {  # Not as it should, but I'll do it anyways
-        'NEAT':                ["fitness_criterion", "fitness_threshold", "no_fitness_termination", "pop_size",
-                                "reset_on_extinction"],
+        'NEAT':                ["fitness_criterion", "fitness_threshold", "no_fitness_termination", "pop_size"],
         'DefaultStagnation':   ["species_fitness_func", "max_stagnation", "species_elitism"],
         'DefaultReproduction': ["elitism", "survival_threshold", "min_species_size", "sexual_reproduction"],
         'DefaultGenome':       ["num_inputs", "num_hidden", "num_outputs", "initial_connection",
@@ -101,9 +100,7 @@ class NeatConfig:
         # Don't consider fitness_criterion and fitness_threshold
         self.no_fitness_termination: bool = True
         # Number of individuals in each generation  [def=128]  TODO
-        self.pop_size: int = 128
-        # Create random population if all species become distinct due to stagnation
-        self.reset_on_extinction: bool = True
+        self.pop_size: int = 10
         
         # [DefaultStagnation]
         # The function used to compute the species fitness
@@ -114,12 +111,12 @@ class NeatConfig:
         self.species_elitism: int = 2
         
         # [DefaultReproduction]
-        # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=1]  TODO: Enforce that these are different!
+        # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=2]  TODO: Enforce that these are different!
         self.elitism: int = 2
         # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.4]  TODO
         self.survival_threshold: float = 0.4
-        # Minimum number of genomes per species, keeping low prevents number of individuals blowing up  [def=2]
-        self.min_species_size: int = 2
+        # Minimum number of genomes per species, keeping low prevents number of individuals blowing up  [def=5]
+        self.min_species_size: int = 5
         # Sexual reproduction  [def=True]
         self.sexual_reproduction: bool = True
         

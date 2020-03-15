@@ -74,15 +74,20 @@ class BaseGene(object):
         for a in self._attributes: setattr(new_gene, a.name, getattr(self, a.name))
         return new_gene
     
-    def crossover(self, gene2, ratio):
-        """ Creates a new gene randomly inheriting attributes from its parents."""
-        assert self.key == gene2.key
+    def crossover(self, other, ratio):
+        """
+        Creates a new gene randomly inheriting attributes from its parents.
+        
+        :param other: Other parent-gene
+        :param ratio: Likelihood of using the current gene (float in [0,1])
+        """
+        assert self.key == other.key
         new_gene = self.__class__(self.key)
         for a in self._attributes:
-            if random() > ratio:
+            if random() <= ratio:
                 setattr(new_gene, a.name, getattr(self, a.name))
             else:
-                setattr(new_gene, a.name, getattr(gene2, a.name))
+                setattr(new_gene, a.name, getattr(other, a.name))
         
         return new_gene
 
@@ -199,6 +204,9 @@ class GruNodeGene(BaseGene):
         
         TODO: The crossover at this (GRU) node is quite biased; only the inputs weights are to be crossed between the
          two parents, with the remaining weights only inheriting from the first parent.
+        
+        :param other: Other parent-gene
+        :param ratio: Likelihood of using the current gene (float in [0,1])
         """
         assert self.key == other.key  # Crossover only happens at own nodes
         new_gene = self.__class__(self.key)  # Initialize empty node (used as container for crossover result)
@@ -211,7 +219,7 @@ class GruNodeGene(BaseGene):
         # Add weights column by column to the new gene
         for i, k in enumerate(new_gene.full_input_keys):
             if k in self.full_input_keys and k in other.full_input_keys:  # Shared by both
-                if random() > ratio:
+                if random() <= ratio:
                     new_full_weight_ih[:, i] = self.full_weight_ih[:, self.full_input_keys.index(k)]
                 else:
                     new_full_weight_ih[:, i] = other.full_weight_ih[:, other.full_input_keys.index(k)]

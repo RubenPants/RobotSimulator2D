@@ -6,7 +6,6 @@ Handles creation of genomes, either from scratch or by sexual or asexual reprodu
 from __future__ import division
 
 import copy
-import math
 import random
 from itertools import count
 
@@ -40,6 +39,7 @@ class DefaultReproduction(DefaultClassConfig):
         self.ancestors = {}
     
     def create_new(self, genome_type, genome_config, num_genomes, logger=None):
+        """Create a new (random initialized) genome."""
         new_genomes = {}
         for i in range(num_genomes):
             key = next(self.genome_indexer)
@@ -53,134 +53,131 @@ class DefaultReproduction(DefaultClassConfig):
     def compute_spawn(adjusted_fitness, previous_sizes, pop_size, min_species_size):
         """Compute the proper number of offspring per species (proportional to fitness)."""
         af_sum = sum(adjusted_fitness)
-        
         spawn_amounts = []
         for af, ps in zip(adjusted_fitness, previous_sizes):
+            # Determine number of candidates in the specie, which is always at least the minimum specie-size
             if af_sum > 0:
                 s = max(min_species_size, af / af_sum * pop_size)
             else:
                 s = min_species_size
             
-            d = (s - ps) * 0.5
-            c = int(round(d))
-            spawn = ps
-            if abs(c) > 0:
-                spawn += c
-            elif d > 0:
-                spawn += 1
-            elif d < 0:
-                spawn -= 1
-            spawn_amounts.append(spawn)
+            # Adjust the number of candidates in the population via a weighted average over a specie's previous size
+            #   s is the number of candidates the specie will contain
+            #   ps is the specie his previous size
+            # Example: ps=64, s=32, new specie size will then be 48 (=64-16)
+            spawn_amounts.append(ps + round((s - ps) / 2))
         
-        # Normalize the spawn amounts so that the next generation is roughly the population size requested by the user.
+        # Normalize the spawn amounts so that the next generation is roughly the population size requested by the user
         total_spawn = sum(spawn_amounts)
         norm = pop_size / total_spawn
         spawn_amounts = [max(min_species_size, int(round(n * norm))) for n in spawn_amounts]
-        
         return spawn_amounts
     
     def reproduce(self, config, species, pop_size, generation, logger=None):
-        """
-        Handles creation of genomes, either from scratch or by sexual or asexual reproduction from parents.
-        """
-        # TODO: I don't like this modification of the species and stagnation objects, because it requires internal
-        #  knowledge of the objects.
-        
-        # Filter out stagnated species, collect the set of non-stagnated species members, and compute their average
-        # adjusted fitness. The average adjusted fitness scheme (normalized to the interval [0, 1]) allows the use of
-        # negative fitness values without interfering with the shared fitness scheme.
-        # Note: only fitness of non-stagnated species are determined.
-        all_fitnesses = []
+        """Handles creation of genomes, either from scratch or by sexual or asexual reproduction from parents."""
+        # Check which species to keep and which to remove
+        remaining_fitness = []
         remaining_species = []
         for stag_sid, stag_s, stagnant in self.stagnation.update(species, generation):
+            # If specie is stagnant, then remove
             if stagnant:
                 self.reporters.species_stagnant(stag_sid, stag_s, logger=logger)
+            
+            # Add the specie to the remaining species and save its (average adjusted) fitness
             else:
-                all_fitnesses.extend(m.fitness for m in itervalues(stag_s.members))
+                remaining_fitness.extend(m.fitness for m in itervalues(stag_s.members))
                 remaining_species.append(stag_s)
         
-        # No species left.
+        # If no species is left, force hard-reset
         if not remaining_species:
             species.species = {}
             return {}
         
-        # Find minimum/maximum fitness across the entire population, for use in species adjusted fitness computation.
-        min_fitness = min(all_fitnesses)
-        max_fitness = max(all_fitnesses)
+        # Find minimum/maximum fitness across the entire population, for use in species adjusted fitness computation
+        min_fitness = min(remaining_fitness)
+        max_fitness = max(remaining_fitness)
         
-        # Do not allow the fitness range to be zero, as we divide by it below.
-        fitness_range = max(1.0, max_fitness - min_fitness)
+        # Do not allow the fitness range to be zero, as we divide by it below
+        fitness_range = max(0.1, max_fitness - min_fitness)
         for afs in remaining_species:
-            # Compute adjusted fitness, which is the average fitness of a specie divided by the number of candidates
-            # present in this specie.
+            # Compute adjusted fitness, which is the normalized mean specie fitness (msf) divided by the number of
+            #  candidates present in this specie
             msf = mean([m.fitness for m in itervalues(afs.members)])
-            afs.adjusted_fitness = (msf - min_fitness) / fitness_range
+            afs.adjusted_fitness = min((msf - min_fitness) / fitness_range, 1)
+        adjusted_fitness = [s.adjusted_fitness for s in remaining_species]
         
-        adjusted_fitnesses = [s.adjusted_fitness for s in remaining_species]
-        avg_adjusted_fitness = mean(adjusted_fitnesses)  # type: float
-        self.reporters.info(f"Average adjusted fitness: {avg_adjusted_fitness:.3f}", logger=logger)
-        
-        # Compute the number of new members for each species in the new generation.
+        # Compute the number of new members for each species in the new generation
         previous_sizes = [len(s.members) for s in remaining_species]
         min_species_size = self.reproduction_config.min_species_size
         
-        # Isn't the effective min_species_size going to be max(min_species_size, self.reproduction_config.elitism)?
-        # That would probably produce more accurate tracking of population sizes and relative fitnesses... doing.
-        # TODO: document.
+        # Minimum specie-size is defined by the number of elites and the minimal number of genomes in a population
         min_species_size = max(min_species_size, self.reproduction_config.elitism)
-        spawn_amounts = self.compute_spawn(adjusted_fitnesses, previous_sizes, pop_size, min_species_size)
+        spawn_amounts = self.compute_spawn(adjusted_fitness, previous_sizes, pop_size, min_species_size)
         
+        # Setup the next generation by filling in the new species with their elite, parents, and offspring
         new_population = {}
         species.species = {}
-        for spawn, s in zip(spawn_amounts, remaining_species):
-            # If elitism is enabled, each species always at least gets to retain its elites.
-            spawn = max(spawn, self.reproduction_config.elitism)
+        for spawn_amount, specie in zip(spawn_amounts, remaining_species):
+            # If elitism is enabled, each species will always at least gets to retain its elites
+            spawn_amount = max(spawn_amount, self.reproduction_config.elitism)
             
-            assert spawn > 0
+            # The species has at least one member for the next generation, so retain it
+            assert spawn_amount > 0
             
-            # The species has at least one member for the next generation, so retain it.
-            old_members = list(iteritems(s.members))
-            s.members = {}
-            species.species[s.key] = s
+            # Get all the specie's old (evaluated) members
+            old_members = list(iteritems(specie.members))
+            specie.members = {}
+            species.species[specie.key] = specie
             
-            # Sort members in order of descending fitness.
+            # Sort members in order of descending fitness (i.e. most fit members in front)
             old_members.sort(reverse=True, key=lambda x: x[1].fitness)
             
-            # Transfer elites to new generation.
+            # Make sure that all a specie's elites are in the specie itself
             if self.reproduction_config.elitism > 0:
                 for i, m in old_members[:self.reproduction_config.elitism]:
                     new_population[i] = m
-                    spawn -= 1
+                    spawn_amount -= 1
             
-            if spawn <= 0: continue
+            # If species is already completely full with its elite (not recommended), then go to next specie
+            if spawn_amount <= 0: continue
             
-            # Only use the survival threshold fraction to use as parents for the next generation.
-            repro_cutoff = int(math.ceil(self.reproduction_config.survival_threshold * len(old_members)))
+            # Only use the survival threshold fraction to use as parents for the next generation, use at least all the
+            #  elite of a population as parents
+            reproduction_cutoff = max(round(self.reproduction_config.survival_threshold * len(old_members)),
+                                      self.reproduction_config.elitism)
             
-            # Use at least two parents no matter what the threshold fraction result is.
-            repro_cutoff = max(repro_cutoff, 2)
-            old_members = old_members[:repro_cutoff]
+            # Use at least two parents no matter what the threshold fraction result is
+            reproduction_cutoff = max(reproduction_cutoff, 2)
+            parents = old_members[:reproduction_cutoff]
             
-            # Randomly choose parents and produce the number of offspring allotted to the species.
-            while spawn > 0:
-                spawn -= 1
+            # Fill the specie with offspring based on two randomly chosen parents
+            while spawn_amount > 0:
+                spawn_amount -= 1
                 
                 # Init genome dummy (values are overwritten later)
                 gid = next(self.genome_indexer)
                 child: DefaultGenome = config.genome_type(gid)
                 
                 # Choose the parents, note that if the parents are not distinct, crossover will produce a genetically
-                # identical clone of the parent (but with a different ID). Note: crossover with the same parent would
-                # result in a identical copy of this parent.
-                parent1_id, parent1 = random.choice(old_members)
-                parent2_id, parent2 = random.choice(old_members)
+                #  identical clone of the parent (but with a different ID)
+                parent1_id, parent1 = random.choice(parents)
+                parent2_id, parent2 = random.choice(parents)
                 if self.reproduction_config.sexual_reproduction and (parent1_id != parent2_id):
                     child.configure_crossover(config=config.genome_config, genome1=parent1, genome2=parent2)
                 else:
-                    parent2_id, parent2 = None, None
+                    parent2_id = parent1_id
                     child.connections = copy.deepcopy(parent1.connections)
                     child.nodes = copy.deepcopy(parent1.nodes)
-                child.mutate(config.genome_config)
+                
+                # Keep mutating the child until it's different from what is already in the population
+                in_population = True
+                while in_population:
+                    child.mutate(config.genome_config)
+                    in_population = False
+                    for genome in new_population.values():
+                        if child.distance(genome, config=config.genome_config) == 0: in_population = True
+                
+                # Add the child to the population
                 new_population[gid] = child
                 self.ancestors[gid] = (parent1_id, parent2_id)
         
