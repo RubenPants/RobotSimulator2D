@@ -48,8 +48,8 @@ class ReporterSet(object):
     def species_stagnant(self, sid, species, logger=None):
         for r in self.reporters: r.species_stagnant(sid, species, logger=logger)
     
-    def info(self, msg, logger=None):
-        for r in self.reporters: r.info(msg, logger=logger)
+    def info(self, msg, logger=None, print_result=True):
+        for r in self.reporters: r.info(msg, logger=logger, print_result=print_result)
 
 
 class BaseReporter(object):
@@ -76,7 +76,7 @@ class BaseReporter(object):
     def species_stagnant(self, sid, species, logger=None):
         pass
     
-    def info(self, msg, logger=None):
+    def info(self, msg, logger=None, print_result=True):
         pass
 
 
@@ -91,7 +91,7 @@ class StdOutReporter(BaseReporter):
     
     def start_generation(self, generation, logger=None):
         self.generation = generation
-        msg = f"\n\n********** Running generation {generation} **********\n"
+        msg = f"\n********** Running generation {generation} **********\n"
         logger(msg) if logger else print(msg)
         self.generation_start_time = time.time()
     
@@ -136,7 +136,7 @@ class StdOutReporter(BaseReporter):
               f'\n\t-       mean fitness: {mean(fitnesses):3.5f}' \
               f'\n\t-      worst fitness: {min(fitnesses):3.5f}' \
               f'\n\t- standard deviation: {stdev(fitnesses):3.5f}'
-        logger(msg) if logger else print(msg)
+        logger(msg, print_result=False) if logger else print(msg)
         
         # Best genome
         best_species_id = species.get_species_id(best_genome.key)
@@ -145,7 +145,11 @@ class StdOutReporter(BaseReporter):
               f'\n\t- size (hid, conn): {best_genome.size()!r}' \
               f'\n\t- genome id: {best_genome.key}' \
               f'\n\t- belongs to specie: {best_species_id}'
-        logger(msg) if logger else print(msg)
+        if logger:
+            logger(msg, print_result=False)
+            print(f"Best genome size (hid, conn): {best_genome.size()!r}")
+        else:
+            print(msg)
     
     def complete_extinction(self, logger=None):
         self.num_extinctions += 1
@@ -160,5 +164,5 @@ class StdOutReporter(BaseReporter):
         msg = f"\nSpecies {sid} with {len(species.members)} members is stagnated: removing it"
         logger(msg) if logger else print(msg)
     
-    def info(self, msg, logger=None):
-        logger(msg) if logger else print(msg)
+    def info(self, msg, logger=None, print_result=True):
+        logger(msg, print_result=print_result) if logger else print(msg)
