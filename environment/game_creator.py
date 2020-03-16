@@ -36,7 +36,12 @@ from utils.vec2d import Vec2d
 
 # Constants
 FILLED_ROOM_RATIO = 0.3
-DOOR_ROOM_RATIO = 0.15
+DOOR_ROOM_RATIO = 0.2
+
+
+class MazeMalfunctionException(Exception):
+    """Custom exception indicating a malfunction during maze creation."""
+    pass
 
 
 class Maze:
@@ -76,6 +81,15 @@ class Maze:
         # Add doors in walls such that every room is connected
         self.connect_rooms(corridor=corridor_tiles)
         if visualize: self.visualize()
+        
+        # Set the position for the target
+        r = random()
+        if r < 1 / 5:
+            self.target = Vec2d(cfg.x_axis - 0.5, cfg.y_axis - 0.5)  # Top right
+        elif r < 2 / 5:
+            self.target = Vec2d(0.5, 0.5)  # Bottom left
+        else:
+            self.target = Vec2d(0.5, cfg.y_axis - 0.5)  # Top left
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     
@@ -184,10 +198,14 @@ class Maze:
                 y_max = max([p[1] for p in filled_tiles])
                 
                 # Remove corners from filled_tiles
-                filled_tiles.remove((x_min, y_min))
-                filled_tiles.remove((x_min, y_max))
-                filled_tiles.remove((x_max, y_min))
-                filled_tiles.remove((x_max, y_max))
+                try:
+                    filled_tiles.remove((x_min, y_min))
+                    filled_tiles.remove((x_min, y_max))
+                    filled_tiles.remove((x_max, y_min))
+                    filled_tiles.remove((x_max, y_max))
+                except KeyError:
+                    # TODO: This is (perhaps?) due to door-creation of two neighbouring rooms of different size
+                    raise MazeMalfunctionException("Error in wall-creation, created non-square rooms")
                 
                 # Remove tiles that are not suited for a door
                 to_remove = set()
@@ -242,9 +260,8 @@ class Maze:
         combine_walls(wall_list)
         return wall_list
     
-    def get_path_coordinates(self, visualize: bool = False):
-        """ Define all free-positions together with their distance to the target """
-        
+    def get_path_coordinates(self, target_pos, visualize: bool = False):
+        """Define all free-positions together with their distance to the target."""
         # Expand the maze such that every 10cm gets a tile
         y_tiles = self.cfg.y_axis * 11 + 1
         x_tiles = self.cfg.x_axis * 11 + 1
@@ -273,9 +290,9 @@ class Maze:
             :param pos_2: Neighbour position that needs to update
             :param dist: Distance (real-life) between the two positions
             """
-            if self.in_maze([pos_2[0], pos_2[1]], maze=maze_expanded) and \
-                    0 <= maze_expanded[pos_2[0], pos_2[1]] < maze_expanded[pos_1[0], pos_1[1]] - dist:
-                maze_expanded[pos_2[0], pos_2[1]] = maze_expanded[pos_1[0], pos_1[1]] - dist
+            if self.in_maze([pos_2[1], pos_2[0]], maze=maze_expanded) and \
+                    0 <= maze_expanded[pos_2[1], pos_2[0]] < maze_expanded[pos_1[1], pos_1[0]] - dist:
+                maze_expanded[pos_2[1], pos_2[0]] = maze_expanded[pos_1[1], pos_1[0]] - dist
                 return True
             return False
         
@@ -293,8 +310,17 @@ class Maze:
         
         # Find distance to target
         if visualize: self.visualize_extend(maze=maze_expanded)
-        maze_expanded[y_tiles - 6, 5] = VALUE_START
-        updated_pos = {(y_tiles - 6, 5)}
+        if target_pos == Vec2d(maze.cfg.x_axis - 0.5, maze.cfg.y_axis - 0.5):
+            target = (x_tiles - 6, y_tiles - 6)
+        elif target_pos == Vec2d(0.5, 0.5):
+            target = (5, 5)
+        elif target_pos == Vec2d(0.5, maze.cfg.y_axis - 0.5):
+            target = (5, y_tiles - 6)
+        else:
+            raise Exception("Invalid target_pos input")
+        
+        maze_expanded[target[1], target[0]] = VALUE_START
+        updated_pos = {target}
         
         # Keep updating all the set_positions' neighbours while change occurs
         while updated_pos:
@@ -308,15 +334,15 @@ class Maze:
         
         # Invert values such that distance to target @target equals 0, and distance at start equals |X-VALUE_START| / 2
         # Note the /2 since 1m in-game is 2 squared here
-        for row in range(y_tiles):
-            for col in range(x_tiles):
+        for row in range(1, y_tiles - 1):
+            for col in range(1, x_tiles - 1):
                 if maze_expanded[row, col] > 0:
                     maze_expanded[row, col] = abs(maze_expanded[row, col] - VALUE_START)
         
         # Put values in list
         values = []
-        for row in range(y_tiles - 1):
-            for col in range(x_tiles - 1):
+        for row in range(1, y_tiles - 1):
+            for col in range(1, x_tiles - 1):
                 if row % 11 == 0 or col % 11 == 0: continue
                 # Note the maze_expanded[col, row] which is a bug rippled through whole project (everywhere switched!)
                 values.append((((row - row // 11) / 10, (col - col // 11) / 10), maze_expanded[col, row]))
@@ -494,7 +520,7 @@ class Maze:
         new_pos = [pos]
         filled = {pos}
         while new_pos:
-            current_pos = new_pos
+            current_pos = new_pos.copy()
             new_pos = []
             for pos in current_pos:
                 self.maze[pos[1], pos[0]] = 1
@@ -642,18 +668,19 @@ def create_custom_game(cfg: GameConfig, overwrite=False):
 
 
 def create_game(cfg: GameConfig,
-                game_id: int = 0,
-                path_list: list = None,
-                wall_list: list = None,
-                overwrite: bool = False):
+                game_id: int,
+                maze: Maze,
+                overwrite: bool = False,
+                visualize: bool = False,
+                ):
     """
     Create a game based on a list of walls.
     
     :param cfg: The game config
     :param game_id: ID of the game (Integer)
-    :param path_list: List of paths together with value [0..1] indicating how close the tile is to the target
-    :param wall_list: List of Line2d objects containing the begin and end coordinate of a wall, excluding boundary walls
+    :param maze: The maze on which the game is based
     :param overwrite: Overwrite pre-existing games
+    :param visualize: Visualize the calculations
     """
     # Create empty Game instance
     game = Game(config=cfg,
@@ -662,23 +689,18 @@ def create_game(cfg: GameConfig,
                 silent=True)
     
     # Add additional walls to the game
-    game.walls.update(set(wall_list))
+    game.walls.update(set(maze.get_wall_coordinates()))
     
     # App path to the game
+    path_list = maze.get_path_coordinates(target_pos=maze.target, visualize=visualize)
     game.path = {p[0]: p[1] for p in path_list}
     
-    # Put the target on one of the three possible positions (larger weight on furthest distance)
-    r = random()
-    if r < 1 / 4:
-        game.target = Vec2d(cfg.x_axis - 0.5, cfg.y_axis - 0.5)
-    elif r < 3 / 4:
-        game.target = Vec2d(0.5, cfg.y_axis - 0.5)
-    else:
-        game.target = Vec2d(0.5, 0.5)
+    # Set the target on the predefined position
+    game.target = maze.target
     
     # Create random player
     game.player = FootBot(game=game,
-                          init_pos=Vec2d(cfg.x_axis - 0.5, 0.5),
+                          init_pos=Vec2d(cfg.x_axis - 0.5, 0.5),  # Fixed initial position
                           init_orient=np.pi / 2)
     
     # Save the final game
@@ -693,7 +715,7 @@ if __name__ == '__main__':
     parser.add_argument('--custom', type=bool, default=False)
     parser.add_argument('--overwrite', type=bool, default=True)
     parser.add_argument('--nr_games', type=int, default=None)
-    parser.add_argument('--visualize', type=bool, default=True)
+    parser.add_argument('--visualize', type=bool, default=False)
     args = parser.parse_args()
     
     # Point back to root
@@ -712,11 +734,13 @@ if __name__ == '__main__':
         for g_id in tqdm(range(1, nr_games + 1), desc="Generating Mazes"):
             maze = None
             while not maze:
-                maze = Maze(cfg=config, visualize=args.visualize)
+                try:
+                    maze = Maze(cfg=config, visualize=args.visualize)
+                except MazeMalfunctionException:
+                    maze = None
             create_game(cfg=config,
                         game_id=g_id,
-                        path_list=maze.get_path_coordinates(visualize=args.visualize),
-                        wall_list=maze.get_wall_coordinates(),
+                        maze=maze,
                         overwrite=args.overwrite)
             
             # Quality check the created game
@@ -729,7 +753,6 @@ if __name__ == '__main__':
                 )
                 game.close()
                 game.reset()
-                game.get_blueprint()
                 game.get_observation()
                 game.step(0, 0)
             except Exception:

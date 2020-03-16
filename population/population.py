@@ -297,7 +297,7 @@ class Population:
             self.reporters = pop.reporters
             self.reproduction = pop.reproduction
             self.species = pop.species
-            self.log(f"\nPopulation '{self}' loaded successfully! Current generation: {self.generation}")
+            print(f"\nPopulation '{self}' loaded successfully! Current generation: {self.generation}")
             return True
         except FileNotFoundError:
             return False
