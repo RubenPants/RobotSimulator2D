@@ -4,6 +4,7 @@
 
 ## TODO
 
+* Bug in stagnation (18 vs 15)
 * Separate mutation rate for GRU weights
 * Change game-creation, perhaps more realistic if start with hallways instead of rooms?
     * First add 2 to 4 hallways, hallways are 1m in width and contain no doors in between them
