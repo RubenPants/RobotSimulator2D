@@ -145,7 +145,11 @@ class StdOutReporter(BaseReporter):
               f'\n\t- size (hid, conn): {best_genome.size()!r}' \
               f'\n\t- genome id: {best_genome.key}' \
               f'\n\t- belongs to specie: {best_species_id}'
-        logger(msg, print_result=False) if logger else print(msg)
+        if logger:
+            logger(msg, print_result=False)
+            print(f"Best genome size (hid, conn): {best_genome.size()!r}")
+        else:
+            print(msg)
     
     def complete_extinction(self, logger=None):
         self.num_extinctions += 1

@@ -4,6 +4,8 @@
 
 ## TODO
 
+* Print out most fit genome's shape
+* Retain most fit genomes of last three iterations for each specie! (elitism)
 * Test all of the fitness-functions!
 * [x,y] vs [col, row] in maze --> confusing to work with!
 * Novelty not in crows-flight? (do intersection with walls! i.e. find reachable neighbours, the k-NN on those)

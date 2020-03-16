@@ -189,7 +189,7 @@ class Population:
                                                            logger=self.log)
         
         # Divide the new population into species
-        self.species.speciate(config=self.config,  # TODO: investigate!
+        self.species.speciate(config=self.config,
                               population=self.population,
                               generation=self.generation,
                               logger=self.log)
@@ -263,7 +263,7 @@ class Population:
         
         # Save the population
         store_pickle(self, f'population/storage/{self.folder_name}/{self}/generations/gen_{self.generation:05d}')
-        self.log(f"Population '{self}' saved! Current generation: {self.generation}")
+        self.log(f"Population '{self}' saved! Current generation: {self.generation}", print_result=False)
     
     def load(self, gen=None):
         """
@@ -297,7 +297,7 @@ class Population:
             self.reporters = pop.reporters
             self.reproduction = pop.reproduction
             self.species = pop.species
-            self.log(f"Population '{self}' loaded successfully! Current generation: {self.generation}")
+            self.log(f"\nPopulation '{self}' loaded successfully! Current generation: {self.generation}")
             return True
         except FileNotFoundError:
             return False
