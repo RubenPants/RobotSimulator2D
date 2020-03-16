@@ -91,7 +91,7 @@ class StdOutReporter(BaseReporter):
     
     def start_generation(self, generation, logger=None):
         self.generation = generation
-        msg = f"\n\n********** Running generation {generation} **********\n"
+        msg = f"\n********** Running generation {generation} **********\n"
         logger(msg) if logger else print(msg)
         self.generation_start_time = time.time()
     

@@ -4,7 +4,6 @@
 
 ## TODO
 
-* Print out most fit genome's shape
 * Retain most fit genomes of last three iterations for each specie! (elitism)
 * Test all of the fitness-functions!
 * [x,y] vs [col, row] in maze --> confusing to work with!
