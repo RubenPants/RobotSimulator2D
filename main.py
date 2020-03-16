@@ -10,19 +10,19 @@ from population.population import Population
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument('--train', type=bool, default=True)
+    parser.add_argument('--train', type=bool, default=False)
     parser.add_argument('--iterations', type=int, default=2)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--trace', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
     parser.add_argument('--genome', type=bool, default=False)
-    parser.add_argument('--live', type=bool, default=False)
+    parser.add_argument('--live', type=bool, default=True)
     args = parser.parse_args()
     
     pop = Population(
-            name="test",
+            name="distance_repr_1",
             # version=1,
-            folder_name='test',
+            folder_name='NEAT-GRU',
     )
     if not pop.best_genome: pop.best_genome = list(pop.population.values())[0]
     # pop.population[9] = pop.population[list(pop.population.keys())[12]]
@@ -79,10 +79,10 @@ if __name__ == '__main__':
             )
         
         if args.genome:
-            pop.log("\n===> VISUALIZING GENOME <===\n")
+            print("\n===> VISUALIZING GENOME <===\n")
             # genome = list(pop.population.values())[2]
             genome = pop.best_genome
-            pop.log(f"Genome size: {genome.size()}")
+            print(f"Genome size: {genome.size()}")
             pop.visualize_genome(
                     debug=True,
                     genome=genome,
@@ -101,7 +101,7 @@ if __name__ == '__main__':
             
             visualizer.visualize(
                     network=net,
-                    game_id=1,
+                    game_id=7,
             )
     except Exception as e:
         pop.log(traceback.format_exc(), print_result=False)

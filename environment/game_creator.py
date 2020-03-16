@@ -6,22 +6,27 @@ Create a maze. A maze consists out of three different types of tiles:
  * 0 = Empty tile
  * >0 = Visited tile (used for path-finding)
 Walls can only be placed on tiles with odd positions. If a wall goes from (1,1) to (3,1), then the wall spans over all
-the tiles on [(1,1), (2,1), (3,1)].
+ the tiles on [(1,1), (2,1), (3,1)].
 
-The creation of a stage will happen in three different stages:
- 1. Large rooms will be added
+The creation of a maze will happen in three different stages:
+ 1. Between 2 and 4 corridors will be added, these have a width of 1 meter and go alternately horizontal and vertical
+     They continue running until they meet a wall at both sides.
  2. Walls separating open spots will be added such that one room covers at most 1/4th of the tiles
  3. Doors will be made in the walls such that the starting agent can reach every part of the field
 
 After successfully creating the maze-matrix, it is converted to a Pymunk game and then saved in the 'games_db' folder.
+
+:note: The following protocol holds, lists save coordinates in [x,y], but to query the maze one needs to enter [y,x],
+ this is due to the x=row, y=col mismatch.
 """
 import argparse
 import os
-import random
 from math import sqrt
+from random import choice, randint, random, shuffle
 
 import matplotlib.pyplot as plt
 import numpy as np
+from tqdm import tqdm
 
 from config import GameConfig
 from environment.entities.game import Game
@@ -30,9 +35,13 @@ from utils.line2d import Line2d
 from utils.vec2d import Vec2d
 
 # Constants
-MIN_ROOM_WIDTH = 5
-ROOM_ATTEMPTS = 5
-FILLED_ROOM_RATIO = 0.2
+FILLED_ROOM_RATIO = 0.3
+DOOR_ROOM_RATIO = 0.2
+
+
+class MazeMalfunctionException(Exception):
+    """Custom exception indicating a malfunction during maze creation."""
+    pass
 
 
 class Maze:
@@ -62,61 +71,175 @@ class Maze:
         self.wall_tiles = self.get_wall_tiles()
         
         # Generate rooms
-        self.generate_rooms()
+        corridor_tiles = self.generate_corridors()
         if visualize: self.visualize()
         
         # Add division-walls
-        self.generate_division_walls()
+        self.generate_division_walls(corridor=corridor_tiles)
         if visualize: self.visualize()
         
         # Add doors in walls such that every room is connected
-        self.connect_rooms()
+        self.connect_rooms(corridor=corridor_tiles)
         if visualize: self.visualize()
+        
+        # Set the position for the target
+        r = random()
+        if r < 1 / 5:
+            self.target = Vec2d(cfg.x_axis - 0.5, cfg.y_axis - 0.5)  # Top right
+        elif r < 2 / 5:
+            self.target = Vec2d(0.5, 0.5)  # Bottom left
+        else:
+            self.target = Vec2d(0.5, cfg.y_axis - 0.5)  # Top left
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     
-    def connect_rooms(self):
+    def generate_corridors(self):
+        """
+        Generate three walls that go alternately horizontal and vertical. A wall has a width of 1 meter and go from one
+        wall until another. The tiles that represent the corridor are returned.
+        """
+        # Create corridors
+        is_hor = random() < 0.5
+        
+        # Add main corridor
+        tiles = set()
+        added = False
+        while not added:
+            added = self.add_corridor(horizontal=is_hor)
+        tiles.update(added)
+        
+        # Add two side corridors
+        added = 0
+        while added < 2:
+            added_tiles = self.add_corridor(horizontal=not is_hor)
+            if added_tiles:
+                added += 1
+                tiles.update(added_tiles)
+        
+        # Make intersections of corridors door-free
+        self.remove_corridor_doors()
+        
+        # Return each of the tiles that represent the corridor
+        return tiles
+    
+    def generate_division_walls(self, corridor):
+        """
+        Go over each room and check how many tiles are in it. If there are more than 1/4th of the total tiles inside of
+        this room, the room is divided.
+        """
+        # Get all non-corridor tiles
+        all_tiles = {(x, y) for x in range(1, self.x_width - 1, 2) for y in range(1, self.y_width - 1, 2)}
+        for c in corridor: all_tiles.remove(c)
+        total_size = len(all_tiles)
+        
+        # Check for each of the rooms if they are too large, if so then separate them
+        while len(all_tiles) > 0:
+            pos = all_tiles.pop()  # pos (y-axis, x-axis)
+            filled_tiles = self.fill_room(pos, reset=True)
+            if (len(filled_tiles) / total_size) > FILLED_ROOM_RATIO:
+                x_min = min([p[0] for p in filled_tiles])
+                x_max = max([p[0] for p in filled_tiles])
+                y_min = min([p[1] for p in filled_tiles])
+                y_max = max([p[1] for p in filled_tiles])
+                
+                # Define the center, which is a tuple of two even numbers
+                width = x_max - x_min
+                height = y_max - y_min
+                x_c = int(width / 2 + x_min)
+                if x_c % 2 == 1: x_c += choice([-1, 1])
+                if width >= 10: x_c += choice([-2, 0, 0, 2])  # Add noise
+                y_c = int(height / 2 + y_min)
+                if y_c % 2 == 1: y_c += choice([-1, 1])
+                if height >= 10: y_c += choice([-2, 0, 0, 2])  # Add noise
+                center = (x_c, y_c)
+                
+                # Add wall based on direction of room
+                if width == height:  # Squared
+                    self.add_wall(pos=center, hor=random() >= 0.5)
+                elif width > height:  # Wide
+                    self.add_wall(pos=center, hor=False)
+                else:  # Tall
+                    self.add_wall(pos=center, hor=True)
+            else:
+                for ft in filled_tiles:
+                    if ft in all_tiles: all_tiles.remove(ft)
+    
+    def connect_rooms(self, corridor):
         """
         Connect the rooms by making 2 meter doors in them. This is done by filling the start-location of the agent
         (which is the bottom right corner), and then checked if there are any values in the matrix left that have a zero
         value. If those exist, then drill a hole in a wall that connects both a one and a zero value (this hole consists
         out of four consecutive wall-segments).
         """
-        pos = self.get_empty_tile_room()
-        while pos:
-            self.reset_empty_tiles()
-            self.fill_room(pos)
-            self.create_door()
-            pos = self.get_empty_tile_room()
-    
-    def generate_rooms(self):
-        """
-        Try to add several rooms for a few times. This method is very stochastic and has a high tendency to fail when
-        several rooms are already added. This is however no problem, thus ignored.
-        """
-        for _ in range(ROOM_ATTEMPTS):
-            try:
-                self.add_room()
-            except IndexError:
-                pass  # ignore
-    
-    def generate_division_walls(self):
-        """
-        Go over each room and check how many tiles are in it. If there are more than 1/4th of the total tiles inside of
-        this room, the room is divided.
-        """
-        # Go over all potential wall-tiles that are empty
-        add_hor = True if random.random() > 0.5 else False
-        for x in range(2, self.x_width - 1, 2):
-            for y in range(2, self.y_width - 1, 2):
-                # Identify if empty
-                if self.maze[y, x] >= 0:
-                    # Check ratio of empty tiles
-                    filled_tiles = self.fill_room((x, y), reset=True)
-                    if len(filled_tiles) / self.tiles_amount > FILLED_ROOM_RATIO:
-                        # Add a wall on a potential wall-tile in the empty room
-                        self.add_wall([(x, y) for (x, y) in filled_tiles if (x % 2 == 0 and y % 2 == 0)], hor=add_hor)
-                        add_hor = not add_hor
+        # Get all non-corridor tiles
+        all_tiles = {(x, y) for x in range(1, self.x_width - 1, 2) for y in range(1, self.y_width - 1, 2)}
+        total_size = len(all_tiles)
+        for c in corridor: all_tiles.remove(c)
+        corridor_tile = next(iter(corridor))
+        
+        # Check if room is connected to the corridor, if not then add door
+        while len(all_tiles) > 0:
+            pos = all_tiles.pop()
+            filled_tiles = self.fill_room(pos, reset=True)
+            room_tiles = filled_tiles.copy()  # Room tiles does not change (needed to create door)
+            filled_size = len(filled_tiles)
+            
+            # Room already connected to the corridor
+            if corridor_tile in filled_tiles:
+                for t in filled_tiles:
+                    if t in all_tiles: all_tiles.remove(t)
+            
+            # Room not connected to the corridor, add door
+            else:
+                # Get corner coordinates
+                x_min = min([p[0] for p in filled_tiles])
+                x_max = max([p[0] for p in filled_tiles])
+                y_min = min([p[1] for p in filled_tiles])
+                y_max = max([p[1] for p in filled_tiles])
+                
+                # Remove corners from filled_tiles
+                try:
+                    filled_tiles.remove((x_min, y_min))
+                    filled_tiles.remove((x_min, y_max))
+                    filled_tiles.remove((x_max, y_min))
+                    filled_tiles.remove((x_max, y_max))
+                except KeyError:
+                    # TODO: This is (perhaps?) due to door-creation of two neighbouring rooms of different size
+                    raise MazeMalfunctionException("Error in wall-creation, created non-square rooms")
+                
+                # Remove tiles that are not suited for a door
+                to_remove = set()
+                for t in filled_tiles:
+                    # Remove inner tiles from filled_tiles
+                    if (t[0] not in [x_min, x_max]) and (t[1] not in [y_min, y_max]):
+                        to_remove.add(t)
+                    
+                    # Remove tiles that are next to an edge-wall
+                    elif t[0] in [1, self.x_width - 2]:
+                        to_remove.add(t)
+                    elif t[1] in [1, self.y_width - 2]:
+                        to_remove.add(t)
+                for t in to_remove:
+                    if t in filled_tiles: filled_tiles.remove(t)
+                
+                # Create a door between room and corridor, large rooms have two doors
+                remaining_tiles = list(filled_tiles)
+                shuffle(remaining_tiles)
+                for _ in range(1 if (filled_size / total_size < DOOR_ROOM_RATIO) else 2):
+                    if len(remaining_tiles) == 0: break
+                    chosen_pos = remaining_tiles[0]
+                    self.create_door(pos=chosen_pos, room_tiles=room_tiles)
+                    
+                    # Remove all the remaining_tiles of the chosen_pos' row/col
+                    to_remove = []
+                    for p in remaining_tiles:
+                        if (p[0] == chosen_pos[0]) or (p[1] == chosen_pos[1]): to_remove.append(p)
+                    for p in to_remove:
+                        remaining_tiles.remove(p)
+                
+                # Room is now connected, remove from all_tiles
+                for t in room_tiles:
+                    if t in all_tiles: all_tiles.remove(t)
     
     def get_wall_coordinates(self):
         """
@@ -137,9 +260,8 @@ class Maze:
         combine_walls(wall_list)
         return wall_list
     
-    def get_path_coordinates(self, visualize: bool = False):
-        """ Define all free-positions together with their distance to the target """
-        
+    def get_path_coordinates(self, target_pos, visualize: bool = False):
+        """Define all free-positions together with their distance to the target."""
         # Expand the maze such that every 10cm gets a tile
         y_tiles = self.cfg.y_axis * 11 + 1
         x_tiles = self.cfg.x_axis * 11 + 1
@@ -168,9 +290,9 @@ class Maze:
             :param pos_2: Neighbour position that needs to update
             :param dist: Distance (real-life) between the two positions
             """
-            if self.in_maze([pos_2[0], pos_2[1]], maze=maze_expanded) and \
-                    0 <= maze_expanded[pos_2[0], pos_2[1]] < maze_expanded[pos_1[0], pos_1[1]] - dist:
-                maze_expanded[pos_2[0], pos_2[1]] = maze_expanded[pos_1[0], pos_1[1]] - dist
+            if self.in_maze([pos_2[1], pos_2[0]], maze=maze_expanded) and \
+                    0 <= maze_expanded[pos_2[1], pos_2[0]] < maze_expanded[pos_1[1], pos_1[0]] - dist:
+                maze_expanded[pos_2[1], pos_2[0]] = maze_expanded[pos_1[1], pos_1[0]] - dist
                 return True
             return False
         
@@ -188,8 +310,17 @@ class Maze:
         
         # Find distance to target
         if visualize: self.visualize_extend(maze=maze_expanded)
-        maze_expanded[y_tiles - 6, 5] = VALUE_START
-        updated_pos = {(y_tiles - 6, 5)}
+        if target_pos == Vec2d(maze.cfg.x_axis - 0.5, maze.cfg.y_axis - 0.5):
+            target = (x_tiles - 6, y_tiles - 6)
+        elif target_pos == Vec2d(0.5, 0.5):
+            target = (5, 5)
+        elif target_pos == Vec2d(0.5, maze.cfg.y_axis - 0.5):
+            target = (5, y_tiles - 6)
+        else:
+            raise Exception("Invalid target_pos input")
+        
+        maze_expanded[target[1], target[0]] = VALUE_START
+        updated_pos = {target}
         
         # Keep updating all the set_positions' neighbours while change occurs
         while updated_pos:
@@ -203,15 +334,15 @@ class Maze:
         
         # Invert values such that distance to target @target equals 0, and distance at start equals |X-VALUE_START| / 2
         # Note the /2 since 1m in-game is 2 squared here
-        for row in range(y_tiles):
-            for col in range(x_tiles):
+        for row in range(1, y_tiles - 1):
+            for col in range(1, x_tiles - 1):
                 if maze_expanded[row, col] > 0:
                     maze_expanded[row, col] = abs(maze_expanded[row, col] - VALUE_START)
         
         # Put values in list
         values = []
-        for row in range(y_tiles - 1):
-            for col in range(x_tiles - 1):
+        for row in range(1, y_tiles - 1):
+            for col in range(1, x_tiles - 1):
                 if row % 11 == 0 or col % 11 == 0: continue
                 # Note the maze_expanded[col, row] which is a bug rippled through whole project (everywhere switched!)
                 values.append((((row - row // 11) / 10, (col - col // 11) / 10), maze_expanded[col, row]))
@@ -223,229 +354,186 @@ class Maze:
     
     # -------------------------------------------> MAIN SECONDARY METHODS <------------------------------------------- #
     
-    def add_room(self):
+    def add_corridor(self, horizontal):
         """
-        Create a room. A room starts always adjacent to a wall and is of maximum size the size of this wall.
+        Add a random corridor to the room. A corridor is placed on a random location and is 1 meter wide, spanning from
+        one side straight to the other.
         """
-        # Random starting position
-        p = self.get_random_wall_position()
+        # Position to start on, this position will be in the corridor's left or bottom wall
+        pos_x = randint(0, self.cfg.x_axis - 1) * 2
+        pos_y = randint(0, self.cfg.y_axis - 1) * 2
+        self.maze[pos_y, pos_x] = -1
         
-        # Determine the lengthiest side  (Note: Changed down and left, so self.maze coordinates are correct)
-        start_p = Vec2d(p[0], p[1])  # Start is situated at the bottom left
-        while self.in_maze(start_p + Vec2d(0, -2)) and self.maze[start_p[1] - 2, start_p[0]] < 0:
-            start_p += Vec2d(0, -2)
-        if start_p == Vec2d(p[0], p[1]):
-            while self.in_maze(start_p + Vec2d(-2, 0)) and self.maze[start_p[1], start_p[0] - 2] < 0:
-                start_p += Vec2d(-2, 0)
-        end_p = p  # End is situated at the top right
-        while self.in_maze(end_p + Vec2d(0, 2)) and self.maze[end_p[1] + 2, end_p[0]] < 0:
-            end_p += Vec2d(0, 2)
-        if end_p == Vec2d(p[0], p[1]):
-            while self.in_maze(end_p + Vec2d(2, 0)) and self.maze[end_p[1], end_p[0] + 2] < 0:
-                end_p += Vec2d(2, 0)
-        
-        # Determine the length between the two positions
-        diff = end_p - start_p
-        max_length = int(diff.get_length())
-        
-        # Early-stop if base wall is not wide enough
-        if max_length < MIN_ROOM_WIDTH:
-            raise IndexError
-        
-        # Define a new starting position
-        direction = Vec2d(int(diff.normalized()[0]), int(diff.normalized()[1]))
-        offset_start = random.choice([x * 2 for x in range(max_length // 2 - 2) if x != 1])
-        start_new = start_p + direction * offset_start
-        
-        # Define a new end position
-        max_length_end = int(max_length - (start_p - start_new).get_length())
-        offset_end = random.choice([x * 2 for x in range(max_length_end // 2 - 2) if x != 1])
-        end_new = end_p - direction * offset_end
-        
-        # Check if wall is wide enough
-        room_width = int((end_new - start_new).get_length())
-        if room_width < MIN_ROOM_WIDTH:
-            raise IndexError
-        
-        # Grow to both sides
-        direction_ort1 = Vec2d(direction[1], direction[0])
-        depth1 = 0
-        no_wall = True
-        while no_wall:
-            for x in range(room_width):
-                pos = start_new + direction * x + direction_ort1 * (depth1 + 1)
-                if not self.in_maze(pos) or self.maze[pos[1], pos[0]] < 0:
-                    no_wall = False
-                    break
-            if no_wall:
-                depth1 += 1
-        direction_ort2 = -direction_ort1
-        depth2 = 0
-        no_wall = True
-        while no_wall:
-            for x in range(room_width):
-                pos = start_new + direction * x + direction_ort2 * (depth2 + 1)
-                if not self.in_maze(pos) or self.maze[pos[1], pos[0]] < 0:
-                    no_wall = False
-                    break
-            if no_wall:
-                depth2 += 1
-        
-        # Set the depth of the room
-        max_depth = depth1 + 1 if depth1 > depth2 else depth2 + 1
-        direction_ort = direction_ort1 if depth1 > depth2 else direction_ort2
-        room_depth = random.choice([x * 2 for x in range(2, max_depth // 2 + 1) if x != (max_depth // 2 - 1)])
-        
-        # Create walls
-        for x in range(room_depth + 1):
-            self.maze[start_new[1] + direction_ort[1] * x, start_new[0] + direction_ort[0] * x] = -1
-            self.maze[end_new[1] + direction_ort[1] * x, end_new[0] + direction_ort[0] * x] = -1
-        for x in range(0, room_width + 1):
-            self.maze[start_new[1] + direction[1] * x + direction_ort[1] * room_depth,
-                      start_new[0] + direction[0] * x + direction_ort[0] * room_depth] = -1
-            self.maze[start_new[1] + direction[1] * x + direction_ort[1] * room_depth,
-                      start_new[0] + direction[0] * x + direction_ort[0] * room_depth] = -1
+        # Add the wall's remainders
+        tiles = set()
+        if horizontal:
+            # Check on double and triple corridors
+            if (pos_y != self.y_width - 3) and ((self.maze[pos_y + 2, pos_x] < 0) or
+                                                ((pos_y - 2 >= 0) and (self.maze[pos_y - 2, pos_x] < 0)) or
+                                                ((pos_y + 4 <= self.y_width) and (self.maze[pos_y + 4, pos_x] < 0))):
+                return {}
+            self.maze[pos_y + 2, pos_x] = -1
+            left = 1
+            while (self.maze[pos_y, pos_x - left] >= 0) or (self.maze[pos_y + 2, pos_x - left] >= 0):
+                # Add walls
+                self.maze[pos_y, pos_x - left] = -1
+                self.maze[pos_y + 2, pos_x - left] = -1
+                
+                # Add corridor tile
+                if (pos_x - left) % 2 == 1: tiles.add((pos_x - left, pos_y + 1))
+                left += 1
+            right = 1
+            while (self.maze[pos_y, pos_x + right] >= 0) or (self.maze[pos_y + 2, pos_x + right] >= 0):
+                # Add walls
+                self.maze[pos_y, pos_x + right] = -1
+                self.maze[pos_y + 2, pos_x + right] = -1
+                
+                # Add corridor tile
+                if (pos_x + right) % 2 == 1: tiles.add((pos_x + right, pos_y + 1))
+                right += 1
+        else:
+            # Check on double and triple corridors
+            if (pos_x != self.x_width - 3) and ((self.maze[pos_y, pos_x + 2] < 0) or
+                                                ((pos_x - 2 >= 0) and (self.maze[pos_y, pos_x - 2] < 0)) or
+                                                ((pos_x + 4 <= self.x_width) and (self.maze[pos_y, pos_x + 4] < 0))):
+                return {}
+            self.maze[pos_y, pos_x + 2] = -1
+            up = 1
+            while (self.maze[pos_y + up, pos_x] >= 0) or (self.maze[pos_y + up, pos_x + 2] >= 0):
+                # Add walls
+                self.maze[pos_y + up, pos_x] = -1
+                self.maze[pos_y + up, pos_x + 2] = -1
+                
+                # Add corridor tile
+                if (pos_y + up) % 2 == 1: tiles.add((pos_x + 1, pos_y + up))
+                up += 1
+            down = 1
+            while (self.maze[pos_y - down, pos_x] >= 0) or (self.maze[pos_y - down, pos_x + 2] >= 0):
+                # Add walls
+                self.maze[pos_y - down, pos_x] = -1
+                self.maze[pos_y - down, pos_x + 2] = -1
+                
+                # Add corridor tile
+                if (pos_y - down) % 2 == 1: tiles.add((pos_x + 1, pos_y - down))
+                down += 1
+        return tiles
     
-    def add_wall(self, lst: list, hor: bool = True):
-        """
-        Add a random straight wall starting on one of the given positions, such that it connects two walls.
+    def remove_corridor_doors(self):
+        """All the corridors are one."""
         
-        :param lst: List of positions which may be the starting position of the wall
-        :param hor: True: add a horizontal wall | False: add a vertical wall
-        """
-        # Find the best position
-        best, pos = 0, []
-        for p in lst:
-            v = self.get_nr_empty_neighbours(p)
-            if v > best:
-                pos = [p]
-                best = v
-            elif v == best:
-                pos.append(p)
+        def is_corridor(x, y):
+            """Check if current wall-position is a corridor"""
+            # Horizontal wall upper corridor
+            if (self.maze[y, x - 1] < 0) and (self.maze[y + 1, x - 1] < 0) and (self.maze[y, x + 1] < 0) and \
+                    self.maze[y + 1, x + 1] < 0:
+                return True
+            
+            # Horizontal wall lower corridor
+            elif (self.maze[y, x - 1] < 0) and (self.maze[y - 1, x - 1] < 0) and (self.maze[y, x + 1] < 0) and \
+                    self.maze[y - 1, x + 1] < 0:
+                return True
+            
+            # Vertical wall left corridor
+            elif (self.maze[y - 1, x] < 0) and (self.maze[y - 1, x - 1] < 0) and (self.maze[y + 1, x] < 0) and \
+                    self.maze[y + 1, x - 1] < 0:
+                return True
+            
+            # Vertical wall right corridor
+            elif (self.maze[y - 1, x] < 0) and (self.maze[y - 1, x + 1] < 0) and (self.maze[y + 1, x] < 0) and \
+                    self.maze[y + 1, x + 1] < 0:
+                return True
+            
+            # No door
+            else:
+                return False
         
-        # Choose random position from best positions
-        pos = random.choice(pos)
+        for pos_x in range(1, self.x_width - 1):
+            for pos_y in range(1, self.y_width - 1):
+                # Remove wall if it is a corridor
+                if (self.maze[pos_y, pos_x] < 0) and is_corridor(x=pos_x, y=pos_y): self.maze[pos_y, pos_x] = 0
+    
+    def add_wall(self, pos: (tuple, list), hor: bool = True):
+        """Add a wall on the given position with the requested direction."""
+        assert (len(pos) == 2)
+        assert ((pos[0] % 2 == 0) or (pos[1] % 2 == 0))
         
         # Add the wall
         self.maze[pos[1], pos[0]] = -1
         if hor:  # Horizontal
-            x = 1
-            while self.maze[pos[1], pos[0] + x] >= 0:
-                self.maze[pos[1], pos[0] + x] = -1
-                x += 1
-            x = 1
-            while self.maze[pos[1], pos[0] - x] >= 0:
-                self.maze[pos[1], pos[0] - x] = -1
-                x += 1
+            right = 1
+            while self.maze[pos[1], pos[0] + right] >= 0:
+                self.maze[pos[1], pos[0] + right] = -1
+                right += 1
+            left = 1
+            while self.maze[pos[1], pos[0] - left] >= 0:
+                self.maze[pos[1], pos[0] - left] = -1
+                left += 1
         else:  # Vertical
-            x = 1
-            while self.maze[pos[1] + x, pos[0]] >= 0:
-                self.maze[pos[1] + x, pos[0]] = -1
-                x += 1
-            x = 1
-            while self.maze[pos[1] - x, pos[0]] >= 0:
-                self.maze[pos[1] - x, pos[0]] = -1
-                x += 1
+            up = 1
+            while self.maze[pos[1] + up, pos[0]] >= 0:
+                self.maze[pos[1] + up, pos[0]] = -1
+                up += 1
+            down = 1
+            while self.maze[pos[1] - down, pos[0]] >= 0:
+                self.maze[pos[1] - down, pos[0]] = -1
+                down += 1
     
-    def create_door(self):
+    def create_door(self, pos, room_tiles):
         """
-        Create door-openings of at least three wide.
-    
-        :return: One of the door-positions
+        Creates a door between the given position and a neighbouring room. It should always be possible to add a door
+        to the given position, hence no checks are done.
         """
+        # neighbours contains items (door-pos, corridor-pos)
+        neighbours = [((pos[0] + 1, pos[1]), (pos[0] + 2, pos[1])),
+                      ((pos[0] - 1, pos[1]), (pos[0] - 2, pos[1])),
+                      ((pos[0], pos[1] + 1), (pos[0], pos[1] + 2)),
+                      ((pos[0], pos[1] - 1), (pos[0], pos[1] - 2))]
+        shuffle(neighbours)
         
-        # Get all the potential doors
-        potential_doors = self.get_potential_doors()
-        
-        # Filter out doors from the potential doors
-        door = random.choice(potential_doors)
-        self.maze[door[1], door[0]] = 0
-        self.fill_room(door)
-        
-        # Add extra doors based on the total potential_doors size
-        if random.random() > (10.0 / len(potential_doors)):
-            door = random.choice(potential_doors)
-            self.maze[door[1], door[0]] = 0
-            self.fill_room(door)
-        if random.random() > (20.0 / len(potential_doors)):
-            door = random.choice(potential_doors)
-            self.maze[door[1], door[0]] = 0
-            self.fill_room(door)
+        # Create door for first matching position
+        for door_pos, neighbouring_pos in neighbours:
+            if neighbouring_pos not in room_tiles:
+                # Creates door and stops the loop
+                self.maze[door_pos[1], door_pos[0]] = 0
+                return
     
     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
     
-    def fill_room(self, pos, reset: bool = False):
-        """
-        Fill a room (integer > 0) and count the number of tiles in it.
+    def fill_room(self, pos: (tuple, list), reset: bool = False):
+        """Fill a room (put values on 1) to check how many tiles are in it. Only uneven positions are used."""
+        assert (pos[0] % 2 == 1) and (pos[1] % 2 == 1)
         
-        :param pos: Starting position on which the room will be filled
-        :param reset: Set the filled tiles back to zero after the room has been filled
-        :return: Number of tiles in room
-        """
-        
-        def get_empty_neighbours(init_pos):
-            neighbours = []  # Only if value > 0
-            if init_pos[0] + 1 < self.x_width and self.maze[init_pos[1], init_pos[0] + 1] == 0:
-                neighbours.append((init_pos[0] + 1, init_pos[1]))
-            if init_pos[0] - 1 >= 0 and self.maze[init_pos[1], init_pos[0] - 1] == 0:
-                neighbours.append((init_pos[0] - 1, init_pos[1]))
-            if init_pos[1] + 1 < self.y_width and self.maze[init_pos[1] + 1, init_pos[0]] == 0:
-                neighbours.append((init_pos[0], init_pos[1] + 1))
-            if init_pos[1] - 1 >= 0 and self.maze[init_pos[1] - 1, init_pos[0]] == 0:
-                neighbours.append((init_pos[0], init_pos[1] - 1))
+        def get_unfilled_neighbours(p):
+            """Get the unfilled neighbours for the given position."""
+            neighbours = []
+            # Left
+            if (self.maze[p[1], p[0] - 1] >= 0) and (self.maze[p[1], p[0] - 2] < 1): neighbours.append((p[0] - 2, p[1]))
+            # Right
+            if (self.maze[p[1], p[0] + 1] >= 0) and (self.maze[p[1], p[0] + 2] < 1): neighbours.append((p[0] + 2, p[1]))
+            # Above
+            if (self.maze[p[1] + 1, p[0]] >= 0) and (self.maze[p[1] + 2, p[0]] < 1): neighbours.append((p[0], p[1] + 2))
+            # Below
+            if (self.maze[p[1] - 1, p[0]] >= 0) and (self.maze[p[1] - 2, p[0]] < 1): neighbours.append((p[0], p[1] - 2))
             return neighbours
         
-        # Initialize
-        self.maze[pos[1], pos[0]] = 1
-        filled_positions = [pos]
+        # Fill the room
+        new_pos = [pos]
+        filled = {pos}
+        while new_pos:
+            current_pos = new_pos.copy()
+            new_pos = []
+            for pos in current_pos:
+                self.maze[pos[1], pos[0]] = 1
+                new_pos += get_unfilled_neighbours(pos)
+            filled.update(set(new_pos))
         
-        # Fill the room until no tile changes
-        new_value = True
-        while new_value:
-            new_value = False
-            for p in filled_positions:
-                empty_n = get_empty_neighbours(p)
-                for n in empty_n:
-                    self.maze[n[1], n[0]] = 1
-                    filled_positions.append(n)
-                    new_value = True
-        
-        # Put filled tiles back to zero
+        # Set intermediate values back to zero if requested
         if reset:
-            self.reset_empty_tiles()
+            for x in range(1, self.x_width - 1, 2):
+                for y in range(1, self.y_width - 1, 2):
+                    self.maze[y, x] = 0
         
-        return filled_positions
-    
-    def get_empty_tile_room(self):
-        """
-        :return: Random empty tile
-        """
-        empty_tiles = []  # Only the odd ones are important (real final positions)
-        for x in range(1, self.x_width - 1, 2):
-            for y in range(1, self.y_width - 1, 2):
-                if self.maze[y, x] == 0:
-                    empty_tiles.append((x, y))
-        return random.choice(empty_tiles) if empty_tiles else None
-    
-    def get_potential_doors(self):
-        """
-        A potential door is a wall-tile with at one side a filled tile, and on the other side an empty tile.
-        
-        :return: Position tiles that are currently walls
-        """
-        occupied_tiles = []
-        for x in range(1, self.x_width - 1):
-            for y in range(1, self.y_width - 1):
-                if self.maze[y, x] == -1:
-                    # Vertical
-                    if (self.maze[y - 1, x] + self.maze[y + 1, x]) == 1:
-                        occupied_tiles.append((x, y))
-                    # Horizontal
-                    if (self.maze[y, x - 1] + self.maze[y, x + 1]) == 1:
-                        occupied_tiles.append((x, y))
-        
-        # Filter out all the wall-tiles
-        return [Vec2d(x, y) for (x, y) in occupied_tiles if (x % 2 == 1 or y % 2 == 1)]
+        return filled
     
     def get_wall_tiles(self):
         wall_positions = []
@@ -458,15 +546,6 @@ class Maze:
     def in_maze(self, pos, maze=None):
         if maze is not None: return 0 <= pos[0] < maze.shape[0] and 0 <= pos[1] < maze.shape[1]
         return 0 <= pos[0] < self.x_width and 0 <= pos[1] < self.y_width
-    
-    def reset_empty_tiles(self):
-        """
-        Put all the empty tiles back to zero.
-        """
-        for x in range(self.x_width):
-            for y in range(self.y_width):
-                if self.maze[y, x] > 0:
-                    self.maze[y, x] = 0
     
     def visualize(self, clip: bool = True):
         """Visualize the main maze representation."""
@@ -486,7 +565,7 @@ class Maze:
         plt.show()
         plt.close()
     
-    def visualize_extend(self, maze, clip: bool = True):
+    def visualize_extend(self, maze):
         """Visualize maze where 1 meter is represented by 10 tiles. No matrix-processing must be done."""
         c = maze.copy()
         plt.figure(figsize=(8, 8))
@@ -496,17 +575,6 @@ class Maze:
         plt.colorbar()
         plt.show()
         plt.close()
-    
-    def get_random_wall_position(self):
-        self.wall_tiles = self.get_wall_tiles()
-        return random.choice(self.wall_tiles)
-    
-    def get_nr_empty_neighbours(self, pos):
-        """
-        :return: Number of empty tiles in a surrounding 5x5 square
-        """
-        return len([(x, y) for x in range(pos[0] - 2, pos[0] + 3) for y in range(pos[1] - 2, pos[1] + 3) if
-                    (self.in_maze((x, y)) and self.maze[y, x] >= 0)])
 
 
 def combine_walls(wall_list: list):
@@ -560,8 +628,7 @@ def combine_walls(wall_list: list):
                 break
         
         # Current wall cannot be extended, go to next wall
-        if not concat:
-            i += 1
+        if not concat: i += 1
 
 
 def create_custom_game(cfg: GameConfig, overwrite=False):
@@ -600,15 +667,20 @@ def create_custom_game(cfg: GameConfig, overwrite=False):
     game.save()
 
 
-def create_game(cfg: GameConfig, game_id=0, path_list=None, wall_list=None, overwrite=False):
+def create_game(cfg: GameConfig,
+                game_id: int,
+                maze: Maze,
+                overwrite: bool = False,
+                visualize: bool = False,
+                ):
     """
     Create a game based on a list of walls.
     
     :param cfg: The game config
     :param game_id: ID of the game (Integer)
-    :param path_list: List of paths together with value [0..1] indicating how close the tile is to the target
-    :param wall_list: List of Line2d objects containing the begin and end coordinate of a wall, excluding boundary walls
+    :param maze: The maze on which the game is based
     :param overwrite: Overwrite pre-existing games
+    :param visualize: Visualize the calculations
     """
     # Create empty Game instance
     game = Game(config=cfg,
@@ -617,17 +689,18 @@ def create_game(cfg: GameConfig, game_id=0, path_list=None, wall_list=None, over
                 silent=True)
     
     # Add additional walls to the game
-    game.walls.update(set(wall_list))
+    game.walls.update(set(maze.get_wall_coordinates()))
     
     # App path to the game
+    path_list = maze.get_path_coordinates(target_pos=maze.target, visualize=visualize)
     game.path = {p[0]: p[1] for p in path_list}
     
-    # Put the target on a fixed position
-    game.target = Vec2d(0.5, cfg.y_axis - 0.5)
+    # Set the target on the predefined position
+    game.target = maze.target
     
     # Create random player
     game.player = FootBot(game=game,
-                          init_pos=Vec2d(cfg.x_axis - 0.5, 0.5),
+                          init_pos=Vec2d(cfg.x_axis - 0.5, 0.5),  # Fixed initial position
                           init_orient=np.pi / 2)
     
     # Save the final game
@@ -658,17 +731,16 @@ if __name__ == '__main__':
     if args.custom:
         create_custom_game(cfg=config, overwrite=args.overwrite)
     else:
-        for g_id in [-1]:#tqdm(range(1, nr_games + 1), desc="Generating Mazes"):
+        for g_id in tqdm(range(1, nr_games + 1), desc="Generating Mazes"):
             maze = None
             while not maze:
                 try:
                     maze = Maze(cfg=config, visualize=args.visualize)
-                except IndexError:
-                    maze = None  # Reset and try again
+                except MazeMalfunctionException:
+                    maze = None
             create_game(cfg=config,
                         game_id=g_id,
-                        path_list=maze.get_path_coordinates(visualize=args.visualize),
-                        wall_list=maze.get_wall_coordinates(),
+                        maze=maze,
                         overwrite=args.overwrite)
             
             # Quality check the created game
@@ -681,7 +753,6 @@ if __name__ == '__main__':
                 )
                 game.close()
                 game.reset()
-                game.get_blueprint()
                 game.get_observation()
                 game.step(0, 0)
             except Exception:

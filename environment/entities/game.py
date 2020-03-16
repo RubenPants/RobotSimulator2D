@@ -6,7 +6,7 @@ Game class which contains the player, target, and all the walls.
 import random
 
 import numpy as np
-import pylab as pl
+import pylab as plt
 from matplotlib import collections as mc
 
 from config import GameConfig
@@ -277,7 +277,7 @@ class Game:
         """
         :return: The blue-print map of the board (matplotlib Figure)
         """
-        if not ax: fig, ax = pl.subplots()
+        if not ax: fig, ax = plt.subplots()
         
         # Draw all the walls
         walls = []
@@ -286,11 +286,12 @@ class Game:
         ax.add_collection(lc)
         
         # Add target to map
-        pl.plot(0.5, self.y_axis - 0.5, 'go')
+        plt.plot(self.target.x, self.target.y, 'go')
+        # plt.plot(0.5, self.y_axis - 0.5, 'go')
         
         # Adjust the boundaries
-        pl.xlim(0, self.x_axis)
-        pl.ylim(0, self.y_axis)
+        plt.xlim(0, self.x_axis)
+        plt.ylim(0, self.y_axis)
         
         # Return the figure in its current state
         return ax

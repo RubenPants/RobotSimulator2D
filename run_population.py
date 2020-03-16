@@ -14,11 +14,12 @@ from utils.dictionary import *
 def main(fitness,
          gru,
          reproduce,
+         blueprint=False,
+         evaluate=False,
+         trace=False,
          train=False,
          train_iterations=0,
-         blueprint=False,
-         trace=False,
-         evaluate=False,
+         version=0,
          ):
     """
     Run a population's configuration.
@@ -26,11 +27,12 @@ def main(fitness,
     :param fitness: Fitness function used to evaluate the population
     :param gru: Enable GRU-mutations in the population
     :param reproduce: Have sexual reproduction
+    :param blueprint: Create a blueprint evaluation for the population for the first 5 games
+    :param evaluate: Evaluate the best genome of the population
+    :param trace: Create a trace evaluation for the population for the first 5 games
     :param train: Train the population
     :param train_iterations: Number of training generations
-    :param blueprint: Create a blueprint evaluation for the population for the first 5 games
-    :param trace: Create a trace evaluation for the population for the first 5 games
-    :param evaluate: Evaluate the best genome of the population
+    :param version: Version of the model
     """
     # Let inputs apply to configuration
     folder = D_NEAT_GRU if gru else D_NEAT
@@ -41,7 +43,7 @@ def main(fitness,
     
     # Create the population
     pop = Population(
-            version=1,
+            version=version,
             config=cfg,
             folder_name=folder,
     )
@@ -108,23 +110,25 @@ def main(fitness,
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
+    parser.add_argument('--fitness', type=str, default='')
+    parser.add_argument('--gru_enabled', type=int, default=0)
+    parser.add_argument('--reproduce', type=int, default=0)
+    parser.add_argument('--blueprint', type=int, default=0)
+    parser.add_argument('--evaluate', type=int, default=0)
+    parser.add_argument('--trace', type=int, default=0)
     parser.add_argument('--train', type=int, default=0)
     parser.add_argument('--iterations', type=int, default=0)
-    parser.add_argument('--reproduce', type=int, default=0)
-    parser.add_argument('--gru_enabled', type=int, default=0)
-    parser.add_argument('--fitness', type=str, default='')
-    parser.add_argument('--blueprint', type=int, default=0)
-    parser.add_argument('--trace', type=int, default=0)
-    parser.add_argument('--evaluate', type=int, default=0)
+    parser.add_argument('--version', type=int, default=0)
     args = parser.parse_args()
     
     main(
             fitness=args.fitness,
             gru=bool(args.gru_enabled),
             reproduce=bool(args.reproduce),
+            blueprint=bool(args.blueprint),
+            evaluate=bool(args.evaluate),
+            trace=bool(args.trace),
             train=bool(args.train),
             train_iterations=args.iterations,
-            blueprint=bool(args.blueprint),
-            trace=bool(args.trace),
-            evaluate=bool(args.evaluate),
+            version=args.version,
     )
