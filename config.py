@@ -28,8 +28,8 @@ class GameConfig:
         self.bot_turning_speed: float = 3.53
         
         # [CONTROL]
-        # Number of games on which a single genome is evaluated [def=10]  # TODO: Put in population?
-        self.batch: int = 16
+        # Number of games on which a single genome is evaluated [def=10]
+        self.batch: int = 10
         # Number of seconds it takes for one game to complete [def=100]
         self.duration: int = 100
         # Max ID of game (starting from 1) [def=1000]
@@ -177,7 +177,7 @@ class NeatConfig:
         self.weight_mutate_power: float = 0.1
         # Probability of a weight (connection) to mutate  [def=0.2]  TODO
         self.weight_mutate_rate: float = 0.2
-        # Probability of a GRU-weight to mutate  [def=0.1]
+        # Probability of a GRU-weight to mutate  [def=0.1]  TODO
         self.weight_mutate_rate_gru: float = 0.1
         # Probability of assigning completely new value, based on weight_init_mean and weight_init_stdev  [def=0.05]
         self.weight_replace_rate: float = 0.05
@@ -195,8 +195,8 @@ class NeatConfig:
         self.species_max: int = 10
         
         # [EVALUATION]
-        # Fitness functions [distance, novelty, path]  TODO
-        self.fitness: str = D_PATH
+        # Fitness functions [distance, diversity, novelty, path]  TODO
+        self.fitness: str = D_DIVERSITY
         # Function to combine the fitness-values across different games, choices are: min, avg, max, gmean  [def=gmean]
         self.fitness_comb: str = D_GMEAN
         # Number of nearest neighbors taken into account for a NN-utilizing fitness function  [def=3]

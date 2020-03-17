@@ -109,6 +109,7 @@ class TrainingEnv:
                         fitness_config=pop.fitness_config,
                         game_observations=return_dict,
                         game_params=multi_env.get_game_params(),
+                        generation=pop.generation,
                 )
                 for i, genome in genomes: genome.fitness = fitness[i]
             else:
@@ -118,6 +119,7 @@ class TrainingEnv:
                         fitness_config=pop.fitness_config,
                         game_observations=return_dict,
                         game_params=multi_env.get_game_params(),
+                        generation=pop.generation,
                 )
                 for i, genome in genomes: genome.fitness = fitness[i]
             
