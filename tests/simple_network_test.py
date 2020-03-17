@@ -42,7 +42,7 @@ def get_genome(inputs, hidden, outputs):
     )
     
     # Create the genome
-    g = DefaultGenome(key=0)
+    g = DefaultGenome(key=0, num_inputs=cfg.num_inputs, num_outputs=cfg.num_outputs)
     g.configure_new(config.genome_config)
     return g, config
 

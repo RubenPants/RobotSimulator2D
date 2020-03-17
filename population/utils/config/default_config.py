@@ -146,12 +146,20 @@ class Config(object):
         assert hasattr(species_type, 'parse_config')
         assert hasattr(stagnation_type, 'parse_config')
         
+        # Set all the relevant types
         self.genome_type = genome_type
         self.reproduction_type = reproduction_type
         self.species_type = species_type
         self.stagnation_type = stagnation_type
         self.config = config
         
+        # Placeholders
+        self.pop_size = None
+        self.fitness_criterion = None
+        self.fitness_threshold = None
+        self.no_fitness_termination = None
+        
+        # Load in the parameters
         param_list_names = []
         for p in self.__params:
             setattr(self, p.name, self.config.__dict__[p.name])

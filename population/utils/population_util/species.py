@@ -14,12 +14,12 @@ from population.utils.config.default_config import ConfigParameter, DefaultClass
 class Species(object):
     """Create a specie, which is a container for similar genomes."""
     
-    def __init__(self, key, generation):  # TODO: Update such that stagnation can be weighted!
+    def __init__(self, key, generation):
         self.key = key
         self.created = generation
         self.last_improved = generation
         self.representative = None
-        self.members = {}
+        self.members = dict()
         self.fitness = None
         self.adjusted_fitness = None
         self.fitness_history = []
@@ -59,8 +59,8 @@ class DefaultSpecies(DefaultClassConfig):
         self.species_config = config
         self.reporters = reporters
         self.indexer = count(1)
-        self.species = {}
-        self.genome_to_species = {}
+        self.species = dict()
+        self.genome_to_species = dict()
     
     @classmethod
     def parse_config(cls, param_dict):
@@ -84,8 +84,8 @@ class DefaultSpecies(DefaultClassConfig):
         # Find the best representatives for each existing species
         unspeciated = set(iterkeys(population))  # Initially the full population
         distances = GenomeDistanceCache(config.genome_config)  # Keeps current distances between genomes
-        new_representatives = {}  # Updated representatives for each specie (least difference with previous)
-        new_members = {}  # Members of the species
+        new_representatives = dict()  # Updated representatives for each specie (least difference with previous)
+        new_members = dict()  # Members of the species
         for specie_id, specie in iteritems(self.species):
             # Calculate the distances for each of the specie's members relative to the specie's previous representative
             specie_distance = []
@@ -136,7 +136,7 @@ class DefaultSpecies(DefaultClassConfig):
                 new_members[specie_id] = [gid]
         
         # Update species collection based on new speciation
-        self.genome_to_species = {}  # Dictionary mapping genome to specie identifiers
+        self.genome_to_species = dict()  # Dictionary mapping genome to specie identifiers
         for specie_id, representative_id in iteritems(new_representatives):
             specie = self.species.get(specie_id)
             
@@ -163,6 +163,7 @@ class DefaultSpecies(DefaultClassConfig):
                 logger=logger,
                 print_result=False,
         )
+        print(f'Maximum genetic distance: {max(itervalues(distances.distances))}')  # Print reduced version
     
     def get_species_id(self, individual_id):
         return self.genome_to_species[individual_id]

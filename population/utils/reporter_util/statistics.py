@@ -28,7 +28,7 @@ class StatisticsReporter(BaseReporter):
         self.most_fit_genomes.append(copy.deepcopy(best_genome))
         
         # Store the fitnesses of the members of each currently active species.
-        species_stats = {}
+        species_stats = dict()
         for sid, s in iteritems(species.species):
             species_stats[sid] = dict((k, v.fitness) for k, v in iteritems(s.members))
         self.generation_statistics.append(species_stats)
@@ -57,7 +57,7 @@ class StatisticsReporter(BaseReporter):
     
     def best_unique_genomes(self, n):
         """Returns the most n fit genomes, with no duplication."""
-        best_unique = {}
+        best_unique = dict()
         for g in self.most_fit_genomes:
             best_unique[g.key] = g
         best_unique_list = list(best_unique.values())

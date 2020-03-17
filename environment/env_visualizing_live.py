@@ -86,13 +86,15 @@ class LiveVisualizer:
         # Draw static objects - target
         target_body = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
         target_body.position = game.target * game.p2m
-        target_shape = pymunk.Circle(body=target_body, radius=game.bot_radius * game.p2m)
+        target_shape = pymunk.Circle(body=target_body,
+                                     radius=game.bot_radius * game.p2m)
         target_shape.sensor = True
         target_shape.color = (0, 128, 0)
         space.add(target_body, target_shape)
         
-        # Init player
-        m = pymunk.moment_for_circle(mass=1, inner_radius=0,
+        # Init player²
+        m = pymunk.moment_for_circle(mass=2,
+                                     inner_radius=0,
                                      outer_radius=game.bot_radius * game.p2m)
         player_body = pymunk.Body(mass=1, moment=m)
         player_body.position = game.player.pos * game.p2m

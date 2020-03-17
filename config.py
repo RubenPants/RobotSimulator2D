@@ -3,8 +3,6 @@ config.py
 
 Class containing all the used configurations.
 """
-import numpy as np
-
 from utils.dictionary import *
 
 
@@ -23,11 +21,11 @@ class GameConfig:
     def __init__(self):
         # [BOT]
         # Speed of bot when driving straight expressed in m/s [def=0.5]
-        self.bot_driving_speed: float = 0.5
-        # Radius of the bot expressed in meters [def=0.1]
-        self.bot_radius: float = 0.1
-        # Speed of bot when turning expressed in radians per second [def=13*np.pi/16]
-        self.bot_turning_speed: float = 13 * np.pi / 16
+        self.bot_driving_speed: float = 0.6
+        # Radius of the bot expressed in meters [def=0.085]
+        self.bot_radius: float = 0.085
+        # Speed of bot when turning expressed in radians per second [def=3.53~=0.6/0.17]
+        self.bot_turning_speed: float = 3.53
         
         # [CONTROL]
         # Number of games on which a single genome is evaluated [def=10]  # TODO: Put in population?
@@ -60,8 +58,8 @@ class GameConfig:
         self.noise_proximity: float = 0.005
         
         # [SENSOR]
-        # Distance a ray-sensor reaches, expressed in meters [def=1.5]
-        self.sensor_ray_distance: float = 1.5
+        # Distance a ray-sensor reaches, expressed in meters [def=0.5]
+        self.sensor_ray_distance: float = 0.5
         
         # [TARGET]
         # Target is reached when within this range, expressed in meters [def=0.5]
@@ -89,7 +87,7 @@ class NeatConfig:
                                 'gru_enabled', 'gru_mutate_rate', 'initial_connection', 'node_add_prob',
                                 'node_delete_prob', 'num_hidden', 'num_inputs', 'num_outputs', 'weight_init_mean',
                                 'weight_init_stdev', 'weight_max_value', 'weight_min_value', 'weight_mutate_power',
-                                'weight_mutate_rate', 'weight_replace_rate'],
+                                'weight_mutate_rate', 'weight_mutate_rate_gru', 'weight_replace_rate'],
         'DefaultSpecies':      ['compatibility_threshold', 'max_stagnation', 'species_elitism', 'species_fitness_func',
                                 'species_max'],
         'Evaluation':          ["fitness", "fitness_comb", "nn_k"],
@@ -104,13 +102,13 @@ class NeatConfig:
         # Don't consider fitness_criterion and fitness_threshold
         self.no_fitness_termination: bool = True
         # Number of individuals in each generation  [def=128]  TODO
-        self.pop_size: int = 128
+        self.pop_size: int = 10
         
         # [DefaultReproduction]
-        # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=2]
-        self.elitism: int = 2
-        # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.3]  TODO
-        self.parent_selection: float = 0.3
+        # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=3]
+        self.elitism: int = 3
+        # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.2]  TODO
+        self.parent_selection: float = 0.2
         # Minimum number of genomes per species, keeping low prevents number of individuals blowing up  [def=5]  TODO
         self.min_species_size: int = 5
         # Sexual reproduction  [def=True]
@@ -139,32 +137,32 @@ class NeatConfig:
         self.bias_min_value: float = -2.0
         # The standard deviation of the zero-centered gaussian from which a bias value mutation is drawn  [def=0.1]
         self.bias_mutate_power: float = 0.1
-        # The probability that mutation will change the bias of a node by adding a random value  [def=0.4]  TODO
-        self.bias_mutate_rate: float = 0.4
+        # The probability that mutation will change the bias of a node by adding a random value  [def=0.2]  TODO
+        self.bias_mutate_rate: float = 0.2
         # The probability that mutation will replace the bias of a node with a completely random value  [def=0.05]
         self.bias_replace_rate: float = 0.05
         # Full weight of disjoint and excess nodes on determining genomic distance  [def=1.0]  # TODO: Separate for GRU?
         self.compatibility_disjoint_coefficient: float = 1.0
         # Coefficient for each weight or bias difference contribution to the genomic distance  [def=0.5]
         self.compatibility_weight_coefficient: float = 0.5
-        # Probability of adding a connection between existing nodes during mutation (1 chance per iteration)  [def=0.4]  TODO
-        self.conn_add_prob: float = 0.4
-        # Probability of deleting an existing connection during mutation (1 chance per iteration)  [def=0.3]  TODO
-        self.conn_delete_prob: float = 0.3
+        # Probability of adding a connection between existing nodes during mutation (each generation)  [def=0.2]  TODO
+        self.conn_add_prob: float = 0.2
+        # Probability of deleting an existing connection during mutation (each generation)  [def=0.15]  TODO
+        self.conn_delete_prob: float = 0.15
         # Enable the algorithm to disable (and re-enable) existing connections  [def=True]
         self.enabled_default: bool = True
         # The probability that mutation will replace the 'enabled status' of a connection  [def=0.05]
         self.enabled_mutate_rate: float = 0.01
-        # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT_05]
-        self.initial_connection = D_PARTIAL_DIRECT_05
-        # Probability of adding a node during mutation (1 chance per iteration)  [def=0.2]  TODO
-        self.node_add_prob: float = 0.2
-        # Probability of removing a node during mutation (1 chance per iteration)  [def=0.15]  TODO
-        self.node_delete_prob: float = 0.15
+        # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT_05]  TODO
+        self.initial_connection = D_FULL_DIRECT
+        # Probability of adding a node during mutation (each generation)  [def=0.1]  TODO
+        self.node_add_prob: float = 0.1
+        # Probability of removing a node during mutation (each generation)  [def=0.075]  TODO
+        self.node_delete_prob: float = 0.075
         # Number of hidden nodes to add to each genome in the initial population  [def=0]  TODO
         self.num_hidden: int = 0
-        # Number of input nodes (the sensors): [5x proximity_sensor, 2x angular_sensor, 1x distance_sensor]  [def=8]
-        self.num_inputs: int = 10
+        # Number of input nodes (the sensors): [13x proximity_sensor, 2x angular_sensor, 1x distance_sensor]  [def=26]
+        self.num_inputs: int = 16
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
         self.num_outputs: int = 2
         # Mean of the gaussian distribution used to select the weight attribute values for new connections  [def=0]
@@ -177,8 +175,10 @@ class NeatConfig:
         self.weight_min_value: float = -2.0
         # The standard deviation of the zero-centered gaussian from which a weight value mutation is drawn  [def=0.1]
         self.weight_mutate_power: float = 0.1
-        # Probability of a weight (connection) to mutate  [def=0.4]  TODO
-        self.weight_mutate_rate: float = 0.4
+        # Probability of a weight (connection) to mutate  [def=0.2]  TODO
+        self.weight_mutate_rate: float = 0.2
+        # Probability of a GRU-weight to mutate  [def=0.1]
+        self.weight_mutate_rate_gru: float = 0.1
         # Probability of assigning completely new value, based on weight_init_mean and weight_init_stdev  [def=0.05]
         self.weight_replace_rate: float = 0.05
         
@@ -191,8 +191,8 @@ class NeatConfig:
         self.species_elitism: int = 2
         # The function used to compute the species fitness  [def=D_MAX]
         self.species_fitness_func: str = D_MAX
-        # Maximum number of species that can live along each other  [def=15]
-        self.species_max: int = 15
+        # Maximum number of species that can live along each other  [def=10]
+        self.species_max: int = 10
         
         # [EVALUATION]
         # Fitness functions [distance, distance_time, novelty, path, path_time]  TODO

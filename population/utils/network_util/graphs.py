@@ -77,33 +77,3 @@ def required_for_output(inputs, outputs, connections):
     
     # Return the set of used nodes, as well as all the remaining (used) connections
     return used_nodes, used_conn
-
-
-def feed_forward_layers(inputs, outputs, connections):
-    """
-    Collect the layers whose members can be evaluated in parallel in a feed-forward network.
-    
-    :note: The returned layers do not contain nodes whose output is ultimately never used to compute the final network
-           output.
-    
-    :param inputs: list of the network input nodes
-    :param outputs: list of the output node identifiers
-    :param connections: list of (input, output) connections in the network.
-    :return: List of layers, with each layer consisting of a set of node identifiers.
-    """
-    required = required_for_output(inputs, outputs, connections)
-    
-    layers = []
-    s = set(inputs)
-    while 1:
-        # Find candidate nodes c for the next layer, these nodes should connect a node in s to a node not in s
-        c = set(b for (a, b) in connections if a in s and b not in s)
-        # Keep only the used nodes whose entire input set is contained in s
-        t = set()
-        for n in c:
-            if n in required and all(a in s for (a, b) in connections if b == n): t.add(n)
-        if not t: break
-        
-        layers.append(t)
-        s = s.union(t)
-    return layers

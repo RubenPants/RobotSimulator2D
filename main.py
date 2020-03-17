@@ -11,7 +11,7 @@ from population.population import Population
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('--train', type=bool, default=True)
-    parser.add_argument('--iterations', type=int, default=50)
+    parser.add_argument('--iterations', type=int, default=1)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--trace', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
@@ -20,7 +20,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     pop = Population(
-            name="test",
+            name='test',
             # version=1,
             folder_name='test',
     )
@@ -79,10 +79,10 @@ if __name__ == '__main__':
             )
         
         if args.genome:
-            pop.log("\n===> VISUALIZING GENOME <===\n")
+            print("\n===> VISUALIZING GENOME <===\n")
             # genome = list(pop.population.values())[2]
             genome = pop.best_genome
-            pop.log(f"Genome size: {genome.size()}")
+            print(f"Genome size: {genome.size()}")
             pop.visualize_genome(
                     debug=True,
                     genome=genome,
@@ -101,7 +101,7 @@ if __name__ == '__main__':
             
             visualizer.visualize(
                     network=net,
-                    game_id=1,
+                    game_id=0,
             )
     except Exception as e:
         pop.log(traceback.format_exc(), print_result=False)

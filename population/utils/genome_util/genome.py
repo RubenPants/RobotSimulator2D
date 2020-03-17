@@ -49,13 +49,15 @@ class DefaultGenome(object):
     def write_config(cls, f, config: DefaultGenomeConfig):
         config.save(f)
     
-    def __init__(self, key):
+    def __init__(self, key, num_inputs, num_outputs):
         # Unique identifier for a genome instance.
         self.key = key
         
         # (gene_key, gene) pairs for gene sets.
-        self.connections = {}
-        self.nodes = {}
+        self.connections = dict()
+        self.nodes = dict()
+        self.num_inputs = num_inputs
+        self.num_outputs = num_outputs
         
         # Fitness results.
         self.fitness = None
@@ -304,9 +306,7 @@ class DefaultGenome(object):
                     node_distance += n1.distance(n2, config)  # Homologous genes compute their own distance value.
             
             max_nodes = max(len(self.nodes), len(other.nodes))
-            node_distance = (node_distance +
-                             (config.compatibility_disjoint_coefficient *
-                              disjoint_nodes)) / max_nodes
+            node_distance = (node_distance + (config.compatibility_disjoint_coefficient * disjoint_nodes)) / max_nodes
         
         # Compute connection gene differences.
         connection_distance = 0.0
@@ -325,9 +325,8 @@ class DefaultGenome(object):
                     connection_distance += c1.distance(c2, config)
             
             max_conn = max(len(self.connections), len(other.connections))
-            connection_distance = (connection_distance +
-                                   (config.compatibility_disjoint_coefficient *
-                                    disjoint_connections)) / max_conn
+            connection_distance = (connection_distance + (
+                        config.compatibility_disjoint_coefficient * disjoint_connections)) / max_conn
         
         distance = node_distance + connection_distance
         return distance
@@ -335,12 +334,11 @@ class DefaultGenome(object):
     def size(self):
         """Returns genome 'complexity', taken to be (number of hidden nodes, number of enabled connections)"""
         used_nodes, used_conn = required_for_output(
-                inputs=[-1, -2, -3, -4, -5, -6, -7, -8],
-                outputs=[0, 1],
+                inputs=[-i for i in range(1, self.num_inputs + 1)],
+                outputs=[i for i in range(self.num_outputs)],
                 connections=self.connections,
         )
-        # 10 = len(inputs)+len(outputs)
-        return len(used_nodes) - 10, len(used_conn)
+        return len(used_nodes) - (self.num_inputs + self.num_outputs), len(used_conn)
     
     def __str__(self):
         s = f"Key: {self.key}\nFitness: {self.fitness}\nNodes:"

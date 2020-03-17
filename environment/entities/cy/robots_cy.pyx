@@ -10,7 +10,7 @@ cimport numpy as np
 from sensors_cy cimport AngularSensorCy, DistanceSensorCy, ProximitySensorCy
 from utils.cy.vec2d_cy cimport angle_to_vec, Vec2dCy
 
-cdef class FootBotCy:
+cdef class MarXBotCy:
     """The FootBot is the main bot used in this project. It is a simple circular robot with two wheels on its sides."""
     
     __slots__ = (
@@ -151,19 +151,19 @@ cdef class FootBotCy:
     
     cpdef void create_proximity_sensors(self):
         """
-        24 equally spaced proximity sensors, which measure the distance between the agent and an object, if this object
-        is within 1.5 meters of distance.
-        
-        Sensors are added from the left-side of the drone to the right
+        13 proximity sensors, which measure the distance between the agent and an object, if this object is within 0.5
+         meters of distance. The proximity sensors are not evenly spaced, since the fact that the robot has a front will
+         be exploited. Sensors are added from the left-side of the drone to the right.
         """
-        self.add_proximity_sensor(angle=np.pi / 2)  # -90°
-        self.add_proximity_sensor(angle=np.pi / 3)  # -60°
-        self.add_proximity_sensor(angle=np.pi / 6)  # -30°
+        cdef int i
+        self.add_proximity_sensor(angle=3 * np.pi / 4)  # -135°
+        for i in range(5):  # -90° until -10° with hops of 20° (total of 5 sensors)
+            self.add_proximity_sensor(angle=np.pi / 2 - i * np.pi / 9)
         self.add_proximity_sensor(angle=0)  # 0°
-        self.add_proximity_sensor(angle=-np.pi / 6)  # 30°
-        self.add_proximity_sensor(angle=-np.pi / 3)  # 60°
-        self.add_proximity_sensor(angle=-np.pi / 2)  # 90°
+        for i in range(5):  # 10° until 90° with hops of 20° (total of 5 sensors)
+            self.add_proximity_sensor(angle=-np.pi / 18 - i * np.pi / 9)
+        self.add_proximity_sensor(angle=-3 * np.pi / 4)  # 135°
 
     cpdef list get_proximity_sensors(self):
         """Get a list of all proximity sensors."""
-        return [self.sensors[i] for i in range(7)]
+        return [self.sensors[i] for i in range(13)]

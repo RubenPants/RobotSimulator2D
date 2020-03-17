@@ -1070,10 +1070,10 @@ struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_SensorCy;
 struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_AngularSensorCy;
 struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_DistanceSensorCy;
 struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_ProximitySensorCy;
-struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy;
+struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy;
 struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy;
 struct __pyx_obj_11environment_2cy_12env_multi_cy_MultiEnvironmentCy;
-struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9FootBotCy_add_angular_sensors;
+struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9MarXBotCy_add_angular_sensors;
 
 /* "environment/entities/cy/robots_cy.pxd":29
  *     # -----------------------------------------------> SENSOR METHODS <----------------------------------------------- #
@@ -1082,7 +1082,7 @@ struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9FootBotCy_add_angu
  * 
  *     cpdef void add_distance_sensor(self)
  */
-struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9FootBotCy_add_angular_sensors {
+struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9MarXBotCy_add_angular_sensors {
   int __pyx_n;
   int clockwise;
 };
@@ -1240,13 +1240,13 @@ struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_ProximitySensorCy {
 /* "environment/entities/cy/robots_cy.pxd":10
  * from utils.cy.vec2d_cy cimport Vec2dCy
  * 
- * cdef class FootBotCy:             # <<<<<<<<<<<<<<
+ * cdef class MarXBotCy:             # <<<<<<<<<<<<<<
  *     """
  *     The FootBot is the main bot used in this project. It is a simple circular robot with two wheels on its sides.
  */
-struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy {
+struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy {
   PyObject_HEAD
-  struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy *__pyx_vtab;
+  struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_MarXBotCy *__pyx_vtab;
   struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *game;
   struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *pos;
   struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *prev_pos;
@@ -1276,7 +1276,7 @@ struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy {
   int steps_taken;
   PyObject *path;
   PyObject *walls;
-  struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *player;
+  struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *player;
   struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *target;
   float bot_driving_speed;
   float bot_radius;
@@ -1398,23 +1398,23 @@ static struct __pyx_vtabstruct_11environment_8entities_2cy_10sensors_cy_Proximit
 /* "environment/entities/cy/robots_cy.pxd":10
  * from utils.cy.vec2d_cy cimport Vec2dCy
  * 
- * cdef class FootBotCy:             # <<<<<<<<<<<<<<
+ * cdef class MarXBotCy:             # <<<<<<<<<<<<<<
  *     """
  *     The FootBot is the main bot used in this project. It is a simple circular robot with two wheels on its sides.
  */
 
-struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy {
-  void (*drive)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, float, float, float, int __pyx_skip_dispatch);
-  PyObject *(*get_sensor_readings)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
-  float (*get_sensor_readings_distance)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
-  void (*add_angular_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch, struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9FootBotCy_add_angular_sensors *__pyx_optional_args);
-  void (*add_distance_sensor)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
-  void (*add_proximity_sensor)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, float, int __pyx_skip_dispatch);
-  void (*create_angular_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
-  void (*create_proximity_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
-  PyObject *(*get_proximity_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
+struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_MarXBotCy {
+  void (*drive)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *, float, float, float, int __pyx_skip_dispatch);
+  PyObject *(*get_sensor_readings)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *, int __pyx_skip_dispatch);
+  float (*get_sensor_readings_distance)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *, int __pyx_skip_dispatch);
+  void (*add_angular_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *, int __pyx_skip_dispatch, struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9MarXBotCy_add_angular_sensors *__pyx_optional_args);
+  void (*add_distance_sensor)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *, int __pyx_skip_dispatch);
+  void (*add_proximity_sensor)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *, float, int __pyx_skip_dispatch);
+  void (*create_angular_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *, int __pyx_skip_dispatch);
+  void (*create_proximity_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *, int __pyx_skip_dispatch);
+  PyObject *(*get_proximity_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *, int __pyx_skip_dispatch);
 };
-static struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy *__pyx_vtabptr_11environment_8entities_2cy_9robots_cy_FootBotCy;
+static struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_MarXBotCy *__pyx_vtabptr_11environment_8entities_2cy_9robots_cy_MarXBotCy;
 
 
 /* "environment/entities/cy/game_cy.pxd":9
@@ -2072,7 +2072,7 @@ static PyTypeObject *__pyx_ptype_11environment_8entities_2cy_10sensors_cy_Distan
 static PyTypeObject *__pyx_ptype_11environment_8entities_2cy_10sensors_cy_ProximitySensorCy = 0;
 
 /* Module declarations from 'environment.entities.cy.robots_cy' */
-static PyTypeObject *__pyx_ptype_11environment_8entities_2cy_9robots_cy_FootBotCy = 0;
+static PyTypeObject *__pyx_ptype_11environment_8entities_2cy_9robots_cy_MarXBotCy = 0;
 
 /* Module declarations from 'environment.entities.cy.game_cy' */
 static PyTypeObject *__pyx_ptype_11environment_8entities_2cy_7game_cy_GameCy = 0;
@@ -9270,9 +9270,9 @@ static int __Pyx_modinit_type_import_code(void) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = PyImport_ImportModule("environment.entities.cy.robots_cy"); if (unlikely(!__pyx_t_1)) __PYX_ERR(6, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_ptype_11environment_8entities_2cy_9robots_cy_FootBotCy = __Pyx_ImportType(__pyx_t_1, "environment.entities.cy.robots_cy", "FootBotCy", sizeof(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_11environment_8entities_2cy_9robots_cy_FootBotCy) __PYX_ERR(6, 10, __pyx_L1_error)
-  __pyx_vtabptr_11environment_8entities_2cy_9robots_cy_FootBotCy = (struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy*)__Pyx_GetVtable(__pyx_ptype_11environment_8entities_2cy_9robots_cy_FootBotCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_8entities_2cy_9robots_cy_FootBotCy)) __PYX_ERR(6, 10, __pyx_L1_error)
+  __pyx_ptype_11environment_8entities_2cy_9robots_cy_MarXBotCy = __Pyx_ImportType(__pyx_t_1, "environment.entities.cy.robots_cy", "MarXBotCy", sizeof(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_11environment_8entities_2cy_9robots_cy_MarXBotCy) __PYX_ERR(6, 10, __pyx_L1_error)
+  __pyx_vtabptr_11environment_8entities_2cy_9robots_cy_MarXBotCy = (struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_MarXBotCy*)__Pyx_GetVtable(__pyx_ptype_11environment_8entities_2cy_9robots_cy_MarXBotCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_8entities_2cy_9robots_cy_MarXBotCy)) __PYX_ERR(6, 10, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = PyImport_ImportModule("environment.entities.cy.game_cy"); if (unlikely(!__pyx_t_1)) __PYX_ERR(7, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);

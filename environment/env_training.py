@@ -155,6 +155,6 @@ class TrainingEnv:
         """
         s = sample(self.games, self.batch_size)
         msg = f"Sample chosen: {s}"
-        logger(msg) if logger else print(msg)
+        logger(msg, print_result=False) if logger else print(msg)
         multi_env.set_games(s)
         return s

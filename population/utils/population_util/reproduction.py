@@ -12,8 +12,11 @@ from itertools import count
 from neat.math_util import mean
 from neat.six_util import iteritems, itervalues
 
-from population.utils.config.default_config import ConfigParameter, DefaultClassConfig
+from population.utils.config.default_config import Config, ConfigParameter, DefaultClassConfig
 from population.utils.genome_util.genome import DefaultGenome
+from population.utils.population_util.species import DefaultSpecies
+from population.utils.population_util.stagnation import DefaultStagnation
+from population.utils.reporter_util.reporting import ReporterSet
 
 
 class DefaultReproduction(DefaultClassConfig):
@@ -31,19 +34,22 @@ class DefaultReproduction(DefaultClassConfig):
                                    ConfigParameter('sexual_reproduction', bool, True),
                                    ])
     
-    def __init__(self, config, reporters, stagnation):
+    def __init__(self, config, reporters: ReporterSet, stagnation: DefaultStagnation, cfg: Config):
         self.reproduction_config = config
         self.reporters = reporters
         self.genome_indexer = count(1)
         self.stagnation = stagnation
-        self.ancestors = {}
+        self.ancestors = dict()
+        self.previous_elites = set()
+        self.num_inputs = cfg.config.num_inputs
+        self.num_outputs = cfg.config.num_outputs
     
     def create_new(self, genome_type, genome_config, num_genomes, logger=None):
         """Create a new (random initialized) genome."""
-        new_genomes = {}
+        new_genomes = dict()
         for i in range(num_genomes):
             key = next(self.genome_indexer)
-            g = genome_type(key)
+            g = genome_type(key, num_inputs=self.num_inputs, num_outputs=self.num_outputs)
             g.configure_new(genome_config, logger=logger)
             new_genomes[key] = g
             self.ancestors[key] = tuple()
@@ -73,7 +79,7 @@ class DefaultReproduction(DefaultClassConfig):
         spawn_amounts = [max(min_species_size, int(round(n * norm))) for n in spawn_amounts]
         return spawn_amounts
     
-    def reproduce(self, config, species, pop_size, generation, logger=None):
+    def reproduce(self, config: Config, species: DefaultSpecies, pop_size: int, generation: int, logger=None):
         """Handles creation of genomes, either from scratch or by sexual or asexual reproduction from parents."""
         # Check which species to keep and which to remove
         remaining_fitness = []
@@ -90,8 +96,8 @@ class DefaultReproduction(DefaultClassConfig):
         
         # If no species is left, force hard-reset
         if not remaining_species:
-            species.species = {}
-            return {}
+            species.species = dict()
+            return dict()
         
         # Find minimum/maximum fitness across the entire population, for use in species adjusted fitness computation
         min_fitness = min(remaining_fitness)
@@ -115,8 +121,8 @@ class DefaultReproduction(DefaultClassConfig):
         spawn_amounts = self.compute_spawn(adjusted_fitness, previous_sizes, pop_size, min_species_size)
         
         # Setup the next generation by filling in the new species with their elite, parents, and offspring
-        new_population = {}
-        species.species = {}
+        new_population = dict()
+        species.species = dict()
         for spawn_amount, specie in zip(spawn_amounts, remaining_species):
             # If elitism is enabled, each species will always at least gets to retain its elites
             spawn_amount = max(spawn_amount, self.reproduction_config.elitism)
@@ -126,7 +132,7 @@ class DefaultReproduction(DefaultClassConfig):
             
             # Get all the specie's old (evaluated) members
             old_members = list(iteritems(specie.members))
-            specie.members = {}
+            specie.members = dict()
             species.species[specie.key] = specie
             
             # Sort members in order of descending fitness (i.e. most fit members in front)
@@ -134,9 +140,21 @@ class DefaultReproduction(DefaultClassConfig):
             
             # Make sure that all a specie's elites are in the specie itself
             if self.reproduction_config.elitism > 0:
+                # Add the current generation's elites to the population
+                new_elites = set()
                 for i, m in old_members[:self.reproduction_config.elitism]:
                     new_population[i] = m
+                    new_elites.add((i, m))
                     spawn_amount -= 1
+                
+                # Add the previous generation's elites to the population (if not yet added and enough space)
+                for i, m in self.previous_elites:
+                    if i not in new_population and spawn_amount > 0:
+                        new_population[i] = m
+                        spawn_amount -= 1
+                
+                # Set current elite as previous_elites
+                self.previous_elites = new_elites.copy()
             
             # If species is already completely full with its elite (not recommended), then go to next specie
             if spawn_amount <= 0: continue
@@ -156,7 +174,9 @@ class DefaultReproduction(DefaultClassConfig):
                 
                 # Init genome dummy (values are overwritten later)
                 gid = next(self.genome_indexer)
-                child: DefaultGenome = config.genome_type(gid)
+                child: DefaultGenome = config.genome_type(gid,
+                                                          num_inputs=config.config.num_inputs,
+                                                          num_outputs=config.config.num_outputs)
                 
                 # Choose the parents, note that if the parents are not distinct, crossover will produce a genetically
                 #  identical clone of the parent (but with a different ID)

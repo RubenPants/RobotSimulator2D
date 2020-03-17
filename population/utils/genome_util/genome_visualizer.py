@@ -26,13 +26,19 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
     """
     # Assign names to sensors (hard-coded since immutable)
     node_names = dict()
-    node_names[-10] = 'proximity -90°'
-    node_names[-9] = 'proximity -60°'
-    node_names[-8] = 'proximity -30°'
-    node_names[-7] = 'proximity 0°'
-    node_names[-6] = 'proximity 30°'
-    node_names[-5] = 'proximity 60°'
-    node_names[-4] = 'proximity 90°'
+    node_names[-16] = 'proximity -135°'
+    node_names[-15] = 'proximity -90°'
+    node_names[-14] = 'proximity -70°'
+    node_names[-13] = 'proximity -50°'
+    node_names[-12] = 'proximity -30°'
+    node_names[-11] = 'proximity -10°'
+    node_names[-10] = 'proximity 0°'
+    node_names[-9] = 'proximity 10°'
+    node_names[-8] = 'proximity 30°'
+    node_names[-7] = 'proximity 50°'
+    node_names[-6] = 'proximity 70°'
+    node_names[-5] = 'proximity 90°'
+    node_names[-4] = 'proximity 135°'
     node_names[-3] = 'angular left'
     node_names[-2] = 'angular right'
     node_names[-1] = 'distance'
@@ -61,7 +67,7 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
                 style='filled',
                 shape='box',
                 fillcolor=node_colors.get(key, 'lightgray'),
-                pos=f"{index * 3},0!"
+                pos=f"0,{index * 3}!"
         )
     
     # Visualize output nodes
@@ -79,7 +85,7 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
                 style='filled',
                 shape='box',
                 fillcolor=node_colors.get(key, '#bdc5ff'),
-                pos=f"{10 + index * 10},{-10 - (len(used_nodes) - 12) * (10 if debug else 5)}!",
+                pos=f"{150 + (len(used_nodes) - len(node_names)) * (30 if debug else 10)},{20 + index * 30}!",
         )
     
     # Visualize hidden nodes
