@@ -1,0 +1,2866 @@
+Population 'distance_2' saved! Current generation: 0
+
+===> RUNNING FOR THE FOLLOWING CONFIGURATION: <===
+	> fitness: distance
+	> gru_enabled: True
+	> sexual_reproduction: False
+	> Saving under folder: NEAT-GRU
+	> Train: True (100 iterations)
+	> Create blueprints: True
+	> Create traces: True
+
+
+===> TRAINING <===
+
+Sample chosen: [118, 908, 310, 245, 774, 449, 590, 880, 399, 298, 24, 707, 970, 14, 410, 788]
+
+********** Running generation 0 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.21120
+	-       mean fitness: 0.09661
+	-      worst fitness: 0.05182
+	- standard deviation: 0.04282
+Best genome overview:
+	- fitness: 0.21120
+	- size (hid, conn): (0, 8)
+	- genome id: 10
+	- belongs to specie: 1
+Genetic distance:
+	- Maximum: 2.807
+	- Mean: 1.936
+	- Minimum: 0.098
+	- Standard deviation: 0.388
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1      0      91      0.211      0.323      0   
+	  2      0      37      0.170      0.207      0   
+
+Generation time: 56.407 sec
+Population 'distance_2' saved! Current generation: 1
+Sample chosen: [277, 551, 518, 718, 1, 114, 899, 856, 111, 575, 752, 742, 105, 194, 436, 69]
+
+********** Running generation 1 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.19045
+	-       mean fitness: 0.11464
+	-      worst fitness: 0.04809
+	- standard deviation: 0.04004
+Best genome overview:
+	- fitness: 0.19045
+	- size (hid, conn): (0, 7)
+	- genome id: 135
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.747
+	- Mean: 1.865
+	- Minimum: 0.039
+	- Standard deviation: 0.447
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1      1      68      0.189      0.472      1   
+	  2      1      60      0.190      0.457      0   
+
+Generation time: 61.757 sec  (59.082 average)
+Population 'distance_2' saved! Current generation: 2
+Sample chosen: [975, 212, 138, 911, 826, 480, 564, 851, 285, 149, 865, 51, 104, 257, 434, 571]
+
+********** Running generation 2 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.18554
+	-       mean fitness: 0.10793
+	-      worst fitness: 0.03499
+	- standard deviation: 0.03054
+Best genome overview:
+	- fitness: 0.18554
+	- size (hid, conn): (0, 8)
+	- genome id: 336
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.572
+	- Mean: 1.662
+	- Minimum: 0.011
+	- Standard deviation: 0.549
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1      2      34      0.145      0.509      2   
+	  2      2      94      0.186      0.457      1   
+
+Generation time: 62.904 sec  (60.356 average)
+Population 'distance_2' saved! Current generation: 3
+Sample chosen: [670, 96, 697, 643, 677, 445, 525, 720, 858, 948, 903, 777, 851, 601, 533, 514]
+
+********** Running generation 3 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.31585
+	-       mean fitness: 0.18273
+	-      worst fitness: 0.05403
+	- standard deviation: 0.05418
+Best genome overview:
+	- fitness: 0.31585
+	- size (hid, conn): (0, 9)
+	- genome id: 488
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.362
+	- Mean: 1.297
+	- Minimum: 0.011
+	- Standard deviation: 0.633
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1      3      23      0.238      0.433      0   
+	  2      3     105      0.316      0.513      0   
+
+Generation time: 64.822 sec  (61.472 average)
+Population 'distance_2' saved! Current generation: 4
+Sample chosen: [335, 414, 556, 733, 840, 191, 833, 106, 997, 60, 829, 734, 38, 111, 42, 233]
+
+********** Running generation 4 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.31301
+	-       mean fitness: 0.20786
+	-      worst fitness: 0.04913
+	- standard deviation: 0.06396
+Best genome overview:
+	- fitness: 0.31301
+	- size (hid, conn): (0, 6)
+	- genome id: 525
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.105
+	- Mean: 1.052
+	- Minimum: 0.003
+	- Standard deviation: 0.653
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1      4      39      0.286      0.477      0   
+	  2      4      89      0.313      0.629      1   
+
+Generation time: 64.121 sec  (62.002 average)
+Population 'distance_2' saved! Current generation: 5
+Sample chosen: [369, 123, 852, 442, 914, 490, 725, 509, 129, 121, 588, 451, 578, 878, 783, 544]
+
+********** Running generation 5 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.30668
+	-       mean fitness: 0.22612
+	-      worst fitness: 0.05641
+	- standard deviation: 0.06404
+Best genome overview:
+	- fitness: 0.30668
+	- size (hid, conn): (0, 6)
+	- genome id: 522
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 1.959
+	- Mean: 1.057
+	- Minimum: 0.000
+	- Standard deviation: 0.625
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1      5      50      0.257      0.519      1   
+	  2      5      78      0.307      0.748      2   
+
+Generation time: 63.718 sec  (62.288 average)
+Population 'distance_2' saved! Current generation: 6
+Sample chosen: [395, 187, 790, 262, 383, 368, 392, 269, 738, 255, 444, 378, 589, 309, 806, 968]
+
+********** Running generation 6 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.30218
+	-       mean fitness: 0.18844
+	-      worst fitness: 0.04135
+	- standard deviation: 0.05898
+Best genome overview:
+	- fitness: 0.30218
+	- size (hid, conn): (1, 7)
+	- genome id: 833
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.072
+	- Mean: 1.146
+	- Minimum: 0.010
+	- Standard deviation: 0.601
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1      6      53      0.227      0.436      2   
+	  2      6      75      0.302      0.646      3   
+
+Generation time: 65.335 sec  (62.723 average)
+Population 'distance_2' saved! Current generation: 7
+Sample chosen: [46, 23, 98, 488, 534, 402, 110, 295, 362, 891, 165, 784, 789, 332, 85, 524]
+
+********** Running generation 7 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.30743
+	-       mean fitness: 0.19786
+	-      worst fitness: 0.06016
+	- standard deviation: 0.05426
+Best genome overview:
+	- fitness: 0.30743
+	- size (hid, conn): (0, 6)
+	- genome id: 978
+	- belongs to specie: 1
+Genetic distance:
+	- Maximum: 2.133
+	- Mean: 1.273
+	- Minimum: 0.014
+	- Standard deviation: 0.533
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1      7      52      0.307      0.545      0   
+	  2      7      76      0.289      0.565      4   
+
+Generation time: 62.838 sec  (62.738 average)
+Population 'distance_2' saved! Current generation: 8
+Sample chosen: [231, 258, 162, 817, 259, 260, 847, 756, 903, 375, 454, 369, 156, 607, 474, 50]
+
+********** Running generation 8 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.26331
+	-       mean fitness: 0.15624
+	-      worst fitness: 0.03481
+	- standard deviation: 0.04265
+Best genome overview:
+	- fitness: 0.26331
+	- size (hid, conn): (1, 7)
+	- genome id: 943
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.160
+	- Mean: 1.488
+	- Minimum: 0.040
+	- Standard deviation: 0.446
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1      8      40      0.204      0.496      1   
+	  2      8      88      0.263      0.556      5   
+
+Generation time: 62.570 sec  (62.719 average)
+Population 'distance_2' saved! Current generation: 9
+Sample chosen: [683, 523, 995, 715, 782, 166, 558, 692, 796, 4, 47, 907, 825, 763, 729, 314]
+
+********** Running generation 9 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.37865
+	-       mean fitness: 0.22011
+	-      worst fitness: 0.04791
+	- standard deviation: 0.07495
+Best genome overview:
+	- fitness: 0.37865
+	- size (hid, conn): (1, 6)
+	- genome id: 1180
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.450
+	- Mean: 1.485
+	- Minimum: 0.175
+	- Standard deviation: 0.458
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1      9      69      0.267      0.402      2   
+	  2      9      59      0.379      0.575      0   
+
+Generation time: 61.690 sec  (62.616 average)
+Population 'distance_2' saved! Current generation: 10
+Sample chosen: [655, 683, 144, 13, 507, 843, 579, 526, 369, 575, 818, 256, 19, 677, 455, 870]
+
+********** Running generation 10 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.36357
+	-       mean fitness: 0.22985
+	-      worst fitness: 0.04250
+	- standard deviation: 0.08785
+Best genome overview:
+	- fitness: 0.36357
+	- size (hid, conn): (2, 9)
+	- genome id: 1342
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.296
+	- Mean: 1.384
+	- Minimum: 0.115
+	- Standard deviation: 0.532
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1     10      61      0.300      0.520      3   
+	  2     10      67      0.364      0.658      1   
+
+Generation time: 61.348 sec  (63.110 average)
+Population 'distance_2' saved! Current generation: 11
+Sample chosen: [368, 184, 941, 390, 979, 652, 579, 997, 995, 740, 236, 510, 42, 365, 15, 479]
+
+********** Running generation 11 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.21017
+	-       mean fitness: 0.13119
+	-      worst fitness: 0.02862
+	- standard deviation: 0.04054
+Best genome overview:
+	- fitness: 0.21017
+	- size (hid, conn): (1, 7)
+	- genome id: 1449
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.189
+	- Mean: 1.418
+	- Minimum: 0.033
+	- Standard deviation: 0.510
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1     11      57      0.172      0.523      4   
+	  2     11      71      0.210      0.603      2   
+
+Generation time: 65.961 sec  (63.531 average)
+Population 'distance_2' saved! Current generation: 12
+Sample chosen: [101, 486, 967, 787, 551, 82, 828, 703, 815, 324, 131, 315, 43, 736, 948, 754]
+
+********** Running generation 12 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.42165
+	-       mean fitness: 0.21522
+	-      worst fitness: 0.06138
+	- standard deviation: 0.07707
+Best genome overview:
+	- fitness: 0.42165
+	- size (hid, conn): (1, 6)
+	- genome id: 1599
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.410
+	- Mean: 1.500
+	- Minimum: 0.040
+	- Standard deviation: 0.499
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1     12      56      0.270      0.371      5   
+	  2     12      72      0.422      0.472      0   
+
+Generation time: 65.820 sec  (63.822 average)
+Population 'distance_2' saved! Current generation: 13
+Sample chosen: [481, 449, 512, 29, 890, 625, 381, 793, 207, 599, 215, 735, 732, 666, 85, 121]
+
+********** Running generation 13 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.45975
+	-       mean fitness: 0.25371
+	-      worst fitness: 0.05613
+	- standard deviation: 0.10397
+Best genome overview:
+	- fitness: 0.45975
+	- size (hid, conn): (1, 8)
+	- genome id: 1686
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.327
+	- Mean: 1.571
+	- Minimum: 0.041
+	- Standard deviation: 0.478
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1     13      55      0.303      0.419      6   
+	  2     13      73      0.460      0.545      0   
+
+Generation time: 63.367 sec  (63.677 average)
+Population 'distance_2' saved! Current generation: 14
+Sample chosen: [565, 971, 552, 859, 829, 402, 519, 774, 857, 363, 714, 71, 259, 126, 885, 347]
+
+********** Running generation 14 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.37109
+	-       mean fitness: 0.21265
+	-      worst fitness: 0.04352
+	- standard deviation: 0.07210
+Best genome overview:
+	- fitness: 0.37109
+	- size (hid, conn): (1, 6)
+	- genome id: 1864
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.401
+	- Mean: 1.458
+	- Minimum: 0.201
+	- Standard deviation: 0.528
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1     14      60      0.304      0.529      7   
+	  2     14      68      0.371      0.507      1   
+
+Generation time: 61.991 sec  (63.464 average)
+Population 'distance_2' saved! Current generation: 15
+Sample chosen: [432, 591, 787, 847, 338, 848, 264, 702, 840, 566, 273, 653, 633, 977, 91, 358]
+
+********** Running generation 15 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.30409
+	-       mean fitness: 0.21779
+	-      worst fitness: 0.06253
+	- standard deviation: 0.06107
+Best genome overview:
+	- fitness: 0.30409
+	- size (hid, conn): (1, 7)
+	- genome id: 1958
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.145
+	- Mean: 1.310
+	- Minimum: 0.081
+	- Standard deviation: 0.592
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1     15      63      0.279      0.660      8   
+	  2     15      65      0.304      0.628      2   
+
+Generation time: 63.384 sec  (63.430 average)
+Population 'distance_2' saved! Current generation: 16
+Sample chosen: [23, 49, 550, 467, 875, 445, 792, 362, 82, 667, 43, 254, 321, 948, 707, 468]
+
+********** Running generation 16 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.40735
+	-       mean fitness: 0.26336
+	-      worst fitness: 0.05682
+	- standard deviation: 0.08117
+Best genome overview:
+	- fitness: 0.40735
+	- size (hid, conn): (1, 7)
+	- genome id: 2053
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.579
+	- Mean: 1.323
+	- Minimum: 0.043
+	- Standard deviation: 0.688
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1     16      61      0.323      0.544      0   
+	  2     16      67      0.407      0.633      3   
+
+Generation time: 63.214 sec  (63.218 average)
+Population 'distance_2' saved! Current generation: 17
+Sample chosen: [940, 603, 58, 946, 154, 571, 426, 714, 244, 52, 756, 310, 185, 874, 839, 497]
+
+********** Running generation 17 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.40863
+	-       mean fitness: 0.16452
+	-      worst fitness: 0.02278
+	- standard deviation: 0.08562
+Best genome overview:
+	- fitness: 0.40863
+	- size (hid, conn): (1, 7)
+	- genome id: 2225
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.730
+	- Mean: 1.391
+	- Minimum: 0.028
+	- Standard deviation: 0.757
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1     17      54      0.183      0.266      1   
+	  2     17      74      0.409      0.459      4   
+
+Generation time: 63.830 sec  (63.317 average)
+Population 'distance_2' saved! Current generation: 18
+Sample chosen: [433, 372, 998, 270, 956, 359, 706, 633, 236, 724, 991, 589, 316, 472, 986, 966]
+
+********** Running generation 18 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.35233
+	-       mean fitness: 0.14251
+	-      worst fitness: 0.03675
+	- standard deviation: 0.07285
+Best genome overview:
+	- fitness: 0.35233
+	- size (hid, conn): (1, 7)
+	- genome id: 2303
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.760
+	- Mean: 1.385
+	- Minimum: 0.022
+	- Standard deviation: 0.739
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1     18      49      0.184      0.212      2   
+	  2     18      79      0.352      0.425      5   
+
+Generation time: 67.922 sec  (63.853 average)
+Population 'distance_2' saved! Current generation: 19
+Sample chosen: [207, 599, 275, 931, 991, 87, 467, 213, 659, 904, 104, 321, 570, 332, 454, 602]
+
+********** Running generation 19 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.49425
+	-       mean fitness: 0.25558
+	-      worst fitness: 0.04278
+	- standard deviation: 0.10468
+Best genome overview:
+	- fitness: 0.49425
+	- size (hid, conn): (1, 7)
+	- genome id: 2481
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.705
+	- Mean: 1.435
+	- Minimum: 0.026
+	- Standard deviation: 0.718
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1     19      55      0.311      0.447      3   
+	  2     19      73      0.494      0.486      0   
+
+Generation time: 64.437 sec  (64.127 average)
+Population 'distance_2' saved! Current generation: 20
+Sample chosen: [108, 100, 314, 542, 525, 184, 435, 413, 86, 797, 509, 356, 203, 99, 236, 616]
+
+********** Running generation 20 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.35444
+	-       mean fitness: 0.17009
+	-      worst fitness: 0.04878
+	- standard deviation: 0.06810
+Best genome overview:
+	- fitness: 0.35444
+	- size (hid, conn): (2, 10)
+	- genome id: 2605
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.720
+	- Mean: 1.522
+	- Minimum: 0.008
+	- Standard deviation: 0.648
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1     20      54      0.173      0.288      4   
+	  2     20      74      0.354      0.479      1   
+
+Generation time: 64.209 sec  (64.413 average)
+Population 'distance_2' saved! Current generation: 21
+Sample chosen: [401, 315, 425, 372, 256, 734, 539, 349, 966, 908, 19, 865, 474, 368, 765, 587]
+
+********** Running generation 21 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.43029
+	-       mean fitness: 0.25353
+	-      worst fitness: 0.05460
+	- standard deviation: 0.08641
+Best genome overview:
+	- fitness: 0.43029
+	- size (hid, conn): (1, 7)
+	- genome id: 2691
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.849
+	- Mean: 1.571
+	- Minimum: 0.002
+	- Standard deviation: 0.674
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1     21      55      0.300      0.444      5   
+	  2     21      73      0.430      0.592      2   
+
+Generation time: 65.987 sec  (64.416 average)
+Population 'distance_2' saved! Current generation: 22
+Sample chosen: [660, 884, 423, 456, 484, 447, 106, 817, 759, 357, 444, 424, 234, 733, 294, 486]
+
+********** Running generation 22 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.46374
+	-       mean fitness: 0.21538
+	-      worst fitness: 0.04312
+	- standard deviation: 0.09878
+Best genome overview:
+	- fitness: 0.46374
+	- size (hid, conn): (2, 10)
+	- genome id: 2786
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.721
+	- Mean: 1.464
+	- Minimum: 0.000
+	- Standard deviation: 0.746
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1     22      53      0.267      0.315      6   
+	  2     22      75      0.464      0.480      3   
+
+Generation time: 64.711 sec  (64.305 average)
+Population 'distance_2' saved! Current generation: 23
+Sample chosen: [21, 669, 874, 95, 486, 987, 527, 855, 665, 501, 381, 378, 158, 865, 506, 959]
+
+********** Running generation 23 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.33558
+	-       mean fitness: 0.15626
+	-      worst fitness: 0.03442
+	- standard deviation: 0.06519
+Best genome overview:
+	- fitness: 0.33558
+	- size (hid, conn): (2, 10)
+	- genome id: 2960
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.610
+	- Mean: 1.309
+	- Minimum: 0.027
+	- Standard deviation: 0.783
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1     23      55      0.246      0.356      7   
+	  2     23      73      0.336      0.439      4   
+
+Generation time: 66.894 sec  (64.658 average)
+Population 'distance_2' saved! Current generation: 24
+Sample chosen: [395, 407, 274, 518, 436, 356, 200, 648, 953, 283, 757, 453, 233, 625, 987, 804]
+
+********** Running generation 24 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.38705
+	-       mean fitness: 0.20746
+	-      worst fitness: 0.06314
+	- standard deviation: 0.08367
+Best genome overview:
+	- fitness: 0.38705
+	- size (hid, conn): (2, 10)
+	- genome id: 3034
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.585
+	- Mean: 1.302
+	- Minimum: 0.015
+	- Standard deviation: 0.768
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1     24      53      0.228      0.343      8   
+	  2     24      75      0.387      0.523      5   
+
+Generation time: 67.398 sec  (65.199 average)
+Population 'distance_2' saved! Current generation: 25
+Sample chosen: [89, 643, 923, 966, 354, 570, 709, 752, 772, 580, 774, 567, 128, 521, 736, 614]
+
+********** Running generation 25 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.49175
+	-       mean fitness: 0.24406
+	-      worst fitness: 0.03504
+	- standard deviation: 0.10564
+Best genome overview:
+	- fitness: 0.49175
+	- size (hid, conn): (1, 8)
+	- genome id: 3164
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.589
+	- Mean: 1.281
+	- Minimum: 0.013
+	- Standard deviation: 0.747
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1     25      56      0.299      0.413      9   
+	  2     25      72      0.492      0.489      6   
+
+Generation time: 67.280 sec  (65.588 average)
+Population 'distance_2' saved! Current generation: 26
+Sample chosen: [692, 792, 664, 892, 185, 559, 63, 313, 991, 164, 908, 585, 158, 298, 601, 810]
+
+********** Running generation 26 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.49684
+	-       mean fitness: 0.24489
+	-      worst fitness: 0.04947
+	- standard deviation: 0.07930
+Best genome overview:
+	- fitness: 0.49684
+	- size (hid, conn): (2, 9)
+	- genome id: 3297
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.684
+	- Mean: 1.324
+	- Minimum: 0.005
+	- Standard deviation: 0.749
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1     26      58      0.290      0.408      10  
+	  2     26      70      0.497      0.459      0   
+
+Generation time: 66.918 sec  (65.959 average)
+Population 'distance_2' saved! Current generation: 27
+Sample chosen: [378, 275, 688, 976, 389, 150, 79, 854, 686, 450, 739, 483, 110, 455, 599, 136]
+
+********** Running generation 27 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.36207
+	-       mean fitness: 0.22070
+	-      worst fitness: 0.03495
+	- standard deviation: 0.07975
+Best genome overview:
+	- fitness: 0.36207
+	- size (hid, conn): (3, 9)
+	- genome id: 3434
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.946
+	- Mean: 1.404
+	- Minimum: 0.004
+	- Standard deviation: 0.768
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1     27      60      0.283      0.544      11  
+	  2     27      68      0.362      0.588      1   
+
+Generation time: 65.294 sec  (66.105 average)
+Population 'distance_2' saved! Current generation: 28
+Sample chosen: [292, 787, 273, 536, 662, 857, 454, 685, 214, 591, 998, 943, 946, 140, 915, 944]
+
+********** Running generation 28 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.34830
+	-       mean fitness: 0.15541
+	-      worst fitness: 0.02169
+	- standard deviation: 0.07234
+Best genome overview:
+	- fitness: 0.34830
+	- size (hid, conn): (3, 10)
+	- genome id: 3588
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.885
+	- Mean: 1.454
+	- Minimum: 0.007
+	- Standard deviation: 0.777
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1     28      58      0.195      0.359      12  
+	  2     28      70      0.348      0.454      2   
+
+Generation time: 67.996 sec  (66.112 average)
+Population 'distance_2' saved! Current generation: 29
+Sample chosen: [208, 645, 715, 35, 198, 745, 864, 633, 305, 950, 199, 297, 809, 23, 215, 791]
+
+********** Running generation 29 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.49951
+	-       mean fitness: 0.21703
+	-      worst fitness: 0.04753
+	- standard deviation: 0.10039
+Best genome overview:
+	- fitness: 0.49951
+	- size (hid, conn): (2, 9)
+	- genome id: 3676
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.812
+	- Mean: 1.470
+	- Minimum: 0.020
+	- Standard deviation: 0.778
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1     29      54      0.235      0.286      13  
+	  2     29      74      0.500      0.449      0   
+
+Generation time: 68.068 sec  (66.475 average)
+Population 'distance_2' saved! Current generation: 30
+Sample chosen: [239, 355, 1, 77, 154, 900, 871, 144, 263, 226, 463, 952, 661, 677, 220, 757]
+
+********** Running generation 30 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.43440
+	-       mean fitness: 0.22713
+	-      worst fitness: 0.05810
+	- standard deviation: 0.07673
+Best genome overview:
+	- fitness: 0.43440
+	- size (hid, conn): (2, 9)
+	- genome id: 3829
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.902
+	- Mean: 1.426
+	- Minimum: 0.014
+	- Standard deviation: 0.739
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  1     30      54      0.252      0.377      14  
+	  2     30      74      0.434      0.502      1   
+
+Generation time: 69.842 sec  (67.039 average)
+Population 'distance_2' saved! Current generation: 31
+Sample chosen: [555, 919, 795, 395, 322, 974, 102, 243, 692, 694, 328, 466, 880, 207, 224, 202]
+
+********** Running generation 31 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.39597
+	-       mean fitness: 0.18105
+	-      worst fitness: 0.04983
+	- standard deviation: 0.08966
+Best genome overview:
+	- fitness: 0.39597
+	- size (hid, conn): (2, 10)
+	- genome id: 3945
+	- belongs to specie: 2
+
+Species 1 with 54 members is stagnated: removing it
+Genetic distance:
+	- Maximum: 1.699
+	- Mean: 0.873
+	- Minimum: 0.287
+	- Standard deviation: 0.203
+
+Population of 128 members in 1 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  2     31     128      0.396      0.410      2   
+
+Generation time: 69.040 sec  (67.344 average)
+Population 'distance_2' saved! Current generation: 32
+Sample chosen: [619, 857, 439, 863, 903, 63, 944, 791, 539, 169, 27, 806, 437, 949, 836, 35]
+
+********** Running generation 32 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.46056
+	-       mean fitness: 0.21890
+	-      worst fitness: 0.03473
+	- standard deviation: 0.08423
+Best genome overview:
+	- fitness: 0.46056
+	- size (hid, conn): (2, 9)
+	- genome id: 4031
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 1.596
+	- Mean: 0.855
+	- Minimum: 0.258
+	- Standard deviation: 0.207
+
+Population of 128 members in 1 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  2     32     128      0.461      0.433      3   
+
+Generation time: 68.000 sec  (67.673 average)
+Population 'distance_2' saved! Current generation: 33
+Sample chosen: [225, 703, 124, 93, 707, 527, 998, 6, 188, 352, 606, 210, 30, 62, 252, 643]
+
+********** Running generation 33 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.50740
+	-       mean fitness: 0.25987
+	-      worst fitness: 0.04987
+	- standard deviation: 0.10936
+Best genome overview:
+	- fitness: 0.50740
+	- size (hid, conn): (2, 9)
+	- genome id: 4145
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 1.865
+	- Mean: 0.859
+	- Minimum: 0.096
+	- Standard deviation: 0.262
+
+Population of 128 members in 1 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  2     33     128      0.507      0.459      0   
+
+Generation time: 69.694 sec  (67.953 average)
+Population 'distance_2' saved! Current generation: 34
+Sample chosen: [990, 294, 64, 943, 265, 446, 994, 583, 816, 316, 695, 873, 491, 210, 757, 813]
+
+********** Running generation 34 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.37395
+	-       mean fitness: 0.20393
+	-      worst fitness: 0.05426
+	- standard deviation: 0.06909
+Best genome overview:
+	- fitness: 0.37395
+	- size (hid, conn): (2, 9)
+	- genome id: 4258
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 1.788
+	- Mean: 0.958
+	- Minimum: 0.170
+	- Standard deviation: 0.265
+
+Population of 128 members in 1 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  2     34     128      0.374      0.468      1   
+
+Generation time: 70.608 sec  (68.274 average)
+Population 'distance_2' saved! Current generation: 35
+Sample chosen: [182, 330, 836, 72, 209, 220, 832, 537, 811, 812, 459, 498, 963, 508, 148, 874]
+
+********** Running generation 35 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.31642
+	-       mean fitness: 0.13992
+	-      worst fitness: 0.03051
+	- standard deviation: 0.06262
+Best genome overview:
+	- fitness: 0.31642
+	- size (hid, conn): (2, 9)
+	- genome id: 4258
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 1.832
+	- Mean: 1.005
+	- Minimum: 0.196
+	- Standard deviation: 0.215
+
+Population of 128 members in 1 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  2     35     128      0.316      0.383      2   
+
+Generation time: 67.870 sec  (68.333 average)
+Population 'distance_2' saved! Current generation: 36
+Sample chosen: [873, 712, 839, 619, 74, 234, 56, 658, 314, 513, 822, 210, 376, 838, 544, 555]
+
+********** Running generation 36 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.44832
+	-       mean fitness: 0.24857
+	-      worst fitness: 0.04377
+	- standard deviation: 0.09264
+Best genome overview:
+	- fitness: 0.44832
+	- size (hid, conn): (2, 9)
+	- genome id: 4577
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 1.952
+	- Mean: 0.938
+	- Minimum: 0.360
+	- Standard deviation: 0.205
+
+Population of 128 members in 1 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  2     36     128      0.448      0.506      3   
+
+Generation time: 70.679 sec  (68.709 average)
+Population 'distance_2' saved! Current generation: 37
+Sample chosen: [260, 452, 326, 112, 490, 730, 388, 752, 233, 833, 263, 247, 19, 152, 204, 724]
+
+********** Running generation 37 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.45606
+	-       mean fitness: 0.28240
+	-      worst fitness: 0.06525
+	- standard deviation: 0.10917
+Best genome overview:
+	- fitness: 0.45606
+	- size (hid, conn): (3, 11)
+	- genome id: 4603
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 2.162
+	- Mean: 0.894
+	- Minimum: 0.387
+	- Standard deviation: 0.237
+
+Population of 128 members in 1 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  2     37     128      0.456      0.556      4   
+
+Generation time: 70.227 sec  (69.202 average)
+Population 'distance_2' saved! Current generation: 38
+Sample chosen: [156, 707, 783, 771, 744, 762, 583, 137, 617, 455, 728, 807, 124, 961, 117, 174]
+
+********** Running generation 38 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.30714
+	-       mean fitness: 0.17749
+	-      worst fitness: 0.05414
+	- standard deviation: 0.05785
+Best genome overview:
+	- fitness: 0.30714
+	- size (hid, conn): (3, 11)
+	- genome id: 4853
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 1.875
+	- Mean: 0.926
+	- Minimum: 0.275
+	- Standard deviation: 0.260
+
+Population of 128 members in 1 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  2     38     128      0.307      0.488      5   
+
+Generation time: 70.812 sec  (69.484 average)
+Population 'distance_2' saved! Current generation: 39
+Sample chosen: [480, 167, 799, 453, 271, 552, 251, 122, 118, 503, 598, 262, 614, 941, 509, 823]
+
+********** Running generation 39 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.33402
+	-       mean fitness: 0.17600
+	-      worst fitness: 0.02926
+	- standard deviation: 0.06898
+Best genome overview:
+	- fitness: 0.33402
+	- size (hid, conn): (2, 10)
+	- genome id: 4864
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 1.762
+	- Mean: 0.945
+	- Minimum: 0.193
+	- Standard deviation: 0.244
+
+Population of 128 members in 1 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  2     39     128      0.334      0.481      6   
+
+Generation time: 69.519 sec  (69.629 average)
+Population 'distance_2' saved! Current generation: 40
+Sample chosen: [693, 384, 266, 507, 84, 469, 780, 615, 355, 505, 722, 717, 506, 564, 804, 446]
+
+********** Running generation 40 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.40593
+	-       mean fitness: 0.18979
+	-      worst fitness: 0.05020
+	- standard deviation: 0.07652
+Best genome overview:
+	- fitness: 0.40593
+	- size (hid, conn): (3, 11)
+	- genome id: 5041
+	- belongs to specie: 2
+Genetic distance:
+	- Maximum: 1.810
+	- Mean: 1.045
+	- Minimum: 0.012
+	- Standard deviation: 0.248
+
+Population of 128 members in 1 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  2     40     128      0.406      0.392      7   
+
+Generation time: 69.885 sec  (69.633 average)
+Population 'distance_2' saved! Current generation: 41
+Sample chosen: [767, 982, 437, 763, 609, 935, 677, 163, 993, 85, 492, 47, 183, 449, 812, 338]
+
+********** Running generation 41 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.39008
+	-       mean fitness: 0.20405
+	-      worst fitness: 0.04080
+	- standard deviation: 0.08690
+Best genome overview:
+	- fitness: 0.39008
+	- size (hid, conn): (3, 13)
+	- genome id: 5163
+	- belongs to specie: 2
+
+Species 2 with 128 members is stagnated: removing it
+All species are extinct.
+Genetic distance:
+	- Maximum: 2.985
+	- Mean: 1.887
+	- Minimum: 0.937
+	- Standard deviation: 0.384
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3      0     106       --         --        0   
+	  4      0      22       --         --        0   
+
+Total extinctions: 1
+Generation time: 71.859 sec  (69.915 average)
+Population 'distance_2' saved! Current generation: 42
+Sample chosen: [65, 631, 537, 320, 402, 831, 707, 718, 366, 83, 263, 117, 640, 195, 798, 610]
+
+********** Running generation 42 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.23516
+	-       mean fitness: 0.08679
+	-      worst fitness: 0.04259
+	- standard deviation: 0.04161
+Best genome overview:
+	- fitness: 0.23516
+	- size (hid, conn): (0, 9)
+	- genome id: 5346
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 2.899
+	- Mean: 1.936
+	- Minimum: 0.081
+	- Standard deviation: 0.367
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3      1      47      0.210      0.227      0   
+	  4      1      81      0.235      0.241      0   
+
+Total extinctions: 1
+Generation time: 59.465 sec  (69.062 average)
+Population 'distance_2' saved! Current generation: 43
+Sample chosen: [710, 304, 633, 258, 649, 964, 645, 128, 440, 730, 131, 8, 907, 661, 111, 516]
+
+********** Running generation 43 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.20149
+	-       mean fitness: 0.13120
+	-      worst fitness: 0.05343
+	- standard deviation: 0.03638
+Best genome overview:
+	- fitness: 0.20149
+	- size (hid, conn): (0, 9)
+	- genome id: 5473
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 2.675
+	- Mean: 1.925
+	- Minimum: 0.024
+	- Standard deviation: 0.391
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3      2      50      0.197      0.503      1   
+	  4      2      78      0.201      0.538      1   
+
+Total extinctions: 1
+Generation time: 64.416 sec  (68.534 average)
+Population 'distance_2' saved! Current generation: 44
+Sample chosen: [943, 22, 514, 661, 563, 845, 848, 240, 678, 573, 302, 373, 873, 862, 695, 380]
+
+********** Running generation 44 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.27636
+	-       mean fitness: 0.17253
+	-      worst fitness: 0.05130
+	- standard deviation: 0.06048
+Best genome overview:
+	- fitness: 0.27636
+	- size (hid, conn): (0, 8)
+	- genome id: 5552
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 2.987
+	- Mean: 1.940
+	- Minimum: 0.159
+	- Standard deviation: 0.460
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3      3      37      0.252      0.493      0   
+	  4      3      91      0.276      0.568      0   
+
+Total extinctions: 1
+Generation time: 63.754 sec  (67.849 average)
+Population 'distance_2' saved! Current generation: 45
+Sample chosen: [931, 324, 947, 120, 327, 565, 768, 477, 928, 835, 905, 459, 766, 712, 760, 441]
+
+********** Running generation 45 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.21398
+	-       mean fitness: 0.12573
+	-      worst fitness: 0.02234
+	- standard deviation: 0.03852
+Best genome overview:
+	- fitness: 0.21398
+	- size (hid, conn): (0, 9)
+	- genome id: 5646
+	- belongs to specie: 3
+Genetic distance:
+	- Maximum: 2.797
+	- Mean: 1.807
+	- Minimum: 0.083
+	- Standard deviation: 0.489
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3      4      56      0.214      0.511      1   
+	  4      4      72      0.167      0.551      1   
+
+Total extinctions: 1
+Generation time: 59.603 sec  (67.022 average)
+Population 'distance_2' saved! Current generation: 46
+Sample chosen: [269, 74, 817, 491, 681, 899, 966, 557, 766, 866, 701, 478, 214, 636, 572, 773]
+
+********** Running generation 46 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.29693
+	-       mean fitness: 0.21989
+	-      worst fitness: 0.04785
+	- standard deviation: 0.05404
+Best genome overview:
+	- fitness: 0.29693
+	- size (hid, conn): (0, 9)
+	- genome id: 5823
+	- belongs to specie: 3
+Genetic distance:
+	- Maximum: 2.478
+	- Mean: 1.586
+	- Minimum: 0.110
+	- Standard deviation: 0.603
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3      5      59      0.297      0.671      0   
+	  4      5      69      0.267      0.706      2   
+
+Total extinctions: 1
+Generation time: 66.526 sec  (66.607 average)
+Population 'distance_2' saved! Current generation: 47
+Sample chosen: [704, 850, 261, 502, 802, 933, 587, 500, 614, 4, 127, 379, 411, 231, 818, 197]
+
+********** Running generation 47 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.24905
+	-       mean fitness: 0.14260
+	-      worst fitness: 0.04388
+	- standard deviation: 0.04077
+Best genome overview:
+	- fitness: 0.24905
+	- size (hid, conn): (0, 7)
+	- genome id: 5970
+	- belongs to specie: 3
+Genetic distance:
+	- Maximum: 2.494
+	- Mean: 1.404
+	- Minimum: 0.005
+	- Standard deviation: 0.805
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3      6      61      0.249      0.476      1   
+	  4      6      67      0.188      0.486      3   
+
+Total extinctions: 1
+Generation time: 63.324 sec  (65.916 average)
+Population 'distance_2' saved! Current generation: 48
+Sample chosen: [111, 264, 495, 855, 2, 110, 358, 618, 695, 914, 547, 805, 500, 368, 604, 994]
+
+********** Running generation 48 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.29852
+	-       mean fitness: 0.21869
+	-      worst fitness: 0.05658
+	- standard deviation: 0.05339
+Best genome overview:
+	- fitness: 0.29852
+	- size (hid, conn): (0, 10)
+	- genome id: 6092
+	- belongs to specie: 3
+Genetic distance:
+	- Maximum: 2.692
+	- Mean: 1.441
+	- Minimum: 0.023
+	- Standard deviation: 0.823
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3      7      61      0.299      0.641      0   
+	  4      7      67      0.266      0.697      4   
+
+Total extinctions: 1
+Generation time: 63.606 sec  (65.196 average)
+Population 'distance_2' saved! Current generation: 49
+Sample chosen: [443, 599, 953, 302, 361, 409, 751, 453, 316, 867, 29, 742, 494, 21, 125, 881]
+
+********** Running generation 49 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.34648
+	-       mean fitness: 0.19985
+	-      worst fitness: 0.04218
+	- standard deviation: 0.06544
+Best genome overview:
+	- fitness: 0.34648
+	- size (hid, conn): (0, 7)
+	- genome id: 6207
+	- belongs to specie: 3
+Genetic distance:
+	- Maximum: 2.785
+	- Mean: 1.430
+	- Minimum: 0.009
+	- Standard deviation: 0.779
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3      8      66      0.346      0.573      0   
+	  4      8      62      0.268      0.468      5   
+
+Total extinctions: 1
+Generation time: 62.670 sec  (64.511 average)
+Population 'distance_2' saved! Current generation: 50
+Sample chosen: [505, 310, 12, 205, 976, 198, 640, 227, 144, 499, 149, 197, 646, 378, 6, 881]
+
+********** Running generation 50 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.27348
+	-       mean fitness: 0.16897
+	-      worst fitness: 0.03671
+	- standard deviation: 0.04937
+Best genome overview:
+	- fitness: 0.27348
+	- size (hid, conn): (0, 7)
+	- genome id: 6315
+	- belongs to specie: 3
+Genetic distance:
+	- Maximum: 2.646
+	- Mean: 1.391
+	- Minimum: 0.008
+	- Standard deviation: 0.779
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3      9      66      0.273      0.584      1   
+	  4      9      62      0.269      0.532      6   
+
+Total extinctions: 1
+Generation time: 65.440 sec  (64.066 average)
+Population 'distance_2' saved! Current generation: 51
+Sample chosen: [169, 428, 71, 407, 196, 707, 280, 936, 873, 779, 961, 892, 541, 463, 256, 87]
+
+********** Running generation 51 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.29232
+	-       mean fitness: 0.17361
+	-      worst fitness: 0.03052
+	- standard deviation: 0.05098
+Best genome overview:
+	- fitness: 0.29232
+	- size (hid, conn): (0, 7)
+	- genome id: 6421
+	- belongs to specie: 3
+Genetic distance:
+	- Maximum: 2.566
+	- Mean: 1.342
+	- Minimum: 0.038
+	- Standard deviation: 0.710
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     10      67      0.292      0.573      2   
+	  4     10      61      0.217      0.519      7   
+
+Total extinctions: 1
+Generation time: 63.690 sec  (63.249 average)
+Population 'distance_2' saved! Current generation: 52
+Sample chosen: [820, 548, 563, 26, 480, 298, 750, 380, 206, 306, 452, 824, 885, 200, 48, 775]
+
+********** Running generation 52 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.38294
+	-       mean fitness: 0.26200
+	-      worst fitness: 0.05320
+	- standard deviation: 0.07832
+Best genome overview:
+	- fitness: 0.38294
+	- size (hid, conn): (0, 7)
+	- genome id: 6538
+	- belongs to specie: 3
+Genetic distance:
+	- Maximum: 2.533
+	- Mean: 1.283
+	- Minimum: 0.013
+	- Standard deviation: 0.650
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     11      68      0.383      0.682      0   
+	  4     11      60      0.365      0.580      0   
+
+Total extinctions: 1
+Generation time: 62.830 sec  (63.586 average)
+Population 'distance_2' saved! Current generation: 53
+Sample chosen: [688, 362, 180, 867, 928, 589, 676, 423, 909, 248, 129, 229, 499, 836, 980, 580]
+
+********** Running generation 53 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.29046
+	-       mean fitness: 0.17489
+	-      worst fitness: 0.05892
+	- standard deviation: 0.04553
+Best genome overview:
+	- fitness: 0.29046
+	- size (hid, conn): (1, 8)
+	- genome id: 6684
+	- belongs to specie: 3
+Genetic distance:
+	- Maximum: 2.328
+	- Mean: 1.289
+	- Minimum: 0.032
+	- Standard deviation: 0.605
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     12      70      0.290      0.552      1   
+	  4     12      58      0.208      0.443      1   
+
+Total extinctions: 1
+Generation time: 63.127 sec  (63.457 average)
+Population 'distance_2' saved! Current generation: 54
+Sample chosen: [846, 285, 771, 686, 370, 910, 355, 575, 780, 255, 495, 547, 652, 716, 454, 312]
+
+********** Running generation 54 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.33035
+	-       mean fitness: 0.23840
+	-      worst fitness: 0.04774
+	- standard deviation: 0.06506
+Best genome overview:
+	- fitness: 0.33035
+	- size (hid, conn): (1, 8)
+	- genome id: 6838
+	- belongs to specie: 3
+Genetic distance:
+	- Maximum: 2.526
+	- Mean: 1.280
+	- Minimum: 0.067
+	- Standard deviation: 0.581
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     13      65      0.330      0.630      2   
+	  4     13      63      0.314      0.728      2   
+
+Total extinctions: 1
+Generation time: 63.149 sec  (63.397 average)
+Population 'distance_2' saved! Current generation: 55
+Sample chosen: [502, 813, 69, 787, 573, 462, 298, 732, 474, 712, 986, 940, 20, 208, 3, 988]
+
+********** Running generation 55 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.27870
+	-       mean fitness: 0.16694
+	-      worst fitness: 0.03497
+	- standard deviation: 0.05528
+Best genome overview:
+	- fitness: 0.27870
+	- size (hid, conn): (1, 8)
+	- genome id: 6941
+	- belongs to specie: 3
+Genetic distance:
+	- Maximum: 2.175
+	- Mean: 1.209
+	- Minimum: 0.131
+	- Standard deviation: 0.609
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     14      62      0.279      0.506      3   
+	  4     14      66      0.245      0.578      3   
+
+Total extinctions: 1
+Generation time: 66.152 sec  (64.052 average)
+Population 'distance_2' saved! Current generation: 56
+Sample chosen: [38, 51, 50, 419, 601, 140, 896, 848, 680, 475, 402, 663, 518, 7, 956, 238]
+
+********** Running generation 56 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.35768
+	-       mean fitness: 0.19993
+	-      worst fitness: 0.05986
+	- standard deviation: 0.06758
+Best genome overview:
+	- fitness: 0.35768
+	- size (hid, conn): (1, 9)
+	- genome id: 7050
+	- belongs to specie: 3
+Genetic distance:
+	- Maximum: 2.223
+	- Mean: 1.244
+	- Minimum: 0.017
+	- Standard deviation: 0.631
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     15      62      0.358      0.456      4   
+	  4     15      66      0.295      0.484      4   
+
+Total extinctions: 1
+Generation time: 65.374 sec  (63.936 average)
+Population 'distance_2' saved! Current generation: 57
+Sample chosen: [825, 405, 525, 631, 441, 748, 223, 97, 918, 776, 425, 750, 48, 332, 98, 487]
+
+********** Running generation 57 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.29168
+	-       mean fitness: 0.17976
+	-      worst fitness: 0.02769
+	- standard deviation: 0.06258
+Best genome overview:
+	- fitness: 0.29168
+	- size (hid, conn): (1, 8)
+	- genome id: 7218
+	- belongs to specie: 3
+Genetic distance:
+	- Maximum: 2.502
+	- Mean: 1.294
+	- Minimum: 0.009
+	- Standard deviation: 0.588
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     16      66      0.292      0.632      5   
+	  4     16      62      0.237      0.524      5   
+
+Total extinctions: 1
+Generation time: 66.598 sec  (64.264 average)
+Population 'distance_2' saved! Current generation: 58
+Sample chosen: [628, 257, 135, 496, 114, 19, 185, 343, 505, 129, 643, 705, 385, 784, 867, 339]
+
+********** Running generation 58 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.33049
+	-       mean fitness: 0.21426
+	-      worst fitness: 0.04046
+	- standard deviation: 0.08055
+Best genome overview:
+	- fitness: 0.33049
+	- size (hid, conn): (1, 8)
+	- genome id: 7307
+	- belongs to specie: 3
+Genetic distance:
+	- Maximum: 2.408
+	- Mean: 1.217
+	- Minimum: 0.005
+	- Standard deviation: 0.612
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     17      63      0.330      0.564      6   
+	  4     17      65      0.324      0.637      6   
+
+Total extinctions: 1
+Generation time: 69.503 sec  (64.854 average)
+Population 'distance_2' saved! Current generation: 59
+Sample chosen: [39, 505, 713, 309, 817, 375, 247, 834, 574, 374, 998, 875, 537, 732, 824, 531]
+
+********** Running generation 59 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.23577
+	-       mean fitness: 0.13362
+	-      worst fitness: 0.04096
+	- standard deviation: 0.05332
+Best genome overview:
+	- fitness: 0.23577
+	- size (hid, conn): (0, 6)
+	- genome id: 7463
+	- belongs to specie: 3
+Genetic distance:
+	- Maximum: 2.398
+	- Mean: 1.201
+	- Minimum: 0.034
+	- Standard deviation: 0.628
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     18      64      0.236      0.491      7   
+	  4     18      64      0.200      0.461      7   
+
+Total extinctions: 1
+Generation time: 66.913 sec  (65.278 average)
+Population 'distance_2' saved! Current generation: 60
+Sample chosen: [800, 618, 816, 976, 803, 96, 718, 738, 584, 839, 728, 777, 254, 854, 475, 510]
+
+********** Running generation 60 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.33507
+	-       mean fitness: 0.16267
+	-      worst fitness: 0.03425
+	- standard deviation: 0.06819
+Best genome overview:
+	- fitness: 0.33507
+	- size (hid, conn): (0, 6)
+	- genome id: 7568
+	- belongs to specie: 3
+Genetic distance:
+	- Maximum: 2.517
+	- Mean: 1.190
+	- Minimum: 0.002
+	- Standard deviation: 0.670
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     19      71      0.335      0.520      8   
+	  4     19      57      0.220      0.334      8   
+
+Total extinctions: 1
+Generation time: 66.747 sec  (65.408 average)
+Population 'distance_2' saved! Current generation: 61
+Sample chosen: [943, 780, 859, 727, 991, 500, 876, 286, 392, 300, 941, 183, 944, 195, 982, 66]
+
+********** Running generation 61 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.26392
+	-       mean fitness: 0.14585
+	-      worst fitness: 0.03410
+	- standard deviation: 0.06526
+Best genome overview:
+	- fitness: 0.26392
+	- size (hid, conn): (1, 9)
+	- genome id: 7509
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 2.314
+	- Mean: 1.195
+	- Minimum: 0.009
+	- Standard deviation: 0.646
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     20      57      0.262      0.344      9   
+	  4     20      71      0.264      0.663      9   
+
+Total extinctions: 1
+Generation time: 66.430 sec  (65.682 average)
+Population 'distance_2' saved! Current generation: 62
+Sample chosen: [846, 333, 190, 26, 363, 932, 586, 542, 315, 355, 210, 862, 360, 710, 789, 311]
+
+********** Running generation 62 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.31009
+	-       mean fitness: 0.15179
+	-      worst fitness: 0.02782
+	- standard deviation: 0.05775
+Best genome overview:
+	- fitness: 0.31009
+	- size (hid, conn): (1, 8)
+	- genome id: 7722
+	- belongs to specie: 3
+Genetic distance:
+	- Maximum: 2.377
+	- Mean: 1.260
+	- Minimum: 0.031
+	- Standard deviation: 0.623
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     21      63      0.310      0.472      10  
+	  4     21      65      0.240      0.413      10  
+
+Total extinctions: 1
+Generation time: 66.686 sec  (66.068 average)
+Population 'distance_2' saved! Current generation: 63
+Sample chosen: [568, 429, 788, 600, 306, 979, 569, 593, 166, 470, 9, 371, 946, 240, 153, 290]
+
+********** Running generation 63 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.34008
+	-       mean fitness: 0.21093
+	-      worst fitness: 0.04061
+	- standard deviation: 0.06843
+Best genome overview:
+	- fitness: 0.34008
+	- size (hid, conn): (1, 8)
+	- genome id: 7921
+	- belongs to specie: 3
+Genetic distance:
+	- Maximum: 2.335
+	- Mean: 1.310
+	- Minimum: 0.003
+	- Standard deviation: 0.614
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     22      64      0.340      0.571      11  
+	  4     22      64      0.300      0.567      11  
+
+Total extinctions: 1
+Generation time: 65.250 sec  (66.280 average)
+Population 'distance_2' saved! Current generation: 64
+Sample chosen: [650, 392, 1, 496, 575, 386, 39, 665, 748, 945, 46, 723, 361, 379, 395, 900]
+
+********** Running generation 64 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.36604
+	-       mean fitness: 0.16502
+	-      worst fitness: 0.03424
+	- standard deviation: 0.06453
+Best genome overview:
+	- fitness: 0.36604
+	- size (hid, conn): (0, 8)
+	- genome id: 7977
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 2.477
+	- Mean: 1.305
+	- Minimum: 0.001
+	- Standard deviation: 0.642
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     23      66      0.343      0.420      12  
+	  4     23      62      0.366      0.368      0   
+
+Total extinctions: 1
+Generation time: 67.144 sec  (66.680 average)
+Population 'distance_2' saved! Current generation: 65
+Sample chosen: [15, 962, 112, 9, 554, 610, 855, 589, 188, 934, 119, 321, 466, 463, 636, 96]
+
+********** Running generation 65 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.38927
+	-       mean fitness: 0.21845
+	-      worst fitness: 0.05446
+	- standard deviation: 0.07638
+Best genome overview:
+	- fitness: 0.38927
+	- size (hid, conn): (0, 6)
+	- genome id: 8120
+	- belongs to specie: 3
+Genetic distance:
+	- Maximum: 2.405
+	- Mean: 1.331
+	- Minimum: 0.012
+	- Standard deviation: 0.631
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     24      66      0.389      0.499      0   
+	  4     24      62      0.352      0.480      1   
+
+Total extinctions: 1
+Generation time: 65.607 sec  (66.625 average)
+Population 'distance_2' saved! Current generation: 66
+Sample chosen: [606, 719, 30, 964, 730, 996, 788, 535, 549, 863, 76, 536, 335, 666, 933, 547]
+
+********** Running generation 66 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.33411
+	-       mean fitness: 0.22710
+	-      worst fitness: 0.06313
+	- standard deviation: 0.07308
+Best genome overview:
+	- fitness: 0.33411
+	- size (hid, conn): (1, 10)
+	- genome id: 8270
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 2.592
+	- Mean: 1.278
+	- Minimum: 0.010
+	- Standard deviation: 0.661
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     25      63      0.333      0.566      1   
+	  4     25      65      0.334      0.646      2   
+
+Total extinctions: 1
+Generation time: 67.512 sec  (66.839 average)
+Population 'distance_2' saved! Current generation: 67
+Sample chosen: [457, 492, 354, 399, 560, 996, 529, 200, 28, 409, 360, 952, 319, 402, 31, 534]
+
+********** Running generation 67 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.31371
+	-       mean fitness: 0.18083
+	-      worst fitness: 0.04724
+	- standard deviation: 0.07103
+Best genome overview:
+	- fitness: 0.31371
+	- size (hid, conn): (0, 8)
+	- genome id: 8430
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 2.371
+	- Mean: 1.164
+	- Minimum: 0.004
+	- Standard deviation: 0.641
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     26      64      0.301      0.505      2   
+	  4     26      64      0.314      0.498      3   
+
+Total extinctions: 1
+Generation time: 66.088 sec  (66.788 average)
+Population 'distance_2' saved! Current generation: 68
+Sample chosen: [989, 940, 832, 762, 860, 654, 905, 333, 128, 493, 3, 893, 647, 791, 563, 420]
+
+********** Running generation 68 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.31894
+	-       mean fitness: 0.19452
+	-      worst fitness: 0.04234
+	- standard deviation: 0.07506
+Best genome overview:
+	- fitness: 0.31894
+	- size (hid, conn): (0, 7)
+	- genome id: 8576
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 2.395
+	- Mean: 1.177
+	- Minimum: 0.001
+	- Standard deviation: 0.621
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     27      63      0.283      0.535      3   
+	  4     27      65      0.319      0.565      4   
+
+Total extinctions: 1
+Generation time: 65.352 sec  (66.373 average)
+Population 'distance_2' saved! Current generation: 69
+Sample chosen: [381, 388, 442, 76, 740, 763, 277, 292, 391, 987, 395, 364, 426, 757, 254, 759]
+
+********** Running generation 69 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.35166
+	-       mean fitness: 0.23109
+	-      worst fitness: 0.04180
+	- standard deviation: 0.08559
+Best genome overview:
+	- fitness: 0.35166
+	- size (hid, conn): (0, 7)
+	- genome id: 8653
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 2.394
+	- Mean: 1.107
+	- Minimum: 0.008
+	- Standard deviation: 0.626
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     28      66      0.342      0.654      4   
+	  4     28      62      0.352      0.569      5   
+
+Total extinctions: 1
+Generation time: 66.514 sec  (66.333 average)
+Population 'distance_2' saved! Current generation: 70
+Sample chosen: [939, 200, 684, 30, 359, 935, 573, 883, 252, 233, 51, 698, 735, 857, 413, 95]
+
+********** Running generation 70 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.51278
+	-       mean fitness: 0.29953
+	-      worst fitness: 0.06629
+	- standard deviation: 0.09884
+Best genome overview:
+	- fitness: 0.51278
+	- size (hid, conn): (0, 6)
+	- genome id: 8715
+	- belongs to specie: 3
+Genetic distance:
+	- Maximum: 2.238
+	- Mean: 1.090
+	- Minimum: 0.017
+	- Standard deviation: 0.638
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     29      67      0.513      0.548      0   
+	  4     29      61      0.451      0.496      0   
+
+Total extinctions: 1
+Generation time: 60.616 sec  (65.720 average)
+Population 'distance_2' saved! Current generation: 71
+Sample chosen: [905, 906, 471, 956, 773, 556, 60, 40, 259, 49, 138, 705, 901, 632, 715, 55]
+
+********** Running generation 71 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.34497
+	-       mean fitness: 0.18097
+	-      worst fitness: 0.05336
+	- standard deviation: 0.06678
+Best genome overview:
+	- fitness: 0.34497
+	- size (hid, conn): (0, 8)
+	- genome id: 8871
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 2.139
+	- Mean: 1.106
+	- Minimum: 0.022
+	- Standard deviation: 0.621
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     30      62      0.273      0.392      1   
+	  4     30      66      0.345      0.487      1   
+
+Total extinctions: 1
+Generation time: 67.303 sec  (65.807 average)
+Population 'distance_2' saved! Current generation: 72
+Sample chosen: [171, 933, 196, 281, 612, 176, 89, 400, 878, 659, 862, 33, 61, 899, 486, 978]
+
+********** Running generation 72 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.41092
+	-       mean fitness: 0.21807
+	-      worst fitness: 0.05336
+	- standard deviation: 0.08406
+Best genome overview:
+	- fitness: 0.41092
+	- size (hid, conn): (0, 6)
+	- genome id: 9022
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 2.094
+	- Mean: 1.090
+	- Minimum: 0.009
+	- Standard deviation: 0.607
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     31      61      0.316      0.431      2   
+	  4     31      67      0.411      0.489      2   
+
+Total extinctions: 1
+Generation time: 62.293 sec  (65.368 average)
+Population 'distance_2' saved! Current generation: 73
+Sample chosen: [32, 170, 706, 442, 856, 564, 37, 451, 757, 585, 283, 650, 893, 307, 620, 879]
+
+********** Running generation 73 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.69315
+	-       mean fitness: 0.30263
+	-      worst fitness: 0.05980
+	- standard deviation: 0.12193
+Best genome overview:
+	- fitness: 0.69315
+	- size (hid, conn): (0, 6)
+	- genome id: 9141
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 2.271
+	- Mean: 1.089
+	- Minimum: 0.000
+	- Standard deviation: 0.614
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     32      62      0.460      0.371      3   
+	  4     32      66      0.693      0.395      0   
+
+Total extinctions: 1
+Generation time: 65.379 sec  (65.381 average)
+Population 'distance_2' saved! Current generation: 74
+Sample chosen: [38, 15, 462, 994, 179, 617, 98, 803, 430, 498, 843, 622, 385, 573, 492, 309]
+
+********** Running generation 74 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.51181
+	-       mean fitness: 0.22605
+	-      worst fitness: 0.05332
+	- standard deviation: 0.10158
+Best genome overview:
+	- fitness: 0.51181
+	- size (hid, conn): (0, 6)
+	- genome id: 9321
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 2.205
+	- Mean: 1.083
+	- Minimum: 0.000
+	- Standard deviation: 0.643
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     33      58      0.305      0.312      4   
+	  4     33      70      0.512      0.438      1   
+
+Total extinctions: 1
+Generation time: 67.054 sec  (65.372 average)
+Population 'distance_2' saved! Current generation: 75
+Sample chosen: [543, 714, 635, 198, 133, 335, 677, 477, 109, 749, 904, 584, 939, 889, 90, 389]
+
+********** Running generation 75 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.44220
+	-       mean fitness: 0.21308
+	-      worst fitness: 0.05010
+	- standard deviation: 0.10118
+Best genome overview:
+	- fitness: 0.44220
+	- size (hid, conn): (0, 6)
+	- genome id: 9441
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 2.304
+	- Mean: 1.183
+	- Minimum: 0.014
+	- Standard deviation: 0.645
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     34      57      0.333      0.358      5   
+	  4     34      71      0.442      0.463      2   
+
+Total extinctions: 1
+Generation time: 64.346 sec  (65.246 average)
+Population 'distance_2' saved! Current generation: 76
+Sample chosen: [667, 311, 895, 752, 669, 472, 619, 547, 431, 811, 744, 521, 402, 781, 250, 168]
+
+********** Running generation 76 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.54769
+	-       mean fitness: 0.28603
+	-      worst fitness: 0.04709
+	- standard deviation: 0.13936
+Best genome overview:
+	- fitness: 0.54769
+	- size (hid, conn): (0, 6)
+	- genome id: 9547
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 2.278
+	- Mean: 1.238
+	- Minimum: 0.026
+	- Standard deviation: 0.601
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     35      52      0.367      0.341      6   
+	  4     35      76      0.548      0.587      3   
+
+Total extinctions: 1
+Generation time: 61.971 sec  (64.691 average)
+Population 'distance_2' saved! Current generation: 77
+Sample chosen: [272, 142, 82, 655, 963, 110, 918, 968, 703, 657, 769, 20, 140, 987, 734, 760]
+
+********** Running generation 77 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.57948
+	-       mean fitness: 0.33090
+	-      worst fitness: 0.05974
+	- standard deviation: 0.13783
+Best genome overview:
+	- fitness: 0.57948
+	- size (hid, conn): (0, 6)
+	- genome id: 9635
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 2.143
+	- Mean: 1.291
+	- Minimum: 0.004
+	- Standard deviation: 0.585
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     36      54      0.405      0.441      7   
+	  4     36      74      0.579      0.577      4   
+
+Total extinctions: 1
+Generation time: 64.741 sec  (64.557 average)
+Population 'distance_2' saved! Current generation: 78
+Sample chosen: [6, 20, 729, 238, 418, 569, 123, 755, 634, 616, 167, 955, 422, 936, 302, 230]
+
+********** Running generation 78 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.41710
+	-       mean fitness: 0.23360
+	-      worst fitness: 0.04061
+	- standard deviation: 0.09471
+Best genome overview:
+	- fitness: 0.41710
+	- size (hid, conn): (0, 5)
+	- genome id: 9796
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 2.388
+	- Mean: 1.362
+	- Minimum: 0.050
+	- Standard deviation: 0.629
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     37      57      0.346      0.471      8   
+	  4     37      71      0.417      0.543      5   
+
+Total extinctions: 1
+Generation time: 67.801 sec  (64.802 average)
+Population 'distance_2' saved! Current generation: 79
+Sample chosen: [185, 610, 390, 211, 236, 697, 972, 404, 532, 151, 290, 803, 435, 490, 208, 563]
+
+********** Running generation 79 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.43252
+	-       mean fitness: 0.18966
+	-      worst fitness: 0.04060
+	- standard deviation: 0.09349
+Best genome overview:
+	- fitness: 0.43252
+	- size (hid, conn): (0, 6)
+	- genome id: 9937
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 2.229
+	- Mean: 1.281
+	- Minimum: 0.000
+	- Standard deviation: 0.673
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     38      57      0.280      0.336      9   
+	  4     38      71      0.433      0.416      6   
+
+Total extinctions: 1
+Generation time: 67.119 sec  (64.862 average)
+Population 'distance_2' saved! Current generation: 80
+Sample chosen: [60, 865, 30, 423, 277, 82, 959, 813, 346, 296, 465, 137, 852, 62, 410, 475]
+
+********** Running generation 80 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.42425
+	-       mean fitness: 0.27484
+	-      worst fitness: 0.05988
+	- standard deviation: 0.08723
+Best genome overview:
+	- fitness: 0.42425
+	- size (hid, conn): (0, 6)
+	- genome id: 10038
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 2.332
+	- Mean: 1.313
+	- Minimum: 0.009
+	- Standard deviation: 0.678
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     39      65      0.376      0.679      10  
+	  4     39      63      0.424      0.518      7   
+
+Total extinctions: 1
+Generation time: 65.831 sec  (65.384 average)
+Population 'distance_2' saved! Current generation: 81
+Sample chosen: [857, 802, 280, 594, 408, 87, 365, 446, 587, 91, 862, 41, 184, 603, 146, 203]
+
+********** Running generation 81 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.47481
+	-       mean fitness: 0.22433
+	-      worst fitness: 0.04696
+	- standard deviation: 0.11597
+Best genome overview:
+	- fitness: 0.47481
+	- size (hid, conn): (0, 5)
+	- genome id: 10173
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 2.393
+	- Mean: 1.366
+	- Minimum: 0.071
+	- Standard deviation: 0.680
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     40      61      0.349      0.364      11  
+	  4     40      67      0.475      0.467      8   
+
+Total extinctions: 1
+Generation time: 63.022 sec  (64.956 average)
+Population 'distance_2' saved! Current generation: 82
+Sample chosen: [646, 487, 987, 153, 94, 459, 268, 39, 958, 115, 606, 940, 362, 14, 229, 664]
+
+********** Running generation 82 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.39272
+	-       mean fitness: 0.21726
+	-      worst fitness: 0.05329
+	- standard deviation: 0.08500
+Best genome overview:
+	- fitness: 0.39272
+	- size (hid, conn): (0, 6)
+	- genome id: 10320
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 2.396
+	- Mean: 1.365
+	- Minimum: 0.065
+	- Standard deviation: 0.691
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     41      60      0.276      0.443      12  
+	  4     41      68      0.393      0.520      9   
+
+Total extinctions: 1
+Generation time: 64.518 sec  (65.178 average)
+Population 'distance_2' saved! Current generation: 83
+Sample chosen: [922, 724, 856, 129, 502, 361, 343, 965, 870, 543, 50, 274, 836, 658, 797, 23]
+
+********** Running generation 83 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.47748
+	-       mean fitness: 0.26792
+	-      worst fitness: 0.04062
+	- standard deviation: 0.13625
+Best genome overview:
+	- fitness: 0.47748
+	- size (hid, conn): (0, 5)
+	- genome id: 10429
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 2.500
+	- Mean: 1.378
+	- Minimum: 0.013
+	- Standard deviation: 0.701
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     42      58      0.427      0.444      13  
+	  4     42      70      0.477      0.588      10  
+
+Total extinctions: 1
+Generation time: 62.994 sec  (64.940 average)
+Population 'distance_2' saved! Current generation: 84
+Sample chosen: [410, 85, 483, 298, 223, 241, 492, 145, 714, 893, 275, 92, 143, 831, 359, 417]
+
+********** Running generation 84 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.43542
+	-       mean fitness: 0.22562
+	-      worst fitness: 0.04694
+	- standard deviation: 0.09427
+Best genome overview:
+	- fitness: 0.43542
+	- size (hid, conn): (0, 6)
+	- genome id: 10523
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 2.612
+	- Mean: 1.356
+	- Minimum: 0.001
+	- Standard deviation: 0.741
+
+Population of 128 members in 2 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  3     43      58      0.312      0.406      14  
+	  4     43      70      0.435      0.505      11  
+
+Total extinctions: 1
+Generation time: 64.432 sec  (64.678 average)
+Population 'distance_2' saved! Current generation: 85
+Sample chosen: [906, 736, 89, 18, 377, 345, 691, 492, 867, 67, 802, 146, 590, 19, 160, 894]
+
+********** Running generation 85 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.48535
+	-       mean fitness: 0.22411
+	-      worst fitness: 0.04057
+	- standard deviation: 0.10119
+Best genome overview:
+	- fitness: 0.48535
+	- size (hid, conn): (0, 6)
+	- genome id: 10660
+	- belongs to specie: 4
+
+Species 3 with 58 members is stagnated: removing it
+Genetic distance:
+	- Maximum: 1.343
+	- Mean: 0.679
+	- Minimum: 0.000
+	- Standard deviation: 0.317
+
+Population of 128 members in 1 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  4     44     128      0.485      0.403      12  
+
+Total extinctions: 1
+Generation time: 66.178 sec  (64.861 average)
+Population 'distance_2' saved! Current generation: 86
+Sample chosen: [430, 372, 119, 87, 700, 419, 733, 803, 746, 610, 920, 917, 323, 717, 456, 959]
+
+********** Running generation 86 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.48991
+	-       mean fitness: 0.26957
+	-      worst fitness: 0.06623
+	- standard deviation: 0.10758
+Best genome overview:
+	- fitness: 0.48991
+	- size (hid, conn): (0, 6)
+	- genome id: 10660
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 1.346
+	- Mean: 0.736
+	- Minimum: 0.000
+	- Standard deviation: 0.310
+
+Population of 128 members in 1 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  4     45     128      0.490      0.480      13  
+
+Total extinctions: 1
+Generation time: 63.545 sec  (65.018 average)
+Population 'distance_2' saved! Current generation: 87
+Sample chosen: [326, 117, 936, 183, 564, 479, 201, 859, 734, 161, 686, 764, 369, 851, 243, 984]
+
+********** Running generation 87 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.53566
+	-       mean fitness: 0.32644
+	-      worst fitness: 0.06328
+	- standard deviation: 0.12505
+Best genome overview:
+	- fitness: 0.53566
+	- size (hid, conn): (0, 5)
+	- genome id: 10876
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 1.299
+	- Mean: 0.793
+	- Minimum: 0.025
+	- Standard deviation: 0.298
+
+Population of 128 members in 1 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  4     46     128      0.536      0.557      14  
+
+Total extinctions: 1
+Generation time: 64.101 sec  (64.954 average)
+Population 'distance_2' saved! Current generation: 88
+Sample chosen: [916, 19, 243, 516, 624, 857, 46, 106, 830, 657, 520, 276, 599, 92, 637, 344]
+
+********** Running generation 88 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.52171
+	-       mean fitness: 0.34168
+	-      worst fitness: 0.05011
+	- standard deviation: 0.13649
+Best genome overview:
+	- fitness: 0.52171
+	- size (hid, conn): (0, 5)
+	- genome id: 11010
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 1.496
+	- Mean: 0.809
+	- Minimum: 0.000
+	- Standard deviation: 0.348
+
+Population of 128 members in 1 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  4     47     128      0.522      0.618      15  
+
+Total extinctions: 1
+Generation time: 62.339 sec  (64.408 average)
+Population 'distance_2' saved! Current generation: 89
+Sample chosen: [225, 719, 8, 347, 415, 859, 3, 559, 19, 726, 453, 413, 12, 690, 68, 28]
+
+********** Running generation 89 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.39671
+	-       mean fitness: 0.23419
+	-      worst fitness: 0.06620
+	- standard deviation: 0.08369
+Best genome overview:
+	- fitness: 0.39671
+	- size (hid, conn): (0, 5)
+	- genome id: 11141
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 1.385
+	- Mean: 0.771
+	- Minimum: 0.004
+	- Standard deviation: 0.367
+
+Population of 128 members in 1 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  4     48     128      0.397      0.508      16  
+
+Total extinctions: 1
+Generation time: 68.279 sec  (64.524 average)
+Population 'distance_2' saved! Current generation: 90
+Sample chosen: [483, 54, 135, 237, 114, 537, 112, 496, 467, 733, 424, 290, 275, 596, 198, 705]
+
+********** Running generation 90 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.54066
+	-       mean fitness: 0.29916
+	-      worst fitness: 0.02940
+	- standard deviation: 0.14775
+Best genome overview:
+	- fitness: 0.54066
+	- size (hid, conn): (0, 5)
+	- genome id: 11141
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 1.463
+	- Mean: 0.837
+	- Minimum: 0.005
+	- Standard deviation: 0.413
+
+Population of 128 members in 1 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  4     49     128      0.541      0.528      17  
+
+Total extinctions: 1
+Generation time: 65.166 sec  (64.457 average)
+Population 'distance_2' saved! Current generation: 91
+Sample chosen: [593, 33, 796, 335, 996, 765, 501, 331, 694, 167, 118, 803, 559, 183, 901, 430]
+
+********** Running generation 91 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.37763
+	-       mean fitness: 0.24485
+	-      worst fitness: 0.04707
+	- standard deviation: 0.08597
+Best genome overview:
+	- fitness: 0.37763
+	- size (hid, conn): (2, 8)
+	- genome id: 11378
+	- belongs to specie: 4
+Genetic distance:
+	- Maximum: 1.517
+	- Mean: 0.852
+	- Minimum: 0.003
+	- Standard deviation: 0.437
+
+Population of 128 members in 1 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  4     50     128      0.378      0.598      18  
+
+Total extinctions: 1
+Generation time: 65.475 sec  (64.703 average)
+Population 'distance_2' saved! Current generation: 92
+Sample chosen: [188, 395, 923, 716, 222, 229, 58, 579, 596, 52, 163, 942, 128, 351, 863, 693]
+
+********** Running generation 92 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.57876
+	-       mean fitness: 0.30768
+	-      worst fitness: 0.03524
+	- standard deviation: 0.15987
+Best genome overview:
+	- fitness: 0.57876
+	- size (hid, conn): (1, 6)
+	- genome id: 11549
+	- belongs to specie: 4
+
+Species 4 with 128 members is stagnated: removing it
+All species are extinct.
+Genetic distance:
+	- Maximum: 2.340
+	- Mean: 1.654
+	- Minimum: 0.824
+	- Standard deviation: 0.280
+
+Population of 128 members in 1 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  5      0     128       --         --        0   
+
+Total extinctions: 2
+Generation time: 64.801 sec  (64.731 average)
+Population 'distance_2' saved! Current generation: 93
+Sample chosen: [360, 116, 666, 263, 166, 769, 264, 871, 278, 465, 333, 444, 32, 818, 847, 718]
+
+********** Running generation 93 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.26285
+	-       mean fitness: 0.07686
+	-      worst fitness: 0.04060
+	- standard deviation: 0.05466
+Best genome overview:
+	- fitness: 0.26285
+	- size (hid, conn): (0, 8)
+	- genome id: 11689
+	- belongs to specie: 5
+Genetic distance:
+	- Maximum: 2.368
+	- Mean: 1.645
+	- Minimum: 0.918
+	- Standard deviation: 0.290
+
+Population of 128 members in 1 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  5      1     128      0.263      0.163      0   
+
+Total extinctions: 2
+Generation time: 61.019 sec  (64.533 average)
+Population 'distance_2' saved! Current generation: 94
+Sample chosen: [799, 776, 262, 376, 391, 755, 53, 873, 556, 256, 406, 24, 853, 779, 522, 705]
+
+********** Running generation 94 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.16918
+	-       mean fitness: 0.08381
+	-      worst fitness: 0.02193
+	- standard deviation: 0.03149
+Best genome overview:
+	- fitness: 0.16918
+	- size (hid, conn): (0, 8)
+	- genome id: 11748
+	- belongs to specie: 5
+Genetic distance:
+	- Maximum: 2.368
+	- Mean: 1.606
+	- Minimum: 0.123
+	- Standard deviation: 0.341
+
+Population of 128 members in 1 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  5      2     128      0.169      0.420      1   
+
+Total extinctions: 2
+Generation time: 61.996 sec  (64.290 average)
+Population 'distance_2' saved! Current generation: 95
+Sample chosen: [441, 509, 279, 63, 246, 392, 321, 432, 539, 651, 850, 864, 308, 826, 475, 178]
+
+********** Running generation 95 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.30041
+	-       mean fitness: 0.17559
+	-      worst fitness: 0.04929
+	- standard deviation: 0.07167
+Best genome overview:
+	- fitness: 0.30041
+	- size (hid, conn): (0, 7)
+	- genome id: 11848
+	- belongs to specie: 5
+Genetic distance:
+	- Maximum: 2.198
+	- Mean: 1.490
+	- Minimum: 0.051
+	- Standard deviation: 0.432
+
+Population of 128 members in 1 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  5      3     128      0.300      0.503      0   
+
+Total extinctions: 2
+Generation time: 62.972 sec  (63.969 average)
+Population 'distance_2' saved! Current generation: 96
+Sample chosen: [965, 88, 206, 50, 417, 620, 981, 699, 23, 714, 867, 137, 935, 403, 970, 109]
+
+********** Running generation 96 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.30104
+	-       mean fitness: 0.21433
+	-      worst fitness: 0.05357
+	- standard deviation: 0.06731
+Best genome overview:
+	- fitness: 0.30104
+	- size (hid, conn): (0, 7)
+	- genome id: 12010
+	- belongs to specie: 5
+Genetic distance:
+	- Maximum: 2.167
+	- Mean: 1.550
+	- Minimum: 0.021
+	- Standard deviation: 0.369
+
+Population of 128 members in 1 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  5      4     128      0.301      0.650      0   
+
+Total extinctions: 2
+Generation time: 59.059 sec  (63.521 average)
+Population 'distance_2' saved! Current generation: 97
+Sample chosen: [358, 196, 945, 264, 926, 388, 873, 858, 708, 733, 522, 712, 370, 241, 426, 927]
+
+********** Running generation 97 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.27241
+	-       mean fitness: 0.19081
+	-      worst fitness: 0.05341
+	- standard deviation: 0.05082
+Best genome overview:
+	- fitness: 0.27241
+	- size (hid, conn): (0, 8)
+	- genome id: 12105
+	- belongs to specie: 5
+Genetic distance:
+	- Maximum: 2.323
+	- Mean: 1.664
+	- Minimum: 0.223
+	- Standard deviation: 0.202
+
+Population of 128 members in 1 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  5      5     128      0.272      0.627      1   
+
+Total extinctions: 2
+Generation time: 63.113 sec  (63.422 average)
+Population 'distance_2' saved! Current generation: 98
+Sample chosen: [307, 607, 582, 147, 65, 431, 411, 381, 225, 48, 734, 818, 33, 474, 122, 121]
+
+********** Running generation 98 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.24626
+	-       mean fitness: 0.17463
+	-      worst fitness: 0.02843
+	- standard deviation: 0.06738
+Best genome overview:
+	- fitness: 0.24626
+	- size (hid, conn): (1, 9)
+	- genome id: 12223
+	- belongs to specie: 5
+Genetic distance:
+	- Maximum: 2.249
+	- Mean: 1.394
+	- Minimum: 0.374
+	- Standard deviation: 0.542
+
+Population of 128 members in 1 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  5      6     128      0.246      0.671      2   
+
+Total extinctions: 2
+Generation time: 61.394 sec  (63.327 average)
+Population 'distance_2' saved! Current generation: 99
+Sample chosen: [371, 227, 262, 764, 218, 239, 461, 681, 433, 372, 691, 386, 729, 522, 139, 710]
+
+********** Running generation 99 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.22468
+	-       mean fitness: 0.18045
+	-      worst fitness: 0.03684
+	- standard deviation: 0.04825
+Best genome overview:
+	- fitness: 0.22468
+	- size (hid, conn): (1, 7)
+	- genome id: 12373
+	- belongs to specie: 5
+Genetic distance:
+	- Maximum: 2.093
+	- Mean: 1.093
+	- Minimum: 0.144
+	- Standard deviation: 0.484
+
+Population of 128 members in 1 species:
+	 SID    age    size    fitness    adj fit    stag 
+	=====  =====  ======  =========  =========  ======
+	  5      7     128      0.225      0.765      3   
+
+Total extinctions: 2
+Generation time: 62.280 sec  (62.727 average)
+Population 'distance_2' saved! Current generation: 100
+
+===> CREATING BLUEPRINTS <===
+
+Creating blueprints for games: [1, 2, 3, 4, 5]
+
+===> CREATING TRACES <===
+
+Creating traces for games: [1, 2, 3, 4, 5]
