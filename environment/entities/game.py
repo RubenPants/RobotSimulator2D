@@ -42,7 +42,7 @@ class Game:
                  noise: bool = False,
                  overwrite: bool = False,
                  save_path: str = '',
-                 silent: bool = False,
+                 silent: bool = True,
                  ):
         """
         Define a new game.

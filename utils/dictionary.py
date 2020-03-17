@@ -25,6 +25,7 @@ D_CONTROL_ENV = 'control_environment'
 D_DIST_TO_TARGET = 'distance_to_target'
 D_DISTANCE = 'distance'
 D_DISTANCE_TIME = 'distance_time'
+D_DIVERSITY = 'diversity'
 D_DONE = 'done'
 D_DURATION = 'duration'
 

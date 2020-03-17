@@ -6,4 +6,5 @@ neat
 neat-python
 matplotlib
 scikit-learn
+scipy
 tqdm
