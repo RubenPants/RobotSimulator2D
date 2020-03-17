@@ -154,7 +154,7 @@ class NeatConfig:
         # The probability that mutation will replace the 'enabled status' of a connection  [def=0.05]
         self.enabled_mutate_rate: float = 0.01
         # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT_05]  TODO
-        self.initial_connection = D_FULL_DIRECT
+        self.initial_connection = D_PARTIAL_DIRECT_05
         # Probability of adding a node during mutation (each generation)  [def=0.1]  TODO
         self.node_add_prob: float = 0.1
         # Probability of removing a node during mutation (each generation)  [def=0.075]  TODO
