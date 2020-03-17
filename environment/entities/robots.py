@@ -9,7 +9,7 @@ from environment.entities.sensors import AngularSensor, DistanceSensor, Proximit
 from utils.vec2d import angle_to_vec, Vec2d
 
 
-class FootBot:
+class MarXBot:
     """The FootBot is the main bot used in this project. It is a simple circular robot with two wheels on its sides."""
     
     __slots__ = (
@@ -150,19 +150,15 @@ class FootBot:
     
     def create_proximity_sensors(self):
         """
-        24 equally spaced proximity sensors, which measure the distance between the agent and an object, if this object
-        is within 1.5 meters of distance.
+        23 equally spaced proximity sensors, which measure the distance between the agent and an object, if this object
+        is within 0.5 meters of distance.
         
         Sensors are added from the left-side of the drone to the right
         """
-        self.add_proximity_sensor(angle=np.pi / 2)  # -90°
-        self.add_proximity_sensor(angle=np.pi / 3)  # -60°
-        self.add_proximity_sensor(angle=np.pi / 6)  # -30°
-        self.add_proximity_sensor(angle=0)  # 0°
-        self.add_proximity_sensor(angle=-np.pi / 6)  # 30°
-        self.add_proximity_sensor(angle=-np.pi / 3)  # 60°
-        self.add_proximity_sensor(angle=-np.pi / 2)  # 90°
+        for i in range(1, 24):
+            # Range from -165° to 0° to 165° with hops of 15° (total of 23 proximity sensors)
+            self.add_proximity_sensor(angle=np.pi - np.pi * i / 12)
     
     def get_proximity_sensors(self):
         """Get a list of all proximity sensors."""
-        return [self.sensors[i] for i in range(7)]
+        return [self.sensors[i] for i in range(23)]

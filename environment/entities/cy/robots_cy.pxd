@@ -7,7 +7,7 @@ from environment.entities.cy.game_cy cimport GameCy
 from environment.entities.cy.sensors_cy cimport DistanceSensorCy
 from utils.cy.vec2d_cy cimport Vec2dCy
 
-cdef class FootBotCy:
+cdef class MarXBotCy:
     """
     The FootBot is the main bot used in this project. It is a simple circular robot with two wheels on its sides.
     """

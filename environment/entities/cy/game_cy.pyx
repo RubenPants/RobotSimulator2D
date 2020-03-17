@@ -12,7 +12,7 @@ import pylab as pl
 from matplotlib import collections as mc
 
 from config import GameConfig
-from environment.entities.cy.robots_cy cimport FootBotCy
+from environment.entities.cy.robots_cy cimport MarXBotCy
 from utils.dictionary import *
 from utils.cy.intersection_cy cimport circle_line_intersection_cy
 from utils.cy.line2d_cy cimport Line2dCy
@@ -187,7 +187,7 @@ cdef class GameCy:
         # Create random set of walls
         self.walls = get_boundary_walls(x_axis=self.x_axis, y_axis=self.y_axis)
         self.target = Vec2dCy(0.5, self.y_axis - 0.5)
-        self.player = FootBotCy(game=self,
+        self.player = MarXBotCy(game=self,
                                 init_pos=Vec2dCy(self.x_axis - 0.5, 0.5),
                                 init_orient=np.pi / 2)
         
@@ -277,7 +277,7 @@ cdef class GameCy:
             self.noise_proximity = game[D_NOISE_PROXIMITY]
             self.sensor_ray_distance = game[D_SENSOR_RAY_DISTANCE]
             self.target_reached = game[D_TARGET_REACHED]
-            self.player = FootBotCy(game=self)  # Create a dummy-player to set values on
+            self.player = MarXBotCy(game=self)  # Create a dummy-player to set values on
             self.set_player_angle(game[D_ANGLE])
             self.set_player_pos(Vec2dCy(game[D_POS][0], game[D_POS][1]))
             self.path = {p[0]: p[1] for p in game[D_PATH]}

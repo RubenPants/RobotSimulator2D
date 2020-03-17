@@ -10,7 +10,7 @@ import pylab as plt
 from matplotlib import collections as mc
 
 from config import GameConfig
-from environment.entities.robots import FootBot
+from environment.entities.robots import MarXBot
 from utils.dictionary import *
 from utils.intersection import circle_line_intersection
 from utils.line2d import Line2d
@@ -78,7 +78,7 @@ class Game:
         self.done: bool = False  # Game has finished
         self.id: int = game_id  # Game's ID-number
         self.path: dict = None  # Coordinates together with distance to target
-        self.player: FootBot = None  # Candidate-robot
+        self.player: MarXBot = None  # Candidate-robot
         self.steps_taken: int = 0  # Number of steps taken by the agent
         self.target: Vec2d = None  # Target-robot
         self.walls: set = None  # Set of all walls in the game
@@ -175,7 +175,7 @@ class Game:
         # Create random set of walls
         self.walls = get_boundary_walls(x_axis=self.x_axis, y_axis=self.y_axis)
         self.target = Vec2d(0.5, self.y_axis - 0.5)
-        self.player = FootBot(game=self,
+        self.player = MarXBot(game=self,
                               init_pos=Vec2d(self.x_axis - 0.5, 0.5),
                               init_orient=np.pi / 2)
         
@@ -262,7 +262,7 @@ class Game:
             self.noise_proximity = game[D_NOISE_PROXIMITY]
             self.sensor_ray_distance = game[D_SENSOR_RAY_DISTANCE]
             self.target_reached = game[D_TARGET_REACHED]
-            self.player = FootBot(game=self)  # Create a dummy-player to set values on
+            self.player = MarXBot(game=self)  # Create a dummy-player to set values on
             self.set_player_angle(game[D_ANGLE])
             self.set_player_pos(Vec2d(game[D_POS][0], game[D_POS][1]))
             self.path = {p[0]: p[1] for p in game[D_PATH]}

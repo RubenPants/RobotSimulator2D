@@ -10,7 +10,7 @@ cimport numpy as np
 from sensors_cy cimport AngularSensorCy, DistanceSensorCy, ProximitySensorCy
 from utils.cy.vec2d_cy cimport angle_to_vec, Vec2dCy
 
-cdef class FootBotCy:
+cdef class MarXBotCy:
     """The FootBot is the main bot used in this project. It is a simple circular robot with two wheels on its sides."""
     
     __slots__ = (

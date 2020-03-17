@@ -30,7 +30,7 @@ from tqdm import tqdm
 
 from config import GameConfig
 from environment.entities.game import Game
-from environment.entities.robots import FootBot
+from environment.entities.robots import MarXBot
 from utils.line2d import Line2d
 from utils.vec2d import Vec2d
 
@@ -649,7 +649,7 @@ def create_custom_game(cfg: GameConfig, overwrite=False):
     game.target = Vec2d(0.5, cfg.y_axis - 0.5)
     
     # Create random player
-    game.player = FootBot(game=game,
+    game.player = MarXBot(game=game,
                           init_pos=Vec2d(cfg.x_axis - 0.5, 0.5),
                           init_orient=np.pi / 2)
     
@@ -696,7 +696,7 @@ def create_game(cfg: GameConfig,
     game.target = maze.target
     
     # Create random player
-    game.player = FootBot(game=game,
+    game.player = MarXBot(game=game,
                           init_pos=Vec2d(cfg.x_axis - 0.5, 0.5),  # Fixed initial position
                           init_orient=np.pi / 2)
     

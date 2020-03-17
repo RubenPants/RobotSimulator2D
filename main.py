@@ -43,7 +43,7 @@ if __name__ == '__main__':
             trainer.evaluate_and_evolve(
                     pop,
                     n=args.iterations,
-                    # parallel=False,
+                    parallel=False,  # TODO
             )
         
         if args.blueprint:
