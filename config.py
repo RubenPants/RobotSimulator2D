@@ -23,11 +23,11 @@ class GameConfig:
     def __init__(self):
         # [BOT]
         # Speed of bot when driving straight expressed in m/s [def=0.5]
-        self.bot_driving_speed: float = 0.5
-        # Radius of the bot expressed in meters [def=0.1]
-        self.bot_radius: float = 0.1
-        # Speed of bot when turning expressed in radians per second [def=13*np.pi/16]
-        self.bot_turning_speed: float = 13 * np.pi / 16
+        self.bot_driving_speed: float = 0.6
+        # Radius of the bot expressed in meters [def=0.085]
+        self.bot_radius: float = 0.085
+        # Speed of bot when turning expressed in radians per second [def=3.53~=0.6/0.17]
+        self.bot_turning_speed: float = 3.53
         
         # [CONTROL]
         # Number of games on which a single genome is evaluated [def=10]  # TODO: Put in population?
@@ -104,7 +104,7 @@ class NeatConfig:
         # Don't consider fitness_criterion and fitness_threshold
         self.no_fitness_termination: bool = True
         # Number of individuals in each generation  [def=128]  TODO
-        self.pop_size: int = 128
+        self.pop_size: int = 10
         
         # [DefaultReproduction]
         # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=2]
@@ -183,8 +183,8 @@ class NeatConfig:
         self.weight_replace_rate: float = 0.05
         
         # [DefaultSpeciesSet]
-        # Individuals whose genetic distance is less than this threshold are in the same specie  [def=2.5]
-        self.compatibility_threshold: float = 2.5
+        # Individuals whose genetic distance is less than this threshold are in the same specie  [def=2.5]  TODO
+        self.compatibility_threshold: float = 1
         # Remove a specie if it hasn't improved over this many number of generations  [def=15]
         self.max_stagnation: int = 15
         # Number of the best species that will be protected from stagnation  [def=2]

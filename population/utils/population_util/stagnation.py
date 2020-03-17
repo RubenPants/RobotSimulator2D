@@ -24,6 +24,7 @@ class DefaultStagnation(DefaultClassConfig):
         # pylint: disable=super-init-not-called
         self.species_config = config
         self.reporters = reporters
+        self.previous_best_species = set()
         
         self.species_fitness_func = stat_functions.get(config.species_fitness_func)
         if self.species_fitness_func is None:
@@ -48,7 +49,7 @@ class DefaultStagnation(DefaultClassConfig):
             species_data.append((specie_id, specie))
         
         # Sort the species in ascending fitness order
-        species_data.sort(key=lambda x: x[1].fitness)
+        species_data.sort(key=lambda x: x[1].fitness, reverse=True)
         
         # Define if the population is stagnant or not
         result = []
@@ -57,20 +58,14 @@ class DefaultStagnation(DefaultClassConfig):
             
             # Most elite species cannot become stagnant (>= since idx start counting at 0)
             #  Calculating stagnation is only useful when population can be removed
-            # if idx >= self.species_config.species_elitism and \
-            #         hist_length > self.species_config.max_stagnation+3:
-            hist_length = len(specie.fitness_history)
-            if hist_length > self.species_config.max_stagnation + 3:
-                history_decayed = [stagnation_decay(specie.fitness_history[i:i + 3]) for i in range(hist_length - 2)]
-                is_stagnant = max(history_decayed) in history_decayed[:-self.species_config.max_stagnation]
+            #  A specie is elite if it was one of the best species_elitism this or the previous iteration
+            if idx >= self.species_config.species_elitism and specie_id not in self.previous_best_species:
+                stagnant_time = generation - specie.last_improved
+                is_stagnant = stagnant_time >= self.species_config.max_stagnation
             
             # Append to the result
             result.append((specie_id, specie, is_stagnant))
         
+        self.previous_best_species = {s_id for (s_id, _) in species_data[:self.species_config.species_elitism]}
+        
         return result
-
-
-def stagnation_decay(lst):
-    """Define decay function to define the stagnation."""
-    assert len(lst) == 3
-    return (lst[-1] + 0.5 * lst[-2] + 0.5 * lst[-3]) / 2
