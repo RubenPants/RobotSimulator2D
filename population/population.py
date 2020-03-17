@@ -69,17 +69,17 @@ class Population:
         self.folder_name = folder_name
         
         # Placeholders
-        self.best_genome = None
-        self.config = None
+        self.best_genome: DefaultGenome = None
+        self.config: Config = None
         self.fitness_config = None
         self.fitness_criterion = None
         self.generation = 0
         self.make_net = None
         self.population = None
         self.query_net = None
-        self.reporters = None
-        self.reproduction = None
-        self.species = None
+        self.reporters: ReporterSet = None
+        self.reproduction: DefaultReproduction = None
+        self.species: DefaultSpecies = None
         
         # Try to load the population, create new if not possible
         if not self.load():
@@ -248,7 +248,7 @@ class Population:
         """
         self.config = cfg
         stagnation = cfg.stagnation_type(cfg.stagnation_config, self.reporters)
-        self.reproduction = cfg.reproduction_type(cfg.reproduction_config, self.reporters, stagnation)
+        self.reproduction = cfg.reproduction_type(cfg.reproduction_config, self.reporters, stagnation, cfg=cfg)
     
     # ---------------------------------------------> PERSISTING METHODS <--------------------------------------------- #
     
