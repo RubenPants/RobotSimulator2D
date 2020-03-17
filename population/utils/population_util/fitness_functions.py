@@ -5,7 +5,7 @@ This file contains multiple possible fitness functions. Each of the fitness func
 the ID of the corresponding candidate, and as value a list of all its final observations (i.e. list of game.close()
 dictionaries). Based on this input, a suitable fitness value for each of the candidates is determined.
 """
-import math
+from math import sqrt
 
 import numpy as np
 from scipy import stats
@@ -76,14 +76,10 @@ def fitness_per_game(fitness_config: dict, game_observations: dict, game_params:
     tag = fitness_config[D_TAG]
     if tag == D_DISTANCE:
         return distance(game_observations=game_observations, game_params=game_params)
-    elif tag == D_DISTANCE_TIME:
-        return distance_time(game_observations=game_observations, game_params=game_params)
     elif tag == D_NOVELTY:
         return novelty_search(game_observations=game_observations, game_params=game_params, k=fitness_config[D_K])
     elif tag == D_PATH:
         return fitness_path(game_observations=game_observations, game_params=game_params)
-    elif tag == D_PATH_TIME:
-        return fitness_path_time(game_observations=game_observations, game_params=game_params)
     elif tag == D_QUALITY_DIVERSITY:
         raise NotImplemented
     else:
@@ -104,23 +100,17 @@ def distance(game_observations: dict, game_params: list):
     :param game_params: List of game specific parameters for each of the used games (in order)
     :return: { genome_id, [fitness_floats] }
     """
-    fitness = dict()
     cfg = GameConfig()
-    diagonal = math.sqrt(cfg.x_axis ** 2 + cfg.y_axis ** 2)
-    for k, v in game_observations.items():  # Iterate over the candidates
-        fitness[k] = [max(0, 1 - o[D_DIST_TO_TARGET] / diagonal) ** 2 for o in v]
-    return fitness
-
-
-def distance_time(game_observations: dict, game_params: list):
-    """
-    TODO: Implement
+    diagonal = sqrt(cfg.x_axis ** 2 + cfg.y_axis ** 2)
     
-    :param game_observations: Dictionary containing for each genome the list of all its game.close() results
-    :param game_params: List of game specific parameters for each of the used games (in order)
-    :return: { genome_id, [fitness_floats] }
-    """
-    raise NotImplemented
+    def get_score(d, reached=False):
+        """Get a score for the given distance."""
+        return 1 if reached else clip((1 - (d - cfg.target_reached) / diagonal) ** 2)
+    
+    fitness = dict()
+    for k, v in game_observations.items():  # Iterate over the candidates
+        fitness[k] = [get_score(o[D_DIST_TO_TARGET], reached=o[D_DONE]) for o in v]
+    return fitness
 
 
 def novelty_search(game_observations: dict, game_params: list, k: int = 5):
@@ -215,22 +205,20 @@ def fitness_path(game_observations: dict, game_params: list):
     :param game_params: List of game specific parameters for each of the used games (in order)
     :return: { genome_id, [fitness_floats] }
     """
-    # Calculate the score
-    fitness = dict()
     paths = [g[D_PATH] for g in game_params]
     a_stars = [g[D_A_STAR] for g in game_params]
+    
+    def get_score(pos, g_index, reached=False):
+        """Get a score for the given distance."""
+        return 1 if reached else clip((1 - paths[g_index][round(pos[0], 1), round(pos[1], 1)] / a_stars[g_index]) ** 2)
+    
+    # Calculate the score
+    fitness = dict()
     for k, v in game_observations.items():  # Iterate over the candidates
-        fitness[k] = [max(0, 1 - paths[i][round(o[D_POS][0], 1), round(o[D_POS][1], 1)] / a_stars[i])
-                      for i, o in enumerate(v)]
+        fitness[k] = [get_score(o[D_POS], g_index=i, reached=o[D_DONE]) for i, o in enumerate(v)]
     return fitness
 
 
-def fitness_path_time(game_observations: dict, game_params: list):
-    """
-    TODO: Implement
-    
-    :param game_observations: Dictionary containing for each genome the list of all its game.close() results
-    :param game_params: List of game specific parameters for each of the used games (in order)
-    :return: { genome_id, [fitness_floats] }
-    """
-    raise NotImplemented
+def clip(v):
+    """Clip the value between 0 and 1."""
+    return np.clip(v, a_min=0, a_max=1)

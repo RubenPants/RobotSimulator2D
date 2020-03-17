@@ -30,8 +30,8 @@ class GameConfig:
         # [CONTROL]
         # Number of games on which a single genome is evaluated [def=10]  # TODO: Put in population?
         self.batch: int = 16
-        # Number of seconds it takes for one game to complete [def=60]
-        self.duration: int = 60
+        # Number of seconds it takes for one game to complete [def=100]
+        self.duration: int = 100
         # Max ID of game (starting from 1) [def=1000]
         self.max_game_id: int = 1000
         # Max ID of evaluation game (starting from max_id) [def=1100]
@@ -195,7 +195,7 @@ class NeatConfig:
         self.species_max: int = 10
         
         # [EVALUATION]
-        # Fitness functions [distance, distance_time, novelty, path, path_time]  TODO
+        # Fitness functions [distance, novelty, path]  TODO
         self.fitness: str = D_PATH
         # Function to combine the fitness-values across different games, choices are: min, avg, max, gmean  [def=gmean]
         self.fitness_comb: str = D_GMEAN
