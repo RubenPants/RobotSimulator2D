@@ -306,9 +306,7 @@ class DefaultGenome(object):
                     node_distance += n1.distance(n2, config)  # Homologous genes compute their own distance value.
             
             max_nodes = max(len(self.nodes), len(other.nodes))
-            node_distance = (node_distance +
-                             (config.compatibility_disjoint_coefficient *
-                              disjoint_nodes)) / max_nodes
+            node_distance = (node_distance + (config.compatibility_disjoint_coefficient * disjoint_nodes)) / max_nodes
         
         # Compute connection gene differences.
         connection_distance = 0.0
@@ -327,9 +325,8 @@ class DefaultGenome(object):
                     connection_distance += c1.distance(c2, config)
             
             max_conn = max(len(self.connections), len(other.connections))
-            connection_distance = (connection_distance +
-                                   (config.compatibility_disjoint_coefficient *
-                                    disjoint_connections)) / max_conn
+            connection_distance = (connection_distance + (
+                        config.compatibility_disjoint_coefficient * disjoint_connections)) / max_conn
         
         distance = node_distance + connection_distance
         return distance
@@ -337,11 +334,11 @@ class DefaultGenome(object):
     def size(self):
         """Returns genome 'complexity', taken to be (number of hidden nodes, number of enabled connections)"""
         used_nodes, used_conn = required_for_output(
-                inputs=[-i for i in range(self.num_inputs)],
+                inputs=[-i for i in range(1, self.num_inputs + 1)],
                 outputs=[i for i in range(self.num_outputs)],
                 connections=self.connections,
         )
-        return len(used_nodes) - (self.num_inputs + self.num_outputs - 1), len(used_conn)
+        return len(used_nodes) - (self.num_inputs + self.num_outputs), len(used_conn)
     
     def __str__(self):
         s = f"Key: {self.key}\nFitness: {self.fitness}\nNodes:"

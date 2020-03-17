@@ -58,7 +58,7 @@ class GameConfig:
         self.noise_proximity: float = 0.005
         
         # [SENSOR]
-        # Distance a ray-sensor reaches, expressed in meters [def=0.5]  TODO
+        # Distance a ray-sensor reaches, expressed in meters [def=0.5]
         self.sensor_ray_distance: float = 0.5
         
         # [TARGET]
@@ -87,7 +87,7 @@ class NeatConfig:
                                 'gru_enabled', 'gru_mutate_rate', 'initial_connection', 'node_add_prob',
                                 'node_delete_prob', 'num_hidden', 'num_inputs', 'num_outputs', 'weight_init_mean',
                                 'weight_init_stdev', 'weight_max_value', 'weight_min_value', 'weight_mutate_power',
-                                'weight_mutate_rate', 'weight_replace_rate'],
+                                'weight_mutate_rate', 'weight_mutate_rate_gru', 'weight_replace_rate'],
         'DefaultSpecies':      ['compatibility_threshold', 'max_stagnation', 'species_elitism', 'species_fitness_func',
                                 'species_max'],
         'Evaluation':          ["fitness", "fitness_comb", "nn_k"],
@@ -102,13 +102,13 @@ class NeatConfig:
         # Don't consider fitness_criterion and fitness_threshold
         self.no_fitness_termination: bool = True
         # Number of individuals in each generation  [def=128]  TODO
-        self.pop_size: int = 128
+        self.pop_size: int = 10
         
         # [DefaultReproduction]
-        # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=2]
-        self.elitism: int = 2
-        # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.3]  TODO
-        self.parent_selection: float = 0.3
+        # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=3]
+        self.elitism: int = 3
+        # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.2]  TODO
+        self.parent_selection: float = 0.2
         # Minimum number of genomes per species, keeping low prevents number of individuals blowing up  [def=5]  TODO
         self.min_species_size: int = 5
         # Sexual reproduction  [def=True]
@@ -177,6 +177,8 @@ class NeatConfig:
         self.weight_mutate_power: float = 0.1
         # Probability of a weight (connection) to mutate  [def=0.2]  TODO
         self.weight_mutate_rate: float = 0.2
+        # Probability of a GRU-weight to mutate  [def=0.1]
+        self.weight_mutate_rate_gru: float = 0.1
         # Probability of assigning completely new value, based on weight_init_mean and weight_init_stdev  [def=0.05]
         self.weight_replace_rate: float = 0.05
         
@@ -189,8 +191,8 @@ class NeatConfig:
         self.species_elitism: int = 2
         # The function used to compute the species fitness  [def=D_MAX]
         self.species_fitness_func: str = D_MAX
-        # Maximum number of species that can live along each other  [def=15]
-        self.species_max: int = 15
+        # Maximum number of species that can live along each other  [def=10]
+        self.species_max: int = 10
         
         # [EVALUATION]
         # Fitness functions [distance, distance_time, novelty, path, path_time]  TODO

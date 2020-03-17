@@ -263,7 +263,7 @@ class Population:
         
         # Save the population
         store_pickle(self, f'population/storage/{self.folder_name}/{self}/generations/gen_{self.generation:05d}')
-        self.log(f"Population '{self}' saved! Current generation: {self.generation}", print_result=False)
+        self.log(f"Population '{self}' saved! Current generation: {self.generation}")
     
     def load(self, gen=None):
         """
@@ -297,7 +297,7 @@ class Population:
             self.reporters = pop.reporters
             self.reproduction = pop.reproduction
             self.species = pop.species
-            print(f"\nPopulation '{self}' loaded successfully! Current generation: {self.generation}")
+            pop.log(f"\nPopulation '{self}' loaded successfully! Current generation: {self.generation}")
             return True
         except FileNotFoundError:
             return False

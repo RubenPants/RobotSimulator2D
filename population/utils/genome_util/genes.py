@@ -190,13 +190,18 @@ class GruNodeGene(BaseGene):
     
     def mutate(self, config):
         """ Perform the mutation operation. """
+        # Replace the config's weight_mutate_rate with that of the gru-specific mutate rate
+        cfg = copy.deepcopy(config)
+        cfg.weight_mutate_rate = cfg.weight_mutate_rate_gru
+        
+        # Perform the mutation
         for a in self._attributes:
             v = getattr(self, a.name)
             if a.name == 'full_weight_ih':
                 mapping = [k in self.input_keys for k in self.full_input_keys]
-                setattr(self, a.name, a.mutate_value(v, config, mapping))
+                setattr(self, a.name, a.mutate_value(v, cfg, mapping))
             else:
-                setattr(self, a.name, a.mutate_value(v, config))
+                setattr(self, a.name, a.mutate_value(v, cfg))
     
     def crossover(self, other, ratio):
         """

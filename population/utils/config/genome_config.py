@@ -54,6 +54,7 @@ class DefaultGenomeConfig(object):
             ConfigParameter('initial_connection', str, 'unconnected'),
             ConfigParameter('gru_enabled', bool),
             ConfigParameter('gru_mutate_rate', float),
+            ConfigParameter('weight_mutate_rate_gru', float),
         ]
         
         # Gather configuration data from the gene classes.

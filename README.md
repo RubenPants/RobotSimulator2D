@@ -1,19 +1,10 @@
-# Pyglet - Foot-Bot Simulation
+# Robot Simulator 2D
  Custom low-level robot simulator.
 
 
 ## TODO
 
-* Bug in stagnation (18 vs 15)
-* Separate mutation rate for GRU weights
-* Change game-creation, perhaps more realistic if start with hallways instead of rooms?
-    * First add 2 to 4 hallways, hallways are 1m in width and contain no doors in between them
-    * Add rooms by dividing the larger spaces
-    * Add doors such that everything is connected with each other
-    * Option; move target to different corners?
-* Retain most fit genomes of last three iterations for each specie! (elitism)
 * Test all of the fitness-functions!
-* [x,y] vs [col, row] in maze --> confusing to work with!
 * Novelty not in crows-flight? (do intersection with walls! i.e. find reachable neighbours, the k-NN on those)
 * What is the purpose of the gene-attributes? Figure out and write down! --> I should pay more focus on what to write down such that no redundant work is needed...
 * Activation functions of hidden vs output nodes not taken into account! (hard-coded on tanh!)
