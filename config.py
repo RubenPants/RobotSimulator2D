@@ -87,7 +87,7 @@ class NeatConfig:
                                 'gru_enabled', 'gru_mutate_rate', 'initial_connection', 'node_add_prob',
                                 'node_delete_prob', 'num_hidden', 'num_inputs', 'num_outputs', 'weight_init_mean',
                                 'weight_init_stdev', 'weight_max_value', 'weight_min_value', 'weight_mutate_power',
-                                'weight_mutate_rate', 'weight_replace_rate'],
+                                'weight_mutate_rate', 'weight_mutate_rate_gru', 'weight_replace_rate'],
         'DefaultSpecies':      ['compatibility_threshold', 'max_stagnation', 'species_elitism', 'species_fitness_func',
                                 'species_max'],
         'Evaluation':          ["fitness", "fitness_comb", "nn_k"],
@@ -177,6 +177,8 @@ class NeatConfig:
         self.weight_mutate_power: float = 0.1
         # Probability of a weight (connection) to mutate  [def=0.2]  TODO
         self.weight_mutate_rate: float = 0.2
+        # Probability of a GRU-weight to mutate  [def=0.1]
+        self.weight_mutate_rate_gru: float = 0.1
         # Probability of assigning completely new value, based on weight_init_mean and weight_init_stdev  [def=0.05]
         self.weight_replace_rate: float = 0.05
         
