@@ -186,8 +186,7 @@ class Maze:
             
             # Room already connected to the corridor
             if corridor_tile in filled_tiles:
-                for t in filled_tiles:
-                    if t in all_tiles: all_tiles.remove(t)
+                all_tiles = all_tiles - filled_tiles
             
             # Room not connected to the corridor, add door
             else:
@@ -219,8 +218,7 @@ class Maze:
                         to_remove.add(t)
                     elif t[1] in [1, self.y_width - 2]:
                         to_remove.add(t)
-                for t in to_remove:
-                    if t in filled_tiles: filled_tiles.remove(t)
+                filled_tiles = filled_tiles - to_remove
                 
                 # Create a door between room and corridor, large rooms have two doors
                 remaining_tiles = list(filled_tiles)
@@ -238,8 +236,7 @@ class Maze:
                         remaining_tiles.remove(p)
                 
                 # Room is now connected, remove from all_tiles
-                for t in room_tiles:
-                    if t in all_tiles: all_tiles.remove(t)
+                all_tiles = all_tiles - room_tiles
     
     def get_wall_coordinates(self):
         """
@@ -371,7 +368,7 @@ class Maze:
             if (pos_y != self.y_width - 3) and ((self.maze[pos_y + 2, pos_x] < 0) or
                                                 ((pos_y - 2 >= 0) and (self.maze[pos_y - 2, pos_x] < 0)) or
                                                 ((pos_y + 4 <= self.y_width) and (self.maze[pos_y + 4, pos_x] < 0))):
-                return {}
+                return set()
             self.maze[pos_y + 2, pos_x] = -1
             left = 1
             while (self.maze[pos_y, pos_x - left] >= 0) or (self.maze[pos_y + 2, pos_x - left] >= 0):
@@ -396,7 +393,7 @@ class Maze:
             if (pos_x != self.x_width - 3) and ((self.maze[pos_y, pos_x + 2] < 0) or
                                                 ((pos_x - 2 >= 0) and (self.maze[pos_y, pos_x - 2] < 0)) or
                                                 ((pos_x + 4 <= self.x_width) and (self.maze[pos_y, pos_x + 4] < 0))):
-                return {}
+                return set()
             self.maze[pos_y, pos_x + 2] = -1
             up = 1
             while (self.maze[pos_y + up, pos_x] >= 0) or (self.maze[pos_y + up, pos_x + 2] >= 0):
@@ -731,7 +728,8 @@ if __name__ == '__main__':
     if args.custom:
         create_custom_game(cfg=config, overwrite=args.overwrite)
     else:
-        for g_id in tqdm(range(1, nr_games + 1), desc="Generating Mazes"):
+        # for g_id in tqdm(range(1, nr_games + 1), desc="Generating Mazes"):
+        for g_id in tqdm([-1]):
             maze = None
             while not maze:
                 try:
@@ -741,7 +739,9 @@ if __name__ == '__main__':
             create_game(cfg=config,
                         game_id=g_id,
                         maze=maze,
-                        overwrite=args.overwrite)
+                        overwrite=args.overwrite,
+                        visualize=args.visualize,
+                        )
             
             # Quality check the created game
             try:

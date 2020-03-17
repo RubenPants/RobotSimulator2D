@@ -181,7 +181,7 @@ class Game:
         
         # Save the new game
         self.save()
-        if not self.silent: print("New game created under id: {}".format(self.id))
+        if not self.silent: print(f"New game created under id: {self.id}")
     
     def set_config_params(self, config):
         """ Store all the configured parameters locally. """

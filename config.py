@@ -60,8 +60,8 @@ class GameConfig:
         self.noise_proximity: float = 0.005
         
         # [SENSOR]
-        # Distance a ray-sensor reaches, expressed in meters [def=1.5]
-        self.sensor_ray_distance: float = 1.5
+        # Distance a ray-sensor reaches, expressed in meters [def=0.5]
+        self.sensor_ray_distance: float = 0.5
         
         # [TARGET]
         # Target is reached when within this range, expressed in meters [def=0.5]

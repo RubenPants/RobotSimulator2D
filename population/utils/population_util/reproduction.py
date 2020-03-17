@@ -36,11 +36,11 @@ class DefaultReproduction(DefaultClassConfig):
         self.reporters = reporters
         self.genome_indexer = count(1)
         self.stagnation = stagnation
-        self.ancestors = {}
+        self.ancestors = dict()
     
     def create_new(self, genome_type, genome_config, num_genomes, logger=None):
         """Create a new (random initialized) genome."""
-        new_genomes = {}
+        new_genomes = dict()
         for i in range(num_genomes):
             key = next(self.genome_indexer)
             g = genome_type(key)
@@ -90,8 +90,8 @@ class DefaultReproduction(DefaultClassConfig):
         
         # If no species is left, force hard-reset
         if not remaining_species:
-            species.species = {}
-            return {}
+            species.species = dict()
+            return dict()
         
         # Find minimum/maximum fitness across the entire population, for use in species adjusted fitness computation
         min_fitness = min(remaining_fitness)
@@ -115,8 +115,8 @@ class DefaultReproduction(DefaultClassConfig):
         spawn_amounts = self.compute_spawn(adjusted_fitness, previous_sizes, pop_size, min_species_size)
         
         # Setup the next generation by filling in the new species with their elite, parents, and offspring
-        new_population = {}
-        species.species = {}
+        new_population = dict()
+        species.species = dict()
         for spawn_amount, specie in zip(spawn_amounts, remaining_species):
             # If elitism is enabled, each species will always at least gets to retain its elites
             spawn_amount = max(spawn_amount, self.reproduction_config.elitism)
@@ -126,7 +126,7 @@ class DefaultReproduction(DefaultClassConfig):
             
             # Get all the specie's old (evaluated) members
             old_members = list(iteritems(specie.members))
-            specie.members = {}
+            specie.members = dict()
             species.species[specie.key] = specie
             
             # Sort members in order of descending fitness (i.e. most fit members in front)

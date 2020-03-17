@@ -54,8 +54,8 @@ class DefaultGenome(object):
         self.key = key
         
         # (gene_key, gene) pairs for gene sets.
-        self.connections = {}
-        self.nodes = {}
+        self.connections = dict()
+        self.nodes = dict()
         
         # Fitness results.
         self.fitness = None

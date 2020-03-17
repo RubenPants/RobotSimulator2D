@@ -20,7 +20,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     pop = Population(
-            name="distance_repr_1",
+            name="path_repr_2",
             # version=1,
             folder_name='NEAT-GRU',
     )
@@ -101,7 +101,7 @@ if __name__ == '__main__':
             
             visualizer.visualize(
                     network=net,
-                    game_id=7,
+                    game_id=0,
             )
     except Exception as e:
         pop.log(traceback.format_exc(), print_result=False)
