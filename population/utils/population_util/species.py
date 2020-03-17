@@ -14,7 +14,7 @@ from population.utils.config.default_config import ConfigParameter, DefaultClass
 class Species(object):
     """Create a specie, which is a container for similar genomes."""
     
-    def __init__(self, key, generation):  # TODO: Update such that stagnation can be weighted!
+    def __init__(self, key, generation):
         self.key = key
         self.created = generation
         self.last_improved = generation
@@ -163,6 +163,7 @@ class DefaultSpecies(DefaultClassConfig):
                 logger=logger,
                 print_result=False,
         )
+        print(f'Maximum genetic distance: {max(itervalues(distances.distances))}')  # Print reduced version
     
     def get_species_id(self, individual_id):
         return self.genome_to_species[individual_id]

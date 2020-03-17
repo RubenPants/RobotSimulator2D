@@ -40,6 +40,7 @@ class DefaultReproduction(DefaultClassConfig):
         self.genome_indexer = count(1)
         self.stagnation = stagnation
         self.ancestors = dict()
+        self.previous_elites = set()
         self.num_inputs = cfg.config.num_inputs
         self.num_outputs = cfg.config.num_outputs
     
@@ -139,9 +140,21 @@ class DefaultReproduction(DefaultClassConfig):
             
             # Make sure that all a specie's elites are in the specie itself
             if self.reproduction_config.elitism > 0:
+                # Add the current generation's elites to the population
+                new_elites = set()
                 for i, m in old_members[:self.reproduction_config.elitism]:
                     new_population[i] = m
+                    new_elites.add((i, m))
                     spawn_amount -= 1
+                
+                # Add the previous generation's elites to the population (if not yet added and enough space)
+                for i, m in self.previous_elites:
+                    if i not in new_population and spawn_amount > 0:
+                        new_population[i] = m
+                        spawn_amount -= 1
+                
+                # Set current elite as previous_elites
+                self.previous_elites = new_elites.copy()
             
             # If species is already completely full with its elite (not recommended), then go to next specie
             if spawn_amount <= 0: continue
