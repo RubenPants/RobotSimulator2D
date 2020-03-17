@@ -1070,10 +1070,10 @@ struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_SensorCy;
 struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_AngularSensorCy;
 struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_DistanceSensorCy;
 struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_ProximitySensorCy;
-struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy;
+struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy;
 struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy;
 struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy;
-struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9FootBotCy_add_angular_sensors;
+struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9MarXBotCy_add_angular_sensors;
 
 /* "environment/entities/cy/robots_cy.pxd":29
  *     # -----------------------------------------------> SENSOR METHODS <----------------------------------------------- #
@@ -1082,7 +1082,7 @@ struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9FootBotCy_add_angu
  * 
  *     cpdef void add_distance_sensor(self)
  */
-struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9FootBotCy_add_angular_sensors {
+struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9MarXBotCy_add_angular_sensors {
   int __pyx_n;
   int clockwise;
 };
@@ -1212,13 +1212,13 @@ struct __pyx_obj_11environment_8entities_2cy_10sensors_cy_ProximitySensorCy {
 /* "environment/entities/cy/robots_cy.pxd":10
  * from utils.cy.vec2d_cy cimport Vec2dCy
  * 
- * cdef class FootBotCy:             # <<<<<<<<<<<<<<
+ * cdef class MarXBotCy:             # <<<<<<<<<<<<<<
  *     """
  *     The FootBot is the main bot used in this project. It is a simple circular robot with two wheels on its sides.
  */
-struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy {
+struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy {
   PyObject_HEAD
-  struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy *__pyx_vtab;
+  struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_MarXBotCy *__pyx_vtab;
   struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *game;
   struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *pos;
   struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *prev_pos;
@@ -1263,7 +1263,7 @@ struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy {
   int steps_taken;
   PyObject *path;
   PyObject *walls;
-  struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *player;
+  struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *player;
   struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *target;
   float bot_driving_speed;
   float bot_radius;
@@ -1366,23 +1366,23 @@ static struct __pyx_vtabstruct_11environment_8entities_2cy_10sensors_cy_Proximit
 /* "environment/entities/cy/robots_cy.pxd":10
  * from utils.cy.vec2d_cy cimport Vec2dCy
  * 
- * cdef class FootBotCy:             # <<<<<<<<<<<<<<
+ * cdef class MarXBotCy:             # <<<<<<<<<<<<<<
  *     """
  *     The FootBot is the main bot used in this project. It is a simple circular robot with two wheels on its sides.
  */
 
-struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy {
-  void (*drive)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, float, float, float, int __pyx_skip_dispatch);
-  PyObject *(*get_sensor_readings)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
-  float (*get_sensor_readings_distance)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
-  void (*add_angular_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch, struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9FootBotCy_add_angular_sensors *__pyx_optional_args);
-  void (*add_distance_sensor)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
-  void (*add_proximity_sensor)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, float, int __pyx_skip_dispatch);
-  void (*create_angular_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
-  void (*create_proximity_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
-  PyObject *(*get_proximity_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *, int __pyx_skip_dispatch);
+struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_MarXBotCy {
+  void (*drive)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *, float, float, float, int __pyx_skip_dispatch);
+  PyObject *(*get_sensor_readings)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *, int __pyx_skip_dispatch);
+  float (*get_sensor_readings_distance)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *, int __pyx_skip_dispatch);
+  void (*add_angular_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *, int __pyx_skip_dispatch, struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9MarXBotCy_add_angular_sensors *__pyx_optional_args);
+  void (*add_distance_sensor)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *, int __pyx_skip_dispatch);
+  void (*add_proximity_sensor)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *, float, int __pyx_skip_dispatch);
+  void (*create_angular_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *, int __pyx_skip_dispatch);
+  void (*create_proximity_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *, int __pyx_skip_dispatch);
+  PyObject *(*get_proximity_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *, int __pyx_skip_dispatch);
 };
-static struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy *__pyx_vtabptr_11environment_8entities_2cy_9robots_cy_FootBotCy;
+static struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_MarXBotCy *__pyx_vtabptr_11environment_8entities_2cy_9robots_cy_MarXBotCy;
 
 
 /* "utils/cy/line2d_cy.pxd":9
@@ -2110,7 +2110,7 @@ static PyTypeObject *__pyx_ptype_11environment_8entities_2cy_10sensors_cy_Distan
 static PyTypeObject *__pyx_ptype_11environment_8entities_2cy_10sensors_cy_ProximitySensorCy = 0;
 
 /* Module declarations from 'environment.entities.cy.robots_cy' */
-static PyTypeObject *__pyx_ptype_11environment_8entities_2cy_9robots_cy_FootBotCy = 0;
+static PyTypeObject *__pyx_ptype_11environment_8entities_2cy_9robots_cy_MarXBotCy = 0;
 
 /* Module declarations from 'cpython.buffer' */
 
@@ -2961,14 +2961,14 @@ static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy___init__(struct
   __Pyx_GIVEREF(Py_None);
   __Pyx_GOTREF(__pyx_v_self->player);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->player));
-  __pyx_v_self->player = ((struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *)Py_None);
+  __pyx_v_self->player = ((struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *)Py_None);
 
   /* "environment/entities/cy/game_cy.pyx":81
  *         self.path = dict()  # Coordinates together with distance to target
  *         self.player = None  # Candidate-robot
  *         self.steps_taken = 0  # Number of steps taken by the agent             # <<<<<<<<<<<<<<
  *         self.target = None  # Target-robot
- *         self.walls = None  # List of all walls in the game
+ *         self.walls = None  # Set of all walls in the game
  */
   __pyx_v_self->steps_taken = 0;
 
@@ -2976,7 +2976,7 @@ static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy___init__(struct
  *         self.player = None  # Candidate-robot
  *         self.steps_taken = 0  # Number of steps taken by the agent
  *         self.target = None  # Target-robot             # <<<<<<<<<<<<<<
- *         self.walls = None  # List of all walls in the game
+ *         self.walls = None  # Set of all walls in the game
  * 
  */
   __Pyx_INCREF(Py_None);
@@ -2988,7 +2988,7 @@ static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy___init__(struct
   /* "environment/entities/cy/game_cy.pyx":83
  *         self.steps_taken = 0  # Number of steps taken by the agent
  *         self.target = None  # Target-robot
- *         self.walls = None  # List of all walls in the game             # <<<<<<<<<<<<<<
+ *         self.walls = None  # Set of all walls in the game             # <<<<<<<<<<<<<<
  * 
  *         # Check if game already exists, if not create new game
  */
@@ -3247,7 +3247,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_close(stru
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_DIST_TO_TARGET); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 99, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyFloat_FromDouble(((struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy *)__pyx_v_self->player->__pyx_vtab)->get_sensor_readings_distance(__pyx_v_self->player, 0)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 99, __pyx_L1_error)
+  __pyx_t_3 = PyFloat_FromDouble(((struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_MarXBotCy *)__pyx_v_self->player->__pyx_vtab)->get_sensor_readings_distance(__pyx_v_self->player, 0)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 99, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_t_1, __pyx_t_2, __pyx_t_3) < 0) __PYX_ERR(0, 99, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -3701,7 +3701,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_get_observ
  */
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_SENSOR_LIST); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 120, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = ((struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy *)__pyx_v_self->player->__pyx_vtab)->get_sensor_readings(__pyx_v_self->player, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 120, __pyx_L1_error)
+  __pyx_t_3 = ((struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_MarXBotCy *)__pyx_v_self->player->__pyx_vtab)->get_sensor_readings(__pyx_v_self->player, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 120, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_t_1, __pyx_t_2, __pyx_t_3) < 0) __PYX_ERR(0, 118, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -4397,7 +4397,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_step_dt(st
  * 
  *         # Check if intersected with a wall, if so then set player back to old position
  */
-  ((struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy *)__pyx_v_self->player->__pyx_vtab)->drive(__pyx_v_self->player, __pyx_v_dt, __pyx_v_l, __pyx_v_r, 0);
+  ((struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_MarXBotCy *)__pyx_v_self->player->__pyx_vtab)->drive(__pyx_v_self->player, __pyx_v_dt, __pyx_v_l, __pyx_v_r, 0);
 
   /* "environment/entities/cy/game_cy.pyx":167
  * 
@@ -4530,7 +4530,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_step_dt(st
  * 
  *         # Return the current observations
  */
-  __pyx_t_13 = ((((struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy *)__pyx_v_self->player->__pyx_vtab)->get_sensor_readings_distance(__pyx_v_self->player, 0) <= __pyx_v_self->target_reached) != 0);
+  __pyx_t_13 = ((((struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_MarXBotCy *)__pyx_v_self->player->__pyx_vtab)->get_sensor_readings_distance(__pyx_v_self->player, 0) <= __pyx_v_self->target_reached) != 0);
   if (__pyx_t_13) {
     __pyx_v_self->done = 1;
   }
@@ -4740,7 +4740,7 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_create_empty_ga
  *         # Create random set of walls
  *         self.walls = get_boundary_walls(x_axis=self.x_axis, y_axis=self.y_axis)             # <<<<<<<<<<<<<<
  *         self.target = Vec2dCy(0.5, self.y_axis - 0.5)
- *         self.player = FootBotCy(game=self,
+ *         self.player = MarXBotCy(game=self,
  */
   __pyx_t_1 = __pyx_f_11environment_8entities_2cy_7game_cy_get_boundary_walls(__pyx_v_self->x_axis, __pyx_v_self->y_axis, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 188, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -4754,7 +4754,7 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_create_empty_ga
  *         # Create random set of walls
  *         self.walls = get_boundary_walls(x_axis=self.x_axis, y_axis=self.y_axis)
  *         self.target = Vec2dCy(0.5, self.y_axis - 0.5)             # <<<<<<<<<<<<<<
- *         self.player = FootBotCy(game=self,
+ *         self.player = MarXBotCy(game=self,
  *                                 init_pos=Vec2dCy(self.x_axis - 0.5, 0.5),
  */
   __pyx_t_1 = PyFloat_FromDouble((__pyx_v_self->y_axis - 0.5)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 189, __pyx_L1_error)
@@ -4779,7 +4779,7 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_create_empty_ga
   /* "environment/entities/cy/game_cy.pyx":190
  *         self.walls = get_boundary_walls(x_axis=self.x_axis, y_axis=self.y_axis)
  *         self.target = Vec2dCy(0.5, self.y_axis - 0.5)
- *         self.player = FootBotCy(game=self,             # <<<<<<<<<<<<<<
+ *         self.player = MarXBotCy(game=self,             # <<<<<<<<<<<<<<
  *                                 init_pos=Vec2dCy(self.x_axis - 0.5, 0.5),
  *                                 init_orient=np.pi / 2)
  */
@@ -4789,7 +4789,7 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_create_empty_ga
 
   /* "environment/entities/cy/game_cy.pyx":191
  *         self.target = Vec2dCy(0.5, self.y_axis - 0.5)
- *         self.player = FootBotCy(game=self,
+ *         self.player = MarXBotCy(game=self,
  *                                 init_pos=Vec2dCy(self.x_axis - 0.5, 0.5),             # <<<<<<<<<<<<<<
  *                                 init_orient=np.pi / 2)
  * 
@@ -4811,7 +4811,7 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_create_empty_ga
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "environment/entities/cy/game_cy.pyx":192
- *         self.player = FootBotCy(game=self,
+ *         self.player = MarXBotCy(game=self,
  *                                 init_pos=Vec2dCy(self.x_axis - 0.5, 0.5),
  *                                 init_orient=np.pi / 2)             # <<<<<<<<<<<<<<
  * 
@@ -4831,17 +4831,17 @@ static void __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_create_empty_ga
   /* "environment/entities/cy/game_cy.pyx":190
  *         self.walls = get_boundary_walls(x_axis=self.x_axis, y_axis=self.y_axis)
  *         self.target = Vec2dCy(0.5, self.y_axis - 0.5)
- *         self.player = FootBotCy(game=self,             # <<<<<<<<<<<<<<
+ *         self.player = MarXBotCy(game=self,             # <<<<<<<<<<<<<<
  *                                 init_pos=Vec2dCy(self.x_axis - 0.5, 0.5),
  *                                 init_orient=np.pi / 2)
  */
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_8entities_2cy_9robots_cy_FootBotCy), __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 190, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_8entities_2cy_9robots_cy_MarXBotCy), __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 190, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_GIVEREF(__pyx_t_2);
   __Pyx_GOTREF(__pyx_v_self->player);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->player));
-  __pyx_v_self->player = ((struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *)__pyx_t_2);
+  __pyx_v_self->player = ((struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *)__pyx_t_2);
   __pyx_t_2 = 0;
 
   /* "environment/entities/cy/game_cy.pyx":195
@@ -6551,7 +6551,7 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
  *             self.noise_proximity = game[D_NOISE_PROXIMITY]
  *             self.sensor_ray_distance = game[D_SENSOR_RAY_DISTANCE]             # <<<<<<<<<<<<<<
  *             self.target_reached = game[D_TARGET_REACHED]
- *             self.player = FootBotCy(game=self)  # Create a dummy-player to set values on
+ *             self.player = MarXBotCy(game=self)  # Create a dummy-player to set values on
  */
       if (unlikely(__pyx_v_game == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
@@ -6570,7 +6570,7 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
  *             self.noise_proximity = game[D_NOISE_PROXIMITY]
  *             self.sensor_ray_distance = game[D_SENSOR_RAY_DISTANCE]
  *             self.target_reached = game[D_TARGET_REACHED]             # <<<<<<<<<<<<<<
- *             self.player = FootBotCy(game=self)  # Create a dummy-player to set values on
+ *             self.player = MarXBotCy(game=self)  # Create a dummy-player to set values on
  *             self.set_player_angle(game[D_ANGLE])
  */
       if (unlikely(__pyx_v_game == Py_None)) {
@@ -6589,25 +6589,25 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
       /* "environment/entities/cy/game_cy.pyx":280
  *             self.sensor_ray_distance = game[D_SENSOR_RAY_DISTANCE]
  *             self.target_reached = game[D_TARGET_REACHED]
- *             self.player = FootBotCy(game=self)  # Create a dummy-player to set values on             # <<<<<<<<<<<<<<
+ *             self.player = MarXBotCy(game=self)  # Create a dummy-player to set values on             # <<<<<<<<<<<<<<
  *             self.set_player_angle(game[D_ANGLE])
  *             self.set_player_pos(Vec2dCy(game[D_POS][0], game[D_POS][1]))
  */
       __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 280, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_2);
       if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_game_2, ((PyObject *)__pyx_v_self)) < 0) __PYX_ERR(0, 280, __pyx_L3_error)
-      __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_8entities_2cy_9robots_cy_FootBotCy), __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 280, __pyx_L3_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11environment_8entities_2cy_9robots_cy_MarXBotCy), __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 280, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GIVEREF(__pyx_t_1);
       __Pyx_GOTREF(__pyx_v_self->player);
       __Pyx_DECREF(((PyObject *)__pyx_v_self->player));
-      __pyx_v_self->player = ((struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *)__pyx_t_1);
+      __pyx_v_self->player = ((struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *)__pyx_t_1);
       __pyx_t_1 = 0;
 
       /* "environment/entities/cy/game_cy.pyx":281
  *             self.target_reached = game[D_TARGET_REACHED]
- *             self.player = FootBotCy(game=self)  # Create a dummy-player to set values on
+ *             self.player = MarXBotCy(game=self)  # Create a dummy-player to set values on
  *             self.set_player_angle(game[D_ANGLE])             # <<<<<<<<<<<<<<
  *             self.set_player_pos(Vec2dCy(game[D_POS][0], game[D_POS][1]))
  *             self.path = {p[0]: p[1] for p in game[D_PATH]}
@@ -6626,7 +6626,7 @@ static int __pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_load(struct __py
       ((struct __pyx_vtabstruct_11environment_8entities_2cy_7game_cy_GameCy *)__pyx_v_self->__pyx_vtab)->set_player_angle(__pyx_v_self, __pyx_t_10, 0);
 
       /* "environment/entities/cy/game_cy.pyx":282
- *             self.player = FootBotCy(game=self)  # Create a dummy-player to set values on
+ *             self.player = MarXBotCy(game=self)  # Create a dummy-player to set values on
  *             self.set_player_angle(game[D_ANGLE])
  *             self.set_player_pos(Vec2dCy(game[D_POS][0], game[D_POS][1]))             # <<<<<<<<<<<<<<
  *             self.path = {p[0]: p[1] for p in game[D_PATH]}
@@ -8069,7 +8069,7 @@ static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_11steps_taken_2
  *     cdef public int id, steps_taken
  *     cdef public dict path             # <<<<<<<<<<<<<<
  *     cdef public set walls
- *     cdef public FootBotCy player
+ *     cdef public MarXBotCy player
  */
 
 /* Python wrapper */
@@ -8173,7 +8173,7 @@ static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_4path_4__del__(
  *     cdef public int id, steps_taken
  *     cdef public dict path
  *     cdef public set walls             # <<<<<<<<<<<<<<
- *     cdef public FootBotCy player
+ *     cdef public MarXBotCy player
  *     cdef public Vec2dCy target
  */
 
@@ -8277,7 +8277,7 @@ static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_5walls_4__del__
 /* "environment/entities/cy/game_cy.pxd":20
  *     cdef public dict path
  *     cdef public set walls
- *     cdef public FootBotCy player             # <<<<<<<<<<<<<<
+ *     cdef public MarXBotCy player             # <<<<<<<<<<<<<<
  *     cdef public Vec2dCy target
  *     cdef public float bot_driving_speed, bot_radius, bot_turning_speed
  */
@@ -8329,13 +8329,13 @@ static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6player_2__set_
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_11environment_8entities_2cy_9robots_cy_FootBotCy))))) __PYX_ERR(1, 20, __pyx_L1_error)
+  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_11environment_8entities_2cy_9robots_cy_MarXBotCy))))) __PYX_ERR(1, 20, __pyx_L1_error)
   __pyx_t_1 = __pyx_v_value;
   __Pyx_INCREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v_self->player);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->player));
-  __pyx_v_self->player = ((struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *)__pyx_t_1);
+  __pyx_v_self->player = ((struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *)__pyx_t_1);
   __pyx_t_1 = 0;
 
   /* function exit code */
@@ -8371,7 +8371,7 @@ static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6player_4__del_
   __Pyx_GIVEREF(Py_None);
   __Pyx_GOTREF(__pyx_v_self->player);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->player));
-  __pyx_v_self->player = ((struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *)Py_None);
+  __pyx_v_self->player = ((struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *)Py_None);
 
   /* function exit code */
   __pyx_r = 0;
@@ -8381,7 +8381,7 @@ static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6player_4__del_
 
 /* "environment/entities/cy/game_cy.pxd":21
  *     cdef public set walls
- *     cdef public FootBotCy player
+ *     cdef public MarXBotCy player
  *     cdef public Vec2dCy target             # <<<<<<<<<<<<<<
  *     cdef public float bot_driving_speed, bot_radius, bot_turning_speed
  *     cdef public int batch, duration, max_game_id, max_eval_game_id, fps, p2m, x_axis, y_axis
@@ -8485,7 +8485,7 @@ static int __pyx_pf_11environment_8entities_2cy_7game_cy_6GameCy_6target_4__del_
 }
 
 /* "environment/entities/cy/game_cy.pxd":22
- *     cdef public FootBotCy player
+ *     cdef public MarXBotCy player
  *     cdef public Vec2dCy target
  *     cdef public float bot_driving_speed, bot_radius, bot_turning_speed             # <<<<<<<<<<<<<<
  *     cdef public int batch, duration, max_game_id, max_eval_game_id, fps, p2m, x_axis, y_axis
@@ -10982,11 +10982,11 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy___pyx_unpickle_Gam
   }
   __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 17, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_11environment_8entities_2cy_9robots_cy_FootBotCy))))) __PYX_ERR(2, 12, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_11environment_8entities_2cy_9robots_cy_MarXBotCy))))) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v___pyx_result->player);
   __Pyx_DECREF(((PyObject *)__pyx_v___pyx_result->player));
-  __pyx_v___pyx_result->player = ((struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *)__pyx_t_1);
+  __pyx_v___pyx_result->player = ((struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *)__pyx_t_1);
   __pyx_t_1 = 0;
   if (unlikely(__pyx_v___pyx_state == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
@@ -13600,7 +13600,7 @@ static PyObject *__pyx_tp_new_11environment_8entities_2cy_7game_cy_GameCy(PyType
   p->__pyx_vtab = __pyx_vtabptr_11environment_8entities_2cy_7game_cy_GameCy;
   p->path = ((PyObject*)Py_None); Py_INCREF(Py_None);
   p->walls = ((PyObject*)Py_None); Py_INCREF(Py_None);
-  p->player = ((struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *)Py_None); Py_INCREF(Py_None);
+  p->player = ((struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *)Py_None); Py_INCREF(Py_None);
   p->target = ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)Py_None); Py_INCREF(Py_None);
   p->save_path = ((PyObject*)Py_None); Py_INCREF(Py_None);
   return o;
@@ -13650,7 +13650,7 @@ static int __pyx_tp_clear_11environment_8entities_2cy_7game_cy_GameCy(PyObject *
   p->walls = ((PyObject*)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   tmp = ((PyObject*)p->player);
-  p->player = ((struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy *)Py_None); Py_INCREF(Py_None);
+  p->player = ((struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   tmp = ((PyObject*)p->target);
   p->target = ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)Py_None); Py_INCREF(Py_None);
@@ -14157,9 +14157,9 @@ static PyMethodDef __pyx_methods[] = {
 
 static int __pyx_import_star_set(PyObject *o, PyObject* py_name, char *name) {
   static const char* internal_type_names[] = {
-    "FootBotCy",
     "GameCy",
     "Line2dCy",
+    "MarXBotCy",
     "Vec2dCy",
     "__pyx_ctuple_double__and_double",
     "__pyx_ctuple_double__and_double_struct",
@@ -14752,9 +14752,9 @@ static int __Pyx_modinit_type_import_code(void) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = PyImport_ImportModule("environment.entities.cy.robots_cy"); if (unlikely(!__pyx_t_1)) __PYX_ERR(6, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_ptype_11environment_8entities_2cy_9robots_cy_FootBotCy = __Pyx_ImportType(__pyx_t_1, "environment.entities.cy.robots_cy", "FootBotCy", sizeof(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_FootBotCy), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_11environment_8entities_2cy_9robots_cy_FootBotCy) __PYX_ERR(6, 10, __pyx_L1_error)
-  __pyx_vtabptr_11environment_8entities_2cy_9robots_cy_FootBotCy = (struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_FootBotCy*)__Pyx_GetVtable(__pyx_ptype_11environment_8entities_2cy_9robots_cy_FootBotCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_8entities_2cy_9robots_cy_FootBotCy)) __PYX_ERR(6, 10, __pyx_L1_error)
+  __pyx_ptype_11environment_8entities_2cy_9robots_cy_MarXBotCy = __Pyx_ImportType(__pyx_t_1, "environment.entities.cy.robots_cy", "MarXBotCy", sizeof(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_11environment_8entities_2cy_9robots_cy_MarXBotCy) __PYX_ERR(6, 10, __pyx_L1_error)
+  __pyx_vtabptr_11environment_8entities_2cy_9robots_cy_MarXBotCy = (struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_MarXBotCy*)__Pyx_GetVtable(__pyx_ptype_11environment_8entities_2cy_9robots_cy_MarXBotCy->tp_dict); if (unlikely(!__pyx_vtabptr_11environment_8entities_2cy_9robots_cy_MarXBotCy)) __PYX_ERR(6, 10, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = PyImport_ImportModule(__Pyx_BUILTIN_MODULE_NAME); if (unlikely(!__pyx_t_1)) __PYX_ERR(7, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -15077,7 +15077,7 @@ if (!__Pyx_RefNanny) {
  * from matplotlib import collections as mc
  * 
  * from config import GameConfig             # <<<<<<<<<<<<<<
- * from environment.entities.cy.robots_cy cimport FootBotCy
+ * from environment.entities.cy.robots_cy cimport MarXBotCy
  * from utils.dictionary import *
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 14, __pyx_L1_error)
@@ -15096,7 +15096,7 @@ if (!__Pyx_RefNanny) {
 
   /* "environment/entities/cy/game_cy.pyx":16
  * from config import GameConfig
- * from environment.entities.cy.robots_cy cimport FootBotCy
+ * from environment.entities.cy.robots_cy cimport MarXBotCy
  * from utils.dictionary import *             # <<<<<<<<<<<<<<
  * from utils.cy.intersection_cy cimport circle_line_intersection_cy
  * from utils.cy.line2d_cy cimport Line2dCy

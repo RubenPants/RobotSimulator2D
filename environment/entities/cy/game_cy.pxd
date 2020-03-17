@@ -3,7 +3,7 @@ game_cy.pxd
 
 Used to declare all the game_cy class and method that must be callable from outside of other objects.
 """
-from environment.entities.cy.robots_cy cimport FootBotCy
+from environment.entities.cy.robots_cy cimport MarXBotCy
 from utils.cy.vec2d_cy cimport Vec2dCy
 
 cdef class GameCy:
@@ -17,7 +17,7 @@ cdef class GameCy:
     cdef public int id, steps_taken
     cdef public dict path
     cdef public set walls
-    cdef public FootBotCy player
+    cdef public MarXBotCy player
     cdef public Vec2dCy target
     cdef public float bot_driving_speed, bot_radius, bot_turning_speed
     cdef public int batch, duration, max_game_id, max_eval_game_id, fps, p2m, x_axis, y_axis

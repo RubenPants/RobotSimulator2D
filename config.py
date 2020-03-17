@@ -3,8 +3,6 @@ config.py
 
 Class containing all the used configurations.
 """
-import numpy as np
-
 from utils.dictionary import *
 
 
@@ -23,11 +21,11 @@ class GameConfig:
     def __init__(self):
         # [BOT]
         # Speed of bot when driving straight expressed in m/s [def=0.5]
-        self.bot_driving_speed: float = 0.5
-        # Radius of the bot expressed in meters [def=0.1]
-        self.bot_radius: float = 0.1
-        # Speed of bot when turning expressed in radians per second [def=13*np.pi/16]
-        self.bot_turning_speed: float = 13 * np.pi / 16
+        self.bot_driving_speed: float = 0.6
+        # Radius of the bot expressed in meters [def=0.085]
+        self.bot_radius: float = 0.085
+        # Speed of bot when turning expressed in radians per second [def=3.53~=0.6/0.17]
+        self.bot_turning_speed: float = 3.53
         
         # [CONTROL]
         # Number of games on which a single genome is evaluated [def=10]  # TODO: Put in population?
@@ -60,8 +58,8 @@ class GameConfig:
         self.noise_proximity: float = 0.005
         
         # [SENSOR]
-        # Distance a ray-sensor reaches, expressed in meters [def=1.5]
-        self.sensor_ray_distance: float = 1.5
+        # Distance a ray-sensor reaches, expressed in meters [def=0.5]  TODO
+        self.sensor_ray_distance: float = 0.5
         
         # [TARGET]
         # Target is reached when within this range, expressed in meters [def=0.5]
@@ -155,16 +153,16 @@ class NeatConfig:
         self.enabled_default: bool = True
         # The probability that mutation will replace the 'enabled status' of a connection  [def=0.05]
         self.enabled_mutate_rate: float = 0.01
-        # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT_05]
-        self.initial_connection = D_PARTIAL_DIRECT_05
+        # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT_05]  TODO
+        self.initial_connection = D_FULL_DIRECT
         # Probability of adding a node during mutation (each generation)  [def=0.1]  TODO
         self.node_add_prob: float = 0.1
         # Probability of removing a node during mutation (each generation)  [def=0.075]  TODO
         self.node_delete_prob: float = 0.075
         # Number of hidden nodes to add to each genome in the initial population  [def=0]  TODO
         self.num_hidden: int = 0
-        # Number of input nodes (the sensors): [7x proximity_sensor, 2x angular_sensor, 1x distance_sensor]  [def=10]
-        self.num_inputs: int = 10
+        # Number of input nodes (the sensors): [13x proximity_sensor, 2x angular_sensor, 1x distance_sensor]  [def=26]
+        self.num_inputs: int = 16
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
         self.num_outputs: int = 2
         # Mean of the gaussian distribution used to select the weight attribute values for new connections  [def=0]
@@ -198,7 +196,7 @@ class NeatConfig:
         # Fitness functions [distance, distance_time, novelty, path, path_time]  TODO
         self.fitness: str = D_PATH
         # Function to combine the fitness-values across different games, choices are: min, avg, max, gmean  [def=gmean]
-        self.fitness_comb: str = D_AVG
+        self.fitness_comb: str = D_GMEAN
         # Number of nearest neighbors taken into account for a NN-utilizing fitness function  [def=3]
         self.nn_k: int = 3
         
