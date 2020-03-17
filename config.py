@@ -102,7 +102,7 @@ class NeatConfig:
         # Don't consider fitness_criterion and fitness_threshold
         self.no_fitness_termination: bool = True
         # Number of individuals in each generation  [def=128]  TODO
-        self.pop_size: int = 2
+        self.pop_size: int = 128
         
         # [DefaultReproduction]
         # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=2]
@@ -161,8 +161,8 @@ class NeatConfig:
         self.node_delete_prob: float = 0.075
         # Number of hidden nodes to add to each genome in the initial population  [def=0]  TODO
         self.num_hidden: int = 0
-        # Number of input nodes (the sensors): [23x proximity_sensor, 2x angular_sensor, 1x distance_sensor]  [def=26]
-        self.num_inputs: int = 26
+        # Number of input nodes (the sensors): [13x proximity_sensor, 2x angular_sensor, 1x distance_sensor]  [def=26]
+        self.num_inputs: int = 16
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
         self.num_outputs: int = 2
         # Mean of the gaussian distribution used to select the weight attribute values for new connections  [def=0]

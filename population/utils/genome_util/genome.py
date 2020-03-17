@@ -341,7 +341,7 @@ class DefaultGenome(object):
                 outputs=[i for i in range(self.num_outputs)],
                 connections=self.connections,
         )
-        return len(used_nodes) - (self.num_inputs + self.num_outputs), len(used_conn)
+        return len(used_nodes) - (self.num_inputs + self.num_outputs - 1), len(used_conn)
     
     def __str__(self):
         s = f"Key: {self.key}\nFitness: {self.fitness}\nNodes:"

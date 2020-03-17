@@ -151,16 +151,19 @@ cdef class MarXBotCy:
     
     cpdef void create_proximity_sensors(self):
         """
-        23 equally spaced proximity sensors, which measure the distance between the agent and an object, if this object
-        is within 0.5 meters of distance.
-        
-        Sensors are added from the left-side of the drone to the right
+        13 proximity sensors, which measure the distance between the agent and an object, if this object is within 0.5
+         meters of distance. The proximity sensors are not evenly spaced, since the fact that the robot has a front will
+         be exploited. Sensors are added from the left-side of the drone to the right.
         """
         cdef int i
-        for i in range(1, 24):
-            # Range from -165° to 0° to 165° with hops of 15° (total of 23 proximity sensors)
-            self.add_proximity_sensor(angle=np.pi - np.pi * i / 12)
+        self.add_proximity_sensor(angle=3 * np.pi / 4)  # -135°
+        for i in range(5):  # -90° until -10° with hops of 20° (total of 5 sensors)
+            self.add_proximity_sensor(angle=np.pi / 2 - i * np.pi / 9)
+        self.add_proximity_sensor(angle=0)  # 0°
+        for i in range(5):  # 10° until 90° with hops of 20° (total of 5 sensors)
+            self.add_proximity_sensor(angle=-np.pi / 18 - i * np.pi / 9)
+        self.add_proximity_sensor(angle=-3 * np.pi / 4)  # 135°
 
     cpdef list get_proximity_sensors(self):
         """Get a list of all proximity sensors."""
-        return [self.sensors[i] for i in range(23)]
+        return [self.sensors[i] for i in range(13)]
