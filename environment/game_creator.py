@@ -31,6 +31,7 @@ from tqdm import tqdm
 from config import GameConfig
 from environment.entities.game import Game
 from environment.entities.robots import MarXBot
+from utils.dictionary import D_A_STAR
 from utils.line2d import Line2d
 from utils.vec2d import Vec2d
 
@@ -755,6 +756,8 @@ if __name__ == '__main__':
                 game.reset()
                 game.get_observation()
                 game.step(0, 0)
+                if game.game_params()[D_A_STAR] == 0:
+                    raise Exception("Start position not connected with target position")
             except Exception:
                 print(f"Faulty created game: {g_id}, please manually redo this one")
                 os.remove(f"environment/games_db/game_{g_id:05d}")

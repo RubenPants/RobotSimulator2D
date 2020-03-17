@@ -41,7 +41,7 @@ cdef class GameCy:
                  bint noise=True,
                  bint overwrite=False,
                  str save_path = '',
-                 bint silent=False,
+                 bint silent=True,
                  ):
         """
         Define a new game.
