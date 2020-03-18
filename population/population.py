@@ -9,7 +9,7 @@ from glob import glob
 
 from neat.math_util import mean
 
-from config import NeatConfig
+from config import GameConfig, NeatConfig
 from population.utils.config.default_config import Config
 from population.utils.genome_util.genome import DefaultGenome
 from population.utils.genome_util.genome_visualizer import draw_net
@@ -45,7 +45,8 @@ class Population:
                  name: str = "",
                  folder_name: str = "NEAT",
                  version: int = 0,
-                 config: NeatConfig = None,
+                 game_config: GameConfig = None,
+                 neat_config: NeatConfig = None,
                  make_net_method=make_net,
                  query_net_method=query_net,
                  ):
@@ -56,16 +57,19 @@ class Population:
         :param name: Name of population, used when specific population must be summon
         :param folder_name: Name of the folder to which the population belongs (NEAT, GRU-NEAT, ...)
         :param version: Version of the population, 0 if not versioned
-        :param config: NeatConfig object
+        :param game_config: GameConfig file for game-creation
+        :param neat_config: NeatConfig object
         :param make_net_method: Method used to create a network based on a given genome
         :param query_net_method: Method used to query the action on the network, given a current state
         """
         # Set formal properties of the population
-        cfg = NeatConfig() if not config else config
+        self.game_config = GameConfig() if not game_config else game_config
+        self.neat_config = NeatConfig() if not neat_config else neat_config
         if name:
             self.name = name
         else:
-            self.name = f"{cfg.fitness}{f'_repr' if cfg.sexual_reproduction else ''}{f'_{version}' if version else ''}"
+            self.name = f"{self.neat_config.fitness}{f'_repr' if self.neat_config.sexual_reproduction else ''}" \
+                        f"{f'_{version}' if version else ''}"
         self.folder_name = folder_name
         
         # Placeholders
@@ -84,14 +88,16 @@ class Population:
         # Try to load the population, create new if not possible
         if not self.load():
             assert (make_net_method is not None) and (query_net_method is not None)  # net-methods must be provided
-            self.create_population(cfg=cfg, make_net_method=make_net_method, query_net_method=query_net_method)
+            self.create_population(cfg=self.neat_config,
+                                   make_net_method=make_net_method,
+                                   query_net_method=query_net_method)
     
     def __str__(self):
         return self.name
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     
-    def create_population(self, cfg, make_net_method, query_net_method):
+    def create_population(self, cfg: NeatConfig, make_net_method, query_net_method):
         """
         Create a new population based on the given config file.
         

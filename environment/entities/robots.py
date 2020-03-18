@@ -138,7 +138,9 @@ class MarXBot:
         self.sensors[len(self.sensors)] = ProximitySensor(sensor_id=len(self.sensors),
                                                           game=self.game,
                                                           angle=angle,
-                                                          pos_offset=self.game.bot_radius)
+                                                          pos_offset=self.game.bot_radius,
+                                                          max_dist=self.game.sensor_ray_distance,
+                                                          )
     
     def create_angular_sensors(self):
         """

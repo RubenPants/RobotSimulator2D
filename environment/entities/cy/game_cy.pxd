@@ -42,8 +42,6 @@ cdef class GameCy:
     
     cpdef void create_empty_game(self)
     
-    cpdef void set_config_params(self, config)
-    
     cpdef void set_player_angle(self, float a)
     
     cpdef void set_player_pos(self, Vec2dCy p)
@@ -57,3 +55,5 @@ cdef class GameCy:
     cpdef get_blueprint(self, ax=?)
 
 cpdef set get_boundary_walls(int x_axis, int y_axis)
+
+cpdef GameCy get_game_cy(int i, cfg)

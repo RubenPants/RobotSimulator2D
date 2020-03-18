@@ -4,7 +4,6 @@ robots_cy.pxd
 Used to declare all the methods and classes inside of robots_cy that must be callable from outside of other objects.
 """
 from environment.entities.cy.game_cy cimport GameCy
-from environment.entities.cy.sensors_cy cimport DistanceSensorCy
 from utils.cy.vec2d_cy cimport Vec2dCy
 
 cdef class MarXBotCy:

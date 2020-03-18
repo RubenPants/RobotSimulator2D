@@ -10,28 +10,29 @@ from neat.six_util import iteritems
 from tqdm import tqdm
 
 from config import GameConfig
+from environment.entities.game import get_game
 from population.utils.population_util.population_visualizer import create_blueprints
 from utils.dictionary import D_DIST_TO_TARGET, D_DONE, D_STEPS
 from utils.myutils import get_subfolder
 
 if sys.platform == 'linux':
-    from environment.cy.multi_env_cy import MultiEnvironmentCy
+    from environment.cy.env_multi_cy import MultiEnvironmentCy
 else:
-    from environment.multi_env import MultiEnvironment
+    from environment.env_multi import MultiEnvironment
 
 
 class EvaluationEnv:
     """ This class is responsible evaluating the population across a set of games. """
     
     __slots__ = (
-        "cfg",
+        "game_config",
         "games", "batch_size",
     )
     
-    def __init__(self):
+    def __init__(self, game_config: GameConfig):
         """ The evaluator is given a set of genomes which it then evaluates using the MultiEnvironment. """
         # Load in current configuration
-        self.cfg: GameConfig = GameConfig()
+        self.game_config = game_config
         
         #  Create a list of all the possible games
         self.games = None
@@ -45,7 +46,7 @@ class EvaluationEnv:
         :param games: List of integers
         """
         if not games:
-            self.games = [i + 1 for i in range(self.cfg.max_game_id, self.cfg.max_eval_game_id)]
+            self.games = [i + 1 for i in range(self.game_config.max_game_id, self.game_config.max_eval_game_id)]
             self.batch_size = len(self.games)
         else:
             self.games = games
@@ -66,13 +67,17 @@ class EvaluationEnv:
             multi_env = MultiEnvironmentCy(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_steps=self.cfg.duration * self.cfg.fps
+                    game_config=self.game_config,
+                    neat_config=pop.config,
+                    max_steps=self.game_config.duration * self.game_config.fps
             )
         else:
             multi_env = MultiEnvironment(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_steps=self.cfg.duration * self.cfg.fps
+                    game_config=self.game_config,
+                    neat_config=pop.config,
+                    max_steps=self.game_config.duration * self.game_config.fps
             )
         
         # Evaluate on all the games
@@ -118,13 +123,17 @@ class EvaluationEnv:
             multi_env = MultiEnvironmentCy(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_steps=self.cfg.duration * self.cfg.fps
+                    game_config=self.game_config,
+                    neat_config=pop.config,
+                    max_steps=self.game_config.duration * self.game_config.fps
             )
         else:
             multi_env = MultiEnvironment(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_steps=self.cfg.duration * self.cfg.fps
+                    game_config=self.game_config,
+                    neat_config=pop.config,
+                    max_steps=self.game_config.duration * self.game_config.fps
             )
         
         # Initialize the evaluation-pool
@@ -144,13 +153,13 @@ class EvaluationEnv:
         
         # Evaluate the genomes
         for genome in genomes:
-            pool.apply_async(func=multi_env.eval_genome, args=(genome, pop.config, return_dict), callback=cb)
+            pool.apply_async(func=multi_env.eval_genome, args=(genome, return_dict), callback=cb)
         pool.close()  # Close the pool
         pool.join()  # Postpone continuation until everything is finished
         pbar.close()  # Close the progressbar
         
         # Create blueprint of final result
-        game_objects = [multi_env.create_game(g) for g in self.games]
+        game_objects = [get_game(g, cfg=self.game_config) for g in self.games]
         create_blueprints(final_observations=return_dict,
                           games=game_objects,
                           gen=pop.generation,

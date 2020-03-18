@@ -24,14 +24,14 @@ class TrainingEnv:
     """ This class is responsible evaluating and evolving the population across a set of games. """
     
     __slots__ = (
-        "cfg", "unused_cpu",
+        "game_config", "unused_cpu",
         "games", "batch_size",
     )
     
-    def __init__(self, unused_cpu: int = 0):
+    def __init__(self, game_config: GameConfig, unused_cpu: int = 0):
         """ The evaluator is given a population which it then evaluates using the MultiEnvironment. """
         # Load in current configuration
-        self.cfg: GameConfig = GameConfig()
+        self.game_config = game_config
         self.unused_cpu = unused_cpu
         
         #  Create a list of all the possible games
@@ -47,8 +47,8 @@ class TrainingEnv:
         :param games: List of integers
         """
         if not games:
-            self.games = [i + 1 for i in range(self.cfg.max_game_id)]
-            self.batch_size = min(len(self.games), self.cfg.batch)
+            self.games = [i + 1 for i in range(self.game_config.max_game_id)]
+            self.batch_size = min(len(self.games), self.game_config.batch)
         else:
             self.games = games
             self.batch_size = len(games)
@@ -67,13 +67,17 @@ class TrainingEnv:
             multi_env = MultiEnvironmentCy(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_steps=self.cfg.duration * self.cfg.fps
+                    game_config=self.game_config,
+                    neat_config=pop.config,
+                    max_steps=self.game_config.duration * self.game_config.fps
             )
         else:
             multi_env = MultiEnvironment(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_steps=self.cfg.duration * self.cfg.fps
+                    game_config=self.game_config,
+                    neat_config=pop.config,
+                    max_steps=self.game_config.duration * self.game_config.fps
             )
         
         for iteration in range(n):

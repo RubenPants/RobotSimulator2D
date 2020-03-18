@@ -36,8 +36,8 @@ cdef class GameCy:
                  "done", "id", "path", "player", "steps_taken", "target", "walls")
     
     def __init__(self,
-                 int game_id=0,
-                 config=None,
+                 int game_id,
+                 config,
                  bint noise=True,
                  bint overwrite=False,
                  str save_path = '',
@@ -53,20 +53,20 @@ cdef class GameCy:
         :param save_path: Save and load the game from different directories
         :param silent: Do not print anything
         """
-        # Set config
-        self.bot_driving_speed = 0
-        self.bot_radius = 0
-        self.bot_turning_speed = 0
-        self.fps = 0
-        self.p2m = 0
-        self.x_axis = 0
-        self.y_axis = 0
-        self.noise_time = 0
-        self.noise_angle = 0
-        self.noise_distance = 0
-        self.noise_proximity = 0
-        self.sensor_ray_distance = 0
-        self.target_reached = 0
+        # Set the game's configuration
+        self.bot_driving_speed = config.bot_driving_speed
+        self.bot_radius = config.bot_radius
+        self.bot_turning_speed = config.bot_turning_speed
+        self.fps = config.fps
+        self.p2m = config.p2m
+        self.x_axis = config.x_axis
+        self.y_axis = config.y_axis
+        self.noise_time = config.noise_time
+        self.noise_angle = config.noise_angle
+        self.noise_distance = config.noise_distance
+        self.noise_proximity = config.noise_proximity
+        self.sensor_ray_distance = config.sensor_ray_distance
+        self.target_reached = config.target_reached
         
         # Environment specific parameters
         self.silent = silent  # True: Do not print out statistics
@@ -83,10 +83,7 @@ cdef class GameCy:
         self.walls = None  # Set of all walls in the game
         
         # Check if game already exists, if not create new game
-        if overwrite or not self.load():
-            if not config: config = GameConfig()
-            self.set_config_params(config)
-            self.create_empty_game()
+        if overwrite or not self.load(): self.create_empty_game()
     
     def __str__(self):
         return f"game_{self.id:05d}"
@@ -195,22 +192,6 @@ cdef class GameCy:
         self.save()
         if not self.silent: print("New game created under id: {}".format(self.id))
     
-    cpdef void set_config_params(self, config):
-        """ Store all the configured parameters locally. """
-        self.bot_driving_speed = config.bot_driving_speed
-        self.bot_radius = config.bot_radius
-        self.bot_turning_speed = config.bot_turning_speed
-        self.fps = config.fps
-        self.p2m = config.p2m
-        self.x_axis = config.x_axis
-        self.y_axis = config.y_axis
-        self.noise_time = config.noise_time
-        self.noise_angle = config.noise_angle
-        self.noise_distance = config.noise_distance
-        self.noise_proximity = config.noise_proximity
-        self.sensor_ray_distance = config.sensor_ray_distance
-        self.target_reached = config.target_reached
-    
     cpdef void set_player_angle(self, float a):
         """
         Set a new initial angle for the player.
@@ -233,19 +214,6 @@ cdef class GameCy:
     
     cpdef void save(self):
         cdef dict persist_dict = dict()
-        persist_dict[D_BOT_DRIVING_SPEED] = self.bot_driving_speed
-        persist_dict[D_BOT_RADIUS] = self.bot_radius
-        persist_dict[D_BOT_TURNING_SPEED] = self.bot_turning_speed
-        persist_dict[D_FPS] = self.fps
-        persist_dict[D_PTM] = self.p2m
-        persist_dict[D_X_AXIS] = self.x_axis
-        persist_dict[D_Y_AXIS] = self.y_axis
-        persist_dict[D_NOISE_TIME] = self.noise_time
-        persist_dict[D_NOISE_ANGLE] = self.noise_angle
-        persist_dict[D_NOISE_DISTANCE] = self.noise_distance
-        persist_dict[D_NOISE_PROXIMITY] = self.noise_proximity
-        persist_dict[D_SENSOR_RAY_DISTANCE] = self.sensor_ray_distance
-        persist_dict[D_TARGET_REACHED] = self.target_reached
         persist_dict[D_ANGLE] = self.player.init_angle  # Initial angle of player
         if self.path: persist_dict[D_PATH] = [(p[0], p[1]) for p in self.path.items()]
         persist_dict[D_POS] = (self.player.init_pos.x, self.player.init_pos.y)  # Initial position of player
@@ -261,22 +229,8 @@ cdef class GameCy:
         """
         # Define used parameter
         cdef dict game
-        
         try:
             game = load_pickle(f'{self.save_path}{self}')
-            self.bot_driving_speed = game[D_BOT_DRIVING_SPEED]
-            self.bot_radius = game[D_BOT_RADIUS]
-            self.bot_turning_speed = game[D_BOT_TURNING_SPEED]
-            self.fps = game[D_FPS]
-            self.p2m = game[D_PTM]
-            self.x_axis = game[D_X_AXIS]
-            self.y_axis = game[D_Y_AXIS]
-            self.noise_time = game[D_NOISE_TIME]
-            self.noise_angle = game[D_NOISE_ANGLE]
-            self.noise_distance = game[D_NOISE_DISTANCE]
-            self.noise_proximity = game[D_NOISE_PROXIMITY]
-            self.sensor_ray_distance = game[D_SENSOR_RAY_DISTANCE]
-            self.target_reached = game[D_TARGET_REACHED]
             self.player = MarXBotCy(game=self)  # Create a dummy-player to set values on
             self.set_player_angle(game[D_ANGLE])
             self.set_player_pos(Vec2dCy(game[D_POS][0], game[D_POS][1]))
@@ -322,3 +276,16 @@ cpdef set get_boundary_walls(int x_axis, int y_axis):
     c = Vec2dCy(x_axis, y_axis)
     d = Vec2dCy(0, y_axis)
     return {Line2dCy(a, b), Line2dCy(b, c), Line2dCy(c, d), Line2dCy(d, a)}
+
+
+cpdef GameCy get_game_cy(int i, cfg):
+    """
+    Create a game-object.
+    
+    :param i: Game-ID
+    :param cfg: GameConfig object
+    :return: Game or GameCy object
+    """
+    return GameCy(game_id=i,
+                  config=cfg,
+                  silent=True)
