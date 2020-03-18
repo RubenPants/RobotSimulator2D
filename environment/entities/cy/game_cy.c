@@ -4354,7 +4354,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_step_dt(st
  * 
  *         # Check if intersected with a wall, if so then set player back to old position
  *         close_walls = {w for w in self.walls if w.close_by(pos=self.player.pos, r=self.ray_distance_cum)}             # <<<<<<<<<<<<<<
- *         for wall in self.walls:
+ *         for wall in close_walls:
  *             inter, _ = circle_line_intersection_cy(c=self.player.pos, r=self.player.radius, l=wall)
  */
   { /* enter inner scope */
@@ -4406,12 +4406,12 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_step_dt(st
   /* "environment/entities/cy/game_cy.pyx":165
  *         # Check if intersected with a wall, if so then set player back to old position
  *         close_walls = {w for w in self.walls if w.close_by(pos=self.player.pos, r=self.ray_distance_cum)}
- *         for wall in self.walls:             # <<<<<<<<<<<<<<
+ *         for wall in close_walls:             # <<<<<<<<<<<<<<
  *             inter, _ = circle_line_intersection_cy(c=self.player.pos, r=self.player.radius, l=wall)
  *             if inter:
  */
   __pyx_t_11 = 0;
-  __pyx_t_2 = __Pyx_set_iterator(__pyx_v_self->walls, 1, (&__pyx_t_10), (&__pyx_t_8)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 165, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_set_iterator(__pyx_v_close_walls, 1, (&__pyx_t_10), (&__pyx_t_8)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 165, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_1);
   __pyx_t_1 = __pyx_t_2;
@@ -4427,7 +4427,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_step_dt(st
 
     /* "environment/entities/cy/game_cy.pyx":166
  *         close_walls = {w for w in self.walls if w.close_by(pos=self.player.pos, r=self.ray_distance_cum)}
- *         for wall in self.walls:
+ *         for wall in close_walls:
  *             inter, _ = circle_line_intersection_cy(c=self.player.pos, r=self.player.radius, l=wall)             # <<<<<<<<<<<<<<
  *             if inter:
  *                 self.player.pos.x = self.player.prev_pos.x
@@ -4467,7 +4467,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_step_dt(st
     __pyx_t_9 = 0;
 
     /* "environment/entities/cy/game_cy.pyx":167
- *         for wall in self.walls:
+ *         for wall in close_walls:
  *             inter, _ = circle_line_intersection_cy(c=self.player.pos, r=self.player.radius, l=wall)
  *             if inter:             # <<<<<<<<<<<<<<
  *                 self.player.pos.x = self.player.prev_pos.x
@@ -4516,7 +4516,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_step_dt(st
       goto __pyx_L11_break;
 
       /* "environment/entities/cy/game_cy.pyx":167
- *         for wall in self.walls:
+ *         for wall in close_walls:
  *             inter, _ = circle_line_intersection_cy(c=self.player.pos, r=self.player.radius, l=wall)
  *             if inter:             # <<<<<<<<<<<<<<
  *                 self.player.pos.x = self.player.prev_pos.x

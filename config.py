@@ -29,9 +29,9 @@ class GameConfig:
         
         # [CONTROL]
         # Number of games on which a single genome is evaluated [def=10]  TODO
-        self.batch: int = 1
-        # Number of seconds it takes for one game to complete [def=100]
-        self.duration: int = 100
+        self.batch: int = 10
+        # Number of seconds it takes for one game to complete [def=60]  TODO
+        self.duration: int = 60
         # Max ID of game (starting from 1) [def=1000]
         self.max_game_id: int = 1000
         # Max ID of evaluation game (starting from max_id) [def=1100]
@@ -58,7 +58,7 @@ class GameConfig:
         self.noise_proximity: float = 0.005
         
         # [SENSOR]
-        # Distance a ray-sensor reaches, expressed in meters [def=1.0]
+        # Distance a ray-sensor reaches, expressed in meters [def=1.0]  TODO
         self.sensor_ray_distance: float = 1.0
         
         # [TARGET]
@@ -102,7 +102,7 @@ class NeatConfig:
         # Don't consider fitness_criterion and fitness_threshold
         self.no_fitness_termination: bool = True
         # Number of individuals in each generation  [def=128]  TODO
-        self.pop_size: int = 10
+        self.pop_size: int = 128
         
         # [DefaultReproduction]
         # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=3]

@@ -162,7 +162,7 @@ cdef class GameCy:
         
         # Check if intersected with a wall, if so then set player back to old position
         close_walls = {w for w in self.walls if w.close_by(pos=self.player.pos, r=self.ray_distance_cum)}
-        for wall in self.walls:
+        for wall in close_walls:
             inter, _ = circle_line_intersection_cy(c=self.player.pos, r=self.player.radius, l=wall)
             if inter:
                 self.player.pos.x = self.player.prev_pos.x
