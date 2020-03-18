@@ -109,12 +109,12 @@ cdef class GameCy:
             D_GAME_ID: self.id,
         }
     
-    cpdef dict get_observation(self):
+    cpdef dict get_observation(self, set close_walls=None):
         """Get the current observation of the game in the form of a dictionary."""
         return {
             D_DONE:        self.done,
             D_GAME_ID:     self.id,
-            D_SENSOR_LIST: self.player.get_sensor_readings(),
+            D_SENSOR_LIST: self.player.get_sensor_readings(close_walls),
         }
     
     cpdef dict reset(self):
@@ -153,14 +153,15 @@ cdef class GameCy:
         """
         # Define used parameters
         cdef Line2dCy wall
+        cdef set close_walls
         cdef bint inter
-        cdef dict obs
         
         # Progress the game
         self.steps_taken += 1
         self.player.drive(dt, lw=l, rw=r)
         
         # Check if intersected with a wall, if so then set player back to old position
+        close_walls = {w for w in self.walls if w.close_by(pos=self.player.pos, r=self.player.radius)}
         for wall in self.walls:
             inter, _ = circle_line_intersection_cy(c=self.player.pos, r=self.player.radius, l=wall)
             if inter:
@@ -173,7 +174,7 @@ cdef class GameCy:
         if self.player.get_sensor_readings_distance() <= self.target_reached: self.done = True
         
         # Return the current observations
-        return self.get_observation()
+        return self.get_observation(close_walls)
     
     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
     

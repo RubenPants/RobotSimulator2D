@@ -110,12 +110,12 @@ class Game:
             D_GAME_ID: self.id,
         }
     
-    def get_observation(self):
+    def get_observation(self, close_walls: set = None):
         """Get the current observation of the game in the form of a dictionary."""
         return {
             D_DONE:        self.done,
             D_GAME_ID:     self.id,
-            D_SENSOR_LIST: self.player.get_sensor_readings(),
+            D_SENSOR_LIST: self.player.get_sensor_readings(close_walls),
         }
     
     def reset(self):
@@ -151,7 +151,8 @@ class Game:
         self.player.drive(dt, lw=l, rw=r)
         
         # Check if intersected with a wall, if so then set player back to old position
-        for wall in self.walls:
+        close_walls = {w for w in self.walls if w.close_by(pos=self.player.pos, r=self.player.radius)}
+        for wall in close_walls:
             inter, _ = circle_line_intersection(c=self.player.pos, r=self.player.radius, l=wall)
             if inter:
                 self.player.pos.x = self.player.prev_pos.x
@@ -163,7 +164,7 @@ class Game:
         if self.player.get_sensor_readings_distance() <= self.target_reached: self.done = True
         
         # Return the current observations
-        return self.get_observation()
+        return self.get_observation(close_walls)
     
     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
     

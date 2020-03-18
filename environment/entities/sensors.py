@@ -54,8 +54,8 @@ class Sensor:
         """ :return: Name of the sensor """
         raise NotImplemented
     
-    def measure(self):
-        """Store the sensor's current value in self.value."""
+    def measure(self, close_walls: set = None):
+        """Store the sensor's current value in self.value. If the surrounding walls are known these can be given."""
         raise NotImplemented
 
 
@@ -78,7 +78,7 @@ class AngularSensor(Sensor):
     def __str__(self):
         return f"{D_SENSOR_ANGLE}_{self.id:02d}"
     
-    def measure(self):
+    def measure(self, close_walls: set = None):
         """Update self.value, result is a float between 0 and 2*PI."""
         # Get relative angle
         start_a = self.game.player.angle
@@ -112,7 +112,7 @@ class DistanceSensor(Sensor):
     def __str__(self):
         return f"{D_SENSOR_DISTANCE}_{self.id:02d}"
     
-    def measure(self):
+    def measure(self, close_walls: set = None):
         """Update self.value to current distance between target and robot's center coordinate."""
         start_p = self.game.player.pos
         end_p = self.game.target
@@ -152,11 +152,12 @@ class ProximitySensor(Sensor):
     def __str__(self):
         return f"{D_SENSOR_PROXIMITY}_{self.id:02d}"
     
-    def measure(self):
+    def measure(self, close_walls: set = None):
         """
         Get the distance to the closest wall. If all the walls are 'far enough', as determined by self.max_dist, then
         the maximum sensor-distance is returned.
         
+        :param close_walls: Walls which fall within sensor_ray_distance from the agent, speeds up readings
         :return: Float expressing the distance to the closest wall, if there is any
         """
         # Start and end point of ray
@@ -168,7 +169,7 @@ class ProximitySensor(Sensor):
         
         # Check if there is a wall intersecting with the sensor and return the closest distance to a wall
         self.value = self.max_dist
-        for wall in self.game.walls:
+        for wall in close_walls if close_walls else self.game.walls:
             inter, pos = line_line_intersection(sensor_line, wall)
             if inter:
                 new_dist = (pos - self.start_pos).get_length()

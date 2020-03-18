@@ -19,7 +19,7 @@ cdef class MarXBotCy:
     
     cpdef void drive(self, float dt, float lw, float rw)
     
-    cpdef list get_sensor_readings(self)
+    cpdef list get_sensor_readings(self, set close_walls=?)
     
     cpdef float get_sensor_readings_distance(self)
     

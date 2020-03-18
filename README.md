@@ -4,7 +4,7 @@
 
 ## TODO
 
-* Bug in robot, fixed proximity-sensor ray size, this is because it uses the game's config --> read live config perhaps?
+* Fix the tests
 * Right before proximity-check, prune walls that are not close (pos_x within 1m etc)
 * Trace needs to stop at target (re-enable "finished" check)
 * Test all of the fitness-functions!

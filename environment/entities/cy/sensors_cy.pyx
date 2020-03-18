@@ -53,8 +53,8 @@ cdef class SensorCy:
         """ :return: Name of the sensor """
         raise NotImplemented
     
-    cpdef void measure(self):
-        """Store the sensor's current value in self.value."""
+    cpdef void measure(self, set close_walls=None):
+        """Store the sensor's current value in self.value. If the surrounding walls are known these can be given."""
         raise NotImplemented
 
 
@@ -77,7 +77,7 @@ cdef class AngularSensorCy(SensorCy):
     def __str__(self):
         return f"{D_SENSOR_ANGLE}_{self.id:02d}"
     
-    cpdef void measure(self):
+    cpdef void measure(self, set close_walls=None):
         """Update self.value, result is a float between 0 and 2*PI."""
         cdef float start_a
         cdef float req_a
@@ -113,7 +113,7 @@ cdef class DistanceSensorCy(SensorCy):
     def __str__(self):
         return f"{D_SENSOR_DISTANCE}_{self.id:02d}"
     
-    cpdef void measure(self):
+    cpdef void measure(self, set close_walls=None):
         """Update self.value to current distance between target and robot's center coordinate."""
         cdef Vec2dCy start_p
         cdef Vec2dCy end_p
@@ -156,7 +156,7 @@ cdef class ProximitySensorCy(SensorCy):
     def __str__(self):
         return f"{D_SENSOR_PROXIMITY}_{self.id:02d}"
     
-    cpdef void measure(self):
+    cpdef void measure(self, set close_walls=None):
         """
         Get the distance to the closest wall. If all the walls are 'far enough', as determined by self.max_dist, then
         the maximum sensor-distance is returned.
@@ -178,7 +178,7 @@ cdef class ProximitySensorCy(SensorCy):
         
         # Check if there is a wall intersecting with the sensor and return the closest distance to a wall
         self.value = self.max_dist
-        for wall in self.game.walls:
+        for wall in close_walls if close_walls else self.game.walls:
             inter, pos = line_line_intersection_cy(sensor_line, wall)
             if inter:
                 new_dist = (pos - self.start_pos).get_length()
