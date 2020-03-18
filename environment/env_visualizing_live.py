@@ -7,7 +7,8 @@ import pyglet
 import pymunk
 from pymunk.pyglet_util import DrawOptions
 
-from environment.entities.game import Game
+from config import GameConfig
+from environment.entities.game import Game, get_game
 from population.utils.network_util.feed_forward_net import FeedForwardNet
 from utils.dictionary import D_DONE, D_SENSOR_LIST
 
@@ -19,6 +20,7 @@ class LiveVisualizer:
     """
     
     __slots__ = (
+        "game_config",
         "speedup", "state", "finished", "time",
         "query_net",
         "debug",
@@ -26,15 +28,20 @@ class LiveVisualizer:
     
     def __init__(self,
                  query_net,
+                 game_config: GameConfig,
                  debug: bool = True,
                  speedup: float = 3):
         """
         The visualizer provides methods used to visualize the performance of a single genome.
         
         :param query_net: Method used to query the network
+        :param game_config: GameConfig file for game-creation
         :param debug: Generates prints (CLI) during visualization
         :param speedup: Specifies the relative speedup the virtual environment faces towards the real world
         """
+        # Load in current configuration
+        self.game_config = game_config
+        
         # Visualizer specific parameters
         self.speedup = speedup
         self.state = None
@@ -55,7 +62,7 @@ class LiveVisualizer:
         :param game_id: ID of the game that will be used for evaluation
         """
         # Create the requested game
-        game = Game(game_id=game_id, silent=True)
+        game: Game = get_game(game_id, cfg=self.game_config)
         
         # Create space in which game will be played
         window = pyglet.window.Window(game.x_axis * game.p2m,
@@ -119,7 +126,7 @@ class LiveVisualizer:
                                           b=s.end_pos * game.p2m,
                                           radius=0.5)
                     line.sensor = True
-                    touch = ((s.start_pos - s.end_pos).get_length() < game.sensor_ray_distance - 0.05)
+                    touch = ((s.start_pos - s.end_pos).get_length() < game.ray_distance - 0.05)
                     line.color = (100, 100, 100) if touch else (200, 200, 200)  # Brighten up ray if it makes contact
                     space.add(line)
         

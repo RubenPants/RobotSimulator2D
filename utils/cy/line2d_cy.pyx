@@ -4,8 +4,8 @@ line2d_cy.pyx
 Cython version of the line2d.py file. Note that this file co-exists with a .pxd file (needed to import Line2dCy in other
 files).
 """
-from utils.cy.vec2d_cy import Vec2dCy
-
+from utils.cy.intersection_cy cimport circle_line_intersection_cy
+from utils.cy.vec2d_cy cimport Vec2dCy
 
 cdef class Line2dCy:
     """ Create a two dimensional line setup of the connection between two 2D vectors. """
@@ -123,3 +123,8 @@ cdef class Line2dCy:
         Get the orientation from start to end.
         """
         return (self.x - self.y).get_angle()
+    
+    cpdef bint close_by(self, Vec2dCy pos, int r):
+        """Check if the given position is within a range r of the wall."""
+        close, _ = circle_line_intersection_cy(c=pos, r=r, l=self)
+        return close

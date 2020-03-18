@@ -5,23 +5,29 @@ Environment where a single genome gets evaluated over multiple games. This envir
 """
 import numpy as np
 cimport numpy as np
-from environment.entities.cy.game_cy cimport GameCy
+
+from config import GameConfig, NeatConfig
+from environment.entities.cy.game_cy cimport get_game_cy
 from utils.dictionary import D_DONE, D_SENSOR_LIST
 
 cdef class MultiEnvironmentCy:
     """ This class provides an environment to evaluate a single genome on multiple games. """
     
-    __slots__ = ("batch_size", "games", "make_net", "max_steps", "query_net")
+    __slots__ = ("batch_size", "games", "make_net", "max_steps", "query_net", "game_config", "neat_config")
     
     def __init__(self,
                  make_net,
                  query_net,
+                 game_config,
+                 neat_config,
                  int max_steps):
         """
         Create an environment in which the genomes get evaluated across different games.
         
         :param make_net: Method to create a network based on the given genome
         :param query_net: Method to evaluate the network given the current state
+        :param game_config: GameConfig file for game-creation
+        :param neat_config: NeatConfig file specifying how genome's network will be made
         :param max_steps: Maximum number of steps a candidate drives around in a single environment
         """
         self.batch_size = 0
@@ -29,17 +35,17 @@ cdef class MultiEnvironmentCy:
         self.make_net = make_net
         self.max_steps = max_steps
         self.query_net = query_net
+        self.game_config = game_config
+        self.neat_config = neat_config
     
     cpdef void eval_genome(self,
                            genome,
-                           config,
                            return_dict=None,
                            bint debug=False):
         """
         Evaluate a single genome in a pre-defined game-environment.
         
         :param genome: Tuple (genome_id, genome_class)
-        :param config: Config file specifying how genome's network will be made
         :param return_dict: Dictionary used to return observations corresponding the genome
         :param debug: Boolean specifying if debugging is enabled or not
         """
@@ -50,10 +56,10 @@ cdef class MultiEnvironmentCy:
         
         # Split up genome by id and genome itself
         genome_id, genome = genome
-        net = self.make_net(genome, config, self.batch_size)
+        net = self.make_net(genome=genome, config=self.neat_config, game_config=self.game_config, bs=self.batch_size)
         
         # Placeholders
-        games = [self.create_game(g) for g in self.games]
+        games = [get_game_cy(g, cfg=self.game_config) for g in self.games]
         states = [g.reset()[D_SENSOR_LIST] for g in games]
         finished = [False] * self.batch_size
         
@@ -89,14 +95,12 @@ cdef class MultiEnvironmentCy:
     
     cpdef void trace_genome(self,
                             genome,
-                            config,
                             return_dict=None,
                             bint debug=False):
         """
         Get the trace of a single genome for a pre-defined game-environment.
         
         :param genome: Tuple (genome_id, genome_class)
-        :param config: Config file specifying how genome's network will be made
         :param return_dict: Dictionary used to return the traces corresponding the genome-game combination
         :param debug: Boolean specifying if debugging is enabled or not
         """
@@ -105,10 +109,10 @@ cdef class MultiEnvironmentCy:
         cdef np.ndarray a, actions
         
         genome_id, genome = genome  # Split up genome by id and genome itself
-        net = self.make_net(genome, config, self.batch_size)
+        net = self.make_net(genome=genome, config=self.neat_config, game_config=self.game_config, bs=self.batch_size)
         
         # Placeholders
-        games = [self.create_game(g) for g in self.games]
+        games = [get_game_cy(g, cfg=self.game_config) for g in self.games]
         states = [g.reset()[D_SENSOR_LIST] for g in games]
         traces = [[g.player.pos.get_tuple()] for g in games]
         
@@ -145,14 +149,6 @@ cdef class MultiEnvironmentCy:
     
     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
     
-    cpdef GameCy create_game(self, int i):
-        """
-        :param i: Game-ID
-        :return: Game or GameCy object
-        """
-        return GameCy(game_id=i,
-                    silent=True)
-    
     cpdef void set_games(self, list games):
         """
         Set the games-set with new games.
@@ -164,4 +160,4 @@ cdef class MultiEnvironmentCy:
         
     cpdef list get_game_params(self):
         """Return list of all game-parameters currently in self.games."""
-        return [self.create_game(i).game_params() for i in self.games]
+        return [get_game_cy(i, cfg=self.game_config).game_params() for i in self.games]

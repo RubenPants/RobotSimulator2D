@@ -1,9 +1,8 @@
 """
-multi_env.py
+env_multi_cy.py
 
-TODO
+Environment where a single genome gets evaluated over multiple games. This environment will be called in a process.
 """
-from environment.entities.cy.game_cy cimport GameCy
 
 
 cdef class MultiEnvironmentCy:
@@ -13,12 +12,12 @@ cdef class MultiEnvironmentCy:
     cdef public str rel_path
     cdef public make_net
     cdef public query_net
+    cdef public game_config
+    cdef public neat_config
     
-    cpdef void eval_genome(self, genome, config, return_dict=?, bint debug=?)
+    cpdef void eval_genome(self, genome, return_dict=?, bint debug=?)
     
-    cpdef void trace_genome(self, genome, config, return_dict=?, bint debug=?)
-    
-    cpdef GameCy create_game(self, int i)
+    cpdef void trace_genome(self, genome, return_dict=?, bint debug=?)
 
     cpdef void set_games(self, list games)
     

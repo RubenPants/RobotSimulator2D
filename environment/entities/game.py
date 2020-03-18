@@ -30,15 +30,15 @@ class Game:
         "bot_driving_speed", "bot_radius", "bot_turning_speed",
         "fps", "p2m", "x_axis", "y_axis",
         "noise_time", "noise_angle", "noise_distance", "noise_proximity",
-        "sensor_ray_distance",
+        "ray_distance", "ray_distance_cum",
         "target_reached",
         "silent", "noise", "save_path",
         "done", "id", "path", "player", "steps_taken", "target", "walls"
     )
     
     def __init__(self,
-                 game_id: int = 0,
-                 config: GameConfig = None,
+                 game_id: int,
+                 config: GameConfig,
                  noise: bool = False,
                  overwrite: bool = False,
                  save_path: str = '',
@@ -47,27 +47,28 @@ class Game:
         """
         Define a new game.
 
-        :param config: Configuration file related to the game (only needed to pass during creation)
         :param game_id: Game id
+        :param config: Configuration file related to the game (only needed to pass during creation)
         :param noise: Add noise when progressing the game
         :param overwrite: Overwrite pre-existing games
         :param save_path: Save and load the game from different directories
         :param silent: Do not print anything
         """
-        # Set config (or placeholder if config not defined)
-        self.bot_driving_speed: float = 0
-        self.bot_radius: float = 0
-        self.bot_turning_speed: float = 0
-        self.fps: int = 0
-        self.p2m: int = 0
-        self.x_axis: int = 0
-        self.y_axis: int = 0
-        self.noise_time: float = 0
-        self.noise_angle: float = 0
-        self.noise_distance: float = 0
-        self.noise_proximity: float = 0
-        self.sensor_ray_distance: float = 0
-        self.target_reached: float = 0
+        # Set the game's configuration
+        self.bot_driving_speed: float = config.bot_driving_speed
+        self.bot_radius: float = config.bot_radius
+        self.bot_turning_speed: float = config.bot_turning_speed
+        self.fps: int = config.fps
+        self.p2m: int = config.p2m
+        self.x_axis: int = config.x_axis
+        self.y_axis: int = config.y_axis
+        self.noise_time: float = config.noise_time
+        self.noise_angle: float = config.noise_angle
+        self.noise_distance: float = config.noise_distance
+        self.noise_proximity: float = config.noise_proximity
+        self.ray_distance: float = config.sensor_ray_distance
+        self.ray_distance_cum: float = config.bot_radius + config.sensor_ray_distance
+        self.target_reached: float = config.target_reached
         
         # Environment specific parameters
         self.silent: bool = silent  # True: Do not print out statistics
@@ -84,10 +85,7 @@ class Game:
         self.walls: set = None  # Set of all walls in the game
         
         # Check if game already exists, if not create new game
-        if overwrite or not self.load():
-            if not config: config = GameConfig()
-            self.set_config_params(config)
-            self.create_empty_game()
+        if overwrite or not self.load(): self.create_empty_game()
     
     def __str__(self):
         return f"game_{self.id:05d}"
@@ -113,12 +111,12 @@ class Game:
             D_GAME_ID: self.id,
         }
     
-    def get_observation(self):
+    def get_observation(self, close_walls: set = None):
         """Get the current observation of the game in the form of a dictionary."""
         return {
             D_DONE:        self.done,
             D_GAME_ID:     self.id,
-            D_SENSOR_LIST: self.player.get_sensor_readings(),
+            D_SENSOR_LIST: self.player.get_sensor_readings(close_walls),
         }
     
     def reset(self):
@@ -154,7 +152,8 @@ class Game:
         self.player.drive(dt, lw=l, rw=r)
         
         # Check if intersected with a wall, if so then set player back to old position
-        for wall in self.walls:
+        close_walls = {w for w in self.walls if w.close_by(pos=self.player.pos, r=self.ray_distance_cum)}
+        for wall in close_walls:
             inter, _ = circle_line_intersection(c=self.player.pos, r=self.player.radius, l=wall)
             if inter:
                 self.player.pos.x = self.player.prev_pos.x
@@ -166,7 +165,7 @@ class Game:
         if self.player.get_sensor_readings_distance() <= self.target_reached: self.done = True
         
         # Return the current observations
-        return self.get_observation()
+        return self.get_observation(close_walls)
     
     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
     
@@ -182,22 +181,6 @@ class Game:
         # Save the new game
         self.save()
         if not self.silent: print(f"New game created under id: {self.id}")
-    
-    def set_config_params(self, config):
-        """ Store all the configured parameters locally. """
-        self.bot_driving_speed: float = config.bot_driving_speed
-        self.bot_radius: float = config.bot_radius
-        self.bot_turning_speed: float = config.bot_turning_speed
-        self.fps: int = config.fps
-        self.p2m: int = config.p2m
-        self.x_axis: int = config.x_axis
-        self.y_axis: int = config.y_axis
-        self.noise_time: float = config.noise_time
-        self.noise_angle: float = config.noise_angle
-        self.noise_distance: float = config.noise_distance
-        self.noise_proximity: float = config.noise_proximity
-        self.sensor_ray_distance: float = config.sensor_ray_distance
-        self.target_reached: float = config.target_reached
     
     def set_player_angle(self, a: float):
         """
@@ -221,19 +204,6 @@ class Game:
     
     def save(self):
         persist_dict = dict()
-        persist_dict[D_BOT_DRIVING_SPEED] = self.bot_driving_speed
-        persist_dict[D_BOT_RADIUS] = self.bot_radius
-        persist_dict[D_BOT_TURNING_SPEED] = self.bot_turning_speed
-        persist_dict[D_FPS] = self.fps
-        persist_dict[D_PTM] = self.p2m
-        persist_dict[D_X_AXIS] = self.x_axis
-        persist_dict[D_Y_AXIS] = self.y_axis
-        persist_dict[D_NOISE_TIME] = self.noise_time
-        persist_dict[D_NOISE_ANGLE] = self.noise_angle
-        persist_dict[D_NOISE_DISTANCE] = self.noise_distance
-        persist_dict[D_NOISE_PROXIMITY] = self.noise_proximity
-        persist_dict[D_SENSOR_RAY_DISTANCE] = self.sensor_ray_distance
-        persist_dict[D_TARGET_REACHED] = self.target_reached
         persist_dict[D_ANGLE] = self.player.init_angle  # Initial angle of player
         if self.path: persist_dict[D_PATH] = [(p[0], p[1]) for p in self.path.items()]
         persist_dict[D_POS] = (self.player.init_pos.x, self.player.init_pos.y)  # Initial position of player
@@ -249,19 +219,6 @@ class Game:
         """
         try:
             game = load_pickle(f'{self.save_path}{self}')
-            self.bot_driving_speed = game[D_BOT_DRIVING_SPEED]
-            self.bot_radius = game[D_BOT_RADIUS]
-            self.bot_turning_speed = game[D_BOT_TURNING_SPEED]
-            self.fps = game[D_FPS]
-            self.p2m = game[D_PTM]
-            self.x_axis = game[D_X_AXIS]
-            self.y_axis = game[D_Y_AXIS]
-            self.noise_time = game[D_NOISE_TIME]
-            self.noise_angle = game[D_NOISE_ANGLE]
-            self.noise_distance = game[D_NOISE_DISTANCE]
-            self.noise_proximity = game[D_NOISE_PROXIMITY]
-            self.sensor_ray_distance = game[D_SENSOR_RAY_DISTANCE]
-            self.target_reached = game[D_TARGET_REACHED]
             self.player = MarXBot(game=self)  # Create a dummy-player to set values on
             self.set_player_angle(game[D_ANGLE])
             self.set_player_pos(Vec2d(game[D_POS][0], game[D_POS][1]))
@@ -306,7 +263,20 @@ def get_boundary_walls(x_axis, y_axis):
     return {Line2d(a, b), Line2d(b, c), Line2d(c, d), Line2d(d, a)}
 
 
-def initial_sensor_readings():
+def get_game(i: int, cfg: GameConfig):
+    """
+    Create a game-object.
+    
+    :param i: Game-ID
+    :param cfg: GameConfig object
+    :return: Game or GameCy object
+    """
+    return Game(game_id=i,
+                config=cfg,
+                silent=True)
+
+
+def initial_sensor_readings(game_config):
     """Return a list of the sensors their maximum value."""
-    game = Game(game_id=0, silent=True)
+    game = Game(game_id=0, config=game_config, silent=True)
     return game.player.get_sensor_readings()

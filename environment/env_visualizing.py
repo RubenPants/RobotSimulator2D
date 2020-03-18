@@ -10,6 +10,7 @@ from neat.six_util import iteritems
 from tqdm import tqdm
 
 from config import GameConfig
+from environment.entities.game import get_game
 from population.utils.population_util.population_visualizer import create_blueprints, create_traces
 from utils.myutils import get_subfolder
 
@@ -23,14 +24,14 @@ class VisualizingEnv:
     """ This class is responsible evaluating and evolving the population across a set of games. """
     
     __slots__ = (
-        "cfg",
+        "game_config",
         "games", "batch_size",
     )
     
-    def __init__(self):
+    def __init__(self, game_config: GameConfig):
         """ The evaluator is given a population which it then evaluates using the MultiEnvironment. """
         # Load in current configuration
-        self.cfg: GameConfig = GameConfig()
+        self.game_config = game_config
         
         #  Create a list of all the possible games
         self.games = None
@@ -45,8 +46,8 @@ class VisualizingEnv:
         :param games: List of integers
         """
         if not games:
-            self.games = [i + 1 for i in range(self.cfg.max_game_id)]
-            self.batch_size = min(len(self.games), self.cfg.batch)
+            self.games = [i + 1 for i in range(self.game_config.max_game_id)]
+            self.batch_size = min(len(self.games), self.game_config.batch)
         else:
             self.games = games
             self.batch_size = len(games)
@@ -61,13 +62,17 @@ class VisualizingEnv:
             multi_env = MultiEnvironmentCy(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_steps=self.cfg.duration * self.cfg.fps
+                    game_config=self.game_config,
+                    neat_config=pop.config,
+                    max_steps=self.game_config.duration * self.game_config.fps
             )
         else:
             multi_env = MultiEnvironment(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_steps=self.cfg.duration * self.cfg.fps
+                    game_config=self.game_config,
+                    neat_config=pop.config,
+                    max_steps=self.game_config.duration * self.game_config.fps
             )
         
         if len(self.games) > 20:
@@ -92,12 +97,12 @@ class VisualizingEnv:
         
         # Evaluate the genomes
         for genome in genomes:
-            pool.apply_async(func=multi_env.eval_genome, args=(genome, pop.config, return_dict), callback=cb)
+            pool.apply_async(func=multi_env.eval_genome, args=(genome, return_dict), callback=cb)
         pool.close()  # Close the pool
         pool.join()  # Postpone continuation until everything is finished
         
         # Create blueprint of final result
-        game_objects = [multi_env.create_game(g) for g in self.games]
+        game_objects = [get_game(g, cfg=self.game_config) for g in self.games]
         create_blueprints(final_observations=return_dict,
                           games=game_objects,
                           gen=pop.generation,
@@ -113,13 +118,17 @@ class VisualizingEnv:
             multi_env = MultiEnvironmentCy(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_steps=self.cfg.duration * self.cfg.fps
+                    game_config=self.game_config,
+                    neat_config=pop.config,
+                    max_steps=self.game_config.duration * self.game_config.fps
             )
         else:
             multi_env = MultiEnvironment(
                     make_net=pop.make_net,
                     query_net=pop.query_net,
-                    max_steps=self.cfg.duration * self.cfg.fps
+                    game_config=self.game_config,
+                    neat_config=pop.config,
+                    max_steps=self.game_config.duration * self.game_config.fps
             )
         
         if len(self.games) > 20:
@@ -144,12 +153,12 @@ class VisualizingEnv:
         
         # Evaluate the genomes
         for genome in genomes:
-            pool.apply_async(func=multi_env.trace_genome, args=(genome, pop.config, return_dict), callback=cb)
+            pool.apply_async(func=multi_env.trace_genome, args=(genome, return_dict), callback=cb)
         pool.close()  # Close the pool
         pool.join()  # Postpone continuation until everything is finished
         
         # Create blueprint of final result
-        game_objects = [multi_env.create_game(g) for g in self.games]
+        game_objects = [get_game(g, cfg=self.game_config) for g in self.games]
         create_traces(traces=return_dict,
                       games=game_objects,
                       gen=pop.generation,

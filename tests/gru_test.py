@@ -13,7 +13,7 @@ from population.utils.config.default_config import Config
 from population.utils.genome_util.genes import GruNodeGene
 from population.utils.genome_util.genome import DefaultGenome
 from population.utils.population_util.reproduction import DefaultReproduction
-from population.utils.population_util.species import DefaultSpeciesSet
+from population.utils.population_util.species import DefaultSpecies
 from population.utils.population_util.stagnation import DefaultStagnation
 
 
@@ -27,7 +27,7 @@ def get_config(num_inputs=4, num_hidden=1, num_outputs=1):
     return Config(
             genome_type=DefaultGenome,
             reproduction_type=DefaultReproduction,
-            species_type=DefaultSpeciesSet,
+            species_type=DefaultSpecies,
             stagnation_type=DefaultStagnation,
             config=cfg,
     )

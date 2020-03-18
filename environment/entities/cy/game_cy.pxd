@@ -21,7 +21,7 @@ cdef class GameCy:
     cdef public Vec2dCy target
     cdef public float bot_driving_speed, bot_radius, bot_turning_speed
     cdef public int batch, duration, max_game_id, max_eval_game_id, fps, p2m, x_axis, y_axis
-    cdef public float noise_time, noise_angle, noise_distance, noise_proximity, sensor_ray_distance, target_reached
+    cdef public float noise_time, noise_angle, noise_distance, noise_proximity, ray_distance, ray_distance_cum, target_reached
     cdef public str save_path
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
@@ -30,7 +30,7 @@ cdef class GameCy:
     
     cpdef dict game_params(self)
     
-    cpdef dict get_observation(self)
+    cpdef dict get_observation(self, set close_walls=?)
     
     cpdef dict reset(self)
     
@@ -41,8 +41,6 @@ cdef class GameCy:
     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
     
     cpdef void create_empty_game(self)
-    
-    cpdef void set_config_params(self, config)
     
     cpdef void set_player_angle(self, float a)
     
@@ -57,3 +55,5 @@ cdef class GameCy:
     cpdef get_blueprint(self, ax=?)
 
 cpdef set get_boundary_walls(int x_axis, int y_axis)
+
+cpdef GameCy get_game_cy(int i, cfg)
