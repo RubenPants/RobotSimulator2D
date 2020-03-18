@@ -8,7 +8,7 @@ import pymunk
 from pymunk.pyglet_util import DrawOptions
 
 from config import GameConfig
-from environment.entities.game import get_game
+from environment.entities.game import Game, get_game
 from population.utils.network_util.feed_forward_net import FeedForwardNet
 from utils.dictionary import D_DONE, D_SENSOR_LIST
 
@@ -62,7 +62,7 @@ class LiveVisualizer:
         :param game_id: ID of the game that will be used for evaluation
         """
         # Create the requested game
-        game = get_game(game_id, cfg=self.game_config)
+        game: Game = get_game(game_id, cfg=self.game_config)
         
         # Create space in which game will be played
         window = pyglet.window.Window(game.x_axis * game.p2m,
@@ -126,7 +126,7 @@ class LiveVisualizer:
                                           b=s.end_pos * game.p2m,
                                           radius=0.5)
                     line.sensor = True
-                    touch = ((s.start_pos - s.end_pos).get_length() < game.sensor_ray_distance - 0.05)
+                    touch = ((s.start_pos - s.end_pos).get_length() < game.ray_distance - 0.05)
                     line.color = (100, 100, 100) if touch else (200, 200, 200)  # Brighten up ray if it makes contact
                     space.add(line)
         

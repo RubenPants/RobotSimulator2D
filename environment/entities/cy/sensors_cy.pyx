@@ -144,7 +144,7 @@ cdef class ProximitySensorCy(SensorCy):
         :param pos_offset: Distance to the agent's center of mass and orientation
         :param max_dist: Maximum distance the sensor can reach, infinite if set to zero
         """
-        if not max_dist: max_dist = game.sensor_ray_distance
+        if not max_dist: max_dist = game.ray_distance
         super().__init__(game=game,
                          sensor_id=sensor_id,
                          angle=angle,

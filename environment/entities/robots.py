@@ -139,7 +139,7 @@ class MarXBot:
                                                           game=self.game,
                                                           angle=angle,
                                                           pos_offset=self.game.bot_radius,
-                                                          max_dist=self.game.sensor_ray_distance,
+                                                          max_dist=self.game.ray_distance,
                                                           )
     
     def create_angular_sensors(self):

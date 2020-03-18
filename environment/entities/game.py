@@ -30,7 +30,7 @@ class Game:
         "bot_driving_speed", "bot_radius", "bot_turning_speed",
         "fps", "p2m", "x_axis", "y_axis",
         "noise_time", "noise_angle", "noise_distance", "noise_proximity",
-        "sensor_ray_distance",
+        "ray_distance", "ray_distance_cum",
         "target_reached",
         "silent", "noise", "save_path",
         "done", "id", "path", "player", "steps_taken", "target", "walls"
@@ -66,7 +66,8 @@ class Game:
         self.noise_angle: float = config.noise_angle
         self.noise_distance: float = config.noise_distance
         self.noise_proximity: float = config.noise_proximity
-        self.sensor_ray_distance: float = config.sensor_ray_distance
+        self.ray_distance: float = config.sensor_ray_distance
+        self.ray_distance_cum: float = config.bot_radius + config.sensor_ray_distance
         self.target_reached: float = config.target_reached
         
         # Environment specific parameters
@@ -151,7 +152,7 @@ class Game:
         self.player.drive(dt, lw=l, rw=r)
         
         # Check if intersected with a wall, if so then set player back to old position
-        close_walls = {w for w in self.walls if w.close_by(pos=self.player.pos, r=self.player.radius)}
+        close_walls = {w for w in self.walls if w.close_by(pos=self.player.pos, r=self.ray_distance_cum)}
         for wall in close_walls:
             inter, _ = circle_line_intersection(c=self.player.pos, r=self.player.radius, l=wall)
             if inter:

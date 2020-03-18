@@ -11,7 +11,6 @@ cimport numpy as np
 import pylab as pl
 from matplotlib import collections as mc
 
-from config import GameConfig
 from environment.entities.cy.robots_cy cimport MarXBotCy
 from utils.dictionary import *
 from utils.cy.intersection_cy cimport circle_line_intersection_cy
@@ -30,7 +29,7 @@ cdef class GameCy:
     __slots__ = ("bot_driving_speed", "bot_radius", "bot_turning_speed",
                  "fps", "p2m", "x_axis", "y_axis",
                  "noise_time", "noise_angle", "noise_distance", "noise_proximity",
-                 "sensor_ray_distance",
+                 "ray_distance", "ray_distance_cum",
                  "target_reached",
                  "silent", "noise", "save_path",
                  "done", "id", "path", "player", "steps_taken", "target", "walls")
@@ -65,7 +64,8 @@ cdef class GameCy:
         self.noise_angle = config.noise_angle
         self.noise_distance = config.noise_distance
         self.noise_proximity = config.noise_proximity
-        self.sensor_ray_distance = config.sensor_ray_distance
+        self.ray_distance = config.sensor_ray_distance
+        self.ray_distance_cum = config.bot_radius + config.sensor_ray_distance
         self.target_reached = config.target_reached
         
         # Environment specific parameters
@@ -161,7 +161,7 @@ cdef class GameCy:
         self.player.drive(dt, lw=l, rw=r)
         
         # Check if intersected with a wall, if so then set player back to old position
-        close_walls = {w for w in self.walls if w.close_by(pos=self.player.pos, r=self.player.radius)}
+        close_walls = {w for w in self.walls if w.close_by(pos=self.player.pos, r=self.ray_distance_cum)}
         for wall in self.walls:
             inter, _ = circle_line_intersection_cy(c=self.player.pos, r=self.player.radius, l=wall)
             if inter:

@@ -1256,7 +1256,8 @@ struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy {
   float noise_angle;
   float noise_distance;
   float noise_proximity;
-  float sensor_ray_distance;
+  float ray_distance;
+  float ray_distance_cum;
   float target_reached;
   PyObject *save_path;
 };

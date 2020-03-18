@@ -3,7 +3,6 @@ line2d.py
 
 Representation for two-dimensional lines.
 """
-from utils.intersection import circle_line_intersection
 from utils.vec2d import Vec2d
 
 
@@ -126,5 +125,6 @@ class Line2d(object):
     
     def close_by(self, pos: Vec2d, r: int):
         """Check if the given position is within a range r of the wall."""
+        from utils.intersection import circle_line_intersection
         close, _ = circle_line_intersection(c=pos, r=r, l=self)
         return close

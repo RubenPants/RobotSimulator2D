@@ -1283,7 +1283,8 @@ struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy {
   float noise_angle;
   float noise_distance;
   float noise_proximity;
-  float sensor_ray_distance;
+  float ray_distance;
+  float ray_distance_cum;
   float target_reached;
   PyObject *save_path;
 };
@@ -5750,19 +5751,19 @@ static int __pyx_pf_11environment_8entities_2cy_10sensors_cy_17ProximitySensorCy
   /* "environment/entities/cy/sensors_cy.pyx":147
  *         :param max_dist: Maximum distance the sensor can reach, infinite if set to zero
  *         """
- *         if not max_dist: max_dist = game.sensor_ray_distance             # <<<<<<<<<<<<<<
+ *         if not max_dist: max_dist = game.ray_distance             # <<<<<<<<<<<<<<
  *         super().__init__(game=game,
  *                          sensor_id=sensor_id,
  */
   __pyx_t_1 = ((!(__pyx_v_max_dist != 0)) != 0);
   if (__pyx_t_1) {
-    __pyx_t_2 = __pyx_v_game->sensor_ray_distance;
+    __pyx_t_2 = __pyx_v_game->ray_distance;
     __pyx_v_max_dist = __pyx_t_2;
   }
 
   /* "environment/entities/cy/sensors_cy.pyx":148
  *         """
- *         if not max_dist: max_dist = game.sensor_ray_distance
+ *         if not max_dist: max_dist = game.ray_distance
  *         super().__init__(game=game,             # <<<<<<<<<<<<<<
  *                          sensor_id=sensor_id,
  *                          angle=angle,
@@ -5786,7 +5787,7 @@ static int __pyx_pf_11environment_8entities_2cy_10sensors_cy_17ProximitySensorCy
   if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_game, ((PyObject *)__pyx_v_game)) < 0) __PYX_ERR(0, 148, __pyx_L1_error)
 
   /* "environment/entities/cy/sensors_cy.pyx":149
- *         if not max_dist: max_dist = game.sensor_ray_distance
+ *         if not max_dist: max_dist = game.ray_distance
  *         super().__init__(game=game,
  *                          sensor_id=sensor_id,             # <<<<<<<<<<<<<<
  *                          angle=angle,
@@ -5835,7 +5836,7 @@ static int __pyx_pf_11environment_8entities_2cy_10sensors_cy_17ProximitySensorCy
 
   /* "environment/entities/cy/sensors_cy.pyx":148
  *         """
- *         if not max_dist: max_dist = game.sensor_ray_distance
+ *         if not max_dist: max_dist = game.ray_distance
  *         super().__init__(game=game,             # <<<<<<<<<<<<<<
  *                          sensor_id=sensor_id,
  *                          angle=angle,

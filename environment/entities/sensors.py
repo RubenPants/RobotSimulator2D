@@ -140,7 +140,7 @@ class ProximitySensor(Sensor):
         :param pos_offset: Distance to the agent's center of mass and orientation
         :param max_dist: Maximum distance the sensor can reach, infinite if set to zero
         """
-        if not max_dist: max_dist = game.sensor_ray_distance
+        if not max_dist: max_dist = game.ray_distance
         super().__init__(game=game,
                          sensor_id=sensor_id,
                          angle=angle,
@@ -157,7 +157,7 @@ class ProximitySensor(Sensor):
         Get the distance to the closest wall. If all the walls are 'far enough', as determined by self.max_dist, then
         the maximum sensor-distance is returned.
         
-        :param close_walls: Walls which fall within sensor_ray_distance from the agent, speeds up readings
+        :param close_walls: Walls which fall within ray_distance from the agent, speeds up readings
         :return: Float expressing the distance to the closest wall, if there is any
         """
         # Start and end point of ray
