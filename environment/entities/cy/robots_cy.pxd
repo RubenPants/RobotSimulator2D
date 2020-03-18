@@ -4,7 +4,6 @@ robots_cy.pxd
 Used to declare all the methods and classes inside of robots_cy that must be callable from outside of other objects.
 """
 from environment.entities.cy.game_cy cimport GameCy
-from environment.entities.cy.sensors_cy cimport DistanceSensorCy
 from utils.cy.vec2d_cy cimport Vec2dCy
 
 cdef class MarXBotCy:
@@ -20,7 +19,7 @@ cdef class MarXBotCy:
     
     cpdef void drive(self, float dt, float lw, float rw)
     
-    cpdef list get_sensor_readings(self)
+    cpdef list get_sensor_readings(self, set close_walls=?)
     
     cpdef float get_sensor_readings_distance(self)
     

@@ -23,6 +23,7 @@ You may obtain a copy of the License at
 import numpy as np
 import torch
 
+from config import GameConfig
 from environment.entities.game import initial_sensor_readings
 from population.utils.genome_util.genes import GruNodeGene
 from population.utils.network_util.activations import relu_activation, tanh_activation
@@ -37,6 +38,7 @@ class FeedForwardNet:
                  hid2hid, hid2out,
                  hidden_biases, output_biases,
                  grus, gru_map,
+                 game_config: GameConfig,
                  batch_size=1,
                  hidden_activation=relu_activation, output_activation=tanh_activation,  # TODO: Make configurable?
                  cold_start=False,
@@ -55,6 +57,7 @@ class FeedForwardNet:
         :param hid2out: Connections from hidden nodes towards the outputs
         :param grus: List of GRUCell objects (length equals len(gru_idx))
         :param gru_map: Boolean matrix mapping raw inputs to inputs used by GRUCell for a single batch
+        :param game_config: GameConfig object
         :param batch_size: Needed to setup network-dimensions
         :param hidden_activation: The default hidden-node activation function (squishing)
         :param output_activation: The default output-node activation function (squishing)
@@ -74,6 +77,7 @@ class FeedForwardNet:
         self.n_gru = len(gru_idx)
         self.n_outputs = len(output_idx)
         self.bs = batch_size
+        self.game_config = game_config
         
         # Setup the gru_map
         self.gru_map = []
@@ -101,7 +105,7 @@ class FeedForwardNet:
         self.output_biases = torch.tensor(output_biases, dtype=dtype)
         
         # Put network to initial (default) state
-        self.initial_readings = initial_sensor_readings()
+        self.initial_readings = initial_sensor_readings(game_config=game_config)
         self.reset(cold_start=cold_start)
     
     def reset(self, cold_start=False):
@@ -182,7 +186,8 @@ class FeedForwardNet:
     @staticmethod
     def create(genome,
                config,
-               batch_size=1,
+               game_config: GameConfig,
+               batch_size: int = 1,
                cold_start=False,
                logger=None,
                ):
@@ -192,6 +197,7 @@ class FeedForwardNet:
         
         :param genome: The genome for which a network must be created
         :param config: Population config
+        :param game_config: GameConfig object
         :param batch_size: Batch-size needed to setup network dimension
         :param cold_start: Do not initialize the network based on sensory inputs
         :param logger: A population's logger
@@ -259,13 +265,13 @@ class FeedForwardNet:
             else:
                 # TODO: Delete prints! (used for debugging)
                 msg = f"{genome}" \
-                          f"\ni_key: {i_key}, o_key: {o_key}" \
-                          f"\ni_key in input_keys: {i_key in input_keys}" \
-                          f"\ni_key in hidden_keys: {i_key in hidden_keys}" \
-                          f"\ni_key in output_keys: {i_key in output_keys}" \
-                          f"\no_key in input_keys: {o_key in input_keys}" \
-                          f"\no_key in hidden_keys: {o_key in hidden_keys}" \
-                          f"\no_key in output_keys: {o_key in output_keys}"
+                      f"\ni_key: {i_key}, o_key: {o_key}" \
+                      f"\ni_key in input_keys: {i_key in input_keys}" \
+                      f"\ni_key in hidden_keys: {i_key in hidden_keys}" \
+                      f"\ni_key in output_keys: {i_key in output_keys}" \
+                      f"\no_key in input_keys: {o_key in input_keys}" \
+                      f"\no_key in hidden_keys: {o_key in hidden_keys}" \
+                      f"\no_key in output_keys: {o_key in output_keys}"
                 logger(msg) if logger else print(msg)
                 raise ValueError(f'Invalid connection from key {i_key} to key {o_key}')
             
@@ -297,18 +303,26 @@ class FeedForwardNet:
                 hid2hid=hid2hid, hid2out=hid2out,
                 hidden_biases=hidden_biases, output_biases=output_biases,
                 grus=grus, gru_map=gru_map,
+                game_config=game_config,
                 batch_size=batch_size,
                 cold_start=cold_start,
         )
 
 
-def make_net(genome, config, bs=1, cold_start=False):
+def make_net(genome, config, game_config, bs=1, cold_start=False):
     """
     Create the "brains" of the candidate, based on its genetic wiring.
 
     :param genome: Genome specifies the brains internals
     :param config: Configuration class
+    :param game_config: GameConfig object
     :param bs: Batch size, which represents amount of games trained in parallel
     :param cold_start: Do not initialize the network based on sensory inputs
     """
-    return FeedForwardNet.create(genome, config, batch_size=bs, cold_start=cold_start)
+    return FeedForwardNet.create(
+            genome,
+            config,
+            game_config=game_config,
+            batch_size=bs,
+            cold_start=cold_start,
+    )

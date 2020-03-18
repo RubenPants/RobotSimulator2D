@@ -94,7 +94,7 @@ class ProximitySensorTestCy(unittest.TestCase):
         
         sensors = game.player.get_sensor_reading_proximity()
         for s in sensors.values():
-            self.assertAlmostEqual(s, game.sensor_ray_distance, delta=EPSILON_DISTANCE)
+            self.assertAlmostEqual(s, game.ray_distance, delta=EPSILON_DISTANCE)
     
     def test_cubed(self, save_path="../games_db/"):
         game = GameCy(game_id=0, save_path=save_path, silent=True, overwrite=True, noise=False)
@@ -125,7 +125,7 @@ class ProximitySensorTestCy(unittest.TestCase):
         self.assertAlmostEqual(sensors[2], 1 - game.bot_radius, delta=EPSILON_DISTANCE)
         self.assertAlmostEqual(sensors[3], np.sqrt(2) - game.bot_radius, delta=EPSILON_DISTANCE)
         self.assertAlmostEqual(sensors[4], 1 - game.bot_radius, delta=EPSILON_DISTANCE)
-        self.assertAlmostEqual(sensors[5], game.sensor_ray_distance, delta=EPSILON_DISTANCE)
+        self.assertAlmostEqual(sensors[5], game.ray_distance, delta=EPSILON_DISTANCE)
     
     def test_force(self, save_path="../games_db/"):
         game = GameCy(game_id=0, save_path=save_path, silent=True, overwrite=True, noise=True)
