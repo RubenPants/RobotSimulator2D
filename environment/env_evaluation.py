@@ -98,7 +98,7 @@ class EvaluationEnv:
             pbar.update()
         
         for genome in genomes:
-            pool.apply_async(func=multi_env.eval_genome, args=(genome, pop.config, return_dict), callback=cb)
+            pool.apply_async(func=multi_env.eval_genome, args=(genome, return_dict), callback=cb)
         pool.close()  # Close the pool
         pool.join()  # Postpone continuation until everything is finished
         pbar.close()  # Close the progressbar
