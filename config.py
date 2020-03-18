@@ -102,14 +102,14 @@ class NeatConfig:
         # Don't consider fitness_criterion and fitness_threshold
         self.no_fitness_termination: bool = True
         # Number of individuals in each generation  [def=128]  TODO
-        self.pop_size: int = 10
+        self.pop_size: int = 128
         
         # [DefaultReproduction]
         # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=3]
         self.elitism: int = 3
-        # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.2]  TODO
-        self.parent_selection: float = 0.2
-        # Minimum number of genomes per species, keeping low prevents number of individuals blowing up  [def=10]
+        # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.3]  TODO
+        self.parent_selection: float = 0.3
+        # Minimum number of genomes per species, keeping low prevents number of individuals blowing up  [def=10]  TODO
         self.min_species_size: int = 10
         # Sexual reproduction  [def=True]
         self.sexual_reproduction: bool = True
@@ -183,8 +183,8 @@ class NeatConfig:
         self.weight_replace_rate: float = 0.05
         
         # [DefaultSpeciesSet]
-        # Individuals whose genetic distance is less than this threshold are in the same specie  [def=2.5]
-        self.compatibility_threshold: float = 2.5
+        # Individuals whose genetic distance is less than this threshold are in the same specie  [def=2.0]
+        self.compatibility_threshold: float = 2.0
         # Remove a specie if it hasn't improved over this many number of generations  [def=15]
         self.max_stagnation: int = 15
         # Number of the best species that will be protected from stagnation  [def=2]
