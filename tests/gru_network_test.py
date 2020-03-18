@@ -9,14 +9,14 @@ from random import random
 
 import torch
 
-from config import NeatConfig
+from config import GameConfig, NeatConfig
 from population.population import query_net
 from population.utils.config.default_config import Config
 from population.utils.genome_util.genome import DefaultGenome
 from population.utils.network_util.activations import tanh_activation
 from population.utils.network_util.feed_forward_net import make_net
 from population.utils.population_util.reproduction import DefaultReproduction
-from population.utils.population_util.species import DefaultSpeciesSet
+from population.utils.population_util.species import DefaultSpecies
 from population.utils.population_util.stagnation import DefaultStagnation
 from utils.dictionary import *
 
@@ -36,7 +36,7 @@ def get_genome(inputs, hidden, outputs):
     config = Config(
             genome_type=DefaultGenome,
             reproduction_type=DefaultReproduction,
-            species_type=DefaultSpeciesSet,
+            species_type=DefaultSpecies,
             stagnation_type=DefaultStagnation,
             config=cfg,
     )
@@ -48,7 +48,6 @@ def get_genome(inputs, hidden, outputs):
 
 
 class TestGruFeedForward(unittest.TestCase):
-    
     def test_1inp_1hid_1out(self, debug=False):
         """> Test single feedforward network with one input, one hidden GRU node, and one output.
 
@@ -80,7 +79,8 @@ class TestGruFeedForward(unittest.TestCase):
         genome.nodes[1].weight_hh[:] = torch.tensor([[1], [1], [1]], dtype=torch.float64)
         if debug: print(genome)
         # Create a network
-        net = make_net(genome, config, bs=1, cold_start=True)
+        game_config = GameConfig()
+        net = make_net(genome=genome, config=config, game_config=game_config, bs=1, cold_start=True)
         
         # Query the network; single input in range [-1, 1]
         inputs = [random() * 2 - 1 for _ in range(100)]

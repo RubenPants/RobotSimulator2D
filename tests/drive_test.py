@@ -7,6 +7,7 @@ from random import random
 
 import numpy as np
 
+from config import GameConfig
 from environment.entities.game import Game
 from utils.line2d import Line2d
 from utils.vec2d import Vec2d
@@ -23,7 +24,7 @@ class GameWallCollision(unittest.TestCase):
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
         # Create empty game
-        game = Game(silent=True, save_path="tests/games_db/", overwrite=True)
+        game = get_game()
         
         # Drive forward for 100 seconds
         for _ in range(50 * game.fps): game.step(l=1, r=1)
@@ -40,7 +41,7 @@ class GameWallCollision(unittest.TestCase):
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
         # Create empty game
-        game = Game(silent=True, save_path="tests/games_db/", overwrite=True)
+        game = get_game()
         
         # Drive forward for 100 seconds
         for _ in range(10 * game.fps):
@@ -61,7 +62,7 @@ class GameDrive(unittest.TestCase):
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
         # Create empty game
-        game = Game(silent=True, save_path="tests/games_db/", overwrite=True)
+        game = get_game()
         
         # Keep spinning around
         for _ in range(10 * game.fps):
@@ -77,7 +78,7 @@ class GameDrive(unittest.TestCase):
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
         # Create empty game
-        game = Game(silent=True, save_path="tests/games_db/", overwrite=True)
+        game = get_game()
         
         # Create inner box
         a, b, c, d = Vec2d(4, 5), Vec2d(5, 5), Vec2d(5, 4), Vec2d(4, 4)
@@ -98,6 +99,11 @@ class GameDrive(unittest.TestCase):
             # Check if bot still in box
             self.assertTrue(4 <= game.player.pos.x <= 5)
             self.assertTrue(4 <= game.player.pos.y <= 5)
+
+
+def get_game():
+    cfg = GameConfig
+    return Game(game_id=0, config=cfg, silent=True, save_path="tests/games_db/", overwrite=True)
 
 
 def main():

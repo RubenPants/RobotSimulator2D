@@ -12,7 +12,7 @@ cdef class SensorCy:
     cdef public int id
     cdef public float angle, pos_offset, max_dist, value
     
-    cpdef void measure(self)
+    cpdef void measure(self, set close_walls=?)
 
 
 cdef class AngularSensorCy(SensorCy):
@@ -21,7 +21,7 @@ cdef class AngularSensorCy(SensorCy):
     """
     cdef public bint clockwise
     
-    cpdef void measure(self)
+    cpdef void measure(self, set close_walls=?)
 
 
 cdef class DistanceSensorCy(SensorCy):
@@ -29,7 +29,7 @@ cdef class DistanceSensorCy(SensorCy):
     Distance from bot to the target in 'crows flight'.
     """
     
-    cpdef void measure(self)
+    cpdef void measure(self, set close_walls=?)
 
 
 cdef class ProximitySensorCy(SensorCy):
@@ -41,4 +41,4 @@ cdef class ProximitySensorCy(SensorCy):
     cdef public Vec2dCy start_pos
     cdef public Vec2dCy end_pos
     
-    cpdef void measure(self)
+    cpdef void measure(self, set close_walls=?)

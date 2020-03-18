@@ -117,7 +117,7 @@ class ProximitySensorTest(unittest.TestCase):
         
         sensors = game.player.get_sensor_reading_proximity()
         for s in sensors.values():
-            self.assertAlmostEqual(s, float(game.sensor_ray_distance), delta=EPSILON_DISTANCE)
+            self.assertAlmostEqual(s, float(game.ray_distance), delta=EPSILON_DISTANCE)
     
     def test_cubed(self):
         """> Test proximity sensors when fully surrounded by walls."""
@@ -153,7 +153,7 @@ class ProximitySensorTest(unittest.TestCase):
         self.assertAlmostEqual(sensors[2], 1 - float(game.bot_radius), delta=EPSILON_DISTANCE)
         self.assertAlmostEqual(sensors[3], np.sqrt(2) - float(game.bot_radius), delta=EPSILON_DISTANCE)
         self.assertAlmostEqual(sensors[4], 1 - float(game.bot_radius), delta=EPSILON_DISTANCE)
-        self.assertAlmostEqual(sensors[5], game.sensor_ray_distance, delta=EPSILON_DISTANCE)
+        self.assertAlmostEqual(sensors[5], game.ray_distance, delta=EPSILON_DISTANCE)
     
     def test_force(self):
         """> Test proximity sensors when bot is grinding against a wall."""

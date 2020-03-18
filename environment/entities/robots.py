@@ -90,9 +90,9 @@ class MarXBot:
         # Update position is the average of the two wheels times the maximum driving speed
         self.pos += angle_to_vec(self.angle) * float((((lw + rw) / 2) * self.game.bot_driving_speed * dt))
     
-    def get_sensor_readings(self):
+    def get_sensor_readings(self, close_walls: set = None):
         """List of the current sensory-readings."""
-        for s in self.sensors.values(): s.measure()
+        for s in self.sensors.values(): s.measure(close_walls)
         return [self.sensors[i].value for i in sorted(self.sensors.keys())]
     
     def get_sensor_readings_distance(self):
@@ -138,7 +138,9 @@ class MarXBot:
         self.sensors[len(self.sensors)] = ProximitySensor(sensor_id=len(self.sensors),
                                                           game=self.game,
                                                           angle=angle,
-                                                          pos_offset=self.game.bot_radius)
+                                                          pos_offset=self.game.bot_radius,
+                                                          max_dist=self.game.ray_distance,
+                                                          )
     
     def create_angular_sensors(self):
         """

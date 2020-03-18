@@ -44,7 +44,7 @@ def main(fitness,
     # Create the population
     pop = Population(
             version=version,
-            config=cfg,
+            neat_config=cfg,
             folder_name=folder,
     )
     
@@ -65,7 +65,7 @@ def main(fitness,
             from environment.env_training import TrainingEnv
             
             # Train for 100 generations
-            trainer = TrainingEnv()
+            trainer = TrainingEnv(game_config=pop.game_config)
             trainer.evaluate_and_evolve(
                     pop,
                     n=train_iterations,
@@ -77,7 +77,7 @@ def main(fitness,
             from environment.env_visualizing import VisualizingEnv
             
             # Create the blueprints for first 5 games
-            visualizer = VisualizingEnv()
+            visualizer = VisualizingEnv(game_config=pop.game_config)
             games = [g for g in range(1, 6)]
             pop.log(f"Creating blueprints for games: {games}")
             visualizer.set_games(games)
@@ -88,7 +88,7 @@ def main(fitness,
             from environment.env_visualizing import VisualizingEnv
             
             # Create the blueprints for first 5 games
-            visualizer = VisualizingEnv()
+            visualizer = VisualizingEnv(game_config=pop.game_config)
             games = [g for g in range(1, 6)]
             pop.log(f"Creating traces for games: {games}")
             visualizer.set_games(games)
@@ -98,7 +98,7 @@ def main(fitness,
             pop.log("\n===> EVALUATING <===\n")
             from environment.env_evaluation import EvaluationEnv
             
-            evaluator = EvaluationEnv()
+            evaluator = EvaluationEnv(game_config=pop.game_config)
             evaluator.evaluate_genome_list(
                     genome_list=[pop.best_genome],
                     pop=pop,
