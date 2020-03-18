@@ -20,7 +20,7 @@ class GameConfig:
     
     def __init__(self):
         # [BOT]
-        # Speed of bot when driving straight expressed in m/s [def=0.5]
+        # Speed of bot when driving straight expressed in m/s [def=0.6]
         self.bot_driving_speed: float = 0.6
         # Radius of the bot expressed in meters [def=0.085]
         self.bot_radius: float = 0.085
@@ -58,8 +58,8 @@ class GameConfig:
         self.noise_proximity: float = 0.005
         
         # [SENSOR]
-        # Distance a ray-sensor reaches, expressed in meters [def=0.5]
-        self.sensor_ray_distance: float = 0.5
+        # Distance a ray-sensor reaches, expressed in meters [def=1.0]
+        self.sensor_ray_distance: float = 1.0
         
         # [TARGET]
         # Target is reached when within this range, expressed in meters [def=0.5]
@@ -154,7 +154,7 @@ class NeatConfig:
         # The probability that mutation will replace the 'enabled status' of a connection  [def=0.05]
         self.enabled_mutate_rate: float = 0.01
         # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT_05]  TODO
-        self.initial_connection = D_FULL_DIRECT
+        self.initial_connection = D_PARTIAL_DIRECT_05
         # Probability of adding a node during mutation (each generation)  [def=0.1]  TODO
         self.node_add_prob: float = 0.1
         # Probability of removing a node during mutation (each generation)  [def=0.075]  TODO
@@ -196,7 +196,7 @@ class NeatConfig:
         
         # [EVALUATION]
         # Fitness functions [distance, diversity, novelty, path]  TODO
-        self.fitness: str = D_DIVERSITY
+        self.fitness: str = D_DISTANCE
         # Function to combine the fitness-values across different games, choices are: min, avg, max, gmean  [def=gmean]
         self.fitness_comb: str = D_GMEAN
         # Number of nearest neighbors taken into account for a NN-utilizing fitness function  [def=3]
