@@ -109,8 +109,8 @@ class NeatConfig:
         self.elitism: int = 3
         # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.2]  TODO
         self.parent_selection: float = 0.2
-        # Minimum number of genomes per species, keeping low prevents number of individuals blowing up  [def=5]  TODO
-        self.min_species_size: int = 5
+        # Minimum number of genomes per species, keeping low prevents number of individuals blowing up  [def=10]
+        self.min_species_size: int = 10
         # Sexual reproduction  [def=True]
         self.sexual_reproduction: bool = True
         
