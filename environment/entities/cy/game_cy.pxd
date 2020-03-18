@@ -30,7 +30,7 @@ cdef class GameCy:
     
     cpdef dict game_params(self)
     
-    cpdef dict get_observation(self)
+    cpdef dict get_observation(self, set close_walls=?)
     
     cpdef dict reset(self)
     

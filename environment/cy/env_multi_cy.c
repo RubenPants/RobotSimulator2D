@@ -1104,7 +1104,20 @@ typedef npy_clongdouble __pyx_t_5numpy_clongdouble_t;
  * cdef inline object PyArray_MultiIterNew1(a):
  */
 typedef npy_cdouble __pyx_t_5numpy_complex_t;
+struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9MarXBotCy_get_sensor_readings;
 struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9MarXBotCy_add_angular_sensors;
+
+/* "environment/entities/cy/robots_cy.pxd":22
+ *     cpdef void drive(self, float dt, float lw, float rw)
+ * 
+ *     cpdef list get_sensor_readings(self, set close_walls=?)             # <<<<<<<<<<<<<<
+ * 
+ *     cpdef float get_sensor_readings_distance(self)
+ */
+struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9MarXBotCy_get_sensor_readings {
+  int __pyx_n;
+  PyObject *close_walls;
+};
 
 /* "environment/entities/cy/robots_cy.pxd":28
  *     # -----------------------------------------------> SENSOR METHODS <----------------------------------------------- #
@@ -1117,7 +1130,20 @@ struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9MarXBotCy_add_angu
   int __pyx_n;
   int clockwise;
 };
+struct __pyx_opt_args_11environment_8entities_2cy_7game_cy_6GameCy_get_observation;
 struct __pyx_opt_args_11environment_8entities_2cy_7game_cy_6GameCy_get_blueprint;
+
+/* "environment/entities/cy/game_cy.pxd":33
+ *     cpdef dict game_params(self)
+ * 
+ *     cpdef dict get_observation(self, set close_walls=?)             # <<<<<<<<<<<<<<
+ * 
+ *     cpdef dict reset(self)
+ */
+struct __pyx_opt_args_11environment_8entities_2cy_7game_cy_6GameCy_get_observation {
+  int __pyx_n;
+  PyObject *close_walls;
+};
 
 /* "environment/entities/cy/game_cy.pxd":55
  *     cpdef bint load(self)
@@ -1288,7 +1314,7 @@ static struct __pyx_vtabstruct_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_vtabptr_5util
 
 struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_MarXBotCy {
   void (*drive)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *, float, float, float, int __pyx_skip_dispatch);
-  PyObject *(*get_sensor_readings)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *, int __pyx_skip_dispatch);
+  PyObject *(*get_sensor_readings)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *, int __pyx_skip_dispatch, struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9MarXBotCy_get_sensor_readings *__pyx_optional_args);
   float (*get_sensor_readings_distance)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *, int __pyx_skip_dispatch);
   void (*add_angular_sensors)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *, int __pyx_skip_dispatch, struct __pyx_opt_args_11environment_8entities_2cy_9robots_cy_9MarXBotCy_add_angular_sensors *__pyx_optional_args);
   void (*add_distance_sensor)(struct __pyx_obj_11environment_8entities_2cy_9robots_cy_MarXBotCy *, int __pyx_skip_dispatch);
@@ -1311,7 +1337,7 @@ static struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_MarXBotCy 
 struct __pyx_vtabstruct_11environment_8entities_2cy_7game_cy_GameCy {
   PyObject *(*close)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
   PyObject *(*game_params)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
-  PyObject *(*get_observation)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
+  PyObject *(*get_observation)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch, struct __pyx_opt_args_11environment_8entities_2cy_7game_cy_6GameCy_get_observation *__pyx_optional_args);
   PyObject *(*reset)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, int __pyx_skip_dispatch);
   PyObject *(*step)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, float, float, int __pyx_skip_dispatch);
   PyObject *(*step_dt)(struct __pyx_obj_11environment_8entities_2cy_7game_cy_GameCy *, float, float, float, int __pyx_skip_dispatch);
