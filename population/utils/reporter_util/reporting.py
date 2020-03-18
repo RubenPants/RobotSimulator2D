@@ -156,12 +156,12 @@ class StdOutReporter(BaseReporter):
         msg = "All species are extinct."
         logger(msg) if logger else print(msg)
     
-    def found_solution(self, config, generation, best, logger=None):
-        msg = f'\nBest individual in generation {self.generation} meets fitness threshold - size: {best.size()!r}'
+    def found_solution(self, config, gen, best, logger=None):
+        msg = f'\nBest individual in generation {gen} meets fitness threshold - size: {best.size()!r}'
         logger(msg) if logger else print(msg)
     
-    def species_stagnant(self, sid, species, logger=None):
-        msg = f"\nSpecies {sid} with {len(species.members)} members is stagnated: removing it"
+    def species_stagnant(self, sid, s, logger=None):
+        msg = f"\nSpecies {sid} with {len(s.members)} members is stagnated (fitness: {s.fitness}): removing it"
         logger(msg) if logger else print(msg)
     
     def info(self, msg, logger=None, print_result=True):

@@ -4,6 +4,8 @@
 
 ## TODO
 
+* Add evaluation to run_populations
+* Trace needs to stop at target (re-enable "finished" check)
 * Test all of the fitness-functions!
 * Novelty not in crows-flight? (do intersection with walls! i.e. find reachable neighbours, the k-NN on those)
 * What is the purpose of the gene-attributes? Figure out and write down! --> I should pay more focus on what to write down such that no redundant work is needed...
