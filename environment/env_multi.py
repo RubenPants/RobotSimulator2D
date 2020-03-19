@@ -48,12 +48,16 @@ class MultiEnvironment:
         :param debug: Boolean specifying if debugging is enabled or not
         """
         genome_id, genome = genome  # Split up genome by id and genome itself
+        used_sensors = set(genome.connections.keys())
         net = self.make_net(genome=genome, config=self.neat_config, game_config=self.game_config, bs=self.batch_size)
         
         # Placeholders
         games = [get_game(g, cfg=self.game_config) for g in self.games]
         states = [g.reset()[D_SENSOR_LIST] for g in games]
         finished = [False] * self.batch_size
+        
+        # Update for each of the games their robot's active sensors
+        for g in games: g.player.set_active_sensors(used_sensors)
         
         # Start iterating the environments
         step_num = 0

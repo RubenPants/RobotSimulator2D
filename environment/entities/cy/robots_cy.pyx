@@ -16,7 +16,7 @@ cdef class MarXBotCy:
     __slots__ = (
         "game",
         "pos", "prev_pos", "init_pos", "init_angle", "angle", "prev_angle", "radius",
-        "sensors",
+        "sensors", "active_sensors",
     )
     
     def __init__(self,
@@ -62,6 +62,9 @@ cdef class MarXBotCy:
         self.create_proximity_sensors()
         self.create_angular_sensors()
         self.add_distance_sensor()
+        
+        # Set all the active sensors
+        self.active_sensors = set(self.sensors.keys())
     
     def __str__(self):
         return "foot_bot"
@@ -167,3 +170,12 @@ cdef class MarXBotCy:
     cpdef list get_proximity_sensors(self):
         """Get a list of all proximity sensors."""
         return [self.sensors[i] for i in range(13)]
+    
+    cpdef void set_active_sensors(self, set connections):
+        """
+        Update all the sensor keys used by the robot.
+        
+        :param connections: Set of all connections in tuple format (sending node, receiving node)
+        """
+        # Exploit the fact that sensor inputs have negative connection keys
+        self.active_sensors = {a + len(self.sensors) for (a, _) in connections if a < 0}

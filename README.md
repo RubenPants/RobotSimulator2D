@@ -4,11 +4,11 @@
 
 ## TODO
 
+* Read only the sensory inputs that are used (connect the game's robot with the genome to check which sensors are indeed used)
 * Improve evaluation:
     * Evaluate more genomes (after each other)
     * Better statistics (min-time, avg-time, max-time, ...)
 * Change orientation genome visualization again
-* Read only the sensory inputs that are used (connect the game's robot with the genome to check which sensors are indeed used)
 * Fix the tests
 * Trace needs to stop at target (re-enable "finished" check)
 * Test all of the fitness-functions!
