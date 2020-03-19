@@ -10,13 +10,17 @@ from population.population import Population
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
+    
+    # Main methods
     parser.add_argument('--train', type=bool, default=False)
-    parser.add_argument('--iterations', type=int, default=10)
     parser.add_argument('--blueprint', type=bool, default=False)
-    parser.add_argument('--trace', type=bool, default=True)
+    parser.add_argument('--trace', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
     parser.add_argument('--genome', type=bool, default=False)
-    parser.add_argument('--live', type=bool, default=False)
+    parser.add_argument('--live', type=bool, default=True)
+    
+    # Extra arguments
+    parser.add_argument('--iterations', type=int, default=10)
     parser.add_argument('--unused_cpu', type=int, default=2)
     parser.add_argument('--debug', type=bool, default=False)
     args = parser.parse_args()
@@ -43,7 +47,7 @@ if __name__ == '__main__':
             trainer.evaluate_and_evolve(
                     pop,
                     n=args.iterations,
-                    parallel=args.debug,
+                    parallel=not args.debug,
             )
         
         if args.blueprint:
@@ -84,6 +88,7 @@ if __name__ == '__main__':
             genome = pop.best_genome
             print(f"Genome {genome.key} with size: {genome.size()}")
             pop.visualize_genome(
+                    # debug=args.debug,  TODO
                     debug=True,
                     genome=genome,
             )
@@ -97,7 +102,7 @@ if __name__ == '__main__':
             net = pop.make_net(genome=genome, config=pop.config, game_config=pop.game_config, bs=1)
             visualizer = LiveVisualizer(
                     query_net=pop.query_net,
-                    debug=False,
+                    debug=args.debug,
                     game_config=pop.game_config,
                     # speedup=1,
             )

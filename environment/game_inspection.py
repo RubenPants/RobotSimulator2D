@@ -17,6 +17,7 @@ if __name__ == '__main__':
         try:
             game = Game(
                     game_id=g_id,
+                    config=config,
                     save_path="environment/games_db/",
                     overwrite=False,
                     silent=True,
