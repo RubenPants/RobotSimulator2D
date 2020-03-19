@@ -59,7 +59,7 @@ class GameConfig:
         
         # [SENSOR]
         # Distance a ray-sensor reaches, expressed in meters  [def=0.5]  TODO
-        self.sensor_ray_distance: float = 0.5
+        self.sensor_ray_distance: float = 1.0
         
         # [TARGET]
         # Target is reached when within this range, expressed in meters  [def=0.5]
@@ -102,7 +102,7 @@ class NeatConfig:
         # Don't consider fitness_criterion and fitness_threshold  [def=True]
         self.no_fitness_termination: bool = True
         # Number of individuals in each generation  [def=128]  TODO
-        self.pop_size: int = 10
+        self.pop_size: int = 128
         
         # [DefaultReproduction]
         # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=3]

@@ -5,6 +5,8 @@
 ## TODO
 
 * Read only the sensory inputs that are used (connect the game's robot with the genome to check which sensors are indeed used)
+* Species size-distribution seems off?
+* Check if ints somewhere used (instead of floats)
 * Improve evaluation:
     * Evaluate more genomes (after each other)
     * Better statistics (min-time, avg-time, max-time, ...)

@@ -130,8 +130,8 @@ def distance(game_observations: dict):
 
 def diversity(game_observations: dict, game_params: list, gen: int, k: int):
     """
-    Every 10 generations, filter out the most fit candidates based on their distance towards the target, otherwise
-     enforce novelty.
+    Every end of 10 generations, filter out the most fit candidates based on their distance towards the target,
+     otherwise for enforce novelty.
     
     :param game_observations: Dictionary containing for each genome the list of all its game.close() results
     :param game_params: List of game specific parameters for each of the used games (in order)
@@ -139,7 +139,7 @@ def diversity(game_observations: dict, game_params: list, gen: int, k: int):
     :param k: The number of neighbours taken into account
     :return: { genome_id, [fitness_floats] }
     """
-    if gen % 10 == 0:
+    if (gen + 1) % 10 == 0:
         return distance(game_observations=game_observations)
     else:
         return novelty_search(game_observations=game_observations, game_params=game_params, k=k)

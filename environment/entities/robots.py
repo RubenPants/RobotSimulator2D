@@ -179,3 +179,4 @@ class MarXBot:
         """
         # Exploit the fact that sensor inputs have negative connection keys
         self.active_sensors = {a + len(self.sensors) for (a, _) in connections if a < 0}
+        self.active_sensors.add(len(self.sensors) - 1)  # Distance sensor must always be active!

@@ -4981,6 +4981,7 @@ static void __pyx_f_11environment_8entities_2cy_9robots_cy_9MarXBotCy_set_active
   PyObject *(*__pyx_t_11)(PyObject *);
   int __pyx_t_12;
   Py_ssize_t __pyx_t_13;
+  int __pyx_t_14;
   __Pyx_RefNannySetupContext("set_active_sensors", 0);
   /* Check if called by wrapper */
   if (unlikely(__pyx_skip_dispatch)) ;
@@ -5031,6 +5032,7 @@ static void __pyx_f_11environment_8entities_2cy_9robots_cy_9MarXBotCy_set_active
  *         """
  *         # Exploit the fact that sensor inputs have negative connection keys
  *         self.active_sensors = {a + len(self.sensors) for (a, _) in connections if a < 0}             # <<<<<<<<<<<<<<
+ *         self.active_sensors.add(len(self.sensors) - 1)  # Distance sensor must always be active!
  */
   { /* enter inner scope */
     __pyx_t_1 = PySet_New(NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 181, __pyx_L5_error)
@@ -5132,6 +5134,28 @@ static void __pyx_f_11environment_8entities_2cy_9robots_cy_9MarXBotCy_set_active
   __Pyx_DECREF(__pyx_v_self->active_sensors);
   __pyx_v_self->active_sensors = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
+
+  /* "environment/entities/cy/robots_cy.pyx":182
+ *         # Exploit the fact that sensor inputs have negative connection keys
+ *         self.active_sensors = {a + len(self.sensors) for (a, _) in connections if a < 0}
+ *         self.active_sensors.add(len(self.sensors) - 1)  # Distance sensor must always be active!             # <<<<<<<<<<<<<<
+ */
+  if (unlikely(__pyx_v_self->active_sensors == Py_None)) {
+    PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "add");
+    __PYX_ERR(0, 182, __pyx_L1_error)
+  }
+  __pyx_t_1 = __pyx_v_self->sensors;
+  __Pyx_INCREF(__pyx_t_1);
+  if (unlikely(__pyx_t_1 == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
+    __PYX_ERR(0, 182, __pyx_L1_error)
+  }
+  __pyx_t_6 = PyDict_Size(__pyx_t_1); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 182, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = PyInt_FromSsize_t((__pyx_t_6 - 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 182, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_14 = PySet_Add(__pyx_v_self->active_sensors, __pyx_t_1); if (unlikely(__pyx_t_14 == ((int)-1))) __PYX_ERR(0, 182, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "environment/entities/cy/robots_cy.pyx":174
  *         return [self.sensors[i] for i in range(13)]

@@ -155,6 +155,7 @@ cdef class MultiEnvironmentCy:
                     
                 # Proceed the game with one step, based on the predicted action
                 obs = g.step(l=a[0], r=a[1])
+                finished[i] = obs[D_DONE]
                 
                 # Update the candidate's current state
                 states[i] = obs[D_SENSOR_LIST]
