@@ -28,7 +28,7 @@ class Line2d(object):
             return self.y
         raise IndexError()
     
-    def __setitem__(self, i, value):
+    def __setitem__(self, i, value: Vec2d):
         if i == 0:
             self.x = value
         elif i == 1:

@@ -1,3 +1,8 @@
+"""
+vec2d.pyx
+
+Representation for two-dimensional points.
+"""
 import math
 import operator
 
@@ -28,7 +33,7 @@ class Vec2d(object):
             return self.y
         raise IndexError()
     
-    def __setitem__(self, i, value):
+    def __setitem__(self, i: int, value: float):
         if i == 0:
             self.x = value
         elif i == 1:
@@ -204,18 +209,13 @@ class Vec2d(object):
         return Vec2d(self.x, self.y)
     
     def get_angle(self):
-        if self.get_length() == 0:
-            return 0
-        return math.atan2(self.y, self.x)
+        return 0 if self.get_length() == 0 else math.atan2(self.y, self.x)
     
     def get_length(self):
         return math.sqrt(self.x ** 2 + self.y ** 2)
     
     def normalized(self):
-        length = self.get_length()
-        if length != 0:
-            return self / length
-        return Vec2d(self)
+        return self / self.get_length() if self.get_length() != 0 else Vec2d(self)
     
     def get_tuple(self):
         return self.x, self.y

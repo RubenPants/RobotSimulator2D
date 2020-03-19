@@ -1,8 +1,7 @@
 """
 vec2d_cy.pyx
 
-Cython version of the vec2d.py file. Note that this file co-exists with a .pxd file (needed to import Vec2dCy in other
-files).
+Representation for two-dimensional points.
 """
 import math
 import operator

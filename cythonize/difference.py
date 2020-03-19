@@ -7,15 +7,15 @@ import difflib
 import os
 
 # name, path to python file, path to cython file
-files = {
+files = [
     ('multi environment', 'environment/env_multi.py', 'environment/cy/env_multi_cy.pyx'),
-    # ('game', 'environment/entities/game.py', 'environment/entities/cy/game_cy.pyx'),
-    # ('robots', 'environment/entities/robots.py', 'environment/entities/cy/robots_cy.pyx'),
-    # ('sensors', 'environment/entities/sensors.py', 'environment/entities/cy/sensors_cy.pyx'),
-    # ('intersection', 'utils/intersection.py', 'utils/cy/intersection_cy.pyx'),
-    # ('line2d', 'utils/line2d.py', 'utils/cy/line2d_cy.pyx'),
-    # ('vec2d', 'utils/vec2d.py', 'utils/cy/vec2d_cy.pyx'),
-}
+    ('game', 'environment/entities/game.py', 'environment/entities/cy/game_cy.pyx'),
+    ('robots', 'environment/entities/robots.py', 'environment/entities/cy/robots_cy.pyx'),
+    ('sensors', 'environment/entities/sensors.py', 'environment/entities/cy/sensors_cy.pyx'),
+    ('intersection', 'utils/intersection.py', 'utils/cy/intersection_cy.pyx'),
+    ('line2d', 'utils/line2d.py', 'utils/cy/line2d_cy.pyx'),
+    ('vec2d', 'utils/vec2d.py', 'utils/cy/vec2d_cy.pyx'),
+]
 
 
 def match(python_file, cython_file):
@@ -99,7 +99,7 @@ def pretty_print(py, cy):
 if __name__ == '__main__':
     os.chdir("..")
     for name, f_py, f_cy in files:
-        print(f"\n\n==> ANALYZING: {name.upper()}\n")
+        print(f"\n\n\n==> ANALYZING: {name}\n")
         # Load in the files as a list, split on the new-line symbol
         with open(f_py, 'r') as f:
             contents_py = f.read().split('\n')
