@@ -1,8 +1,10 @@
 """
 sensors_cy.pyx
 
-Cython version of the sensors.py file. Note that this file co-exists with a .pxd file (needed to import the sensor
-classes and methods in other files).
+Sensor classes used by the bots. The different types of sensors are:
+ * Angular: Measures the burden angle between the robot and the target
+ * Distance: Measures the distance in crows flight between the robot and the target
+ * Proximity: Measures the proximity of walls in a certain direction of the robot
 """
 import random
 
@@ -16,11 +18,11 @@ from utils.cy.vec2d_cy cimport Vec2dCy
 
 
 cdef class SensorCy:
-    """ The baseclass used by all sensors. """
+    """The baseclass used by all sensors."""
     
     __slots__ = (
         "game",
-        "id", "angle", "pos_offset", "max_dist", "value"
+        "id", "angle", "pos_offset", "max_dist", "value",
     )
     
     def __init__(self,
@@ -47,7 +49,7 @@ cdef class SensorCy:
         self.angle = angle
         self.pos_offset = pos_offset
         self.max_dist = max_dist
-        self.value = 0.0
+        self.value = 0.0  # Zero value for initialized sensors
     
     def __str__(self):
         """ :return: Name of the sensor """
@@ -118,7 +120,6 @@ cdef class DistanceSensorCy(SensorCy):
         cdef Vec2dCy start_p
         cdef Vec2dCy end_p
         
-        # Calculations
         start_p = self.game.player.pos
         end_p = self.game.target
         self.value = (start_p - end_p).get_length()
@@ -161,6 +162,7 @@ cdef class ProximitySensorCy(SensorCy):
         Get the distance to the closest wall. If all the walls are 'far enough', as determined by self.max_dist, then
         the maximum sensor-distance is returned.
         
+        :param close_walls: Walls which fall within ray_distance from the agent, speeds up readings
         :return: Float expressing the distance to the closest wall, if there is any
         """
         cdef Vec2dCy normalized_offset

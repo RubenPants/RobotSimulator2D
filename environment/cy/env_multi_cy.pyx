@@ -54,8 +54,7 @@ cdef class MultiEnvironmentCy:
         cdef np.ndarray a, actions
         cdef bint f
         
-        # Split up genome by id and genome itself
-        genome_id, genome = genome
+        genome_id, genome = genome  # Split up genome by id and genome itself
         used_sensors = set(genome.connections.keys())
         net = self.make_net(genome=genome, config=self.neat_config, game_config=self.game_config, bs=self.batch_size)
         
@@ -76,8 +75,10 @@ cdef class MultiEnvironmentCy:
             if step_num == self.max_steps: break
             
             # Determine the actions made by the agent for each of the states
-            if debug: actions = self.query_net(net, states, debug=True, step_num=step_num)
-            else: actions = self.query_net(net, states)
+            if debug:
+                actions = self.query_net(net, states, debug=True, step_num=step_num)
+            else:
+                actions = self.query_net(net, states)
             
             # Check if each game received an action
             assert len(actions) == len(games)

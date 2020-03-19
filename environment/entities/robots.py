@@ -22,7 +22,7 @@ class MarXBot:
                  game,  # Type not specified due to circular imports
                  init_pos: Vec2d = None,
                  init_orient: float = 0,
-                 r: float = None
+                 r: float = 0
                  ):
         """
         Create a new FootBot object.
@@ -114,7 +114,7 @@ class MarXBot:
     
     # -----------------------------------------------> SENSOR METHODS <----------------------------------------------- #
     
-    def add_angular_sensors(self, clockwise=True):
+    def add_angular_sensors(self, clockwise: bool = True):
         """
         Add an angular sensor to the agent and give it an idea one greater than the last sensor added, or 0 if it is the
         first sensor that is added.
@@ -128,7 +128,7 @@ class MarXBot:
         self.sensors[len(self.sensors)] = DistanceSensor(sensor_id=len(self.sensors),
                                                          game=self.game)
     
-    def add_proximity_sensor(self, angle):
+    def add_proximity_sensor(self, angle: float):
         """
         Add an proximity sensor to the agent and give it an id one greater than the last sensor added, or 0 if it is
         the first sensor that is added.

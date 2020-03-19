@@ -1,8 +1,7 @@
 """
 line2d_cy.pyx
 
-Cython version of the line2d.py file. Note that this file co-exists with a .pxd file (needed to import Line2dCy in other
-files).
+Representation for two-dimensional lines.
 """
 from utils.cy.intersection_cy cimport circle_line_intersection_cy
 from utils.cy.vec2d_cy cimport Vec2dCy

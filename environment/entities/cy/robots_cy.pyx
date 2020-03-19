@@ -1,8 +1,7 @@
 """
 robots_cy.pyx
 
-Cython version of the robots.py file. Note that this file co-exists with a .pxd file (needed to import the robot
-classes and methods in other files).
+Robots used to manoeuvre around in the Game-environment.
 """
 import numpy as np
 cimport numpy as np
@@ -58,7 +57,7 @@ cdef class MarXBotCy:
         # Container of all the sensors
         self.sensors = dict()
         
-        # Create the sensors
+        # Create the sensors (fixed order!)
         self.create_proximity_sensors()
         self.create_angular_sensors()
         self.add_distance_sensor()
@@ -96,8 +95,8 @@ cdef class MarXBotCy:
     
     cpdef list get_sensor_readings(self, set close_walls=None):
         """List of the current sensory-readings."""
-        for s in self.sensors.values(): s.measure(close_walls)
-        return [self.sensors[i].value for i in sorted(self.sensors.keys())]
+        for i in self.active_sensors: self.sensors[i].measure(close_walls)
+        return [self.sensors[i].value for i in sorted(self.sensors)]
     
     cpdef float get_sensor_readings_distance(self):
         """Value of current distance-reading."""
@@ -166,7 +165,7 @@ cdef class MarXBotCy:
         for i in range(5):  # 10° until 90° with hops of 20° (total of 5 sensors)
             self.add_proximity_sensor(angle=-np.pi / 18 - i * np.pi / 9)
         self.add_proximity_sensor(angle=-3 * np.pi / 4)  # 135°
-
+    
     cpdef list get_proximity_sensors(self):
         """Get a list of all proximity sensors."""
         return [self.sensors[i] for i in range(13)]

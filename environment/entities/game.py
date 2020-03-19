@@ -170,7 +170,7 @@ class Game:
     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
     
     def create_empty_game(self):
-        """ Create an empty game that only contains the boundary walls. """
+        """Create an empty game that only contains the boundary walls."""
         # Create random set of walls
         self.walls = get_boundary_walls(x_axis=self.x_axis, y_axis=self.y_axis)
         self.target = Vec2d(0.5, self.y_axis - 0.5)
@@ -183,16 +183,12 @@ class Game:
         if not self.silent: print(f"New game created under id: {self.id}")
     
     def set_player_angle(self, a: float):
-        """
-        Set a new initial angle for the player.
-        """
+        """Set a new initial angle for the player."""
         self.player.init_angle = a
         self.player.angle = a
     
     def set_player_pos(self, p: Vec2d):
-        """
-        Set a new initial position for the player.
-        """
+        """Set a new initial position for the player."""
         self.player.init_pos.x = p.x
         self.player.init_pos.y = p.y
         self.player.pos.x = p.x
@@ -244,7 +240,6 @@ class Game:
         
         # Add target to map
         plt.plot(self.target.x, self.target.y, 'go')
-        # plt.plot(0.5, self.y_axis - 0.5, 'go')
         
         # Adjust the boundaries
         plt.xlim(0, self.x_axis)
@@ -255,7 +250,7 @@ class Game:
 
 
 def get_boundary_walls(x_axis, y_axis):
-    """ :return: Set of the four boundary walls """
+    """Get a set of the boundary walls."""
     a = Vec2d(0, 0)
     b = Vec2d(x_axis, 0)
     c = Vec2d(x_axis, y_axis)

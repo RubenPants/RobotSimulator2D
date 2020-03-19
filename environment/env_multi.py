@@ -28,8 +28,8 @@ class MultiEnvironment:
         :param neat_config: NeatConfig file specifying how genome's network will be made
         :param max_steps: Maximum number of steps a candidate drives around in a single environment
         """
-        self.batch_size = None
-        self.games = None
+        self.batch_size = 0
+        self.games = []
         self.make_net = make_net
         self.max_steps = max_steps
         self.query_net = query_net
