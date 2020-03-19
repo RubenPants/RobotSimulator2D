@@ -123,8 +123,7 @@ class Line2d(object):
         """
         return (self.x - self.y).get_angle()
     
-    def close_by(self, pos: Vec2d, r: int):
+    def close_by(self, pos: Vec2d, r: float):
         """Check if the given position is within a range r of the wall."""
         from utils.intersection import circle_line_intersection
-        close, _ = circle_line_intersection(c=pos, r=r, l=self)
-        return close
+        return circle_line_intersection(c=pos, r=r, l=self)[0]

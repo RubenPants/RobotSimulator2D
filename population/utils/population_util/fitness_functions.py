@@ -140,10 +140,8 @@ def diversity(game_observations: dict, game_params: list, gen: int, k: int):
     :return: { genome_id, [fitness_floats] }
     """
     if gen % 10 == 0:
-        print("DISTANCE")
         return distance(game_observations=game_observations)
     else:
-        print("NOVELTY")
         return novelty_search(game_observations=game_observations, game_params=game_params, k=k)
 
 

@@ -48,7 +48,7 @@ class Sensor:
         self.angle = angle
         self.pos_offset = pos_offset
         self.max_dist = max_dist
-        self.value = None  # Current value of the sensor
+        self.value = 0  # Zero value for initialized sensors
     
     def __str__(self):
         """ :return: Name of the sensor """

@@ -884,7 +884,7 @@ static struct __pyx_vtabstruct_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_vtabptr_5util
 struct __pyx_vtabstruct_5utils_2cy_9line2d_cy_Line2dCy {
   float (*get_length)(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch);
   float (*get_orientation)(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch);
-  int (*close_by)(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, int, int __pyx_skip_dispatch);
+  int (*close_by)(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, float, int __pyx_skip_dispatch);
 };
 static struct __pyx_vtabstruct_5utils_2cy_9line2d_cy_Line2dCy *__pyx_vtabptr_5utils_2cy_9line2d_cy_Line2dCy;
 
@@ -1712,7 +1712,7 @@ static int __pyx_f_5utils_2cy_15intersection_cy_point_line_intersection_cy(struc
   /* "utils/cy/intersection_cy.pyx":58
  *     :return: Bool
  *     """
- *     return l.get_length() - EPSILON <= (p - l.x).get_length() + (p - l.y).get_length() <= l.get_length() + EPSILON             # <<<<<<<<<<<<<<
+ *     return (l.get_length()) - EPSILON <= ((p - l.x).get_length() + (p - l.y).get_length()) <= (l.get_length() + EPSILON)             # <<<<<<<<<<<<<<
  * 
  * cpdef tuple circle_line_intersection_cy(Vec2dCy c, float r, Line2dCy l):
  */
@@ -1891,7 +1891,7 @@ static PyObject *__pyx_pf_5utils_2cy_15intersection_cy_4point_line_intersection_
 }
 
 /* "utils/cy/intersection_cy.pyx":60
- *     return l.get_length() - EPSILON <= (p - l.x).get_length() + (p - l.y).get_length() <= l.get_length() + EPSILON
+ *     return (l.get_length()) - EPSILON <= ((p - l.x).get_length() + (p - l.y).get_length()) <= (l.get_length() + EPSILON)
  * 
  * cpdef tuple circle_line_intersection_cy(Vec2dCy c, float r, Line2dCy l):             # <<<<<<<<<<<<<<
  *     """
@@ -2121,7 +2121,7 @@ static PyObject *__pyx_f_5utils_2cy_15intersection_cy_circle_line_intersection_c
   goto __pyx_L0;
 
   /* "utils/cy/intersection_cy.pyx":60
- *     return l.get_length() - EPSILON <= (p - l.x).get_length() + (p - l.y).get_length() <= l.get_length() + EPSILON
+ *     return (l.get_length()) - EPSILON <= ((p - l.x).get_length() + (p - l.y).get_length()) <= (l.get_length() + EPSILON)
  * 
  * cpdef tuple circle_line_intersection_cy(Vec2dCy c, float r, Line2dCy l):             # <<<<<<<<<<<<<<
  *     """

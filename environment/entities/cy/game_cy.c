@@ -1306,7 +1306,7 @@ static struct __pyx_vtabstruct_11environment_8entities_2cy_9robots_cy_MarXBotCy 
 struct __pyx_vtabstruct_5utils_2cy_9line2d_cy_Line2dCy {
   float (*get_length)(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch);
   float (*get_orientation)(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch);
-  int (*close_by)(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, int, int __pyx_skip_dispatch);
+  int (*close_by)(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, float, int __pyx_skip_dispatch);
 };
 static struct __pyx_vtabstruct_5utils_2cy_9line2d_cy_Line2dCy *__pyx_vtabptr_5utils_2cy_9line2d_cy_Line2dCy;
 

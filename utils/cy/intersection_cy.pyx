@@ -55,7 +55,7 @@ cpdef bint point_line_intersection_cy(Vec2dCy p, Line2dCy l):
     :param l: Line2d
     :return: Bool
     """
-    return l.get_length() - EPSILON <= (p - l.x).get_length() + (p - l.y).get_length() <= l.get_length() + EPSILON
+    return (l.get_length()) - EPSILON <= ((p - l.x).get_length() + (p - l.y).get_length()) <= (l.get_length() + EPSILON)
 
 cpdef tuple circle_line_intersection_cy(Vec2dCy c, float r, Line2dCy l):
     """
