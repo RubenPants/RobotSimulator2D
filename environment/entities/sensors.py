@@ -17,7 +17,7 @@ from utils.vec2d import Vec2d
 
 
 class Sensor:
-    """ The baseclass used by all sensors. """
+    """The baseclass used by all sensors."""
     
     __slots__ = (
         "game",
@@ -48,7 +48,7 @@ class Sensor:
         self.angle = angle
         self.pos_offset = pos_offset
         self.max_dist = max_dist
-        self.value = None  # Current value of the sensor
+        self.value = 0.0  # Zero value for initialized sensors
     
     def __str__(self):
         """ :return: Name of the sensor """
@@ -132,7 +132,7 @@ class ProximitySensor(Sensor):
                  sensor_id: int = 0,
                  angle: float = 0,
                  pos_offset: float = 0,
-                 max_dist: float = None):
+                 max_dist: float = 0):
         """
         :param game: Reference to the game in which the sensor is used
         :param sensor_id: Identification number for the sensor

@@ -1,14 +1,13 @@
 """
 game_cy.pyx
 
-Cython version of the game.py file. Note that this file co-exists with a .pxd file (needed to import the game methods
-in other files).
+Game class which contains the player, target, and all the walls.
 """
 import random
 
 import numpy as np
 cimport numpy as np
-import pylab as pl
+import pylab as plt
 from matplotlib import collections as mc
 
 from environment.entities.cy.robots_cy cimport MarXBotCy
@@ -18,6 +17,7 @@ from utils.cy.line2d_cy cimport Line2dCy
 from utils.cy.vec2d_cy cimport Vec2dCy
 from utils.myutils import store_pickle, load_pickle
 
+
 cdef class GameCy:
     """
     A game environment is built up from the following segments:
@@ -25,19 +25,21 @@ cdef class GameCy:
         * robot: The player manoeuvring in the environment
         * target: Robot that must be reached by the robot
     """
-
-    __slots__ = ("bot_driving_speed", "bot_radius", "bot_turning_speed",
-                 "fps", "p2m", "x_axis", "y_axis",
-                 "noise_time", "noise_angle", "noise_distance", "noise_proximity",
-                 "ray_distance", "ray_distance_cum",
-                 "target_reached",
-                 "silent", "noise", "save_path",
-                 "done", "id", "path", "player", "steps_taken", "target", "walls")
+    
+    __slots__ = (
+        "bot_driving_speed", "bot_radius", "bot_turning_speed",
+        "fps", "p2m", "x_axis", "y_axis",
+        "noise_time", "noise_angle", "noise_distance", "noise_proximity",
+        "ray_distance", "ray_distance_cum",
+        "target_reached",
+        "silent", "noise", "save_path",
+        "done", "id", "path", "player", "steps_taken", "target", "walls"
+    )
     
     def __init__(self,
                  int game_id,
                  config,
-                 bint noise=True,
+                 bint noise=False,
                  bint overwrite=False,
                  str save_path = '',
                  bint silent=True,
@@ -45,8 +47,8 @@ cdef class GameCy:
         """
         Define a new game.
 
-        :param config: Configuration file related to the game (only needed to pass during creation)
         :param game_id: Game id
+        :param config: Configuration file related to the game (only needed to pass during creation)
         :param noise: Add noise when progressing the game
         :param overwrite: Overwrite pre-existing games
         :param save_path: Save and load the game from different directories
@@ -118,11 +120,7 @@ cdef class GameCy:
         }
     
     cpdef dict reset(self):
-        """
-        Reset the game.
-
-        :return: Observation
-        """
+        """Reset the game and return initial observations."""
         self.steps_taken = 0
         self.player.reset()
         return self.get_observation()
@@ -135,7 +133,6 @@ cdef class GameCy:
         :param r: Right wheel speed [-1..1]
         :return: Observation (Dictionary), target_reached (Boolean)
         """
-        # Define used parameters
         cdef float dt
         
         # Progress the game
@@ -144,14 +141,14 @@ cdef class GameCy:
     
     cpdef step_dt(self, float dt, float l, float r):
         """
-        Progress one step in the game.
+        Progress one step in the game based on a predefined delta-time. This method should only be used for debugging or
+        visualization purposes.
 
         :param dt: Delta time
         :param l: Left wheel speed [-1..1]
         :param r: Right wheel speed [-1..1]
         :return: Observation (Dictionary), target_reached (Boolean)
         """
-        # Define used parameters
         cdef Line2dCy wall
         cdef set close_walls
         cdef bint inter
@@ -179,9 +176,7 @@ cdef class GameCy:
     # -----------------------------------------------> HELPER METHODS <----------------------------------------------- #
     
     cpdef void create_empty_game(self):
-        """
-        Create an empty game that only contains the boundary walls.
-        """
+        """Create an empty game that only contains the boundary walls."""
         # Create random set of walls
         self.walls = get_boundary_walls(x_axis=self.x_axis, y_axis=self.y_axis)
         self.target = Vec2dCy(0.5, self.y_axis - 0.5)
@@ -191,19 +186,15 @@ cdef class GameCy:
         
         # Save the new game
         self.save()
-        if not self.silent: print("New game created under id: {}".format(self.id))
+        if not self.silent: print(f"New game created under id: {self.id}")
     
     cpdef void set_player_angle(self, float a):
-        """
-        Set a new initial angle for the player.
-        """
+        """Set a new initial angle for the player."""
         self.player.init_angle = a
         self.player.angle = a
     
     cpdef void set_player_pos(self, Vec2dCy p):
-        """
-        Set a new initial position for the player.
-        """
+        """Set a new initial position for the player."""
         self.player.init_pos.x = p.x
         self.player.init_pos.y = p.y
         self.player.pos.x = p.x
@@ -247,11 +238,10 @@ cdef class GameCy:
         """
         :return: The blue-print map of the board (matplotlib Figure)
         """
-        # Define used parameters
         cdef list walls
         cdef Line2dCy w
         
-        if not ax: fig, ax = pl.subplots()
+        if not ax: fig, ax = plt.subplots()
         
         # Draw all the walls
         walls = []
@@ -260,18 +250,18 @@ cdef class GameCy:
         ax.add_collection(lc)
         
         # Add target to map
-        pl.plot(0.5, self.y_axis - 0.5, 'go')
+        plt.plot(self.target.x, self.target.y, 'go')
         
         # Adjust the boundaries
-        pl.xlim(0, self.x_axis)
-        pl.ylim(0, self.y_axis)
+        plt.xlim(0, self.x_axis)
+        plt.ylim(0, self.y_axis)
         
         # Return the figure in its current state
         return ax
 
 
 cpdef set get_boundary_walls(int x_axis, int y_axis):
-    """ :return: Set of the four boundary walls """
+    """Get a set of the boundary walls."""
     a = Vec2dCy(0, 0)
     b = Vec2dCy(x_axis, 0)
     c = Vec2dCy(x_axis, y_axis)

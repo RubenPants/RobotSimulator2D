@@ -6,7 +6,6 @@ Environment where a single genome gets evaluated over multiple games. This envir
 import numpy as np
 cimport numpy as np
 
-from config import GameConfig, NeatConfig
 from environment.entities.cy.game_cy cimport get_game_cy
 from utils.dictionary import D_DONE, D_SENSOR_LIST
 
@@ -51,16 +50,22 @@ cdef class MultiEnvironmentCy:
         """
         cdef int genome_id, step_num, max_steps
         cdef list games, states, finished
+        cdef set used_sensors
         cdef np.ndarray a, actions
         cdef bint f
         
-        # Split up genome by id and genome itself
-        genome_id, genome = genome
+        genome_id, genome = genome  # Split up genome by id and genome itself
+        used_sensors = set(genome.connections.keys())
         net = self.make_net(genome=genome, config=self.neat_config, game_config=self.game_config, bs=self.batch_size)
         
-        # Placeholders
+        # Initialize the games on which the genome is tested
         games = [get_game_cy(g, cfg=self.game_config) for g in self.games]
+        for g in games: g.player.set_active_sensors(used_sensors)  # Set active-sensors for each of the games
+        
+        # Ask for each of the games the starting-state
         states = [g.reset()[D_SENSOR_LIST] for g in games]
+        
+        # Finished-state for each of the games is set to false
         finished = [False] * self.batch_size
         
         # Start iterating the environments
@@ -70,8 +75,10 @@ cdef class MultiEnvironmentCy:
             if step_num == self.max_steps: break
             
             # Determine the actions made by the agent for each of the states
-            if debug: actions = self.query_net(net, states, debug=True, step_num=step_num)
-            else: actions = self.query_net(net, states)
+            if debug:
+                actions = self.query_net(net, states, debug=True, step_num=step_num)
+            else:
+                actions = self.query_net(net, states)
             
             # Check if each game received an action
             assert len(actions) == len(games)
@@ -106,15 +113,25 @@ cdef class MultiEnvironmentCy:
         """
         cdef int genome_id, step_num, max_steps
         cdef list games, states, traces
+        cdef set used_sensors
         cdef np.ndarray a, actions
         
         genome_id, genome = genome  # Split up genome by id and genome itself
+        used_sensors = set(genome.connections.keys())
         net = self.make_net(genome=genome, config=self.neat_config, game_config=self.game_config, bs=self.batch_size)
         
-        # Placeholders
+        # Initialize the games on which the genome is tested
         games = [get_game_cy(g, cfg=self.game_config) for g in self.games]
+        for g in games: g.player.set_active_sensors(used_sensors)  # Set active-sensors for each of the games
+        
+        # Ask for each of the games the starting-state
         states = [g.reset()[D_SENSOR_LIST] for g in games]
+
+        # Initialize the traces
         traces = [[g.player.pos.get_tuple()] for g in games]
+        
+        # Finished-state for each of the games is set to false
+        finished = [False] * self.batch_size
         
         # Start iterating the environments
         step_num = 0
@@ -131,9 +148,15 @@ cdef class MultiEnvironmentCy:
             # Check if each game received an action
             assert len(actions) == len(games)
             
-            for i, (g, a) in enumerate(zip(games, actions)):
+            for i, (g, a, f) in enumerate(zip(games, actions, finished)):
+                # Do not advance the player if target is reached
+                if f:
+                    traces.append(g.player.pos.get_tuple())
+                    continue
+                    
                 # Proceed the game with one step, based on the predicted action
                 obs = g.step(l=a[0], r=a[1])
+                finished[i] = obs[D_DONE]
                 
                 # Update the candidate's current state
                 states[i] = obs[D_SENSOR_LIST]

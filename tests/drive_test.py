@@ -1,4 +1,6 @@
 """
+drive_test.py
+
 Tests concerning the game mechanics.
 """
 import os
@@ -82,7 +84,7 @@ class GameDrive(unittest.TestCase):
         
         # Create inner box
         a, b, c, d = Vec2d(4, 5), Vec2d(5, 5), Vec2d(5, 4), Vec2d(4, 4)
-        game.walls += [Line2d(a, b), Line2d(b, c), Line2d(c, d), Line2d(d, a)]
+        game.walls.update({Line2d(a, b), Line2d(b, c), Line2d(c, d), Line2d(d, a)})
         
         # Do 10 different initialized tests
         for _ in range(10):
@@ -102,7 +104,7 @@ class GameDrive(unittest.TestCase):
 
 
 def get_game():
-    cfg = GameConfig
+    cfg = GameConfig()
     return Game(game_id=0, config=cfg, silent=True, save_path="tests/games_db/", overwrite=True)
 
 

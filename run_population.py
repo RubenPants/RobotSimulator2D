@@ -97,10 +97,13 @@ def main(fitness,
         if evaluate:
             pop.log("\n===> EVALUATING <===\n")
             from environment.env_evaluation import EvaluationEnv
-            
+
             evaluator = EvaluationEnv(game_config=pop.game_config)
+            genomes = sorted([g for g in pop.population.values()],
+                             key=lambda x: x.fitness if x.fitness else 0,
+                             reverse=True)
             evaluator.evaluate_genome_list(
-                    genome_list=[pop.best_genome],
+                    genome_list=genomes[:10],  # Evaluate the five best performing genomes
                     pop=pop,
             )
     except Exception as e:
@@ -111,14 +114,14 @@ def main(fitness,
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('--fitness', type=str, default='')
-    parser.add_argument('--gru_enabled', type=int, default=0)
-    parser.add_argument('--reproduce', type=int, default=0)
-    parser.add_argument('--blueprint', type=int, default=0)
+    parser.add_argument('--gru_enabled', type=int, default=1)
+    parser.add_argument('--reproduce', type=int, default=1)
+    parser.add_argument('--blueprint', type=int, default=1)
     parser.add_argument('--evaluate', type=int, default=0)
     parser.add_argument('--trace', type=int, default=0)
     parser.add_argument('--train', type=int, default=0)
     parser.add_argument('--iterations', type=int, default=0)
-    parser.add_argument('--version', type=int, default=0)
+    parser.add_argument('--version', type=int, default=2)
     args = parser.parse_args()
     
     main(

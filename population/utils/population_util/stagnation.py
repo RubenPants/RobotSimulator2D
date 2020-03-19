@@ -7,6 +7,7 @@ from neat.math_util import stat_functions
 from neat.six_util import iteritems
 
 from population.utils.config.default_config import ConfigParameter, DefaultClassConfig
+from utils.dictionary import D_MAX
 
 
 class DefaultStagnation(DefaultClassConfig):
@@ -14,10 +15,10 @@ class DefaultStagnation(DefaultClassConfig):
     
     @classmethod
     def parse_config(cls, param_dict):  # TODO: Duplicate with species.py!
-        return DefaultClassConfig(param_dict, [ConfigParameter('compatibility_threshold', float, 3.0),
+        return DefaultClassConfig(param_dict, [ConfigParameter('compatibility_threshold', float, 2.0),
                                                ConfigParameter('max_stagnation', int, 15),
-                                               ConfigParameter('species_elitism', int, 1),
-                                               ConfigParameter('species_fitness_func', str, 'max'),
+                                               ConfigParameter('species_elitism', int, 2),
+                                               ConfigParameter('species_fitness_func', str, D_MAX),
                                                ConfigParameter('species_max', int, 15)])
     
     def __init__(self, config, reporters):

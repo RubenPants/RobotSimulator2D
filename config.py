@@ -29,7 +29,7 @@ class GameConfig:
         
         # [CONTROL]
         # Number of games on which a single genome is evaluated  [def=10]  TODO
-        self.batch: int = 10
+        self.batch: int = 16
         # Number of seconds it takes for one game to complete  [def=60]  TODO
         self.duration: int = 60
         # Max ID of game (starting from 1)  [def=1000]
@@ -58,7 +58,7 @@ class GameConfig:
         self.noise_proximity: float = 0.005
         
         # [SENSOR]
-        # Distance a ray-sensor reaches, expressed in meters  [def=1.0]  TODO
+        # Distance a ray-sensor reaches, expressed in meters  [def=1.0]
         self.sensor_ray_distance: float = 1.0
         
         # [TARGET]
@@ -115,12 +115,12 @@ class NeatConfig:
         self.sexual_reproduction: bool = True
         
         # [DefaultGenome]
-        # Initial node activation function  [def=D_RELU]
-        self.activation_default: str = D_RELU
+        # Initial node activation function  [def=D_GELU]
+        self.activation_default: str = D_GELU
         # Probability of changing the activation function  [def=0]
         self.activation_mutate_rate: float = 0.0
-        # All possible activation functions between whom can be switched during mutation  [def=D_RELU]
-        self.activation_options: str = D_RELU
+        # All possible activation functions between whom can be switched during mutation  [def=D_GELU]
+        self.activation_options: str = D_GELU
         # The default aggregation function attribute assigned to new nodes  [def=D_SUM]
         self.aggregation_default: str = D_SUM
         # Probability of mutating towards another aggregation_option  [def=0]

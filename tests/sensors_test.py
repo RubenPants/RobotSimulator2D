@@ -1,4 +1,6 @@
 """
+sensor_test.py
+
 Test of all the sensors.
 """
 import os
@@ -6,11 +8,14 @@ import unittest
 
 import numpy as np
 
+from config import GameConfig
 from environment.entities.game import Game
+from environment.entities.sensors import ProximitySensor
 from utils.line2d import Line2d
 from utils.vec2d import Vec2d
 
 # Parameters
+RAY_DISTANCE = 2  # Maximum range of the proximity-sensor
 EPSILON_ANGLE = 0.0001  # 0.0001 radian offset allowed (~0.02 degrees)
 EPSILON_DISTANCE = 0.001  # 1 millimeter offset allowed
 EPSILON_DISTANCE_L = 0.1  # 10 centimeter offset allowed
@@ -25,16 +30,23 @@ class AngularSensorTest(unittest.TestCase):
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
         # Create empty game
-        game = Game(silent=True, save_path="tests/games_db/", overwrite=True, noise=False)
+        game = get_game()
         
         # Update player and target position
         game.target = Vec2d(1, 0)
         game.set_player_pos(Vec2d(0, 0))
         game.set_player_angle(0)
         
-        sensors = game.player.get_sensor_reading_angle()
-        self.assertEqual(len(sensors), 2)
-        for s in sensors.values():
+        # Update the player's sensor-set
+        game.player.sensors = dict()
+        game.player.add_angular_sensors(clockwise=True)
+        game.player.add_angular_sensors(clockwise=False)
+        game.player.active_sensors = set(game.player.sensors.keys())
+        
+        # The third and second last sensors
+        sensor_values = game.player.get_sensor_readings()
+        self.assertEqual(len(sensor_values), 2)
+        for s in sensor_values:
             s = min(s, abs(s - 2 * np.pi))
             self.assertAlmostEqual(s, 0.0, delta=EPSILON_ANGLE)
     
@@ -44,17 +56,23 @@ class AngularSensorTest(unittest.TestCase):
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
         # Create empty game
-        game = Game(silent=True, save_path="tests/games_db/", overwrite=True, noise=False)
+        game = get_game()
         
         # Update player and target position
         game.target = Vec2d(1, 1)
         game.set_player_pos(Vec2d(0, 0))
         game.set_player_angle(0)
         
-        sensors = game.player.get_sensor_reading_angle()
-        self.assertEqual(len(sensors), 2)
-        self.assertAlmostEqual(sensors[0], 7 * np.pi / 4, delta=EPSILON_ANGLE)  # Clockwise
-        self.assertAlmostEqual(sensors[1], np.pi / 4, delta=EPSILON_ANGLE)  # Anti-clockwise
+        # Update the player's sensor-set
+        game.player.sensors = dict()
+        game.player.add_angular_sensors(clockwise=True)
+        game.player.add_angular_sensors(clockwise=False)
+        game.player.active_sensors = set(game.player.sensors.keys())
+        
+        sensor_values = game.player.get_sensor_readings()
+        self.assertEqual(len(sensor_values), 2)
+        self.assertAlmostEqual(sensor_values[0], 7 * np.pi / 4, delta=EPSILON_ANGLE)  # Clockwise
+        self.assertAlmostEqual(sensor_values[1], np.pi / 4, delta=EPSILON_ANGLE)  # Anti-clockwise
 
 
 class DistanceSensorTest(unittest.TestCase):
@@ -68,14 +86,16 @@ class DistanceSensorTest(unittest.TestCase):
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
         # Create empty game
-        game = Game(silent=True, save_path="tests/games_db/", overwrite=True, noise=False)
+        game = get_game()
         
         # Update player and target position
         game.target = Vec2d(1, 0)
         game.set_player_pos(Vec2d(0, 0))
         game.set_player_angle(0)
         
-        self.assertAlmostEqual(game.player.get_sensor_reading_distance(), 1.0, delta=EPSILON_DISTANCE)
+        # Ask for the distance
+        game.get_observation()
+        self.assertAlmostEqual(game.player.get_sensor_readings_distance(), 1.0, delta=EPSILON_DISTANCE)
     
     def test_left_angle(self):
         """> Test distance sensor when target under an angle (towards the left)."""
@@ -83,14 +103,16 @@ class DistanceSensorTest(unittest.TestCase):
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
         # Create empty game
-        game = Game(silent=True, save_path="tests/games_db/", overwrite=True, noise=False)
+        game = get_game()
         
         # Update player and target position
         game.target = Vec2d(1, 1)
         game.set_player_pos(Vec2d(0, 0))
         game.set_player_angle(0)
         
-        self.assertAlmostEqual(game.player.get_sensor_reading_distance(), np.sqrt(2), delta=EPSILON_DISTANCE)
+        # Ask for the distance
+        game.get_observation()
+        self.assertAlmostEqual(game.player.get_sensor_readings_distance(), np.sqrt(2), delta=EPSILON_DISTANCE)
 
 
 class ProximitySensorTest(unittest.TestCase):
@@ -102,21 +124,26 @@ class ProximitySensorTest(unittest.TestCase):
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
         # Create empty game
-        game = Game(silent=True, save_path="tests/games_db/", overwrite=True, noise=False)
+        game = get_game()
         
         # Add walls to maze that are far enough from agent
-        a = Vec2d(2, 2)
-        b = Vec2d(2, 6)
-        c = Vec2d(6, 6)
-        d = Vec2d(6, 2)
-        game.walls += [Line2d(a, b), Line2d(b, c), Line2d(c, d), Line2d(d, a)]
+        a = Vec2d(1, 1)
+        b = Vec2d(1, 7)
+        c = Vec2d(7, 7)
+        d = Vec2d(7, 1)
+        game.walls.update({Line2d(a, b), Line2d(b, c), Line2d(c, d), Line2d(d, a)})
         
         # Update player and target position
         game.set_player_pos(Vec2d(4, 4))  # Center of empty maze
         game.set_player_angle(0)
         
-        sensors = game.player.get_sensor_reading_proximity()
-        for s in sensors.values():
+        # Only keep proximity sensors
+        game.player.sensors = {k: v for k, v in game.player.sensors.items() if type(v) == ProximitySensor}
+        game.player.active_sensors = set(game.player.sensors.keys())
+        
+        # Ask for the proximity-measures
+        sensor_values = game.player.get_sensor_readings()
+        for s in sensor_values:
             self.assertAlmostEqual(s, float(game.ray_distance), delta=EPSILON_DISTANCE)
     
     def test_cubed(self):
@@ -125,29 +152,30 @@ class ProximitySensorTest(unittest.TestCase):
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
         # Create empty game
-        game = Game(silent=True, save_path="tests/games_db/", overwrite=True, noise=False)
+        game = get_game()
         
-        # Add walls to maze
+        # Add walls to maze (cube around player)
         a = Vec2d(4, 5)
         b = Vec2d(5, 5)
         c = Vec2d(5, 3)
         d = Vec2d(4, 3)
-        game.walls += [Line2d(a, b), Line2d(b, c), Line2d(c, d)]
+        game.walls.update({Line2d(a, b), Line2d(b, c), Line2d(c, d)})
         
         # Update player position and angle
         game.set_player_pos(Vec2d(4, 4))
         game.set_player_angle(0)
         
         # Update sensors
-        game.player.proximity_sensors = list()
+        game.player.sensors = dict()  # Remove all previous set sensors
         game.player.add_proximity_sensor(np.pi / 2)  # 90° left (pointing upwards)
         game.player.add_proximity_sensor(np.pi / 4)  # 45° left
         game.player.add_proximity_sensor(0)  # 0°
         game.player.add_proximity_sensor(-np.pi / 4)  # 45° right
         game.player.add_proximity_sensor(-np.pi / 2)  # 90° right
         game.player.add_proximity_sensor(np.pi)  # 180° in the back
+        game.player.active_sensors = set(game.player.sensors.keys())
         
-        sensors = game.player.get_sensor_reading_proximity()
+        sensors = game.player.get_sensor_readings()
         self.assertAlmostEqual(sensors[0], 1.0 - float(game.bot_radius), delta=EPSILON_DISTANCE)
         self.assertAlmostEqual(sensors[1], np.sqrt(2) - float(game.bot_radius), delta=EPSILON_DISTANCE)
         self.assertAlmostEqual(sensors[2], 1 - float(game.bot_radius), delta=EPSILON_DISTANCE)
@@ -161,27 +189,34 @@ class ProximitySensorTest(unittest.TestCase):
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
         # Create empty game
-        game = Game(silent=True, save_path="tests/games_db/", overwrite=True, noise=False)
+        game = get_game()
         
         # Add walls to maze
         b = Vec2d(5, 5)
         c = Vec2d(5, 3)
-        game.walls += [Line2d(b, c)]
+        game.walls.add(Line2d(b, c))
         
         # Update player position and angle
         game.set_player_pos(Vec2d(4, 4))
         game.set_player_angle(0)
         
         # Update sensors
-        game.player.proximity_sensors = list()
+        game.player.sensors = dict()
         game.player.add_proximity_sensor(0)  # 0°
+        game.player.active_sensors = set(game.player.sensors.keys())
         
         for _ in range(100): game.step(l=1, r=1)
         
         # Flat facing the wall, so upper sensor must always (approximately) equal zero
         for _ in range(50):
-            sensors = game.player.get_sensor_reading_proximity()
-            self.assertAlmostEqual(sensors[0], 0, delta=EPSILON_DISTANCE_L)
+            sensor_values = game.player.get_sensor_readings()
+            self.assertAlmostEqual(sensor_values[0], 0, delta=EPSILON_DISTANCE_L)
+
+
+def get_game():
+    cfg = GameConfig()
+    cfg.sensor_ray_distance = RAY_DISTANCE
+    return Game(game_id=0, config=cfg, silent=True, save_path="tests/games_db/", overwrite=True, noise=False)
 
 
 def main():

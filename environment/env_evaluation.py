@@ -107,7 +107,7 @@ class EvaluationEnv:
         for k in return_dict.keys(): eval_result[str(k)] = create_answer(return_dict[k])
         pop.add_evaluation_result(eval_result)
     
-    def evaluate_population(self, pop, game_ids=None):
+    def evaluate_population(self, pop, game_ids=None):  # TODO: Not used, remove?
         """
         Evaluate the population on a set of games and create blueprints of the final positions afterwards.
 
@@ -168,10 +168,14 @@ class EvaluationEnv:
 
 def create_answer(games: list):
     cfg = GameConfig()
-    answer = ""
-    answer += f"Percentage finished: {100 * len([g for g in games if g[D_DONE]]) / len(games):.1f}"
-    answer += f" - Average distance to target {sum([g[D_DIST_TO_TARGET] for g in games]) / len(games):.1f}"
-    answer += f" - Max distance to target {max([g[D_DIST_TO_TARGET] for g in games]):.1f}"
-    answer += f" - Average time taken {sum([g[D_STEPS] / cfg.fps for g in games]) / len(games):.1f}"
-    answer += f" - Max time taken {max([g[D_STEPS] / cfg.fps for g in games]):.1f}"
+    answer = dict()
+    answer['Percentage finished'] = round(100 * len([g for g in games if g[D_DONE]]) / len(games), 2)
+    
+    answer['Min distance to target'] = round(min([g[D_DIST_TO_TARGET] for g in games]), 2)
+    answer['Average distance to target'] = round(sum([g[D_DIST_TO_TARGET] for g in games]) / len(games), 2)
+    answer['Max distance to target'] = round(max([g[D_DIST_TO_TARGET] for g in games]), 2)
+    
+    answer['Min time taken'] = round(min([g[D_STEPS] / cfg.fps for g in games]), 2)
+    answer['Average time taken'] = round(sum([g[D_STEPS] / cfg.fps for g in games]) / len(games), 2)
+    answer['Max time taken'] = round(max([g[D_STEPS] / cfg.fps for g in games]), 2)
     return answer
