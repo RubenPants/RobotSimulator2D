@@ -13,7 +13,7 @@
 #     limitations under the License.
 import torch
 from neat.graphs import required_for_output
-from pytorch_neat.aggregations import str_to_aggregation
+from neat.aggregations import str_to_aggregation
 
 from population.utils.network_util.activations import str_to_activation
 

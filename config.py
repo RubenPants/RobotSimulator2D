@@ -58,8 +58,8 @@ class GameConfig:
         self.noise_proximity: float = 0.005
         
         # [SENSOR]
-        # Distance a ray-sensor reaches, expressed in meters  [def=1.0]  TODO
-        self.sensor_ray_distance: float = 1.0
+        # Distance a ray-sensor reaches, expressed in meters  [def=0.5]  TODO
+        self.sensor_ray_distance: float = 0.5
         
         # [TARGET]
         # Target is reached when within this range, expressed in meters  [def=0.5]
@@ -115,12 +115,12 @@ class NeatConfig:
         self.sexual_reproduction: bool = True
         
         # [DefaultGenome]
-        # Initial node activation function  [def=D_RELU]
-        self.activation_default: str = D_RELU
+        # Initial node activation function  [def=D_GELU]
+        self.activation_default: str = D_GELU
         # Probability of changing the activation function  [def=0]
         self.activation_mutate_rate: float = 0.0
-        # All possible activation functions between whom can be switched during mutation  [def=D_RELU]
-        self.activation_options: str = D_RELU
+        # All possible activation functions between whom can be switched during mutation  [def=D_GELU]
+        self.activation_options: str = D_GELU
         # The default aggregation function attribute assigned to new nodes  [def=D_SUM]
         self.aggregation_default: str = D_SUM
         # Probability of mutating towards another aggregation_option  [def=0]

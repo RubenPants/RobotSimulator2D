@@ -3553,3 +3553,29 @@ Traceback (most recent call last):
     from environment.env_visualizing import VisualizingEnv
 ModuleNotFoundError: No module named 'environment.env_visualizing'
 
+
+Population 'diversity_repr_2' loaded successfully! Current generation: 100
+
+===> RUNNING FOR THE FOLLOWING CONFIGURATION: <===
+	> fitness: diversity
+	> gru_enabled: True
+	> sexual_reproduction: True
+	> Saving under folder: NEAT-GRU
+	> Train: True (0 iterations)
+	> Create blueprints: True
+	> Create traces: True
+
+
+===> TRAINING <===
+
+
+===> CREATING BLUEPRINTS <===
+
+Creating blueprints for games: [1, 2, 3, 4, 5]
+
+===> CREATING TRACES <===
+
+Creating traces for games: [1, 2, 3, 4, 5]
+
+===> EVALUATING <===
+
