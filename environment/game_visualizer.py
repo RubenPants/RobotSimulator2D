@@ -11,19 +11,10 @@ import matplotlib.colors as clr
 import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.axes_grid1 import make_axes_locatable
+from tqdm import tqdm
 
-from environment.entities.game import Game
-
-
-def load_game(game_id):
-    """
-    Load the game of the given ID.
-    
-    :param game_id: Integer
-    :return: Game object
-    """
-    return Game(game_id=game_id,
-                silent=False)
+from config import GameConfig
+from environment.entities.game import get_game
 
 
 def game_blueprint(game):
@@ -72,10 +63,11 @@ def path_heatmap(game):
 
 if __name__ == '__main__':
     os.chdir("..")
+    cfg = GameConfig()
     # Load the game
-    for g_id in [531, 648, 708, 756, 826]:
-        # for g_id in range(1, 11):
-        g = load_game(g_id)
+    # for g_id in [531, 648, 708, 756, 826]:
+    for g_id in tqdm(range(1, 11)):
+        g = get_game(g_id, cfg=cfg)
         
         # Create visualizations
         game_blueprint(g)

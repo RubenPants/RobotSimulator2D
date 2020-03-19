@@ -263,7 +263,6 @@ class FeedForwardNet:
             elif i_key in hidden_keys and o_key in output_keys:
                 idxs, vals = hid2out
             else:
-                # TODO: Delete prints! (used for debugging)
                 msg = f"{genome}" \
                       f"\ni_key: {i_key}, o_key: {o_key}" \
                       f"\ni_key in input_keys: {i_key in input_keys}" \
