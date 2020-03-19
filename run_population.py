@@ -111,14 +111,14 @@ def main(fitness,
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('--fitness', type=str, default='')
-    parser.add_argument('--gru_enabled', type=int, default=0)
-    parser.add_argument('--reproduce', type=int, default=0)
-    parser.add_argument('--blueprint', type=int, default=0)
+    parser.add_argument('--gru_enabled', type=int, default=1)
+    parser.add_argument('--reproduce', type=int, default=1)
+    parser.add_argument('--blueprint', type=int, default=1)
     parser.add_argument('--evaluate', type=int, default=0)
     parser.add_argument('--trace', type=int, default=0)
     parser.add_argument('--train', type=int, default=0)
     parser.add_argument('--iterations', type=int, default=0)
-    parser.add_argument('--version', type=int, default=0)
+    parser.add_argument('--version', type=int, default=2)
     args = parser.parse_args()
     
     main(

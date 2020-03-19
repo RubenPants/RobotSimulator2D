@@ -6,7 +6,6 @@ Environment where a single genome gets evaluated over multiple games. This envir
 import numpy as np
 cimport numpy as np
 
-from config import GameConfig, NeatConfig
 from environment.entities.cy.game_cy cimport get_game_cy
 from utils.dictionary import D_DONE, D_SENSOR_LIST
 

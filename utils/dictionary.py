@@ -6,6 +6,7 @@ Words used across the project, sorted in alphabetical order.
 
 # A
 D_A_STAR = 'A*'
+D_ABS = 'abs'
 D_ACTIVATION = 'activation'
 D_ANGLE = 'angle'
 D_AVG = 'avg'
@@ -38,12 +39,17 @@ D_FULL_NODIRECT = 'full_nodirect'
 # G
 D_GAME_ENV = 'game_environment'
 D_GAME_ID = 'game_id'
+D_GAUSS = 'gauss'
+D_GELU = 'gelu'
 D_GEN_ID = 'generation_id'
 D_GEN_NR = 'generation_number'
 D_GMEAN = 'gmean'
 D_GRU = 'gru'
 D_GRU_ENABLED = 'gru_enabled'
 D_GRU_MUT = 'gru_mutate_rate'
+
+# I
+D_IDENTITY = 'identity'
 
 # K
 D_K = 'k'
@@ -89,6 +95,8 @@ D_SENSOR_ANGLE = 'angular_sensor'
 D_SENSOR_DISTANCE = 'distance_sensor'
 D_SENSOR_PROXIMITY = 'proximity_sensor'
 D_SENSOR_RAY_DISTANCE = 'sensor_ray_distance'
+D_SIGMOID = 'sigmoid'
+D_SIN = 'sin'
 D_STEPS = 'steps'
 D_SUM = 'sum'
 

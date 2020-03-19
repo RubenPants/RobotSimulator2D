@@ -20,21 +20,21 @@ class GameConfig:
     
     def __init__(self):
         # [BOT]
-        # Speed of bot when driving straight expressed in m/s [def=0.6]
+        # Maximal driving speed (driving straight) of the robot expressed in m/s  [def=0.6]
         self.bot_driving_speed: float = 0.6
-        # Radius of the bot expressed in meters [def=0.085]
+        # Radius of the bot expressed in meters  [def=0.085]
         self.bot_radius: float = 0.085
-        # Speed of bot when turning expressed in radians per second [def=3.53~=0.6/0.17]
+        # Maximal turning speed of the robot expressed in radians per second  [def=3.53~=0.6/0.17]
         self.bot_turning_speed: float = 3.53
         
         # [CONTROL]
-        # Number of games on which a single genome is evaluated [def=10]  TODO
+        # Number of games on which a single genome is evaluated  [def=10]  TODO
         self.batch: int = 10
-        # Number of seconds it takes for one game to complete [def=60]  TODO
+        # Number of seconds it takes for one game to complete  [def=60]  TODO
         self.duration: int = 60
-        # Max ID of game (starting from 1) [def=1000]
+        # Max ID of game (starting from 1)  [def=1000]
         self.max_game_id: int = 1000
-        # Max ID of evaluation game (starting from max_id) [def=1100]
+        # Max ID of evaluation game (starting from max_id)  [def=1100]
         self.max_eval_game_id: int = 1100
         # Number of frames each second  [def=20]
         self.fps: int = 20
@@ -42,27 +42,27 @@ class GameConfig:
         # [CREATION]
         # Pixel-to-meters: number of pixels that represent one meter  [def=50]
         self.p2m: int = 50
-        # Number of meters the x-axis represents [def=14]
+        # Number of meters the x-axis represents  [def=14]
         self.x_axis: int = 14
-        # Number of meters the y-axis represents [def=14]
+        # Number of meters the y-axis represents  [def=14]
         self.y_axis: int = 14
         
         # [NOISE]
-        # Alpha in Gaussian distribution for time noise, max 0.02s deviation [def=0.005]
+        # Alpha in Gaussian distribution for time noise, max 0.02s deviation  [def=0.005]
         self.noise_time: float = 0.005
-        # Alpha in Gaussian distribution for angular sensor, max 0.7° deviation [def=0.001]
+        # Alpha in Gaussian distribution for angular sensor, max 0.7° deviation  [def=0.001]
         self.noise_angle: float = 0.001
-        # Alpha in Gaussian distribution for distance sensor, max ~1.5cm deviation [def=0.005]
+        # Alpha in Gaussian distribution for distance sensor, max ~1.5cm deviation  [def=0.005]
         self.noise_distance: float = 0.005
-        # Alpha in Gaussian distribution for proximity sensor, max ~1.5cm deviation [def=0.005]
+        # Alpha in Gaussian distribution for proximity sensor, max ~1.5cm deviation  [def=0.005]
         self.noise_proximity: float = 0.005
         
         # [SENSOR]
-        # Distance a ray-sensor reaches, expressed in meters [def=1.0]  TODO
-        self.sensor_ray_distance: float = 1.0
+        # Distance a ray-sensor reaches, expressed in meters  [def=0.5]  TODO
+        self.sensor_ray_distance: float = 0.5
         
         # [TARGET]
-        # Target is reached when within this range, expressed in meters [def=0.5]
+        # Target is reached when within this range, expressed in meters  [def=0.5]
         self.target_reached: float = 0.5
     
     def __str__(self):
@@ -95,11 +95,11 @@ class NeatConfig:
     
     def __init__(self):
         # [NEAT]
-        # The function used to compute the termination criterion from the set of genome fitness (early stopping)
+        # The function used to compute the termination criterion from the set of genome fitness [def=D_MAX]
         self.fitness_criterion: str = D_MAX
-        # When fitness computed by fitness_criterion meets this threshold, the evolution process will terminate
+        # When fitness computed by fitness_criterion meets this threshold, the evolution process will terminate  [def=1]
         self.fitness_threshold: int = 1
-        # Don't consider fitness_criterion and fitness_threshold
+        # Don't consider fitness_criterion and fitness_threshold  [def=True]
         self.no_fitness_termination: bool = True
         # Number of individuals in each generation  [def=128]  TODO
         self.pop_size: int = 128
@@ -115,12 +115,12 @@ class NeatConfig:
         self.sexual_reproduction: bool = True
         
         # [DefaultGenome]
-        # Initial node activation function  [def=D_RELU]
-        self.activation_default: str = D_RELU
+        # Initial node activation function  [def=D_GELU]
+        self.activation_default: str = D_GELU
         # Probability of changing the activation function  [def=0]
         self.activation_mutate_rate: float = 0.0
-        # All possible activation functions between whom can be switched during mutation  [def=D_RELU]
-        self.activation_options: str = D_RELU
+        # All possible activation functions between whom can be switched during mutation  [def=D_GELU]
+        self.activation_options: str = D_GELU
         # The default aggregation function attribute assigned to new nodes  [def=D_SUM]
         self.aggregation_default: str = D_SUM
         # Probability of mutating towards another aggregation_option  [def=0]
