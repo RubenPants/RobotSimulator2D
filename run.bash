@@ -2,7 +2,7 @@
 
 # Default parameters
 version=3;
-iter=0;
+iter=100;
 blueprint=1;
 eval=1;
 trace=1;
