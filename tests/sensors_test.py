@@ -1,4 +1,6 @@
 """
+sensor_test.py
+
 Test of all the sensors.
 """
 import os
@@ -39,7 +41,7 @@ class AngularSensorTest(unittest.TestCase):
         game.player.sensors = dict()
         game.player.add_angular_sensors(clockwise=True)
         game.player.add_angular_sensors(clockwise=False)
-        game.player.active_sensors = game.player.sensors.keys()
+        game.player.active_sensors = set(game.player.sensors.keys())
         
         # The third and second last sensors
         sensor_values = game.player.get_sensor_readings()
@@ -65,7 +67,7 @@ class AngularSensorTest(unittest.TestCase):
         game.player.sensors = dict()
         game.player.add_angular_sensors(clockwise=True)
         game.player.add_angular_sensors(clockwise=False)
-        game.player.active_sensors = game.player.sensors.keys()
+        game.player.active_sensors = set(game.player.sensors.keys())
         
         sensor_values = game.player.get_sensor_readings()
         self.assertEqual(len(sensor_values), 2)
@@ -137,7 +139,7 @@ class ProximitySensorTest(unittest.TestCase):
         
         # Only keep proximity sensors
         game.player.sensors = {k: v for k, v in game.player.sensors.items() if type(v) == ProximitySensor}
-        game.player.active_sensors = game.player.sensors.keys()
+        game.player.active_sensors = set(game.player.sensors.keys())
         
         # Ask for the proximity-measures
         sensor_values = game.player.get_sensor_readings()
@@ -171,7 +173,7 @@ class ProximitySensorTest(unittest.TestCase):
         game.player.add_proximity_sensor(-np.pi / 4)  # 45° right
         game.player.add_proximity_sensor(-np.pi / 2)  # 90° right
         game.player.add_proximity_sensor(np.pi)  # 180° in the back
-        game.player.active_sensors = game.player.sensors.keys()
+        game.player.active_sensors = set(game.player.sensors.keys())
         
         sensors = game.player.get_sensor_readings()
         self.assertAlmostEqual(sensors[0], 1.0 - float(game.bot_radius), delta=EPSILON_DISTANCE)
@@ -201,7 +203,7 @@ class ProximitySensorTest(unittest.TestCase):
         # Update sensors
         game.player.sensors = dict()
         game.player.add_proximity_sensor(0)  # 0°
-        game.player.active_sensors = game.player.sensors.keys()
+        game.player.active_sensors = set(game.player.sensors.keys())
         
         for _ in range(100): game.step(l=1, r=1)
         
