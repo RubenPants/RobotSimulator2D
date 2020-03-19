@@ -1,0 +1,15 @@
+Population '_repr_2' saved! Current generation: 0
+
+===> RUNNING FOR THE FOLLOWING CONFIGURATION: <===
+	> fitness: 
+	> gru_enabled: True
+	> sexual_reproduction: True
+	> Saving under folder: NEAT-GRU
+	> Train: False (0 iterations)
+	> Create blueprints: True
+	> Create traces: False
+
+
+===> CREATING BLUEPRINTS <===
+
+Creating blueprints for games: [1, 2, 3, 4, 5]
