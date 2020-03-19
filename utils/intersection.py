@@ -52,7 +52,7 @@ def point_line_intersection(p: Vec2d, l: Line2d):
     :param l: Line2d
     :return: Bool
     """
-    return l.get_length() - EPSILON <= (p - l.x).get_length() + (p - l.y).get_length() <= l.get_length() + EPSILON
+    return (l.get_length() - EPSILON) <= ((p - l.x).get_length() + (p - l.y).get_length()) <= (l.get_length() + EPSILON)
 
 
 def circle_line_intersection(c: Vec2d, r: float, l: Line2d):
@@ -79,4 +79,4 @@ def circle_line_intersection(c: Vec2d, r: float, l: Line2d):
         return False, None
     
     # Check if in circle
-    return (True, closest) if (closest - c).get_length() < r + EPSILON else (False, None)
+    return (True, closest) if (closest - c).get_length() <= (r + EPSILON) else (False, None)

@@ -11,26 +11,24 @@ from population.population import Population
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('--train', type=bool, default=False)
-    parser.add_argument('--iterations', type=int, default=3)
+    parser.add_argument('--iterations', type=int, default=10)
     parser.add_argument('--blueprint', type=bool, default=False)
-    parser.add_argument('--trace', type=bool, default=False)
+    parser.add_argument('--trace', type=bool, default=True)
     parser.add_argument('--evaluate', type=bool, default=False)
-    parser.add_argument('--genome', type=bool, default=True)
+    parser.add_argument('--genome', type=bool, default=False)
     parser.add_argument('--live', type=bool, default=False)
+    parser.add_argument('--unused_cpu', type=int, default=2)
+    parser.add_argument('--debug', type=bool, default=False)
     args = parser.parse_args()
     
     pop = Population(
-            name='novelty_2',
+            name='test',
             # version=1,
-            folder_name='NEAT-GRU',
+            folder_name='test',
     )
     if not pop.best_genome: pop.best_genome = list(pop.population.values())[0]
-    # pop.population[9] = pop.population[list(pop.population.keys())[12]]
-    # pop.save()
-    # inp = pop.query_net(net, [[0] * 8])
-    # print(inp)
-    # raise Exception
-    # pop.load(gen=1)
+    # pop.best_genome = list(pop.population.values())[3]  # TODO
+    # pop.population = {k: v for k, v in pop.population.items() if k in [1033]}  # TODO
     
     try:
         if args.train:
@@ -38,11 +36,14 @@ if __name__ == '__main__':
             from environment.env_training import TrainingEnv
             
             # Train for 100 generations
-            trainer = TrainingEnv(unused_cpu=2, game_config=pop.game_config)  # Use two cores less to keep laptop usable
+            trainer = TrainingEnv(
+                    unused_cpu=args.unused_cpu,  # Use two cores less to keep laptop usable
+                    game_config=pop.game_config,
+            )
             trainer.evaluate_and_evolve(
                     pop,
                     n=args.iterations,
-                    # parallel=False,
+                    parallel=args.debug,
             )
         
         if args.blueprint:
@@ -81,7 +82,7 @@ if __name__ == '__main__':
             print("\n===> VISUALIZING GENOME <===\n")
             # genome = list(pop.population.values())[2]
             genome = pop.best_genome
-            print(f"Genome size: {genome.size()}")
+            print(f"Genome {genome.key} with size: {genome.size()}")
             pop.visualize_genome(
                     debug=True,
                     genome=genome,
@@ -90,8 +91,10 @@ if __name__ == '__main__':
         if args.live:
             print("\n===> STARTING LIVE DEMO <===\n")
             from environment.env_visualizing_live import LiveVisualizer
-            
-            net = pop.make_net(genome=pop.best_genome, config=pop.config, game_config=pop.game_config, bs=1)
+
+            genome = pop.best_genome
+            print(f"Genome {genome.key} with size: {genome.size()}")
+            net = pop.make_net(genome=genome, config=pop.config, game_config=pop.game_config, bs=1)
             visualizer = LiveVisualizer(
                     query_net=pop.query_net,
                     debug=False,

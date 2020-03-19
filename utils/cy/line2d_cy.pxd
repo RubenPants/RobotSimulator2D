@@ -13,4 +13,4 @@ cdef class Line2dCy:
     
     cpdef float get_orientation(self)
     
-    cpdef bint close_by(self, Vec2dCy pos, int r)
+    cpdef bint close_by(self, Vec2dCy pos, float r)

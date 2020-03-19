@@ -59,7 +59,7 @@ class GameConfig:
         
         # [SENSOR]
         # Distance a ray-sensor reaches, expressed in meters  [def=0.5]  TODO
-        self.sensor_ray_distance: float = 0.5
+        self.sensor_ray_distance: float = 1.0
         
         # [TARGET]
         # Target is reached when within this range, expressed in meters  [def=0.5]

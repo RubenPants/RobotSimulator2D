@@ -899,7 +899,7 @@ static struct __pyx_vtabstruct_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_vtabptr_5util
 struct __pyx_vtabstruct_5utils_2cy_9line2d_cy_Line2dCy {
   float (*get_length)(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch);
   float (*get_orientation)(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch);
-  int (*close_by)(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, int, int __pyx_skip_dispatch);
+  int (*close_by)(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, float, int __pyx_skip_dispatch);
 };
 static struct __pyx_vtabstruct_5utils_2cy_9line2d_cy_Line2dCy *__pyx_vtabptr_5utils_2cy_9line2d_cy_Line2dCy;
 
@@ -1180,15 +1180,6 @@ static void __Pyx_WriteUnraisable(const char *name, int clineno,
                                   int lineno, const char *filename,
                                   int full_traceback, int nogil);
 
-/* RaiseTooManyValuesToUnpack.proto */
-static CYTHON_INLINE void __Pyx_RaiseTooManyValuesError(Py_ssize_t expected);
-
-/* RaiseNeedMoreValuesToUnpack.proto */
-static CYTHON_INLINE void __Pyx_RaiseNeedMoreValuesError(Py_ssize_t index);
-
-/* RaiseNoneIterError.proto */
-static CYTHON_INLINE void __Pyx_RaiseNoneNotIterableError(void);
-
 /* PyErrExceptionMatches.proto */
 #if CYTHON_FAST_THREAD_STATE
 #define __Pyx_PyErr_ExceptionMatches(err) __Pyx_PyErr_ExceptionMatchesInState(__pyx_tstate, err)
@@ -1296,9 +1287,6 @@ static void __Pyx_AddTraceback(const char *funcname, int c_line,
 
 /* CIntToPy.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
-
-/* CIntToPy.proto */
-static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value);
 
 /* CIntFromPy.proto */
 static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
@@ -1438,7 +1426,7 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 static float __pyx_f_5utils_2cy_9line2d_cy_8Line2dCy_get_length(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
 static float __pyx_f_5utils_2cy_9line2d_cy_8Line2dCy_get_orientation(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
-static int __pyx_f_5utils_2cy_9line2d_cy_8Line2dCy_close_by(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_pos, int __pyx_v_r, int __pyx_skip_dispatch); /* proto*/
+static int __pyx_f_5utils_2cy_9line2d_cy_8Line2dCy_close_by(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_pos, float __pyx_v_r, int __pyx_skip_dispatch); /* proto*/
 
 /* Module declarations from 'utils.cy.vec2d_cy' */
 static PyTypeObject *__pyx_ptype_5utils_2cy_8vec2d_cy_Vec2dCy = 0;
@@ -1583,7 +1571,7 @@ static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_31__round__(struct __p
 static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_33__copy__(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_35get_length(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_37get_orientation(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_39close_by(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_pos, int __pyx_v_r); /* proto */
+static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_39close_by(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_pos, float __pyx_v_r); /* proto */
 static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_1x___get__(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self); /* proto */
 static int __pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_1x_2__set__(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static int __pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_1x_4__del__(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self); /* proto */
@@ -4219,7 +4207,7 @@ static float __pyx_f_5utils_2cy_9line2d_cy_8Line2dCy_get_orientation(struct __py
  *         """
  *         return (self.x - self.y).get_angle()             # <<<<<<<<<<<<<<
  * 
- *     cpdef bint close_by(self, Vec2dCy pos, int r):
+ *     cpdef bint close_by(self, Vec2dCy pos, float r):
  */
   __pyx_t_2 = PyNumber_Subtract(((PyObject *)__pyx_v_self->x), ((PyObject *)__pyx_v_self->y)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 125, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -4307,15 +4295,13 @@ static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_37get_orientation(stru
 /* "utils/cy/line2d_cy.pyx":127
  *         return (self.x - self.y).get_angle()
  * 
- *     cpdef bint close_by(self, Vec2dCy pos, int r):             # <<<<<<<<<<<<<<
+ *     cpdef bint close_by(self, Vec2dCy pos, float r):             # <<<<<<<<<<<<<<
  *         """Check if the given position is within a range r of the wall."""
- *         close, _ = circle_line_intersection_cy(c=pos, r=r, l=self)
+ *         return circle_line_intersection_cy(c=pos, r=r, l=self)[0]
  */
 
 static PyObject *__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_40close_by(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_f_5utils_2cy_9line2d_cy_8Line2dCy_close_by(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_pos, int __pyx_v_r, int __pyx_skip_dispatch) {
-  PyObject *__pyx_v_close = NULL;
-  CYTHON_UNUSED PyObject *__pyx_v__ = NULL;
+static int __pyx_f_5utils_2cy_9line2d_cy_8Line2dCy_close_by(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_pos, float __pyx_v_r, int __pyx_skip_dispatch) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4339,7 +4325,7 @@ static int __pyx_f_5utils_2cy_9line2d_cy_8Line2dCy_close_by(struct __pyx_obj_5ut
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_close_by); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 127, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_40close_by)) {
-        __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_r); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 127, __pyx_L1_error)
+        __pyx_t_3 = PyFloat_FromDouble(__pyx_v_r); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 127, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_4 = __pyx_t_1; __pyx_t_5 = NULL;
@@ -4409,56 +4395,30 @@ static int __pyx_f_5utils_2cy_9line2d_cy_8Line2dCy_close_by(struct __pyx_obj_5ut
   }
 
   /* "utils/cy/line2d_cy.pyx":129
- *     cpdef bint close_by(self, Vec2dCy pos, int r):
+ *     cpdef bint close_by(self, Vec2dCy pos, float r):
  *         """Check if the given position is within a range r of the wall."""
- *         close, _ = circle_line_intersection_cy(c=pos, r=r, l=self)             # <<<<<<<<<<<<<<
- *         return close
+ *         return circle_line_intersection_cy(c=pos, r=r, l=self)[0]             # <<<<<<<<<<<<<<
  */
   __pyx_t_1 = __pyx_f_5utils_2cy_15intersection_cy_circle_line_intersection_cy(__pyx_v_pos, __pyx_v_r, __pyx_v_self, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 129, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (likely(__pyx_t_1 != Py_None)) {
-    PyObject* sequence = __pyx_t_1;
-    Py_ssize_t size = __Pyx_PySequence_SIZE(sequence);
-    if (unlikely(size != 2)) {
-      if (size > 2) __Pyx_RaiseTooManyValuesError(2);
-      else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 129, __pyx_L1_error)
-    }
-    #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    __pyx_t_2 = PyTuple_GET_ITEM(sequence, 0); 
-    __pyx_t_4 = PyTuple_GET_ITEM(sequence, 1); 
-    __Pyx_INCREF(__pyx_t_2);
-    __Pyx_INCREF(__pyx_t_4);
-    #else
-    __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 129, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 129, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    #endif
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  } else {
-    __Pyx_RaiseNoneNotIterableError(); __PYX_ERR(0, 129, __pyx_L1_error)
+  if (unlikely(__pyx_t_1 == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+    __PYX_ERR(0, 129, __pyx_L1_error)
   }
-  __pyx_v_close = __pyx_t_2;
-  __pyx_t_2 = 0;
-  __pyx_v__ = __pyx_t_4;
-  __pyx_t_4 = 0;
-
-  /* "utils/cy/line2d_cy.pyx":130
- *         """Check if the given position is within a range r of the wall."""
- *         close, _ = circle_line_intersection_cy(c=pos, r=r, l=self)
- *         return close             # <<<<<<<<<<<<<<
- */
-  __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_v_close); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 130, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt_Tuple(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 129, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 129, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_r = __pyx_t_8;
   goto __pyx_L0;
 
   /* "utils/cy/line2d_cy.pyx":127
  *         return (self.x - self.y).get_angle()
  * 
- *     cpdef bint close_by(self, Vec2dCy pos, int r):             # <<<<<<<<<<<<<<
+ *     cpdef bint close_by(self, Vec2dCy pos, float r):             # <<<<<<<<<<<<<<
  *         """Check if the given position is within a range r of the wall."""
- *         close, _ = circle_line_intersection_cy(c=pos, r=r, l=self)
+ *         return circle_line_intersection_cy(c=pos, r=r, l=self)[0]
  */
 
   /* function exit code */
@@ -4472,8 +4432,6 @@ static int __pyx_f_5utils_2cy_9line2d_cy_8Line2dCy_close_by(struct __pyx_obj_5ut
   __Pyx_WriteUnraisable("utils.cy.line2d_cy.Line2dCy.close_by", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __pyx_r = 0;
   __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_close);
-  __Pyx_XDECREF(__pyx_v__);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
@@ -4483,7 +4441,7 @@ static PyObject *__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_40close_by(PyObject *_
 static char __pyx_doc_5utils_2cy_9line2d_cy_8Line2dCy_39close_by[] = "Check if the given position is within a range r of the wall.";
 static PyObject *__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_40close_by(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_pos = 0;
-  int __pyx_v_r;
+  float __pyx_v_r;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("close_by (wrapper)", 0);
@@ -4523,7 +4481,7 @@ static PyObject *__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_40close_by(PyObject *_
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
     __pyx_v_pos = ((struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *)values[0]);
-    __pyx_v_r = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_r == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 127, __pyx_L3_error)
+    __pyx_v_r = __pyx_PyFloat_AsFloat(values[1]); if (unlikely((__pyx_v_r == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 127, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
@@ -4545,7 +4503,7 @@ static PyObject *__pyx_pw_5utils_2cy_9line2d_cy_8Line2dCy_40close_by(PyObject *_
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_39close_by(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_pos, int __pyx_v_r) {
+static PyObject *__pyx_pf_5utils_2cy_9line2d_cy_8Line2dCy_39close_by(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *__pyx_v_self, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *__pyx_v_pos, float __pyx_v_r) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6058,7 +6016,7 @@ static int __Pyx_modinit_type_init_code(void) {
   __pyx_vtabptr_5utils_2cy_9line2d_cy_Line2dCy = &__pyx_vtable_5utils_2cy_9line2d_cy_Line2dCy;
   __pyx_vtable_5utils_2cy_9line2d_cy_Line2dCy.get_length = (float (*)(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch))__pyx_f_5utils_2cy_9line2d_cy_8Line2dCy_get_length;
   __pyx_vtable_5utils_2cy_9line2d_cy_Line2dCy.get_orientation = (float (*)(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, int __pyx_skip_dispatch))__pyx_f_5utils_2cy_9line2d_cy_8Line2dCy_get_orientation;
-  __pyx_vtable_5utils_2cy_9line2d_cy_Line2dCy.close_by = (int (*)(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, int, int __pyx_skip_dispatch))__pyx_f_5utils_2cy_9line2d_cy_8Line2dCy_close_by;
+  __pyx_vtable_5utils_2cy_9line2d_cy_Line2dCy.close_by = (int (*)(struct __pyx_obj_5utils_2cy_9line2d_cy_Line2dCy *, struct __pyx_obj_5utils_2cy_8vec2d_cy_Vec2dCy *, float, int __pyx_skip_dispatch))__pyx_f_5utils_2cy_9line2d_cy_8Line2dCy_close_by;
   if (PyType_Ready(&__pyx_type_5utils_2cy_9line2d_cy_Line2dCy) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_5utils_2cy_9line2d_cy_Line2dCy.tp_print = 0;
@@ -7356,24 +7314,6 @@ static void __Pyx_WriteUnraisable(const char *name, CYTHON_UNUSED int clineno,
 #endif
 }
 
-/* RaiseTooManyValuesToUnpack */
-static CYTHON_INLINE void __Pyx_RaiseTooManyValuesError(Py_ssize_t expected) {
-    PyErr_Format(PyExc_ValueError,
-                 "too many values to unpack (expected %" CYTHON_FORMAT_SSIZE_T "d)", expected);
-}
-
-/* RaiseNeedMoreValuesToUnpack */
-static CYTHON_INLINE void __Pyx_RaiseNeedMoreValuesError(Py_ssize_t index) {
-    PyErr_Format(PyExc_ValueError,
-                 "need more than %" CYTHON_FORMAT_SSIZE_T "d value%.1s to unpack",
-                 index, (index == 1) ? "" : "s");
-}
-
-/* RaiseNoneIterError */
-static CYTHON_INLINE void __Pyx_RaiseNoneNotIterableError(void) {
-    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-}
-
 /* PyErrExceptionMatches */
 #if CYTHON_FAST_THREAD_STATE
 static int __Pyx_PyErr_ExceptionMatchesTuple(PyObject *exc_type, PyObject *tuple) {
@@ -8058,37 +7998,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
         int one = 1; int little = (int)*(unsigned char *)&one;
         unsigned char *bytes = (unsigned char *)&value;
         return _PyLong_FromByteArray(bytes, sizeof(long),
-                                     little, !is_unsigned);
-    }
-}
-
-/* CIntToPy */
-static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value) {
-    const int neg_one = (int) ((int) 0 - (int) 1), const_zero = (int) 0;
-    const int is_unsigned = neg_one > const_zero;
-    if (is_unsigned) {
-        if (sizeof(int) < sizeof(long)) {
-            return PyInt_FromLong((long) value);
-        } else if (sizeof(int) <= sizeof(unsigned long)) {
-            return PyLong_FromUnsignedLong((unsigned long) value);
-#ifdef HAVE_LONG_LONG
-        } else if (sizeof(int) <= sizeof(unsigned PY_LONG_LONG)) {
-            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
-#endif
-        }
-    } else {
-        if (sizeof(int) <= sizeof(long)) {
-            return PyInt_FromLong((long) value);
-#ifdef HAVE_LONG_LONG
-        } else if (sizeof(int) <= sizeof(PY_LONG_LONG)) {
-            return PyLong_FromLongLong((PY_LONG_LONG) value);
-#endif
-        }
-    }
-    {
-        int one = 1; int little = (int)*(unsigned char *)&one;
-        unsigned char *bytes = (unsigned char *)&value;
-        return _PyLong_FromByteArray(bytes, sizeof(int),
                                      little, !is_unsigned);
     }
 }

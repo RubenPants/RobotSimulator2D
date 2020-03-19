@@ -48,11 +48,17 @@ class MultiEnvironment:
         :param debug: Boolean specifying if debugging is enabled or not
         """
         genome_id, genome = genome  # Split up genome by id and genome itself
+        used_sensors = set(genome.connections.keys())
         net = self.make_net(genome=genome, config=self.neat_config, game_config=self.game_config, bs=self.batch_size)
         
-        # Placeholders
+        # Initialize the games on which the genome is tested
         games = [get_game(g, cfg=self.game_config) for g in self.games]
+        for g in games: g.player.set_active_sensors(used_sensors)  # Set active-sensors for each of the games
+        
+        # Ask for each of the games the starting-state
         states = [g.reset()[D_SENSOR_LIST] for g in games]
+        
+        # Finished-state for each of the games is set to false
         finished = [False] * self.batch_size
         
         # Start iterating the environments
@@ -99,12 +105,21 @@ class MultiEnvironment:
         :param debug: Boolean specifying if debugging is enabled or not
         """
         genome_id, genome = genome  # Split up genome by id and genome itself
+        used_sensors = set(genome.connections.keys())
         net = self.make_net(genome=genome, config=self.neat_config, game_config=self.game_config, bs=self.batch_size)
         
-        # Placeholders
+        # Initialize the games on which the genome is tested
         games = [get_game(g, cfg=self.game_config) for g in self.games]
+        for g in games: g.player.set_active_sensors(used_sensors)  # Set active-sensors for each of the games
+        
+        # Ask for each of the games the starting-state
         states = [g.reset()[D_SENSOR_LIST] for g in games]
+        
+        # Initialize the traces
         traces = [[g.player.pos.get_tuple()] for g in games]
+        
+        # Finished-state for each of the games is set to false
+        finished = [False] * self.batch_size
         
         # Start iterating the environments
         step_num = 0
@@ -121,9 +136,15 @@ class MultiEnvironment:
             # Check if each game received an action
             assert len(actions) == len(games)
             
-            for i, (g, a) in enumerate(zip(games, actions)):
+            for i, (g, a, f) in enumerate(zip(games, actions, finished)):
+                # Do not advance the player if target is reached
+                if f:
+                    traces.append(g.player.pos.get_tuple())
+                    continue
+                
                 # Proceed the game with one step, based on the predicted action
                 obs = g.step(l=a[0], r=a[1])
+                finished[i] = obs[D_DONE]
                 
                 # Update the candidate's current state
                 states[i] = obs[D_SENSOR_LIST]
