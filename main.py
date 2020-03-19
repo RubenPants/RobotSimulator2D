@@ -12,15 +12,15 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     
     # Main methods
-    parser.add_argument('--train', type=bool, default=True)
+    parser.add_argument('--train', type=bool, default=False)
     parser.add_argument('--blueprint', type=bool, default=False)
-    parser.add_argument('--trace', type=bool, default=True)
+    parser.add_argument('--trace', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
-    parser.add_argument('--genome', type=bool, default=False)
+    parser.add_argument('--genome', type=bool, default=True)
     parser.add_argument('--live', type=bool, default=False)
     
     # Extra arguments
-    parser.add_argument('--iterations', type=int, default=1)
+    parser.add_argument('--iterations', type=int, default=2)
     parser.add_argument('--unused_cpu', type=int, default=2)
     parser.add_argument('--debug', type=bool, default=False)
     args = parser.parse_args()
@@ -31,8 +31,8 @@ if __name__ == '__main__':
             folder_name='test',
     )
     if not pop.best_genome: pop.best_genome = list(pop.population.values())[0]
-    # pop.best_genome = list(pop.population.values())[3]  # TODO
-    # pop.population = {k: v for k, v in pop.population.items() if k in [1033]}  # TODO
+    # pop.best_genome = list(pop.population.values())[111]  # TODO
+    # pop.population = {k: v for k, v in pop.population.items() if k in [111]}  # TODO
     
     try:
         if args.train:
@@ -77,8 +77,11 @@ if __name__ == '__main__':
             from environment.env_evaluation import EvaluationEnv
             
             evaluator = EvaluationEnv(game_config=pop.game_config)
+            genomes = sorted([g for g in pop.population.values()],
+                             key=lambda x: x.fitness if x.fitness else 0,
+                             reverse=True)
             evaluator.evaluate_genome_list(
-                    genome_list=[pop.best_genome],
+                    genome_list=genomes[:10],  # Evaluate the five best performing genomes
                     pop=pop,
             )
         
@@ -96,7 +99,7 @@ if __name__ == '__main__':
         if args.live:
             print("\n===> STARTING LIVE DEMO <===\n")
             from environment.env_visualizing_live import LiveVisualizer
-
+            
             genome = pop.best_genome
             print(f"Genome {genome.key} with size: {genome.size()}")
             net = pop.make_net(genome=genome, config=pop.config, game_config=pop.game_config, bs=1)

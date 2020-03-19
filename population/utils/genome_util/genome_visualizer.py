@@ -67,7 +67,7 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
                 style='filled',
                 shape='box',
                 fillcolor=node_colors.get(key, 'lightgray'),
-                pos=f"0,{index * 3}!"
+                pos=f"{index * 10},0!"
         )
     
     # Visualize output nodes
@@ -85,7 +85,7 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
                 style='filled',
                 shape='box',
                 fillcolor=node_colors.get(key, '#bdc5ff'),
-                pos=f"{150 + (len(used_nodes) - len(node_names)) * (100 if debug else 20)},{20 + index * 30}!",
+                pos=f"{50 + index * 50}, {40 + (len(used_nodes) - len(node_names)) * (20 if debug else 10)}!",
         )
     
     # Visualize hidden nodes

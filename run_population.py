@@ -97,10 +97,13 @@ def main(fitness,
         if evaluate:
             pop.log("\n===> EVALUATING <===\n")
             from environment.env_evaluation import EvaluationEnv
-            
+
             evaluator = EvaluationEnv(game_config=pop.game_config)
+            genomes = sorted([g for g in pop.population.values()],
+                             key=lambda x: x.fitness if x.fitness else 0,
+                             reverse=True)
             evaluator.evaluate_genome_list(
-                    genome_list=[pop.best_genome],
+                    genome_list=genomes[:10],  # Evaluate the five best performing genomes
                     pop=pop,
             )
     except Exception as e:
