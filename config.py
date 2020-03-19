@@ -29,7 +29,7 @@ class GameConfig:
         
         # [CONTROL]
         # Number of games on which a single genome is evaluated  [def=10]  TODO
-        self.batch: int = 10
+        self.batch: int = 16
         # Number of seconds it takes for one game to complete  [def=60]  TODO
         self.duration: int = 60
         # Max ID of game (starting from 1)  [def=1000]

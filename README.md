@@ -5,11 +5,8 @@
 ## TODO
 
 * Species size-distribution seems off?
-* Improve evaluation:
-    * Evaluate more genomes (after each other)
-    * Better statistics (min-time, avg-time, max-time, ...)
 * Test all of the fitness-functions!
-* Novelty not in crows-flight? (do intersection with walls! i.e. find reachable neighbours, the k-NN on those)
+* Novelty not in crows-flight? (do intersection with walls! i.e. find reachable neighbours, then k-NN on those)
 * What is the purpose of the gene-attributes? Figure out and write down! --> I should pay more focus on what to write down such that no redundant work is needed...
 * Activation functions of hidden vs output nodes not taken into account! (hard-coded on tanh!)
 * Update fitness functions to be more conform to that of James
