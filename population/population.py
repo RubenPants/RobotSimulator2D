@@ -73,17 +73,18 @@ class Population:
         self.folder_name = folder_name
         
         # Placeholders
-        self.best_genome: DefaultGenome = None
-        self.config: Config = None
-        self.fitness_config = None
-        self.fitness_criterion = None
-        self.generation = 0
-        self.make_net = None
-        self.population = None
-        self.query_net = None
-        self.reporters: ReporterSet = None
-        self.reproduction: DefaultReproduction = None
-        self.species: DefaultSpecies = None
+        self.best_genome: DefaultGenome = None  # Current most fit genome
+        self.best_genome_hist: dict = dict()  # Container for the best three genomes for each generation (sorted list)
+        self.config: Config = None  # NEAT-configuration
+        self.fitness_config = None  # Fitness-configuration
+        self.fitness_criterion = None  # Fitness criterion, used to premature terminate the algorithm
+        self.generation = 0  # Current generation of the population
+        self.make_net = None  # Method to configure a PyTorch network
+        self.population = None  # Container for all the current used genomes
+        self.query_net = None  # Method to query the PyTorch network, created via make_net
+        self.reporters: ReporterSet = None  # Reporters that report during training, evaluation, ...
+        self.reproduction: DefaultReproduction = None  # Reproduction mechanism of the population
+        self.species: DefaultSpecies = None  # Container for all the species
         
         # Try to load the population, create new if not possible
         if not self.load():
@@ -292,6 +293,7 @@ class Population:
             # Load in the population under the specified generation
             pop = load_pickle(f'population/storage/{self.folder_name}/{self}/generations/gen_{gen:05d}')
             self.best_genome = pop.best_genome
+            self.best_genome_hist = pop.best_genome_hist
             self.config = pop.config
             self.fitness_config = pop.fitness_config
             self.fitness_criterion = pop.fitness_criterion

@@ -12,17 +12,17 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     
     # Main methods
-    parser.add_argument('--train', type=bool, default=True)
+    parser.add_argument('--train', type=bool, default=False)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--trace', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
-    parser.add_argument('--genome', type=bool, default=False)
-    parser.add_argument('--live', type=bool, default=False)
+    parser.add_argument('--genome', type=bool, default=True)
+    parser.add_argument('--live', type=bool, default=True)
     
     # Extra arguments
-    parser.add_argument('--iterations', type=int, default=1)
+    parser.add_argument('--iterations', type=int, default=10)
     parser.add_argument('--unused_cpu', type=int, default=2)
-    parser.add_argument('--debug', type=bool, default=True)
+    parser.add_argument('--debug', type=bool, default=False)
     args = parser.parse_args()
     
     pop = Population(
@@ -104,14 +104,13 @@ if __name__ == '__main__':
             print(f"Genome {genome.key} with size: {genome.size()}")
             net = pop.make_net(genome=genome, config=pop.config, game_config=pop.game_config, bs=1)
             visualizer = LiveVisualizer(
-                    query_net=pop.query_net,
+                    pop=pop,
                     debug=args.debug,
-                    game_config=pop.game_config,
                     # speedup=1,
             )
             
             visualizer.visualize(
-                    network=net,
+                    genome=genome,
                     game_id=3,
             )
     except Exception as e:

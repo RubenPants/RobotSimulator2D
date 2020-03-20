@@ -7,8 +7,9 @@ import pyglet
 import pymunk
 from pymunk.pyglet_util import DrawOptions
 
-from config import GameConfig
 from environment.entities.game import Game, get_game
+from environment.entities.sensors import ProximitySensor
+from population.population import Population
 from population.utils.network_util.feed_forward_net import FeedForwardNet
 from utils.dictionary import D_DONE, D_SENSOR_LIST
 
@@ -20,28 +21,22 @@ class LiveVisualizer:
     """
     
     __slots__ = (
-        "game_config",
         "speedup", "state", "finished", "time",
-        "query_net",
+        "make_net", "query_net", "neat_config", "game_config",
         "debug",
     )
     
     def __init__(self,
-                 query_net,
-                 game_config: GameConfig,
+                 pop: Population,
                  debug: bool = True,
                  speedup: float = 3):
         """
         The visualizer provides methods used to visualize the performance of a single genome.
         
-        :param query_net: Method used to query the network
-        :param game_config: GameConfig file for game-creation
+        :param pop: Population object
         :param debug: Generates prints (CLI) during visualization
         :param speedup: Specifies the relative speedup the virtual environment faces towards the real world
         """
-        # Load in current configuration
-        self.game_config = game_config
-        
         # Visualizer specific parameters
         self.speedup = speedup
         self.state = None
@@ -49,20 +44,27 @@ class LiveVisualizer:
         self.time = 0
         
         # Network specific parameters
-        self.query_net = query_net
+        self.make_net = pop.make_net
+        self.query_net = pop.query_net
+        self.neat_config = pop.config
+        self.game_config = pop.game_config
         
         # Debug options
         self.debug = debug
     
-    def visualize(self, network, game_id):  # TODO: Possibility to generalize and use multiple robots?
+    def visualize(self, genome, game_id: int):  # TODO: Generalize and use multiple robots?
         """
         Visualize the performance of a single genome.
         
-        :param network: The genome's network
+        :param genome: Tuple (genome_id, genome_class)
         :param game_id: ID of the game that will be used for evaluation
         """
+        # Make the network used during visualization
+        net = self.make_net(genome=genome, config=self.neat_config, game_config=self.game_config, bs=1)
+        
         # Create the requested game
         game: Game = get_game(game_id, cfg=self.game_config)
+        game.player.set_active_sensors(set(genome.connections.keys()))
         
         # Create space in which game will be played
         window = pyglet.window.Window(game.x_axis * game.p2m,
@@ -119,8 +121,9 @@ class LiveVisualizer:
         # Draw the robot's sensors
         def draw_sensors():
             [space.remove(s) for s in space.shapes if s.sensor and type(s) == pymunk.Segment]
-            for index, s in enumerate(game.player.get_proximity_sensors()):
-                if used_sensor(network, index):
+            for key in game.player.active_sensors:
+                s = game.player.sensors[key]
+                if type(s) == ProximitySensor:
                     line = pymunk.Segment(space.static_body,
                                           a=s.start_pos * game.p2m,
                                           b=s.end_pos * game.p2m,
@@ -145,7 +148,7 @@ class LiveVisualizer:
             # Stop when target is reached
             if not self.finished:
                 # Query the game for the next action
-                action = self.query_net(network, [self.state])
+                action = self.query_net(net, [self.state])
                 if self.debug:
                     print("Passed time:", round(dt, 3))
                     print("Location: x={}, y={}".format(

@@ -326,7 +326,7 @@ class DefaultGenome(object):
             
             max_conn = max(len(self.connections), len(other.connections))
             connection_distance = (connection_distance + (
-                        config.compatibility_disjoint_coefficient * disjoint_connections)) / max_conn
+                    config.compatibility_disjoint_coefficient * disjoint_connections)) / max_conn
         
         distance = node_distance + connection_distance
         return distance
@@ -348,6 +348,9 @@ class DefaultGenome(object):
         connections.sort()
         for c in connections: s += "\n\t" + str(c)
         return s
+    
+    def __repr__(self):
+        return f"DefaultGenome(key={self.key}, n_nodes={len(self.nodes)}, n_connections={len(self.connections)})"
     
     @staticmethod
     def create_node(config: DefaultGenomeConfig, node_id: int):

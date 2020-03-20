@@ -11,7 +11,7 @@ from tqdm import tqdm
 
 from config import GameConfig
 from environment.entities.game import get_game
-from population.utils.population_util.population_visualizer import create_blueprints
+from population.utils.visualizing.population_visualizer import create_blueprints
 from utils.dictionary import D_DIST_TO_TARGET, D_DONE, D_STEPS
 from utils.myutils import get_subfolder
 
