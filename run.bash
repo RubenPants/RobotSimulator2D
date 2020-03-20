@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Default parameters
-version=3;
+version=4;
 iter=100;
 blueprint=1;
 eval=1;
