@@ -85,6 +85,7 @@ class Population:
         self.reporters: ReporterSet = None  # Reporters that report during training, evaluation, ...
         self.reproduction: DefaultReproduction = None  # Reproduction mechanism of the population
         self.species: DefaultSpecies = None  # Container for all the species
+        self.species_hist: dict = dict()  # Container for the elite player of each species at each generation
         
         # Try to load the population, create new if not possible
         if not self.load():
@@ -144,6 +145,9 @@ class Population:
                               generation=self.generation,
                               logger=self.log)
         
+        # Add to each of the species its elites
+        self.update_species_elites()
+        
         # Create network method containers
         self.make_net = make_net_method
         self.query_net = query_net_method
@@ -200,8 +204,18 @@ class Population:
                               generation=self.generation,
                               logger=self.log)
         
+        # Add to each of the species its elites
+        self.update_species_elites()
+        
         # Increment generation count
         self.generation += 1
+    
+    def update_species_elites(self):
+        """Add for each of the current species their elite genome to the species_hist container."""
+        for specie_id, specie in self.species.species.items():
+            elites = sorted(specie.members.values(), key=lambda m: m.fitness if m.fitness else 0, reverse=True)
+            if specie_id not in self.species_hist: self.species_hist[specie_id] = dict()
+            self.species_hist[specie_id][self.generation] = elites[:self.config.reproduction_config.elitism]
     
     def visualize_genome(self, debug=False, genome=None, name: str = '', show: bool = True):
         """
@@ -304,6 +318,7 @@ class Population:
             self.reporters = pop.reporters
             self.reproduction = pop.reproduction
             self.species = pop.species
+            self.species_hist = pop.species_hist
             pop.log(f"\nPopulation '{self}' loaded successfully! Current generation: {self.generation}")
             return True
         except FileNotFoundError:
