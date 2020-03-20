@@ -218,8 +218,8 @@ class Population:
         name += 'gen_{gen:05d}'.format(gen=self.generation)
         get_subfolder(f'population/storage/{self.folder_name}/{self}/', 'images')
         sf = get_subfolder(f'population/storage/{self.folder_name}/{self}/images/', 'architectures')
-        draw_net(self.config,
-                 genome,
+        draw_net(config=self.config,
+                 genome=genome,
                  debug=debug,
                  filename=f'{sf}{name}',
                  view=show)
