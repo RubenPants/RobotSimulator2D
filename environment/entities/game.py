@@ -106,9 +106,10 @@ class Game:
         """Get all the game-related parameters."""
         return {
             D_A_STAR:  self.path[self.player.init_pos[0], self.player.init_pos[1]],
-            D_PATH:    self.path,
             D_FPS:     self.fps,
             D_GAME_ID: self.id,
+            D_PATH:    self.path,
+            D_WALLS:   self.walls,
         }
     
     def get_observation(self, close_walls: set = None):
