@@ -40,8 +40,8 @@ def required_for_output(inputs, outputs, connections):
     :note: It is assumed that the input identifier set and the node identifier set are disjoint. By convention, the
            output node ids are always the same as the output index.
     
-    :param inputs: list of the input identifiers
-    :param outputs: list of the output node identifiers
+    :param inputs: Set of the used input identifiers
+    :param outputs: Set of all the output node identifiers
     :param connections: list of (input, output) connections in the network.
     :return: Set of used nodes, Remaining connections
     """
@@ -49,7 +49,7 @@ def required_for_output(inputs, outputs, connections):
     used_conn = {k: c for k, c in connections.items() if c.enabled}
     used_nodes = set(a for (a, _) in used_conn.keys())
     used_nodes.update({b for (_, b) in used_conn.keys()})
-    used_nodes.update({n for n in inputs + outputs})
+    used_nodes.update(inputs | outputs)
     
     # Initialize with dummy to get the 'while' going
     removed_nodes = [True]
@@ -61,7 +61,7 @@ def required_for_output(inputs, outputs, connections):
         # Search for nodes to prune
         for n in used_nodes:
             # Inputs and outputs cannot be pruned
-            if n in inputs + outputs: continue
+            if n in inputs | outputs: continue
             
             # Node must be at least once both at the sender and the receiving side of a connection
             if not (n in {a for (a, _) in used_conn.keys()} and n in {b for (_, b) in used_conn.keys()}):

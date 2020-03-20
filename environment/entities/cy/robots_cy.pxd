@@ -39,3 +39,6 @@ cdef class MarXBotCy:
     cpdef list get_proximity_sensors(self)
     
     cpdef void set_active_sensors(self, set connections)
+
+
+cpdef set get_active_sensors(set connections, int total_input_size)

@@ -219,7 +219,6 @@ cdef class GameCy:
 
         :return: True: game successfully loaded | False: otherwise
         """
-        # Define used parameter
         cdef dict game
         try:
             game = load_pickle(f'{self.save_path}{self}')

@@ -66,7 +66,7 @@ cdef class MarXBotCy:
         self.active_sensors = set(self.sensors.keys())
     
     def __str__(self):
-        return "foot_bot"
+        return "MarXBot"
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     
@@ -96,7 +96,7 @@ cdef class MarXBotCy:
     cpdef list get_sensor_readings(self, set close_walls=None):
         """List of the current sensory-readings."""
         for i in self.active_sensors: self.sensors[i].measure(close_walls)
-        return [self.sensors[i].value for i in sorted(self.sensors)]
+        return [self.sensors[i].value for i in sorted(self.active_sensors)]
     
     cpdef float get_sensor_readings_distance(self):
         """Value of current distance-reading."""
@@ -141,7 +141,9 @@ cdef class MarXBotCy:
         self.sensors[len(self.sensors)] = ProximitySensorCy(sensor_id=len(self.sensors),
                                                             game=self.game,
                                                             angle=angle,
-                                                            pos_offset=self.game.bot_radius)
+                                                            pos_offset=self.game.bot_radius,
+                                                            max_dist=self.game.ray_distance,
+                                                            )
     
     cpdef void create_angular_sensors(self):
         """
@@ -176,6 +178,12 @@ cdef class MarXBotCy:
         
         :param connections: Set of all connections in tuple format (sending node, receiving node)
         """
-        # Exploit the fact that sensor inputs have negative connection keys
-        self.active_sensors = {a + len(self.sensors) for (a, _) in connections if a < 0}
-        self.active_sensors.add(len(self.sensors) - 1)  # Distance sensor must always be active!
+        self.active_sensors = get_active_sensors(connections=connections, total_input_size=len(self.sensors))
+        
+
+cpdef set get_active_sensors(set connections, int total_input_size):
+    """Get a set of all the used input-sensors based on the connections. The distance sensor is always used."""
+    # Exploit the fact that sensor inputs have negative connection keys
+    used = {a + total_input_size for (a, _) in connections if a < 0}
+    used.add(total_input_size - 1)  # Always use the distance sensor
+    return used

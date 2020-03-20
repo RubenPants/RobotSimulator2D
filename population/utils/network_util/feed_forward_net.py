@@ -25,6 +25,7 @@ import torch
 
 from config import GameConfig
 from environment.entities.game import initial_sensor_readings
+from environment.entities.robots import get_active_sensors
 from population.utils.genome_util.genes import GruNodeGene
 from population.utils.network_util.activations import relu_activation, tanh_activation
 from population.utils.network_util.graphs import required_for_output
@@ -33,6 +34,7 @@ from population.utils.network_util.shared import dense_from_coo
 
 class FeedForwardNet:
     def __init__(self,
+                 input_keys,
                  input_idx, hidden_idx, gru_idx, output_idx,
                  in2hid, in2out,
                  hid2hid, hid2out,
@@ -47,6 +49,7 @@ class FeedForwardNet:
         """
         Create a simple feedforward network used as the control-mechanism for the drones.
         
+        :param input_keys: Keys used for input, necessary for initial reading configuration
         :param input_idx: Input indices (sensors)
         :param hidden_idx: Hidden simple-node indices (DefaultGeneNode) in the network
         :param gru_idx: Hidden GRU-node indices (DefaultGeneNode) in the network
@@ -105,7 +108,7 @@ class FeedForwardNet:
         self.output_biases = torch.tensor(output_biases, dtype=dtype)
         
         # Put network to initial (default) state
-        self.initial_readings = initial_sensor_readings(game_config=game_config)
+        self.initial_readings = initial_sensor_readings(game_config=game_config, keys=input_keys)
         self.reset(cold_start=cold_start)
     
     def reset(self, cold_start=False):
@@ -202,20 +205,23 @@ class FeedForwardNet:
         :param cold_start: Do not initialize the network based on sensory inputs
         :param logger: A population's logger
         """
-        genome_config = config.genome_config
+        cfg = config.genome_config
         
         # Collect the nodes whose state is required to compute the final network output(s), this excludes the inputs
+        used_input = {a for a in get_active_sensors(connections=genome.connections.keys(),
+                                                    total_input_size=cfg.num_inputs)}
+        used_input_keys = {a - cfg.num_inputs for a in used_input}
         used_nodes, used_conn = required_for_output(
-                inputs=genome_config.input_keys,
-                outputs=genome_config.output_keys,
+                inputs=used_input_keys,
+                outputs=set(cfg.output_keys),
                 connections=genome.connections
         )
         
-        # Get a list of all the input, (used) hidden, and output keys
-        input_keys = sorted(genome_config.input_keys)
-        hidden_keys = [k for k in genome.nodes.keys() if (k not in genome_config.output_keys and k in used_nodes)]
+        # Get a list of all the (used) input, (used) hidden, and output keys
+        input_keys = sorted(used_input_keys)
+        hidden_keys = [k for k in genome.nodes.keys() if (k not in cfg.output_keys and k in used_nodes)]
         gru_keys = [k for k in hidden_keys if type(genome.nodes[k]) == GruNodeGene]
-        output_keys = list(genome_config.output_keys)
+        output_keys = list(cfg.output_keys)
         
         # Define the biases, note that inputs do not have a bias (since they aren't actually nodes!)
         hidden_biases = [genome.nodes[k].bias for k in hidden_keys]
@@ -297,6 +303,7 @@ class FeedForwardNet:
             gru_map.append(mapping)
         
         return FeedForwardNet(
+                input_keys=sorted(used_input),
                 input_idx=input_idx, hidden_idx=hidden_idx, gru_idx=gru_idx, output_idx=output_idx,
                 in2hid=in2hid, in2out=in2out,
                 hid2hid=hid2hid, hid2out=hid2out,

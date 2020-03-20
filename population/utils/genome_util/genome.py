@@ -334,8 +334,8 @@ class DefaultGenome(object):
     def size(self):
         """Returns genome 'complexity', taken to be (number of hidden nodes, number of enabled connections)"""
         used_nodes, used_conn = required_for_output(
-                inputs=[-i for i in range(1, self.num_inputs + 1)],
-                outputs=[i for i in range(self.num_outputs)],
+                inputs={-i for i in range(1, self.num_inputs + 1)},
+                outputs={i for i in range(self.num_outputs)},
                 connections=self.connections,
         )
         return len(used_nodes) - (self.num_inputs + self.num_outputs), len(used_conn)
