@@ -97,6 +97,10 @@ class DefaultClassConfig(object):
     """
     
     def __init__(self, param_dict, param_list):
+        # Placeholders
+        self.elitism = None
+        
+        # Initialize the parameters
         self._params = param_list
         param_list_names = []
         for p in param_list:

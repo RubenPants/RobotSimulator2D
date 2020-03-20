@@ -101,8 +101,8 @@ class StdOutReporter(BaseReporter):
         sids = list(iterkeys(species_set.species))
         sids.sort()
         msg = f"\nPopulation of {len(population):d} members in {len(species_set.species):d} species:" \
-              f"\n\t SID    age    size    fitness    adj fit    stag " \
-              f"\n\t=====  =====  ======  =========  =========  ======"
+              f"\n\t specie    age    size    fitness    adj fit    stag " \
+              f"\n\t========  =====  ======  =========  =========  ======"
         logger(msg) if logger else print(msg)
         for sid in sids:
             s = species_set.species[sid]
@@ -111,7 +111,7 @@ class StdOutReporter(BaseReporter):
             f = "--" if s.fitness is None else f"{s.fitness:.3f}"
             af = "--" if s.adjusted_fitness is None else f"{s.adjusted_fitness:.3f}"
             st = self.generation - s.last_improved
-            msg = f"\t{sid:^5}  {a:^5}  {n:^6}  {f:^9}  {af:^9}  {st:^6}"
+            msg = f"\t{sid:^8}  {a:^5}  {n:^6}  {f:^9}  {af:^9}  {st:^6}"
             logger(msg) if logger else print(msg)
         logger("") if logger else print()
         
