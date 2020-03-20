@@ -48,12 +48,11 @@ class MultiEnvironment:
         :param debug: Boolean specifying if debugging is enabled or not
         """
         genome_id, genome = genome  # Split up genome by id and genome itself
-        used_sensors = set(genome.connections.keys())
         net = self.make_net(genome=genome, config=self.neat_config, game_config=self.game_config, bs=self.batch_size)
         
         # Initialize the games on which the genome is tested
         games = [get_game(g, cfg=self.game_config) for g in self.games]
-        for g in games: g.player.set_active_sensors(used_sensors)  # Set active-sensors for each of the games
+        for g in games: g.player.set_active_sensors(set(genome.connections.keys()))  # Set active-sensors
         
         # Ask for each of the games the starting-state
         states = [g.reset()[D_SENSOR_LIST] for g in games]
@@ -105,12 +104,11 @@ class MultiEnvironment:
         :param debug: Boolean specifying if debugging is enabled or not
         """
         genome_id, genome = genome  # Split up genome by id and genome itself
-        used_sensors = set(genome.connections.keys())
         net = self.make_net(genome=genome, config=self.neat_config, game_config=self.game_config, bs=self.batch_size)
         
         # Initialize the games on which the genome is tested
         games = [get_game(g, cfg=self.game_config) for g in self.games]
-        for g in games: g.player.set_active_sensors(used_sensors)  # Set active-sensors for each of the games
+        for g in games: g.player.set_active_sensors(set(genome.connections.keys()))  # Set active-sensors
         
         # Ask for each of the games the starting-state
         states = [g.reset()[D_SENSOR_LIST] for g in games]

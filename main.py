@@ -12,11 +12,11 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     
     # Main methods
-    parser.add_argument('--train', type=bool, default=False)
+    parser.add_argument('--train', type=bool, default=True)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--trace', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
-    parser.add_argument('--genome', type=bool, default=True)
+    parser.add_argument('--genome', type=bool, default=False)
     parser.add_argument('--live', type=bool, default=False)
     
     # Extra arguments
@@ -26,9 +26,9 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     pop = Population(
-            name='path_3',
+            name='test',
             # version=1,
-            folder_name='NEAT-GRU',
+            folder_name='test',
     )
     if not pop.best_genome: pop.best_genome = list(pop.population.values())[0]
     # pop.best_genome = list(pop.population.values())[111]  # TODO

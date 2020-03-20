@@ -4,7 +4,6 @@
 
 ## TODO
 
-* Visualizations genomes --> active inputs!
 * Keep best three genomes of each generation (store in population)
 * Self-adaptive NEAT?
 * Let make_net only use the active inputs (unchanged during run!)

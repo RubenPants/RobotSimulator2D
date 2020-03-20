@@ -87,7 +87,6 @@ class Population:
         
         # Try to load the population, create new if not possible
         if not self.load():
-            assert (make_net_method is not None) and (query_net_method is not None)  # net-methods must be provided
             self.create_population(cfg=self.neat_config,
                                    make_net_method=make_net_method,
                                    query_net_method=query_net_method)

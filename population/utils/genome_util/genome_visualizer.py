@@ -52,8 +52,8 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
     
     # Get the used hidden nodes and all used connections
     used_nodes, used_conn = required_for_output(
-            inputs=config.genome_config.input_keys,
-            outputs=config.genome_config.output_keys,
+            inputs=set(config.genome_config.input_keys),
+            outputs=set(config.genome_config.output_keys),
             connections=genome.connections
     )
     
