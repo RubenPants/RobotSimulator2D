@@ -19,7 +19,7 @@ from population.utils.population_util.species import DefaultSpecies
 from population.utils.population_util.stagnation import DefaultStagnation
 from population.utils.reporter_util.reporting import ReporterSet, StdOutReporter
 from population.utils.reporter_util.statistics import StatisticsReporter
-from utils.dictionary import D_FIT_COMB, D_K, D_TAG
+from utils.dictionary import D_FIT_COMB, D_K, D_SAFE_ZONE, D_TAG
 from utils.myutils import append_log, get_subfolder, load_pickle, store_pickle, update_dict
 
 
@@ -129,9 +129,10 @@ class Population:
         
         # Config specific for fitness
         self.fitness_config = {
-            D_FIT_COMB: cfg.fitness_comb,
-            D_K:        cfg.nn_k,
-            D_TAG:      cfg.fitness,
+            D_FIT_COMB:  cfg.fitness_comb,
+            D_K:         cfg.nn_k,
+            D_TAG:       cfg.fitness,
+            D_SAFE_ZONE: cfg.safe_zone,
         }
         
         # Create a population from scratch, then partition into species

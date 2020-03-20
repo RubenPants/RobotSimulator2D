@@ -5,14 +5,21 @@ This file contains multiple possible fitness functions. Each of the fitness func
  the ID of the corresponding candidate, and as value a list of all its final observations (i.e. list of game.close()
  dictionaries). Based on this input, a suitable fitness value for each of the candidates is determined.
 """
+import sys
 from math import sqrt
 
 import numpy as np
 from scipy import stats
-from sklearn.neighbors import NearestNeighbors
 
 from config import GameConfig
 from utils.dictionary import *
+
+if sys.platform == 'linux':
+    from utils.cy.intersection_cy import line_line_intersection_cy as intersection
+    from utils.cy.line2d_cy import Line2dCy as Line
+else:
+    from utils.intersection import line_line_intersection as intersection
+    from utils.line2d import Line2d as Line
 
 
 # --------------------------------------------------> MAIN METHODS <-------------------------------------------------- #
@@ -85,6 +92,7 @@ def fitness_per_game(fitness_config: dict, game_observations: dict, game_params:
                 game_observations=game_observations,
                 game_params=game_params,
                 k=fitness_config[D_K],
+                safe_zone=fitness_config[D_SAFE_ZONE],
         )
     elif tag == D_PATH:
         return fitness_path(
@@ -128,7 +136,7 @@ def distance(game_observations: dict):
     return fitness
 
 
-def diversity(game_observations: dict, game_params: list, gen: int, k: int):
+def diversity(game_observations: dict, game_params: list, gen: int, k: int = 3, safe_zone: float = 1):
     """
     Every end of 10 generations, filter out the most fit candidates based on their distance towards the target,
      otherwise for enforce novelty.
@@ -137,91 +145,66 @@ def diversity(game_observations: dict, game_params: list, gen: int, k: int):
     :param game_params: List of game specific parameters for each of the used games (in order)
     :param gen: Population's current generation
     :param k: The number of neighbours taken into account
+    :param safe_zone: The range surrounding a genome in which other neighbours are taken into account
     :return: { genome_id, [fitness_floats] }
     """
     if (gen + 1) % 10 == 0:
         return distance(game_observations=game_observations)
     else:
-        return novelty_search(game_observations=game_observations, game_params=game_params, k=k)
+        return novelty_search(game_observations=game_observations, game_params=game_params, k=k, safe_zone=safe_zone)
 
 
-def novelty_search(game_observations: dict, game_params: list, k: int = 5):
+def novelty_search(game_observations: dict, game_params: list, k: int = 3, safe_zone: int = 1):
     """
-    This method is used to apply the novelty-search across different games. This is the method that must be called by
-     the evaluator-environment. The fitness ranges between 0 and 1.
+    Rate a genome based on its novelty. A 'more novel' genomes is further placed away from its peers than another
+     genome. This novelty is based on the final position of the genome. A genome gets a perfect score if no other
+     genomes are within a 1 meter range of the genome's center or the genome reached the target.
+     
+    :note: Distance measures take walls into account. Two genomes close to each other with a wall between them are not
+     considered nearby.
     
-    :param game_observations: Dictionary containing for each genome the list of all its game.close() results
+    :param game_observations: Dictionary containing for each genome (key) the list of all its game.close() results
     :param game_params: List of game specific parameters for each of the used games (in order)
-    :param k: The number of neighbours taken into account
+    :param k: Number of closest neighbours taken into account
+    :param safe_zone: The range surrounding a genome in which other neighbours are taken into account
     :return: { genome_id, [fitness_floats] }
     """
-    # Get base attributes
-    candidates = list(game_observations.keys())
-    n_games = len(list(game_observations.values())[0])
+    # For each game, create a dictionary of the genome-id mapped to its position
+    position_dict = dict()
+    for game_id in range(len(game_params)): position_dict[game_id] = dict()
+    for genome_id, observations in game_observations.items():
+        for game_id, observation in enumerate(observations):
+            position_dict[game_id][genome_id] = observation[D_POS]
     
-    # Init cumulative dictionary
-    cum_novelty = dict()
-    for c in candidates: cum_novelty[c] = []
-    
-    # Add novelty-scores for each of the candidates for each of the games
-    for i in range(n_games):
-        # Get observation for given game
-        obs = dict()
-        for c in candidates: obs[c] = game_observations[c][i]
-        ns = novelty_search_game(obs, game_params, k=k)
+    # Define the fitness for each genome at each game
+    distance_dict = dict()
+    for game_id, positions in position_dict.items():
+        distance_dict[game_id] = dict()
         
-        # Append to cumulative novelty score
-        for c in candidates:
-            cum_novelty[c].append(ns[c])
-    return cum_novelty
-
-
-# TODO: Not sure if proper Novelty function (add one by one?)
-def novelty_search_game(game_observations: dict, game_params: list, k: int = 5):
-    """
-    Candidates are given a fitness based on how novel their position is. For each candidate, the distance to its k
-     nearest neighbours is determined, which are then summed up with each other. Novel candidates are the ones that are
-     far away from other candidates, thus have a (relative) low summed distance the the k-nearest neighbours. The idea
-     behind novelty search is that it simulates an efficient search across the whole search-space, whilst only
-     evaluating the candidates on their phenotype (final position).
+        # Go over each genome to measure its lengths towards the other genomes
+        cache = DistanceCache(safe_zone=safe_zone)
+        for genome_id, genome_pos in positions.items():
+            # Go over all the other genomes
+            dist = set()
+            for other_genome_id, other_genome_pos in positions.items():
+                if genome_id == other_genome_id: continue
+                d = cache.distance(pos1=genome_pos,
+                                   pos2=other_genome_pos,
+                                   walls=game_params[game_id][D_WALLS])
+                if d < safe_zone: dist.add(d)
+            
+            # Add the k neighbours that are closest by
+            distance_dict[game_id][genome_id] = sorted(dist)[:k]
     
-    Briefly said: the further away a candidate is from the other candidates (in crows fly), the 'fitter' it is.
-    
-    :param game_observations: Dictionary containing for each genome the list of all its game.close() results
-    :param game_params: List of game specific parameters for each of the used games (in order)
-    :param k: The number of neighbours taken into account
-    :return: Dictionary: key=genome_id, val=fitness of one game as a float
-    """
-    ids = list(game_observations.keys())
-    assert (k > 0)  # Check if algorithm considers at least one neighbor
-    assert (len(ids) > k)  # Check if k is not greater than population-size
-    
-    # Shuffle the ids randomly
-    ids = list(np.random.permutation(ids))
-    
-    # Get the positions of the k first positions
-    positions = np.asarray([game_observations[ids[i]][D_POS] for i in range(k + 1)])
-    
-    # Determine distance of first k neighbours
-    distance = dict()
-    knn = NearestNeighbors(n_neighbors=(k + 1)).fit(positions)  # k+1 since a candidate includes itself
-    knn_distances, _ = knn.kneighbors(positions)  # Array of distances to k+1 nearest neighbors
-    for i in range(k + 1):
-        distance[ids[i]] = sum(knn_distances[i])
-    
-    # Iteratively append rest of candidates and determine distance
-    for i in range(k + 1, len(ids)):
-        positions = np.concatenate([positions, [game_observations[ids[i]][D_POS]]])
-        knn = NearestNeighbors(n_neighbors=(k + 1)).fit(positions)
-        knn_distances, _ = knn.kneighbors(positions)
-        distance[ids[i]] = sum(knn_distances[i])
-    
-    # Normalize the distance
-    max_distance = max(distance.values())
-    for k in distance.keys(): distance[k] /= max_distance
-    
-    # Return result
-    return distance
+    # Stitch results together such that each genome is mapped to a fitness-list
+    fitness_dict = dict()
+    for genome_id in game_observations.keys():
+        fitness_dict[genome_id] = []
+        for game_id in range(len(game_params)):
+            score = (sum(distance_dict[game_id][genome_id]) / (safe_zone * k)) ** 2
+            assert 0 <= score <= 1.0
+            fitness_dict[genome_id].append(score)
+    return fitness_dict
 
 
 def fitness_path(game_observations: dict, game_params: list):
@@ -252,3 +235,30 @@ def fitness_path(game_observations: dict, game_params: list):
 def clip(v):
     """Clip the value between 0 and 1."""
     return np.clip(v, a_min=0, a_max=1)
+
+
+class DistanceCache:
+    """Cache for the distance-checks."""
+    
+    def __init__(self, safe_zone):
+        self.distances = dict()
+        self.range = safe_zone
+    
+    def distance(self, pos1, pos2, walls):
+        """Determine the distance between two positions. If the"""
+        # Check cache
+        if pos2 < pos1: pos2, pos1 = pos1, pos2
+        l = Line(pos1, pos2)
+        if l in self.distances: return self.distances[l]
+        
+        # Not in cache, determine distance
+        intersect = False
+        for wall in walls:
+            inter, _ = intersection(l, wall)
+            if inter:
+                intersect = True
+                break
+        
+        # Add the distance if the other genome is in the 1m-zone and no wall in between
+        self.distances[l] = l.get_length() if not intersect and (l.get_length() < self.range) else float('inf')
+        return self.distances[l]

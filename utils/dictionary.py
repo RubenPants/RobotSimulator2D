@@ -89,6 +89,7 @@ D_QUALITY_DIVERSITY = 'quality_diversity'
 D_RELU = 'relu'
 
 # S
+D_SAFE_ZONE = 'safe_zone'
 D_SENSOR_LIST = 'sensor_list'
 D_SENSORS = 'sensors'
 D_SENSOR_ANGLE = 'angular_sensor'
