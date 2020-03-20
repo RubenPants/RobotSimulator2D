@@ -65,8 +65,8 @@ class MarXBot:
         # Set all the active sensors
         self.active_sensors = set(self.sensors.keys())
     
-    def __str__(self, gen=None):
-        return "foot_bot".format(f"_{gen:04d}" if gen else "")
+    def __str__(self):
+        return "MarXBot"
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     

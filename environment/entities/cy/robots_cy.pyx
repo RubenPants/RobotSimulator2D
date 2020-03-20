@@ -66,7 +66,7 @@ cdef class MarXBotCy:
         self.active_sensors = set(self.sensors.keys())
     
     def __str__(self):
-        return "foot_bot"
+        return "MarXBot"
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     
@@ -141,7 +141,9 @@ cdef class MarXBotCy:
         self.sensors[len(self.sensors)] = ProximitySensorCy(sensor_id=len(self.sensors),
                                                             game=self.game,
                                                             angle=angle,
-                                                            pos_offset=self.game.bot_radius)
+                                                            pos_offset=self.game.bot_radius,
+                                                            max_dist=self.game.ray_distance,
+                                                            )
     
     cpdef void create_angular_sensors(self):
         """

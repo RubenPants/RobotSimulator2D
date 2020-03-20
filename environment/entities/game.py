@@ -273,6 +273,6 @@ def get_game(i: int, cfg: GameConfig):
 
 def initial_sensor_readings(game_config, keys=None):
     """Return a list of the sensors their maximum value."""
-    game = Game(game_id=0, config=game_config, silent=True)
+    game = Game(game_id=0, config=game_config, silent=True)  # Dummy game
     if keys: game.player.active_sensors = set(keys)  # Only read in the active sensors
     return game.player.get_sensor_readings()
