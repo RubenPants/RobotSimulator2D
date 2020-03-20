@@ -176,7 +176,7 @@ class NeatConfig:
         # The standard deviation of the zero-centered gaussian from which a weight value mutation is drawn  [def=0.1]
         self.weight_mutate_power: float = 0.1
         # Probability of a weight (connection) to mutate  [def=0.2]  TODO
-        self.weight_mutate_rate: float = 0.6
+        self.weight_mutate_rate: float = 0.4
         # Probability of a GRU-weight to mutate  [def=0.1]  TODO
         self.weight_mutate_rate_gru: float = 0.2
         # Probability of assigning completely new value, based on weight_init_mean and weight_init_stdev  [def=0.05]
