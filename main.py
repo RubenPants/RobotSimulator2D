@@ -26,9 +26,9 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     pop = Population(
-            name='test',
+            name='path_3',
             # version=1,
-            folder_name='test',
+            folder_name='NEAT-GRU',
     )
     if not pop.best_genome: pop.best_genome = list(pop.population.values())[0]
     # pop.best_genome = list(pop.population.values())[111]  # TODO
@@ -112,7 +112,7 @@ if __name__ == '__main__':
             
             visualizer.visualize(
                     network=net,
-                    game_id=1,
+                    game_id=3,
             )
     except Exception as e:
         pop.log(traceback.format_exc(), print_result=False)

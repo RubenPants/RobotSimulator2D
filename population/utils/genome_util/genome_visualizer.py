@@ -62,12 +62,14 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
     for index, key in enumerate(config.genome_config.input_keys):
         inputs.add(key)
         name = node_names.get(key)
+        active = {a for (a, b) in used_conn if a < 0}
+        color = '#e3e3e3' if key in active else '#9e9e9e'
         dot.node(
                 name,
                 style='filled',
                 shape='box',
-                fillcolor=node_colors.get(key, 'lightgray'),
-                pos=f"{index * 10},0!"
+                fillcolor=node_colors.get(key, color),
+                pos=f"{index * 20},0!"
         )
     
     # Visualize output nodes
@@ -85,7 +87,7 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
                 style='filled',
                 shape='box',
                 fillcolor=node_colors.get(key, '#bdc5ff'),
-                pos=f"{50 + index * 50}, {40 + (len(used_nodes) - len(node_names)) * (20 if debug else 10)}!",
+                pos=f"{100 + index * 100}, {200 + (len(used_nodes) - len(node_names)) * (50 if debug else 20)}!",
         )
     
     # Visualize hidden nodes
@@ -127,7 +129,7 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
         sending_node, receiving_node = cg.key
         if sending_node in used_nodes and receiving_node in used_nodes:
             color = 'green' if cg.weight > 0 else 'red'
-            width = str(0.1 + abs(cg.weight / 5.0))
+            width = str(0.1 + abs(cg.weight * 5))
             dot.edge(
                     node_names.get(sending_node),
                     node_names.get(receiving_node),
