@@ -50,18 +50,18 @@ class MarXBot:
             self.prev_pos.y = init_pos.y
         else:
             self.init_pos = Vec2d(0, 0)
-        self.init_angle = init_orient  # Initial angle
-        self.angle = init_orient  # Current angle
-        self.prev_angle = init_orient  # Previous angle
-        self.radius = r  # Radius of the bot
+        self.init_angle: float = init_orient  # Initial angle
+        self.angle: float = init_orient  # Current angle
+        self.prev_angle: float = init_orient  # Previous angle
+        self.radius: float = r  # Radius of the bot
         
         # Container of all the sensors
-        self.sensors = dict()
+        self.sensors: dict = dict()
         
         # Counters for number of sensors used
-        self.n_proximity = 0
-        self.n_angular = 0
-        self.n_distance = 0
+        self.n_proximity: int = 0
+        self.n_angular: int = 0
+        self.n_distance: int = 0
         
         # Create the sensors (fixed order!)
         self.create_proximity_sensors()
@@ -184,10 +184,6 @@ class MarXBot:
             self.add_proximity_sensor(angle=-np.pi / 18 - i * np.pi / 9)
         self.add_proximity_sensor(angle=-3 * np.pi / 4)  # -135° (clockwise)
     
-    def get_proximity_sensors(self):
-        """Get a list of all proximity sensors."""
-        return [self.sensors[i] for i in range(13)]
-    
     def set_active_sensors(self, connections: set):
         """
         Update all the sensor keys used by the robot.
@@ -216,11 +212,11 @@ def get_snapshot():
     sensor_size = len(r.sensors)
     for k, v in r.sensors.items():
         if type(v) == ProximitySensor:
-            snapshot[k-sensor_size] = str(v)
+            snapshot[k - sensor_size] = str(v)
         elif type(v) == AngularSensor:
             snapshot[k - sensor_size] = str(v)
         elif type(v) == DistanceSensor:
-            snapshot[k-sensor_size] = str(v)
+            snapshot[k - sensor_size] = str(v)
         else:
             raise TypeError(f"Sensor type '{type(v)}' is undefined")
     return snapshot

@@ -56,4 +56,4 @@ cdef class GameCy:
 
 cpdef set get_boundary_walls(int x_axis, int y_axis)
 
-cpdef GameCy get_game_cy(int i, cfg)
+cpdef GameCy get_game_cy(int i, cfg=?)
