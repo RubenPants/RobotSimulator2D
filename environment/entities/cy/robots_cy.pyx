@@ -6,6 +6,7 @@ Robots used to manoeuvre around in the Game-environment.
 import numpy as np
 cimport numpy as np
 
+from environment.entities.robots import get_proximity_angles, get_angular_directions
 from sensors_cy cimport AngularSensorCy, DistanceSensorCy, ProximitySensorCy
 from utils.cy.vec2d_cy cimport angle_to_vec, Vec2dCy
 
@@ -15,6 +16,7 @@ cdef class MarXBotCy:
     __slots__ = (
         "game",
         "pos", "prev_pos", "init_pos", "init_angle", "angle", "prev_angle", "radius",
+        "n_proximity", "n_angular", "n_distance",
         "sensors", "active_sensors",
     )
     
@@ -57,16 +59,24 @@ cdef class MarXBotCy:
         # Container of all the sensors
         self.sensors = dict()
         
+        # Counters for number of sensors used
+        self.n_proximity = 0
+        self.n_angular = 0
+        self.n_distance = 0
+        
         # Create the sensors (fixed order!)
         self.create_proximity_sensors()
         self.create_angular_sensors()
         self.add_distance_sensor()
         
+        # Number of distance-sensors must always be equal to 1
+        assert self.n_distance == 1
+        
         # Set all the active sensors
         self.active_sensors = set(self.sensors.keys())
     
     def __str__(self):
-        return "foot_bot"
+        return "MarXBot"
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     
@@ -96,7 +106,7 @@ cdef class MarXBotCy:
     cpdef list get_sensor_readings(self, set close_walls=None):
         """List of the current sensory-readings."""
         for i in self.active_sensors: self.sensors[i].measure(close_walls)
-        return [self.sensors[i].value for i in sorted(self.sensors)]
+        return [self.sensors[i].value for i in sorted(self.active_sensors)]
     
     cpdef float get_sensor_readings_distance(self):
         """Value of current distance-reading."""
@@ -122,11 +132,13 @@ cdef class MarXBotCy:
         self.sensors[len(self.sensors)] = AngularSensorCy(sensor_id=len(self.sensors),
                                                           game=self.game,
                                                           clockwise=clockwise)
+        self.n_angular += 1
     
     cpdef void add_distance_sensor(self):
         """Single distance sensor which determines distance between agent's center and target's center."""
         self.sensors[len(self.sensors)] = DistanceSensorCy(sensor_id=len(self.sensors),
                                                            game=self.game)
+        self.n_distance += 1
     
     cpdef void add_proximity_sensor(self, float angle):
         """
@@ -141,15 +153,18 @@ cdef class MarXBotCy:
         self.sensors[len(self.sensors)] = ProximitySensorCy(sensor_id=len(self.sensors),
                                                             game=self.game,
                                                             angle=angle,
-                                                            pos_offset=self.game.bot_radius)
+                                                            pos_offset=self.game.bot_radius,
+                                                            max_dist=self.game.ray_distance,
+                                                            )
+        self.n_proximity += 1
     
     cpdef void create_angular_sensors(self):
         """
         Two angular sensors that define the angle between the orientation the agent is heading and the agent towards the
         target 'in crows flight'. One measures this angle in clockwise, the other counterclockwise.
         """
-        self.add_angular_sensors(clockwise=True)
-        self.add_angular_sensors(clockwise=False)
+        cdef bint clockwise
+        for clockwise in get_angular_directions(): self.add_angular_sensors(clockwise=clockwise)
     
     cpdef void create_proximity_sensors(self):
         """
@@ -157,18 +172,8 @@ cdef class MarXBotCy:
          meters of distance. The proximity sensors are not evenly spaced, since the fact that the robot has a front will
          be exploited. Sensors are added from the left-side of the drone to the right.
         """
-        cdef int i
-        self.add_proximity_sensor(angle=3 * np.pi / 4)  # -135°
-        for i in range(5):  # -90° until -10° with hops of 20° (total of 5 sensors)
-            self.add_proximity_sensor(angle=np.pi / 2 - i * np.pi / 9)
-        self.add_proximity_sensor(angle=0)  # 0°
-        for i in range(5):  # 10° until 90° with hops of 20° (total of 5 sensors)
-            self.add_proximity_sensor(angle=-np.pi / 18 - i * np.pi / 9)
-        self.add_proximity_sensor(angle=-3 * np.pi / 4)  # 135°
-    
-    cpdef list get_proximity_sensors(self):
-        """Get a list of all proximity sensors."""
-        return [self.sensors[i] for i in range(13)]
+        cdef float angle
+        for angle in get_proximity_angles(): self.add_proximity_sensor(angle=angle)
     
     cpdef void set_active_sensors(self, set connections):
         """
@@ -176,6 +181,12 @@ cdef class MarXBotCy:
         
         :param connections: Set of all connections in tuple format (sending node, receiving node)
         """
-        # Exploit the fact that sensor inputs have negative connection keys
-        self.active_sensors = {a + len(self.sensors) for (a, _) in connections if a < 0}
-        self.active_sensors.add(len(self.sensors) - 1)  # Distance sensor must always be active!
+        self.active_sensors = get_active_sensors(connections=connections, total_input_size=len(self.sensors))
+        
+
+cpdef set get_active_sensors(set connections, int total_input_size):
+    """Get a set of all the used input-sensors based on the connections. The distance sensor is always used."""
+    # Exploit the fact that sensor inputs have negative connection keys
+    used = {a + total_input_size for (a, _) in connections if a < 0}
+    used.add(total_input_size - 1)  # Always use the distance sensor
+    return used

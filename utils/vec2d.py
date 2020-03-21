@@ -57,6 +57,28 @@ class Vec2d(object):
         else:
             return False
     
+    def __lt__(self, other):
+        if hasattr(other, "__getitem__") and len(other) == 2:
+            if self.x < other[0]:
+                return True
+            elif (self.x == other[0]) and (self.y < other[1]):
+                return True
+            else:
+                return False
+        else:
+            raise TypeError(f"Not possible to use '<' operator on objects {type(self)} and {type(other)}")
+        
+    def __gt__(self, other):
+        if hasattr(other, "__getitem__") and len(other) == 2:
+            if self.x > other[0]:
+                return True
+            elif (self.x == other[0]) and (self.y > other[1]):
+                return True
+            else:
+                return False
+        else:
+            raise TypeError(f"Not possible to use '>' operator on objects {type(self)} and {type(other)}")
+    
     def __ne__(self, other):
         if hasattr(other, "__getitem__") and len(other) == 2:
             return self.x != other[0] or self.y != other[1]

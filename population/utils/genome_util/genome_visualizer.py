@@ -8,13 +8,14 @@ import os
 from graphviz import Digraph
 
 from population.utils.genome_util.genes import DefaultNodeGene, GruNodeGene
+from population.utils.genome_util.genome import DefaultGenome
 from population.utils.network_util.graphs import required_for_output
 
 # Add graphviz to path
 os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/'
 
 
-def draw_net(config, genome, debug=False, filename=None, view=True):
+def draw_net(config, genome: DefaultGenome, debug=False, filename=None, view=True):
     """
     Visualize the structure of one genome.
     
@@ -26,24 +27,10 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
     """
     # Assign names to sensors (hard-coded since immutable)
     node_names = dict()
-    node_names[-16] = 'proximity -135°'
-    node_names[-15] = 'proximity -90°'
-    node_names[-14] = 'proximity -70°'
-    node_names[-13] = 'proximity -50°'
-    node_names[-12] = 'proximity -30°'
-    node_names[-11] = 'proximity -10°'
-    node_names[-10] = 'proximity 0°'
-    node_names[-9] = 'proximity 10°'
-    node_names[-8] = 'proximity 30°'
-    node_names[-7] = 'proximity 50°'
-    node_names[-6] = 'proximity 70°'
-    node_names[-5] = 'proximity 90°'
-    node_names[-4] = 'proximity 135°'
-    node_names[-3] = 'angular left'
-    node_names[-2] = 'angular right'
-    node_names[-1] = 'distance'
+    node_names.update(genome.robot_snapshot)
     node_names[0] = 'left wheel'
     node_names[1] = 'right wheel'
+    num_inputs = len(genome.robot_snapshot)
     
     # Visualizer specific functionality
     node_colors = dict()
@@ -52,8 +39,8 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
     
     # Get the used hidden nodes and all used connections
     used_nodes, used_conn = required_for_output(
-            inputs=config.genome_config.input_keys,
-            outputs=config.genome_config.output_keys,
+            inputs=set(config.genome_config.input_keys),
+            outputs=set(config.genome_config.output_keys),
             connections=genome.connections
     )
     
@@ -62,12 +49,14 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
     for index, key in enumerate(config.genome_config.input_keys):
         inputs.add(key)
         name = node_names.get(key)
+        active = {a for (a, b) in used_conn if a < 0}
+        color = '#e3e3e3' if key in active else '#9e9e9e'
         dot.node(
                 name,
                 style='filled',
                 shape='box',
-                fillcolor=node_colors.get(key, 'lightgray'),
-                pos=f"{index * 10},0!"
+                fillcolor=node_colors.get(key, color),
+                pos=f"{index * 20},0!"
         )
     
     # Visualize output nodes
@@ -85,7 +74,8 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
                 style='filled',
                 shape='box',
                 fillcolor=node_colors.get(key, '#bdc5ff'),
-                pos=f"{50 + index * 50}, {40 + (len(used_nodes) - len(node_names)) * (20 if debug else 10)}!",
+                pos=f"{(num_inputs - 5) * 10 + index * 100}, "
+                    f"{200 + (len(used_nodes) - len(node_names)) * (50 if debug else 20)}!",
         )
     
     # Visualize hidden nodes
@@ -127,7 +117,7 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
         sending_node, receiving_node = cg.key
         if sending_node in used_nodes and receiving_node in used_nodes:
             color = 'green' if cg.weight > 0 else 'red'
-            width = str(0.1 + abs(cg.weight / 5.0))
+            width = str(0.1 + abs(cg.weight * 5))
             dot.edge(
                     node_names.get(sending_node),
                     node_names.get(receiving_node),

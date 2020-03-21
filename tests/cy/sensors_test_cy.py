@@ -61,7 +61,7 @@ class AngularSensorTestCy(unittest.TestCase):
         # Update player and target position
         game.target = Vec2dCy(1, 1)
         game.set_player_pos(Vec2dCy(0, 0))
-        game.set_player_angle(0)
+        game.set_player_angle(0)  # Looking to the right
         
         # Update the player's sensor-set
         game.player.sensors = dict()
@@ -145,6 +145,34 @@ class ProximitySensorTestCy(unittest.TestCase):
         sensor_values = game.player.get_sensor_readings()
         for s in sensor_values:
             self.assertAlmostEqual(s, float(game.ray_distance), delta=EPSILON_DISTANCE)
+    
+    def test_left_wall(self):
+        """> Test when only wall on the agent's left."""
+        # Folder must be root to load in make_net properly
+        if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
+        
+        # Create empty game
+        game = get_game()
+        
+        # Add walls to maze that are far enough from agent
+        a = Vec2dCy(0, 5)
+        b = Vec2dCy(5, 5)
+        game.walls.add(Line2dCy(a, b))
+        
+        # Update player and target position
+        game.set_player_pos(Vec2dCy(4, 4))  # Center of empty maze
+        game.set_player_angle(0)  # Looking to the right
+        
+        # Reset the sensors with only one sensor to its left and one to its front
+        game.player.sensors = dict()
+        game.player.add_proximity_sensor(angle=np.pi / 2)  # To the agent's left
+        game.player.add_proximity_sensor(angle=0)
+        game.player.active_sensors = set(game.player.sensors.keys())
+        
+        # Ask for the proximity-measures
+        sensor_values = game.player.get_sensor_readings()
+        self.assertAlmostEqual(sensor_values[0], (1 - game.player.radius), delta=EPSILON_DISTANCE)
+        self.assertAlmostEqual(sensor_values[1], game.ray_distance, delta=EPSILON_DISTANCE)
     
     def test_cubed(self):
         """> Test proximity sensors when fully surrounded by walls."""

@@ -14,6 +14,7 @@ cdef class MarXBotCy:
     cdef public Vec2dCy pos, prev_pos, init_pos
     cdef public float angle, prev_angle, init_angle, radius
     cdef public dict sensors
+    cdef public int n_proximity, n_angular, n_distance
     cdef public set active_sensors
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
@@ -36,6 +37,7 @@ cdef class MarXBotCy:
     
     cpdef void create_proximity_sensors(self)
     
-    cpdef list get_proximity_sensors(self)
-    
     cpdef void set_active_sensors(self, set connections)
+
+
+cpdef set get_active_sensors(set connections, int total_input_size)

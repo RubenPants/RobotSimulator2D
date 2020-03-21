@@ -10,7 +10,6 @@ import random
 
 import numpy as np
 
-from utils.dictionary import *
 from utils.intersection import line_line_intersection
 from utils.line2d import Line2d
 from utils.vec2d import Vec2d
@@ -76,7 +75,7 @@ class AngularSensor(Sensor):
         self.clockwise = clockwise
     
     def __str__(self):
-        return f"{D_SENSOR_ANGLE}_{self.id:02d}"
+        return f"angular {'right' if self.clockwise else 'left'}"
     
     def measure(self, close_walls: set = None):
         """Update self.value, result is a float between 0 and 2*PI."""
@@ -110,7 +109,7 @@ class DistanceSensor(Sensor):
         super().__init__(game=game, sensor_id=sensor_id)
     
     def __str__(self):
-        return f"{D_SENSOR_DISTANCE}_{self.id:02d}"
+        return "distance"
     
     def measure(self, close_walls: set = None):
         """Update self.value to current distance between target and robot's center coordinate."""
@@ -150,7 +149,7 @@ class ProximitySensor(Sensor):
         self.end_pos = None  # Placeholder for end-point of proximity sensor
     
     def __str__(self):
-        return f"{D_SENSOR_PROXIMITY}_{self.id:02d}"
+        return f"proximity {round(self.angle * 180 / np.pi)}"
     
     def measure(self, close_walls: set = None):
         """

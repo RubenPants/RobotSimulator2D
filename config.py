@@ -28,10 +28,10 @@ class GameConfig:
         self.bot_turning_speed: float = 3.53
         
         # [CONTROL]
-        # Number of games on which a single genome is evaluated  [def=10]  TODO
-        self.batch: int = 16
-        # Number of seconds it takes for one game to complete  [def=60]  TODO
-        self.duration: int = 60
+        # Number of games on which a single genome is evaluated  [def=12]  TODO
+        self.batch: int = 12
+        # Number of seconds it takes for one game to complete  [def=100]  TODO
+        self.duration: int = 100
         # Max ID of game (starting from 1)  [def=1000]
         self.max_game_id: int = 1000
         # Max ID of evaluation game (starting from max_id)  [def=1100]
@@ -146,9 +146,9 @@ class NeatConfig:
         # Coefficient for each weight or bias difference contribution to the genomic distance  [def=0.5]
         self.compatibility_weight_coefficient: float = 0.5
         # Probability of adding a connection between existing nodes during mutation (each generation)  [def=0.2]  TODO
-        self.conn_add_prob: float = 0.2
+        self.conn_add_prob: float = 0.1
         # Probability of deleting an existing connection during mutation (each generation)  [def=0.15]  TODO
-        self.conn_delete_prob: float = 0.15
+        self.conn_delete_prob: float = 0.1
         # Enable the algorithm to disable (and re-enable) existing connections  [def=True]
         self.enabled_default: bool = True
         # The probability that mutation will replace the 'enabled status' of a connection  [def=0.05]
@@ -156,13 +156,11 @@ class NeatConfig:
         # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT_05]  TODO
         self.initial_connection = D_PARTIAL_DIRECT_05
         # Probability of adding a node during mutation (each generation)  [def=0.1]  TODO
-        self.node_add_prob: float = 0.1
+        self.node_add_prob: float = 0.05
         # Probability of removing a node during mutation (each generation)  [def=0.075]  TODO
-        self.node_delete_prob: float = 0.075
+        self.node_delete_prob: float = 0.05
         # Number of hidden nodes to add to each genome in the initial population  [def=0]  TODO
         self.num_hidden: int = 0
-        # Number of input nodes (the sensors): [13x proximity_sensor, 2x angular_sensor, 1x distance_sensor]  [def=26]
-        self.num_inputs: int = 16
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
         self.num_outputs: int = 2
         # Mean of the gaussian distribution used to select the weight attribute values for new connections  [def=0]
@@ -182,7 +180,7 @@ class NeatConfig:
         # Probability of assigning completely new value, based on weight_init_mean and weight_init_stdev  [def=0.05]
         self.weight_replace_rate: float = 0.05
         
-        # [DefaultSpeciesSet]
+        # [DefaultSpecies]
         # Individuals whose genetic distance is less than this threshold are in the same specie  [def=2.0]
         self.compatibility_threshold: float = 2.0
         # Remove a specie if it hasn't improved over this many number of generations  [def=15]
@@ -196,17 +194,21 @@ class NeatConfig:
         
         # [EVALUATION]
         # Fitness functions [distance, diversity, novelty, path]  TODO
-        self.fitness: str = D_DISTANCE
+        self.fitness: str = D_NOVELTY
         # Function to combine the fitness-values across different games, choices are: min, avg, max, gmean  [def=gmean]
         self.fitness_comb: str = D_GMEAN
         # Number of nearest neighbors taken into account for a NN-utilizing fitness function  [def=3]
         self.nn_k: int = 3
+        # Safe zone during novelty search, neighbours outside this range are not taken into account  [def=1]
+        self.safe_zone: float = 1
         
         # [GRU]
         # Enable the genomes to mutate GRU nodes  [def=True]  TODO
         self.gru_enabled: bool = False
         # Mutation probability of mutating a GRU node rather than a simple node  [def=0.4]  TODO
         self.gru_mutate_rate: float = 0.4
+        
+        # [SelfAdaptive]  TODO
     
     def __str__(self):
         result = "NEAT Configuration:"

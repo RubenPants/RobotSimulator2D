@@ -12,6 +12,8 @@ from neat.aggregations import AggregationFunctionSet
 from neat.config import ConfigParameter, write_pretty_params
 from neat.six_util import iterkeys
 
+from environment.entities.game import initial_sensor_readings
+
 
 class DefaultGenomeConfig(object):
     """Sets up and holds configuration information for the DefaultGenome class."""
@@ -22,7 +24,7 @@ class DefaultGenomeConfig(object):
     
     def __init__(self, params):
         # Placeholders
-        self.num_inputs: int = None
+        self.num_inputs: int = len(initial_sensor_readings())
         self.num_hidden: int = None
         self.num_outputs: int = None
         self.compatibility_disjoint_coefficient: float = None
@@ -41,7 +43,6 @@ class DefaultGenomeConfig(object):
         self.aggregation_defs = self.aggregation_function_defs
         
         self._params = [
-            ConfigParameter('num_inputs', int),
             ConfigParameter('num_hidden', int),
             ConfigParameter('num_outputs', int),
             ConfigParameter('compatibility_disjoint_coefficient', float),

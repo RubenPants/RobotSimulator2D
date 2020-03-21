@@ -137,7 +137,9 @@ class TrainingEnv:
                                         best_genome=best,
                                         logger=pop.log)
             
-            # Track best genome ever seen
+            # Update the population's best_genome
+            genomes = sorted(pop.population.items(), key=lambda x: x[1].fitness, reverse=True)
+            pop.best_genome_hist[pop.generation] = genomes[:pop.config.reproduction_config.elitism]
             if pop.best_genome is None or best.fitness > pop.best_genome.fitness: pop.best_genome = best
             
             # Let population evolve

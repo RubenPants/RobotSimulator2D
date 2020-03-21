@@ -41,7 +41,6 @@ class DefaultReproduction(DefaultClassConfig):
         self.stagnation = stagnation
         self.ancestors = dict()
         self.previous_elites = set()
-        self.num_inputs = cfg.config.num_inputs
         self.num_outputs = cfg.config.num_outputs
     
     def create_new(self, genome_type, genome_config, num_genomes, logger=None):
@@ -49,7 +48,7 @@ class DefaultReproduction(DefaultClassConfig):
         new_genomes = dict()
         for i in range(num_genomes):
             key = next(self.genome_indexer)
-            g = genome_type(key, num_inputs=self.num_inputs, num_outputs=self.num_outputs)
+            g = genome_type(key, num_outputs=self.num_outputs)
             g.configure_new(genome_config, logger=logger)
             new_genomes[key] = g
             self.ancestors[key] = tuple()
@@ -174,9 +173,7 @@ class DefaultReproduction(DefaultClassConfig):
                 
                 # Init genome dummy (values are overwritten later)
                 gid = next(self.genome_indexer)
-                child: DefaultGenome = config.genome_type(gid,
-                                                          num_inputs=config.config.num_inputs,
-                                                          num_outputs=config.config.num_outputs)
+                child: DefaultGenome = config.genome_type(gid, num_outputs=config.config.num_outputs)
                 
                 # Choose the parents, note that if the parents are not distinct, crossover will produce a genetically
                 #  identical clone of the parent (but with a different ID)

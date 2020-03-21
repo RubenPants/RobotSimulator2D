@@ -10,6 +10,7 @@ cimport numpy as np
 import pylab as plt
 from matplotlib import collections as mc
 
+from config import GameConfig
 from environment.entities.cy.robots_cy cimport MarXBotCy
 from utils.dictionary import *
 from utils.cy.intersection_cy cimport circle_line_intersection_cy
@@ -106,9 +107,10 @@ cdef class GameCy:
         """Get all the game-related parameters."""
         return {
             D_A_STAR:  self.path[self.player.init_pos[0], self.player.init_pos[1]],
-            D_PATH:    self.path,
             D_FPS:     self.fps,
             D_GAME_ID: self.id,
+            D_PATH:    self.path,
+            D_WALLS:   self.walls,
         }
     
     cpdef dict get_observation(self, set close_walls=None):
@@ -219,7 +221,6 @@ cdef class GameCy:
 
         :return: True: game successfully loaded | False: otherwise
         """
-        # Define used parameter
         cdef dict game
         try:
             game = load_pickle(f'{self.save_path}{self}')
@@ -269,7 +270,7 @@ cpdef set get_boundary_walls(int x_axis, int y_axis):
     return {Line2dCy(a, b), Line2dCy(b, c), Line2dCy(c, d), Line2dCy(d, a)}
 
 
-cpdef GameCy get_game_cy(int i, cfg):
+cpdef GameCy get_game_cy(int i, cfg=None):
     """
     Create a game-object.
     
@@ -277,6 +278,7 @@ cpdef GameCy get_game_cy(int i, cfg):
     :param cfg: GameConfig object
     :return: Game or GameCy object
     """
+    config = cfg if cfg else GameConfig()
     return GameCy(game_id=i,
-                  config=cfg,
+                  config=config,
                   silent=True)

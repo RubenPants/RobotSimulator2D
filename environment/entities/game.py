@@ -106,9 +106,10 @@ class Game:
         """Get all the game-related parameters."""
         return {
             D_A_STAR:  self.path[self.player.init_pos[0], self.player.init_pos[1]],
-            D_PATH:    self.path,
             D_FPS:     self.fps,
             D_GAME_ID: self.id,
+            D_PATH:    self.path,
+            D_WALLS:   self.walls,
         }
     
     def get_observation(self, close_walls: set = None):
@@ -258,7 +259,7 @@ def get_boundary_walls(x_axis, y_axis):
     return {Line2d(a, b), Line2d(b, c), Line2d(c, d), Line2d(d, a)}
 
 
-def get_game(i: int, cfg: GameConfig):
+def get_game(i: int, cfg: GameConfig = None):
     """
     Create a game-object.
     
@@ -266,12 +267,15 @@ def get_game(i: int, cfg: GameConfig):
     :param cfg: GameConfig object
     :return: Game or GameCy object
     """
+    config = cfg if cfg else GameConfig()
     return Game(game_id=i,
-                config=cfg,
+                config=config,
                 silent=True)
 
 
-def initial_sensor_readings(game_config):
+def initial_sensor_readings(game_config=None, keys=None):
     """Return a list of the sensors their maximum value."""
-    game = Game(game_id=0, config=game_config, silent=True)
+    cfg = game_config if game_config else GameConfig()
+    game = Game(game_id=0, config=cfg, silent=True)  # Dummy game
+    if keys: game.player.active_sensors = set(keys)  # Only read in the active sensors
     return game.player.get_sensor_readings()

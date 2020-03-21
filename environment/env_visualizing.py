@@ -11,7 +11,7 @@ from tqdm import tqdm
 
 from config import GameConfig
 from environment.entities.game import get_game
-from population.utils.population_util.population_visualizer import create_blueprints, create_traces
+from population.utils.visualizing.population_visualizer import create_blueprints, create_traces
 from utils.myutils import get_subfolder
 
 if sys.platform == 'linux':
