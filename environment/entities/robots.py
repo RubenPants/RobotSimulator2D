@@ -15,6 +15,7 @@ class MarXBot:
     __slots__ = (
         "game",
         "pos", "prev_pos", "init_pos", "init_angle", "angle", "prev_angle", "radius",
+        "n_proximity", "n_angular", "n_distance",
         "sensors", "active_sensors",
     )
     
@@ -57,12 +58,20 @@ class MarXBot:
         # Container of all the sensors
         self.sensors = dict()
         
+        # Counters for number of sensors used
+        self.n_proximity = 0
+        self.n_angular = 0
+        self.n_distance = 0
+        
         # Create the sensors (fixed order!)
         self.create_proximity_sensors()
         self.create_angular_sensors()
         self.add_distance_sensor()
         
-        # Set all the active sensors
+        # Number of distance-sensors must always be equal to 1
+        assert self.n_distance == 1
+        
+        # Set all the sensors as active initially
         self.active_sensors = set(self.sensors.keys())
     
     def __str__(self):
@@ -122,11 +131,13 @@ class MarXBot:
         self.sensors[len(self.sensors)] = AngularSensor(sensor_id=len(self.sensors),
                                                         game=self.game,
                                                         clockwise=clockwise)
+        self.n_angular += 1
     
     def add_distance_sensor(self):
         """Single distance sensor which determines distance between agent's center and target's center."""
         self.sensors[len(self.sensors)] = DistanceSensor(sensor_id=len(self.sensors),
                                                          game=self.game)
+        self.n_distance += 1
     
     def add_proximity_sensor(self, angle: float):
         """
@@ -144,6 +155,7 @@ class MarXBot:
                                                           pos_offset=self.game.bot_radius,
                                                           max_dist=self.game.ray_distance,
                                                           )
+        self.n_proximity += 1
     
     def create_angular_sensors(self):
         """
@@ -159,13 +171,18 @@ class MarXBot:
          meters of distance. The proximity sensors are not evenly spaced, since the fact that the robot has a front will
          be exploited. Sensors are added from the left-side of the drone to the right.
         """
-        self.add_proximity_sensor(angle=3 * np.pi / 4)  # -135°
-        for i in range(5):  # -90° until -10° with hops of 20° (total of 5 sensors)
+        # Left-side of the agent
+        self.add_proximity_sensor(angle=3 * np.pi / 4)  # 135° (counter-clockwise)
+        for i in range(5):  # 90° until 10° with hops of 20° (total of 5 sensors)
             self.add_proximity_sensor(angle=np.pi / 2 - i * np.pi / 9)
+        
+        # Center
         self.add_proximity_sensor(angle=0)  # 0°
-        for i in range(5):  # 10° until 90° with hops of 20° (total of 5 sensors)
+        
+        # Right-side of the agent
+        for i in range(5):  # -10° until -90° with hops of 20° (total of 5 sensors)
             self.add_proximity_sensor(angle=-np.pi / 18 - i * np.pi / 9)
-        self.add_proximity_sensor(angle=-3 * np.pi / 4)  # 135°
+        self.add_proximity_sensor(angle=-3 * np.pi / 4)  # -135° (clockwise)
     
     def get_proximity_sensors(self):
         """Get a list of all proximity sensors."""
@@ -186,3 +203,24 @@ def get_active_sensors(connections: set, total_input_size: int):
     used = {a + total_input_size for (a, _) in connections if a < 0}
     used.add(total_input_size - 1)  # Always use the distance sensor
     return used
+
+
+def get_snapshot():
+    """Get the snapshot of the current robot-configuration."""
+    from environment.entities.game import get_game
+    g = get_game(i=0)  # Load in dummy-game
+    r = MarXBot(game=g)
+    
+    # Go over all the sensors
+    snapshot = dict()
+    sensor_size = len(r.sensors)
+    for k, v in r.sensors.items():
+        if type(v) == ProximitySensor:
+            snapshot[k-sensor_size] = str(v)
+        elif type(v) == AngularSensor:
+            snapshot[k - sensor_size] = str(v)
+        elif type(v) == DistanceSensor:
+            snapshot[k-sensor_size] = str(v)
+        else:
+            raise TypeError(f"Sensor type '{type(v)}' is undefined")
+    return snapshot

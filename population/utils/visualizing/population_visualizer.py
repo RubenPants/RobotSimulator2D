@@ -33,9 +33,6 @@ def create_blueprints(final_observations: dict, games: list, gen: int, save_path
         dot_y = [p[1] for p in positions]
         plt.plot(dot_x, dot_y, 'ro')
         
-        # Add target again to map
-        plt.plot(0.5, g.y_axis - 0.5, 'go')
-        
         # Add title
         plt.title(f"Blueprint - Game {g.id:05d} - Generation {gen:05d}")
         

@@ -12,6 +12,7 @@ from random import choice, random, shuffle
 
 from neat.six_util import iteritems, iterkeys
 
+from environment.entities.robots import get_snapshot
 from population.utils.config.genome_config import DefaultGenomeConfig
 from population.utils.genome_util.genes import DefaultConnectionGene, DefaultNodeGene, GruNodeGene, OutputNodeGene
 from population.utils.network_util.graphs import creates_cycle, required_for_output
@@ -49,18 +50,20 @@ class DefaultGenome(object):
     def write_config(cls, f, config: DefaultGenomeConfig):
         config.save(f)
     
-    def __init__(self, key, num_inputs, num_outputs):
+    def __init__(self, key, num_outputs):
         # Unique identifier for a genome instance.
         self.key = key
         
         # (gene_key, gene) pairs for gene sets.
         self.connections = dict()
         self.nodes = dict()
-        self.num_inputs = num_inputs
         self.num_outputs = num_outputs
         
         # Fitness results.
         self.fitness = None
+        
+        # Get snapshot of current robot configuration
+        self.robot_snapshot = get_snapshot()
     
     def configure_new(self, config: DefaultGenomeConfig, logger=None):
         """Configure a new genome based on the given configuration."""
@@ -333,12 +336,13 @@ class DefaultGenome(object):
     
     def size(self):
         """Returns genome 'complexity', taken to be (number of hidden nodes, number of enabled connections)"""
+        inputs = {a for (a, _) in self.connections if a < 0}
         used_nodes, used_conn = required_for_output(
-                inputs={-i for i in range(1, self.num_inputs + 1)},
+                inputs=inputs,
                 outputs={i for i in range(self.num_outputs)},
                 connections=self.connections,
         )
-        return len(used_nodes) - (self.num_inputs + self.num_outputs), len(used_conn)
+        return len(used_nodes) - (len(inputs) + self.num_outputs), len(used_conn)
     
     def __str__(self):
         s = f"Key: {self.key}\nFitness: {self.fitness}\nNodes:"

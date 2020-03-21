@@ -8,13 +8,14 @@ import os
 from graphviz import Digraph
 
 from population.utils.genome_util.genes import DefaultNodeGene, GruNodeGene
+from population.utils.genome_util.genome import DefaultGenome
 from population.utils.network_util.graphs import required_for_output
 
 # Add graphviz to path
 os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/'
 
 
-def draw_net(config, genome, debug=False, filename=None, view=True):
+def draw_net(config, genome: DefaultGenome, debug=False, filename=None, view=True):
     """
     Visualize the structure of one genome.
     
@@ -26,24 +27,10 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
     """
     # Assign names to sensors (hard-coded since immutable)
     node_names = dict()
-    node_names[-16] = 'proximity -135°'
-    node_names[-15] = 'proximity -90°'
-    node_names[-14] = 'proximity -70°'
-    node_names[-13] = 'proximity -50°'
-    node_names[-12] = 'proximity -30°'
-    node_names[-11] = 'proximity -10°'
-    node_names[-10] = 'proximity 0°'
-    node_names[-9] = 'proximity 10°'
-    node_names[-8] = 'proximity 30°'
-    node_names[-7] = 'proximity 50°'
-    node_names[-6] = 'proximity 70°'
-    node_names[-5] = 'proximity 90°'
-    node_names[-4] = 'proximity 135°'
-    node_names[-3] = 'angular left'
-    node_names[-2] = 'angular right'
-    node_names[-1] = 'distance'
+    node_names.update(genome.robot_snapshot)
     node_names[0] = 'left wheel'
     node_names[1] = 'right wheel'
+    num_inputs = len(genome.robot_snapshot)
     
     # Visualizer specific functionality
     node_colors = dict()
@@ -87,7 +74,8 @@ def draw_net(config, genome, debug=False, filename=None, view=True):
                 style='filled',
                 shape='box',
                 fillcolor=node_colors.get(key, '#bdc5ff'),
-                pos=f"{100 + index * 100}, {200 + (len(used_nodes) - len(node_names)) * (50 if debug else 20)}!",
+                pos=f"{(num_inputs - 5) * 20 + index * 100}, "
+                    f"{200 + (len(used_nodes) - len(node_names)) * (50 if debug else 20)}!",
         )
     
     # Visualize hidden nodes
