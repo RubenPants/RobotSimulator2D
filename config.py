@@ -28,8 +28,8 @@ class GameConfig:
         self.bot_turning_speed: float = 3.53
         
         # [CONTROL]
-        # Number of games on which a single genome is evaluated  [def=10]  TODO
-        self.batch: int = 10
+        # Number of games on which a single genome is evaluated  [def=12]  TODO
+        self.batch: int = 12
         # Number of seconds it takes for one game to complete  [def=100]  TODO
         self.duration: int = 100
         # Max ID of game (starting from 1)  [def=1000]
@@ -138,7 +138,7 @@ class NeatConfig:
         # The standard deviation of the zero-centered gaussian from which a bias value mutation is drawn  [def=0.1]
         self.bias_mutate_power: float = 0.1
         # The probability that mutation will change the bias of a node by adding a random value  [def=0.2]  TODO
-        self.bias_mutate_rate: float = 0.4
+        self.bias_mutate_rate: float = 0.2
         # The probability that mutation will replace the bias of a node with a completely random value  [def=0.05]
         self.bias_replace_rate: float = 0.05
         # Full weight of disjoint and excess nodes on determining genomic distance  [def=1.0]  # TODO: Separate for GRU?
@@ -161,8 +161,6 @@ class NeatConfig:
         self.node_delete_prob: float = 0.05
         # Number of hidden nodes to add to each genome in the initial population  [def=0]  TODO
         self.num_hidden: int = 0
-        # Number of input nodes (the sensors): [13x proximity_sensor, 2x angular_sensor, 1x distance_sensor]  [def=26]
-        self.num_inputs: int = 16
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
         self.num_outputs: int = 2
         # Mean of the gaussian distribution used to select the weight attribute values for new connections  [def=0]
@@ -176,9 +174,9 @@ class NeatConfig:
         # The standard deviation of the zero-centered gaussian from which a weight value mutation is drawn  [def=0.1]
         self.weight_mutate_power: float = 0.1
         # Probability of a weight (connection) to mutate  [def=0.2]  TODO
-        self.weight_mutate_rate: float = 0.4
+        self.weight_mutate_rate: float = 0.2
         # Probability of a GRU-weight to mutate  [def=0.1]  TODO
-        self.weight_mutate_rate_gru: float = 0.2
+        self.weight_mutate_rate_gru: float = 0.1
         # Probability of assigning completely new value, based on weight_init_mean and weight_init_stdev  [def=0.05]
         self.weight_replace_rate: float = 0.05
         

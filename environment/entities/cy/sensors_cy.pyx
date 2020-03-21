@@ -77,7 +77,7 @@ cdef class AngularSensorCy(SensorCy):
         self.clockwise = clockwise
     
     def __str__(self):
-        return f"{D_SENSOR_ANGLE}_{self.id:02d}"
+        return f"angular {'right' if self.clockwise else 'left'}"
     
     cpdef void measure(self, set close_walls=None):
         """Update self.value, result is a float between 0 and 2*PI."""
@@ -113,7 +113,7 @@ cdef class DistanceSensorCy(SensorCy):
         super().__init__(game=game, sensor_id=sensor_id)
     
     def __str__(self):
-        return f"{D_SENSOR_DISTANCE}_{self.id:02d}"
+        return "distance"
     
     cpdef void measure(self, set close_walls=None):
         """Update self.value to current distance between target and robot's center coordinate."""
@@ -155,7 +155,7 @@ cdef class ProximitySensorCy(SensorCy):
         self.end_pos = None  # Placeholder for end-point of proximity sensor
     
     def __str__(self):
-        return f"{D_SENSOR_PROXIMITY}_{self.id:02d}"
+        return f"proximity {round(self.angle * 180 / np.pi)}"
     
     cpdef void measure(self, set close_walls=None):
         """
