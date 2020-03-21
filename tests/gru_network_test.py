@@ -24,10 +24,9 @@ from utils.dictionary import *
 EPSILON = 1e-5
 
 
-def get_genome(inputs, hidden, outputs):
+def get_genome(hidden, outputs):
     """Create a simple feedforward neuron."""  # Get the configuration
     cfg = NeatConfig()
-    cfg.num_inputs = inputs
     cfg.num_hidden = hidden
     cfg.num_outputs = outputs
     cfg.initial_connection = D_FULL_NODIRECT  # input -> hidden -> output
@@ -42,7 +41,7 @@ def get_genome(inputs, hidden, outputs):
     )
     
     # Create the genome
-    g = DefaultGenome(key=0, num_inputs=cfg.num_inputs, num_outputs=cfg.num_outputs)
+    g = DefaultGenome(key=0, num_outputs=cfg.num_outputs)
     g.configure_new(config.genome_config)
     return g, config
 
@@ -67,12 +66,14 @@ class TestGruFeedForward(unittest.TestCase):
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
         # Fetch the genome and its corresponding config file
-        genome, config = get_genome(1, 1, 1)
+        genome, config = get_genome(1, 1)
         
         # Manipulate the genome's biases and connection weights
         genome.nodes[0].bias = 0  # Output-bias
-        genome.connections[(-1, 1)].weight = 1  # Single connection from input to hidden
-        genome.connections[(1, 0)].weight = 1  # Single connection from hidden to output
+        genome.connections = dict()
+        for i, o in [(-1, 1), (1, 0)]:
+            genome.create_connection(config=config.genome_config, input_key=i, output_key=o, weight=1.0)
+        genome.update_gru_nodes(config=config.genome_config)
         genome.nodes[1].bias_ih[:] = torch.tensor([1, 1, 1], dtype=torch.float64)
         genome.nodes[1].bias_hh[:] = torch.tensor([1, 1, 1], dtype=torch.float64)
         genome.nodes[1].full_weight_ih[:] = torch.tensor([[1], [1], [1]], dtype=torch.float64)
