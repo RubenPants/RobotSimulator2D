@@ -74,7 +74,7 @@ def draw_net(config, genome: DefaultGenome, debug=False, filename=None, view=Tru
                 style='filled',
                 shape='box',
                 fillcolor=node_colors.get(key, '#bdc5ff'),
-                pos=f"{(num_inputs - 2) * 10 + index * 100}, "
+                pos=f"{(num_inputs - 5) * 10 + index * 100}, "
                     f"{200 + (len(used_nodes) - len(node_names)) * (50 if debug else 20)}!",
         )
     

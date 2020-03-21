@@ -6,6 +6,7 @@ Robots used to manoeuvre around in the Game-environment.
 import numpy as np
 cimport numpy as np
 
+from environment.entities.robots import get_proximity_angles, get_angular_directions
 from sensors_cy cimport AngularSensorCy, DistanceSensorCy, ProximitySensorCy
 from utils.cy.vec2d_cy cimport angle_to_vec, Vec2dCy
 
@@ -162,8 +163,8 @@ cdef class MarXBotCy:
         Two angular sensors that define the angle between the orientation the agent is heading and the agent towards the
         target 'in crows flight'. One measures this angle in clockwise, the other counterclockwise.
         """
-        self.add_angular_sensors(clockwise=True)
-        self.add_angular_sensors(clockwise=False)
+        cdef bint clockwise
+        for clockwise in get_angular_directions(): self.add_angular_sensors(clockwise=clockwise)
     
     cpdef void create_proximity_sensors(self):
         """
@@ -171,19 +172,8 @@ cdef class MarXBotCy:
          meters of distance. The proximity sensors are not evenly spaced, since the fact that the robot has a front will
          be exploited. Sensors are added from the left-side of the drone to the right.
         """
-        cdef int i
-        # Left-side of the agent
-        self.add_proximity_sensor(angle=3 * np.pi / 4)  # 135° (counter-clockwise)
-        for i in range(5):  # 90° until 10° with hops of 20° (total of 5 sensors)
-            self.add_proximity_sensor(angle=np.pi / 2 - i * np.pi / 9)
-        
-        # Center
-        self.add_proximity_sensor(angle=0)  # 0°
-        
-        # Right-side of the agent
-        for i in range(5):  # -10° until -90° with hops of 20° (total of 5 sensors)
-            self.add_proximity_sensor(angle=-np.pi / 18 - i * np.pi / 9)
-        self.add_proximity_sensor(angle=-3 * np.pi / 4)  # -135° (clockwise)
+        cdef float angle
+        for angle in get_proximity_angles(): self.add_proximity_sensor(angle=angle)
     
     cpdef void set_active_sensors(self, set connections):
         """
