@@ -29,7 +29,7 @@ class GameConfig:
         
         # [CONTROL]
         # Number of games on which a single genome is evaluated  [def=12]  TODO
-        self.batch: int = 1
+        self.batch: int = 12
         # Number of seconds it takes for one game to complete  [def=100]  TODO
         self.duration: int = 100
         # Max ID of game (starting from 1)  [def=1000]
@@ -102,7 +102,7 @@ class NeatConfig:
         # Don't consider fitness_criterion and fitness_threshold  [def=True]
         self.no_fitness_termination: bool = True
         # Number of individuals in each generation  [def=128]  TODO
-        self.pop_size: int = 10
+        self.pop_size: int = 128
         
         # [DefaultReproduction]
         # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=3]

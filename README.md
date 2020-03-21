@@ -4,7 +4,6 @@
 
 ## TODO
 
-* Better sensor-arrangement (live-read what sensors are used instead of config!)
 * Self-adaptive NEAT?
 * Improve elite-history for species, put in config a decay time and keep elite species of the last X generations (currently only previous gen)
 * Test all of the fitness-functions!
