@@ -3,8 +3,7 @@ robots_cy.pyx
 
 Robots used to manoeuvre around in the Game-environment.
 """
-import numpy as np
-cimport numpy as np
+from numpy import pi
 
 from environment.entities.robots import get_proximity_angles, get_angular_directions
 from sensors_cy cimport AngularSensorCy, DistanceSensorCy, ProximitySensorCy
@@ -22,39 +21,25 @@ cdef class MarXBotCy:
     
     def __init__(self,
                  GameCy game,
-                 Vec2dCy init_pos=None,
-                 float init_orient=0,
                  float r=0
                  ):
         """
         Create a new FootBot object.
         
         :param game: Reference to the game in which the robot is created [Game]
-        :param init_pos: Initial position of the bot
-        :param init_orient: Initial angle of the bot
         :param r: Radius of the circular robot
         """
-        # Default values parameters
-        if not r: r = game.bot_radius
-        
         # Game specific parameter
         self.game = game  # Game in which robot runs
         
-        # Robot specific parameters
+        # Robot specific parameters (Placeholders)
         self.pos = Vec2dCy(0, 0)  # Current position
+        self.init_pos = Vec2dCy(0, 0)  # Initial position
         self.prev_pos = Vec2dCy(0, 0)  # Previous current position
-        if init_pos:
-            self.init_pos = init_pos  # Initial position
-            self.pos.x = init_pos.x
-            self.pos.y = init_pos.y
-            self.prev_pos.x = init_pos.x
-            self.prev_pos.y = init_pos.y
-        else:
-            self.init_pos = Vec2dCy(0, 0)
-        self.init_angle = init_orient  # Initial angle
-        self.angle = init_orient  # Current angle
-        self.prev_angle = init_orient  # Previous angle
-        self.radius = r  # Radius of the bot
+        self.angle = 0  # Current angle
+        self.init_angle = 0  # Initial angle
+        self.prev_angle = 0  # Previous angle
+        self.radius = r if r else game.bot_radius  # Radius of the bot
         
         # Container of all the sensors
         self.sensors = dict()
@@ -72,7 +57,7 @@ cdef class MarXBotCy:
         # Number of distance-sensors must always be equal to 1
         assert self.n_distance == 1
         
-        # Set all the active sensors
+        # Set all the sensors as active initially
         self.active_sensors = set(self.sensors.keys())
     
     def __str__(self):
@@ -98,7 +83,7 @@ cdef class MarXBotCy:
         
         # Update angle is determined by the speed of both wheels
         self.angle += (rw - lw) * self.game.bot_turning_speed * dt
-        self.angle %= 2 * np.pi
+        self.angle %= 2 * pi
         
         # Update position is the average of the two wheels times the maximum driving speed
         self.pos += angle_to_vec(self.angle) * float((((lw + rw) / 2) * self.game.bot_driving_speed * dt))
@@ -146,9 +131,9 @@ cdef class MarXBotCy:
         the first sensor that is added.
         
         :param angle: Relative angle to the robot's facing-direction
-                        * np.pi / 2 = 90° to the left of the robot
+                        * pi / 2 = 90° to the left of the robot
                         * 0 = the same direction as the robot is facing
-                        * -np.pi / 2 = 90° to the right of the robot
+                        * -pi / 2 = 90° to the right of the robot
         """
         self.sensors[len(self.sensors)] = ProximitySensorCy(sensor_id=len(self.sensors),
                                                             game=self.game,

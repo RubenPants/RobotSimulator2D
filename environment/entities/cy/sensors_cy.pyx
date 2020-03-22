@@ -8,10 +8,10 @@ Sensor classes used by the bots. The different types of sensors are:
 """
 import random
 
+from numpy import pi
 import numpy as np
 cimport numpy as np
 
-from utils.dictionary import *
 from utils.cy.intersection_cy cimport line_line_intersection_cy
 from utils.cy.line2d_cy cimport Line2dCy
 from utils.cy.vec2d_cy cimport Vec2dCy
@@ -89,13 +89,13 @@ cdef class AngularSensorCy(SensorCy):
         req_a = (self.game.target - self.game.player.pos).get_angle()
         
         # Normalize
-        self.value = 2 * np.pi + start_a - req_a
-        self.value %= 2 * np.pi
+        self.value = 2 * pi + start_a - req_a
+        self.value %= 2 * pi
         
         # Check direction
         if not self.clockwise:
-            self.value = abs(2 * np.pi - self.value)
-            self.value %= 2 * np.pi
+            self.value = abs(2 * pi - self.value)
+            self.value %= 2 * pi
         
         # Add noise
         if self.game.noise: self.value += random.gauss(0, self.game.noise_angle)
@@ -155,7 +155,7 @@ cdef class ProximitySensorCy(SensorCy):
         self.end_pos = None  # Placeholder for end-point of proximity sensor
     
     def __str__(self):
-        return f"proximity {round(self.angle * 180 / np.pi)}"
+        return f"proximity {round(self.angle * 180 / pi)}"
     
     cpdef void measure(self, set close_walls=None):
         """

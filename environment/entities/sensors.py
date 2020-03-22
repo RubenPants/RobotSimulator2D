@@ -8,7 +8,7 @@ Sensor classes used by the bots. The different types of sensors are:
 """
 import random
 
-import numpy as np
+from numpy import cos, pi, sin
 
 from utils.intersection import line_line_intersection
 from utils.line2d import Line2d
@@ -84,13 +84,13 @@ class AngularSensor(Sensor):
         req_a = (self.game.target - self.game.player.pos).get_angle()
         
         # Normalize
-        self.value = 2 * np.pi + start_a - req_a
-        self.value %= 2 * np.pi
+        self.value = 2 * pi + start_a - req_a
+        self.value %= 2 * pi
         
         # Check direction
         if not self.clockwise:
-            self.value = abs(2 * np.pi - self.value)
-            self.value %= 2 * np.pi
+            self.value = abs(2 * pi - self.value)
+            self.value %= 2 * pi
         
         # Add noise
         if self.game.noise: self.value += random.gauss(0, self.game.noise_angle)
@@ -149,7 +149,7 @@ class ProximitySensor(Sensor):
         self.end_pos = None  # Placeholder for end-point of proximity sensor
     
     def __str__(self):
-        return f"proximity {round(self.angle * 180 / np.pi)}"
+        return f"proximity {round(self.angle * 180 / pi)}"
     
     def measure(self, close_walls: set = None):
         """
@@ -160,8 +160,8 @@ class ProximitySensor(Sensor):
         :return: Float expressing the distance to the closest wall, if there is any
         """
         # Start and end point of ray
-        normalized_offset = Vec2d(np.cos(self.game.player.angle + self.angle),
-                                  np.sin(self.game.player.angle + self.angle))
+        normalized_offset = Vec2d(cos(self.game.player.angle + self.angle),
+                                  sin(self.game.player.angle + self.angle))
         self.start_pos = self.game.player.pos + normalized_offset * self.pos_offset
         self.end_pos = self.game.player.pos + normalized_offset * (self.pos_offset + self.max_dist)
         sensor_line = Line2d(x=self.game.player.pos, y=self.end_pos)

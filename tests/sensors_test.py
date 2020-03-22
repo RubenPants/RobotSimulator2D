@@ -34,8 +34,8 @@ class AngularSensorTest(unittest.TestCase):
         
         # Update player and target position
         game.target = Vec2d(1, 0)
-        game.set_player_pos(Vec2d(0, 0))
-        game.set_player_angle(0)
+        game.set_player_init_pos(Vec2d(0, 0))
+        game.set_player_init_angle(0)
         
         # Update the player's sensor-set
         game.player.sensors = dict()
@@ -60,8 +60,8 @@ class AngularSensorTest(unittest.TestCase):
         
         # Update player and target position
         game.target = Vec2d(1, 1)
-        game.set_player_pos(Vec2d(0, 0))
-        game.set_player_angle(0)  # Looking to the right
+        game.set_player_init_pos(Vec2d(0, 0))
+        game.set_player_init_angle(0)  # Looking to the right
         
         # Update the player's sensor-set
         game.player.sensors = dict()
@@ -90,8 +90,8 @@ class DistanceSensorTest(unittest.TestCase):
         
         # Update player and target position
         game.target = Vec2d(1, 0)
-        game.set_player_pos(Vec2d(0, 0))
-        game.set_player_angle(0)
+        game.set_player_init_pos(Vec2d(0, 0))
+        game.set_player_init_angle(0)
         
         # Ask for the distance
         game.get_observation()
@@ -107,8 +107,8 @@ class DistanceSensorTest(unittest.TestCase):
         
         # Update player and target position
         game.target = Vec2d(1, 1)
-        game.set_player_pos(Vec2d(0, 0))
-        game.set_player_angle(0)
+        game.set_player_init_pos(Vec2d(0, 0))
+        game.set_player_init_angle(0)
         
         # Ask for the distance
         game.get_observation()
@@ -134,8 +134,8 @@ class ProximitySensorTest(unittest.TestCase):
         game.walls.update({Line2d(a, b), Line2d(b, c), Line2d(c, d), Line2d(d, a)})
         
         # Update player and target position
-        game.set_player_pos(Vec2d(4, 4))  # Center of empty maze
-        game.set_player_angle(0)
+        game.set_player_init_pos(Vec2d(4, 4))  # Center of empty maze
+        game.set_player_init_angle(0)
         
         # Only keep proximity sensors
         game.player.sensors = {k: v for k, v in game.player.sensors.items() if type(v) == ProximitySensor}
@@ -160,8 +160,8 @@ class ProximitySensorTest(unittest.TestCase):
         game.walls.add(Line2d(a, b))
         
         # Update player and target position
-        game.set_player_pos(Vec2d(4, 4))  # Center of empty maze
-        game.set_player_angle(0)  # Looking to the right
+        game.set_player_init_pos(Vec2d(4, 4))  # Center of empty maze
+        game.set_player_init_angle(0)  # Looking to the right
         
         # Reset the sensors with only one sensor to its left and one to its front
         game.player.sensors = dict()
@@ -190,8 +190,8 @@ class ProximitySensorTest(unittest.TestCase):
         game.walls.update({Line2d(a, b), Line2d(b, c), Line2d(c, d)})
         
         # Update player position and angle
-        game.set_player_pos(Vec2d(4, 4))
-        game.set_player_angle(0)
+        game.set_player_init_pos(Vec2d(4, 4))
+        game.set_player_init_angle(0)
         
         # Update sensors
         game.player.sensors = dict()  # Remove all previous set sensors
@@ -225,8 +225,8 @@ class ProximitySensorTest(unittest.TestCase):
         game.walls.add(Line2d(b, c))
         
         # Update player position and angle
-        game.set_player_pos(Vec2d(4, 4))
-        game.set_player_angle(0)
+        game.set_player_init_pos(Vec2d(4, 4))
+        game.set_player_init_angle(0)
         
         # Update sensors
         game.player.sensors = dict()

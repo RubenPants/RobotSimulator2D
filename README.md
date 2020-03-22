@@ -4,6 +4,7 @@
 
 ## TODO
 
+* Random initial starting orientation for robot (between pi/2 and pi)
 * Self-adaptive NEAT?
 * Improve elite-history for species, put in config a decay time and keep elite species of the last X generations (currently only previous gen)
 * Test all of the fitness-functions!

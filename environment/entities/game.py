@@ -5,9 +5,9 @@ Game class which contains the player, target, and all the walls.
 """
 import random
 
-import numpy as np
 import pylab as plt
 from matplotlib import collections as mc
+from numpy import pi
 
 from config import GameConfig
 from environment.entities.robots import MarXBot
@@ -175,20 +175,20 @@ class Game:
         # Create random set of walls
         self.walls = get_boundary_walls(x_axis=self.x_axis, y_axis=self.y_axis)
         self.target = Vec2d(0.5, self.y_axis - 0.5)
-        self.player = MarXBot(game=self,
-                              init_pos=Vec2d(self.x_axis - 0.5, 0.5),
-                              init_orient=np.pi / 2)
+        self.player = MarXBot(game=self)
+        self.set_player_init_angle(a=pi / 2)
+        self.set_player_init_pos(p=Vec2d(self.x_axis - 0.5, 0.5))
         
         # Save the new game
         self.save()
         if not self.silent: print(f"New game created under id: {self.id}")
     
-    def set_player_angle(self, a: float):
+    def set_player_init_angle(self, a: float):
         """Set a new initial angle for the player."""
         self.player.init_angle = a
         self.player.angle = a
     
-    def set_player_pos(self, p: Vec2d):
+    def set_player_init_pos(self, p: Vec2d):
         """Set a new initial position for the player."""
         self.player.init_pos.x = p.x
         self.player.init_pos.y = p.y
@@ -217,8 +217,8 @@ class Game:
         try:
             game = load_pickle(f'{self.save_path}{self}')
             self.player = MarXBot(game=self)  # Create a dummy-player to set values on
-            self.set_player_angle(game[D_ANGLE])
-            self.set_player_pos(Vec2d(game[D_POS][0], game[D_POS][1]))
+            self.set_player_init_angle(game[D_ANGLE])
+            self.set_player_init_pos(Vec2d(game[D_POS][0], game[D_POS][1]))
             self.path = {p[0]: p[1] for p in game[D_PATH]}
             self.target = Vec2d(game[D_TARGET][0], game[D_TARGET][1])
             self.walls = {Line2d(Vec2d(w[0][0], w[0][1]), Vec2d(w[1][0], w[1][1])) for w in game[D_WALLS]}
@@ -271,11 +271,3 @@ def get_game(i: int, cfg: GameConfig = None):
     return Game(game_id=i,
                 config=config,
                 silent=True)
-
-
-def initial_sensor_readings(game_config=None, keys=None):
-    """Return a list of the sensors their maximum value."""
-    cfg = game_config if game_config else GameConfig()
-    game = Game(game_id=0, config=cfg, silent=True)  # Dummy game
-    if keys: game.player.active_sensors = set(keys)  # Only read in the active sensors
-    return game.player.get_sensor_readings()

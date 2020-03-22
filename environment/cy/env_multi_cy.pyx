@@ -178,7 +178,7 @@ cdef class MultiEnvironmentCy:
         """
         self.games = games
         self.batch_size = len(games)
-        
+    
     cpdef list get_game_params(self):
         """Return list of all game-parameters currently in self.games."""
         return [get_game_cy(i, cfg=self.game_config).game_params() for i in self.games]

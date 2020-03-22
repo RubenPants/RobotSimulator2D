@@ -650,9 +650,9 @@ def create_custom_game(cfg: GameConfig, overwrite=False):
     game.target = Vec2d(0.5, cfg.y_axis - 0.5)
     
     # Create random player
-    game.player = MarXBot(game=game,
-                          init_pos=Vec2d(cfg.x_axis - 0.5, 0.5),
-                          init_orient=np.pi / 2)
+    game.player = MarXBot(game=game)
+    game.set_player_init_angle(a=np.pi / 2)
+    game.set_player_init_pos(p=Vec2d(cfg.x_axis - 0.5, 0.5))
     
     # Check if implemented correctly
     game.close()
@@ -697,9 +697,9 @@ def create_game(cfg: GameConfig,
     game.target = maze.target
     
     # Create random player
-    game.player = MarXBot(game=game,
-                          init_pos=Vec2d(cfg.x_axis - 0.5, 0.5),  # Fixed initial position
-                          init_orient=np.pi / 2)
+    game.player = MarXBot(game=game)
+    game.set_player_init_angle(a=np.pi / 2)
+    game.set_player_init_pos(p=Vec2d(cfg.x_axis - 0.5, 0.5))
     
     # Save the final game
     game.save()
@@ -748,6 +748,7 @@ if __name__ == '__main__':
             try:
                 game = Game(
                         game_id=g_id,
+                        config=config,
                         save_path="environment/games_db/",
                         overwrite=False,
                         silent=True,
