@@ -239,14 +239,19 @@ def get_snapshot():
     Get the snapshot of the current robot-configuration. This method mimics the 'Create the sensors' section in the
     MarXBot creation process.
     """
-    snapshot = dict()
+    sorted_names = []
     # Proximity sensors
-    for a in get_proximity_angles(): snapshot[-len(snapshot) - 1] = str(ProximitySensor(game=None, max_dist=1, angle=a))
+    for a in get_proximity_angles(): sorted_names.append(str(ProximitySensor(game=None, max_dist=1, angle=a)))
     
     # Angular sensors
-    for cw in get_angular_directions(): snapshot[-len(snapshot) - 1] = str(AngularSensor(game=None, clockwise=cw))
+    for cw in get_angular_directions(): sorted_names.append(str(AngularSensor(game=None, clockwise=cw)))
     
     # Distance sensor
-    snapshot[-len(snapshot) - 1] = str(DistanceSensor(game=None))
+    sorted_names.append(str(DistanceSensor(game=None)))
+    
+    # Negate all the keys to create the snapshot
+    snapshot = dict()
+    for i, name in enumerate(sorted_names):
+        snapshot[-len(sorted_names) + i] = name
     
     return snapshot
