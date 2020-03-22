@@ -172,8 +172,7 @@ class DefaultGenome(object):
                 self.enable_connection(config=config, conn=cg) if mut_enabled else self.disable_connection(conn=cg)
         
         # Mutate node genes (bias etc.).
-        for ng in self.nodes.values():
-            ng.mutate(config)
+        for ng in self.nodes.values(): ng.mutate(config)
     
     def mutate_add_node(self, config: DefaultGenomeConfig):
         """Add (or enable) a node as part of a mutation."""
