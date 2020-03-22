@@ -26,7 +26,6 @@ def train(population: Population, unused_cpu, iterations, debug: bool = False):
 
 def train_same_game(game: int, population: Population, unused_cpu, iterations, debug: bool = False):
     """Train the population on the same set of games for the requested number of iterations."""
-    # TODO: Improve: perhaps fixed target and only random init (i.e. 5 different starting pos for 5 games?)
     from environment.env_training import TrainingEnv
     population.log("\n===> TRAINING <===\n")
     trainer = TrainingEnv(
@@ -35,11 +34,9 @@ def train_same_game(game: int, population: Population, unused_cpu, iterations, d
     )
     trainer.evaluate_same_game_and_evolve(
             pop=population,
-            games=[game],
+            game=game,
             n=iterations,
             parallel=not debug,
-            random_init=True,
-            random_target=True,
     )
 
 
@@ -91,8 +88,7 @@ def live(game_id: int,
          population: Population,
          genome,
          debug: bool = False,
-         random_init: bool = False,
-         random_target: bool = False):
+         ):
     """Create a live visualization for the performance of the given genome."""
     from environment.env_visualizing_live import LiveVisualizer
     
@@ -107,8 +103,6 @@ def live(game_id: int,
     visualizer.visualize(
             genome=genome,
             game_id=game_id,
-            random_init=random_init,
-            random_target=random_target,
     )
 
 
@@ -117,10 +111,10 @@ if __name__ == '__main__':
     
     # Main methods
     parser.add_argument('--train', type=bool, default=True)
-    parser.add_argument('--train_same', type=bool, default=False)
-    parser.add_argument('--blueprint', type=bool, default=False)
-    parser.add_argument('--trace', type=bool, default=False)
-    parser.add_argument('--evaluate', type=bool, default=False)
+    parser.add_argument('--train_same', type=bool, default=True)
+    parser.add_argument('--blueprint', type=bool, default=True)
+    parser.add_argument('--trace', type=bool, default=True)
+    parser.add_argument('--evaluate', type=bool, default=True)
     parser.add_argument('--genome', type=bool, default=False)
     parser.add_argument('--live', type=bool, default=False)
     
@@ -184,8 +178,6 @@ if __name__ == '__main__':
                  population=pop,
                  genome=chosen_genome,
                  debug=args.debug,
-                 random_init=True,  # TODO
-                 random_target=True,  # TODO
                  )
     except Exception as e:
         pop.log(traceback.format_exc(), print_result=False)

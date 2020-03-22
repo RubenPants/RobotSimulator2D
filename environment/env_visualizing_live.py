@@ -53,14 +53,12 @@ class LiveVisualizer:
         self.debug = debug
     
     # TODO: Generalize and use multiple robots?
-    def visualize(self, genome, game_id: int, random_init: bool = False, random_target: bool = False):
+    def visualize(self, genome, game_id: int):
         """
         Visualize the performance of a single genome.
         
         :param genome: Tuple (genome_id, genome_class)
         :param game_id: ID of the game that will be used for evaluation
-        :param random_init: Random initial position for the agent
-        :param random_target: Randomize the maze's target location
         """
         # Make the network used during visualization
         net = self.make_net(genome=genome, config=self.neat_config, game_config=self.game_config, bs=1)
@@ -68,7 +66,6 @@ class LiveVisualizer:
         # Create the requested game
         game: Game = get_game(game_id, cfg=self.game_config)
         game.player.set_active_sensors(set(genome.connections.keys()))
-        if random_target: game.set_target_random()
         
         # Create space in which game will be played
         window = pyglet.window.Window(game.x_axis * game.p2m,
@@ -80,7 +77,7 @@ class LiveVisualizer:
         pyglet.gl.glClearColor(1, 1, 1, 1)
         
         # Setup the requested game
-        self.state = game.reset(random_init=random_init)[D_SENSOR_LIST]
+        self.state = game.reset()[D_SENSOR_LIST]
         self.finished = False
         
         # Create the visualize-environment
