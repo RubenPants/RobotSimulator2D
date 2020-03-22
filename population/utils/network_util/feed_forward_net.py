@@ -24,7 +24,7 @@ import numpy as np
 import torch
 
 from config import GameConfig
-from environment.entities.robots import get_active_sensors, get_initial_sensor_readings
+from environment.entities.robots import get_active_sensors
 from population.utils.genome_util.genes import GruNodeGene
 from population.utils.network_util.activations import relu_activation, tanh_activation
 from population.utils.network_util.graphs import required_for_output
@@ -42,7 +42,7 @@ class FeedForwardNet:
                  game_config: GameConfig,
                  batch_size=1,
                  hidden_activation=relu_activation, output_activation=tanh_activation,  # TODO: Make configurable?
-                 cold_start=False,
+                 initial_read: list = None,
                  dtype=torch.float64,
                  ):
         """
@@ -63,7 +63,7 @@ class FeedForwardNet:
         :param batch_size: Needed to setup network-dimensions
         :param hidden_activation: The default hidden-node activation function (squishing)
         :param output_activation: The default output-node activation function (squishing)
-        :param cold_start: Do not initialize the network based on sensory inputs
+        :param initial_read: Initial sensory-input used to warm-up the network (no warm-up if None)
         :param dtype: Value-type used in the tensors
         """
         # Storing the input arguments (needed later on)
@@ -107,14 +107,13 @@ class FeedForwardNet:
         self.output_biases = torch.tensor(output_biases, dtype=dtype)
         
         # Put network to initial (default) state
-        self.initial_readings = get_initial_sensor_readings(game_config=game_config, keys=input_keys)
-        self.reset(cold_start=cold_start)
+        self.reset(initial_read=initial_read)
     
-    def reset(self, cold_start=False):
+    def reset(self, initial_read: list = None):
         """
         Set the network back to initial state.
         
-        :param cold_start: Do not initialize the network based on sensory inputs
+        :param initial_read: Initial sensory-input used to warm-up the network (no warm-up if None)
         """
         # Reset the network back to zero inputs
         self.gru_cache = torch.zeros(self.bs, self.n_gru, self.n_inputs + self.n_hidden)
@@ -123,11 +122,11 @@ class FeedForwardNet:
         self.output_act = torch.zeros(self.bs, self.n_outputs, dtype=self.dtype)
         
         # Initialize the network on maximum sensory inputs
-        if not cold_start:
+        if initial_read:
             for _ in range(self.n_hidden):  # Worst case: path-length equals number of hidden nodes
                 # Code below is straight up stolen from 'activate(self, inputs)'
                 with torch.no_grad():
-                    inputs = torch.tensor([self.initial_readings] * self.bs, dtype=self.dtype)
+                    inputs = torch.tensor([initial_read] * self.bs, dtype=self.dtype)
                     output_inputs = self.in2out.mm(inputs.t()).t()
                     self.hidden_act = self.hidden_act_f(self.in2hid.mm(inputs.t()).t() +
                                                         self.hid2hid.mm(self.hidden_act.t()).t() +
@@ -190,7 +189,7 @@ class FeedForwardNet:
                config,
                game_config: GameConfig,
                batch_size: int = 1,
-               cold_start=False,
+               initial_read: list = None,
                logger=None,
                ):
         """
@@ -201,7 +200,7 @@ class FeedForwardNet:
         :param config: Population config
         :param game_config: GameConfig object
         :param batch_size: Batch-size needed to setup network dimension
-        :param cold_start: Do not initialize the network based on sensory inputs
+        :param initial_read: Initial sensory-input used to warm-up the network (no warm-up if None)
         :param logger: A population's logger
         """
         cfg = config.genome_config
@@ -215,6 +214,7 @@ class FeedForwardNet:
                 outputs=set(cfg.output_keys),
                 connections=genome.connections
         )
+        if initial_read: assert len(used_input) == len(initial_read)
         
         # Get a list of all the (used) input, (used) hidden, and output keys
         input_keys = sorted(used_input_keys)
@@ -310,11 +310,11 @@ class FeedForwardNet:
                 grus=grus, gru_map=gru_map,
                 game_config=game_config,
                 batch_size=batch_size,
-                cold_start=cold_start,
+                initial_read=initial_read,
         )
 
 
-def make_net(genome, config, game_config, bs=1, cold_start=False):
+def make_net(genome, config, game_config, bs=1, initial_read: list = None):
     """
     Create the "brains" of the candidate, based on its genetic wiring.
 
@@ -322,12 +322,12 @@ def make_net(genome, config, game_config, bs=1, cold_start=False):
     :param config: Configuration class
     :param game_config: GameConfig object
     :param bs: Batch size, which represents amount of games trained in parallel
-    :param cold_start: Do not initialize the network based on sensory inputs
+    :param initial_read: Initial sensory-input used to warm-up the network (no warm-up if None)
     """
     return FeedForwardNet.create(
             genome,
             config,
             game_config=game_config,
             batch_size=bs,
-            cold_start=cold_start,
+            initial_read=initial_read,
     )

@@ -19,13 +19,15 @@ class DefaultStagnation(DefaultClassConfig):
                                                ConfigParameter('max_stagnation', int, 15),
                                                ConfigParameter('species_elitism', int, 2),
                                                ConfigParameter('species_fitness_func', str, D_MAX),
-                                               ConfigParameter('species_max', int, 15)])
+                                               ConfigParameter('species_max', int, 15),
+                                               ConfigParameter('specie_stagnation', int, 5),
+                                               ])
     
     def __init__(self, config, reporters):
         # pylint: disable=super-init-not-called
         self.species_config = config
         self.reporters = reporters
-        self.previous_best_species = set()
+        self.specie_elites = dict()
         
         self.species_fitness_func = stat_functions.get(config.species_fitness_func)
         if self.species_fitness_func is None:
@@ -52,21 +54,28 @@ class DefaultStagnation(DefaultClassConfig):
         # Sort the species in ascending fitness order
         species_data.sort(key=lambda x: x[1].fitness, reverse=True)
         
+        # Update the specie_elites (first increase stagnation by one, then reset counter for current elites)
+        for k in self.specie_elites.copy():
+            self.specie_elites[k] += 1
+            if self.specie_elites[k] > self.species_config.specie_stagnation: self.specie_elites.pop(k)
+        for idx, (specie_id, _) in enumerate(species_data):
+            if idx < self.species_config.species_elitism:
+                self.specie_elites[specie_id] = 0
+            else:
+                break
+        
         # Define if the population is stagnant or not
         result = []
-        for idx, (specie_id, specie) in enumerate(species_data):
+        for specie_id, specie in species_data:
             is_stagnant = False
             
-            # Most elite species cannot become stagnant (>= since idx start counting at 0)
-            #  Calculating stagnation is only useful when population can be removed
-            #  A specie is elite if it was one of the best species_elitism this or the previous iteration
-            if idx >= self.species_config.species_elitism and specie_id not in self.previous_best_species:
+            # Check if the current specie belongs to one of the elite species over the last specie_stagnation
+            #  generations. Elite species cannot become stagnant.
+            if specie_id not in self.specie_elites:
                 stagnant_time = generation - specie.last_improved
                 is_stagnant = stagnant_time >= self.species_config.max_stagnation
             
             # Append to the result
             result.append((specie_id, specie, is_stagnant))
-        
-        self.previous_best_species = {s_id for (s_id, _) in species_data[:self.species_config.species_elitism]}
         
         return result
