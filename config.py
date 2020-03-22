@@ -31,7 +31,7 @@ class GameConfig:
         # Number of games on which a single genome is evaluated  [def=12]  TODO
         self.batch: int = 1
         # Number of seconds it takes for one game to complete  [def=100]  TODO
-        self.duration: int = 30
+        self.duration: int = 40
         # Max ID of game (starting from 1)  [def=1000]
         self.max_game_id: int = 1000
         # Max ID of evaluation game (starting from max_id)  [def=1100]
@@ -102,7 +102,7 @@ class NeatConfig:
         # Don't consider fitness_criterion and fitness_threshold  [def=True]
         self.no_fitness_termination: bool = True
         # Number of individuals in each generation  [def=128]  TODO
-        self.pop_size: int = 128
+        self.pop_size: int = 256
         
         # [DefaultReproduction]
         # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=3]
@@ -112,7 +112,7 @@ class NeatConfig:
         # Minimum number of genomes per species, keeping low prevents number of individuals blowing up  [def=10]  TODO
         self.min_species_size: int = 10
         # Sexual reproduction  [def=True]
-        self.sexual_reproduction: bool = True
+        self.sexual_reproduction: bool = False
         
         # [DefaultGenome]
         # Initial node activation function  [def=D_GELU]
@@ -138,27 +138,27 @@ class NeatConfig:
         # The standard deviation of the zero-centered gaussian from which a bias value mutation is drawn  [def=0.1]
         self.bias_mutate_power: float = 0.1
         # The probability that mutation will change the bias of a node by adding a random value  [def=0.2]  TODO
-        self.bias_mutate_rate: float = 0.2
+        self.bias_mutate_rate: float = 0.1
         # The probability that mutation will replace the bias of a node with a completely random value  [def=0.05]
         self.bias_replace_rate: float = 0.05
         # Full weight of disjoint and excess nodes on determining genomic distance  [def=1.0]  # TODO: Separate for GRU?
-        self.compatibility_disjoint_coefficient: float = 1.0
+        self.compatibility_disjoint_coefficient: float = 2.0  # TODO: New node == new specie
         # Coefficient for each weight or bias difference contribution to the genomic distance  [def=0.5]
         self.compatibility_weight_coefficient: float = 0.5
         # Probability of adding a connection between existing nodes during mutation (each generation)  [def=0.2]  TODO
-        self.conn_add_prob: float = 0.1
+        self.conn_add_prob: float = 0.05
         # Probability of deleting an existing connection during mutation (each generation)  [def=0.15]  TODO
-        self.conn_delete_prob: float = 0.1
+        self.conn_delete_prob: float = 0.05
         # Enable the algorithm to disable (and re-enable) existing connections  [def=True]
         self.enabled_default: bool = True
         # The probability that mutation will replace the 'enabled status' of a connection  [def=0.05]
         self.enabled_mutate_rate: float = 0.01
         # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT_05]  TODO
-        self.initial_connection = D_PARTIAL_DIRECT_01
+        self.initial_connection = D_FULL_DIRECT
         # Probability of adding a node during mutation (each generation)  [def=0.1]  TODO
-        self.node_add_prob: float = 0.05
+        self.node_add_prob: float = 0.01
         # Probability of removing a node during mutation (each generation)  [def=0.075]  TODO
-        self.node_delete_prob: float = 0.05
+        self.node_delete_prob: float = 0.01
         # Number of hidden nodes to add to each genome in the initial population  [def=0]  TODO
         self.num_hidden: int = 0
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
@@ -174,14 +174,14 @@ class NeatConfig:
         # The standard deviation of the zero-centered gaussian from which a weight value mutation is drawn  [def=0.1]
         self.weight_mutate_power: float = 0.1
         # Probability of a weight (connection) to mutate  [def=0.2]  TODO
-        self.weight_mutate_rate: float = 0.2
+        self.weight_mutate_rate: float = 0.1
         # Probability of a GRU-weight to mutate  [def=0.1]  TODO
-        self.weight_mutate_rate_gru: float = 0.1
+        self.weight_mutate_rate_gru: float = 0.05
         # Probability of assigning completely new value, based on weight_init_mean and weight_init_stdev  [def=0.05]
         self.weight_replace_rate: float = 0.05
         
         # [DefaultSpecies]
-        # Individuals whose genetic distance is less than this threshold are in the same specie  [def=2.0]
+        # Individuals whose genetic distance is less than this threshold are in the same specie  [def=2.0]  TODO
         self.compatibility_threshold: float = 2.0
         # Remove a specie if it hasn't improved over this many number of generations  [def=15]
         self.max_stagnation: int = 15
@@ -204,7 +204,7 @@ class NeatConfig:
         
         # [GRU]
         # Enable the genomes to mutate GRU nodes  [def=True]  TODO
-        self.gru_enabled: bool = False
+        self.gru_enabled: bool = True
         # Mutation probability of mutating a GRU node rather than a simple node  [def=0.4]  TODO
         self.gru_mutate_rate: float = 0.4
         
