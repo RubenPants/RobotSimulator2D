@@ -29,9 +29,9 @@ class GameConfig:
         
         # [CONTROL]
         # Number of games on which a single genome is evaluated  [def=12]  TODO
-        self.batch: int = 1
+        self.batch: int = 10
         # Number of seconds it takes for one game to complete  [def=100]  TODO
-        self.duration: int = 10
+        self.duration: int = 100
         # Max ID of game (starting from 1)  [def=1000]
         self.max_game_id: int = 1000
         # Max ID of evaluation game (starting from max_id)  [def=1100]
@@ -135,7 +135,7 @@ class NeatConfig:
         self.bias_max_value: float = 2.0
         # The minimum allowed bias value, biases below this threshold will be clamped to this value  [def=-2]
         self.bias_min_value: float = -2.0
-        # The standard deviation of the zero-centered gaussian from which a bias value mutation is drawn  [def=0.1]
+        # The standard deviation of the zero-centered gaussian from which a bias value mutation is drawn  [def=0.1] TODO
         self.bias_mutate_power: float = 0.2
         # The probability that mutation will change the bias of a node by adding a random value  [def=0.2]  TODO
         self.bias_mutate_rate: float = 0.1
@@ -171,7 +171,7 @@ class NeatConfig:
         self.weight_max_value: float = 2.0
         # The minimum allowed weight value, weights below this value will be clipped to this value  [def=-2]
         self.weight_min_value: float = -2.0
-        # The standard deviation of the zero-centered gaussian from which a weight value mutation is drawn  [def=0.1]
+        # The standard deviation of the zero-centered gaussian from which a weight value mutation is drawn [def=0.1]TODO
         self.weight_mutate_power: float = 0.2
         # Probability of a weight (connection) to mutate  [def=0.1]  TODO
         self.weight_mutate_rate: float = 0.1
@@ -190,7 +190,7 @@ class NeatConfig:
         # The function used to compute the species fitness  [def=D_MAX]
         self.species_fitness_func: str = D_MAX
         # Maximum number of species that can live along each other  [def=10]
-        self.species_max: int = 10
+        self.species_max: int = 15
         # Number of generations before a previous elite specie can become stagnant  [def=5]
         self.specie_stagnation: int = 5
         
