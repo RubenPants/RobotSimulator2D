@@ -143,27 +143,26 @@ class TrainingEnv:
             # Save the population
             if iteration % save_interval == 0: pop.save()
     
-    def evaluate_same_game_and_evolve(self,
-                                      game: int,
-                                      pop: Population,
-                                      n: int = 1,
-                                      parallel=True,
-                                      save_interval: int = 1,
-                                      ):
+    def evaluate_same_games_and_evolve(self,
+                                       games: list,
+                                       pop: Population,
+                                       n: int = 1,
+                                       parallel=True,
+                                       save_interval: int = 1,
+                                       ):
         """
-        Evaluate the population on the same game. Each evaluation, the game is tested over five different variations of
-        the same game, in which the starting-position of the agent differs.
+        Evaluate the population on the same games.
         
-        :param game: The game-index on which the population is repetitively evaluated on
+        :param games: List of games used for training
         :param pop: Population object
         :param n: Number of generations
         :param parallel: Parallel the code (disable parallelization for debugging purposes)
         :param save_interval: Indicates how often a population gets saved
         """
         multi_env = get_multi_env(pop=pop, game_config=self.game_config)
-        msg = f"Repetitive evaluating game: {game}"
+        msg = f"Repetitive evaluating games: {games}"
         pop.log(msg, print_result=False)
-        multi_env.set_games([game] * 5)  # Evaluate over 5 variations of the same game
+        multi_env.set_games(games)
         
         # Manipulate each of the created games' initial starting orientation
         

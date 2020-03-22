@@ -24,17 +24,17 @@ def train(population: Population, unused_cpu, iterations, debug: bool = False):
     )
 
 
-def train_same_game(game: int, population: Population, unused_cpu, iterations, debug: bool = False):
+def train_same_games(games: list, population: Population, unused_cpu, iterations, debug: bool = False):
     """Train the population on the same set of games for the requested number of iterations."""
     from environment.env_training import TrainingEnv
-    population.log("\n===> TRAINING <===\n")
+    population.log("\n===> SAME GAME TRAINING <===\n")
     trainer = TrainingEnv(
             unused_cpu=unused_cpu,  # Use two cores less to keep laptop usable
             game_config=population.game_config,
     )
-    trainer.evaluate_same_game_and_evolve(
+    trainer.evaluate_same_games_and_evolve(
             pop=population,
-            game=game,
+            games=games,
             n=iterations,
             parallel=not debug,
     )
@@ -62,8 +62,8 @@ def trace(population: Population, games: list):
 
 def evaluate(population: Population):
     """Evaluate the given population on the evaluation game-set."""
-    population.log("\n===> EVALUATING <===\n")
     from environment.env_evaluation import EvaluationEnv
+    population.log("\n===> EVALUATING <===\n")
     evaluator = EvaluationEnv(game_config=population.game_config)
     genomes = sorted([g for g in population.population.values()],
                      key=lambda x: x.fitness if x.fitness else 0,
@@ -110,16 +110,16 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     
     # Main methods
-    parser.add_argument('--train', type=bool, default=True)
+    parser.add_argument('--train', type=bool, default=False)
     parser.add_argument('--train_same', type=bool, default=True)
-    parser.add_argument('--blueprint', type=bool, default=True)
+    parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--trace', type=bool, default=True)
-    parser.add_argument('--evaluate', type=bool, default=True)
+    parser.add_argument('--evaluate', type=bool, default=False)
     parser.add_argument('--genome', type=bool, default=False)
     parser.add_argument('--live', type=bool, default=False)
     
     # Extra arguments
-    parser.add_argument('--iterations', type=int, default=2)
+    parser.add_argument('--iterations', type=int, default=20)
     parser.add_argument('--unused_cpu', type=int, default=2)
     parser.add_argument('--debug', type=bool, default=True)
     args = parser.parse_args()
@@ -136,7 +136,8 @@ if __name__ == '__main__':
     
     # Set the blueprint and traces games
     # chosen_games = [0] * 10  # Different (random) initializations!
-    chosen_games = [g for g in range(1, 6)]
+    # chosen_games = [g for g in range(1, 6)]
+    chosen_games = [99995, 99996, 99997, 99998, 99999]
     
     # Chosen genome used for genome-evaluation
     # g = list(pop.population.values())[2]
@@ -151,12 +152,12 @@ if __name__ == '__main__':
                   )
         
         if args.train_same:
-            train_same_game(game=0,
-                            population=pop,
-                            unused_cpu=args.unused_cpu,
-                            iterations=args.iterations,
-                            debug=args.debug,
-                            )
+            train_same_games(games=chosen_games,
+                             population=pop,
+                             unused_cpu=args.unused_cpu,
+                             iterations=args.iterations,
+                             debug=args.debug,
+                             )
         
         if args.blueprint:
             blueprint(population=pop, games=chosen_games)
