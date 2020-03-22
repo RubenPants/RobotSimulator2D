@@ -8,6 +8,7 @@ import traceback
 
 from config import NeatConfig
 from population.population import Population
+from process_killer import main as process_killer
 from utils.dictionary import *
 
 
@@ -97,7 +98,7 @@ def main(fitness,
         if evaluate:
             pop.log("\n===> EVALUATING <===\n")
             from environment.env_evaluation import EvaluationEnv
-
+            
             evaluator = EvaluationEnv(game_config=pop.game_config)
             genomes = sorted([g for g in pop.population.values()],
                              key=lambda x: x.fitness if x.fitness else 0,
@@ -109,19 +110,21 @@ def main(fitness,
     except Exception as e:
         pop.log(traceback.format_exc(), print_result=False)
         raise e
+    finally:
+        process_killer('run_population.py')  # Close all the terminated files
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument('--fitness', type=str, default='')
+    parser.add_argument('--fitness', type=str, default=D_DISTANCE)
     parser.add_argument('--gru_enabled', type=int, default=1)
     parser.add_argument('--reproduce', type=int, default=1)
-    parser.add_argument('--blueprint', type=int, default=1)
+    parser.add_argument('--blueprint', type=int, default=0)
     parser.add_argument('--evaluate', type=int, default=0)
     parser.add_argument('--trace', type=int, default=0)
-    parser.add_argument('--train', type=int, default=0)
-    parser.add_argument('--iterations', type=int, default=0)
-    parser.add_argument('--version', type=int, default=2)
+    parser.add_argument('--train', type=int, default=1)
+    parser.add_argument('--iterations', type=int, default=10)
+    parser.add_argument('--version', type=int, default=0)
     args = parser.parse_args()
     
     main(
