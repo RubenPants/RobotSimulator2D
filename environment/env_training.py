@@ -149,6 +149,7 @@ class TrainingEnv:
                                       n: int = 1,
                                       parallel=True,
                                       random_init: bool = False,
+                                      random_target: bool = False,
                                       save_interval: int = 1,
                                       ):
         """
@@ -159,6 +160,7 @@ class TrainingEnv:
         :param n: Number of generations
         :param parallel: Parallel the code (disable parallelization for debugging purposes)
         :param random_init: Randomly initialize the starting position/orientation of the agent each start
+        :param random_target: Randomize the maze's target location
         :param save_interval: Indicates how often a population gets saved
         """
         multi_env = get_multi_env(pop=pop, game_config=self.game_config)
@@ -187,7 +189,9 @@ class TrainingEnv:
                     pbar.update()
                 
                 for genome in genomes:
-                    pool.apply_async(func=multi_env.eval_genome, args=(genome, return_dict, random_init), callback=cb)
+                    pool.apply_async(func=multi_env.eval_genome,
+                                     args=(genome, return_dict, random_init, random_target),
+                                     callback=cb)
                 pool.close()  # Close the pool
                 pool.join()  # Postpone continuation until everything is finished
                 pbar.close()  # Close the progressbar

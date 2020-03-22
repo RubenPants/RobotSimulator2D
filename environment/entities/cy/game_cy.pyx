@@ -3,7 +3,7 @@ game_cy.pyx
 
 Game class which contains the player, target, and all the walls.
 """
-import random
+from random import gauss, random
 
 import pylab as plt
 from matplotlib import collections as mc
@@ -137,7 +137,7 @@ cdef class GameCy:
         cdef float dt
         
         # Progress the game
-        dt = 1.0 / self.fps + (abs(random.gauss(0, self.noise_time)) if self.noise else 0)
+        dt = 1.0 / self.fps + (abs(gauss(0, self.noise_time)) if self.noise else 0)
         return self.step_dt(dt=dt, l=l, r=r)
     
     cpdef step_dt(self, float dt, float l, float r):
@@ -202,6 +202,16 @@ cdef class GameCy:
         self.player.pos.y = p.y
         self.player.prev_pos.x = p.x
         self.player.prev_pos.y = p.y
+    
+    cpdef void set_target_random(self):
+        """Put the target on a random location."""
+        r = random()
+        if r < 1 / 5:  # 1/5th chance
+            self.target = Vec2dCy(self.x_axis - 0.5, self.y_axis - 0.5)  # Top right
+        elif r < 2 / 5:  # 1/5th chance
+            self.target = Vec2dCy(0.5, 0.5)  # Bottom left
+        else:  # 3/5th chance
+            self.target = Vec2dCy(0.5, self.y_axis - 0.5)  # Top left
     
     # ---------------------------------------------> FUNCTIONAL METHODS <--------------------------------------------- #
     

@@ -4,6 +4,8 @@
 
 ## TODO
 
+* Make mutations without connections invalid
+* Evaluate same maze (different initial and target positions)
 * Once in a specie, always in that specie! --> Otherwise bug in stagnation
 * Random initial starting orientation for robot (between pi/2 and pi)
 * Use game.reset() as warm-up during make_net

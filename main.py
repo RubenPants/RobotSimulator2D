@@ -24,7 +24,7 @@ def train(population: Population, unused_cpu, iterations, debug: bool = False):
     )
 
 
-def train_same_game(games: list, population: Population, unused_cpu, iterations, debug: bool = False):
+def train_same_game(game: int, population: Population, unused_cpu, iterations, debug: bool = False):
     """Train the population on the same set of games for the requested number of iterations."""
     from environment.env_training import TrainingEnv
     population.log("\n===> TRAINING <===\n")
@@ -34,10 +34,11 @@ def train_same_game(games: list, population: Population, unused_cpu, iterations,
     )
     trainer.evaluate_same_game_and_evolve(
             pop=population,
-            games=games,
+            games=[game],
             n=iterations,
             parallel=not debug,
             random_init=True,
+            random_target=True,
     )
 
 
@@ -85,7 +86,12 @@ def visualize_genome(population: Population, genome, debug: bool = True):
     )
 
 
-def live(game_id: int, population: Population, genome, debug: bool = False, random_init: bool = False):
+def live(game_id: int,
+         population: Population,
+         genome,
+         debug: bool = False,
+         random_init: bool = False,
+         random_target: bool = False):
     """Create a live visualization for the performance of the given genome."""
     from environment.env_visualizing_live import LiveVisualizer
     
@@ -101,6 +107,7 @@ def live(game_id: int, population: Population, genome, debug: bool = False, rand
             genome=genome,
             game_id=game_id,
             random_init=random_init,
+            random_target=random_target,
     )
 
 
@@ -109,7 +116,7 @@ if __name__ == '__main__':
     
     # Main methods
     parser.add_argument('--train', type=bool, default=False)
-    parser.add_argument('--train_same', type=bool, default=True)
+    parser.add_argument('--train_same', type=bool, default=False)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--trace', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
@@ -117,7 +124,7 @@ if __name__ == '__main__':
     parser.add_argument('--live', type=bool, default=False)
     
     # Extra arguments
-    parser.add_argument('--iterations', type=int, default=20)
+    parser.add_argument('--iterations', type=int, default=50)
     parser.add_argument('--unused_cpu', type=int, default=2)
     parser.add_argument('--debug', type=bool, default=False)
     args = parser.parse_args()
@@ -129,12 +136,12 @@ if __name__ == '__main__':
             folder_name='test',
     )
     if not pop.best_genome: pop.best_genome = list(pop.population.values())[0]
-    # pop.best_genome = list(pop.population.values())[111]  # TODO
+    # pop.best_genome = list(pop.population.values())[1]  # TODO
     # pop.population = {k: v for k, v in pop.population.items() if k in [111]}  # TODO
     
     # Set the blueprint and traces games
-    chosen_games = [0]
-    # chosen_games = [g for g in range(1, 6)]
+    # chosen_games = [0] * 10  # Different (random) initializations!
+    chosen_games = [g for g in range(1, 6)]
     
     # Chosen genome used for genome-evaluation
     # g = list(pop.population.values())[2]
@@ -149,7 +156,7 @@ if __name__ == '__main__':
                   )
         
         if args.train_same:
-            train_same_game(games=chosen_games,
+            train_same_game(game=0,
                             population=pop,
                             unused_cpu=args.unused_cpu,
                             iterations=args.iterations,
@@ -177,6 +184,7 @@ if __name__ == '__main__':
                  genome=chosen_genome,
                  debug=args.debug,
                  random_init=True,  # TODO
+                 random_target=True,  # TODO
                  )
     except Exception as e:
         pop.log(traceback.format_exc(), print_result=False)

@@ -40,7 +40,8 @@ cdef class MultiEnvironmentCy:
     cpdef void eval_genome(self,
                            genome,
                            return_dict=None,
-                           bint random_init=False
+                           bint random_init=False,
+                           bint random_target=False,
                            ):
         """
         Evaluate a single genome in a pre-defined game-environment.
@@ -48,6 +49,7 @@ cdef class MultiEnvironmentCy:
         :param genome: Tuple (genome_id, genome_class)
         :param return_dict: Dictionary used to return observations corresponding the genome
         :param random_init: Random initialize the starting position of the robot
+        :param random_target: Randomize the maze's target location
         """
         cdef int genome_id, step_num, max_steps
         cdef list games, states, finished
@@ -60,7 +62,9 @@ cdef class MultiEnvironmentCy:
         
         # Initialize the games on which the genome is tested
         games = [get_game_cy(g, cfg=self.game_config) for g in self.games]
-        for g in games: g.player.set_active_sensors(set(genome.connections.keys()))  # Set active-sensors
+        for g in games:
+            g.player.set_active_sensors(set(genome.connections.keys()))  # Set active-sensors
+            if random_target: g.set_target_random()
         
         # Ask for each of the games the starting-state
         states = [g.reset(random_init=random_init)[D_SENSOR_LIST] for g in games]
