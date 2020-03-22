@@ -200,7 +200,7 @@ class DefaultReproduction(DefaultClassConfig):
                     # Check if the genome is already in the population (i.e. did not mutate)
                     for genome in new_population.values():
                         if child.distance(genome, config=config.genome_config) == 0:
-                            valid = False  # TODO: Debug!
+                            valid = False
                             break  # Break the for-loop
                 
                 # Add the child to the population

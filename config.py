@@ -31,7 +31,7 @@ class GameConfig:
         # Number of games on which a single genome is evaluated  [def=12]  TODO
         self.batch: int = 1
         # Number of seconds it takes for one game to complete  [def=100]  TODO
-        self.duration: int = 40
+        self.duration: int = 30
         # Max ID of game (starting from 1)  [def=1000]
         self.max_game_id: int = 1000
         # Max ID of evaluation game (starting from max_id)  [def=1100]
@@ -85,7 +85,7 @@ class NeatConfig:
                                 'compatibility_disjoint_coefficient', 'compatibility_weight_coefficient',
                                 'conn_add_prob', 'conn_delete_prob', 'enabled_default', 'enabled_mutate_rate',
                                 'gru_enabled', 'gru_mutate_rate', 'initial_connection', 'node_add_prob',
-                                'node_delete_prob', 'num_hidden', 'num_inputs', 'num_outputs', 'weight_init_mean',
+                                'node_delete_prob', 'num_hidden', 'num_outputs', 'weight_init_mean',
                                 'weight_init_stdev', 'weight_max_value', 'weight_min_value', 'weight_mutate_power',
                                 'weight_mutate_rate', 'weight_mutate_rate_gru', 'weight_replace_rate'],
         'DefaultSpecies':      ['compatibility_threshold', 'max_stagnation', 'species_elitism', 'species_fitness_func',
@@ -102,7 +102,7 @@ class NeatConfig:
         # Don't consider fitness_criterion and fitness_threshold  [def=True]
         self.no_fitness_termination: bool = True
         # Number of individuals in each generation  [def=128]  TODO
-        self.pop_size: int = 256
+        self.pop_size: int = 128
         
         # [DefaultReproduction]
         # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=3]
@@ -156,11 +156,11 @@ class NeatConfig:
         # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT_05]  TODO
         self.initial_connection = D_FULL_DIRECT
         # Probability of adding a node during mutation (each generation)  [def=0.1]  TODO
-        self.node_add_prob: float = 0.01
+        self.node_add_prob: float = 0
         # Probability of removing a node during mutation (each generation)  [def=0.075]  TODO
-        self.node_delete_prob: float = 0.01
+        self.node_delete_prob: float = 0
         # Number of hidden nodes to add to each genome in the initial population  [def=0]  TODO
-        self.num_hidden: int = 0
+        self.num_hidden: int = 1
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
         self.num_outputs: int = 2
         # Mean of the gaussian distribution used to select the weight attribute values for new connections  [def=0]
@@ -182,7 +182,7 @@ class NeatConfig:
         
         # [DefaultSpecies]
         # Individuals whose genetic distance is less than this threshold are in the same specie  [def=2.0]  TODO
-        self.compatibility_threshold: float = 2.0
+        self.compatibility_threshold: float = 100.0  # TODO: Force only 1 specie
         # Remove a specie if it hasn't improved over this many number of generations  [def=15]
         self.max_stagnation: int = 15
         # Number of the best species that will be protected from stagnation  [def=2]
@@ -206,7 +206,7 @@ class NeatConfig:
         # Enable the genomes to mutate GRU nodes  [def=True]  TODO
         self.gru_enabled: bool = True
         # Mutation probability of mutating a GRU node rather than a simple node  [def=0.4]  TODO
-        self.gru_mutate_rate: float = 0.4
+        self.gru_mutate_rate: float = 1.0
         
         # [SelfAdaptive]  TODO
     
