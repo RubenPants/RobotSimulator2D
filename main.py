@@ -7,6 +7,7 @@ import argparse
 import traceback
 
 from population.population import Population
+from process_killer import main as process_killer
 
 
 def train(population: Population, unused_cpu, iterations, debug: bool = False):
@@ -119,7 +120,7 @@ if __name__ == '__main__':
     parser.add_argument('--live', type=bool, default=False)
     
     # Extra arguments
-    parser.add_argument('--iterations', type=int, default=20)
+    parser.add_argument('--iterations', type=int, default=10)
     parser.add_argument('--unused_cpu', type=int, default=2)
     parser.add_argument('--debug', type=bool, default=True)
     args = parser.parse_args()
@@ -183,3 +184,5 @@ if __name__ == '__main__':
     except Exception as e:
         pop.log(traceback.format_exc(), print_result=False)
         raise e
+    finally:
+        process_killer('main.py')  # Close all the terminated files
