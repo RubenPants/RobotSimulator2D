@@ -4,7 +4,6 @@
 
 ## TODO
 
-* Problem of open files persists, possible to check active variables? (go over appends perhaps?)
 * fix GRU-unittest
 * Test all of the fitness-functions!
 * Self-adaptive NEAT?
