@@ -58,7 +58,8 @@ def append_log(inp: str, full_path: str):
 def load_pickle(full_path):
     """Load pickled object."""
     with open(full_path, 'rb') as f:
-        return pickle.load(f)
+        g = pickle.load(f)
+    return g
 
 
 def store_pickle(obj, full_path):

@@ -40,13 +40,12 @@ cdef class MultiEnvironmentCy:
     cpdef void eval_genome(self,
                            genome,
                            return_dict=None,
-                           bint debug=False):
+                           ):
         """
         Evaluate a single genome in a pre-defined game-environment.
         
         :param genome: Tuple (genome_id, genome_class)
         :param return_dict: Dictionary used to return observations corresponding the genome
-        :param debug: Boolean specifying if debugging is enabled or not
         """
         cdef int genome_id, step_num, max_steps
         cdef list games, states, finished
@@ -74,10 +73,7 @@ cdef class MultiEnvironmentCy:
             if step_num == self.max_steps: break
             
             # Determine the actions made by the agent for each of the states
-            if debug:
-                actions = self.query_net(net, states, debug=True, step_num=step_num)
-            else:
-                actions = self.query_net(net, states)
+            actions = self.query_net(net, states)
             
             # Check if each game received an action
             assert len(actions) == len(games)
@@ -102,13 +98,12 @@ cdef class MultiEnvironmentCy:
     cpdef void trace_genome(self,
                             genome,
                             return_dict=None,
-                            bint debug=False):
+                            ):
         """
         Get the trace of a single genome for a pre-defined game-environment.
         
         :param genome: Tuple (genome_id, genome_class)
         :param return_dict: Dictionary used to return the traces corresponding the genome-game combination
-        :param debug: Boolean specifying if debugging is enabled or not
         """
         cdef int genome_id, step_num, max_steps
         cdef list games, states, traces
@@ -138,10 +133,7 @@ cdef class MultiEnvironmentCy:
             if step_num == self.max_steps: break
             
             # Determine the actions made by the agent for each of the states
-            if debug:
-                actions = self.query_net(net, states, debug=True, step_num=step_num)
-            else:
-                actions = self.query_net(net, states)
+            actions = self.query_net(net, states)
             
             # Check if each game received an action
             assert len(actions) == len(games)
@@ -178,7 +170,7 @@ cdef class MultiEnvironmentCy:
         """
         self.games = games
         self.batch_size = len(games)
-        
+    
     cpdef list get_game_params(self):
         """Return list of all game-parameters currently in self.games."""
         return [get_game_cy(i, cfg=self.game_config).game_params() for i in self.games]

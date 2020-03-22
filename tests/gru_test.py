@@ -4,6 +4,7 @@ gru.py
 Test if the GruNodeGene is implemented correctly
 """
 import copy
+import os
 import unittest
 
 import torch
@@ -36,6 +37,9 @@ def get_config(num_inputs=4, num_hidden=1, num_outputs=1):
 class TestGruNodeGene(unittest.TestCase):
     def test_input_keys(self):
         """> Test if the input_keys list is expanded and contracted correctly."""
+        # Folder must be root to load in make_net properly
+        if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
+        
         gru = GruNodeGene(0)
         config = get_config()
         gru.init_attributes(config.genome_config)
@@ -80,6 +84,9 @@ class TestGruNodeGene(unittest.TestCase):
     
     def test_weight_ih(self):
         """> Test if the weight_ih tensor is expanded and contracted correctly."""
+        # Folder must be root to load in make_net properly
+        if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
+        
         gru = GruNodeGene(0)
         config = get_config()
         gru.init_attributes(config.genome_config)
@@ -145,6 +152,9 @@ class TestGruNodeGene(unittest.TestCase):
     
     def test_mutate(self):
         """> Unused keys' values may never be mutated."""
+        # Folder must be root to load in make_net properly
+        if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
+        
         gru = GruNodeGene(0)
         config = get_config()
         gru.init_attributes(config.genome_config)

@@ -3,12 +3,13 @@ genes.py
 
 Handles node and connection genes.
 """
-import copy
-import warnings
+from copy import deepcopy
 from random import random
+from warnings import warn
 
 import numpy as np
-import torch
+from torch import cat, float64, Tensor, tensor
+from torch.nn import GRUCell
 
 from population.utils.genome_util.attributes import BiasAttribute, BoolAttribute, FloatAttribute, StringAttribute, \
     WeightAttribute
@@ -53,8 +54,7 @@ class BaseGene(object):
         params = []
         if not hasattr(cls, '_attributes'):
             setattr(cls, '_attributes', getattr(cls, '__attributes__'))
-            warnings.warn(f"Class '{cls.__name__:!s}' {cls:!r} needs '_attributes' not '__attributes__'",
-                          DeprecationWarning)
+            warn(f"Class '{cls.__name__:!s}' {cls:!r} needs '_attributes' not '__attributes__'", DeprecationWarning)
         for a in cls._attributes: params += a.get_config_params()
         return params
     
@@ -108,6 +108,9 @@ class DefaultNodeGene(BaseGene):
         assert isinstance(key, int), f"DefaultNodeGene key must be an int, not {key!r}"
         BaseGene.__init__(self, key)
     
+    def __repr__(self):
+        return f"DefaultNodeGene(bias={round(self.bias, 2)})"
+    
     def distance(self, other, config):
         d = abs(self.bias - other.bias)
         if self.key not in [0, 1] and other.key not in [0, 1]:  # Exclude comparison with activation of output nodes
@@ -122,6 +125,9 @@ class OutputNodeGene(DefaultNodeGene):
     def __init__(self, key):
         assert isinstance(key, int), f"OutputNodeGene key must be an int, not {key!r}"
         super().__init__(key)
+    
+    def __repr__(self):
+        return f"OutputNodeGene(bias={round(self.bias, 2)})"
     
     def init_attributes(self, config):
         """ Set the initial attributes as claimed by the config, but force activation to be tanh """
@@ -165,11 +171,14 @@ class GruNodeGene(BaseGene):
         body = []
         for a in attrib:
             attr = getattr(self, a)
-            if isinstance(attr, torch.Tensor):
+            if isinstance(attr, Tensor):
                 body.append(f"{a}={np.asarray(attr.tolist()).round(3).tolist()}")
             else:
                 body.append(f"{a}={attr}")
         return f'{self.__class__.__name__}({", ".join(body)})'
+    
+    def __repr__(self):
+        return f"GruNodeGene(inputs={self.input_keys!r})"
     
     def init_attributes(self, config):
         setattr(self, 'bias_ih', self._attributes[0].init_value(config, self.hidden_size))
@@ -182,8 +191,8 @@ class GruNodeGene(BaseGene):
         new_gene: GruNodeGene = super().copy()
         
         # Other fields not stored in _attributes
-        new_gene.input_keys = copy.deepcopy(self.input_keys)
-        new_gene.full_input_keys = copy.deepcopy(self.full_input_keys)
+        new_gene.input_keys = deepcopy(self.input_keys)
+        new_gene.full_input_keys = deepcopy(self.full_input_keys)
         # new_gene.hidden_size = copy.deepcopy(self.hidden_size)  # TODO: only needed if generalized
         
         return new_gene
@@ -191,7 +200,7 @@ class GruNodeGene(BaseGene):
     def mutate(self, config):
         """ Perform the mutation operation. """
         # Replace the config's weight_mutate_rate with that of the gru-specific mutate rate
-        cfg = copy.deepcopy(config)
+        cfg = deepcopy(config)
         cfg.weight_mutate_rate = cfg.weight_mutate_rate_gru
         
         # Perform the mutation
@@ -216,9 +225,9 @@ class GruNodeGene(BaseGene):
         assert self.key == other.key  # Crossover only happens at own nodes
         new_gene = self.__class__(self.key)  # Initialize empty node (used as container for crossover result)
         new_gene.full_input_keys = sorted(set(self.full_input_keys + other.full_input_keys))
-        new_full_weight_ih = torch.tensor(
+        new_full_weight_ih = tensor(
                 np.zeros((3 * self.hidden_size, len(new_gene.full_input_keys))),
-                dtype=torch.float64,
+                dtype=float64,
         )
         
         # Add weights column by column to the new gene
@@ -258,7 +267,7 @@ class GruNodeGene(BaseGene):
     
     def update_weight_ih(self):
         """Update weight_ih to be conform with the current input_keys-set."""
-        self.weight_ih = torch.tensor(np.zeros((3 * self.hidden_size, len(self.input_keys))), dtype=torch.float64)
+        self.weight_ih = tensor(np.zeros((3 * self.hidden_size, len(self.input_keys))), dtype=float64)
         for i, k in enumerate(self.input_keys):
             self.weight_ih[:, i] = self.full_weight_ih[:, self.full_input_keys.index(k)]
     
@@ -266,10 +275,10 @@ class GruNodeGene(BaseGene):
         """Return a PyTorch GRUCell based on current configuration."""
         self.update_weight_ih()
         if weight_map is not None:
-            gru = torch.nn.GRUCell(input_size=len(weight_map[weight_map]), hidden_size=self.hidden_size)
+            gru = GRUCell(input_size=len(weight_map[weight_map]), hidden_size=self.hidden_size)
             gru.weight_ih[:] = self.weight_ih[:, weight_map]
         else:
-            gru = torch.nn.GRUCell(input_size=len(self.input_keys), hidden_size=self.hidden_size)
+            gru = GRUCell(input_size=len(self.input_keys), hidden_size=self.hidden_size)
             gru.weight_ih[:] = self.weight_ih
         gru.weight_hh[:] = self.weight_hh
         gru.bias_ih[:] = self.bias_ih
@@ -289,7 +298,7 @@ class GruNodeGene(BaseGene):
             
             # Update full_weight_ih correspondingly by inserting random initialized tensor in correct position
             new_tensor = WeightAttribute('temp').init_value(config, hidden_size=self.hidden_size, input_size=1)
-            self.full_weight_ih = torch.cat((self.full_weight_ih[:, :i], new_tensor, self.full_weight_ih[:, i:]), dim=1)
+            self.full_weight_ih = cat((self.full_weight_ih[:, :i], new_tensor, self.full_weight_ih[:, i:]), dim=1)
         
         # Update input_keys (current key-set) analogously
         if k not in self.input_keys:
@@ -310,11 +319,14 @@ class DefaultConnectionGene(BaseGene):
     
     def __init__(self, key):
         # Placeholders
-        self.enabled = None
+        self.enabled = True
         self.weight = None
         
         assert isinstance(key, tuple), f"DefaultConnectionGene key must be a tuple, not {key!r}"
         BaseGene.__init__(self, key)
+    
+    def __repr__(self):
+        return f"DefaultConnectionGene(weight={round(self.weight, 2)}, enabled={self.enabled})"
     
     def distance(self, other, config):
         d = abs(self.weight - other.weight)

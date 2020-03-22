@@ -149,7 +149,7 @@ class StdOutReporter(BaseReporter):
               f'\n\t- belongs to specie: {best_species_id}'
         if logger:
             logger(msg, print_result=False)
-            print(f"Best genome size (hid, conn): {best_genome.size()!r}")
+            print(f"Best genome '{best_genome.key}' with size {best_genome.size()!r} of specie: '{best_species_id}'")
         else:
             print(msg)
     

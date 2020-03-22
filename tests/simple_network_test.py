@@ -24,11 +24,10 @@ from utils.dictionary import *
 EPSILON = 1e-5
 
 
-def get_genome(inputs, hidden, outputs):
+def get_genome(hidden, outputs):
     """Create a simple feedforward neuron."""
     # Get the configuration
     cfg = NeatConfig()
-    cfg.num_inputs = inputs
     cfg.num_hidden = hidden
     cfg.num_outputs = outputs
     cfg.initial_connection = D_FULL_NODIRECT  # input -> hidden -> output
@@ -42,7 +41,7 @@ def get_genome(inputs, hidden, outputs):
     )
     
     # Create the genome
-    g = DefaultGenome(key=0, num_inputs=cfg.num_inputs, num_outputs=cfg.num_outputs)
+    g = DefaultGenome(key=0, num_outputs=cfg.num_outputs)
     g.configure_new(config.genome_config)
     return g, config
 
@@ -63,11 +62,13 @@ class TestFeedForward(unittest.TestCase):
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
         # Fetch the genome and its corresponding config file
-        genome, config = get_genome(1, 0, 1)
+        genome, config = get_genome(0, 1)
         
-        # Manipulate the genome's biases and connection weights
+        # Manipulate the genome's connections and biases
+        genome.connections = dict()
+        for i, o in [(-1, 0)]:
+            genome.create_connection(config=config.genome_config, input_key=i, output_key=o, weight=1.0)
         genome.nodes[0].bias = 0  # Output-bias
-        genome.connections[(-1, 0)].weight = 1  # Single connection from input to output
         if debug: print(genome)
         
         # Create a network
@@ -101,13 +102,14 @@ class TestFeedForward(unittest.TestCase):
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
         # Fetch the genome and its corresponding config file
-        genome, config = get_genome(1, 1, 1)
+        genome, config = get_genome(1, 1)
         
         # Manipulate the genome's biases and connection weights
         genome.nodes[0].bias = 0  # Output-bias
         genome.nodes[1].bias = 0  # Hidden-bias
-        genome.connections[(-1, 1)].weight = 1  # Single connection from input to hidden
-        genome.connections[(1, 0)].weight = 1  # Single connection from hidden to output
+        genome.connections = dict()
+        for i, o in [(-1, 1), (1, 0)]:
+            genome.create_connection(config=config.genome_config, input_key=i, output_key=o, weight=1.0)
         if debug: print(genome)
         
         # Create a network
@@ -141,18 +143,15 @@ class TestFeedForward(unittest.TestCase):
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
         # Fetch the genome and its corresponding config file
-        genome, config = get_genome(1, 2, 1)
+        genome, config = get_genome(2, 1)
         
         # Manipulate the genome's biases and connection weights
         genome.nodes[0].bias = 0  # Output bias
         genome.nodes[1].bias = 0  # First hidden bias
         genome.nodes[2].bias = 0  # Second hidden bias
-        del genome.connections[(-1, 2)]  # Unwanted connection
-        del genome.connections[(1, 0)]  # Unwanted connection
-        genome.create_connection(config=config.genome_config, input_key=1, output_key=2)
-        genome.connections[(-1, 1)].weight = 1  # Single connection from input to first hidden
-        genome.connections[(1, 2)].weight = 1  # Single connection from first hidden to second hidden
-        genome.connections[(2, 0)].weight = 1  # Single connection from second hidden to output
+        genome.connections = dict()
+        for i, o in [(-1, 1), (1, 2), (2, 0)]:
+            genome.create_connection(config=config.genome_config, input_key=i, output_key=o, weight=1.0)
         if debug: print(genome)
         
         # Create a network
@@ -181,22 +180,23 @@ class TestFeedForward(unittest.TestCase):
         This test will check on the aggregation function of the output node.
 
         Network:
-            I1 -         (-1) -
-                |              |
-                +- O  ==       +- (0)
-                |              |
-            I2 -         (-2) -
+            I1 -          (-1) -
+                |               |
+                +- O  ==        +- (0)
+                |               |
+            I2 -          (-2) -
         """
         # Folder must be root to load in make_net properly
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
         # Fetch the genome and its corresponding config file
-        genome, config = get_genome(2, 0, 1)
+        genome, config = get_genome(0, 1)
         
         # Manipulate the genome's biases and connection weights
         genome.nodes[0].bias = 0  # Output bias
-        genome.connections[(-1, 0)].weight = 1  # Single connection from input to first hidden
-        genome.connections[(-2, 0)].weight = 1  # Single connection from input to first hidden
+        genome.connections = dict()
+        for i, o in [(-1, 0), (-2, 0)]:
+            genome.create_connection(config=config.genome_config, input_key=i, output_key=o, weight=1.0)
         if debug: print(genome)
         
         # Create a network
@@ -233,16 +233,15 @@ class TestFeedForward(unittest.TestCase):
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
         # Fetch the genome and its corresponding config file
-        genome, config = get_genome(1, 2, 1)
+        genome, config = get_genome(2, 1)
         
         # Manipulate the genome's biases and connection weights
         genome.nodes[0].bias = 0  # Output bias
-        genome.nodes[1].bias = 0  # Output bias
-        genome.nodes[2].bias = 0  # Output bias
-        genome.connections[(-1, 1)].weight = 1  # Single connection from input to first hidden
-        genome.connections[(-1, 2)].weight = 1  # Single connection from input to second hidden
-        genome.connections[(1, 0)].weight = 1  # Single connection from first hidden to output
-        genome.connections[(2, 0)].weight = 1  # Single connection from second hidden to output
+        genome.nodes[1].bias = 0  # Hidden bias
+        genome.nodes[2].bias = 0  # Hidden bias
+        genome.connections = dict()
+        for i, o in [(-1, 1), (-1, 2), (1, 0), (2, 0)]:
+            genome.create_connection(config=config.genome_config, input_key=i, output_key=o, weight=1.0)
         if debug: print(genome)
         
         # Create a network

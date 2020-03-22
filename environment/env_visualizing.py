@@ -4,20 +4,15 @@ env_visualizing.py
 Visualize the performance of a population.
 """
 import multiprocessing as mp
-import sys
 
 from neat.six_util import iteritems
 from tqdm import tqdm
 
 from config import GameConfig
 from environment.entities.game import get_game
+from environment.env_multi import get_multi_env
 from population.utils.visualizing.population_visualizer import create_blueprints, create_traces
 from utils.myutils import get_subfolder
-
-if sys.platform == 'linux':
-    from environment.cy.env_multi_cy import MultiEnvironmentCy
-else:
-    from environment.env_multi import MultiEnvironment
 
 
 class VisualizingEnv:
@@ -58,23 +53,7 @@ class VisualizingEnv:
 
         :param pop: Population object
         """
-        if sys.platform == 'linux':
-            multi_env = MultiEnvironmentCy(
-                    make_net=pop.make_net,
-                    query_net=pop.query_net,
-                    game_config=self.game_config,
-                    neat_config=pop.config,
-                    max_steps=self.game_config.duration * self.game_config.fps
-            )
-        else:
-            multi_env = MultiEnvironment(
-                    make_net=pop.make_net,
-                    query_net=pop.query_net,
-                    game_config=self.game_config,
-                    neat_config=pop.config,
-                    max_steps=self.game_config.duration * self.game_config.fps
-            )
-        
+        multi_env = get_multi_env(pop=pop, game_config=self.game_config)
         if len(self.games) > 20:
             raise Exception("It is not advised to evaluate on more than 20 at once")
         
@@ -114,23 +93,7 @@ class VisualizingEnv:
 
         :param pop: Population object
         """
-        if sys.platform == 'linux':
-            multi_env = MultiEnvironmentCy(
-                    make_net=pop.make_net,
-                    query_net=pop.query_net,
-                    game_config=self.game_config,
-                    neat_config=pop.config,
-                    max_steps=self.game_config.duration * self.game_config.fps
-            )
-        else:
-            multi_env = MultiEnvironment(
-                    make_net=pop.make_net,
-                    query_net=pop.query_net,
-                    game_config=self.game_config,
-                    neat_config=pop.config,
-                    max_steps=self.game_config.duration * self.game_config.fps
-            )
-        
+        multi_env = get_multi_env(pop=pop, game_config=self.game_config)
         if len(self.games) > 20:
             raise Exception("It is not advised to evaluate on more than 20 at once")
         

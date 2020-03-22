@@ -4,6 +4,8 @@
 
 ## TODO
 
+* Reformat num_hidden as "minimal hidden-nodes" 
+* Use game.reset() as warm-up during make_net
 * Self-adaptive NEAT?
 * Improve elite-history for species, put in config a decay time and keep elite species of the last X generations (currently only previous gen)
 * Test all of the fitness-functions!

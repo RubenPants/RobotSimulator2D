@@ -82,15 +82,6 @@ class Maze:
         # Add doors in walls such that every room is connected
         self.connect_rooms(corridor=corridor_tiles)
         if visualize: self.visualize()
-        
-        # Set the position for the target
-        r = random()
-        if r < 1 / 5:
-            self.target = Vec2d(cfg.x_axis - 0.5, cfg.y_axis - 0.5)  # Top right
-        elif r < 2 / 5:
-            self.target = Vec2d(0.5, 0.5)  # Bottom left
-        else:
-            self.target = Vec2d(0.5, cfg.y_axis - 0.5)  # Top left
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     
@@ -639,20 +630,20 @@ def create_custom_game(cfg: GameConfig, overwrite=False):
                 game_id=game_id,
                 overwrite=overwrite)
     
+    # Put the target on a fixed position
+    game.target = Vec2d(0.5, cfg.y_axis - 0.5)
+    
     # Set game path
     path = dict()
     for x in range(cfg.x_axis):
         for y in range(cfg.y_axis):
-            path[(x + 0.5, y + 0.5)] = Line2d(Vec2d(0.5, cfg.y_axis - 0.5), Vec2d(x + 0.5, y + 0.5)).get_length()
+            path[(x + 0.5, y + 0.5)] = Line2d(game.target, Vec2d(x + 0.5, y + 0.5)).get_length()
     game.path = path
     
-    # Put the target on a fixed position
-    game.target = Vec2d(0.5, cfg.y_axis - 0.5)
-    
     # Create random player
-    game.player = MarXBot(game=game,
-                          init_pos=Vec2d(cfg.x_axis - 0.5, 0.5),
-                          init_orient=np.pi / 2)
+    game.player = MarXBot(game=game)
+    game.set_player_init_angle(a=np.pi / 2)
+    game.set_player_init_pos(p=Vec2d(cfg.x_axis - 0.5, 0.5))
     
     # Check if implemented correctly
     game.close()
@@ -689,17 +680,17 @@ def create_game(cfg: GameConfig,
     # Add additional walls to the game
     game.walls.update(set(maze.get_wall_coordinates()))
     
+    # Set the target on a randomized position
+    game.set_target_random()
+    
     # App path to the game
-    path_list = maze.get_path_coordinates(target_pos=maze.target, visualize=visualize)
+    path_list = maze.get_path_coordinates(target_pos=game.target, visualize=visualize)
     game.path = {p[0]: p[1] for p in path_list}
     
-    # Set the target on the predefined position
-    game.target = maze.target
-    
     # Create random player
-    game.player = MarXBot(game=game,
-                          init_pos=Vec2d(cfg.x_axis - 0.5, 0.5),  # Fixed initial position
-                          init_orient=np.pi / 2)
+    game.player = MarXBot(game=game)
+    game.set_player_init_angle(a=np.pi / 2)
+    game.set_player_init_pos(p=Vec2d(cfg.x_axis - 0.5, 0.5))
     
     # Save the final game
     game.save()
@@ -748,6 +739,7 @@ if __name__ == '__main__':
             try:
                 game = Game(
                         game_id=g_id,
+                        config=config,
                         save_path="environment/games_db/",
                         overwrite=False,
                         silent=True,

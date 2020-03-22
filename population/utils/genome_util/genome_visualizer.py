@@ -46,10 +46,10 @@ def draw_net(config, genome: DefaultGenome, debug=False, filename=None, view=Tru
     
     # Visualize input nodes
     inputs = set()
+    active = {a for (a, b) in used_conn if a < 0}
     for index, key in enumerate(config.genome_config.input_keys):
         inputs.add(key)
         name = node_names.get(key)
-        active = {a for (a, b) in used_conn if a < 0}
         color = '#e3e3e3' if key in active else '#9e9e9e'
         dot.node(
                 name,

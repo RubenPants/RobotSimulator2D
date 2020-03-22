@@ -52,7 +52,8 @@ class LiveVisualizer:
         # Debug options
         self.debug = debug
     
-    def visualize(self, genome, game_id: int):  # TODO: Generalize and use multiple robots?
+    # TODO: Generalize and use multiple robots?
+    def visualize(self, genome, game_id: int):
         """
         Visualize the performance of a single genome.
         

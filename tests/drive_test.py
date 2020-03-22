@@ -89,7 +89,7 @@ class GameDrive(unittest.TestCase):
         # Do 10 different initialized tests
         for _ in range(10):
             # Set player init positions
-            game.set_player_pos(Vec2d(4.5, 4.5))
+            game.set_player_init_pos(Vec2d(4.5, 4.5))
             game.player.angle = random() * np.pi
             
             # Run for one twenty seconds
