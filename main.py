@@ -26,6 +26,7 @@ def train(population: Population, unused_cpu, iterations, debug: bool = False):
 
 def train_same_game(game: int, population: Population, unused_cpu, iterations, debug: bool = False):
     """Train the population on the same set of games for the requested number of iterations."""
+    # TODO: Improve: perhaps fixed target and only random init (i.e. 5 different starting pos for 5 games?)
     from environment.env_training import TrainingEnv
     population.log("\n===> TRAINING <===\n")
     trainer = TrainingEnv(
@@ -115,7 +116,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     
     # Main methods
-    parser.add_argument('--train', type=bool, default=False)
+    parser.add_argument('--train', type=bool, default=True)
     parser.add_argument('--train_same', type=bool, default=False)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--trace', type=bool, default=False)
@@ -124,9 +125,9 @@ if __name__ == '__main__':
     parser.add_argument('--live', type=bool, default=False)
     
     # Extra arguments
-    parser.add_argument('--iterations', type=int, default=50)
+    parser.add_argument('--iterations', type=int, default=2)
     parser.add_argument('--unused_cpu', type=int, default=2)
-    parser.add_argument('--debug', type=bool, default=False)
+    parser.add_argument('--debug', type=bool, default=True)
     args = parser.parse_args()
     
     # Setup the population

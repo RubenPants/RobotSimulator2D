@@ -4,6 +4,7 @@
 
 ## TODO
 
+* representation for nodes and connections
 * Reformat num_hidden as "minimal hidden-nodes" 
 * Evaluate same maze (different initial and target positions)
 * Once in a specie, always in that specie! --> Otherwise bug in stagnation
