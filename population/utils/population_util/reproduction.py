@@ -194,14 +194,12 @@ class DefaultReproduction(DefaultClassConfig):
                     
                     # Check if the genome contains any connections
                     if len({c for c in child.connections.values() if c.enabled}) == 0:
-                        print("Invalid genome, no connections!")
                         valid = False
                         continue  # Continue the while-loop
                     
                     # Check if the genome is already in the population (i.e. did not mutate)
                     for genome in new_population.values():
                         if child.distance(genome, config=config.genome_config) == 0:
-                            print("Invalid genome, already in the population!")
                             valid = False
                             break  # Break the for-loop
                 
