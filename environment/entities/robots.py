@@ -4,6 +4,7 @@ robots.py
 Robots used to manoeuvre around in the Game-environment.
 """
 from math import sqrt
+from random import random
 
 from numpy import pi
 
@@ -100,15 +101,27 @@ class MarXBot:
         """Value of current distance-reading."""
         return self.sensors[len(self.sensors) - 1].value  # Distance is always the last sensor
     
-    def reset(self):
+    def reset(self, random_init: bool = False):
         """
         Put the robot back to its initial parameters.
         """
-        self.pos.x = self.init_pos.x
-        self.pos.y = self.init_pos.y
-        self.prev_pos.x = self.init_pos.x
-        self.prev_pos.y = self.init_pos.y
-        self.angle = self.init_angle
+        # Load in the data
+        angle = self.init_angle
+        pos_x = self.init_pos.x
+        pos_y = self.init_pos.y
+        
+        # Add noise if random_init
+        if random_init:
+            angle += random() * pi / 2.0  # Random angle between facing up and left
+            pos_x += 0.2 * (random() - 0.5)  # Random x-position with 0.1 deviation at most
+            pos_y += 0.2 * (random() - 0.5)  # Random y-position with 0.1 deviation at most
+        
+        # Set the parameters
+        self.pos.x = pos_x
+        self.pos.y = pos_y
+        self.prev_pos.x = pos_x
+        self.prev_pos.y = pos_y
+        self.angle = angle
     
     # -----------------------------------------------> SENSOR METHODS <----------------------------------------------- #
     

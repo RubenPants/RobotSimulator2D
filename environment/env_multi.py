@@ -3,8 +3,11 @@ env_multi.py
 
 Environment where a single genome gets evaluated over multiple games. This environment will be called in a process.
 """
+import sys
+
 from config import GameConfig, NeatConfig
 from environment.entities.game import get_game
+from population.population import Population
 from utils.dictionary import D_DONE, D_SENSOR_LIST
 
 
@@ -95,12 +98,15 @@ class MultiEnvironment:
     def trace_genome(self,
                      genome,
                      return_dict: dict = None,
-                     debug: bool = False):
+                     random_init: bool = False,
+                     debug: bool = False,
+                     ):
         """
         Get the trace of a single genome for a pre-defined game-environment.
         
         :param genome: Tuple (genome_id, genome_class)
         :param return_dict: Dictionary used to return the traces corresponding the genome-game combination
+        :param random_init: Random initialize the starting position of the robot
         :param debug: Boolean specifying if debugging is enabled or not
         """
         genome_id, genome = genome  # Split up genome by id and genome itself
@@ -111,7 +117,7 @@ class MultiEnvironment:
         for g in games: g.player.set_active_sensors(set(genome.connections.keys()))  # Set active-sensors
         
         # Ask for each of the games the starting-state
-        states = [g.reset()[D_SENSOR_LIST] for g in games]
+        states = [g.reset(random_init=random_init)[D_SENSOR_LIST] for g in games]
         
         # Initialize the traces
         traces = [[g.player.pos.get_tuple()] for g in games]
@@ -170,3 +176,24 @@ class MultiEnvironment:
     def get_game_params(self):
         """Return list of all game-parameters currently in self.games."""
         return [get_game(i, cfg=self.game_config).game_params() for i in self.games]
+
+
+def get_multi_env(pop: Population, game_config: GameConfig):
+    """Create a multi-environment used to evaluate a population on."""
+    if sys.platform == 'linux':
+        from environment.cy.env_multi_cy import MultiEnvironmentCy
+        return MultiEnvironmentCy(
+                make_net=pop.make_net,
+                query_net=pop.query_net,
+                game_config=game_config,
+                neat_config=pop.config,
+                max_steps=game_config.duration * game_config.fps
+        )
+    else:
+        return MultiEnvironment(
+                make_net=pop.make_net,
+                query_net=pop.query_net,
+                game_config=game_config,
+                neat_config=pop.config,
+                max_steps=game_config.duration * game_config.fps
+        )
