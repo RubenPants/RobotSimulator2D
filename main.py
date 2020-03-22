@@ -111,11 +111,11 @@ if __name__ == '__main__':
     
     # Main methods
     parser.add_argument('--train', type=bool, default=False)
-    parser.add_argument('--train_same', type=bool, default=True)
+    parser.add_argument('--train_same', type=bool, default=False)
     parser.add_argument('--blueprint', type=bool, default=False)
-    parser.add_argument('--trace', type=bool, default=True)
+    parser.add_argument('--trace', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
-    parser.add_argument('--genome', type=bool, default=False)
+    parser.add_argument('--genome', type=bool, default=True)
     parser.add_argument('--live', type=bool, default=False)
     
     # Extra arguments
@@ -128,7 +128,7 @@ if __name__ == '__main__':
     pop = Population(
             # name='test',
             version=1,
-            folder_name='DISTANCE-ONLY',
+            folder_name='test',
     )
     if not pop.best_genome: pop.best_genome = list(pop.population.values())[0]
     # pop.best_genome = list(pop.population.values())[1]  # TODO
