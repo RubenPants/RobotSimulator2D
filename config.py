@@ -31,7 +31,7 @@ class GameConfig:
         # Number of games on which a single genome is evaluated  [def=12]  TODO
         self.batch: int = 1
         # Number of seconds it takes for one game to complete  [def=100]  TODO
-        self.duration: int = 30
+        self.duration: int = 40
         # Max ID of game (starting from 1)  [def=1000]
         self.max_game_id: int = 1000
         # Max ID of evaluation game (starting from max_id)  [def=1100]
@@ -154,13 +154,13 @@ class NeatConfig:
         # The probability that mutation will replace the 'enabled status' of a connection  [def=0.05]
         self.enabled_mutate_rate: float = 0.01
         # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT_05]  TODO
-        self.initial_connection = D_PARTIAL_DIRECT_05
+        self.initial_connection = D_FULL_DIRECT
         # Probability of adding a node during mutation (each generation)  [def=0.01]  TODO
         self.node_add_prob: float = 0.01
         # Probability of removing a node during mutation (each generation)  [def=0.01]  TODO
         self.node_delete_prob: float = 0.01
         # Number of hidden nodes to add to each genome in the initial population  [def=0]  TODO
-        self.num_hidden: int = 0
+        self.num_hidden: int = 1
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
         self.num_outputs: int = 2
         # Mean of the gaussian distribution used to select the weight attribute values for new connections  [def=0]
