@@ -161,8 +161,6 @@ class Population:
         reporter = StdOutReporter()
         self.add_reporter(reporter)
         
-        # Make log-file
-        
         # Save newly made population
         self.save()
         

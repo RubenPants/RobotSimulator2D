@@ -32,7 +32,7 @@ cdef class GameCy:
     
     cpdef dict get_observation(self, set close_walls=?)
     
-    cpdef dict reset(self)
+    cpdef dict reset(self, bint random_init=?)
     
     cpdef step(self, float l, float r)
     
@@ -42,9 +42,11 @@ cdef class GameCy:
     
     cpdef void create_empty_game(self)
     
-    cpdef void set_player_angle(self, float a)
+    cpdef void set_player_init_angle(self, float a)
     
-    cpdef void set_player_pos(self, Vec2dCy p)
+    cpdef void set_player_init_pos(self, Vec2dCy p)
+    
+    cpdef void set_target_random(self)
     
     # ---------------------------------------------> FUNCTIONAL METHODS <--------------------------------------------- #
     

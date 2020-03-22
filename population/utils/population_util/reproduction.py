@@ -186,13 +186,22 @@ class DefaultReproduction(DefaultClassConfig):
                     child.connections = copy.deepcopy(parent1.connections)
                     child.nodes = copy.deepcopy(parent1.nodes)
                 
-                # Keep mutating the child until it's different from what is already in the population
-                in_population = True
-                while in_population:
+                # Keep mutating the child until it's valid
+                valid = False
+                while not valid:
                     child.mutate(config.genome_config)
-                    in_population = False
+                    valid = True
+                    
+                    # Check if the genome contains any connections
+                    if len({c for c in child.connections.values() if c.enabled}) == 0:
+                        valid = False
+                        continue  # Continue the while-loop
+                    
+                    # Check if the genome is already in the population (i.e. did not mutate)
                     for genome in new_population.values():
-                        if child.distance(genome, config=config.genome_config) == 0: in_population = True
+                        if child.distance(genome, config=config.genome_config) == 0:
+                            valid = False
+                            break  # Break the for-loop
                 
                 # Add the child to the population
                 new_population[gid] = child

@@ -3,12 +3,11 @@ game_cy.pyx
 
 Game class which contains the player, target, and all the walls.
 """
-import random
+from random import gauss, random
 
-import numpy as np
-cimport numpy as np
 import pylab as plt
 from matplotlib import collections as mc
+from numpy import pi
 
 from config import GameConfig
 from environment.entities.cy.robots_cy cimport MarXBotCy
@@ -121,10 +120,10 @@ cdef class GameCy:
             D_SENSOR_LIST: self.player.get_sensor_readings(close_walls),
         }
     
-    cpdef dict reset(self):
+    cpdef dict reset(self, bint random_init=False):
         """Reset the game and return initial observations."""
         self.steps_taken = 0
-        self.player.reset()
+        self.player.reset(random_init=random_init)
         return self.get_observation()
     
     cpdef step(self, float l, float r):
@@ -138,7 +137,7 @@ cdef class GameCy:
         cdef float dt
         
         # Progress the game
-        dt = 1.0 / self.fps + (abs(random.gauss(0, self.noise_time)) if self.noise else 0)
+        dt = 1.0 / self.fps + (abs(gauss(0, self.noise_time)) if self.noise else 0)
         return self.step_dt(dt=dt, l=l, r=r)
     
     cpdef step_dt(self, float dt, float l, float r):
@@ -182,20 +181,20 @@ cdef class GameCy:
         # Create random set of walls
         self.walls = get_boundary_walls(x_axis=self.x_axis, y_axis=self.y_axis)
         self.target = Vec2dCy(0.5, self.y_axis - 0.5)
-        self.player = MarXBotCy(game=self,
-                                init_pos=Vec2dCy(self.x_axis - 0.5, 0.5),
-                                init_orient=np.pi / 2)
+        self.player = MarXBotCy(game=self)
+        self.set_player_init_angle(a=pi / 2)
+        self.set_player_init_pos(p=Vec2dCy(self.x_axis - 0.5, 0.5))
         
         # Save the new game
         self.save()
         if not self.silent: print(f"New game created under id: {self.id}")
     
-    cpdef void set_player_angle(self, float a):
+    cpdef void set_player_init_angle(self, float a):
         """Set a new initial angle for the player."""
         self.player.init_angle = a
         self.player.angle = a
     
-    cpdef void set_player_pos(self, Vec2dCy p):
+    cpdef void set_player_init_pos(self, Vec2dCy p):
         """Set a new initial position for the player."""
         self.player.init_pos.x = p.x
         self.player.init_pos.y = p.y
@@ -203,6 +202,16 @@ cdef class GameCy:
         self.player.pos.y = p.y
         self.player.prev_pos.x = p.x
         self.player.prev_pos.y = p.y
+    
+    cpdef void set_target_random(self):
+        """Put the target on a random location."""
+        r = random()
+        if r < 1 / 5:  # 1/5th chance
+            self.target = Vec2dCy(self.x_axis - 0.5, self.y_axis - 0.5)  # Top right
+        elif r < 2 / 5:  # 1/5th chance
+            self.target = Vec2dCy(0.5, 0.5)  # Bottom left
+        else:  # 3/5th chance
+            self.target = Vec2dCy(0.5, self.y_axis - 0.5)  # Top left
     
     # ---------------------------------------------> FUNCTIONAL METHODS <--------------------------------------------- #
     
@@ -225,8 +234,8 @@ cdef class GameCy:
         try:
             game = load_pickle(f'{self.save_path}{self}')
             self.player = MarXBotCy(game=self)  # Create a dummy-player to set values on
-            self.set_player_angle(game[D_ANGLE])
-            self.set_player_pos(Vec2dCy(game[D_POS][0], game[D_POS][1]))
+            self.set_player_init_angle(game[D_ANGLE])
+            self.set_player_init_pos(Vec2dCy(game[D_POS][0], game[D_POS][1]))
             self.path = {p[0]: p[1] for p in game[D_PATH]}
             self.target = Vec2dCy(game[D_TARGET][0], game[D_TARGET][1])
             self.walls = {Line2dCy(Vec2dCy(w[0][0], w[0][1]), Vec2dCy(w[1][0], w[1][1])) for w in game[D_WALLS]}

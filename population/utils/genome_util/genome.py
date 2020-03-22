@@ -172,8 +172,7 @@ class DefaultGenome(object):
                 self.enable_connection(config=config, conn=cg) if mut_enabled else self.disable_connection(conn=cg)
         
         # Mutate node genes (bias etc.).
-        for ng in self.nodes.values():
-            ng.mutate(config)
+        for ng in self.nodes.values(): ng.mutate(config)
     
     def mutate_add_node(self, config: DefaultGenomeConfig):
         """Add (or enable) a node as part of a mutation."""
@@ -261,8 +260,7 @@ class DefaultGenome(object):
             return
         
         # Avoid creating cycles.
-        if creates_cycle(list(iterkeys(self.connections)), key):
-            return
+        if creates_cycle(list(iterkeys(self.connections)), key): return
         
         # Create the new connection
         self.create_connection(config, in_node, out_node)
@@ -382,7 +380,7 @@ class DefaultGenome(object):
                 input_keys = set(a for (a, b) in self.connections.keys() if b == key)
                 
                 # Remove older inputs that aren't inputs anymore
-                for k in node.input_keys:
+                for k in reversed(node.input_keys):
                     if k not in input_keys: node.remove_input(k)
                 
                 # Add new inputs that were not yet inputs

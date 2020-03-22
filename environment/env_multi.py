@@ -3,8 +3,11 @@ env_multi.py
 
 Environment where a single genome gets evaluated over multiple games. This environment will be called in a process.
 """
+import sys
+
 from config import GameConfig, NeatConfig
 from environment.entities.game import get_game
+from population.population import Population
 from utils.dictionary import D_DONE, D_SENSOR_LIST
 
 
@@ -38,24 +41,29 @@ class MultiEnvironment:
     
     def eval_genome(self,
                     genome,
-                    return_dict: dict = None,
-                    debug: bool = False):
+                    return_dict=None,
+                    random_init: bool = False,
+                    random_target: bool = False,
+                    ):
         """
         Evaluate a single genome in a pre-defined game-environment.
         
         :param genome: Tuple (genome_id, genome_class)
         :param return_dict: Dictionary used to return observations corresponding the genome
-        :param debug: Boolean specifying if debugging is enabled or not
+        :param random_init: Random initialize the starting position of the robot
+        :param random_target: Randomize the maze's target location
         """
         genome_id, genome = genome  # Split up genome by id and genome itself
         net = self.make_net(genome=genome, config=self.neat_config, game_config=self.game_config, bs=self.batch_size)
         
         # Initialize the games on which the genome is tested
         games = [get_game(g, cfg=self.game_config) for g in self.games]
-        for g in games: g.player.set_active_sensors(set(genome.connections.keys()))  # Set active-sensors
+        for g in games:
+            g.player.set_active_sensors(set(genome.connections.keys()))  # Set active-sensors
+            if random_target: g.set_target_random()
         
         # Ask for each of the games the starting-state
-        states = [g.reset()[D_SENSOR_LIST] for g in games]
+        states = [g.reset(random_init=random_init)[D_SENSOR_LIST] for g in games]
         
         # Finished-state for each of the games is set to false
         finished = [False] * self.batch_size
@@ -67,10 +75,7 @@ class MultiEnvironment:
             if step_num == self.max_steps: break
             
             # Determine the actions made by the agent for each of the states
-            if debug:
-                actions = self.query_net(net, states, debug=True, step_num=step_num)
-            else:
-                actions = self.query_net(net, states)
+            actions = self.query_net(net, states)
             
             # Check if each game received an action
             assert len(actions) == len(games)
@@ -94,14 +99,15 @@ class MultiEnvironment:
     
     def trace_genome(self,
                      genome,
-                     return_dict: dict = None,
-                     debug: bool = False):
+                     return_dict=None,
+                     random_init: bool = False,
+                     ):
         """
         Get the trace of a single genome for a pre-defined game-environment.
         
         :param genome: Tuple (genome_id, genome_class)
         :param return_dict: Dictionary used to return the traces corresponding the genome-game combination
-        :param debug: Boolean specifying if debugging is enabled or not
+        :param random_init: Random initialize the starting position of the robot
         """
         genome_id, genome = genome  # Split up genome by id and genome itself
         net = self.make_net(genome=genome, config=self.neat_config, game_config=self.game_config, bs=self.batch_size)
@@ -111,7 +117,7 @@ class MultiEnvironment:
         for g in games: g.player.set_active_sensors(set(genome.connections.keys()))  # Set active-sensors
         
         # Ask for each of the games the starting-state
-        states = [g.reset()[D_SENSOR_LIST] for g in games]
+        states = [g.reset(random_init=random_init)[D_SENSOR_LIST] for g in games]
         
         # Initialize the traces
         traces = [[g.player.pos.get_tuple()] for g in games]
@@ -126,10 +132,7 @@ class MultiEnvironment:
             if step_num == self.max_steps: break
             
             # Determine the actions made by the agent for each of the states
-            if debug:
-                actions = self.query_net(net, states, debug=True, step_num=step_num)
-            else:
-                actions = self.query_net(net, states)
+            actions = self.query_net(net, states)
             
             # Check if each game received an action
             assert len(actions) == len(games)
@@ -170,3 +173,24 @@ class MultiEnvironment:
     def get_game_params(self):
         """Return list of all game-parameters currently in self.games."""
         return [get_game(i, cfg=self.game_config).game_params() for i in self.games]
+
+
+def get_multi_env(pop: Population, game_config: GameConfig):
+    """Create a multi-environment used to evaluate a population on."""
+    if sys.platform == 'linux':
+        from environment.cy.env_multi_cy import MultiEnvironmentCy
+        return MultiEnvironmentCy(
+                make_net=pop.make_net,
+                query_net=pop.query_net,
+                game_config=game_config,
+                neat_config=pop.config,
+                max_steps=game_config.duration * game_config.fps
+        )
+    else:
+        return MultiEnvironment(
+                make_net=pop.make_net,
+                query_net=pop.query_net,
+                game_config=game_config,
+                neat_config=pop.config,
+                max_steps=game_config.duration * game_config.fps
+        )

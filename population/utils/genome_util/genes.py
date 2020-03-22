@@ -310,7 +310,7 @@ class DefaultConnectionGene(BaseGene):
     
     def __init__(self, key):
         # Placeholders
-        self.enabled = None
+        self.enabled = True
         self.weight = None
         
         assert isinstance(key, tuple), f"DefaultConnectionGene key must be a tuple, not {key!r}"

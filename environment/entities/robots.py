@@ -3,8 +3,12 @@ robots.py
 
 Robots used to manoeuvre around in the Game-environment.
 """
-import numpy as np
+from math import sqrt
+from random import random
 
+from numpy import pi
+
+from config import GameConfig
 from environment.entities.sensors import AngularSensor, DistanceSensor, ProximitySensor
 from utils.vec2d import angle_to_vec, Vec2d
 
@@ -21,39 +25,25 @@ class MarXBot:
     
     def __init__(self,
                  game,  # Type not specified due to circular imports
-                 init_pos: Vec2d = None,
-                 init_orient: float = 0,
                  r: float = 0
                  ):
         """
         Create a new FootBot object.
         
         :param game: Reference to the game in which the robot is created [Game]
-        :param init_pos: Initial position of the bot
-        :param init_orient: Initial angle of the bot
         :param r: Radius of the circular robot
         """
-        # Default values parameters
-        if not r: r = game.bot_radius
-        
         # Game specific parameter
         self.game = game  # Game in which robot runs
         
-        # Robot specific parameters
+        # Robot specific parameters (Placeholders)
         self.pos = Vec2d(0, 0)  # Current position
+        self.init_pos = Vec2d(0, 0)  # Initial position
         self.prev_pos = Vec2d(0, 0)  # Previous current position
-        if init_pos:
-            self.init_pos = init_pos  # Initial position
-            self.pos.x = init_pos.x
-            self.pos.y = init_pos.y
-            self.prev_pos.x = init_pos.x
-            self.prev_pos.y = init_pos.y
-        else:
-            self.init_pos = Vec2d(0, 0)
-        self.init_angle: float = init_orient  # Initial angle
-        self.angle: float = init_orient  # Current angle
-        self.prev_angle: float = init_orient  # Previous angle
-        self.radius: float = r  # Radius of the bot
+        self.angle: float = 0  # Current angle
+        self.init_angle: float = 0  # Initial angle
+        self.prev_angle: float = 0  # Previous angle
+        self.radius: float = r if r else game.bot_radius  # Radius of the bot
         
         # Container of all the sensors
         self.sensors: dict = dict()
@@ -97,7 +87,7 @@ class MarXBot:
         
         # Update angle is determined by the speed of both wheels
         self.angle += (rw - lw) * self.game.bot_turning_speed * dt
-        self.angle %= 2 * np.pi
+        self.angle %= 2 * pi
         
         # Update position is the average of the two wheels times the maximum driving speed
         self.pos += angle_to_vec(self.angle) * float((((lw + rw) / 2) * self.game.bot_driving_speed * dt))
@@ -111,15 +101,25 @@ class MarXBot:
         """Value of current distance-reading."""
         return self.sensors[len(self.sensors) - 1].value  # Distance is always the last sensor
     
-    def reset(self):
-        """
-        Put the robot back to its initial parameters.
-        """
-        self.pos.x = self.init_pos.x
-        self.pos.y = self.init_pos.y
-        self.prev_pos.x = self.init_pos.x
-        self.prev_pos.y = self.init_pos.y
-        self.angle = self.init_angle
+    def reset(self, random_init: bool = False):
+        """Put the robot back to its initial parameters."""
+        # Load in the data
+        angle = self.init_angle
+        pos_x = self.init_pos.x
+        pos_y = self.init_pos.y
+        
+        # Add noise if random_init
+        if random_init:
+            angle += random() * pi / 2.0  # Random angle between facing up and left
+            pos_x += 0.2 * (random() - 0.5)  # Random x-position with 0.1 deviation at most
+            pos_y += 0.2 * (random() - 0.5)  # Random y-position with 0.1 deviation at most
+        
+        # Set the parameters
+        self.pos.x = pos_x
+        self.pos.y = pos_y
+        self.prev_pos.x = pos_x
+        self.prev_pos.y = pos_y
+        self.angle = angle
     
     # -----------------------------------------------> SENSOR METHODS <----------------------------------------------- #
     
@@ -145,9 +145,9 @@ class MarXBot:
         the first sensor that is added.
         
         :param angle: Relative angle to the robot's facing-direction
-                        * np.pi / 2 = 90° to the left of the robot
+                        * pi / 2 = 90° to the left of the robot
                         * 0 = the same direction as the robot is facing
-                        * -np.pi / 2 = 90° to the right of the robot
+                        * -pi / 2 = 90° to the right of the robot
         """
         self.sensors[len(self.sensors)] = ProximitySensor(sensor_id=len(self.sensors),
                                                           game=self.game,
@@ -192,42 +192,55 @@ def get_active_sensors(connections: set, total_input_size: int):
 def get_proximity_angles():
     """Get the angles used for the proximity sensors."""
     angles = []
-    # Left-side of the agent
-    angles.append(3 * np.pi / 4)  # 135° (counter-clockwise)
-    for i in range(5):  # 90° until 10° with hops of 20° (total of 5 sensors)
-        angles.append(np.pi / 2 - i * np.pi / 9)
-    
-    # Center
-    angles.append(0)  # 0°
-    
-    # Right-side of the agent
-    for i in range(5):  # -10° until -90° with hops of 20° (total of 5 sensors)
-        angles.append(-np.pi / 18 - i * np.pi / 9)
-    angles.append(-3 * np.pi / 4)  # -135° (clockwise)
+    # No proximity sensors!
     return angles
 
 
 def get_angular_directions():
     """Get the clockwise directions for the angular sensors."""
-    return [True, False]
+    return []  # No angular sensors!
+
+
+def get_number_of_sensors():
+    """Get the number of sensors mounted on the robot."""
+    return len(get_proximity_angles()) + len(get_angular_directions()) + 1
+
+
+def get_initial_sensor_readings(game_config=None, keys=None):
+    """Create a good approximation of the initial sensor-readings."""
+    cfg = game_config if game_config else GameConfig()
+    
+    # Get rough estimation of initial sensor reads
+    readings = []
+    for _ in get_proximity_angles(): readings.append(cfg.sensor_ray_distance)
+    for _ in get_angular_directions(): readings.append(0)
+    readings.append(sqrt((cfg.x_axis - 1) ** 2 + (cfg.y_axis - 1) ** 2))
+    
+    # Map keys on them
+    for i in range(len(readings) - 1, -1, -1):
+        if keys and i not in keys: readings.pop(i)
+    if keys: assert len(keys) == len(readings)
+    return readings
 
 
 def get_snapshot():
-    """Get the snapshot of the current robot-configuration."""
-    from environment.entities.game import get_game
-    g = get_game(i=0)  # Load in dummy-game
-    r = MarXBot(game=g)
+    """
+    Get the snapshot of the current robot-configuration. This method mimics the 'Create the sensors' section in the
+    MarXBot creation process.
+    """
+    sorted_names = []
+    # Proximity sensors
+    for a in get_proximity_angles(): sorted_names.append(str(ProximitySensor(game=None, max_dist=1, angle=a)))
     
-    # Go over all the sensors
+    # Angular sensors
+    for cw in get_angular_directions(): sorted_names.append(str(AngularSensor(game=None, clockwise=cw)))
+    
+    # Distance sensor
+    sorted_names.append(str(DistanceSensor(game=None)))
+    
+    # Negate all the keys to create the snapshot
     snapshot = dict()
-    sensor_size = len(r.sensors)
-    for k, v in r.sensors.items():
-        if type(v) == ProximitySensor:
-            snapshot[k - sensor_size] = str(v)
-        elif type(v) == AngularSensor:
-            snapshot[k - sensor_size] = str(v)
-        elif type(v) == DistanceSensor:
-            snapshot[k - sensor_size] = str(v)
-        else:
-            raise TypeError(f"Sensor type '{type(v)}' is undefined")
+    for i, name in enumerate(sorted_names):
+        snapshot[-len(sorted_names) + i] = name
+    
     return snapshot

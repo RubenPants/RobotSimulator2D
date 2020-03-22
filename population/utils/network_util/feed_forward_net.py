@@ -24,8 +24,7 @@ import numpy as np
 import torch
 
 from config import GameConfig
-from environment.entities.game import initial_sensor_readings
-from environment.entities.robots import get_active_sensors
+from environment.entities.robots import get_active_sensors, get_initial_sensor_readings
 from population.utils.genome_util.genes import GruNodeGene
 from population.utils.network_util.activations import relu_activation, tanh_activation
 from population.utils.network_util.graphs import required_for_output
@@ -108,7 +107,7 @@ class FeedForwardNet:
         self.output_biases = torch.tensor(output_biases, dtype=dtype)
         
         # Put network to initial (default) state
-        self.initial_readings = initial_sensor_readings(game_config=game_config, keys=input_keys)
+        self.initial_readings = get_initial_sensor_readings(game_config=game_config, keys=input_keys)
         self.reset(cold_start=cold_start)
     
     def reset(self, cold_start=False):

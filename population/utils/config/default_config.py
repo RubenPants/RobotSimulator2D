@@ -202,22 +202,3 @@ class Config(object):
         result += "\n\n\t"
         result += self.reproduction_config.__str__(name='reproduction').replace("\t", "\t\t")
         return result
-    
-    def save(self, filename):
-        with open(filename, 'w') as f:
-            f.write('# The `NEAT` section specifies parameters particular to the NEAT algorithm\n')
-            f.write('# or the experiment itself.  This is the only required section.\n')
-            f.write('[NEAT]\n')
-            write_pretty_params(f, self, self.__params)
-            
-            f.write('\n[{0}]\n'.format(self.genome_type.__name__))
-            self.genome_type.write_config(f, self.genome_config)
-            
-            f.write('\n[{0}]\n'.format(self.species_type.__name__))
-            self.species_type.write_config(f, self.species_config)
-            
-            f.write('\n[{0}]\n'.format(self.stagnation_type.__name__))
-            self.stagnation_type.write_config(f, self.stagnation_config)
-            
-            f.write('\n[{0}]\n'.format(self.reproduction_type.__name__))
-            self.reproduction_type.write_config(f, self.reproduction_config)

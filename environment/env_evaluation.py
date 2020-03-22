@@ -4,21 +4,16 @@ evaluation_env.py
 Evaluate a certain set of genomes on the evaluation mazes.
 """
 import multiprocessing as mp
-import sys
 
 from neat.six_util import iteritems
 from tqdm import tqdm
 
 from config import GameConfig
 from environment.entities.game import get_game
+from environment.env_training import get_multi_env
 from population.utils.visualizing.population_visualizer import create_blueprints
 from utils.dictionary import D_DIST_TO_TARGET, D_DONE, D_STEPS
 from utils.myutils import get_subfolder
-
-if sys.platform == 'linux':
-    from environment.cy.env_multi_cy import MultiEnvironmentCy
-else:
-    from environment.env_multi import MultiEnvironment
 
 
 class EvaluationEnv:
@@ -63,22 +58,7 @@ class EvaluationEnv:
         self.set_games()
         
         # Create the environment which is responsible for evaluating the genomes
-        if sys.platform == 'linux':
-            multi_env = MultiEnvironmentCy(
-                    make_net=pop.make_net,
-                    query_net=pop.query_net,
-                    game_config=self.game_config,
-                    neat_config=pop.config,
-                    max_steps=self.game_config.duration * self.game_config.fps
-            )
-        else:
-            multi_env = MultiEnvironment(
-                    make_net=pop.make_net,
-                    query_net=pop.query_net,
-                    game_config=self.game_config,
-                    neat_config=pop.config,
-                    max_steps=self.game_config.duration * self.game_config.fps
-            )
+        multi_env = get_multi_env(pop=pop, game_config=self.game_config)
         
         # Evaluate on all the games
         multi_env.set_games(self.games)
@@ -119,22 +99,8 @@ class EvaluationEnv:
         if len(self.games) > 20:
             raise Exception("It is not advised to evaluate a whole population on more than 20 games at once")
         
-        if sys.platform == 'linux':
-            multi_env = MultiEnvironmentCy(
-                    make_net=pop.make_net,
-                    query_net=pop.query_net,
-                    game_config=self.game_config,
-                    neat_config=pop.config,
-                    max_steps=self.game_config.duration * self.game_config.fps
-            )
-        else:
-            multi_env = MultiEnvironment(
-                    make_net=pop.make_net,
-                    query_net=pop.query_net,
-                    game_config=self.game_config,
-                    neat_config=pop.config,
-                    max_steps=self.game_config.duration * self.game_config.fps
-            )
+        # Create the environment which is responsible for evaluating the genomes
+        multi_env = get_multi_env(pop=pop, game_config=self.game_config)
         
         # Initialize the evaluation-pool
         pool = mp.Pool(mp.cpu_count())
