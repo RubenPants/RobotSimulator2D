@@ -89,7 +89,7 @@ class NeatConfig:
                                 'weight_init_stdev', 'weight_max_value', 'weight_min_value', 'weight_mutate_power',
                                 'weight_mutate_rate', 'weight_mutate_rate_gru', 'weight_replace_rate'],
         'DefaultSpecies':      ['compatibility_threshold', 'max_stagnation', 'species_elitism', 'species_fitness_func',
-                                'species_max'],
+                                'species_max', 'specie_stagnation'],
         'Evaluation':          ["fitness", "fitness_comb", "nn_k"],
     }
     
@@ -108,7 +108,7 @@ class NeatConfig:
         # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=3]
         self.elitism: int = 3
         # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.3]  TODO
-        self.parent_selection: float = 0.4
+        self.parent_selection: float = 0.3
         # Minimum number of genomes per species, keeping low prevents number of individuals blowing up  [def=10]  TODO
         self.min_species_size: int = 10
         # Sexual reproduction  [def=True]
@@ -160,7 +160,7 @@ class NeatConfig:
         # Probability of removing a node during mutation (each generation)  [def=0.01]  TODO
         self.node_delete_prob: float = 0.01
         # Number of hidden nodes to add to each genome in the initial population  [def=0]  TODO
-        self.num_hidden: int = 1
+        self.num_hidden: int = 0
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
         self.num_outputs: int = 2
         # Mean of the gaussian distribution used to select the weight attribute values for new connections  [def=0]
@@ -191,6 +191,8 @@ class NeatConfig:
         self.species_fitness_func: str = D_MAX
         # Maximum number of species that can live along each other  [def=10]
         self.species_max: int = 10
+        # Number of generations before a previous elite specie can become stagnant  [def=5]
+        self.specie_stagnation: int = 5
         
         # [EVALUATION]
         # Fitness functions [distance, diversity, novelty, path]  TODO
