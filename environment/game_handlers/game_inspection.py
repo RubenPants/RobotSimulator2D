@@ -11,7 +11,7 @@ from config import GameConfig
 from environment.entities.game import Game
 
 if __name__ == '__main__':
-    os.chdir("..")
+    os.chdir("../..")
     config = GameConfig()
     for g_id in tqdm(range(1, config.max_eval_game_id + 1)):
         try:

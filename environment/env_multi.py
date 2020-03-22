@@ -49,8 +49,8 @@ class MultiEnvironment:
         :param genome: Tuple (genome_id, genome_class)
         :param return_dict: Dictionary used to return observations corresponding the genome
         """
-        genome_id, genome = genome  # Split up genome by id and genome itself
-        net = self.make_net(genome=genome, config=self.neat_config, game_config=self.game_config, bs=self.batch_size)
+        # Split up genome by id and genome itself
+        genome_id, genome = genome
         
         # Initialize the games on which the genome is tested
         games = [get_game(g, cfg=self.game_config) for g in self.games]
@@ -61,6 +61,14 @@ class MultiEnvironment:
         
         # Finished-state for each of the games is set to false
         finished = [False] * self.batch_size
+        
+        # Create the network used to query on, initialize it with the first-game's readings (good approximation)
+        net = self.make_net(genome=genome,
+                            config=self.neat_config,
+                            game_config=self.game_config,
+                            bs=self.batch_size,
+                            initial_read=states[0],
+                            )
         
         # Start iterating the environments
         step_num = 0
@@ -101,8 +109,8 @@ class MultiEnvironment:
         :param genome: Tuple (genome_id, genome_class)
         :param return_dict: Dictionary used to return the traces corresponding the genome-game combination
         """
-        genome_id, genome = genome  # Split up genome by id and genome itself
-        net = self.make_net(genome=genome, config=self.neat_config, game_config=self.game_config, bs=self.batch_size)
+        # Split up genome by id and genome itself
+        genome_id, genome = genome
         
         # Initialize the games on which the genome is tested
         games = [get_game(g, cfg=self.game_config) for g in self.games]
@@ -116,6 +124,14 @@ class MultiEnvironment:
         
         # Finished-state for each of the games is set to false
         finished = [False] * self.batch_size
+        
+        # Create the network used to query on, initialize it with the first-game's readings (good approximation)
+        net = self.make_net(genome=genome,
+                            config=self.neat_config,
+                            game_config=self.game_config,
+                            bs=self.batch_size,
+                            initial_read=states[0],
+                            )
         
         # Start iterating the environments
         step_num = 0

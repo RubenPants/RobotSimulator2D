@@ -53,8 +53,8 @@ cdef class MultiEnvironmentCy:
         cdef np.ndarray a, actions
         cdef bint f
         
-        genome_id, genome = genome  # Split up genome by id and genome itself
-        net = self.make_net(genome=genome, config=self.neat_config, game_config=self.game_config, bs=self.batch_size)
+        # Split up genome by id and genome itself
+        genome_id, genome = genome
         
         # Initialize the games on which the genome is tested
         games = [get_game_cy(g, cfg=self.game_config) for g in self.games]
@@ -65,6 +65,14 @@ cdef class MultiEnvironmentCy:
         
         # Finished-state for each of the games is set to false
         finished = [False] * self.batch_size
+        
+        # Create the network used to query on, initialize it with the first-game's readings (good approximation)
+        net = self.make_net(genome=genome,
+                            config=self.neat_config,
+                            game_config=self.game_config,
+                            bs=self.batch_size,
+                            initial_read=states[0],
+                            )
         
         # Start iterating the environments
         step_num = 0
@@ -110,8 +118,8 @@ cdef class MultiEnvironmentCy:
         cdef set used_sensors
         cdef np.ndarray a, actions
         
-        genome_id, genome = genome  # Split up genome by id and genome itself
-        net = self.make_net(genome=genome, config=self.neat_config, game_config=self.game_config, bs=self.batch_size)
+        # Split up genome by id and genome itself
+        genome_id, genome = genome
         
         # Initialize the games on which the genome is tested
         games = [get_game_cy(g, cfg=self.game_config) for g in self.games]
@@ -125,6 +133,14 @@ cdef class MultiEnvironmentCy:
         
         # Finished-state for each of the games is set to false
         finished = [False] * self.batch_size
+        
+        # Create the network used to query on, initialize it with the first-game's readings (good approximation)
+        net = self.make_net(genome=genome,
+                            config=self.neat_config,
+                            game_config=self.game_config,
+                            bs=self.batch_size,
+                            initial_read=states[0],
+                            )
         
         # Start iterating the environments
         step_num = 0

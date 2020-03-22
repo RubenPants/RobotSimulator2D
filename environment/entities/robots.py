@@ -3,11 +3,8 @@ robots.py
 
 Robots used to manoeuvre around in the Game-environment.
 """
-from math import sqrt
-
 from numpy import pi
 
-from config import GameConfig
 from environment.entities.sensors import AngularSensor, DistanceSensor, ProximitySensor
 from utils.vec2d import angle_to_vec, Vec2d
 
@@ -206,23 +203,6 @@ def get_angular_directions():
 def get_number_of_sensors():
     """Get the number of sensors mounted on the robot."""
     return len(get_proximity_angles()) + len(get_angular_directions()) + 1
-
-
-def get_initial_sensor_readings(game_config=None, keys=None):
-    """Create a good approximation of the initial sensor-readings."""
-    cfg = game_config if game_config else GameConfig()
-    
-    # Get rough estimation of initial sensor reads
-    readings = []
-    for _ in get_proximity_angles(): readings.append(cfg.sensor_ray_distance)
-    for _ in get_angular_directions(): readings.append(0)
-    readings.append(sqrt((cfg.x_axis - 1) ** 2 + (cfg.y_axis - 1) ** 2))
-    
-    # Map keys on them
-    for i in range(len(readings) - 1, -1, -1):
-        if keys and i not in keys: readings.pop(i)
-    if keys: assert len(keys) == len(readings)
-    return readings
 
 
 def get_snapshot():

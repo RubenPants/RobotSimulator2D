@@ -160,7 +160,7 @@ class NeatConfig:
         # Probability of removing a node during mutation (each generation)  [def=0.01]  TODO
         self.node_delete_prob: float = 0.01
         # Number of hidden nodes to add to each genome in the initial population  [def=0]  TODO
-        self.num_hidden: int = 0
+        self.num_hidden: int = 1
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
         self.num_outputs: int = 2
         # Mean of the gaussian distribution used to select the weight attribute values for new connections  [def=0]
