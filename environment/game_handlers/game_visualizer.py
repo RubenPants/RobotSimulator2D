@@ -62,7 +62,7 @@ def path_heatmap(game):
 
 
 if __name__ == '__main__':
-    os.chdir("..")
+    os.chdir("../..")
     cfg = GameConfig()
     # Load the game
     # for g_id in [531, 648, 708, 756, 826]:

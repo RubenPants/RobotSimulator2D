@@ -708,7 +708,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     # Point back to root
-    os.chdir('..')
+    os.chdir('../..')
     
     # Load in the config file
     config = GameConfig()
