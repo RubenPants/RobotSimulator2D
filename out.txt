@@ -1,5 +1,0 @@
-USER         PID  %MEM     VSZ     RSS  NICE STATUS  START   TIME  CMDLINE
-root           1   0.0    8.7M  312.0K        sleep  21:38  00:00  /init
-root           5   0.0    8.7M  228.0K        sleep  21:38  00:00  /init
-broekx         6   0.0   16.7M    3.6M        sleep  21:38  00:00  -bash
-broekx        29   0.0   26.4M    9.4M        runni  21:38  00:00  python test.py
