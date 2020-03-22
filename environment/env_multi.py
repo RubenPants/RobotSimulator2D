@@ -41,14 +41,15 @@ class MultiEnvironment:
     
     def eval_genome(self,
                     genome,
-                    return_dict: dict = None,
-                    debug: bool = False):
+                    return_dict=None,
+                    random_init: bool = False,
+                    ):
         """
         Evaluate a single genome in a pre-defined game-environment.
         
         :param genome: Tuple (genome_id, genome_class)
         :param return_dict: Dictionary used to return observations corresponding the genome
-        :param debug: Boolean specifying if debugging is enabled or not
+        :param random_init: Random initialize the starting position of the robot
         """
         genome_id, genome = genome  # Split up genome by id and genome itself
         net = self.make_net(genome=genome, config=self.neat_config, game_config=self.game_config, bs=self.batch_size)
@@ -58,7 +59,7 @@ class MultiEnvironment:
         for g in games: g.player.set_active_sensors(set(genome.connections.keys()))  # Set active-sensors
         
         # Ask for each of the games the starting-state
-        states = [g.reset()[D_SENSOR_LIST] for g in games]
+        states = [g.reset(random_init=random_init)[D_SENSOR_LIST] for g in games]
         
         # Finished-state for each of the games is set to false
         finished = [False] * self.batch_size
@@ -70,10 +71,7 @@ class MultiEnvironment:
             if step_num == self.max_steps: break
             
             # Determine the actions made by the agent for each of the states
-            if debug:
-                actions = self.query_net(net, states, debug=True, step_num=step_num)
-            else:
-                actions = self.query_net(net, states)
+            actions = self.query_net(net, states)
             
             # Check if each game received an action
             assert len(actions) == len(games)
@@ -97,9 +95,8 @@ class MultiEnvironment:
     
     def trace_genome(self,
                      genome,
-                     return_dict: dict = None,
+                     return_dict=None,
                      random_init: bool = False,
-                     debug: bool = False,
                      ):
         """
         Get the trace of a single genome for a pre-defined game-environment.
@@ -107,7 +104,6 @@ class MultiEnvironment:
         :param genome: Tuple (genome_id, genome_class)
         :param return_dict: Dictionary used to return the traces corresponding the genome-game combination
         :param random_init: Random initialize the starting position of the robot
-        :param debug: Boolean specifying if debugging is enabled or not
         """
         genome_id, genome = genome  # Split up genome by id and genome itself
         net = self.make_net(genome=genome, config=self.neat_config, game_config=self.game_config, bs=self.batch_size)
@@ -132,10 +128,7 @@ class MultiEnvironment:
             if step_num == self.max_steps: break
             
             # Determine the actions made by the agent for each of the states
-            if debug:
-                actions = self.query_net(net, states, debug=True, step_num=step_num)
-            else:
-                actions = self.query_net(net, states)
+            actions = self.query_net(net, states)
             
             # Check if each game received an action
             assert len(actions) == len(games)

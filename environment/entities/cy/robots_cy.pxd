@@ -25,6 +25,8 @@ cdef class MarXBotCy:
     
     cpdef float get_sensor_readings_distance(self)
     
+    cpdef void reset(self, bint random_init=?)
+    
     # -----------------------------------------------> SENSOR METHODS <----------------------------------------------- #
     
     cpdef void add_angular_sensors(self, bint clockwise=?)

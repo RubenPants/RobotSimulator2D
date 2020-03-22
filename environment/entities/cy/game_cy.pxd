@@ -32,7 +32,7 @@ cdef class GameCy:
     
     cpdef dict get_observation(self, set close_walls=?)
     
-    cpdef dict reset(self)
+    cpdef dict reset(self, bint random_init=?)
     
     cpdef step(self, float l, float r)
     

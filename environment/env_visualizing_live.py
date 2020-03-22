@@ -52,12 +52,13 @@ class LiveVisualizer:
         # Debug options
         self.debug = debug
     
-    def visualize(self, genome, game_id: int):  # TODO: Generalize and use multiple robots?
+    def visualize(self, genome, game_id: int, random_init: bool = False):  # TODO: Generalize and use multiple robots?
         """
         Visualize the performance of a single genome.
         
         :param genome: Tuple (genome_id, genome_class)
         :param game_id: ID of the game that will be used for evaluation
+        :param random_init: Random initial position for the agent
         """
         # Make the network used during visualization
         net = self.make_net(genome=genome, config=self.neat_config, game_config=self.game_config, bs=1)
@@ -76,7 +77,7 @@ class LiveVisualizer:
         pyglet.gl.glClearColor(1, 1, 1, 1)
         
         # Setup the requested game
-        self.state = game.reset()[D_SENSOR_LIST]
+        self.state = game.reset(random_init=random_init)[D_SENSOR_LIST]
         self.finished = False
         
         # Create the visualize-environment

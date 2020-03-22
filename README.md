@@ -4,6 +4,7 @@
 
 ## TODO
 
+* Once in a specie, always in that specie! --> Otherwise bug in stagnation
 * Random initial starting orientation for robot (between pi/2 and pi)
 * Use game.reset() as warm-up during make_net
 * Self-adaptive NEAT?

@@ -37,26 +37,25 @@ def train_same_game(games: list, population: Population, unused_cpu, iterations,
             games=games,
             n=iterations,
             parallel=not debug,
+            random_init=True,
     )
 
 
-def blueprint(population: Population):
+def blueprint(population: Population, games: list):
     """Create a blueprint evaluation for the given population on the first 5 games."""
     from environment.env_visualizing import VisualizingEnv
     population.log("\n===> CREATING BLUEPRINTS <===\n")
     visualizer = VisualizingEnv(game_config=population.game_config)
-    games = [g for g in range(1, 6)]
     population.log(f"Creating blueprints for games: {games}")
     visualizer.set_games(games)
     visualizer.blueprint_genomes(pop=population)
 
 
-def trace(population: Population):
+def trace(population: Population, games: list):
     """Create a trace evaluation for the given population on the first 5 games."""
     from environment.env_visualizing import VisualizingEnv
     population.log("\n===> CREATING TRACES <===\n")
     visualizer = VisualizingEnv(game_config=population.game_config)
-    games = [g for g in range(1, 6)]
     population.log(f"Creating traces for games: {games}")
     visualizer.set_games(games)
     visualizer.trace_genomes(pop=population)
@@ -86,7 +85,7 @@ def visualize_genome(population: Population, genome, debug: bool = True):
     )
 
 
-def live(game_id: int, population: Population, genome, debug: bool = False):
+def live(game_id: int, population: Population, genome, debug: bool = False, random_init: bool = False):
     """Create a live visualization for the performance of the given genome."""
     from environment.env_visualizing_live import LiveVisualizer
     
@@ -101,6 +100,7 @@ def live(game_id: int, population: Population, genome, debug: bool = False):
     visualizer.visualize(
             genome=genome,
             game_id=game_id,
+            random_init=random_init,
     )
 
 
@@ -108,13 +108,13 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     
     # Main methods
-    parser.add_argument('--train', type=bool, default=True)
-    parser.add_argument('--train_same', type=bool, default=False)
+    parser.add_argument('--train', type=bool, default=False)
+    parser.add_argument('--train_same', type=bool, default=True)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--trace', type=bool, default=True)
     parser.add_argument('--evaluate', type=bool, default=False)
     parser.add_argument('--genome', type=bool, default=False)
-    parser.add_argument('--live', type=bool, default=True)
+    parser.add_argument('--live', type=bool, default=False)
     
     # Extra arguments
     parser.add_argument('--iterations', type=int, default=50)
@@ -122,6 +122,7 @@ if __name__ == '__main__':
     parser.add_argument('--debug', type=bool, default=True)
     args = parser.parse_args()
     
+    # Setup the population
     pop = Population(
             name='test',
             # version=1,
@@ -130,6 +131,10 @@ if __name__ == '__main__':
     if not pop.best_genome: pop.best_genome = list(pop.population.values())[0]
     # pop.best_genome = list(pop.population.values())[111]  # TODO
     # pop.population = {k: v for k, v in pop.population.items() if k in [111]}  # TODO
+    
+    # Set the blueprint and traces games
+    chosen_games = [0]
+    # chosen_games = [g for g in range(1, 6)]
     
     # Chosen genome used for genome-evaluation
     # g = list(pop.population.values())[2]
@@ -144,7 +149,7 @@ if __name__ == '__main__':
                   )
         
         if args.train_same:
-            train_same_game(games=[0],
+            train_same_game(games=chosen_games,
                             population=pop,
                             unused_cpu=args.unused_cpu,
                             iterations=args.iterations,
@@ -152,10 +157,10 @@ if __name__ == '__main__':
                             )
         
         if args.blueprint:
-            blueprint(population=pop)
+            blueprint(population=pop, games=chosen_games)
         
         if args.trace:
-            trace(population=pop)
+            trace(population=pop, games=chosen_games)
         
         if args.evaluate:
             evaluate(population=pop)
@@ -171,6 +176,7 @@ if __name__ == '__main__':
                  population=pop,
                  genome=chosen_genome,
                  debug=args.debug,
+                 random_init=True,  # TODO
                  )
     except Exception as e:
         pop.log(traceback.format_exc(), print_result=False)

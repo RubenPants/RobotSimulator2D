@@ -102,9 +102,7 @@ class MarXBot:
         return self.sensors[len(self.sensors) - 1].value  # Distance is always the last sensor
     
     def reset(self, random_init: bool = False):
-        """
-        Put the robot back to its initial parameters.
-        """
+        """Put the robot back to its initial parameters."""
         # Load in the data
         angle = self.init_angle
         pos_x = self.init_pos.x
