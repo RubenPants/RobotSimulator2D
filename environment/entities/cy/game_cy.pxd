@@ -46,6 +46,8 @@ cdef class GameCy:
     
     cpdef void set_player_init_pos(self, Vec2dCy p)
     
+    cpdef void set_target_random(self)
+    
     # ---------------------------------------------> FUNCTIONAL METHODS <--------------------------------------------- #
     
     cpdef void save(self)

@@ -24,7 +24,7 @@ def train(population: Population, unused_cpu, iterations, debug: bool = False):
     )
 
 
-def train_same_game(games: list, population: Population, unused_cpu, iterations, debug: bool = False):
+def train_same_games(games: list, population: Population, unused_cpu, iterations, debug: bool = False):
     """Train the population on the same set of games for the requested number of iterations."""
     from environment.env_training import TrainingEnv
     population.log("\n===> TRAINING <===\n")
@@ -38,6 +38,7 @@ def train_same_game(games: list, population: Population, unused_cpu, iterations,
             n=iterations,
             parallel=not debug,
             random_init=True,
+            random_target=True,
     )
 
 
@@ -85,7 +86,12 @@ def visualize_genome(population: Population, genome, debug: bool = True):
     )
 
 
-def live(game_id: int, population: Population, genome, debug: bool = False, random_init: bool = False):
+def live(game_id: int,
+         population: Population,
+         genome,
+         debug: bool = False,
+         random_init: bool = False,
+         random_target: bool = False):
     """Create a live visualization for the performance of the given genome."""
     from environment.env_visualizing_live import LiveVisualizer
     
@@ -101,6 +107,7 @@ def live(game_id: int, population: Population, genome, debug: bool = False, rand
             genome=genome,
             game_id=game_id,
             random_init=random_init,
+            random_target=random_target,
     )
 
 
@@ -133,7 +140,7 @@ if __name__ == '__main__':
     # pop.population = {k: v for k, v in pop.population.items() if k in [111]}  # TODO
     
     # Set the blueprint and traces games
-    chosen_games = [0]
+    chosen_games = [0] * 10  # Different (random) initializations!
     # chosen_games = [g for g in range(1, 6)]
     
     # Chosen genome used for genome-evaluation
@@ -149,12 +156,12 @@ if __name__ == '__main__':
                   )
         
         if args.train_same:
-            train_same_game(games=chosen_games,
-                            population=pop,
-                            unused_cpu=args.unused_cpu,
-                            iterations=args.iterations,
-                            debug=args.debug,
-                            )
+            train_same_games(games=chosen_games,
+                             population=pop,
+                             unused_cpu=args.unused_cpu,
+                             iterations=args.iterations,
+                             debug=args.debug,
+                             )
         
         if args.blueprint:
             blueprint(population=pop, games=chosen_games)
@@ -177,6 +184,7 @@ if __name__ == '__main__':
                  genome=chosen_genome,
                  debug=args.debug,
                  random_init=True,  # TODO
+                 random_target=True,  # TODO
                  )
     except Exception as e:
         pop.log(traceback.format_exc(), print_result=False)
