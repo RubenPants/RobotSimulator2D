@@ -120,10 +120,10 @@ class Game:
             D_SENSOR_LIST: self.player.get_sensor_readings(close_walls),
         }
     
-    def reset(self, random_init: bool = False):
+    def reset(self):
         """Reset the game and return initial observations."""
         self.steps_taken = 0
-        self.player.reset(random_init=random_init)
+        self.player.reset()
         return self.get_observation()
     
     def step(self, l: float, r: float):

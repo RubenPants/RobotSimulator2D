@@ -4,7 +4,6 @@ robots.py
 Robots used to manoeuvre around in the Game-environment.
 """
 from math import sqrt
-from random import random
 
 from numpy import pi
 
@@ -101,25 +100,14 @@ class MarXBot:
         """Value of current distance-reading."""
         return self.sensors[len(self.sensors) - 1].value  # Distance is always the last sensor
     
-    def reset(self, random_init: bool = False):
+    def reset(self):
         """Put the robot back to its initial parameters."""
-        # Load in the data
-        angle = self.init_angle
-        pos_x = self.init_pos.x
-        pos_y = self.init_pos.y
-        
-        # Add noise if random_init
-        if random_init:
-            angle += random() * pi / 2.0  # Random angle between facing up and left
-            pos_x += 0.2 * (random() - 0.5)  # Random x-position with 0.1 deviation at most
-            pos_y += 0.2 * (random() - 0.5)  # Random y-position with 0.1 deviation at most
-        
-        # Set the parameters
-        self.pos.x = pos_x
-        self.pos.y = pos_y
-        self.prev_pos.x = pos_x
-        self.prev_pos.y = pos_y
-        self.angle = angle
+        self.pos.x = self.init_pos.x
+        self.pos.y = self.init_pos.y
+        self.prev_pos.x = self.init_pos.x
+        self.prev_pos.y = self.init_pos.y
+        self.angle = self.init_angle
+        self.prev_angle = self.init_angle
     
     # -----------------------------------------------> SENSOR METHODS <----------------------------------------------- #
     
@@ -196,10 +184,10 @@ def get_proximity_angles():
     angles.append(3 * pi / 4)  # 135° (counter-clockwise)
     for i in range(5):  # 90° until 10° with hops of 20° (total of 5 sensors)
         angles.append(pi / 2 - i * pi / 9)
-
+    
     # Center
     angles.append(0)  # 0°
-
+    
     # Right-side of the agent
     for i in range(5):  # -10° until -90° with hops of 20° (total of 5 sensors)
         angles.append(-pi / 18 - i * pi / 9)

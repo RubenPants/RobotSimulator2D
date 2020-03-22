@@ -143,30 +143,28 @@ class TrainingEnv:
             # Save the population
             if iteration % save_interval == 0: pop.save()
     
-    def evaluate_same_game_and_evolve(self,
-                                      games: list,
-                                      pop: Population,
-                                      n: int = 1,
-                                      parallel=True,
-                                      random_init: bool = False,
-                                      random_target: bool = False,
-                                      save_interval: int = 1,
-                                      ):
+    def evaluate_same_games_and_evolve(self,
+                                       games: list,
+                                       pop: Population,
+                                       n: int = 1,
+                                       parallel=True,
+                                       save_interval: int = 1,
+                                       ):
         """
-        Evaluate the population on the same set of games.
+        Evaluate the population on the same games.
         
-        :param games: List of games on which the population is sequentially evaluated on
+        :param games: List of games used for training
         :param pop: Population object
         :param n: Number of generations
         :param parallel: Parallel the code (disable parallelization for debugging purposes)
-        :param random_init: Randomly initialize the starting position/orientation of the agent each start
-        :param random_target: Randomize the maze's target location
         :param save_interval: Indicates how often a population gets saved
         """
         multi_env = get_multi_env(pop=pop, game_config=self.game_config)
         msg = f"Repetitive evaluating games: {games}"
         pop.log(msg, print_result=False)
         multi_env.set_games(games)
+        
+        # Manipulate each of the created games' initial starting orientation
         
         # Iterate and evaluate over the games
         for iteration in range(n):
@@ -189,9 +187,7 @@ class TrainingEnv:
                     pbar.update()
                 
                 for genome in genomes:
-                    pool.apply_async(func=multi_env.eval_genome,
-                                     args=(genome, return_dict, random_init, random_target),
-                                     callback=cb)
+                    pool.apply_async(func=multi_env.eval_genome, args=(genome, return_dict), callback=cb)
                 pool.close()  # Close the pool
                 pool.join()  # Postpone continuation until everything is finished
                 pbar.close()  # Close the progressbar
@@ -206,7 +202,7 @@ class TrainingEnv:
                 for i, genome in genomes: genome.fitness = fitness[i]
             else:
                 for genome in tqdm(genomes, desc="sequential training"):
-                    multi_env.eval_genome(genome, return_dict, random_init)
+                    multi_env.eval_genome(genome, return_dict)
                 fitness = calc_pop_fitness(
                         fitness_config=pop.fitness_config,
                         game_observations=return_dict,

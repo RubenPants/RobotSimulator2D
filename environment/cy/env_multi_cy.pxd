@@ -15,9 +15,9 @@ cdef class MultiEnvironmentCy:
     cdef public game_config
     cdef public neat_config
     
-    cpdef void eval_genome(self, genome, return_dict=?, bint random_init=?, bint random_target=?)
+    cpdef void eval_genome(self, genome, return_dict=?)
     
-    cpdef void trace_genome(self, genome, return_dict=?, bint random_init=?)
+    cpdef void trace_genome(self, genome, return_dict=?)
 
     cpdef void set_games(self, list games)
     

@@ -120,10 +120,10 @@ cdef class GameCy:
             D_SENSOR_LIST: self.player.get_sensor_readings(close_walls),
         }
     
-    cpdef dict reset(self, bint random_init=False):
+    cpdef dict reset(self):
         """Reset the game and return initial observations."""
         self.steps_taken = 0
-        self.player.reset(random_init=random_init)
+        self.player.reset()
         return self.get_observation()
     
     cpdef step(self, float l, float r):
