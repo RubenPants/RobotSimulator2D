@@ -73,7 +73,7 @@ class TestFeedForward(unittest.TestCase):
         
         # Create a network
         game_config = GameConfig()
-        net = make_net(genome=genome, config=config, game_config=game_config, bs=1, cold_start=True)
+        net = make_net(genome=genome, config=config, game_config=game_config, bs=1)
         
         # Query the network; each input is directly mapped on the output (under tanh activation function)
         for _ in range(100):
@@ -114,7 +114,7 @@ class TestFeedForward(unittest.TestCase):
         
         # Create a network
         game_config = GameConfig()
-        net = make_net(genome=genome, config=config, game_config=game_config, bs=1, cold_start=True)
+        net = make_net(genome=genome, config=config, game_config=game_config, bs=1)
         
         # Query the network; single input in range [-1, 1]
         inputs = [random() * 2 - 1 for _ in range(100)]
@@ -156,7 +156,7 @@ class TestFeedForward(unittest.TestCase):
         
         # Create a network
         game_config = GameConfig()
-        net = make_net(genome=genome, config=config, game_config=game_config, bs=1, cold_start=True)
+        net = make_net(genome=genome, config=config, game_config=game_config, bs=1)
         
         # Query the network; single input in range [-1, 1]
         inputs = [random() * 2 - 1 for _ in range(100)]
@@ -201,7 +201,7 @@ class TestFeedForward(unittest.TestCase):
         
         # Create a network
         game_config = GameConfig()
-        net = make_net(genome=genome, config=config, game_config=game_config, bs=1, cold_start=True)
+        net = make_net(genome=genome, config=config, game_config=game_config, bs=1)
         
         # Query the network; double inputs in range [-1, 1]
         inputs = [[random() * 2 - 1, random() * 2 - 1] for _ in range(100)]
@@ -246,7 +246,7 @@ class TestFeedForward(unittest.TestCase):
         
         # Create a network
         game_config = GameConfig()
-        net = make_net(genome=genome, config=config, game_config=game_config, bs=1, cold_start=True)
+        net = make_net(genome=genome, config=config, game_config=game_config, bs=1)
         
         # Query the network; only positive inputs (since relu simply forwards if positive)
         inputs = [random() for _ in range(100)]

@@ -214,7 +214,7 @@ class FeedForwardNet:
                 outputs=set(cfg.output_keys),
                 connections=genome.connections
         )
-        assert len(used_input) == len(initial_read)
+        if initial_read: assert len(used_input) == len(initial_read)
         
         # Get a list of all the (used) input, (used) hidden, and output keys
         input_keys = sorted(used_input_keys)
