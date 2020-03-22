@@ -108,6 +108,9 @@ class DefaultNodeGene(BaseGene):
         assert isinstance(key, int), f"DefaultNodeGene key must be an int, not {key!r}"
         BaseGene.__init__(self, key)
     
+    def __repr__(self):
+        return f"DefaultNodeGene(bias={round(self.bias, 2)})"
+    
     def distance(self, other, config):
         d = abs(self.bias - other.bias)
         if self.key not in [0, 1] and other.key not in [0, 1]:  # Exclude comparison with activation of output nodes
@@ -122,6 +125,9 @@ class OutputNodeGene(DefaultNodeGene):
     def __init__(self, key):
         assert isinstance(key, int), f"OutputNodeGene key must be an int, not {key!r}"
         super().__init__(key)
+    
+    def __repr__(self):
+        return f"OutputNodeGene(bias={round(self.bias, 2)})"
     
     def init_attributes(self, config):
         """ Set the initial attributes as claimed by the config, but force activation to be tanh """
@@ -170,6 +176,9 @@ class GruNodeGene(BaseGene):
             else:
                 body.append(f"{a}={attr}")
         return f'{self.__class__.__name__}({", ".join(body)})'
+    
+    def __repr__(self):
+        return f"GruNodeGene(inputs={self.input_keys!r})"
     
     def init_attributes(self, config):
         setattr(self, 'bias_ih', self._attributes[0].init_value(config, self.hidden_size))
@@ -315,6 +324,9 @@ class DefaultConnectionGene(BaseGene):
         
         assert isinstance(key, tuple), f"DefaultConnectionGene key must be a tuple, not {key!r}"
         BaseGene.__init__(self, key)
+    
+    def __repr__(self):
+        return f"DefaultConnectionGene(weight={round(self.weight, 2)}, enabled={self.enabled})"
     
     def distance(self, other, config):
         d = abs(self.weight - other.weight)
