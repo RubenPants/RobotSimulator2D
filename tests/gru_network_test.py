@@ -81,7 +81,7 @@ class TestGruFeedForward(unittest.TestCase):
         if debug: print(genome)
         # Create a network
         game_config = GameConfig()
-        net = make_net(genome=genome, config=config, game_config=game_config, bs=1, cold_start=True)
+        net = make_net(genome=genome, config=config, game_config=game_config, bs=1)
         
         # Query the network; single input in range [-1, 1]
         inputs = [random() * 2 - 1 for _ in range(100)]
