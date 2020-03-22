@@ -5,7 +5,6 @@
 ## TODO
 
 * Reformat num_hidden as "minimal hidden-nodes" 
-* Evaluate same maze (different initial and target positions)
 * Use game.reset() as warm-up during make_net
 * Self-adaptive NEAT?
 * Improve elite-history for species, put in config a decay time and keep elite species of the last X generations (currently only previous gen)

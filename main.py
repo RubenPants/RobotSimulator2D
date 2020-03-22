@@ -119,16 +119,16 @@ if __name__ == '__main__':
     parser.add_argument('--live', type=bool, default=False)
     
     # Extra arguments
-    parser.add_argument('--iterations', type=int, default=20)
+    parser.add_argument('--iterations', type=int, default=500)
     parser.add_argument('--unused_cpu', type=int, default=2)
-    parser.add_argument('--debug', type=bool, default=True)
+    parser.add_argument('--debug', type=bool, default=False)
     args = parser.parse_args()
     
     # Setup the population
     pop = Population(
-            name='test',
-            # version=1,
-            folder_name='test',
+            # name='test',
+            version=1,
+            folder_name='DISTANCE-ONLY',
     )
     if not pop.best_genome: pop.best_genome = list(pop.population.values())[0]
     # pop.best_genome = list(pop.population.values())[1]  # TODO
@@ -175,7 +175,7 @@ if __name__ == '__main__':
                              )
         
         if args.live:
-            live(game_id=0,
+            live(game_id=99999,
                  population=pop,
                  genome=chosen_genome,
                  debug=args.debug,
