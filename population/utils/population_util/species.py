@@ -69,7 +69,9 @@ class DefaultSpecies(DefaultClassConfig):
                                                ConfigParameter('max_stagnation', int, 15),
                                                ConfigParameter('species_elitism', int, 2),
                                                ConfigParameter('species_fitness_func', str, D_MAX),
-                                               ConfigParameter('species_max', int, 15)])
+                                               ConfigParameter('species_max', int, 15),
+                                               ConfigParameter('specie_stagnation', int, 5),
+                                               ])
     
     def speciate(self, config, population, generation, logger=None):
         """

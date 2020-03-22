@@ -4,7 +4,7 @@
 
 ## TODO
 
-* Improve elite-history for species, put in config a decay time and keep elite species of the last X generations (currently only previous gen)
+* Problem of open files persists, possible to check active variables? (go over appends perhaps?)
 * fix GRU-unittest
 * Test all of the fitness-functions!
 * Self-adaptive NEAT?
