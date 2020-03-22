@@ -306,6 +306,7 @@ class DefaultGenome(object):
                 else:
                     node_distance += n1.distance(n2, config)  # Homologous genes compute their own distance value.
             
+            # Determine the average node-distance
             max_nodes = max(len(self.nodes), len(other.nodes))
             node_distance = (node_distance + (config.compatibility_disjoint_coefficient * disjoint_nodes)) / max_nodes
         
@@ -325,6 +326,7 @@ class DefaultGenome(object):
                     # Homologous genes compute their own distance value.
                     connection_distance += c1.distance(c2, config)
             
+            # Determine the average connection-distance
             max_conn = max(len(self.connections), len(other.connections))
             connection_distance = (connection_distance + (
                     config.compatibility_disjoint_coefficient * disjoint_connections)) / max_conn
