@@ -226,11 +226,11 @@ class GruNodeGene(BaseGene):
                 if random() <= ratio:
                     new_full_weight_ih[:, i] = self.gru_full_weight_ih[:, self.full_input_keys.index(k)]
                 else:
-                    new_full_weight_ih[:, i] = other.full_weight_ih[:, other.full_input_keys.index(k)]
+                    new_full_weight_ih[:, i] = other.gru_full_weight_ih[:, other.full_input_keys.index(k)]
             elif k in self.full_input_keys:  # Only in first parent (self)
                 new_full_weight_ih[:, i] = self.gru_full_weight_ih[:, self.full_input_keys.index(k)]
             else:  # Only in second parent (other)
-                new_full_weight_ih[:, i] = other.full_weight_ih[:, other.full_input_keys.index(k)]
+                new_full_weight_ih[:, i] = other.gru_full_weight_ih[:, other.full_input_keys.index(k)]
         
         # Assign all the parameters to the new_gene
         for a in self._attributes:
