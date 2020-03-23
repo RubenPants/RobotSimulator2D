@@ -138,8 +138,8 @@ if __name__ == '__main__':
     
     # Setup the population
     pop = Population(
-            # name='distance_1',
-            version=1,
+            name='distance_repr_1',
+            # version=1,
             # folder_name='test',
             folder_name='DISTANCE-ONLY',
     )
