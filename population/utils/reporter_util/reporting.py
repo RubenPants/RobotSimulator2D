@@ -111,7 +111,7 @@ class StdOutReporter(BaseReporter):
             f = "--" if s.fitness is None else f"{s.fitness:.3f}"
             af = "--" if s.adjusted_fitness is None else f"{s.adjusted_fitness:.3f}"
             st = self.generation - s.last_improved
-            msg = f"\t{sid:^8}  {a:^5}  {n:^6}  {f:^9}  {af:^9}  {st:^6}"
+            msg = f"\t{sid:^8}  {a:^5}  {n:^6}  {f:^9}  {f'{af:.5f}':^9}  {st:^6}"
             logger(msg) if logger else print(msg)
         logger("") if logger else print()
         
@@ -152,7 +152,7 @@ class StdOutReporter(BaseReporter):
             print(f"Best genome '{best_genome.key}' "
                   f"with size {best_genome.size()!r} "
                   f"of specie: '{best_species_id}' "
-                  f"has fitness: {round(best_genome.fitness, 5)}")
+                  f"has fitness: {best_genome.fitness:.5f}")
         else:
             print(msg)
     

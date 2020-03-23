@@ -189,7 +189,7 @@ class NeatConfig:
         # The function used to compute the species fitness  [def=D_MAX]
         self.species_fitness_func: str = D_MAX
         # Maximum number of species that can live along each other  [def=10]
-        self.species_max: int = 15
+        self.species_max: int = 10
         # Number of generations before a previous elite specie can become stagnant  [def=5]
         self.specie_stagnation: int = 5
         
