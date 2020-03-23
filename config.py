@@ -139,7 +139,7 @@ class NeatConfig:
         # The standard deviation of the zero-centered gaussian from which a bias value mutation is drawn  [def=0.2] TODO
         self.bias_mutate_power: float = 0.2
         # The probability that mutation will change the bias of a node by adding a random value  [def=0.2]  TODO
-        self.bias_mutate_rate: float = 0.2
+        self.bias_mutate_rate: float = 0.4
         # The probability that mutation will replace the bias of a node with a completely random value  [def=0.05]
         self.bias_replace_rate: float = 0.05
         # Full weight of disjoint and excess nodes on determining genomic distance  [def=1.0]  # TODO: Separate for GRU?
@@ -157,9 +157,9 @@ class NeatConfig:
         # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT_05]  TODO
         self.initial_connection = D_FULL_NODIRECT
         # Probability of adding a node during mutation (each generation)  [def=0.01]  TODO
-        self.node_add_prob: float = 0.01
+        self.node_add_prob: float = 0.05
         # Probability of removing a node during mutation (each generation)  [def=0.01]  TODO
-        self.node_delete_prob: float = 0.01
+        self.node_delete_prob: float = 0.05
         # Number of hidden nodes to add to each genome in the initial population  [def=0]  TODO
         self.num_hidden: int = 1
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
@@ -175,7 +175,7 @@ class NeatConfig:
         # The standard deviation of the zero-centered gaussian from which a weight value mutation is drawn [def=0.2]TODO
         self.weight_mutate_power: float = 0.2
         # Probability of a weight (connection) to mutate  [def=0.2]  TODO
-        self.weight_mutate_rate: float = 0.2
+        self.weight_mutate_rate: float = 0.4
         # Probability of assigning completely new value, based on weight_init_mean and weight_init_stdev  [def=0.05]
         self.weight_replace_rate: float = 0.05
         
@@ -218,7 +218,7 @@ class NeatConfig:
         self.gru_mutate_power: float = 0.1
         # Probability of a GRU value to mutate  [def=0.2]  TODO
         self.gru_mutate_rate: float = 0.2
-        # Probability of mutating a GRU node rather than a simple node  [def=0.4]  TODO
+        # Probability of mutating a GRU node rather than a simple node  [def=0.6]  TODO
         self.gru_node_prob: float = 0.6
         # Probability of assigning completely new value, based on gru_init_mean and gru_init_stdev  [def=0.05]
         self.gru_replace_rate: float = 0.05
