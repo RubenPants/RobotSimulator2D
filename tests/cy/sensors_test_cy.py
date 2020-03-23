@@ -165,8 +165,8 @@ class ProximitySensorTestCy(unittest.TestCase):
         
         # Reset the sensors with only one sensor to its left and one to its front
         game.player.sensors = dict()
-        game.player.add_proximity_sensor(angle=np.pi / 2)  # To the agent's left
-        game.player.add_proximity_sensor(angle=0)
+        game.player.add_proximity_sensor(np.pi / 2)  # To the agent's left
+        game.player.add_proximity_sensor(0)
         game.player.active_sensors = set(game.player.sensors.keys())
         
         # Ask for the proximity-measures
