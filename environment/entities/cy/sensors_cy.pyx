@@ -26,7 +26,7 @@ cdef class SensorCy:
     )
     
     def __init__(self,
-                 GameCy game,  # Type not specified due to circular imports
+                 GameCy game,
                  int sensor_id=0,
                  float angle=0,
                  float pos_offset=0,
@@ -64,7 +64,7 @@ cdef class AngularSensorCy(SensorCy):
     """Angle deviation between bot and wanted direction in 'crows flight'."""
     
     def __init__(self,
-                 GameCy game,  # Type not specified due to circular imports
+                 GameCy game,
                  int sensor_id=0,
                  bint clockwise=True):
         """
@@ -104,7 +104,7 @@ cdef class DistanceSensorCy(SensorCy):
     """Distance from bot to the target in 'crows flight'."""
     
     def __init__(self,
-                 GameCy game,  # Type not specified due to circular imports
+                 GameCy game,
                  int sensor_id=0):
         """
         :param game: Reference to the game in which the sensor is used
@@ -162,7 +162,7 @@ cdef class ProximitySensorCy(SensorCy):
     """
     
     def __init__(self,
-                 GameCy game,  # Type not specified due to circular imports
+                 GameCy game,
                  int sensor_id=0,
                  float angle=0,
                  float pos_offset=0,

@@ -13,9 +13,9 @@ from environment.entities.cy.game_cy import GameCy
 from environment.entities.cy.sensors_cy import ProximitySensorCy
 from utils.cy.line2d_cy import Line2dCy
 from utils.cy.vec2d_cy import Vec2dCy
-# Parameters
 from utils.dictionary import D_SENSOR_LIST
 
+# Parameters
 RAY_DISTANCE = 2  # Maximum range of the proximity-sensor
 EPSILON_ANGLE = 0.0001  # 0.0001 radian offset allowed (~0.02 degrees)
 EPSILON_DISTANCE = 0.001  # 1 millimeter offset allowed
