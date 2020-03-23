@@ -84,10 +84,11 @@ class NeatConfig:
                                 'bias_mutate_power', 'bias_mutate_rate', 'bias_replace_rate',
                                 'compatibility_disjoint_coefficient', 'compatibility_weight_coefficient',
                                 'conn_add_prob', 'conn_delete_prob', 'enabled_default', 'enabled_mutate_rate',
-                                'gru_enabled', 'gru_mutate_rate', 'initial_connection', 'node_add_prob',
-                                'node_delete_prob', 'num_hidden', 'num_outputs', 'weight_init_mean',
-                                'weight_init_stdev', 'weight_max_value', 'weight_min_value', 'weight_mutate_power',
-                                'weight_mutate_rate', 'weight_mutate_rate_gru', 'weight_replace_rate'],
+                                'gru_enabled', 'gru_init_mean', 'gru_init_stdev', 'gru_max_value', 'gru_min_value',
+                                'gru_mutate_power', 'gru_mutate_rate', 'gru_node_prob', 'gru_replace_rate',
+                                'initial_connection', 'node_add_prob', 'node_delete_prob', 'num_hidden', 'num_outputs',
+                                'weight_init_mean', 'weight_init_stdev', 'weight_max_value', 'weight_min_value',
+                                'weight_mutate_power', 'weight_mutate_rate', 'weight_replace_rate'],
         'DefaultSpecies':      ['compatibility_threshold', 'max_stagnation', 'species_elitism', 'species_fitness_func',
                                 'species_max', 'specie_stagnation'],
         'Evaluation':          ["fitness", "fitness_comb", "nn_k"],
@@ -172,11 +173,9 @@ class NeatConfig:
         # The minimum allowed weight value, weights below this value will be clipped to this value  [def=-2]
         self.weight_min_value: float = -2.0
         # The standard deviation of the zero-centered gaussian from which a weight value mutation is drawn [def=0.1]TODO
-        self.weight_mutate_power: float = 0.2
+        self.weight_mutate_power: float = 0.1
         # Probability of a weight (connection) to mutate  [def=0.2]  TODO
         self.weight_mutate_rate: float = 0.2
-        # Probability of a GRU-weight to mutate  [def=0.1]  TODO
-        self.weight_mutate_rate_gru: float = 0.1
         # Probability of assigning completely new value, based on weight_init_mean and weight_init_stdev  [def=0.05]
         self.weight_replace_rate: float = 0.05
         
@@ -207,8 +206,22 @@ class NeatConfig:
         # [GRU]
         # Enable the genomes to mutate GRU nodes  [def=True]  TODO
         self.gru_enabled: bool = True
-        # Mutation probability of mutating a GRU node rather than a simple node  [def=0.4]  TODO
-        self.gru_mutate_rate: float = 0.4
+        # Mean of the gaussian distribution used to select the GRU attribute values  [def=0]
+        self.gru_init_mean: float = 0.0
+        # Standard deviation of the gaussian used to select the GRU attributes values  [def=1]
+        self.gru_init_stdev: float = 1.0
+        # The maximum allowed GRU value, values above this will be clipped  [def=2]
+        self.gru_max_value: float = 2.0
+        # The minimum allowed GRU value, values below this will be clipped  [def=-2]
+        self.gru_min_value: float = -2.0
+        # The standard deviation of the zero-centered gaussian from which a GRU value mutation is drawn  [def=0.1]
+        self.gru_mutate_power: float = 0.1
+        # Probability of a weight (connection) to mutate  [def=0.1]  TODO
+        self.gru_mutate_rate: float = 0.1
+        # Probability of mutating a GRU node rather than a simple node  [def=0.4]  TODO
+        self.gru_node_prob: float = 0.4
+        # Probability of assigning completely new value, based on gru_init_mean and gru_init_stdev  [def=0.05]
+        self.gru_replace_rate: float = 0.05
         
         # [SelfAdaptive]  TODO
     
