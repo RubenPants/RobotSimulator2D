@@ -122,7 +122,7 @@ if __name__ == '__main__':
     
     # Main methods
     parser.add_argument('--train', type=bool, default=False)
-    parser.add_argument('--train_same', type=bool, default=True)
+    parser.add_argument('--train_same', type=bool, default=False)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--trace', type=bool, default=False)
     parser.add_argument('--trace_fit', type=bool, default=True)
@@ -153,8 +153,8 @@ if __name__ == '__main__':
     chosen_games = [99995, 99996, 99997, 99998, 99999]
     
     # Chosen genome used for genome-evaluation
+    chosen_genome = None
     # g = list(pop.population.values())[2]
-    chosen_genome = pop.best_genome
     
     try:
         if args.train:
@@ -179,21 +179,23 @@ if __name__ == '__main__':
             trace(population=pop, games=chosen_games)
         
         if args.trace_fit:
-            trace_most_fit(population=pop, genome=chosen_genome, games=chosen_games)
+            trace_most_fit(population=pop,
+                           genome=chosen_genome if chosen_genome else pop.best_genome,
+                           games=chosen_games)
         
         if args.evaluate:
             evaluate(population=pop)
         
         if args.genome:
             visualize_genome(population=pop,
-                             genome=chosen_genome,
+                             genome=chosen_genome if chosen_genome else pop.best_genome,
                              debug=True,  # TODO: args.debug
                              )
         
         if args.live:
-            live(game_id=99999,
+            live(game_id=99997,
                  population=pop,
-                 genome=chosen_genome,
+                 genome=chosen_genome if chosen_genome else pop.best_genome,
                  debug=args.debug,
                  )
     except Exception as e:
