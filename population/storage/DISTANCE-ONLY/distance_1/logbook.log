@@ -13671,3 +13671,26 @@ Population 'distance_1' loaded successfully! Current generation: 415
 Creating traces for games: [99995, 99996, 99997, 99998, 99999]
 
 Population 'distance_1' loaded successfully! Current generation: 415
+
+Population 'distance_1' loaded successfully! Current generation: 100
+
+===> CREATING TRACES <===
+
+Creating traces for games: [99995, 99996, 99997, 99998, 99999]
+
+Population 'distance_1' loaded successfully! Current generation: 100
+
+Population 'distance_1' loaded successfully! Current generation: 100
+
+===> CREATING TRACES <===
+
+Creating traces for games: [99995, 99996, 99997, 99998, 99999]
+
+Population 'distance_1' loaded successfully! Current generation: 100
+
+===> SAME GAME TRAINING <===
+
+Repetitive evaluating games: [99995, 99996, 99997, 99998, 99999]
+
+********** Running generation 100 **********
+

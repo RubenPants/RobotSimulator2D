@@ -177,7 +177,7 @@ def get_active_sensors(connections: set, total_input_size: int):
 def get_proximity_angles():
     """Get the angles used for the proximity sensors."""
     angles = []
-    # """
+    """
     # Left-side of the agent
     angles.append(3 * pi / 4)  # 135° (counter-clockwise)
     for i in range(5):  # 90° until 10° with hops of 20° (total of 5 sensors)
@@ -196,8 +196,8 @@ def get_proximity_angles():
 
 def get_angular_directions():
     """Get the clockwise directions for the angular sensors."""
-    # return []
-    return [True, False]
+    return []
+    # return [True, False]
 
 
 def get_number_of_sensors():

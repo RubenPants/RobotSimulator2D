@@ -31,7 +31,7 @@ class GameConfig:
         # Number of games on which a single genome is evaluated  [def=12]  TODO
         self.batch: int = 10
         # Number of seconds it takes for one game to complete  [def=100]  TODO
-        self.duration: int = 100
+        self.duration: int = 40
         # Max ID of game (starting from 1)  [def=1000]
         self.max_game_id: int = 1000
         # Max ID of evaluation game (starting from max_id)  [def=1100]
@@ -145,14 +145,14 @@ class NeatConfig:
         self.compatibility_disjoint_coefficient: float = 1.0
         # Coefficient for each weight or bias difference contribution to the genomic distance  [def=0.5]
         self.compatibility_weight_coefficient: float = 0.5
-        # Probability of adding a connection between existing nodes during mutation (each generation)  [def=0.05]  TODO
-        self.conn_add_prob: float = 0.05
-        # Probability of deleting an existing connection during mutation (each generation)  [def=0.05]  TODO
-        self.conn_delete_prob: float = 0.05
+        # Probability of adding a connection between existing nodes during mutation (each generation)  [def=0.1]  TODO
+        self.conn_add_prob: float = 0.1
+        # Probability of deleting an existing connection during mutation (each generation)  [def=0.1]  TODO
+        self.conn_delete_prob: float = 0.1
         # Enable the algorithm to disable (and re-enable) existing connections  [def=True]
         self.enabled_default: bool = True
         # The probability that mutation will replace the 'enabled status' of a connection  [def=0.05]
-        self.enabled_mutate_rate: float = 0.01
+        self.enabled_mutate_rate: float = 0.05
         # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT_05]  TODO
         self.initial_connection = D_PARTIAL_DIRECT_05
         # Probability of adding a node during mutation (each generation)  [def=0.01]  TODO
@@ -160,7 +160,7 @@ class NeatConfig:
         # Probability of removing a node during mutation (each generation)  [def=0.01]  TODO
         self.node_delete_prob: float = 0.01
         # Number of hidden nodes to add to each genome in the initial population  [def=0]  TODO
-        self.num_hidden: int = 0
+        self.num_hidden: int = 1
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
         self.num_outputs: int = 2
         # Mean of the gaussian distribution used to select the weight attribute values for new connections  [def=0]
