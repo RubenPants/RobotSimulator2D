@@ -103,7 +103,7 @@ class NeatConfig:
         # Don't consider fitness_criterion and fitness_threshold  [def=True]
         self.no_fitness_termination: bool = True
         # Number of individuals in each generation  [def=128]  TODO
-        self.pop_size: int = 10
+        self.pop_size: int = 128
         
         # [DefaultReproduction]
         # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=3]
@@ -172,8 +172,8 @@ class NeatConfig:
         self.weight_max_value: float = 2.0
         # The minimum allowed weight value, weights below this value will be clipped to this value  [def=-2]
         self.weight_min_value: float = -2.0
-        # The standard deviation of the zero-centered gaussian from which a weight value mutation is drawn [def=0.1]TODO
-        self.weight_mutate_power: float = 0.1
+        # The standard deviation of the zero-centered gaussian from which a weight value mutation is drawn [def=0.2]TODO
+        self.weight_mutate_power: float = 0.2
         # Probability of a weight (connection) to mutate  [def=0.2]  TODO
         self.weight_mutate_rate: float = 0.2
         # Probability of assigning completely new value, based on weight_init_mean and weight_init_stdev  [def=0.05]
@@ -217,7 +217,7 @@ class NeatConfig:
         # The standard deviation of the zero-centered gaussian from which a GRU value mutation is drawn  [def=0.1]
         self.gru_mutate_power: float = 0.1
         # Probability of a GRU value to mutate  [def=0.2]  TODO
-        self.gru_mutate_rate: float = 1.0
+        self.gru_mutate_rate: float = 0.2
         # Probability of mutating a GRU node rather than a simple node  [def=0.4]  TODO
         self.gru_node_prob: float = 0.6
         # Probability of assigning completely new value, based on gru_init_mean and gru_init_stdev  [def=0.05]

@@ -85,6 +85,7 @@ def draw_net(config, genome: DefaultGenome, debug=False, filename=None, view=Tru
         fillcolor = 'white'
         if debug:
             if type(genome.nodes[key]) == GruNodeGene:
+                genome.update_gru_nodes(config.genome_config)
                 name = f'GRU node={key}'
                 name += f'\ninputs_size={len(genome.nodes[key].input_keys)}'
                 name += f'\nbias_ih={np.asarray(genome.nodes[key].gru_bias_ih.tolist()).round(3).tolist()}'
