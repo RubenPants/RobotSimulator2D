@@ -202,6 +202,7 @@ class GruNodeGene(BaseGene):
             if a.name == 'gru_full_weight_ih':
                 mapping = [k in self.input_keys for k in self.full_input_keys]
                 setattr(self, a.name, a.mutate_value(v, config, mapping))
+                self.update_weight_ih()
             else:
                 setattr(self, a.name, a.mutate_value(v, config))
     

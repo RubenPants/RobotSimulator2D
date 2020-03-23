@@ -122,12 +122,12 @@ if __name__ == '__main__':
     
     # Main methods
     parser.add_argument('--train', type=bool, default=False)
-    parser.add_argument('--train_same', type=bool, default=True)
+    parser.add_argument('--train_same', type=bool, default=False)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--trace', type=bool, default=False)
-    parser.add_argument('--trace_fit', type=bool, default=True)
+    parser.add_argument('--trace_fit', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
-    parser.add_argument('--genome', type=bool, default=False)
+    parser.add_argument('--genome', type=bool, default=True)
     parser.add_argument('--live', type=bool, default=False)
     
     # Extra arguments
@@ -140,12 +140,14 @@ if __name__ == '__main__':
     pop = Population(
             # name='distance_1',
             version=2,
-            # folder_name='test',
-            folder_name='DISTANCE-ONLY',
+            folder_name='test',
+            # folder_name='DISTANCE-ONLY',
     )
     if not pop.best_genome: pop.best_genome = list(pop.population.values())[0]
     # pop.best_genome = list(pop.population.values())[1]  # TODO
     # pop.population = {k: v for k, v in pop.population.items() if k in [111]}  # TODO
+    # pop.best_genome.update_gru_nodes(pop.config.genome_config)
+    # pop.best_genome.mutate(config=pop.config.genome_config)
     
     # Set the blueprint and traces games
     # chosen_games = [0] * 10  # Different (random) initializations!

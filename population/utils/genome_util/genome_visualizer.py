@@ -4,6 +4,7 @@ visualizer.py
 Create visualizations for the genomes present in the population.
 """
 import os
+import numpy as np
 
 from graphviz import Digraph
 
@@ -86,11 +87,10 @@ def draw_net(config, genome: DefaultGenome, debug=False, filename=None, view=Tru
             if type(genome.nodes[key]) == GruNodeGene:
                 name = f'GRU node={key}'
                 name += f'\ninputs_size={len(genome.nodes[key].input_keys)}'
-                name += f'\nhidden_size={genome.nodes[key].hidden_size}'
-                # name += f'\nbias_ih={np.asarray(genome.nodes[key].bias_ih.tolist()).round(3).tolist()}'
-                # name += f'\nbias_hh={np.asarray(genome.nodes[key].bias_hh.tolist()).round(3).tolist()}'
-                # name += f'\nweight_ih={np.asarray(genome.nodes[key].weight_ih.tolist()).round(3).tolist()}'
-                # name += f'\nweight_hh={np.asarray(genome.nodes[key].weight_hh.tolist()).round(3).tolist()}'
+                name += f'\nbias_ih={np.asarray(genome.nodes[key].gru_bias_ih.tolist()).round(3).tolist()}'
+                name += f'\nbias_hh={np.asarray(genome.nodes[key].gru_bias_hh.tolist()).round(3).tolist()}'
+                name += f'\nweight_ih={np.asarray(genome.nodes[key].gru_weight_ih.tolist()).round(3).tolist()}'
+                name += f'\nweight_hh={np.asarray(genome.nodes[key].gru_weight_hh.tolist()).round(3).tolist()}'
                 fillcolor = '#f5c484'  # Fancy orange
             elif type(genome.nodes[key]) == DefaultNodeGene:
                 name = f'simple node={key}'
