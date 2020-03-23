@@ -182,7 +182,7 @@ class GruNodeGene(BaseGene):
     def init_attributes(self, config):
         setattr(self, 'gru_bias_ih', self._attributes[0].init_value(config))
         setattr(self, 'gru_bias_hh', self._attributes[1].init_value(config))
-        setattr(self, 'gru_full_weight_ih', self._attributes[2].init_value(config, len(self.input_keys)))
+        setattr(self, 'gru_full_weight_ih', self._attributes[2].init_value(config, len(self.full_input_keys)))
         setattr(self, 'gru_weight_hh', self._attributes[3].init_value(config, 1))
     
     def copy(self):
@@ -288,6 +288,7 @@ class GruNodeGene(BaseGene):
             
             # Update full_weight_ih correspondingly by inserting random initialized tensor in correct position
             new_tensor = GruWeightAttribute('temp').init_value(config, input_size=1)
+            assert new_tensor.shape == (3, 1)
             self.gru_full_weight_ih = cat((self.gru_full_weight_ih[:, :i], new_tensor, self.gru_full_weight_ih[:, i:]),
                                           dim=1)
         

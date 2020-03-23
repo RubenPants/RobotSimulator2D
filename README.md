@@ -4,6 +4,8 @@
 
 ## TODO
 
+* Bug in GRU; I had a mutation which extended the full_input_keys, but not full_weight_ih (how come?)
+* Crossover (GRU) tinkers with other genomes!
 * Test on the mutation operators!
 * Normalize distance-sensor's value during sensor-read
 * Architecture visualization, genome key in file-name instead of generation
