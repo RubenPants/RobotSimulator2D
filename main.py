@@ -111,7 +111,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     
     # Main methods
-    parser.add_argument('--train', type=bool, default=True)
+    parser.add_argument('--train', type=bool, default=False)
     parser.add_argument('--train_same', type=bool, default=False)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--trace', type=bool, default=False)
@@ -122,12 +122,12 @@ if __name__ == '__main__':
     # Extra arguments
     parser.add_argument('--iterations', type=int, default=10)
     parser.add_argument('--unused_cpu', type=int, default=2)
-    parser.add_argument('--debug', type=bool, default=True)
+    parser.add_argument('--debug', type=bool, default=False)
     args = parser.parse_args()
     
     # Setup the population
     pop = Population(
-            # name='test',
+            # name='distance_1',
             version=1,
             folder_name='test',
     )

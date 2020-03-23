@@ -13651,3 +13651,23 @@ Population 'distance_1' saved! Current generation: 415
 
 ********** Running generation 415 **********
 
+
+Population 'distance_1' loaded successfully! Current generation: 415
+
+===> CREATING TRACES <===
+
+Creating traces for games: [1, 2, 3, 4, 5]
+
+Population 'distance_1' loaded successfully! Current generation: 415
+
+===> CREATING TRACES <===
+
+Creating traces for games: [99995, 99996, 99997, 99998, 99999]
+
+Population 'distance_1' loaded successfully! Current generation: 415
+
+===> CREATING TRACES <===
+
+Creating traces for games: [99995, 99996, 99997, 99998, 99999]
+
+Population 'distance_1' loaded successfully! Current generation: 415
