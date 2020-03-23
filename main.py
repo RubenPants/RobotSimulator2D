@@ -131,7 +131,7 @@ if __name__ == '__main__':
     parser.add_argument('--live', type=bool, default=False)
     
     # Extra arguments
-    parser.add_argument('--iterations', type=int, default=100)
+    parser.add_argument('--iterations', type=int, default=200)
     parser.add_argument('--unused_cpu', type=int, default=2)
     parser.add_argument('--debug', type=bool, default=False)
     args = parser.parse_args()
@@ -139,7 +139,7 @@ if __name__ == '__main__':
     # Setup the population
     pop = Population(
             # name='distance_1',
-            version=1,
+            version=2,
             # folder_name='test',
             folder_name='DISTANCE-ONLY',
     )
