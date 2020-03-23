@@ -241,9 +241,9 @@ class GruNodeGene(BaseGene):
     def distance(self, other, config):
         """Calculate the distance between two GRU nodes, which is determined by its coefficients."""
         d = 0
-        d += np.linalg.norm(self.gru_bias_ih - other.bias_ih)
-        d += np.linalg.norm(self.gru_bias_hh - other.bias_hh)
-        d += np.linalg.norm(self.gru_weight_hh - other.weight_hh)
+        d += np.linalg.norm(self.gru_bias_ih - other.gru_bias_ih)
+        d += np.linalg.norm(self.gru_bias_hh - other.gru_bias_hh)
+        d += np.linalg.norm(self.gru_weight_hh - other.gru_weight_hh)
         
         # Compare only same input keys
         key_set = sorted(set(self.input_keys + other.input_keys))
@@ -251,7 +251,7 @@ class GruNodeGene(BaseGene):
         o = np.zeros((3, len(key_set)))
         for i, k in enumerate(key_set):
             if k in self.input_keys: s[:, i] = self.gru_full_weight_ih[:, self.full_input_keys.index(k)]
-            if k in other.input_keys: o[:, i] = other.full_weight_ih[:, other.full_input_keys.index(k)]
+            if k in other.input_keys: o[:, i] = other.gru_full_weight_ih[:, other.full_input_keys.index(k)]
         d += np.linalg.norm(s - o)
         return d * config.compatibility_weight_coefficient
     

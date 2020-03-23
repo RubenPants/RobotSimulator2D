@@ -141,7 +141,7 @@ if __name__ == '__main__':
             # name='distance_1',
             version=1,
             # folder_name='test',
-            folder_name='test',
+            folder_name='DISTANCE-ONLY',
     )
     if not pop.best_genome: pop.best_genome = list(pop.population.values())[0]
     # pop.best_genome = list(pop.population.values())[1]  # TODO
