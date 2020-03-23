@@ -113,7 +113,7 @@ class NeatConfig:
         # Minimum number of genomes per species, keeping low prevents number of individuals blowing up  [def=10]  TODO
         self.min_species_size: int = 10
         # Sexual reproduction  [def=True]
-        self.sexual_reproduction: bool = True
+        self.sexual_reproduction: bool = False
         
         # [DefaultGenome]
         # Initial node activation function  [def=D_GELU]

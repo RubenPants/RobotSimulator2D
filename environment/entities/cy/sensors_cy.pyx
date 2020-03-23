@@ -100,30 +100,6 @@ cdef class AngularSensorCy(SensorCy):
         # Add noise
         if self.game.noise: self.value += random.gauss(0, self.game.noise_angle)
 
-cdef class DistanceSensorCy(SensorCy):
-    """Distance from bot to the target in 'crows flight'."""
-    
-    def __init__(self,
-                 GameCy game,
-                 int sensor_id=0):
-        """
-        :param game: Reference to the game in which the sensor is used
-        :param sensor_id: Identification number for the sensor
-        """
-        super().__init__(game=game, sensor_id=sensor_id)
-    
-    def __str__(self):
-        return "distance"
-    
-    cpdef void measure(self, set close_walls=None):
-        """Update self.value to current distance between target and robot's center coordinate."""
-        cdef Vec2dCy start_p
-        cdef Vec2dCy end_p
-        
-        start_p = self.game.player.pos
-        end_p = self.game.target
-        self.value = (start_p - end_p).get_length()
-        if self.game.noise: self.value += random.gauss(0, self.game.noise_distance)
 
 cdef class DeltaDistanceSensorCy(SensorCy):
     """Difference in distance from bot to the target in 'crows flight' between current and the previous time-point."""
@@ -153,6 +129,36 @@ cdef class DeltaDistanceSensorCy(SensorCy):
         self.distance = (start_p - end_p).get_length()  # Get current measure
         if self.prev_distance == 0.0: self.prev_distance = self.distance  # Disable cold start
         self.value = self.prev_distance - self.distance  # Positive value == closer to target
+
+
+cdef class DistanceSensorCy(SensorCy):
+    """Distance from bot to the target in 'crows flight'."""
+    
+    def __init__(self,
+                 GameCy game,
+                 float normalizer,
+                 int sensor_id=0):
+        """
+        :param game: Reference to the game in which the sensor is used
+        :param normalizer: The constant by which the distance-value is normalized
+        :param sensor_id: Identification number for the sensor
+        """
+        super().__init__(game=game, sensor_id=sensor_id)
+        self.normalizer = normalizer
+    
+    def __str__(self):
+        return "distance"
+    
+    cpdef void measure(self, set close_walls=None):
+        """Update self.value to current distance between target and robot's center coordinate."""
+        cdef Vec2dCy start_p
+        cdef Vec2dCy end_p
+        
+        start_p = self.game.player.pos
+        end_p = self.game.target
+        self.value = (start_p - end_p).get_length() / self.normalizer
+        if self.game.noise: self.value += random.gauss(0, self.game.noise_distance)
+
 
 cdef class ProximitySensorCy(SensorCy):
     """

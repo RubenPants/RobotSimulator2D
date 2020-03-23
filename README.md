@@ -4,13 +4,9 @@
 
 ## TODO
 
-* Bug in GRU; I had a mutation which extended the full_input_keys, but not full_weight_ih (how come?)
-* Crossover (GRU) tinkers with other genomes!
+* Crossover (GRU) tinkers with other genomes! --> Test if this isn't also the case for mutation @full_weight_ih
 * Test on the mutation operators!
-* Normalize distance-sensor's value during sensor-read
-* Architecture visualization, genome key in file-name instead of generation
 * A2C fine-tuning of the weights?
-* Implement a delta-distance sensor (or should this be learned from the regular distance sensor?)
 * Test all of the fitness-functions!
 * Self-adaptive NEAT?
 * Activation functions of hidden vs output nodes not taken into account! (hard-coded on tanh!)

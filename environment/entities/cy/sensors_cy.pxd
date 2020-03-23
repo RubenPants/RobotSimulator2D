@@ -23,15 +23,16 @@ cdef class AngularSensorCy(SensorCy):
     cpdef void measure(self, set close_walls=?)
 
 
-cdef class DistanceSensorCy(SensorCy):
-    """Distance from bot to the target in 'crows flight'."""
+cdef class DeltaDistanceSensorCy(SensorCy):
+    """Difference in distance from bot to the target in 'crows flight' between current and the previous time-point."""
+    cdef public float distance, prev_distance
     
     cpdef void measure(self, set close_walls=?)
 
 
-cdef class DeltaDistanceSensorCy(SensorCy):
-    """Difference in distance from bot to the target in 'crows flight' between current and the previous time-point."""
-    cdef public float distance, prev_distance
+cdef class DistanceSensorCy(SensorCy):
+    """Distance from bot to the target in 'crows flight'."""
+    cdef public float normalizer
     
     cpdef void measure(self, set close_walls=?)
 
