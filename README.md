@@ -4,6 +4,7 @@
 
 ## TODO
 
+* Architecture visualization, genome key in file-name instead of generation
 * A2C fine-tuning of the weights?
 * Implement a delta-distance sensor (or should this be learned from the regular distance sensor?)
 * Test all of the fitness-functions!

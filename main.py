@@ -122,10 +122,10 @@ if __name__ == '__main__':
     
     # Main methods
     parser.add_argument('--train', type=bool, default=False)
-    parser.add_argument('--train_same', type=bool, default=False)
+    parser.add_argument('--train_same', type=bool, default=True)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--trace', type=bool, default=False)
-    parser.add_argument('--trace_fit', type=bool, default=False)
+    parser.add_argument('--trace_fit', type=bool, default=True)
     parser.add_argument('--evaluate', type=bool, default=False)
     parser.add_argument('--genome', type=bool, default=False)
     parser.add_argument('--live', type=bool, default=False)
@@ -139,7 +139,8 @@ if __name__ == '__main__':
     # Setup the population
     pop = Population(
             # name='distance_1',
-            version=2,
+            version=3,
+            # folder_name='test',
             folder_name='DISTANCE-ONLY',
     )
     if not pop.best_genome: pop.best_genome = list(pop.population.values())[0]

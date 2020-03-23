@@ -219,7 +219,8 @@ def get_proximity_angles():
 
 def get_number_of_sensors():
     """Get the number of sensors mounted on the robot."""
-    return len(get_proximity_angles()) + len(get_angular_directions()) + 1
+    delta_distance = 1 if get_delta_distance() else 0
+    return len(get_proximity_angles()) + len(get_angular_directions()) + delta_distance + 1
 
 
 def get_snapshot():
@@ -233,6 +234,9 @@ def get_snapshot():
     
     # Angular sensors
     for cw in get_angular_directions(): sorted_names.append(str(AngularSensor(game=None, clockwise=cw)))
+    
+    # Delta distance sensor
+    if get_delta_distance(): sorted_names.append(str(DeltaDistanceSensor(game=None)))
     
     # Distance sensor
     sorted_names.append(str(DistanceSensor(game=None)))
