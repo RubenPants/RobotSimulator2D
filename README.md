@@ -4,6 +4,9 @@
 
 ## TODO
 
+* A2C fine-tuning of the weights?
+* Implement a delta-distance sensor (or should this be learned from the regular distance sensor?)
+* Trace the most fit genome
 * fix GRU-unittest
 * Test all of the fitness-functions!
 * Self-adaptive NEAT?

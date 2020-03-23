@@ -52,13 +52,23 @@ def blueprint(population: Population, games: list):
 
 
 def trace(population: Population, games: list):
-    """Create a trace evaluation for the given population on the first 5 games."""
+    """Create a trace evaluation for the given population on the provided games."""
     from environment.env_visualizing import VisualizingEnv
     population.log("\n===> CREATING TRACES <===\n")
     visualizer = VisualizingEnv(game_config=population.game_config)
     population.log(f"Creating traces for games: {games}")
     visualizer.set_games(games)
     visualizer.trace_genomes(pop=population)
+
+
+def trace_most_fit(population: Population, genome, games: list):
+    """Create a trace evaluation for the given genome on the provided games."""
+    from environment.env_visualizing import VisualizingEnv
+    population.log("\n===> CREATING GENOME TRACE <===\n")
+    visualizer = VisualizingEnv(game_config=population.game_config)
+    population.log(f"Creating traces for games: {games}")
+    visualizer.set_games(games)
+    visualizer.trace_genomes(pop=population, given_genome=genome)
 
 
 def evaluate(population: Population):
@@ -112,9 +122,10 @@ if __name__ == '__main__':
     
     # Main methods
     parser.add_argument('--train', type=bool, default=False)
-    parser.add_argument('--train_same', type=bool, default=True)
+    parser.add_argument('--train_same', type=bool, default=False)
     parser.add_argument('--blueprint', type=bool, default=False)
-    parser.add_argument('--trace', type=bool, default=True)
+    parser.add_argument('--trace', type=bool, default=False)
+    parser.add_argument('--trace_fit', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
     parser.add_argument('--genome', type=bool, default=False)
     parser.add_argument('--live', type=bool, default=False)
@@ -165,6 +176,9 @@ if __name__ == '__main__':
         
         if args.trace:
             trace(population=pop, games=chosen_games)
+        
+        if args.trace_fit:
+            trace_most_fit(population=pop, genome=chosen_genome, games=chosen_games)
         
         if args.evaluate:
             evaluate(population=pop)

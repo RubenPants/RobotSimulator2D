@@ -11,6 +11,8 @@ from tqdm import tqdm
 from config import GameConfig
 from environment.entities.game import get_game
 from environment.env_multi import get_multi_env
+from population.population import Population
+from population.utils.genome_util.genome import DefaultGenome
 from population.utils.visualizing.population_visualizer import create_blueprints, create_traces
 from utils.myutils import get_subfolder
 
@@ -47,7 +49,7 @@ class VisualizingEnv:
             self.games = games
             self.batch_size = len(games)
     
-    def blueprint_genomes(self, pop):
+    def blueprint_genomes(self, pop: Population):
         """
         Create blueprints for all the requested mazes.
 
@@ -87,11 +89,12 @@ class VisualizingEnv:
                           gen=pop.generation,
                           save_path=get_subfolder(f'population/storage/{pop.folder_name}/{pop}/', 'images'))
     
-    def trace_genomes(self, pop):
+    def trace_genomes(self, pop: Population, given_genome: DefaultGenome = None):
         """
         Create blueprints that contain the walking-traces for all the requested mazes.
 
         :param pop: Population object
+        :param given_genome: Single genomes for which the trace must be made
         """
         multi_env = get_multi_env(pop=pop, game_config=self.game_config)
         if len(self.games) > 20:
@@ -105,7 +108,7 @@ class VisualizingEnv:
         return_dict = manager.dict()
         
         # Fetch the dictionary of genomes
-        genomes = list(iteritems(pop.population))
+        genomes = [(given_genome.key, given_genome)] if given_genome else list(iteritems(pop.population))
         
         # Progress bar during evaluation
         pbar = tqdm(total=len(genomes), desc="parallel evaluating")
@@ -125,4 +128,6 @@ class VisualizingEnv:
         create_traces(traces=return_dict,
                       games=game_objects,
                       gen=pop.generation,
-                      save_path=get_subfolder(f'population/storage/{pop.folder_name}/{pop}/', 'images'))
+                      save_path=get_subfolder(f'population/storage/{pop.folder_name}/{pop}/', 'images'),
+                      save_name=f'trace_{given_genome.key}' if given_genome else 'trace',
+                      )
