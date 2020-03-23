@@ -8,6 +8,7 @@ from utils.cy.vec2d_cy cimport Vec2dCy
 
 
 cdef class SensorCy:
+    """The baseclass used by all sensors."""
     cdef public GameCy game
     cdef public int id
     cdef public float angle, pos_offset, max_dist, value
@@ -16,18 +17,21 @@ cdef class SensorCy:
 
 
 cdef class AngularSensorCy(SensorCy):
-    """
-    Angle deviation between bot and wanted direction in 'crow flight'.
-    """
+    """Angle deviation between bot and wanted direction in 'crows flight'."""
     cdef public bint clockwise
     
     cpdef void measure(self, set close_walls=?)
 
 
 cdef class DistanceSensorCy(SensorCy):
-    """
-    Distance from bot to the target in 'crows flight'.
-    """
+    """Distance from bot to the target in 'crows flight'."""
+    
+    cpdef void measure(self, set close_walls=?)
+
+
+cdef class DeltaDistanceSensorCy(SensorCy):
+    """Difference in distance from bot to the target in 'crows flight' between current and the previous time-point."""
+    cdef public float distance, prev_distance
     
     cpdef void measure(self, set close_walls=?)
 

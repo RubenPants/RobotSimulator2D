@@ -5,8 +5,8 @@ Robots used to manoeuvre around in the Game-environment.
 """
 from numpy import pi
 
-from environment.entities.robots import get_proximity_angles, get_angular_directions
-from sensors_cy cimport AngularSensorCy, DistanceSensorCy, ProximitySensorCy
+from environment.entities.robots import get_proximity_angles, get_angular_directions, get_delta_distance
+from sensors_cy cimport AngularSensorCy, DeltaDistanceSensorCy, DistanceSensorCy, ProximitySensorCy
 from utils.cy.vec2d_cy cimport angle_to_vec, Vec2dCy
 
 cdef class MarXBotCy:
@@ -15,7 +15,7 @@ cdef class MarXBotCy:
     __slots__ = (
         "game",
         "pos", "prev_pos", "init_pos", "init_angle", "angle", "prev_angle", "radius",
-        "n_proximity", "n_angular", "n_distance",
+        "n_proximity", "n_angular", "n_delta_distance", "n_distance",
         "sensors", "active_sensors",
     )
     
@@ -47,11 +47,13 @@ cdef class MarXBotCy:
         # Counters for number of sensors used
         self.n_proximity = 0
         self.n_angular = 0
+        self.n_delta_distance = 0
         self.n_distance = 0
         
         # Create the sensors (fixed order!)
         self.create_proximity_sensors()
         self.create_angular_sensors()
+        self.create_delta_distance_sensor()
         self.add_distance_sensor()
         
         # Number of distance-sensors must always be equal to 1
@@ -118,6 +120,12 @@ cdef class MarXBotCy:
                                                           clockwise=clockwise)
         self.n_angular += 1
     
+    cpdef void add_delta_distance_sensor(self):
+        """Single distance sensor which determines distance between agent's center and target's center."""
+        self.sensors[len(self.sensors)] = DeltaDistanceSensorCy(sensor_id=len(self.sensors),
+                                                                game=self.game)
+        self.n_delta_distance += 1
+    
     cpdef void add_distance_sensor(self):
         """Single distance sensor which determines distance between agent's center and target's center."""
         self.sensors[len(self.sensors)] = DistanceSensorCy(sensor_id=len(self.sensors),
@@ -149,6 +157,10 @@ cdef class MarXBotCy:
         """
         cdef bint clockwise
         for clockwise in get_angular_directions(): self.add_angular_sensors(clockwise=clockwise)
+    
+    cpdef void create_delta_distance_sensor(self):
+        """Add a delta-distance sensor which measures the difference in distance to the target each time-point."""
+        if get_delta_distance(): self.add_delta_distance_sensor()
     
     cpdef void create_proximity_sensors(self):
         """

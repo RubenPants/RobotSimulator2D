@@ -125,6 +125,35 @@ cdef class DistanceSensorCy(SensorCy):
         self.value = (start_p - end_p).get_length()
         if self.game.noise: self.value += random.gauss(0, self.game.noise_distance)
 
+cdef class DeltaDistanceSensorCy(SensorCy):
+    """Difference in distance from bot to the target in 'crows flight' between current and the previous time-point."""
+    
+    def __init__(self,
+                 GameCy game,
+                 int sensor_id=0):
+        """
+        :param game: Reference to the game in which the sensor is used
+        :param sensor_id: Identification number for the sensor
+        """
+        super().__init__(game=game, sensor_id=sensor_id)
+        self.distance = 0.0
+        self.prev_distance = 0.0
+    
+    def __str__(self):
+        return "delta_distance"
+    
+    cpdef void measure(self, set close_walls=None):
+        """Update self.value to difference between previous distance and current distance."""
+        cdef Vec2dCy start_p
+        cdef Vec2dCy end_p
+        
+        self.prev_distance = self.distance  # Save previous distance
+        start_p = self.game.player.pos
+        end_p = self.game.target
+        self.distance = (start_p - end_p).get_length()  # Get current measure
+        if self.prev_distance == 0.0: self.prev_distance = self.distance  # Disable cold start
+        self.value = self.prev_distance - self.distance  # Positive value == closer to target
+
 cdef class ProximitySensorCy(SensorCy):
     """
     The proximity sensor is attached to a bot's edge and measures the distance min(max_distance, object_distance). In
