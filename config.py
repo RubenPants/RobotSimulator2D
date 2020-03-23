@@ -109,7 +109,7 @@ class NeatConfig:
         # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=3]
         self.elitism: int = 3
         # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.3]  TODO
-        self.parent_selection: float = 0.3
+        self.parent_selection: float = 0.1
         # Minimum number of genomes per species, keeping low prevents number of individuals blowing up  [def=10]  TODO
         self.min_species_size: int = 10
         # Sexual reproduction  [def=True]
@@ -141,15 +141,15 @@ class NeatConfig:
         # The probability that mutation will change the bias of a node by adding a random value  [def=0.2]  TODO
         self.bias_mutate_rate: float = 0.4
         # The probability that mutation will replace the bias of a node with a completely random value  [def=0.05]
-        self.bias_replace_rate: float = 0.05
+        self.bias_replace_rate: float = 0.01
         # Full weight of disjoint and excess nodes on determining genomic distance  [def=1.0]  # TODO: Separate for GRU?
         self.compatibility_disjoint_coefficient: float = 1.0
         # Coefficient for each weight or bias difference contribution to the genomic distance  [def=0.5]
         self.compatibility_weight_coefficient: float = 0.5
         # Probability of adding a connection between existing nodes during mutation (each generation)  [def=0.1]  TODO
-        self.conn_add_prob: float = 0.1
+        self.conn_add_prob: float = 0.05
         # Probability of deleting an existing connection during mutation (each generation)  [def=0.1]  TODO
-        self.conn_delete_prob: float = 0.1
+        self.conn_delete_prob: float = 0.05
         # Enable the algorithm to disable (and re-enable) existing connections  [def=True]
         self.enabled_default: bool = True
         # The probability that mutation will replace the 'enabled status' of a connection  [def=0.05]
@@ -157,9 +157,9 @@ class NeatConfig:
         # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT_05]  TODO
         self.initial_connection = D_FULL_NODIRECT
         # Probability of adding a node during mutation (each generation)  [def=0.01]  TODO
-        self.node_add_prob: float = 0.05
+        self.node_add_prob: float = 0.01
         # Probability of removing a node during mutation (each generation)  [def=0.01]  TODO
-        self.node_delete_prob: float = 0.05
+        self.node_delete_prob: float = 0.01
         # Number of hidden nodes to add to each genome in the initial population  [def=0]  TODO
         self.num_hidden: int = 1
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
@@ -177,7 +177,7 @@ class NeatConfig:
         # Probability of a weight (connection) to mutate  [def=0.2]  TODO
         self.weight_mutate_rate: float = 0.4
         # Probability of assigning completely new value, based on weight_init_mean and weight_init_stdev  [def=0.05]
-        self.weight_replace_rate: float = 0.05
+        self.weight_replace_rate: float = 0.01
         
         # [DefaultSpecies]
         # Individuals whose genetic distance is less than this threshold are in the same specie  [def=2.0]  TODO
@@ -215,9 +215,9 @@ class NeatConfig:
         # The minimum allowed GRU value, values below this will be clipped  [def=-2]
         self.gru_min_value: float = -2.0
         # The standard deviation of the zero-centered gaussian from which a GRU value mutation is drawn  [def=0.1]
-        self.gru_mutate_power: float = 0.1
+        self.gru_mutate_power: float = 0.2
         # Probability of a GRU value to mutate  [def=0.2]  TODO
-        self.gru_mutate_rate: float = 0.2
+        self.gru_mutate_rate: float = 0.4
         # Probability of mutating a GRU node rather than a simple node  [def=0.6]  TODO
         self.gru_node_prob: float = 0.6
         # Probability of assigning completely new value, based on gru_init_mean and gru_init_stdev  [def=0.05]

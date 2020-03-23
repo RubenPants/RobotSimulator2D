@@ -127,11 +127,11 @@ if __name__ == '__main__':
     parser.add_argument('--trace', type=bool, default=False)
     parser.add_argument('--trace_fit', type=bool, default=True)
     parser.add_argument('--evaluate', type=bool, default=False)
-    parser.add_argument('--genome', type=bool, default=False)
+    parser.add_argument('--genome', type=bool, default=True)
     parser.add_argument('--live', type=bool, default=False)
     
     # Extra arguments
-    parser.add_argument('--iterations', type=int, default=100)
+    parser.add_argument('--iterations', type=int, default=200)
     parser.add_argument('--unused_cpu', type=int, default=2)
     parser.add_argument('--debug', type=bool, default=False)
     args = parser.parse_args()
@@ -148,6 +148,8 @@ if __name__ == '__main__':
     # pop.population = {k: v for k, v in pop.population.items() if k in [111]}  # TODO
     # pop.best_genome.update_gru_nodes(pop.config.genome_config)
     # pop.best_genome.mutate(config=pop.config.genome_config)
+    # pop.best_genome.update_gru_nodes(pop.config.genome_config)
+    # print(pop.best_genome)
     
     # Set the blueprint and traces games
     # chosen_games = [0] * 10  # Different (random) initializations!
