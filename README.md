@@ -4,6 +4,7 @@
 
 ## TODO
 
+* Fault in distance-measure for GRU (check for rest)
 * Crossover (GRU) tinkers with other genomes! --> Test if this isn't also the case for mutation @full_weight_ih
 * Test on the mutation operators!
 * A2C fine-tuning of the weights?

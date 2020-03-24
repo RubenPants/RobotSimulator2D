@@ -31,7 +31,7 @@ class GameConfig:
         # Number of games on which a single genome is evaluated  [def=12]  TODO
         self.batch: int = 10
         # Number of seconds it takes for one game to complete  [def=100]  TODO
-        self.duration: int = 60
+        self.duration: int = 40
         # Max ID of game (starting from 1)  [def=1000]
         self.max_game_id: int = 1000
         # Max ID of evaluation game (starting from max_id)  [def=1100]
@@ -103,13 +103,13 @@ class NeatConfig:
         # Don't consider fitness_criterion and fitness_threshold  [def=True]
         self.no_fitness_termination: bool = True
         # Number of individuals in each generation  [def=128]  TODO
-        self.pop_size: int = 128
+        self.pop_size: int = 256
         
         # [DefaultReproduction]
         # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=3]
         self.elitism: int = 3
         # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.3]  TODO
-        self.parent_selection: float = 0.3
+        self.parent_selection: float = 0.1
         # Minimum number of genomes per species, keeping low prevents number of individuals blowing up  [def=10]  TODO
         self.min_species_size: int = 10
         # Sexual reproduction  [def=True]
@@ -181,11 +181,11 @@ class NeatConfig:
         
         # [DefaultSpecies]
         # Individuals whose genetic distance is less than this threshold are in the same specie  [def=2.0]  TODO
-        self.compatibility_threshold: float = 3.0
+        self.compatibility_threshold: float = 1.0
         # Remove a specie if it hasn't improved over this many number of generations  [def=15]
         self.max_stagnation: int = 15
-        # Number of the best species that will be protected from stagnation  [def=2]
-        self.species_elitism: int = 2
+        # Number of the best species that will be protected from stagnation  [def=2]  TODO
+        self.species_elitism: int = 1
         # The function used to compute the species fitness  [def=D_MAX]
         self.species_fitness_func: str = D_MAX
         # Maximum number of species that can live along each other  [def=10]
@@ -221,7 +221,7 @@ class NeatConfig:
         # Probability of mutating a GRU node rather than a simple node  [def=0.6]  TODO
         self.gru_node_prob: float = 0.6
         # Probability of assigning completely new value, based on gru_init_mean and gru_init_stdev  [def=0.05]
-        self.gru_replace_rate: float = 0.05
+        self.gru_replace_rate: float = 0.01
         
         # [SelfAdaptive]  TODO
     
