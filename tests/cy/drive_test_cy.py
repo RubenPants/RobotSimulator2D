@@ -9,7 +9,7 @@ from random import random
 
 import numpy as np
 
-from config import GameConfig
+from config import Config
 from environment.entities.cy.game_cy import GameCy
 from utils.cy.line2d_cy import Line2dCy
 from utils.cy.vec2d_cy import Vec2dCy
@@ -104,7 +104,7 @@ class GameDriveCy(unittest.TestCase):
 
 
 def get_game():
-    cfg = GameConfig()
+    cfg = Config()
     return GameCy(game_id=0, config=cfg, silent=True, save_path="tests/games_db/", overwrite=True)
 
 

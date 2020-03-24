@@ -7,7 +7,7 @@ on the train_same_games task, after which the traces of the best genome on each 
 import argparse
 import traceback
 
-from config import NeatConfig, GameConfig
+from config import Config
 from main import trace_most_fit, train_same_games
 from population.population import Population
 from process_killer import main as process_killer
@@ -29,28 +29,26 @@ def main(gru,
     """
     # Set the fixed configs
     folder = D_DISTANCE_ONLY
-    neat_config = NeatConfig()
-    neat_config.fitness = D_DISTANCE  # Always use the distance-fitness
-    neat_config.max_stagnation = 25  # Greater since improvement comes slow
-    game_config = GameConfig()
-    game_config.duration = 50  # Limited time to find target, but just enough for fastest genomes
+    config = Config()
+    config.evaluation.fitness = D_DISTANCE  # Always use the distance-fitness
+    config.species.stagnation = 25  # Greater since improvement comes slow
+    config.game.duration = 50  # Limited time to find target, but just enough for fastest genomes
     
     # Let inputs apply to configuration
-    neat_config.gru_enabled = gru
-    neat_config.sexual_reproduction = reproduce
+    config.genome.gru_enabled = gru
+    config.reproduction.sexual = reproduce
     
     # Create the population
     pop = Population(
             version=version,
-            game_config=game_config,
-            neat_config=neat_config,
+            config=config,
             folder_name=folder,
     )
     
     # Give overview of population
     msg = f"\n===> RUNNING DISTANCE-ONLY FOR THE FOLLOWING CONFIGURATION: <===" \
-          f"\n\t> gru_enabled: {neat_config.gru_enabled}" \
-          f"\n\t> sexual_reproduction: {neat_config.sexual_reproduction}" \
+          f"\n\t> gru_enabled: {config.genome.gru_enabled}" \
+          f"\n\t> sexual_reproduction: {config.reproduction.sexual}" \
           f"\n\t> Train for {train_iterations} iterations\n"
     pop.log(msg)
     
@@ -61,6 +59,7 @@ def main(gru,
     try:
         train_same_games(
                 games=games,
+                game_config=config,
                 population=pop,
                 unused_cpu=0,
                 iterations=train_iterations,
@@ -69,6 +68,7 @@ def main(gru,
         
         trace_most_fit(
                 population=pop,
+                game_config=config,
                 genome=pop.best_genome,
                 games=games,
         )

@@ -9,7 +9,7 @@ import pylab as plt
 from matplotlib import collections as mc
 from numpy import pi
 
-from config import GameConfig
+from config import Config
 from environment.entities.robots import MarXBot
 from utils.dictionary import *
 from utils.intersection import circle_line_intersection
@@ -38,7 +38,7 @@ class Game:
     
     def __init__(self,
                  game_id: int,
-                 config: GameConfig,
+                 config: Config,
                  noise: bool = False,
                  overwrite: bool = False,
                  save_path: str = '',
@@ -48,27 +48,27 @@ class Game:
         Define a new game.
 
         :param game_id: Game id
-        :param config: Configuration file related to the game (only needed to pass during creation)
+        :param config: Configuration file (only needed to pass during creation)
         :param noise: Add noise when progressing the game
         :param overwrite: Overwrite pre-existing games
         :param save_path: Save and load the game from different directories
         :param silent: Do not print anything
         """
         # Set the game's configuration
-        self.bot_driving_speed: float = config.bot_driving_speed
-        self.bot_radius: float = config.bot_radius
-        self.bot_turning_speed: float = config.bot_turning_speed
-        self.fps: int = config.fps
-        self.p2m: int = config.p2m
-        self.x_axis: int = config.x_axis
-        self.y_axis: int = config.y_axis
-        self.noise_time: float = config.noise_time
-        self.noise_angle: float = config.noise_angle
-        self.noise_distance: float = config.noise_distance
-        self.noise_proximity: float = config.noise_proximity
-        self.ray_distance: float = config.sensor_ray_distance
-        self.ray_distance_cum: float = config.bot_radius + config.sensor_ray_distance
-        self.target_reached: float = config.target_reached
+        self.bot_driving_speed: float = config.bot.driving_speed
+        self.bot_radius: float = config.bot.radius
+        self.bot_turning_speed: float = config.bot.turning_speed
+        self.fps: int = config.game.fps
+        self.p2m: int = config.game.p2m
+        self.x_axis: int = config.game.x_axis
+        self.y_axis: int = config.game.y_axis
+        self.noise_time: float = config.noise.time
+        self.noise_angle: float = config.noise.angle
+        self.noise_distance: float = config.noise.distance
+        self.noise_proximity: float = config.noise.proximity
+        self.ray_distance: float = config.bot.ray_distance
+        self.ray_distance_cum: float = config.bot.radius + config.bot.ray_distance
+        self.target_reached: float = config.game.target_reached
         
         # Environment specific parameters
         self.silent: bool = silent  # True: Do not print out statistics
@@ -269,15 +269,15 @@ def get_boundary_walls(x_axis, y_axis):
     return {Line2d(a, b), Line2d(b, c), Line2d(c, d), Line2d(d, a)}
 
 
-def get_game(i: int, cfg: GameConfig = None):
+def get_game(i: int, cfg: Config = None):
     """
     Create a game-object.
     
     :param i: Game-ID
-    :param cfg: GameConfig object
+    :param cfg: Config object
     :return: Game or GameCy object
     """
-    config = cfg if cfg else GameConfig()
+    config = cfg if cfg else Config()
     return Game(game_id=i,
                 config=config,
                 silent=True)

@@ -8,7 +8,7 @@ import multiprocessing as mp
 from neat.six_util import iteritems
 from tqdm import tqdm
 
-from config import GameConfig
+from config import Config
 from environment.entities.game import get_game
 from environment.env_multi import get_multi_env
 from population.population import Population
@@ -25,7 +25,7 @@ class VisualizingEnv:
         "games", "batch_size",
     )
     
-    def __init__(self, game_config: GameConfig):
+    def __init__(self, game_config: Config):
         """ The evaluator is given a population which it then evaluates using the MultiEnvironment. """
         # Load in current configuration
         self.game_config = game_config
@@ -43,8 +43,8 @@ class VisualizingEnv:
         :param games: List of integers
         """
         if not games:
-            self.games = [i + 1 for i in range(self.game_config.max_game_id)]
-            self.batch_size = min(len(self.games), self.game_config.batch)
+            self.games = [i + 1 for i in range(self.game_config.game.max_game_id)]
+            self.batch_size = min(len(self.games), self.game_config.game.batch)
         else:
             self.games = games
             self.batch_size = len(games)

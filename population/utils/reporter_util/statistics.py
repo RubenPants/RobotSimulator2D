@@ -10,6 +10,7 @@ import csv
 from neat.math_util import mean, median2, stdev
 from neat.six_util import iteritems
 
+from config import Config
 from population.utils.reporter_util.reporting import BaseReporter
 
 
@@ -24,7 +25,7 @@ class StatisticsReporter(BaseReporter):
         self.most_fit_genomes = []
         self.generation_statistics = []
     
-    def post_evaluate(self, config, population, species, best_genome, logger=None):
+    def post_evaluate(self, population, species, best_genome, logger=None):
         self.most_fit_genomes.append(copy.deepcopy(best_genome))
         
         # Store the fitnesses of the members of each currently active species.

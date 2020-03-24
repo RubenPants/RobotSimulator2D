@@ -13,7 +13,7 @@ import numpy as np
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 from tqdm import tqdm
 
-from config import GameConfig
+from config import Config
 from environment.entities.game import get_game
 
 
@@ -63,7 +63,7 @@ def path_heatmap(game):
 
 if __name__ == '__main__':
     os.chdir("../..")
-    cfg = GameConfig()
+    cfg = Config()
     # Load the game
     # for g_id in [531, 648, 708, 756, 826]:
     for g_id in tqdm(range(1, 11)):

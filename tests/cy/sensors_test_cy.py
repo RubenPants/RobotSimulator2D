@@ -8,7 +8,7 @@ import unittest
 
 import numpy as np
 
-from config import GameConfig
+from config import Config
 from environment.entities.cy.game_cy import GameCy
 from environment.entities.cy.sensors_cy import ProximitySensorCy
 from utils.cy.line2d_cy import Line2dCy
@@ -335,8 +335,8 @@ class ProximitySensorTestCy(unittest.TestCase):
 
 
 def get_game():
-    cfg = GameConfig()
-    cfg.sensor_ray_distance = RAY_DISTANCE
+    cfg = Config()
+    cfg.bot.ray_distance = RAY_DISTANCE
     return GameCy(game_id=0, config=cfg, silent=True, save_path="tests/games_db/", overwrite=True, noise=False)
 
 

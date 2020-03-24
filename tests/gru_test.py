@@ -9,27 +9,17 @@ import unittest
 
 import torch
 
-from config import NeatConfig
-from population.utils.config.default_config import Config
+from config import Config
 from population.utils.genome_util.genes import GruNodeGene
-from population.utils.genome_util.genome import DefaultGenome
-from population.utils.population_util.reproduction import DefaultReproduction
-from population.utils.population_util.species import DefaultSpecies
-from population.utils.population_util.stagnation import DefaultStagnation
 
 
 def get_config(num_outputs=1):
     """Create and return the config object."""
-    cfg = NeatConfig()
-    cfg.num_outputs = num_outputs
-    cfg.initial_connection = "full_nodirect"  # input->hidden and hidden->output
-    return Config(
-            genome_type=DefaultGenome,
-            reproduction_type=DefaultReproduction,
-            species_type=DefaultSpecies,
-            stagnation_type=DefaultStagnation,
-            config=cfg,
-    )
+    cfg = Config()
+    cfg.genome.num_outputs = num_outputs
+    cfg.genome.initial_connection = "full_nodirect"  # input->hidden and hidden->output
+    cfg.update()
+    return cfg
 
 
 class TestGruNodeGene(unittest.TestCase):
@@ -40,13 +30,13 @@ class TestGruNodeGene(unittest.TestCase):
         
         gru = GruNodeGene(0)
         config = get_config()
-        gru.init_attributes(config.genome_config)
+        gru.init_attributes(config.genome)
         
         # Initial: both lists are empty
         self.assertTrue(len(gru.input_keys) == len(gru.full_input_keys) == 0)
         
         # Add connection
-        gru.add_input(config.genome_config, 1)
+        gru.add_input(config.genome, 1)
         self.assertTrue(len(gru.input_keys) == len(gru.full_input_keys) == 1)
         
         # Remove non-existing connection --> changes nothing
@@ -54,17 +44,17 @@ class TestGruNodeGene(unittest.TestCase):
         self.assertTrue(len(gru.input_keys) == len(gru.full_input_keys) == 1)
         
         # Add connection with lower key
-        gru.add_input(config.genome_config, -1)
+        gru.add_input(config.genome, -1)
         self.assertTrue(len(gru.input_keys) == len(gru.full_input_keys) == 2)
         self.assertTrue(gru.input_keys == gru.full_input_keys == [-1, 1])
         
         # Add connection with key in the middle
-        gru.add_input(config.genome_config, 0)
+        gru.add_input(config.genome, 0)
         self.assertTrue(len(gru.input_keys) == len(gru.full_input_keys) == 3)
         self.assertTrue(gru.input_keys == gru.full_input_keys == [-1, 0, 1])
         
         # Add connection with key at the end
-        gru.add_input(config.genome_config, 2)
+        gru.add_input(config.genome, 2)
         self.assertTrue(len(gru.input_keys) == len(gru.full_input_keys) == 4)
         self.assertTrue(gru.input_keys == gru.full_input_keys == [-1, 0, 1, 2])
         
@@ -76,7 +66,7 @@ class TestGruNodeGene(unittest.TestCase):
         self.assertTrue(gru.full_input_keys == [-1, 0, 1, 2])
         
         # Add previously added connection back
-        gru.add_input(config.genome_config, 1)
+        gru.add_input(config.genome, 1)
         self.assertTrue(len(gru.input_keys) == len(gru.full_input_keys) == 4)
         self.assertTrue(gru.input_keys == gru.full_input_keys == [-1, 0, 1, 2])
     
@@ -87,7 +77,7 @@ class TestGruNodeGene(unittest.TestCase):
         
         gru = GruNodeGene(0)
         config = get_config()
-        gru.init_attributes(config.genome_config)
+        gru.init_attributes(config.genome)
         gru.update_weight_ih()
         
         # Check if tensors initialized correctly
@@ -97,7 +87,7 @@ class TestGruNodeGene(unittest.TestCase):
         self.assertTrue(gru.gru_weight_ih.shape == (3, 0))
         
         # Add connection
-        gru.add_input(config.genome_config, 1)
+        gru.add_input(config.genome, 1)
         gru.update_weight_ih()
         self.assertTrue(gru.gru_full_weight_ih.shape == (3, 1))
         self.assertTrue(gru.gru_weight_ih.shape == (3, 1))
@@ -112,7 +102,7 @@ class TestGruNodeGene(unittest.TestCase):
         self.assertTrue(all(gru.gru_full_weight_ih[:, 0] == gru.gru_weight_ih[:, 0]))
         
         # Add second key
-        gru.add_input(config.genome_config, 3)
+        gru.add_input(config.genome, 3)
         gru.update_weight_ih()
         self.assertTrue(gru.gru_full_weight_ih.shape == (3, 2))
         self.assertTrue(gru.gru_weight_ih.shape == (3, 2))
@@ -122,7 +112,7 @@ class TestGruNodeGene(unittest.TestCase):
         self.assertTrue(all(gru.gru_full_weight_ih[:, 1] == gru.gru_weight_ih[:, 1]))
         
         # Add third key, positioned in between the two other keys
-        gru.add_input(config.genome_config, 2)
+        gru.add_input(config.genome, 2)
         gru.update_weight_ih()
         self.assertTrue(gru.gru_full_weight_ih.shape == (3, 3))
         self.assertTrue(gru.gru_weight_ih.shape == (3, 3))
@@ -145,7 +135,7 @@ class TestGruNodeGene(unittest.TestCase):
         self.assertTrue(all(gru.gru_weight_ih[:, 1] == third_col))
         
         # Add the first connection back
-        gru.add_input(config.genome_config, 1)
+        gru.add_input(config.genome, 1)
         gru.update_weight_ih()
         self.assertTrue(gru.gru_full_weight_ih.shape == (3, 3))
         self.assertTrue(gru.gru_weight_ih.shape == (3, 3))
@@ -163,11 +153,11 @@ class TestGruNodeGene(unittest.TestCase):
         
         gru = GruNodeGene(0)
         config = get_config()
-        gru.init_attributes(config.genome_config)
-        gru.add_input(config.genome_config, 1)
-        gru.add_input(config.genome_config, 2)
-        gru.add_input(config.genome_config, 3)
-        gru.add_input(config.genome_config, 4)
+        gru.init_attributes(config.genome)
+        gru.add_input(config.genome, 1)
+        gru.add_input(config.genome, 2)
+        gru.add_input(config.genome, 3)
+        gru.add_input(config.genome, 4)
         gru.remove_input(2)
         gru.remove_input(4)
         gru.update_weight_ih()
@@ -179,11 +169,11 @@ class TestGruNodeGene(unittest.TestCase):
         forth_col = copy.deepcopy(gru.gru_full_weight_ih[:, 3])
         
         # Mutate a lot
-        for _ in range(100): gru.mutate(config.genome_config)
+        for _ in range(100): gru.mutate(config.genome)
         
         # Append second column back
-        gru.add_input(config.genome_config, 2)
-        gru.add_input(config.genome_config, 4)
+        gru.add_input(config.genome, 2)
+        gru.add_input(config.genome, 4)
         gru.update_weight_ih()
         
         # Check if second and forth columns haven't changed

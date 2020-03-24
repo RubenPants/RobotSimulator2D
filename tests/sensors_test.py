@@ -8,7 +8,7 @@ import unittest
 
 import numpy as np
 
-from config import GameConfig
+from config import Config
 from environment.entities.game import Game
 from environment.entities.sensors import ProximitySensor
 from utils.dictionary import D_SENSOR_LIST
@@ -335,8 +335,8 @@ class ProximitySensorTest(unittest.TestCase):
 
 
 def get_game():
-    cfg = GameConfig()
-    cfg.sensor_ray_distance = RAY_DISTANCE
+    cfg = Config()
+    cfg.bot.ray_distance = RAY_DISTANCE
     return Game(game_id=0, config=cfg, silent=True, save_path="tests/games_db/", overwrite=True, noise=False)
 
 

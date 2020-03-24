@@ -9,14 +9,13 @@ import pylab as plt
 from matplotlib import collections as mc
 from numpy import pi
 
-from config import GameConfig
+from config import Config
 from environment.entities.cy.robots_cy cimport MarXBotCy
 from utils.dictionary import *
 from utils.cy.intersection_cy cimport circle_line_intersection_cy
 from utils.cy.line2d_cy cimport Line2dCy
+from utils.myutils import load_pickle, store_pickle
 from utils.cy.vec2d_cy cimport Vec2dCy
-from utils.myutils import store_pickle, load_pickle
-
 
 cdef class GameCy:
     """
@@ -38,7 +37,7 @@ cdef class GameCy:
     
     def __init__(self,
                  int game_id,
-                 config,
+                 config: Config,
                  bint noise=False,
                  bint overwrite=False,
                  str save_path = '',
@@ -48,27 +47,27 @@ cdef class GameCy:
         Define a new game.
 
         :param game_id: Game id
-        :param config: Configuration file related to the game (only needed to pass during creation)
+        :param config: Configuration file (only needed to pass during creation)
         :param noise: Add noise when progressing the game
         :param overwrite: Overwrite pre-existing games
         :param save_path: Save and load the game from different directories
         :param silent: Do not print anything
         """
         # Set the game's configuration
-        self.bot_driving_speed = config.bot_driving_speed
-        self.bot_radius = config.bot_radius
-        self.bot_turning_speed = config.bot_turning_speed
-        self.fps = config.fps
-        self.p2m = config.p2m
-        self.x_axis = config.x_axis
-        self.y_axis = config.y_axis
-        self.noise_time = config.noise_time
-        self.noise_angle = config.noise_angle
-        self.noise_distance = config.noise_distance
-        self.noise_proximity = config.noise_proximity
-        self.ray_distance = config.sensor_ray_distance
-        self.ray_distance_cum = config.bot_radius + config.sensor_ray_distance
-        self.target_reached = config.target_reached
+        self.bot_driving_speed = config.bot.driving_speed
+        self.bot_radius = config.bot.radius
+        self.bot_turning_speed = config.bot.turning_speed
+        self.fps = config.game.fps
+        self.p2m = config.game.p2m
+        self.x_axis = config.game.x_axis
+        self.y_axis = config.game.y_axis
+        self.noise_time = config.noise.time
+        self.noise_angle = config.noise.angle
+        self.noise_distance = config.noise.distance
+        self.noise_proximity = config.noise.proximity
+        self.ray_distance = config.bot.ray_distance
+        self.ray_distance_cum = config.bot.radius + config.bot.ray_distance
+        self.target_reached = config.game.target_reached
         
         # Environment specific parameters
         self.silent = silent  # True: Do not print out statistics
@@ -269,7 +268,6 @@ cdef class GameCy:
         # Return the figure in its current state
         return ax
 
-
 cpdef set get_boundary_walls(int x_axis, int y_axis):
     """Get a set of the boundary walls."""
     a = Vec2dCy(0, 0)
@@ -278,16 +276,15 @@ cpdef set get_boundary_walls(int x_axis, int y_axis):
     d = Vec2dCy(0, y_axis)
     return {Line2dCy(a, b), Line2dCy(b, c), Line2dCy(c, d), Line2dCy(d, a)}
 
-
 cpdef GameCy get_game_cy(int i, cfg=None):
     """
     Create a game-object.
     
     :param i: Game-ID
-    :param cfg: GameConfig object
+    :param cfg: Config object
     :return: Game or GameCy object
     """
-    config = cfg if cfg else GameConfig()
+    config = cfg if cfg else Config()
     return GameCy(game_id=i,
                   config=config,
                   silent=True)

@@ -10,7 +10,7 @@ from random import sample
 from neat.six_util import iteritems, itervalues
 from tqdm import tqdm
 
-from config import GameConfig
+from config import Config
 from environment.env_multi import get_multi_env
 from population.population import Population
 from population.utils.population_util.fitness_functions import calc_pop_fitness
@@ -29,7 +29,7 @@ class TrainingEnv:
         "games", "batch_size",
     )
     
-    def __init__(self, game_config: GameConfig, unused_cpu: int = 0):
+    def __init__(self, game_config: Config, unused_cpu: int = 0):
         """ The evaluator is given a population which it then evaluates using the MultiEnvironment. """
         # Load in current configuration
         self.game_config = game_config
@@ -48,8 +48,8 @@ class TrainingEnv:
         :param games: List of integers
         """
         if not games:
-            self.games = [i + 1 for i in range(self.game_config.max_game_id)]
-            self.batch_size = min(len(self.games), self.game_config.batch)
+            self.games = [i + 1 for i in range(self.game_config.game.max_game_id)]
+            self.batch_size = min(len(self.games), self.game_config.game.batch)
         else:
             self.games = games
             self.batch_size = len(games)
@@ -164,7 +164,7 @@ def single_evaluation(multi_env, parallel: bool, pop: Population, unused_cpu: in
         
         # Calculate the fitness from the given return_dict
         fitness = calc_pop_fitness(
-                fitness_config=pop.fitness_config,
+                fitness_config=pop.config.evaluation,
                 game_observations=return_dict,
                 game_params=multi_env.get_game_params(),
                 generation=pop.generation,
@@ -174,7 +174,7 @@ def single_evaluation(multi_env, parallel: bool, pop: Population, unused_cpu: in
         for genome in tqdm(genomes, desc="sequential training"):
             multi_env.eval_genome(genome, return_dict)
         fitness = calc_pop_fitness(
-                fitness_config=pop.fitness_config,
+                fitness_config=pop.config.evaluation,
                 game_observations=return_dict,
                 game_params=multi_env.get_game_params(),
                 generation=pop.generation,
@@ -185,22 +185,20 @@ def single_evaluation(multi_env, parallel: bool, pop: Population, unused_cpu: in
     best = None
     for g in itervalues(pop.population):
         if best is None or g.fitness > best.fitness: best = g
-    pop.reporters.post_evaluate(config=pop.config,
-                                population=pop.population,
+    pop.reporters.post_evaluate(population=pop.population,
                                 species=pop.species,
                                 best_genome=best,
                                 logger=pop.log)
     
     # Update the population's best_genome
     genomes = sorted(pop.population.items(), key=lambda x: x[1].fitness, reverse=True)
-    pop.best_genome_hist[pop.generation] = genomes[:pop.config.reproduction_config.elitism]
+    pop.best_genome_hist[pop.generation] = genomes[:pop.config.reproduction.elitism]
     if pop.best_genome is None or best.fitness > pop.best_genome.fitness: pop.best_genome = best
     
     # Let population evolve
     pop.evolve()
     
     # End generation
-    pop.reporters.end_generation(config=pop.config,
-                                 population=pop.population,
+    pop.reporters.end_generation(population=pop.population,
                                  species_set=pop.species,
                                  logger=pop.log)

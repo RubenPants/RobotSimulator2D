@@ -9,15 +9,11 @@ from random import random
 
 import torch
 
-from config import GameConfig, NeatConfig
+from config import Config
 from population.population import query_net
-from population.utils.config.default_config import Config
 from population.utils.genome_util.genome import DefaultGenome
 from population.utils.network_util.activations import relu_activation, tanh_activation
 from population.utils.network_util.feed_forward_net import make_net
-from population.utils.population_util.reproduction import DefaultReproduction
-from population.utils.population_util.species import DefaultSpecies
-from population.utils.population_util.stagnation import DefaultStagnation
 from utils.dictionary import *
 
 # Precision
@@ -27,22 +23,16 @@ EPSILON = 1e-5
 def get_genome(outputs):
     """Create a simple feedforward neuron."""
     # Get the configuration
-    cfg = NeatConfig()
-    cfg.num_outputs = outputs
-    cfg.initial_connection = D_FULL_NODIRECT  # input -> hidden -> output
-    cfg.gru_enabled = False  # Only simple hidden nodes allowed
-    config = Config(
-            genome_type=DefaultGenome,
-            reproduction_type=DefaultReproduction,
-            species_type=DefaultSpecies,
-            stagnation_type=DefaultStagnation,
-            config=cfg,
-    )
+    cfg = Config()
+    cfg.genome.num_outputs = outputs
+    cfg.genome.initial_connection = D_FULL_NODIRECT  # input -> hidden -> output
+    cfg.genome.gru_enabled = False  # Only simple hidden nodes allowed
+    cfg.update()
     
     # Create the genome
-    g = DefaultGenome(key=0, num_outputs=cfg.num_outputs)
-    g.configure_new(config.genome_config)
-    return g, config
+    g = DefaultGenome(key=0, num_outputs=cfg.genome.num_outputs)
+    g.configure_new(cfg.genome)
+    return g, cfg
 
 
 class TestFeedForward(unittest.TestCase):
@@ -66,13 +56,12 @@ class TestFeedForward(unittest.TestCase):
         # Manipulate the genome's connections and biases
         genome.connections = dict()
         for i, o in [(-1, 0)]:
-            genome.create_connection(config=config.genome_config, input_key=i, output_key=o, weight=1.0)
+            genome.create_connection(config=config.genome, input_key=i, output_key=o, weight=1.0)
         genome.nodes[0].bias = 0  # Output-bias
         if debug: print(genome)
         
         # Create a network
-        game_config = GameConfig()
-        net = make_net(genome=genome, config=config, game_config=game_config, bs=1)
+        net = make_net(genome=genome, genome_config=config.genome, game_config=config, bs=1)
         
         # Query the network; each input is directly mapped on the output (under tanh activation function)
         for _ in range(100):
@@ -102,19 +91,18 @@ class TestFeedForward(unittest.TestCase):
         
         # Fetch the genome and its corresponding config file
         genome, config = get_genome(1)
-        genome.nodes[1] = genome.create_node(config=config.genome_config, node_id=1)
+        genome.nodes[1] = genome.create_node(config=config.genome, node_id=1)
         
         # Manipulate the genome's biases and connection weights
         genome.nodes[0].bias = 0  # Output-bias
         genome.nodes[1].bias = 0  # Hidden-bias
         genome.connections = dict()
         for i, o in [(-1, 1), (1, 0)]:
-            genome.create_connection(config=config.genome_config, input_key=i, output_key=o, weight=1.0)
+            genome.create_connection(config=config.genome, input_key=i, output_key=o, weight=1.0)
         if debug: print(genome)
         
         # Create a network
-        game_config = GameConfig()
-        net = make_net(genome=genome, config=config, game_config=game_config, bs=1)
+        net = make_net(genome=genome, genome_config=config.genome, game_config=config, bs=1)
         
         # Query the network; single input in range [-1, 1]
         inputs = [random() * 2 - 1 for _ in range(100)]
@@ -144,8 +132,8 @@ class TestFeedForward(unittest.TestCase):
         
         # Fetch the genome and its corresponding config file
         genome, config = get_genome(1)
-        genome.nodes[1] = genome.create_node(config=config.genome_config, node_id=1)
-        genome.nodes[2] = genome.create_node(config=config.genome_config, node_id=2)
+        genome.nodes[1] = genome.create_node(config=config.genome, node_id=1)
+        genome.nodes[2] = genome.create_node(config=config.genome, node_id=2)
         
         # Manipulate the genome's biases and connection weights
         genome.nodes[0].bias = 0  # Output bias
@@ -153,12 +141,11 @@ class TestFeedForward(unittest.TestCase):
         genome.nodes[2].bias = 0  # Second hidden bias
         genome.connections = dict()
         for i, o in [(-1, 1), (1, 2), (2, 0)]:
-            genome.create_connection(config=config.genome_config, input_key=i, output_key=o, weight=1.0)
+            genome.create_connection(config=config.genome, input_key=i, output_key=o, weight=1.0)
         if debug: print(genome)
         
         # Create a network
-        game_config = GameConfig()
-        net = make_net(genome=genome, config=config, game_config=game_config, bs=1)
+        net = make_net(genome=genome, genome_config=config.genome, game_config=config, bs=1)
         
         # Query the network; single input in range [-1, 1]
         inputs = [random() * 2 - 1 for _ in range(100)]
@@ -198,12 +185,11 @@ class TestFeedForward(unittest.TestCase):
         genome.nodes[0].bias = 0  # Output bias
         genome.connections = dict()
         for i, o in [(-1, 0), (-2, 0)]:
-            genome.create_connection(config=config.genome_config, input_key=i, output_key=o, weight=1.0)
+            genome.create_connection(config=config.genome, input_key=i, output_key=o, weight=1.0)
         if debug: print(genome)
         
         # Create a network
-        game_config = GameConfig()
-        net = make_net(genome=genome, config=config, game_config=game_config, bs=1)
+        net = make_net(genome=genome, genome_config=config.genome, game_config=config, bs=1)
         
         # Query the network; double inputs in range [-1, 1]
         inputs = [[random() * 2 - 1, random() * 2 - 1] for _ in range(100)]
@@ -236,8 +222,8 @@ class TestFeedForward(unittest.TestCase):
         
         # Fetch the genome and its corresponding config file
         genome, config = get_genome(1)
-        genome.nodes[1] = genome.create_node(config=config.genome_config, node_id=1)
-        genome.nodes[2] = genome.create_node(config=config.genome_config, node_id=2)
+        genome.nodes[1] = genome.create_node(config=config.genome, node_id=1)
+        genome.nodes[2] = genome.create_node(config=config.genome, node_id=2)
         
         # Manipulate the genome's biases and connection weights
         genome.nodes[0].bias = 0  # Output bias
@@ -245,12 +231,11 @@ class TestFeedForward(unittest.TestCase):
         genome.nodes[2].bias = 0  # Hidden bias
         genome.connections = dict()
         for i, o in [(-1, 1), (-1, 2), (1, 0), (2, 0)]:
-            genome.create_connection(config=config.genome_config, input_key=i, output_key=o, weight=1.0)
+            genome.create_connection(config=config.genome, input_key=i, output_key=o, weight=1.0)
         if debug: print(genome)
         
         # Create a network
-        game_config = GameConfig()
-        net = make_net(genome=genome, config=config, game_config=game_config, bs=1)
+        net = make_net(genome=genome, genome_config=config.genome, game_config=config, bs=1)
         
         # Query the network; only positive inputs (since relu simply forwards if positive)
         inputs = [random() for _ in range(100)]

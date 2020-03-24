@@ -4,11 +4,12 @@ visualizer.py
 Create visualizations for the genomes present in the population.
 """
 import os
-import numpy as np
 
+import numpy as np
 from graphviz import Digraph
 
-from population.utils.genome_util.genes import SimpleNodeGene, GruNodeGene
+from configs.genome_config import GenomeConfig
+from population.utils.genome_util.genes import GruNodeGene, SimpleNodeGene
 from population.utils.genome_util.genome import DefaultGenome
 from population.utils.network_util.graphs import required_for_output
 
@@ -16,7 +17,7 @@ from population.utils.network_util.graphs import required_for_output
 os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/'
 
 
-def draw_net(config, genome: DefaultGenome, debug=False, filename=None, view=True):
+def draw_net(config: GenomeConfig, genome: DefaultGenome, debug=False, filename=None, view=True):
     """
     Visualize the structure of one genome.
     
@@ -40,15 +41,15 @@ def draw_net(config, genome: DefaultGenome, debug=False, filename=None, view=Tru
     
     # Get the used hidden nodes and all used connections
     used_nodes, used_conn = required_for_output(
-            inputs=set(config.genome_config.input_keys),
-            outputs=set(config.genome_config.output_keys),
+            inputs=set(config.keys_input),
+            outputs=set(config.keys_output),
             connections=genome.connections
     )
     
     # Visualize input nodes
     inputs = set()
     active = {a for (a, b) in used_conn if a < 0}
-    for index, key in enumerate(config.genome_config.input_keys):
+    for index, key in enumerate(config.keys_input):
         inputs.add(key)
         name = node_names.get(key)
         color = '#e3e3e3' if key in active else '#9e9e9e'
@@ -62,13 +63,12 @@ def draw_net(config, genome: DefaultGenome, debug=False, filename=None, view=Tru
     
     # Visualize output nodes
     outputs = set()
-    for index, key in enumerate(config.genome_config.output_keys):
+    for index, key in enumerate(config.keys_output):
         outputs.add(key)
         name = node_names[key]
         if debug:
             name += f'\nactivation={genome.nodes[key].activation}'
             name += f'\nbias={round(genome.nodes[key].bias, 2)}'
-            name += f'\naggregation={genome.nodes[key].aggregation}'
         node_names.update({key: name})
         dot.node(
                 name,
@@ -85,7 +85,7 @@ def draw_net(config, genome: DefaultGenome, debug=False, filename=None, view=Tru
         fillcolor = 'white'
         if debug:
             if type(genome.nodes[key]) == GruNodeGene:
-                genome.update_gru_nodes(config.genome_config)
+                genome.update_gru_nodes(config)
                 name = f'GRU node={key}'
                 name += f'\ninputs_size={len(genome.nodes[key].input_keys)}'
                 name += f'\nbias_ih={np.asarray(genome.nodes[key].gru_bias_ih.tolist()).round(3).tolist()}'

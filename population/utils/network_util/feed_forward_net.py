@@ -23,9 +23,11 @@ You may obtain a copy of the License at
 import numpy as np
 import torch
 
-from config import GameConfig
+from config import Config
+from configs.genome_config import GenomeConfig
 from environment.entities.robots import get_active_sensors
 from population.utils.genome_util.genes import GruNodeGene
+from population.utils.genome_util.genome import DefaultGenome
 from population.utils.network_util.activations import relu_activation, tanh_activation
 from population.utils.network_util.graphs import required_for_output
 from population.utils.network_util.shared import dense_from_coo
@@ -33,13 +35,12 @@ from population.utils.network_util.shared import dense_from_coo
 
 class FeedForwardNet:
     def __init__(self,
-                 input_keys,
                  input_idx, hidden_idx, gru_idx, output_idx,
                  in2hid, in2out,
                  hid2hid, hid2out,
                  hidden_biases, output_biases,
                  grus, gru_map,
-                 game_config: GameConfig,
+                 game_config: Config,
                  batch_size=1,
                  hidden_activation=relu_activation, output_activation=tanh_activation,  # TODO: Make configurable?
                  initial_read: list = None,
@@ -48,7 +49,6 @@ class FeedForwardNet:
         """
         Create a simple feedforward network used as the control-mechanism for the drones.
         
-        :param input_keys: Keys used for input, necessary for initial reading configuration
         :param input_idx: Input indices (sensors)
         :param hidden_idx: Hidden simple-node indices (DefaultGeneNode) in the network
         :param gru_idx: Hidden GRU-node indices (DefaultGeneNode) in the network
@@ -186,8 +186,8 @@ class FeedForwardNet:
     
     @staticmethod
     def create(genome,
-               config,
-               game_config: GameConfig,
+               genome_config: GenomeConfig,
+               game_config: Config,
                batch_size: int = 1,
                initial_read: list = None,
                logger=None,
@@ -197,30 +197,28 @@ class FeedForwardNet:
         the phenotype (network) suiting the given genome.
         
         :param genome: The genome for which a network must be created
-        :param config: Population config
-        :param game_config: GameConfig object
+        :param genome_config: GenomeConfig object
+        :param game_config: Config object
         :param batch_size: Batch-size needed to setup network dimension
         :param initial_read: Initial sensory-input used to warm-up the network (no warm-up if None)
         :param logger: A population's logger
         """
-        cfg = config.genome_config
-        
         # Collect the nodes whose state is required to compute the final network output(s), this excludes the inputs
         used_input = {a for a in get_active_sensors(connections=genome.connections.keys(),
-                                                    total_input_size=cfg.num_inputs)}
-        used_input_keys = {a - cfg.num_inputs for a in used_input}
+                                                    total_input_size=genome_config.num_inputs)}
+        used_input_keys = {a - genome_config.num_inputs for a in used_input}
         used_nodes, used_conn = required_for_output(
                 inputs=used_input_keys,
-                outputs=set(cfg.output_keys),
+                outputs=set(genome_config.keys_output),
                 connections=genome.connections
         )
         if initial_read: assert len(used_input) == len(initial_read)
         
         # Get a list of all the (used) input, (used) hidden, and output keys
         input_keys = sorted(used_input_keys)
-        hidden_keys = [k for k in genome.nodes.keys() if (k not in cfg.output_keys and k in used_nodes)]
+        hidden_keys = [k for k in genome.nodes.keys() if (k not in genome_config.keys_output and k in used_nodes)]
         gru_keys = [k for k in hidden_keys if type(genome.nodes[k]) == GruNodeGene]
-        output_keys = list(cfg.output_keys)
+        output_keys = list(genome_config.keys_output)
         
         # Define the biases, note that inputs do not have a bias (since they aren't actually nodes!)
         hidden_biases = [genome.nodes[k].bias for k in hidden_keys]
@@ -302,7 +300,6 @@ class FeedForwardNet:
             gru_map.append(mapping)
         
         return FeedForwardNet(
-                input_keys=sorted(used_input),
                 input_idx=input_idx, hidden_idx=hidden_idx, gru_idx=gru_idx, output_idx=output_idx,
                 in2hid=in2hid, in2out=in2out,
                 hid2hid=hid2hid, hid2out=hid2out,
@@ -314,19 +311,19 @@ class FeedForwardNet:
         )
 
 
-def make_net(genome, config, game_config, bs=1, initial_read: list = None):
+def make_net(genome: DefaultGenome, genome_config: GenomeConfig, game_config: Config, bs=1, initial_read: list = None):
     """
     Create the "brains" of the candidate, based on its genetic wiring.
 
     :param genome: Genome specifies the brains internals
-    :param config: Configuration class
-    :param game_config: GameConfig object
+    :param genome_config: GenomeConfig object
+    :param game_config: Current Config object
     :param bs: Batch size, which represents amount of games trained in parallel
     :param initial_read: Initial sensory-input used to warm-up the network (no warm-up if None)
     """
     return FeedForwardNet.create(
             genome,
-            config,
+            genome_config=genome_config,
             game_config=game_config,
             batch_size=bs,
             initial_read=initial_read,

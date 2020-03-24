@@ -4,17 +4,9 @@ population_config.py
 Population configuration specific to the NEAT parameters. This file does general configuration parsing; used by other
 classes for their configuration.
 """
-from __future__ import print_function
-
-import warnings
-
-from neat.six_util import iterkeys
-
-from config import NeatConfig
-from population.utils.config.genome_config import DefaultGenomeConfig
 
 
-class ConfigParameter(object):
+class ConfigParameter(object):  # TODO: Remove
     """Contains information about one configuration item."""
     
     def __init__(self, name, value_type, default=None):
@@ -90,6 +82,8 @@ class UnknownConfigItemError(NameError):
     pass
 
 
+# TODO: Literal copy-paste of parameters! (functions as separate container)
+#  --> Remove!
 class DefaultClassConfig(object):
     """
     Replaces at least some boilerplate configuration code
@@ -129,7 +123,8 @@ class DefaultClassConfig(object):
         write_pretty_params(f, config, config._params)
 
 
-class Config(object):
+# TODO: GenomeConfig is special..
+class NeatConfig(object):
     """A simple container for user-configurable parameters of NEAT."""
     
     __params = [ConfigParameter('pop_size', int),
@@ -142,7 +137,7 @@ class Config(object):
                  reproduction_type,
                  species_type,
                  stagnation_type,
-                 config: NeatConfig):
+                 config: Config):
         # config: NeatConfig):
         # Check that the provided types have the required methods.
         assert hasattr(genome_type, 'parse_config')
@@ -173,16 +168,16 @@ class Config(object):
         #  - Filter out the wanted parameters from the configs
         #  - Create a dictionary mapping the wanted parameters to their values (str format)
         #  - Initialize the needed entities
-        genome_params = self.config.DefaultGenome
+        genome_params = self.config.genome.__slots__
         genome_config = {param: str(getattr(self.config, param)) for param in genome_params}
         self.genome_config: DefaultGenomeConfig = genome_type.parse_config(genome_config)
         
-        specie_params = self.config.DefaultSpecies
+        specie_params = self.config.species.__slots__
         species_config = {param: str(getattr(self.config, param)) for param in specie_params}
         self.species_config: DefaultClassConfig = species_type.parse_config(species_config)
         self.stagnation_config: DefaultClassConfig = stagnation_type.parse_config(species_config)  # TODO: Merge?
         
-        reproduction_params = self.config.DefaultReproduction
+        reproduction_params = self.config.reproduction.__slots__
         reproduction_config = {param: str(getattr(self.config, param)) for param in reproduction_params}
         self.reproduction_config: DefaultClassConfig = reproduction_type.parse_config(reproduction_config)
     

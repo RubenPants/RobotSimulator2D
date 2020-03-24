@@ -7,10 +7,10 @@ functionality such as its configuration and methods used to persist the populati
 import re
 from glob import glob
 
-from neat.math_util import mean
+from numpy import mean
+from scipy.stats import gmean
 
-from config import GameConfig, NeatConfig
-from population.utils.config.default_config import Config
+from config import Config
 from population.utils.genome_util.genome import DefaultGenome
 from population.utils.genome_util.genome_visualizer import draw_net
 from population.utils.network_util.feed_forward_net import make_net
@@ -19,7 +19,7 @@ from population.utils.population_util.species import DefaultSpecies
 from population.utils.population_util.stagnation import DefaultStagnation
 from population.utils.reporter_util.reporting import ReporterSet, StdOutReporter
 from population.utils.reporter_util.statistics import StatisticsReporter
-from utils.dictionary import D_FIT_COMB, D_K, D_SAFE_ZONE, D_TAG
+from utils.dictionary import *
 from utils.myutils import append_log, get_subfolder, load_pickle, store_pickle, update_dict
 
 
@@ -41,12 +41,16 @@ class CompleteExtinctionException(Exception):
 class Population:
     """ Container for each of the agent's control mechanisms. """
     
+    __slots__ = {
+        'name', 'folder_name', 'best_genome', 'best_genome_hist', 'config', 'generation', 'make_net',
+        'population', 'query_net', 'reporters', 'reproduction', 'species', 'species_hist', 'fitness_criterion',
+    }
+    
     def __init__(self,
                  name: str = "",
                  folder_name: str = "NEAT",
                  version: int = 0,
-                 game_config: GameConfig = None,
-                 neat_config: NeatConfig = None,
+                 config: Config = None,
                  make_net_method=make_net,
                  query_net_method=query_net,
                  ):
@@ -57,27 +61,19 @@ class Population:
         :param name: Name of population, used when specific population must be summon
         :param folder_name: Name of the folder to which the population belongs (NEAT, GRU-NEAT, ...)
         :param version: Version of the population, 0 if not versioned
-        :param game_config: GameConfig file for game-creation
-        :param neat_config: NeatConfig object
+        :param config: Main config file
         :param make_net_method: Method used to create a network based on a given genome
         :param query_net_method: Method used to query the action on the network, given a current state
         """
-        # Set formal properties of the population
-        self.game_config = GameConfig() if not game_config else game_config
-        self.neat_config = NeatConfig() if not neat_config else neat_config
-        if name:
-            self.name = name
-        else:
-            self.name = f"{self.neat_config.fitness}{f'_repr' if self.neat_config.sexual_reproduction else ''}" \
-                        f"{f'_{version}' if version else ''}"
+        self.config: Config = config if config else Config()
+        self.name = name if name else f"{self.config.evaluation.fitness}" \
+                                      f"{f'_repr' if self.config.reproduction.sexual else ''}" \
+                                      f"{f'_{version}' if version else ''}"
         self.folder_name = folder_name
         
         # Placeholders
         self.best_genome: DefaultGenome = None  # Current most fit genome
         self.best_genome_hist: dict = dict()  # Container for the best three genomes for each generation (sorted list)
-        self.config: Config = None  # NEAT-configuration
-        self.fitness_config = None  # Fitness-configuration
-        self.fitness_criterion = None  # Fitness criterion, used to premature terminate the algorithm
         self.generation = 0  # Current generation of the population
         self.make_net = None  # Method to configure a PyTorch network
         self.population = None  # Container for all the current used genomes
@@ -86,11 +82,11 @@ class Population:
         self.reproduction: DefaultReproduction = None  # Reproduction mechanism of the population
         self.species: DefaultSpecies = None  # Container for all the species
         self.species_hist: dict = dict()  # Container for the elite player of each species at each generation
+        self.fitness_criterion = None  # Function used for fitness-determination of the genomes
         
         # Try to load the population, create new if not possible
         if not self.load():
-            self.create_population(cfg=self.neat_config,
-                                   make_net_method=make_net_method,
+            self.create_population(make_net_method=make_net_method,
                                    query_net_method=query_net_method)
     
     def __str__(self):
@@ -98,49 +94,33 @@ class Population:
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #
     
-    def create_population(self, cfg: NeatConfig, make_net_method, query_net_method):
+    def create_population(self, make_net_method, query_net_method):
         """
         Create a new population based on the given config file.
         
-        :param cfg: NeatConfig object
         :param make_net_method: Method used to create the genome-specific network
         :param query_net_method: Method used to query actions of the genome-specific network
         """
-        # Init the population's configuration
-        config = Config(
-                genome_type=DefaultGenome,
-                reproduction_type=DefaultReproduction,
-                species_type=DefaultSpecies,
-                stagnation_type=DefaultStagnation,
-                config=cfg,
-        )
+        stagnation = DefaultStagnation(self.config.species, self.reporters)
+        self.reproduction = DefaultReproduction(self.reporters, stagnation)
         self.reporters = ReporterSet()
-        self.set_config(config)
         
         # Fitness evaluation
-        if self.config.fitness_criterion == 'max':
+        if self.config.evaluation.fitness_criterion == D_MAX:
             self.fitness_criterion = max
-        elif self.config.fitness_criterion == 'min':
+        elif self.config.evaluation.fitness_criterion == D_MIN:
             self.fitness_criterion = min
-        elif self.config.fitness_criterion == 'mean':
+        elif self.config.evaluation.fitness_criterion == D_MEAN:
             self.fitness_criterion = mean
-        elif not self.config.no_fitness_termination:
-            raise RuntimeError(f"Unexpected fitness_criterion: {self.config.fitness_criterion!r}")
-        
-        # Config specific for fitness
-        self.fitness_config = {
-            D_FIT_COMB:  cfg.fitness_comb,
-            D_K:         cfg.nn_k,
-            D_TAG:       cfg.fitness,
-            D_SAFE_ZONE: cfg.safe_zone,
-        }
+        elif self.config.evaluation.fitness_criterion == D_GMEAN:
+            self.fitness_criterion = gmean
+        else:
+            raise RuntimeError(f"Unexpected fitness_criterion: {self.config.evaluation.fitness_criterion!r}")
         
         # Create a population from scratch, then partition into species
-        self.population = self.reproduction.create_new(genome_type=self.config.genome_type,
-                                                       genome_config=self.config.genome_config,
-                                                       num_genomes=self.config.pop_size,
-                                                       )
-        self.species = self.config.species_type(self.config.species_config, self.reporters)
+        self.population = self.reproduction.create_new(config=self.config,
+                                                       num_genomes=self.config.reproduction.pop_size)
+        self.species = DefaultSpecies(reporters=self.reporters)
         self.species.speciate(config=self.config,
                               population=self.population,
                               generation=self.generation,
@@ -166,9 +146,7 @@ class Population:
         
         # Write population configuration to file
         with open(f'population/storage/{self.folder_name}/{self}/config.txt', 'w') as f:
-            f.write(str(cfg))
-            f.write("\n\n\n")  # 2 empty lines
-            f.write(str(config))
+            f.write(str(self.config))
     
     def evolve(self):
         """
@@ -182,7 +160,6 @@ class Population:
         self.population = self.reproduction.reproduce(
                 config=self.config,
                 species=self.species,
-                pop_size=self.config.pop_size,
                 generation=self.generation,
                 logger=self.log,
         )
@@ -192,10 +169,8 @@ class Population:
             self.reporters.complete_extinction(logger=self.log)
             
             # If requested by the user, create a completely new population, otherwise raise an exception
-            self.population = self.reproduction.create_new(genome_type=self.config.genome_type,
-                                                           genome_config=self.config.genome_config,
-                                                           num_genomes=self.config.pop_size,
-                                                           )
+            self.population = self.reproduction.create_new(config=self.config,
+                                                           num_genomes=self.config.reproduction.pop_size)
         
         # Divide the new population into species
         self.species.speciate(config=self.config,
@@ -214,7 +189,7 @@ class Population:
         for specie_id, specie in self.species.species.items():
             elites = sorted(specie.members.values(), key=lambda m: m.fitness if m.fitness else 0, reverse=True)
             if specie_id not in self.species_hist: self.species_hist[specie_id] = dict()
-            self.species_hist[specie_id][self.generation] = elites[:self.config.reproduction_config.elitism]
+            self.species_hist[specie_id][self.generation] = elites[:self.config.reproduction.elitism]
     
     def visualize_genome(self, debug=False, genome=None, show: bool = True):
         """
@@ -229,7 +204,7 @@ class Population:
         name = f"genome_{genome.key}"
         get_subfolder(f'population/storage/{self.folder_name}/{self}/', 'images')
         sf = get_subfolder(f'population/storage/{self.folder_name}/{self}/images/', 'architectures')
-        draw_net(config=self.config,
+        draw_net(config=self.config.genome,
                  genome=genome,
                  debug=debug,
                  filename=f'{sf}{name}',
@@ -258,14 +233,6 @@ class Population:
         Remove the given reporter from the population's ReporterSet.
         """
         self.reporters.remove(reporter)
-    
-    def set_config(self, cfg):
-        """
-        Update the config-file.
-        """
-        self.config = cfg
-        stagnation = cfg.stagnation_type(cfg.stagnation_config, self.reporters)
-        self.reproduction = cfg.reproduction_type(cfg.reproduction_config, self.reporters, stagnation, cfg=cfg)
     
     # ---------------------------------------------> PERSISTING METHODS <--------------------------------------------- #
     
@@ -306,7 +273,6 @@ class Population:
             self.best_genome = pop.best_genome
             self.best_genome_hist = pop.best_genome_hist
             self.config = pop.config
-            self.fitness_config = pop.fitness_config
             self.fitness_criterion = pop.fitness_criterion
             self.generation = pop.generation
             self.make_net = pop.make_net
