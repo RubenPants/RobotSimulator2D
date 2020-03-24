@@ -108,8 +108,8 @@ class StdOutReporter(BaseReporter):
             s = species_set.species[sid]
             a = self.generation - s.created
             n = len(s.members)
-            f = "--" if s.fitness is None else f"{s.fitness:.3f}"
-            af = "--" if s.adjusted_fitness is None else f"{s.adjusted_fitness:.3f}"
+            f = "--" if s.fitness is None else f"{s.fitness:.5f}"
+            af = "--" if s.adjusted_fitness is None else f"{s.adjusted_fitness:.5f}"
             st = self.generation - s.last_improved
             msg = f"\t{sid:^8}  {a:^5}  {n:^6}  {f:^9}  {af:^9}  {st:^6}"
             logger(msg) if logger else print(msg)
@@ -149,7 +149,10 @@ class StdOutReporter(BaseReporter):
               f'\n\t- belongs to specie: {best_species_id}'
         if logger:
             logger(msg, print_result=False)
-            print(f"Best genome '{best_genome.key}' with size {best_genome.size()!r} of specie: '{best_species_id}'")
+            print(f"Best genome '{best_genome.key}' "
+                  f"with size {best_genome.size()!r} "
+                  f"of specie: '{best_species_id}' "
+                  f"has fitness: {best_genome.fitness:.5f}")
         else:
             print(msg)
     
@@ -163,7 +166,7 @@ class StdOutReporter(BaseReporter):
         logger(msg) if logger else print(msg)
     
     def species_stagnant(self, sid, s, logger=None):
-        msg = f"\nSpecies {sid} with {len(s.members)} members is stagnated (fitness: {s.fitness}): removing it"
+        msg = f"\nSpecies {sid} with {len(s.members)} members is stagnated (fitness: {round(s.fitness, 5)}): removed!"
         logger(msg) if logger else print(msg)
     
     def info(self, msg, logger=None, print_result=True):

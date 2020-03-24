@@ -42,7 +42,7 @@ def create_blueprints(final_observations: dict, games: list, gen: int, save_path
         plt.close()
 
 
-def create_traces(traces: dict, games: list, gen: int, save_path: str):
+def create_traces(traces: dict, games: list, gen: int, save_path: str, save_name: str = 'trace'):
     """
     Save images in the relative 'images/' subfolder of the population.
 
@@ -50,6 +50,7 @@ def create_traces(traces: dict, games: list, gen: int, save_path: str):
     :param games: List Game-objects used during evaluation
     :param gen: Population's current generation
     :param save_path: Path of 'images'-folder under which image must be saved
+    :param save_name: Name of saved file
     """
     genome_keys = list(traces.keys())
     for i, g in enumerate(games):
@@ -71,5 +72,5 @@ def create_traces(traces: dict, games: list, gen: int, save_path: str):
         
         # Save figure
         game_path = get_subfolder(save_path, 'game{id:05d}'.format(id=g.id))
-        plt.savefig(f'{game_path}trace_gen{gen:05d}')
+        plt.savefig(f'{game_path}{save_name}_gen{gen:05d}')
         plt.close()

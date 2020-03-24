@@ -96,8 +96,8 @@ class AngularSensor(Sensor):
         if self.game.noise: self.value += random.gauss(0, self.game.noise_angle)
 
 
-class DistanceSensor(Sensor):
-    """Distance from bot to the target in 'crows flight'."""
+class DeltaDistanceSensor(Sensor):
+    """Difference in distance from bot to the target in 'crows flight' between current and the previous time-point."""
     
     def __init__(self,
                  game,  # Type not specified due to circular imports
@@ -107,6 +107,36 @@ class DistanceSensor(Sensor):
         :param sensor_id: Identification number for the sensor
         """
         super().__init__(game=game, sensor_id=sensor_id)
+        self.distance: float = 0.0
+        self.prev_distance: float = 0.0
+    
+    def __str__(self):
+        return "delta_distance"
+    
+    def measure(self, close_walls: set = None):
+        """Update self.value to difference between previous distance and current distance."""
+        self.prev_distance = self.distance  # Save previous distance
+        start_p = self.game.player.pos
+        end_p = self.game.target
+        self.distance = (start_p - end_p).get_length()  # Get current measure
+        if self.prev_distance == 0.0: self.prev_distance = self.distance  # Disable cold start
+        self.value = self.prev_distance - self.distance  # Positive value == closer to target
+
+
+class DistanceSensor(Sensor):
+    """Distance from bot to the target in 'crows flight'."""
+    
+    def __init__(self,
+                 game,  # Type not specified due to circular imports
+                 normalizer: float,
+                 sensor_id: int = 0):
+        """
+        :param game: Reference to the game in which the sensor is used
+        :param normalizer: The constant by which the distance-value is normalized
+        :param sensor_id: Identification number for the sensor
+        """
+        super().__init__(game=game, sensor_id=sensor_id)
+        self.normalizer = normalizer
     
     def __str__(self):
         return "distance"
@@ -115,7 +145,7 @@ class DistanceSensor(Sensor):
         """Update self.value to current distance between target and robot's center coordinate."""
         start_p = self.game.player.pos
         end_p = self.game.target
-        self.value = (start_p - end_p).get_length()
+        self.value = (start_p - end_p).get_length() / self.normalizer
         if self.game.noise: self.value += random.gauss(0, self.game.noise_distance)
 
 

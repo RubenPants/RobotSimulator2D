@@ -4,7 +4,10 @@
 
 ## TODO
 
-* fix GRU-unittest
+* Fault in distance-measure for GRU (check for rest)
+* Crossover (GRU) tinkers with other genomes! --> Test if this isn't also the case for mutation @full_weight_ih
+* Test on the mutation operators!
+* A2C fine-tuning of the weights?
 * Test all of the fitness-functions!
 * Self-adaptive NEAT?
 * Activation functions of hidden vs output nodes not taken into account! (hard-coded on tanh!)

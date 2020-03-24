@@ -170,20 +170,19 @@ class StringAttribute(BaseAttribute):
         pass
 
 
-class BiasAttribute(object):
+class GruBiasAttribute(object):
     """Bias attribute used in the GRU-gene. The bias can be seen as a vector of floats."""
     
     def __init__(self, name, **default_dict):
         self.name = name
-        self.fa = FloatAttribute("bias", **default_dict)  # Init FloatAttribute 'fa' to perform float calculations on
+        self.fa = FloatAttribute("gru", **default_dict)  # Init FloatAttribute 'fa' to perform float calculations on
     
-    def init_value(self, config, hidden_size):
+    def init_value(self, config):
         """Create a vector with on each specified position a FloatAttribute."""
-        tensor = torch.tensor(np.zeros((3 * hidden_size,)), dtype=torch.float64)
+        tensor = torch.tensor(np.zeros((3,)), dtype=torch.float64)
         
         # Query the FloatAttribute for each initialization of the tensor's parameters
-        for t_index in range(len(tensor)):
-            tensor[t_index] = self.fa.init_value(config=config)
+        for t_index in range(len(tensor)): tensor[t_index] = self.fa.init_value(config=config)
         return tensor
     
     def mutate_value(self, value, config):
@@ -197,7 +196,7 @@ class BiasAttribute(object):
         pass
 
 
-class WeightAttribute(object):
+class GruWeightAttribute(object):
     """
     Weight attribute used in the GRU-gene. The GRU-weight can be seen as a vector of floats, similar to the bias
     attribute.
@@ -205,16 +204,15 @@ class WeightAttribute(object):
     
     def __init__(self, name, **default_dict):
         self.name = name
-        self.fa = FloatAttribute("weight", **default_dict)  # Init FloatAttribute 'fa' to perform float calculations on
+        self.fa = FloatAttribute("gru", **default_dict)  # Init FloatAttribute 'fa' to perform float calculations on
     
-    def init_value(self, config, hidden_size, input_size=None):
+    def init_value(self, config, input_size=None):
         """Create a vector with on each specified position a FloatAttribute."""
-        if input_size is None: input_size = hidden_size
-        tensor = torch.tensor(np.zeros((3 * hidden_size, input_size)), dtype=torch.float64)
+        if input_size is None: input_size = 1
+        tensor = torch.tensor(np.zeros((3, input_size)), dtype=torch.float64)
         
         # Query the FloatAttribute for each initialization of the tensor's parameters
-        for x_index, y_index in np.ndindex(tensor.shape):
-            tensor[x_index, y_index] = self.fa.init_value(config=config)
+        for x_index, y_index in np.ndindex(tensor.shape): tensor[x_index, y_index] = self.fa.init_value(config=config)
         return tensor
     
     def mutate_value(self, value, config, mapping=None):

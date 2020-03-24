@@ -11,6 +11,7 @@ import numpy as np
 from config import GameConfig
 from environment.entities.game import Game
 from environment.entities.sensors import ProximitySensor
+from utils.dictionary import D_SENSOR_LIST
 from utils.line2d import Line2d
 from utils.vec2d import Vec2d
 
@@ -76,9 +77,7 @@ class AngularSensorTest(unittest.TestCase):
 
 
 class DistanceSensorTest(unittest.TestCase):
-    """
-    Test the distance sensor.
-    """
+    """Test the distance sensor."""
     
     def test_front(self):
         """> Test the distance sensor when target straight in the front."""
@@ -113,6 +112,98 @@ class DistanceSensorTest(unittest.TestCase):
         # Ask for the distance
         game.get_observation()
         self.assertAlmostEqual(game.player.get_sensor_readings_distance(), np.sqrt(2), delta=EPSILON_DISTANCE)
+
+
+class DeltaDistanceSensorTest(unittest.TestCase):
+    """Test the delta distance sensor."""
+    
+    def test_front(self):
+        """> Test the distance sensor when target straight in the front."""
+        # Folder must be root to load in make_net properly
+        if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
+        
+        # Create empty game
+        game = get_game()
+        
+        # Update player and target position
+        game.target = Vec2d(1, 0)
+        game.set_player_init_pos(Vec2d(0, 0))
+        game.set_player_init_angle(0)
+        
+        # Update the sensors used to only include the delta-distance sensor
+        game.player.sensors = dict()
+        game.player.add_delta_distance_sensor()
+        game.player.active_sensors = set(game.player.sensors.keys())
+        
+        # Initially the sensor should read zero
+        sensor_values = game.player.get_sensor_readings()
+        self.assertAlmostEqual(sensor_values[0], 0.0, delta=EPSILON_DISTANCE)
+        
+        # Advance the player's position by 0.1 meters and test sensor-reading
+        game.player.pos = Vec2d(0.1, 0)
+        sensor_values = game.player.get_sensor_readings()
+        self.assertAlmostEqual(sensor_values[0], 0.1, delta=EPSILON_DISTANCE)
+        
+        # Advance the player's position by 0.001 meters backwards and test sensor-reading
+        game.player.pos = Vec2d(0.0999999, 0)
+        sensor_values = game.player.get_sensor_readings()
+        self.assertAlmostEqual(sensor_values[0], -0.0000001, delta=EPSILON_DISTANCE)
+    
+    def test_equal_side(self):
+        """> Test distance sensor when target on the sides with equal distance."""
+        # Folder must be root to load in make_net properly
+        if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
+        
+        # Create empty game
+        game = get_game()
+        
+        # Update player and target position
+        game.target = Vec2d(1, 1)
+        game.set_player_init_pos(Vec2d(0.999, 0))
+        game.set_player_init_angle(0)
+        
+        # Update the sensors used to only include the delta-distance sensor
+        game.player.sensors = dict()
+        game.player.add_delta_distance_sensor()
+        game.player.active_sensors = set(game.player.sensors.keys())
+        
+        # Initially the sensor should read zero
+        sensor_values = game.player.get_sensor_readings()
+        self.assertAlmostEqual(sensor_values[0], 0.0, delta=EPSILON_DISTANCE)
+        
+        # Advance the player's position to a symmetric position with equal distance
+        game.player.pos = Vec2d(1.001, 0)
+        sensor_values = game.player.get_sensor_readings()
+        self.assertAlmostEqual(sensor_values[0], 0.0, delta=EPSILON_DISTANCE)
+    
+    def test_none_zero_drive(self):
+        """Test if the delta-distance sensor is non-zero when driving with high frame-rate."""
+        # Folder must be root to load in make_net properly
+        if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
+        
+        # Create empty game
+        game = get_game()
+        game.fps = 100  # Put greater FPS to test the extremes
+        
+        # Update player and target position
+        game.target = Vec2d(10, 1)
+        game.set_player_init_pos(Vec2d(1, 1))
+        game.set_player_init_angle(0)
+        
+        # Update the sensors used to only include the delta-distance sensor
+        game.player.sensors = dict()
+        game.player.add_delta_distance_sensor()
+        game.player.active_sensors = set(game.player.sensors.keys())
+        
+        # Drive forward for 10 simulated seconds
+        start = True
+        for _ in range(10 * game.fps):
+            obs = game.step(l=1, r=1)
+            if start:  # Cold start, reading of 0
+                self.assertAlmostEqual(obs[D_SENSOR_LIST][0], 0.0, delta=EPSILON_DISTANCE)
+                start = False
+            else:
+                self.assertGreater(obs[D_SENSOR_LIST][0], 0.0)  # Must be strictly greater than 0
 
 
 class ProximitySensorTest(unittest.TestCase):
@@ -257,6 +348,12 @@ def main():
     dst = DistanceSensorTest()
     dst.test_front()
     dst.test_left_angle()
+    
+    # Test delta distance sensor
+    delta_dst = DeltaDistanceSensorTest()
+    delta_dst.test_front()
+    delta_dst.test_equal_side()
+    delta_dst.test_none_zero_drive()
     
     # Test proximity sensors
     pst = ProximitySensorTest()

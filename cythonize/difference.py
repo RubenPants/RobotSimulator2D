@@ -15,6 +15,9 @@ files = [
     ('intersection', 'utils/intersection.py', 'utils/cy/intersection_cy.pyx'),
     ('line2d', 'utils/line2d.py', 'utils/cy/line2d_cy.pyx'),
     ('vec2d', 'utils/vec2d.py', 'utils/cy/vec2d_cy.pyx'),
+    ('test drive', 'tests/drive_test.py', 'tests/cy/drive_test_cy.py'),
+    ('test intersection', 'tests/intersection_test.py', 'tests/cy/intersection_test_cy.py'),
+    ('test sensors', 'tests/sensors_test.py', 'tests/cy/sensors_test_cy.py'),
 ]
 
 

@@ -1,0 +1,92 @@
+{
+  "11575": {
+    "Percentage finished": 62.0,
+    "Min distance to target": 0.44,
+    "Average distance to target": 3.38,
+    "Max distance to target": 13.83,
+    "Min time taken": 21.7,
+    "Average time taken": 69.47,
+    "Max time taken": 100.0
+  },
+  "11770": {
+    "Percentage finished": 58.0,
+    "Min distance to target": 0.44,
+    "Average distance to target": 4.02,
+    "Max distance to target": 14.36,
+    "Min time taken": 21.8,
+    "Average time taken": 71.2,
+    "Max time taken": 100.0
+  },
+  "11587": {
+    "Percentage finished": 64.0,
+    "Min distance to target": 0.45,
+    "Average distance to target": 3.73,
+    "Max distance to target": 14.43,
+    "Min time taken": 21.9,
+    "Average time taken": 69.81,
+    "Max time taken": 100.0
+  },
+  "11579": {
+    "Percentage finished": 63.0,
+    "Min distance to target": 0.44,
+    "Average distance to target": 3.82,
+    "Max distance to target": 13.94,
+    "Min time taken": 22.35,
+    "Average time taken": 70.19,
+    "Max time taken": 100.0
+  },
+  "11775": {
+    "Percentage finished": 48.0,
+    "Min distance to target": 0.45,
+    "Average distance to target": 5.3,
+    "Max distance to target": 17.61,
+    "Min time taken": 22.3,
+    "Average time taken": 74.32,
+    "Max time taken": 100.0
+  },
+  "11748": {
+    "Percentage finished": 54.0,
+    "Min distance to target": 0.44,
+    "Average distance to target": 4.68,
+    "Max distance to target": 14.86,
+    "Min time taken": 21.7,
+    "Average time taken": 73.04,
+    "Max time taken": 100.0
+  },
+  "11647": {
+    "Percentage finished": 51.0,
+    "Min distance to target": 0.44,
+    "Average distance to target": 4.74,
+    "Max distance to target": 16.79,
+    "Min time taken": 21.0,
+    "Average time taken": 73.84,
+    "Max time taken": 100.0
+  },
+  "11692": {
+    "Percentage finished": 58.0,
+    "Min distance to target": 0.45,
+    "Average distance to target": 4.06,
+    "Max distance to target": 13.95,
+    "Min time taken": 20.95,
+    "Average time taken": 75.12,
+    "Max time taken": 100.0
+  },
+  "11518": {
+    "Percentage finished": 53.0,
+    "Min distance to target": 0.44,
+    "Average distance to target": 5.07,
+    "Max distance to target": 16.16,
+    "Min time taken": 20.95,
+    "Average time taken": 73.03,
+    "Max time taken": 100.0
+  },
+  "11803": {
+    "Percentage finished": 0.0,
+    "Min distance to target": 5.56,
+    "Average distance to target": 15.69,
+    "Max distance to target": 18.75,
+    "Min time taken": 100.0,
+    "Average time taken": 100.0,
+    "Max time taken": 100.0
+  }
+}

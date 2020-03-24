@@ -26,7 +26,7 @@ cdef class SensorCy:
     )
     
     def __init__(self,
-                 GameCy game,  # Type not specified due to circular imports
+                 GameCy game,
                  int sensor_id=0,
                  float angle=0,
                  float pos_offset=0,
@@ -64,7 +64,7 @@ cdef class AngularSensorCy(SensorCy):
     """Angle deviation between bot and wanted direction in 'crows flight'."""
     
     def __init__(self,
-                 GameCy game,  # Type not specified due to circular imports
+                 GameCy game,
                  int sensor_id=0,
                  bint clockwise=True):
         """
@@ -100,17 +100,51 @@ cdef class AngularSensorCy(SensorCy):
         # Add noise
         if self.game.noise: self.value += random.gauss(0, self.game.noise_angle)
 
-cdef class DistanceSensorCy(SensorCy):
-    """Distance from bot to the target in 'crows flight'."""
+
+cdef class DeltaDistanceSensorCy(SensorCy):
+    """Difference in distance from bot to the target in 'crows flight' between current and the previous time-point."""
     
     def __init__(self,
-                 GameCy game,  # Type not specified due to circular imports
+                 GameCy game,
                  int sensor_id=0):
         """
         :param game: Reference to the game in which the sensor is used
         :param sensor_id: Identification number for the sensor
         """
         super().__init__(game=game, sensor_id=sensor_id)
+        self.distance = 0.0
+        self.prev_distance = 0.0
+    
+    def __str__(self):
+        return "delta_distance"
+    
+    cpdef void measure(self, set close_walls=None):
+        """Update self.value to difference between previous distance and current distance."""
+        cdef Vec2dCy start_p
+        cdef Vec2dCy end_p
+        
+        self.prev_distance = self.distance  # Save previous distance
+        start_p = self.game.player.pos
+        end_p = self.game.target
+        self.distance = (start_p - end_p).get_length()  # Get current measure
+        if self.prev_distance == 0.0: self.prev_distance = self.distance  # Disable cold start
+        self.value = self.prev_distance - self.distance  # Positive value == closer to target
+
+
+cdef class DistanceSensorCy(SensorCy):
+    """Distance from bot to the target in 'crows flight'."""
+    
+    def __init__(self,
+                 GameCy game,
+                 float normalizer,
+                 int sensor_id=0):
+        """
+        :param game: Reference to the game in which the sensor is used
+        :param normalizer: The constant by which the distance-value is normalized
+        :param sensor_id: Identification number for the sensor
+        """
+        super().__init__(game=game, sensor_id=sensor_id)
+        self.normalizer = normalizer
     
     def __str__(self):
         return "distance"
@@ -122,8 +156,9 @@ cdef class DistanceSensorCy(SensorCy):
         
         start_p = self.game.player.pos
         end_p = self.game.target
-        self.value = (start_p - end_p).get_length()
+        self.value = (start_p - end_p).get_length() / self.normalizer
         if self.game.noise: self.value += random.gauss(0, self.game.noise_distance)
+
 
 cdef class ProximitySensorCy(SensorCy):
     """
@@ -133,7 +168,7 @@ cdef class ProximitySensorCy(SensorCy):
     """
     
     def __init__(self,
-                 GameCy game,  # Type not specified due to circular imports
+                 GameCy game,
                  int sensor_id=0,
                  float angle=0,
                  float pos_offset=0,

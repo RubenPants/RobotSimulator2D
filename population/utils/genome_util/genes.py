@@ -11,8 +11,8 @@ import numpy as np
 from torch import cat, float64, Tensor, tensor
 from torch.nn import GRUCell
 
-from population.utils.genome_util.attributes import BiasAttribute, BoolAttribute, FloatAttribute, StringAttribute, \
-    WeightAttribute
+from population.utils.genome_util.attributes import BoolAttribute, FloatAttribute, GruBiasAttribute, \
+    GruWeightAttribute, StringAttribute
 from utils.dictionary import D_ACTIVATION, D_TANH
 
 
@@ -147,21 +147,20 @@ class OutputNodeGene(DefaultNodeGene):
 class GruNodeGene(BaseGene):
     """Custom GRU cell implementation."""
     
-    _attributes = [BiasAttribute('bias_ih'),
-                   BiasAttribute('bias_hh'),
-                   WeightAttribute('full_weight_ih'),
-                   WeightAttribute('weight_hh')]
+    _attributes = [GruBiasAttribute('gru_bias_ih'),
+                   GruBiasAttribute('gru_bias_hh'),
+                   GruWeightAttribute('gru_full_weight_ih'),
+                   GruWeightAttribute('gru_weight_hh')]
     
     def __init__(self, key, input_keys=None):
         # Placeholders
         self.input_keys = input_keys if input_keys else []
         self.full_input_keys = input_keys if input_keys else []  # Full set of all seen input-keys
-        self.hidden_size = 1  # TODO: Generalize to output vector
-        self.full_weight_ih = None  # Full weight-vector mapping from full_input_set
-        self.weight_ih = None  # Part of full_weight_ih that relates to current input_keys
-        self.weight_hh = None
-        self.bias_ih = None
-        self.bias_hh = None
+        self.gru_full_weight_ih = None  # Full weight-vector mapping from full_input_set
+        self.gru_weight_ih = None  # Part of full_weight_ih that relates to current input_keys
+        self.gru_weight_hh = None
+        self.gru_bias_ih = None
+        self.gru_bias_hh = None
         self.bias = 0  # No external bias applied
         assert isinstance(key, int), f"OutputNodeGene key must be an int, not {key!r}"
         BaseGene.__init__(self, key)
@@ -181,10 +180,10 @@ class GruNodeGene(BaseGene):
         return f"GruNodeGene(inputs={self.input_keys!r})"
     
     def init_attributes(self, config):
-        setattr(self, 'bias_ih', self._attributes[0].init_value(config, self.hidden_size))
-        setattr(self, 'bias_hh', self._attributes[1].init_value(config, self.hidden_size))
-        setattr(self, 'full_weight_ih', self._attributes[2].init_value(config, self.hidden_size, len(self.input_keys)))
-        setattr(self, 'weight_hh', self._attributes[3].init_value(config, self.hidden_size, self.hidden_size))
+        setattr(self, 'gru_bias_ih', self._attributes[0].init_value(config))
+        setattr(self, 'gru_bias_hh', self._attributes[1].init_value(config))
+        setattr(self, 'gru_full_weight_ih', self._attributes[2].init_value(config, len(self.full_input_keys)))
+        setattr(self, 'gru_weight_hh', self._attributes[3].init_value(config, 1))
     
     def copy(self):
         """ Copy the gene (this class). """
@@ -193,24 +192,18 @@ class GruNodeGene(BaseGene):
         # Other fields not stored in _attributes
         new_gene.input_keys = deepcopy(self.input_keys)
         new_gene.full_input_keys = deepcopy(self.full_input_keys)
-        # new_gene.hidden_size = copy.deepcopy(self.hidden_size)  # TODO: only needed if generalized
         
         return new_gene
     
     def mutate(self, config):
         """ Perform the mutation operation. """
-        # Replace the config's weight_mutate_rate with that of the gru-specific mutate rate
-        cfg = deepcopy(config)
-        cfg.weight_mutate_rate = cfg.weight_mutate_rate_gru
-        
-        # Perform the mutation
         for a in self._attributes:
             v = getattr(self, a.name)
-            if a.name == 'full_weight_ih':
+            if a.name == 'gru_full_weight_ih':
                 mapping = [k in self.input_keys for k in self.full_input_keys]
-                setattr(self, a.name, a.mutate_value(v, cfg, mapping))
+                setattr(self, a.name, a.mutate_value(v, config, mapping))
             else:
-                setattr(self, a.name, a.mutate_value(v, cfg))
+                setattr(self, a.name, a.mutate_value(v, config))
     
     def crossover(self, other, ratio):
         """
@@ -225,22 +218,19 @@ class GruNodeGene(BaseGene):
         assert self.key == other.key  # Crossover only happens at own nodes
         new_gene = self.__class__(self.key)  # Initialize empty node (used as container for crossover result)
         new_gene.full_input_keys = sorted(set(self.full_input_keys + other.full_input_keys))
-        new_full_weight_ih = tensor(
-                np.zeros((3 * self.hidden_size, len(new_gene.full_input_keys))),
-                dtype=float64,
-        )
+        new_full_weight_ih = tensor(np.zeros((3, len(new_gene.full_input_keys))), dtype=float64)
         
         # Add weights column by column to the new gene
         for i, k in enumerate(new_gene.full_input_keys):
             if k in self.full_input_keys and k in other.full_input_keys:  # Shared by both
                 if random() <= ratio:
-                    new_full_weight_ih[:, i] = self.full_weight_ih[:, self.full_input_keys.index(k)]
+                    new_full_weight_ih[:, i] = self.gru_full_weight_ih[:, self.full_input_keys.index(k)]
                 else:
-                    new_full_weight_ih[:, i] = other.full_weight_ih[:, other.full_input_keys.index(k)]
+                    new_full_weight_ih[:, i] = other.gru_full_weight_ih[:, other.full_input_keys.index(k)]
             elif k in self.full_input_keys:  # Only in first parent (self)
-                new_full_weight_ih[:, i] = self.full_weight_ih[:, self.full_input_keys.index(k)]
+                new_full_weight_ih[:, i] = self.gru_full_weight_ih[:, self.full_input_keys.index(k)]
             else:  # Only in second parent (other)
-                new_full_weight_ih[:, i] = other.full_weight_ih[:, other.full_input_keys.index(k)]
+                new_full_weight_ih[:, i] = other.gru_full_weight_ih[:, other.full_input_keys.index(k)]
         
         # Assign all the parameters to the new_gene
         for a in self._attributes:
@@ -251,38 +241,38 @@ class GruNodeGene(BaseGene):
     def distance(self, other, config):
         """Calculate the distance between two GRU nodes, which is determined by its coefficients."""
         d = 0
-        d += np.linalg.norm(self.bias_ih - other.bias_ih)
-        d += np.linalg.norm(self.bias_hh - other.bias_hh)
-        d += np.linalg.norm(self.weight_hh - other.weight_hh)
+        d += np.linalg.norm(self.gru_bias_ih - other.gru_bias_ih)
+        d += np.linalg.norm(self.gru_bias_hh - other.gru_bias_hh)
+        d += np.linalg.norm(self.gru_weight_hh - other.gru_weight_hh)
         
         # Compare only same input keys
         key_set = sorted(set(self.input_keys + other.input_keys))
-        s = np.zeros((3 * self.hidden_size, len(key_set)))
-        o = np.zeros((3 * self.hidden_size, len(key_set)))
+        s = np.zeros((3, len(key_set)))
+        o = np.zeros((3, len(key_set)))
         for i, k in enumerate(key_set):
-            if k in self.input_keys: s[:, i] = self.full_weight_ih[:, self.full_input_keys.index(k)]
-            if k in other.input_keys: o[:, i] = other.full_weight_ih[:, other.full_input_keys.index(k)]
+            if k in self.input_keys: s[:, i] = self.gru_full_weight_ih[:, self.full_input_keys.index(k)]
+            if k in other.input_keys: o[:, i] = other.gru_full_weight_ih[:, other.full_input_keys.index(k)]
         d += np.linalg.norm(s - o)
         return d * config.compatibility_weight_coefficient
     
     def update_weight_ih(self):
         """Update weight_ih to be conform with the current input_keys-set."""
-        self.weight_ih = tensor(np.zeros((3 * self.hidden_size, len(self.input_keys))), dtype=float64)
+        self.gru_weight_ih = tensor(np.zeros((3, len(self.input_keys))), dtype=float64)
         for i, k in enumerate(self.input_keys):
-            self.weight_ih[:, i] = self.full_weight_ih[:, self.full_input_keys.index(k)]
+            self.gru_weight_ih[:, i] = self.gru_full_weight_ih[:, self.full_input_keys.index(k)]
     
     def get_gru(self, weight_map=None):
         """Return a PyTorch GRUCell based on current configuration."""
         self.update_weight_ih()
         if weight_map is not None:
-            gru = GRUCell(input_size=len(weight_map[weight_map]), hidden_size=self.hidden_size)
-            gru.weight_ih[:] = self.weight_ih[:, weight_map]
+            gru = GRUCell(input_size=len(weight_map[weight_map]), hidden_size=1)
+            gru.weight_ih[:] = self.gru_weight_ih[:, weight_map]
         else:
-            gru = GRUCell(input_size=len(self.input_keys), hidden_size=self.hidden_size)
-            gru.weight_ih[:] = self.weight_ih
-        gru.weight_hh[:] = self.weight_hh
-        gru.bias_ih[:] = self.bias_ih
-        gru.bias_hh[:] = self.bias_hh
+            gru = GRUCell(input_size=len(self.input_keys), hidden_size=1)
+            gru.weight_ih[:] = self.gru_weight_ih
+        gru.weight_hh[:] = self.gru_weight_hh
+        gru.bias_ih[:] = self.gru_bias_ih
+        gru.bias_hh[:] = self.gru_bias_hh
         return gru
     
     def add_input(self, config, k):
@@ -297,8 +287,10 @@ class GruNodeGene(BaseGene):
             self.full_input_keys.insert(i, k)
             
             # Update full_weight_ih correspondingly by inserting random initialized tensor in correct position
-            new_tensor = WeightAttribute('temp').init_value(config, hidden_size=self.hidden_size, input_size=1)
-            self.full_weight_ih = cat((self.full_weight_ih[:, :i], new_tensor, self.full_weight_ih[:, i:]), dim=1)
+            new_tensor = GruWeightAttribute('temp').init_value(config, input_size=1)
+            assert new_tensor.shape == (3, 1)
+            self.gru_full_weight_ih = cat((self.gru_full_weight_ih[:, :i], new_tensor, self.gru_full_weight_ih[:, i:]),
+                                          dim=1)
         
         # Update input_keys (current key-set) analogously
         if k not in self.input_keys:

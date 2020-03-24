@@ -216,7 +216,7 @@ class Population:
             if specie_id not in self.species_hist: self.species_hist[specie_id] = dict()
             self.species_hist[specie_id][self.generation] = elites[:self.config.reproduction_config.elitism]
     
-    def visualize_genome(self, debug=False, genome=None, name: str = '', show: bool = True):
+    def visualize_genome(self, debug=False, genome=None, show: bool = True):
         """
         Visualize the architecture of the given genome.
         
@@ -227,8 +227,7 @@ class Population:
         """
         if not genome:
             genome = self.best_genome if self.best_genome else list(self.population.values())[0]
-            if not name: name = 'best_genome_'
-        name += 'gen_{gen:05d}'.format(gen=self.generation)
+        name = f"genome_{genome.key}"
         get_subfolder(f'population/storage/{self.folder_name}/{self}/', 'images')
         sf = get_subfolder(f'population/storage/{self.folder_name}/{self}/images/', 'architectures')
         draw_net(config=self.config,
