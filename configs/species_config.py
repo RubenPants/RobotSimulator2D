@@ -16,7 +16,7 @@ class SpeciesConfig(BaseConfig):
     
     def __init__(self):
         # Individuals whose genetic distance is less than this threshold are in the same specie  [def=3.0]  TODO
-        self.compatibility_threshold: float = 3.0
+        self.compatibility_threshold: float = 2.0
         # Number of generations before a previous elite specie can become stagnant  [def=5]
         self.elite_stagnation: int = 5
         # Number of the best species that will be protected from stagnation  [def=2]  TODO
