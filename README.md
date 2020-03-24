@@ -4,8 +4,12 @@
 
 ## TODO
 
+* Research: When are two nodes different? (e.g. random init with 1 hidden node, a lot of new nodes introduced!)
+* Fault in distance-measure for GRU (check for rest)
+* Improve performance by having the choice not to evaluate parents (distance-only, fixed task)
+* Crossover (GRU) tinkers with other genomes! --> Test if this isn't also the case for mutation @full_weight_ih
+* Test on the mutation operators!
 * A2C fine-tuning of the weights?
-* Implement a delta-distance sensor (or should this be learned from the regular distance sensor?)
 * Test all of the fitness-functions!
 * Self-adaptive NEAT?
 * Activation functions of hidden vs output nodes not taken into account! (hard-coded on tanh!)

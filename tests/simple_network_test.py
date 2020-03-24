@@ -24,11 +24,10 @@ from utils.dictionary import *
 EPSILON = 1e-5
 
 
-def get_genome(hidden, outputs):
+def get_genome(outputs):
     """Create a simple feedforward neuron."""
     # Get the configuration
     cfg = NeatConfig()
-    cfg.num_hidden = hidden
     cfg.num_outputs = outputs
     cfg.initial_connection = D_FULL_NODIRECT  # input -> hidden -> output
     cfg.gru_enabled = False  # Only simple hidden nodes allowed
@@ -62,7 +61,7 @@ class TestFeedForward(unittest.TestCase):
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
         # Fetch the genome and its corresponding config file
-        genome, config = get_genome(0, 1)
+        genome, config = get_genome(1)
         
         # Manipulate the genome's connections and biases
         genome.connections = dict()
@@ -102,7 +101,8 @@ class TestFeedForward(unittest.TestCase):
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
         # Fetch the genome and its corresponding config file
-        genome, config = get_genome(1, 1)
+        genome, config = get_genome(1)
+        genome.nodes[1] = genome.create_node(config=config.genome_config, node_id=1)
         
         # Manipulate the genome's biases and connection weights
         genome.nodes[0].bias = 0  # Output-bias
@@ -143,7 +143,9 @@ class TestFeedForward(unittest.TestCase):
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
         # Fetch the genome and its corresponding config file
-        genome, config = get_genome(2, 1)
+        genome, config = get_genome(1)
+        genome.nodes[1] = genome.create_node(config=config.genome_config, node_id=1)
+        genome.nodes[2] = genome.create_node(config=config.genome_config, node_id=2)
         
         # Manipulate the genome's biases and connection weights
         genome.nodes[0].bias = 0  # Output bias
@@ -190,7 +192,7 @@ class TestFeedForward(unittest.TestCase):
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
         # Fetch the genome and its corresponding config file
-        genome, config = get_genome(0, 1)
+        genome, config = get_genome(1)
         
         # Manipulate the genome's biases and connection weights
         genome.nodes[0].bias = 0  # Output bias
@@ -233,7 +235,9 @@ class TestFeedForward(unittest.TestCase):
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
         # Fetch the genome and its corresponding config file
-        genome, config = get_genome(2, 1)
+        genome, config = get_genome(1)
+        genome.nodes[1] = genome.create_node(config=config.genome_config, node_id=1)
+        genome.nodes[2] = genome.create_node(config=config.genome_config, node_id=2)
         
         # Manipulate the genome's biases and connection weights
         genome.nodes[0].bias = 0  # Output bias

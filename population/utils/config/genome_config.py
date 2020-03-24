@@ -25,7 +25,6 @@ class DefaultGenomeConfig(object):
     def __init__(self, params):
         # Placeholders
         self.num_inputs: int = get_number_of_sensors()
-        self.num_hidden: int = None
         self.num_outputs: int = None
         self.compatibility_disjoint_coefficient: float = None
         self.compatibility_weight_coefficient: float = None
@@ -34,7 +33,7 @@ class DefaultGenomeConfig(object):
         self.node_add_prob: float = None
         self.node_delete_prob: float = None
         self.gru_enabled: bool = None
-        self.gru_mutate_rate: float = None
+        self.gru_node_prob: float = None
         
         # Create full set of available activation functions.
         self.activation_defs = ActivationFunctionSet()
@@ -43,7 +42,6 @@ class DefaultGenomeConfig(object):
         self.aggregation_defs = self.aggregation_function_defs
         
         self._params = [
-            ConfigParameter('num_hidden', int),
             ConfigParameter('num_outputs', int),
             ConfigParameter('compatibility_disjoint_coefficient', float),
             ConfigParameter('compatibility_weight_coefficient', float),
@@ -54,8 +52,15 @@ class DefaultGenomeConfig(object):
             ConfigParameter('structural_mutation_surer', str, 'default'),
             ConfigParameter('initial_connection', str, 'unconnected'),
             ConfigParameter('gru_enabled', bool),
+            ConfigParameter('gru_init_mean', float),
+            ConfigParameter('gru_init_stdev', float),
+            ConfigParameter('gru_init_type', str, 'gaussian'),
+            ConfigParameter('gru_max_value', float),
+            ConfigParameter('gru_min_value', float),
+            ConfigParameter('gru_mutate_power', float),
             ConfigParameter('gru_mutate_rate', float),
-            ConfigParameter('weight_mutate_rate_gru', float),
+            ConfigParameter('gru_node_prob', float),
+            ConfigParameter('gru_replace_rate', float),
         ]
         
         # Gather configuration data from the gene classes.

@@ -3,7 +3,7 @@ robots.py
 
 Robots used to manoeuvre around in the Game-environment.
 """
-from numpy import pi
+from numpy import pi, sqrt
 
 from environment.entities.sensors import AngularSensor, DeltaDistanceSensor, DistanceSensor, ProximitySensor
 from utils.vec2d import angle_to_vec, Vec2d
@@ -97,7 +97,9 @@ class MarXBot:
     
     def get_sensor_readings_distance(self):
         """Value of current distance-reading."""
-        return self.sensors[len(self.sensors) - 1].value  # Distance is always the last sensor
+        sensor: DistanceSensor = self.sensors[len(self.sensors) - 1]  # Distance is always the last sensor
+        assert type(sensor) == DistanceSensor
+        return sensor.value * sensor.normalizer
     
     def reset(self):
         """Put the robot back to its initial parameters."""
@@ -115,21 +117,25 @@ class MarXBot:
         Add an angular sensor to the agent and give it an idea one greater than the last sensor added, or 0 if it is the
         first sensor that is added.
         """
-        self.sensors[len(self.sensors)] = AngularSensor(sensor_id=len(self.sensors),
-                                                        game=self.game,
-                                                        clockwise=clockwise)
+        self.sensors[len(self.sensors)] = AngularSensor(
+                sensor_id=len(self.sensors),
+                game=self.game,
+                clockwise=clockwise)
         self.n_angular += 1
     
     def add_delta_distance_sensor(self):
         """Single distance sensor which determines distance between agent's center and target's center."""
-        self.sensors[len(self.sensors)] = DeltaDistanceSensor(sensor_id=len(self.sensors),
-                                                              game=self.game)
+        self.sensors[len(self.sensors)] = DeltaDistanceSensor(
+                sensor_id=len(self.sensors),
+                game=self.game)
         self.n_delta_distance += 1
     
     def add_distance_sensor(self):
         """Single distance sensor which determines distance between agent's center and target's center."""
-        self.sensors[len(self.sensors)] = DistanceSensor(sensor_id=len(self.sensors),
-                                                         game=self.game)
+        self.sensors[len(self.sensors)] = DistanceSensor(
+                sensor_id=len(self.sensors),
+                normalizer=sqrt((self.game.x_axis - 1) ** 2 + (self.game.y_axis - 1) ** 2),
+                game=self.game)
         self.n_distance += 1
     
     def add_proximity_sensor(self, angle: float):
@@ -142,12 +148,12 @@ class MarXBot:
                         * 0 = the same direction as the robot is facing
                         * -pi / 2 = 90° to the right of the robot
         """
-        self.sensors[len(self.sensors)] = ProximitySensor(sensor_id=len(self.sensors),
-                                                          game=self.game,
-                                                          angle=angle,
-                                                          pos_offset=self.game.bot_radius,
-                                                          max_dist=self.game.ray_distance,
-                                                          )
+        self.sensors[len(self.sensors)] = ProximitySensor(
+                sensor_id=len(self.sensors),
+                game=self.game,
+                angle=angle,
+                pos_offset=self.game.bot_radius,
+                max_dist=self.game.ray_distance)
         self.n_proximity += 1
     
     def create_angular_sensors(self):
@@ -194,7 +200,8 @@ def get_angular_directions():
 
 def get_delta_distance():
     """Determine if the delta-distance sensor is used or not."""
-    return True
+    return False
+    # return True
 
 
 def get_proximity_angles():
@@ -219,7 +226,8 @@ def get_proximity_angles():
 
 def get_number_of_sensors():
     """Get the number of sensors mounted on the robot."""
-    return len(get_proximity_angles()) + len(get_angular_directions()) + 1
+    delta_distance = 1 if get_delta_distance() else 0
+    return len(get_proximity_angles()) + len(get_angular_directions()) + delta_distance + 1
 
 
 def get_snapshot():
@@ -234,12 +242,14 @@ def get_snapshot():
     # Angular sensors
     for cw in get_angular_directions(): sorted_names.append(str(AngularSensor(game=None, clockwise=cw)))
     
+    # Delta distance sensor
+    if get_delta_distance(): sorted_names.append(str(DeltaDistanceSensor(game=None)))
+    
     # Distance sensor
-    sorted_names.append(str(DistanceSensor(game=None)))
+    sorted_names.append(str(DistanceSensor(game=None, normalizer=1)))
     
     # Negate all the keys to create the snapshot
     snapshot = dict()
-    for i, name in enumerate(sorted_names):
-        snapshot[-len(sorted_names) + i] = name
+    for i, name in enumerate(sorted_names): snapshot[-len(sorted_names) + i] = name
     
     return snapshot

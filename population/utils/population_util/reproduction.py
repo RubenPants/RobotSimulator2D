@@ -43,13 +43,13 @@ class DefaultReproduction(DefaultClassConfig):
         self.previous_elites = set()
         self.num_outputs = cfg.config.num_outputs
     
-    def create_new(self, genome_type, genome_config, num_genomes, logger=None):
-        """Create a new (random initialized) genome."""
+    def create_new(self, genome_type, genome_config, num_genomes):
+        """Create a new (random initialized) population."""
         new_genomes = dict()
         for i in range(num_genomes):
             key = next(self.genome_indexer)
             g = genome_type(key, num_outputs=self.num_outputs)
-            g.configure_new(genome_config, logger=logger)
+            g.configure_new(genome_config)
             new_genomes[key] = g
             self.ancestors[key] = tuple()
         return new_genomes

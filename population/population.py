@@ -139,7 +139,7 @@ class Population:
         self.population = self.reproduction.create_new(genome_type=self.config.genome_type,
                                                        genome_config=self.config.genome_config,
                                                        num_genomes=self.config.pop_size,
-                                                       logger=self.log)
+                                                       )
         self.species = self.config.species_type(self.config.species_config, self.reporters)
         self.species.speciate(config=self.config,
                               population=self.population,
@@ -195,7 +195,7 @@ class Population:
             self.population = self.reproduction.create_new(genome_type=self.config.genome_type,
                                                            genome_config=self.config.genome_config,
                                                            num_genomes=self.config.pop_size,
-                                                           logger=self.log)
+                                                           )
         
         # Divide the new population into species
         self.species.speciate(config=self.config,
@@ -216,19 +216,17 @@ class Population:
             if specie_id not in self.species_hist: self.species_hist[specie_id] = dict()
             self.species_hist[specie_id][self.generation] = elites[:self.config.reproduction_config.elitism]
     
-    def visualize_genome(self, debug=False, genome=None, name: str = '', show: bool = True):
+    def visualize_genome(self, debug=False, genome=None, show: bool = True):
         """
         Visualize the architecture of the given genome.
         
         :param debug: Add excessive genome-specific details in the plot
         :param genome: Genome that must be visualized, best genome is chosen if none
-        :param name: Name of the image, excluding the population's generation (auto concatenated)
         :param show: Directly visualize the architecture
         """
         if not genome:
             genome = self.best_genome if self.best_genome else list(self.population.values())[0]
-            if not name: name = 'best_genome_'
-        name += 'gen_{gen:05d}'.format(gen=self.generation)
+        name = f"genome_{genome.key}"
         get_subfolder(f'population/storage/{self.folder_name}/{self}/', 'images')
         sf = get_subfolder(f'population/storage/{self.folder_name}/{self}/images/', 'architectures')
         draw_net(config=self.config,

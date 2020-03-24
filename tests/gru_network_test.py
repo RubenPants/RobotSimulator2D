@@ -24,14 +24,13 @@ from utils.dictionary import *
 EPSILON = 1e-5
 
 
-def get_genome(hidden, outputs):
+def get_genome(outputs):
     """Create a simple feedforward neuron."""  # Get the configuration
     cfg = NeatConfig()
-    cfg.num_hidden = hidden
     cfg.num_outputs = outputs
     cfg.initial_connection = D_FULL_NODIRECT  # input -> hidden -> output
     cfg.gru_enabled = True  # Only simple hidden nodes allowed
-    cfg.gru_mutate_rate = 1  # Force that all hidden nodes will be GRUs
+    cfg.gru_node_prob = 1.0  # Force that all hidden nodes will be GRUs
     config = Config(
             genome_type=DefaultGenome,
             reproduction_type=DefaultReproduction,
@@ -66,7 +65,10 @@ class TestGruFeedForward(unittest.TestCase):
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
         # Fetch the genome and its corresponding config file
-        genome, config = get_genome(1, 1)
+        genome, config = get_genome(1)
+        
+        # Add the hidden GRU node
+        genome.nodes[1] = genome.create_gru_node(config.genome_config, node_id=1)
         
         # Manipulate the genome's biases and connection weights
         genome.nodes[0].bias = 0  # Output-bias
@@ -74,10 +76,10 @@ class TestGruFeedForward(unittest.TestCase):
         for i, o in [(-1, 1), (1, 0)]:
             genome.create_connection(config=config.genome_config, input_key=i, output_key=o, weight=1.0)
         genome.update_gru_nodes(config=config.genome_config)
-        genome.nodes[1].bias_ih[:] = torch.tensor([1, 1, 1], dtype=torch.float64)
-        genome.nodes[1].bias_hh[:] = torch.tensor([1, 1, 1], dtype=torch.float64)
-        genome.nodes[1].full_weight_ih[:] = torch.tensor([[1], [1], [1]], dtype=torch.float64)
-        genome.nodes[1].weight_hh[:] = torch.tensor([[1], [1], [1]], dtype=torch.float64)
+        genome.nodes[1].gru_bias_ih[:] = torch.tensor([1, 1, 1], dtype=torch.float64)
+        genome.nodes[1].gru_bias_hh[:] = torch.tensor([1, 1, 1], dtype=torch.float64)
+        genome.nodes[1].gru_full_weight_ih[:] = torch.tensor([[1], [1], [1]], dtype=torch.float64)
+        genome.nodes[1].gru_weight_hh[:] = torch.tensor([[1], [1], [1]], dtype=torch.float64)
         if debug: print(genome)
         # Create a network
         game_config = GameConfig()
@@ -86,10 +88,10 @@ class TestGruFeedForward(unittest.TestCase):
         # Query the network; single input in range [-1, 1]
         inputs = [random() * 2 - 1 for _ in range(100)]
         gru = torch.nn.GRUCell(1, 1)
-        gru.bias_ih[:] = genome.nodes[1].bias_ih[:]
-        gru.bias_hh[:] = genome.nodes[1].bias_hh[:]
-        gru.weight_ih[:] = genome.nodes[1].full_weight_ih[:]
-        gru.weight_hh[:] = genome.nodes[1].weight_hh[:]
+        gru.bias_ih[:] = genome.nodes[1].gru_bias_ih[:]
+        gru.bias_hh[:] = genome.nodes[1].gru_bias_hh[:]
+        gru.weight_ih[:] = genome.nodes[1].gru_weight_ih[:]
+        gru.weight_hh[:] = genome.nodes[1].gru_weight_hh[:]
         hidden_values = []
         hx = None
         for inp in inputs:
