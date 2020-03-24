@@ -193,6 +193,7 @@ class DeltaDistanceSensorTest(unittest.TestCase):
         # Update the sensors used to only include the delta-distance sensor
         game.player.sensors = dict()
         game.player.add_delta_distance_sensor()
+        game.player.add_distance_sensor()  # Last sensor must always be the distance sensor
         game.player.active_sensors = set(game.player.sensors.keys())
         
         # Drive forward for 10 simulated seconds
@@ -322,6 +323,7 @@ class ProximitySensorTest(unittest.TestCase):
         # Update sensors
         game.player.sensors = dict()
         game.player.add_proximity_sensor(0)  # 0°
+        game.player.add_distance_sensor()  # Last sensor must always be the distance sensor
         game.player.active_sensors = set(game.player.sensors.keys())
         
         for _ in range(100): game.step(l=1, r=1)

@@ -65,35 +65,18 @@ class DefaultGenome(object):
         # Get snapshot of current robot configuration
         self.robot_snapshot = get_snapshot()
     
-    def configure_new(self, config: DefaultGenomeConfig, logger=None):
+    def configure_new(self, config: DefaultGenomeConfig):
         """Configure a new genome based on the given configuration."""
-        # Create node genes for the output pins.
+        # Create node genes for the output pins
         for node_key in config.output_keys: self.nodes[node_key] = self.create_output_node(config, node_key)
         
-        # Add hidden nodes if requested.
-        if config.num_hidden > 0:
-            for i in range(config.num_hidden):
-                node_key = config.get_new_node_key(self.nodes)
-                assert node_key not in self.nodes
-                r = random()
-                if config.gru_enabled and r <= config.gru_node_prob:
-                    node = self.create_gru_node(config, node_key)  # New nodes only have 1 ingoing connection
-                else:
-                    node = self.create_node(config, node_key)
-                self.nodes[node_key] = node
-        
-        # Add connections based on initial connectivity type.
+        # Add connections based on initial connectivity type
         if 'fs_neat' in config.initial_connection:
             if config.initial_connection == 'fs_neat_nohidden':
                 self.connect_fs_neat_nohidden(config)
             elif config.initial_connection == 'fs_neat_hidden':
                 self.connect_fs_neat_hidden(config)
             else:
-                if config.num_hidden > 0:
-                    warning = "Warning: initial_connection = fs_neat will not connect to hidden nodes;" \
-                              "\n\tif this is desired, set initial_connection = fs_neat_nohidden;" \
-                              "\n\tif not, set initial_connection = fs_neat_hidden"
-                    logger(warning) if logger else print(warning, file=sys.stderr)
                 self.connect_fs_neat_nohidden(config)
         elif 'full' in config.initial_connection:
             if config.initial_connection == 'full_nodirect':
@@ -101,11 +84,6 @@ class DefaultGenome(object):
             elif config.initial_connection == 'full_direct':
                 self.connect_full_direct(config)
             else:
-                if config.num_hidden > 0:
-                    warning = "Warning: initial_connection = full with hidden nodes will not do direct input-output connections; " \
-                              "\n\tif this is desired, set initial_connection = full_nodirect; " \
-                              "\n\tif not, set initial_connection = full_direct"
-                    logger(warning) if logger else print(warning, file=sys.stderr)
                 self.connect_full_nodirect(config)
         elif 'partial' in config.initial_connection:
             if config.initial_connection == 'partial_nodirect':
@@ -113,11 +91,6 @@ class DefaultGenome(object):
             elif config.initial_connection == 'partial_direct':
                 self.connect_partial_direct(config)
             else:
-                if config.num_hidden > 0:
-                    warning = f"Warning: initial_connection = partial with hidden nodes will not do direct input-output connections;" \
-                              f"\n\tif this is desired, set initial_connection = partial_nodirect {config.connection_fraction};" \
-                              f"\n\tif not, set initial_connection = partial_direct {config.connection_fraction}"
-                    logger(warning) if logger else print(warning, file=sys.stderr)
                 self.connect_partial_nodirect(config)
     
     def configure_crossover(self, config: DefaultGenomeConfig, genome1, genome2):

@@ -25,7 +25,6 @@ class DefaultGenomeConfig(object):
     def __init__(self, params):
         # Placeholders
         self.num_inputs: int = get_number_of_sensors()
-        self.num_hidden: int = None
         self.num_outputs: int = None
         self.compatibility_disjoint_coefficient: float = None
         self.compatibility_weight_coefficient: float = None
@@ -43,7 +42,6 @@ class DefaultGenomeConfig(object):
         self.aggregation_defs = self.aggregation_function_defs
         
         self._params = [
-            ConfigParameter('num_hidden', int),
             ConfigParameter('num_outputs', int),
             ConfigParameter('compatibility_disjoint_coefficient', float),
             ConfigParameter('compatibility_weight_coefficient', float),

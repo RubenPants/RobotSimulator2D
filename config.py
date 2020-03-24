@@ -86,7 +86,7 @@ class NeatConfig:
                                 'conn_add_prob', 'conn_delete_prob', 'enabled_default', 'enabled_mutate_rate',
                                 'gru_enabled', 'gru_init_mean', 'gru_init_stdev', 'gru_max_value', 'gru_min_value',
                                 'gru_mutate_power', 'gru_mutate_rate', 'gru_node_prob', 'gru_replace_rate',
-                                'initial_connection', 'node_add_prob', 'node_delete_prob', 'num_hidden', 'num_outputs',
+                                'initial_connection', 'node_add_prob', 'node_delete_prob', 'num_outputs',
                                 'weight_init_mean', 'weight_init_stdev', 'weight_max_value', 'weight_min_value',
                                 'weight_mutate_power', 'weight_mutate_rate', 'weight_replace_rate'],
         'DefaultSpecies':      ['compatibility_threshold', 'max_stagnation', 'species_elitism', 'species_fitness_func',
@@ -103,7 +103,7 @@ class NeatConfig:
         # Don't consider fitness_criterion and fitness_threshold  [def=True]
         self.no_fitness_termination: bool = True
         # Number of individuals in each generation  [def=128]  TODO
-        self.pop_size: int = 128
+        self.pop_size: int = 10
         
         # [DefaultReproduction]
         # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=3]
@@ -160,8 +160,6 @@ class NeatConfig:
         self.node_add_prob: float = 0.05
         # Probability of removing a node during mutation (each generation)  [def=0.05]  TODO
         self.node_delete_prob: float = 0.05
-        # Number of hidden nodes to add to each genome in the initial population  [def=0]  TODO
-        self.num_hidden: int = 1
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
         self.num_outputs: int = 2
         # Mean of the gaussian distribution used to select the weight attribute values for new connections  [def=0]

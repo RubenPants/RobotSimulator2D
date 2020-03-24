@@ -139,11 +139,11 @@ if __name__ == '__main__':
     # Setup the population
     pop = Population(
             # name='distance_repr_1',
-            version=2,
-            # folder_name='test',
-            folder_name='DISTANCE-ONLY',
+            version=1,
+            folder_name='test',
+            # folder_name='DISTANCE-ONLY',
     )
-    if not pop.best_genome: pop.best_genome = list(pop.population.values())[0]
+    if not pop.best_genome: pop.best_genome = list(pop.population.values())[-1]
     # pop.best_genome = list(pop.population.values())[1]  # TODO
     # pop.population = {k: v for k, v in pop.population.items() if k in [111]}  # TODO
     # pop.best_genome.update_gru_nodes(pop.config.genome_config)

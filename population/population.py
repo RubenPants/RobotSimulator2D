@@ -139,7 +139,7 @@ class Population:
         self.population = self.reproduction.create_new(genome_type=self.config.genome_type,
                                                        genome_config=self.config.genome_config,
                                                        num_genomes=self.config.pop_size,
-                                                       logger=self.log)
+                                                       )
         self.species = self.config.species_type(self.config.species_config, self.reporters)
         self.species.speciate(config=self.config,
                               population=self.population,
@@ -195,7 +195,7 @@ class Population:
             self.population = self.reproduction.create_new(genome_type=self.config.genome_type,
                                                            genome_config=self.config.genome_config,
                                                            num_genomes=self.config.pop_size,
-                                                           logger=self.log)
+                                                           )
         
         # Divide the new population into species
         self.species.speciate(config=self.config,
@@ -222,7 +222,6 @@ class Population:
         
         :param debug: Add excessive genome-specific details in the plot
         :param genome: Genome that must be visualized, best genome is chosen if none
-        :param name: Name of the image, excluding the population's generation (auto concatenated)
         :param show: Directly visualize the architecture
         """
         if not genome:

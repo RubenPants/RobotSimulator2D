@@ -18,11 +18,10 @@ from population.utils.population_util.species import DefaultSpecies
 from population.utils.population_util.stagnation import DefaultStagnation
 
 
-def get_config(num_inputs=4, num_hidden=1, num_outputs=1):
+def get_config(num_inputs=4, num_outputs=1):
     """Create and return the config object."""
     cfg = NeatConfig()
     cfg.num_inputs = num_inputs
-    cfg.num_hidden = num_hidden
     cfg.num_outputs = num_outputs
     cfg.initial_connection = "full_nodirect"  # input->hidden and hidden->output
     return Config(
@@ -118,7 +117,8 @@ class TestGruNodeGene(unittest.TestCase):
         gru.update_weight_ih()
         assert gru.gru_full_weight_ih.shape == (3, 2)
         assert gru.gru_weight_ih.shape == (3, 2)
-        assert all(gru.gru_full_weight_ih[:, 0] == gru.gru_weight_ih[:, 0]) and all(gru.gru_weight_ih[:, 0] == first_col)
+        assert all(gru.gru_full_weight_ih[:, 0] == gru.gru_weight_ih[:, 0]) and all(
+            gru.gru_weight_ih[:, 0] == first_col)
         third_col = copy.deepcopy(gru.gru_weight_ih[:, 1])
         assert all(gru.gru_full_weight_ih[:, 1] == gru.gru_weight_ih[:, 1])
         
@@ -127,10 +127,12 @@ class TestGruNodeGene(unittest.TestCase):
         gru.update_weight_ih()
         assert gru.gru_full_weight_ih.shape == (3, 3)
         assert gru.gru_weight_ih.shape == (3, 3)
-        assert all(gru.gru_full_weight_ih[:, 0] == gru.gru_weight_ih[:, 0]) and all(gru.gru_weight_ih[:, 0] == first_col)
+        assert all(gru.gru_full_weight_ih[:, 0] == gru.gru_weight_ih[:, 0]) and all(
+            gru.gru_weight_ih[:, 0] == first_col)
         second_col = copy.deepcopy(gru.gru_weight_ih[:, 1])
         assert all(gru.gru_full_weight_ih[:, 1] == gru.gru_weight_ih[:, 1])
-        assert all(gru.gru_full_weight_ih[:, 2] == gru.gru_weight_ih[:, 2]) and all(gru.gru_weight_ih[:, 2] == third_col)
+        assert all(gru.gru_full_weight_ih[:, 2] == gru.gru_weight_ih[:, 2]) and all(
+            gru.gru_weight_ih[:, 2] == third_col)
         
         # Remove the first connection
         gru.remove_input(1)
@@ -138,17 +140,22 @@ class TestGruNodeGene(unittest.TestCase):
         assert gru.gru_full_weight_ih.shape == (3, 3)
         assert gru.gru_weight_ih.shape == (3, 2)
         assert all(gru.gru_full_weight_ih[:, 0] == first_col)
-        assert all(gru.gru_full_weight_ih[:, 1] == gru.gru_weight_ih[:, 0]) and all(gru.gru_weight_ih[:, 0] == second_col)
-        assert all(gru.gru_full_weight_ih[:, 2] == gru.gru_weight_ih[:, 1]) and all(gru.gru_weight_ih[:, 1] == third_col)
+        assert all(gru.gru_full_weight_ih[:, 1] == gru.gru_weight_ih[:, 0]) and all(
+            gru.gru_weight_ih[:, 0] == second_col)
+        assert all(gru.gru_full_weight_ih[:, 2] == gru.gru_weight_ih[:, 1]) and all(
+            gru.gru_weight_ih[:, 1] == third_col)
         
         # Add the first connection back
         gru.add_input(config.genome_config, 1)
         gru.update_weight_ih()
         assert gru.gru_full_weight_ih.shape == (3, 3)
         assert gru.gru_weight_ih.shape == (3, 3)
-        assert all(gru.gru_full_weight_ih[:, 0] == gru.gru_weight_ih[:, 0]) and all(gru.gru_weight_ih[:, 0] == first_col)
-        assert all(gru.gru_full_weight_ih[:, 1] == gru.gru_weight_ih[:, 1]) and all(gru.gru_weight_ih[:, 1] == second_col)
-        assert all(gru.gru_full_weight_ih[:, 2] == gru.gru_weight_ih[:, 2]) and all(gru.gru_weight_ih[:, 2] == third_col)
+        assert all(gru.gru_full_weight_ih[:, 0] == gru.gru_weight_ih[:, 0]) and all(
+            gru.gru_weight_ih[:, 0] == first_col)
+        assert all(gru.gru_full_weight_ih[:, 1] == gru.gru_weight_ih[:, 1]) and all(
+            gru.gru_weight_ih[:, 1] == second_col)
+        assert all(gru.gru_full_weight_ih[:, 2] == gru.gru_weight_ih[:, 2]) and all(
+            gru.gru_weight_ih[:, 2] == third_col)
     
     def test_mutate(self):
         """> Unused keys' values may never be mutated."""
