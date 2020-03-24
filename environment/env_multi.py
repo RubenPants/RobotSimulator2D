@@ -5,7 +5,7 @@ Environment where a single genome gets evaluated over multiple games. This envir
 """
 import sys
 
-from config import GameConfig, NeatConfig
+from config import Config
 from environment.entities.game import get_game
 from population.population import Population
 from utils.dictionary import D_DONE, D_SENSOR_LIST
@@ -14,30 +14,31 @@ from utils.dictionary import D_DONE, D_SENSOR_LIST
 class MultiEnvironment:
     """ This class provides an environment to evaluate a single genome on multiple games. """
     
-    __slots__ = ("batch_size", "games", "make_net", "max_steps", "query_net", "game_config", "neat_config")
+    __slots__ = {
+        "batch_size", "game_config", "games", "make_net", "max_steps", "pop_config", "query_net",
+    }
     
     def __init__(self,
                  make_net,
                  query_net,
-                 game_config: GameConfig,
-                 neat_config: NeatConfig,
-                 max_steps: int):
+                 game_config: Config,
+                 pop_config: Config,
+                 ):
         """
         Create an environment in which the genomes get evaluated across different games.
         
         :param make_net: Method to create a network based on the given genome
         :param query_net: Method to evaluate the network given the current state
-        :param game_config: GameConfig file for game-creation
-        :param neat_config: NeatConfig file specifying how genome's network will be made
-        :param max_steps: Maximum number of steps a candidate drives around in a single environment
+        :param game_config: Config file for game-creation
+        :param pop_config: Config file specifying how genome's network will be made
         """
         self.batch_size = 0
         self.games = []
         self.make_net = make_net
-        self.max_steps = max_steps
+        self.max_steps = game_config.game.duration * game_config.game.fps
         self.query_net = query_net
         self.game_config = game_config
-        self.neat_config = neat_config
+        self.pop_config = pop_config
     
     def eval_genome(self,
                     genome,
@@ -64,7 +65,7 @@ class MultiEnvironment:
         
         # Create the network used to query on, initialize it with the first-game's readings (good approximation)
         net = self.make_net(genome=genome,
-                            config=self.neat_config,
+                            genome_config=self.pop_config.genome,
                             game_config=self.game_config,
                             bs=self.batch_size,
                             initial_read=states[0],
@@ -127,7 +128,7 @@ class MultiEnvironment:
         
         # Create the network used to query on, initialize it with the first-game's readings (good approximation)
         net = self.make_net(genome=genome,
-                            config=self.neat_config,
+                            genome_config=self.pop_config.genome,
                             game_config=self.game_config,
                             bs=self.batch_size,
                             initial_read=states[0],
@@ -183,7 +184,7 @@ class MultiEnvironment:
         return [get_game(i, cfg=self.game_config).game_params() for i in self.games]
 
 
-def get_multi_env(pop: Population, game_config: GameConfig):
+def get_multi_env(pop: Population, game_config: Config):
     """Create a multi-environment used to evaluate a population on."""
     if sys.platform == 'linux':
         from environment.cy.env_multi_cy import MultiEnvironmentCy
@@ -191,14 +192,12 @@ def get_multi_env(pop: Population, game_config: GameConfig):
                 make_net=pop.make_net,
                 query_net=pop.query_net,
                 game_config=game_config,
-                neat_config=pop.config,
-                max_steps=game_config.duration * game_config.fps
+                pop_config=pop.config,
         )
     else:
         return MultiEnvironment(
                 make_net=pop.make_net,
                 query_net=pop.query_net,
                 game_config=game_config,
-                neat_config=pop.config,
-                max_steps=game_config.duration * game_config.fps
+                pop_config=pop.config,
         )

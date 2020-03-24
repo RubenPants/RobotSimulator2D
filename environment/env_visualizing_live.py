@@ -7,6 +7,7 @@ import pyglet
 import pymunk
 from pymunk.pyglet_util import DrawOptions
 
+from config import Config
 from environment.entities.game import Game, get_game
 from environment.entities.sensors import ProximitySensor
 from population.population import Population
@@ -22,18 +23,20 @@ class LiveVisualizer:
     
     __slots__ = (
         "speedup", "state", "finished", "time",
-        "make_net", "query_net", "neat_config", "game_config",
+        "make_net", "query_net", "pop_config", "game_config",
         "debug",
     )
     
     def __init__(self,
                  pop: Population,
+                 game_config: Config,
                  debug: bool = True,
                  speedup: float = 3):
         """
         The visualizer provides methods used to visualize the performance of a single genome.
         
         :param pop: Population object
+        :param game_config: Config file for current game-configurations
         :param debug: Generates prints (CLI) during visualization
         :param speedup: Specifies the relative speedup the virtual environment faces towards the real world
         """
@@ -46,8 +49,8 @@ class LiveVisualizer:
         # Network specific parameters
         self.make_net = pop.make_net
         self.query_net = pop.query_net
-        self.neat_config = pop.config
-        self.game_config = pop.game_config
+        self.pop_config = pop.config
+        self.game_config = game_config
         
         # Debug options
         self.debug = debug
@@ -79,7 +82,7 @@ class LiveVisualizer:
         
         # Make the network used during visualization
         net = self.make_net(genome=genome,
-                            config=self.neat_config,
+                            genome_config=self.pop_config.genome,
                             game_config=self.game_config,
                             bs=1,
                             initial_read=self.state,

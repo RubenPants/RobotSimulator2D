@@ -28,7 +28,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from tqdm import tqdm
 
-from config import GameConfig
+from config import Config
 from environment.entities.game import Game
 from environment.entities.robots import MarXBot
 from utils.dictionary import D_A_STAR
@@ -46,7 +46,7 @@ class MazeMalfunctionException(Exception):
 
 
 class Maze:
-    def __init__(self, cfg: GameConfig, visualize: bool = False):
+    def __init__(self, cfg: Config, visualize: bool = False):
         """
         Auto-generate a maze, which is a model for the final games.
         
@@ -57,8 +57,8 @@ class Maze:
         self.cfg = cfg
         
         # Set the maze's main parameters
-        self.x_width = 2 * self.cfg.x_axis + 1
-        self.y_width = 2 * self.cfg.y_axis + 1
+        self.x_width = 2 * self.cfg.game.x_axis + 1
+        self.y_width = 2 * self.cfg.game.y_axis + 1
         self.tiles_amount = self.x_width * self.y_width
         self.maze = np.zeros((self.y_width, self.x_width))
         
@@ -252,8 +252,8 @@ class Maze:
     def get_path_coordinates(self, target_pos, visualize: bool = False):
         """Define all free-positions together with their distance to the target."""
         # Expand the maze such that every 10cm gets a tile
-        y_tiles = self.cfg.y_axis * 11 + 1
-        x_tiles = self.cfg.x_axis * 11 + 1
+        y_tiles = self.cfg.game.y_axis * 11 + 1
+        x_tiles = self.cfg.game.x_axis * 11 + 1
         maze_expanded = np.zeros((y_tiles, x_tiles))
         
         # Copy tiles from current maze to the extended maze
@@ -299,11 +299,11 @@ class Maze:
         
         # Find distance to target
         if visualize: self.visualize_extend(maze=maze_expanded)
-        if target_pos == Vec2d(maze.cfg.x_axis - 0.5, maze.cfg.y_axis - 0.5):
+        if target_pos == Vec2d(maze.cfg.game.x_axis - 0.5, maze.cfg.game.y_axis - 0.5):
             target = (x_tiles - 6, y_tiles - 6)
         elif target_pos == Vec2d(0.5, 0.5):
             target = (5, 5)
-        elif target_pos == Vec2d(0.5, maze.cfg.y_axis - 0.5):
+        elif target_pos == Vec2d(0.5, maze.cfg.game.y_axis - 0.5):
             target = (5, y_tiles - 6)
         else:
             raise Exception("Invalid target_pos input")
@@ -349,8 +349,8 @@ class Maze:
         one side straight to the other.
         """
         # Position to start on, this position will be in the corridor's left or bottom wall
-        pos_x = randint(0, self.cfg.x_axis - 1) * 2
-        pos_y = randint(0, self.cfg.y_axis - 1) * 2
+        pos_x = randint(0, self.cfg.game.x_axis - 1) * 2
+        pos_y = randint(0, self.cfg.game.y_axis - 1) * 2
         self.maze[pos_y, pos_x] = -1
         
         # Add the wall's remainders
@@ -559,8 +559,8 @@ class Maze:
         c = maze.copy()
         plt.figure(figsize=(8, 8))
         plt.imshow(c, origin='lower')
-        plt.xticks([i * 11 for i in range(self.cfg.y_axis + 1)])
-        plt.yticks([i * 11 for i in range(self.cfg.x_axis + 1)])
+        plt.xticks([i * 11 for i in range(self.cfg.game.y_axis + 1)])
+        plt.yticks([i * 11 for i in range(self.cfg.game.x_axis + 1)])
         plt.colorbar()
         plt.show()
         plt.close()
@@ -620,7 +620,7 @@ def combine_walls(wall_list: list):
         if not concat: i += 1
 
 
-def create_custom_game(cfg: GameConfig, overwrite=False):
+def create_custom_game(cfg: Config, overwrite=False):
     """ Dummy to create a custom-defined game. """
     # Initial parameters
     game_id = 0
@@ -631,19 +631,19 @@ def create_custom_game(cfg: GameConfig, overwrite=False):
                 overwrite=overwrite)
     
     # Put the target on a fixed position
-    game.target = Vec2d(0.5, cfg.y_axis - 0.5)
+    game.target = Vec2d(0.5, cfg.game.y_axis - 0.5)
     
     # Set game path
     path = dict()
-    for x in range(cfg.x_axis):
-        for y in range(cfg.y_axis):
+    for x in range(cfg.game.x_axis):
+        for y in range(cfg.game.y_axis):
             path[(x + 0.5, y + 0.5)] = Line2d(game.target, Vec2d(x + 0.5, y + 0.5)).get_length()
     game.path = path
     
     # Create random player
     game.player = MarXBot(game=game)
     game.set_player_init_angle(a=np.pi / 2)
-    game.set_player_init_pos(p=Vec2d(cfg.x_axis - 0.5, 0.5))
+    game.set_player_init_pos(p=Vec2d(cfg.game.x_axis - 0.5, 0.5))
     
     # Check if implemented correctly
     game.close()
@@ -656,7 +656,7 @@ def create_custom_game(cfg: GameConfig, overwrite=False):
     game.save()
 
 
-def create_game(cfg: GameConfig,
+def create_game(cfg: Config,
                 game_id: int,
                 maze: Maze,
                 overwrite: bool = False,
@@ -690,7 +690,7 @@ def create_game(cfg: GameConfig,
     # Create random player
     game.player = MarXBot(game=game)
     game.set_player_init_angle(a=np.pi / 2)
-    game.set_player_init_pos(p=Vec2d(cfg.x_axis - 0.5, 0.5))
+    game.set_player_init_pos(p=Vec2d(cfg.game.x_axis - 0.5, 0.5))
     
     # Save the final game
     game.save()
@@ -711,11 +711,11 @@ if __name__ == '__main__':
     os.chdir('../..')
     
     # Load in the config file
-    config = GameConfig()
+    config = Config()
     
     # Setup the params
     nr_games = args.nr_games
-    if not nr_games: nr_games = config.max_eval_game_id
+    if not nr_games: nr_games = config.game.max_eval_game_id
     
     if args.custom:
         create_custom_game(cfg=config, overwrite=args.overwrite)
@@ -749,7 +749,7 @@ if __name__ == '__main__':
                 game.get_observation()
                 game.step(0, 0)
                 if game.game_params()[D_A_STAR] == 0:
-                    raise Exception("Start position not connected with target position")
-            except Exception:
+                    raise MazeMalfunctionException("Start position not connected with target position")
+            except MazeMalfunctionException:
                 print(f"Faulty created game: {g_id}, please manually redo this one")
                 os.remove(f"environment/games_db/game_{g_id:05d}")

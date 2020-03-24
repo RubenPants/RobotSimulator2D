@@ -8,10 +8,11 @@ This file contains multiple possible fitness functions. Each of the fitness func
 import sys
 from math import sqrt
 
-import numpy as np
-from scipy import stats
+from numpy import clip, mean
+from scipy.stats import gmean
 
 from config import GameConfig
+from configs.evaluation_config import EvaluationConfig
 from utils.dictionary import *
 
 if sys.platform == 'linux':
@@ -25,7 +26,7 @@ else:
 # --------------------------------------------------> MAIN METHODS <-------------------------------------------------- #
 
 
-def calc_pop_fitness(fitness_config: dict, game_observations: dict, game_params: list, generation: int):
+def calc_pop_fitness(fitness_config: EvaluationConfig, game_observations: dict, game_params: list, generation: int):
     """
     Determine the fitness out of the given game_observation dictionary. This happens in two stages:
      1) Evaluate the candidate's fitness for each of the games individually, thus resolving in a list of floats
@@ -33,10 +34,7 @@ def calc_pop_fitness(fitness_config: dict, game_observations: dict, game_params:
      2) Combine all the fitness-values of all the games for every individual candidate to get the candidate's overall
          fitness score
     
-    :param fitness_config: Configuration dictionary that contains:
-        * D_FIT_COMB: Tag specifying in which way the fitness scores get combined (min, avg, max)
-        * D_K: Number indicating on how many neighbors the k-nearest-neighbors algorithm is applied
-        * D_TAG: Tag indicating which fitness-function is used
+    :param fitness_config: EvaluationConfig object
     :param game_observations: Dictionary containing for each genome the list of all its game.close() results
     :param game_params: List of game specific parameters for each of the used games (in order)
     :param generation: Current generation of the population
@@ -54,7 +52,7 @@ def calc_pop_fitness(fitness_config: dict, game_observations: dict, game_params:
     return fitness_averaged(fitness_config=fitness_config, fitness=intermediate_observations)
 
 
-def fitness_averaged(fitness_config: dict, fitness: dict):
+def fitness_averaged(fitness_config: EvaluationConfig, fitness: dict):
     """
     
     :param fitness_config: Configuration dictionary that contains a tag specifying in which way the fitness scores get
@@ -62,27 +60,25 @@ def fitness_averaged(fitness_config: dict, fitness: dict):
     :param fitness: { genome_key : [fitness_floats] }
     :return: Adjusted fitness dictionary: { genome_key: combined_fitness_float }
     """
-    t = fitness_config[D_FIT_COMB]
+    t = fitness_config.fitness_comb
     assert (t in [D_MIN, D_AVG, D_MAX, D_GMEAN])
-    f = min if t == D_MIN else max if t == D_MAX else np.mean if D_AVG else stats.gmean
+    f = min if t == D_MIN else max if t == D_MAX else mean if D_AVG else gmean
     for k in fitness.keys(): fitness[k] = f(fitness[k])
     return fitness
 
 
-def fitness_per_game(fitness_config: dict, game_observations: dict, game_params: list, generation: int):
+def fitness_per_game(fitness_config: EvaluationConfig, game_observations: dict, game_params: list, generation: int):
     """
     General fitness-function called by the evaluator environment containing all the possible attributes. Based on the
      given 'tag', determined by the population's config, a suitable fitness function is called.
     
-    :param fitness_config: Configuration dictionary that contains:
-        * D_K: Number indicating on how many neighbors the k-nearest-neighbors algorithm is applied
-        * D_TAG: Tag indicating which fitness-function is used
+    :param fitness_config: EvaluationConfig object
     :param game_observations: Dictionary containing for each genome the list of all its game.close() results
     :param game_params: List of game specific parameters for each of the used games (in order)
     :param generation: Current generation of the population
     :return: Dictionary: { genome_key: [fitness_floats] }
     """
-    tag = fitness_config[D_TAG]
+    tag = fitness_config.fitness
     if tag == D_DISTANCE:
         return distance(
                 game_observations=game_observations,
@@ -91,8 +87,8 @@ def fitness_per_game(fitness_config: dict, game_observations: dict, game_params:
         return novelty_search(
                 game_observations=game_observations,
                 game_params=game_params,
-                k=fitness_config[D_K],
-                safe_zone=fitness_config[D_SAFE_ZONE],
+                k=fitness_config.nn_k,
+                safe_zone=fitness_config.safe_zone,
         )
     elif tag == D_PATH:
         return fitness_path(
@@ -104,7 +100,7 @@ def fitness_per_game(fitness_config: dict, game_observations: dict, game_params:
                 game_observations=game_observations,
                 game_params=game_params,
                 gen=generation,
-                k=fitness_config[D_K]
+                k=fitness_config.nn_k,
         )
     else:
         raise Exception(f"{tag} is not supported")
@@ -128,7 +124,7 @@ def distance(game_observations: dict):
     
     def get_score(d, reached=False):
         """Get a score for the given distance."""
-        return 1 if reached else clip((1 - (d - cfg.target_reached) / diagonal) ** 2)
+        return 1 if reached else clip_f((1 - (d - cfg.target_reached) / diagonal) ** 2)
     
     fitness = dict()
     for k, v in game_observations.items():  # Iterate over the candidates
@@ -223,7 +219,8 @@ def fitness_path(game_observations: dict, game_params: list):
     
     def get_score(pos, g_index, reached=False):
         """Get a score for the given distance."""
-        return 1 if reached else clip((1 - paths[g_index][round(pos[0], 1), round(pos[1], 1)] / a_stars[g_index]) ** 2)
+        return 1 if reached else \
+            clip_f((1 - paths[g_index][round(pos[0], 1), round(pos[1], 1)] / a_stars[g_index]) ** 2)
     
     # Calculate the score
     fitness = dict()
@@ -232,9 +229,9 @@ def fitness_path(game_observations: dict, game_params: list):
     return fitness
 
 
-def clip(v):
+def clip_f(v):
     """Clip the value between 0 and 1."""
-    return np.clip(v, a_min=0, a_max=1)
+    return clip(v, a_min=0, a_max=1)
 
 
 class DistanceCache:

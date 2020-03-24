@@ -13,7 +13,7 @@ from torch.nn import GRUCell
 
 from population.utils.genome_util.attributes import BoolAttribute, FloatAttribute, GruBiasAttribute, \
     GruWeightAttribute, StringAttribute
-from utils.dictionary import D_ACTIVATION, D_TANH
+from utils.dictionary import D_GELU, D_TANH
 
 
 class BaseGene(object):
@@ -92,7 +92,7 @@ class BaseGene(object):
         return new_gene
 
 
-class DefaultNodeGene(BaseGene):
+class SimpleNodeGene(BaseGene):
     """Default node configuration, as specified by the Python-NEAT documentation."""
     
     _attributes = [FloatAttribute('bias'),
@@ -104,44 +104,47 @@ class DefaultNodeGene(BaseGene):
         self.bias = None
         self.activation = None
         self.aggregation = None
-        
         assert isinstance(key, int), f"DefaultNodeGene key must be an int, not {key!r}"
         BaseGene.__init__(self, key)
     
     def __repr__(self):
-        return f"DefaultNodeGene(bias={round(self.bias, 2)})"
+        return f"SimpleNodeGene(bias={round(self.bias, 2)})"
     
     def distance(self, other, config):
         d = abs(self.bias - other.bias)
-        if self.key not in [0, 1] and other.key not in [0, 1]:  # Exclude comparison with activation of output nodes
-            if self.activation != other.activation: d += 1.0
+        if self.activation != other.activation: d += 1.0
         if self.aggregation != other.aggregation: d += 1.0  # Normally, aggregation is always equal to 'sum'
         return d * config.compatibility_weight_coefficient
 
 
-class OutputNodeGene(DefaultNodeGene):
+class OutputNodeGene(BaseGene):
     """Node representation for each of the network's outputs."""
     
     def __init__(self, key):
+        # Placeholders
+        self.bias: float = None
+        self.activation = None
         assert isinstance(key, int), f"OutputNodeGene key must be an int, not {key!r}"
-        super().__init__(key)
+        BaseGene.__init__(self, key)
+    
+    def __str__(self):
+        return f"OutputNodeGene(bias={round(self.bias, 2)})"
     
     def __repr__(self):
         return f"OutputNodeGene(bias={round(self.bias, 2)})"
     
     def init_attributes(self, config):
         """ Set the initial attributes as claimed by the config, but force activation to be tanh """
-        for a in self._attributes:
-            if a.name == D_ACTIVATION:
-                setattr(self, a.name, D_TANH)  # Hard-coded output
-            else:
-                setattr(self, a.name, a.init_value(config))
+        self.bias = FloatAttribute('bias').init_value(config)
+        self.activation = D_TANH
     
     def mutate(self, config):
         """ Perform the mutation operation. Prevent mutation to happen on the output's activation. """
-        for a in self._attributes:
-            v = getattr(self, a.name)
-            if a.name != D_ACTIVATION: setattr(self, a.name, a.mutate_value(v, config))
+        self.bias = FloatAttribute('bias').mutate_value(self.bias, config=config)
+    
+    def distance(self, other, config):
+        """Only possible difference in output-nodes' distance is their bias."""
+        return abs(self.bias - other.bias) * config.compatibility_weight_coefficient
 
 
 class GruNodeGene(BaseGene):
@@ -161,7 +164,8 @@ class GruNodeGene(BaseGene):
         self.gru_weight_hh = None
         self.gru_bias_ih = None
         self.gru_bias_hh = None
-        self.bias = 0  # No external bias applied
+        self.activation = D_GELU  # TODO: Make configurable
+        self.bias = 0  # Needed for feed-forward-network
         assert isinstance(key, int), f"OutputNodeGene key must be an int, not {key!r}"
         BaseGene.__init__(self, key)
     
@@ -239,7 +243,7 @@ class GruNodeGene(BaseGene):
         return new_gene
     
     def distance(self, other, config):
-        """Calculate the distance between two GRU nodes, which is determined by its coefficients."""
+        """Calculate the average distance between two GRU nodes, which is determined by its coefficients."""
         d = 0
         d += np.linalg.norm(self.gru_bias_ih - other.gru_bias_ih)
         d += np.linalg.norm(self.gru_bias_hh - other.gru_bias_hh)
@@ -253,7 +257,8 @@ class GruNodeGene(BaseGene):
             if k in self.input_keys: s[:, i] = self.gru_full_weight_ih[:, self.full_input_keys.index(k)]
             if k in other.input_keys: o[:, i] = other.gru_full_weight_ih[:, other.full_input_keys.index(k)]
         d += np.linalg.norm(s - o)
-        return d * config.compatibility_weight_coefficient
+        if self.activation != other.activation: d += 1.0
+        return (d / 4) * config.compatibility_weight_coefficient
     
     def update_weight_ih(self):
         """Update weight_ih to be conform with the current input_keys-set."""

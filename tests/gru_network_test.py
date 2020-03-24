@@ -9,15 +9,11 @@ from random import random
 
 import torch
 
-from config import GameConfig, NeatConfig
+from config import Config
 from population.population import query_net
-from population.utils.config.default_config import Config
 from population.utils.genome_util.genome import DefaultGenome
 from population.utils.network_util.activations import tanh_activation
 from population.utils.network_util.feed_forward_net import make_net
-from population.utils.population_util.reproduction import DefaultReproduction
-from population.utils.population_util.species import DefaultSpecies
-from population.utils.population_util.stagnation import DefaultStagnation
 from utils.dictionary import *
 
 # Precision
@@ -26,23 +22,17 @@ EPSILON = 1e-5
 
 def get_genome(outputs):
     """Create a simple feedforward neuron."""  # Get the configuration
-    cfg = NeatConfig()
-    cfg.num_outputs = outputs
-    cfg.initial_connection = D_FULL_NODIRECT  # input -> hidden -> output
-    cfg.gru_enabled = True  # Only simple hidden nodes allowed
-    cfg.gru_node_prob = 1.0  # Force that all hidden nodes will be GRUs
-    config = Config(
-            genome_type=DefaultGenome,
-            reproduction_type=DefaultReproduction,
-            species_type=DefaultSpecies,
-            stagnation_type=DefaultStagnation,
-            config=cfg,
-    )
+    cfg = Config()
+    cfg.genome.num_outputs = outputs
+    cfg.genome.initial_connection = D_FULL_NODIRECT  # input -> hidden -> output
+    cfg.genome.gru_enabled = True  # Only simple hidden nodes allowed
+    cfg.genome.gru_node_prob = 1.0  # Force that all hidden nodes will be GRUs
+    cfg.update()
     
     # Create the genome
-    g = DefaultGenome(key=0, num_outputs=cfg.num_outputs)
-    g.configure_new(config.genome_config)
-    return g, config
+    g = DefaultGenome(key=0, num_outputs=cfg.genome.num_outputs)
+    g.configure_new(cfg.genome)
+    return g, cfg
 
 
 class TestGruFeedForward(unittest.TestCase):
@@ -68,22 +58,21 @@ class TestGruFeedForward(unittest.TestCase):
         genome, config = get_genome(1)
         
         # Add the hidden GRU node
-        genome.nodes[1] = genome.create_gru_node(config.genome_config, node_id=1)
+        genome.nodes[1] = genome.create_gru_node(config.genome, node_id=1)
         
         # Manipulate the genome's biases and connection weights
         genome.nodes[0].bias = 0  # Output-bias
         genome.connections = dict()
         for i, o in [(-1, 1), (1, 0)]:
-            genome.create_connection(config=config.genome_config, input_key=i, output_key=o, weight=1.0)
-        genome.update_gru_nodes(config=config.genome_config)
+            genome.create_connection(config=config.genome, input_key=i, output_key=o, weight=1.0)
+        genome.update_gru_nodes(config=config.genome)
         genome.nodes[1].gru_bias_ih[:] = torch.tensor([1, 1, 1], dtype=torch.float64)
         genome.nodes[1].gru_bias_hh[:] = torch.tensor([1, 1, 1], dtype=torch.float64)
         genome.nodes[1].gru_full_weight_ih[:] = torch.tensor([[1], [1], [1]], dtype=torch.float64)
         genome.nodes[1].gru_weight_hh[:] = torch.tensor([[1], [1], [1]], dtype=torch.float64)
         if debug: print(genome)
         # Create a network
-        game_config = GameConfig()
-        net = make_net(genome=genome, config=config, game_config=game_config, bs=1)
+        net = make_net(genome=genome, genome_config=config.genome, game_config=config, bs=1)
         
         # Query the network; single input in range [-1, 1]
         inputs = [random() * 2 - 1 for _ in range(100)]

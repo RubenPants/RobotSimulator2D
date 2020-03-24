@@ -9,7 +9,7 @@ from random import random
 
 import numpy as np
 
-from config import GameConfig
+from config import Config
 from environment.entities.game import Game
 from utils.line2d import Line2d
 from utils.vec2d import Vec2d
@@ -104,7 +104,7 @@ class GameDrive(unittest.TestCase):
 
 
 def get_game():
-    cfg = GameConfig()
+    cfg = Config()
     return Game(game_id=0, config=cfg, silent=True, save_path="tests/games_db/", overwrite=True)
 
 

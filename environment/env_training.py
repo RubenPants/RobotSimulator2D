@@ -10,7 +10,7 @@ from random import sample
 from neat.six_util import iteritems, itervalues
 from tqdm import tqdm
 
-from config import GameConfig
+from config import Config
 from environment.env_multi import get_multi_env
 from population.population import Population
 from population.utils.population_util.fitness_functions import calc_pop_fitness
@@ -29,7 +29,7 @@ class TrainingEnv:
         "games", "batch_size",
     )
     
-    def __init__(self, game_config: GameConfig, unused_cpu: int = 0):
+    def __init__(self, game_config: Config, unused_cpu: int = 0):
         """ The evaluator is given a population which it then evaluates using the MultiEnvironment. """
         # Load in current configuration
         self.game_config = game_config
@@ -48,8 +48,8 @@ class TrainingEnv:
         :param games: List of integers
         """
         if not games:
-            self.games = [i + 1 for i in range(self.game_config.max_game_id)]
-            self.batch_size = min(len(self.games), self.game_config.batch)
+            self.games = [i + 1 for i in range(self.game_config.game.max_game_id)]
+            self.batch_size = min(len(self.games), self.game_config.game.batch)
         else:
             self.games = games
             self.batch_size = len(games)
@@ -73,75 +73,15 @@ class TrainingEnv:
             # Set random set of games
             self.sample_games(multi_env, pop.log)
             
-            # Prepare the generation's reporters for the generation
-            pop.reporters.start_generation(gen=pop.generation, logger=pop.log)
-            
-            # Initialize the evaluation-pool
-            pool = mp.Pool(mp.cpu_count() - self.unused_cpu)
-            manager = mp.Manager()
-            return_dict = manager.dict()
-            
-            # Fetch the dictionary of genomes
-            genomes = list(iteritems(pop.population))
-            
-            if parallel:
-                pbar = tqdm(total=len(genomes), desc="parallel training")
-                
-                def cb(*_):
-                    """Update progressbar after finishing a single genome's evaluation."""
-                    pbar.update()
-                
-                for genome in genomes:
-                    pool.apply_async(func=multi_env.eval_genome, args=(genome, return_dict), callback=cb)
-                pool.close()  # Close the pool
-                pool.join()  # Postpone continuation until everything is finished
-                pbar.close()  # Close the progressbar
-                
-                # Calculate the fitness from the given return_dict
-                fitness = calc_pop_fitness(
-                        fitness_config=pop.fitness_config,
-                        game_observations=return_dict,
-                        game_params=multi_env.get_game_params(),
-                        generation=pop.generation,
-                )
-                for i, genome in genomes: genome.fitness = fitness[i]
-            else:
-                for genome in tqdm(genomes, desc="sequential training"):
-                    multi_env.eval_genome(genome, return_dict)
-                fitness = calc_pop_fitness(
-                        fitness_config=pop.fitness_config,
-                        game_observations=return_dict,
-                        game_params=multi_env.get_game_params(),
-                        generation=pop.generation,
-                )
-                for i, genome in genomes: genome.fitness = fitness[i]
-            
-            # Gather and report statistics
-            best = None
-            for g in itervalues(pop.population):
-                if best is None or g.fitness > best.fitness: best = g
-            pop.reporters.post_evaluate(config=pop.config,
-                                        population=pop.population,
-                                        species=pop.species,
-                                        best_genome=best,
-                                        logger=pop.log)
-            
-            # Update the population's best_genome
-            genomes = sorted(pop.population.items(), key=lambda x: x[1].fitness, reverse=True)
-            pop.best_genome_hist[pop.generation] = genomes[:pop.config.reproduction_config.elitism]
-            if pop.best_genome is None or best.fitness > pop.best_genome.fitness: pop.best_genome = best
-            
-            # Let population evolve
-            pop.evolve()
-            
-            # End generation
-            pop.reporters.end_generation(config=pop.config,
-                                         population=pop.population,
-                                         species_set=pop.species,
-                                         logger=pop.log)
+            # Evaluate the population on the newly sampled games
+            single_evaluation(multi_env=multi_env,
+                              parallel=parallel,
+                              pop=pop,
+                              unused_cpu=self.unused_cpu,
+                              )
             
             # Save the population
-            if iteration % save_interval == 0: pop.save()
+            if (iteration + 1) % save_interval == 0: pop.save()
     
     def evaluate_same_games_and_evolve(self,
                                        games: list,
@@ -164,79 +104,16 @@ class TrainingEnv:
         pop.log(msg, print_result=False)
         multi_env.set_games(games)
         
-        # Manipulate each of the created games' initial starting orientation
-        
         # Iterate and evaluate over the games
         for iteration in range(n):
-            # Prepare the generation's reporters for the generation
-            pop.reporters.start_generation(gen=pop.generation, logger=pop.log)
-            
-            # Initialize the evaluation-pool
-            pool = mp.Pool(mp.cpu_count() - self.unused_cpu)
-            manager = mp.Manager()
-            return_dict = manager.dict()
-            
-            # Fetch the dictionary of genomes
-            genomes = list(iteritems(pop.population))
-            
-            if parallel:
-                pbar = tqdm(total=len(genomes), desc="parallel training")
-                
-                def cb(*_):
-                    """Update progressbar after finishing a single genome's evaluation."""
-                    pbar.update()
-                
-                for genome in genomes:
-                    pool.apply_async(func=multi_env.eval_genome, args=(genome, return_dict), callback=cb)
-                pool.close()  # Close the pool
-                pool.join()  # Postpone continuation until everything is finished
-                pbar.close()  # Close the progressbar
-                
-                # Calculate the fitness from the given return_dict
-                fitness = calc_pop_fitness(
-                        fitness_config=pop.fitness_config,
-                        game_observations=return_dict,
-                        game_params=multi_env.get_game_params(),
-                        generation=pop.generation,
-                )
-                for i, genome in genomes: genome.fitness = fitness[i]
-            else:
-                for genome in tqdm(genomes, desc="sequential training"):
-                    multi_env.eval_genome(genome, return_dict)
-                fitness = calc_pop_fitness(
-                        fitness_config=pop.fitness_config,
-                        game_observations=return_dict,
-                        game_params=multi_env.get_game_params(),
-                        generation=pop.generation,
-                )
-                for i, genome in genomes: genome.fitness = fitness[i]
-            
-            # Gather and report statistics
-            best = None
-            for g in itervalues(pop.population):
-                if best is None or g.fitness > best.fitness: best = g
-            pop.reporters.post_evaluate(config=pop.config,
-                                        population=pop.population,
-                                        species=pop.species,
-                                        best_genome=best,
-                                        logger=pop.log)
-            
-            # Update the population's best_genome
-            genomes = sorted(pop.population.items(), key=lambda x: x[1].fitness, reverse=True)
-            pop.best_genome_hist[pop.generation] = genomes[:pop.config.reproduction_config.elitism]
-            if pop.best_genome is None or best.fitness > pop.best_genome.fitness: pop.best_genome = best
-            
-            # Let population evolve
-            pop.evolve()
-            
-            # End generation
-            pop.reporters.end_generation(config=pop.config,
-                                         population=pop.population,
-                                         species_set=pop.species,
-                                         logger=pop.log)
+            single_evaluation(multi_env=multi_env,
+                              parallel=parallel,
+                              pop=pop,
+                              unused_cpu=self.unused_cpu,
+                              )
             
             # Save the population
-            if iteration % save_interval == 0: pop.save()
+            if (iteration + 1) % save_interval == 0: pop.save()
     
     def sample_games(self, multi_env, logger=None):
         """
@@ -250,3 +127,78 @@ class TrainingEnv:
         logger(msg, print_result=False) if logger else print(msg)
         multi_env.set_games(s)
         return s
+
+
+def single_evaluation(multi_env, parallel: bool, pop: Population, unused_cpu: int):
+    """
+    Perform a single evaluation-iteration.
+    
+    :param multi_env: Environment used to execute the game-simulation in
+    :param parallel: Boolean indicating if training happens in parallel or not
+    :param pop: Population used to evaluate on
+    :param unused_cpu: Number of CPU-cores not used during evaluation
+    """
+    # Prepare the generation's reporters for the generation
+    pop.reporters.start_generation(gen=pop.generation, logger=pop.log)
+    
+    # Initialize the evaluation-pool
+    pool = mp.Pool(mp.cpu_count() - unused_cpu)
+    manager = mp.Manager()
+    return_dict = manager.dict()
+    
+    # Fetch the dictionary of genomes
+    genomes = list(iteritems(pop.population))
+    
+    if parallel:
+        pbar = tqdm(total=len(genomes), desc="parallel training")
+        
+        def cb(*_):
+            """Update progressbar after finishing a single genome's evaluation."""
+            pbar.update()
+        
+        for genome in genomes:
+            pool.apply_async(func=multi_env.eval_genome, args=(genome, return_dict), callback=cb)
+        pool.close()  # Close the pool
+        pool.join()  # Postpone continuation until everything is finished
+        pbar.close()  # Close the progressbar
+        
+        # Calculate the fitness from the given return_dict
+        fitness = calc_pop_fitness(
+                fitness_config=pop.config.evaluation,
+                game_observations=return_dict,
+                game_params=multi_env.get_game_params(),
+                generation=pop.generation,
+        )
+        for i, genome in genomes: genome.fitness = fitness[i]
+    else:
+        for genome in tqdm(genomes, desc="sequential training"):
+            multi_env.eval_genome(genome, return_dict)
+        fitness = calc_pop_fitness(
+                fitness_config=pop.config.evaluation,
+                game_observations=return_dict,
+                game_params=multi_env.get_game_params(),
+                generation=pop.generation,
+        )
+        for i, genome in genomes: genome.fitness = fitness[i]
+    
+    # Gather and report statistics
+    best = None
+    for g in itervalues(pop.population):
+        if best is None or g.fitness > best.fitness: best = g
+    pop.reporters.post_evaluate(population=pop.population,
+                                species=pop.species,
+                                best_genome=best,
+                                logger=pop.log)
+    
+    # Update the population's best_genome
+    genomes = sorted(pop.population.items(), key=lambda x: x[1].fitness, reverse=True)
+    pop.best_genome_hist[pop.generation] = genomes[:pop.config.reproduction.elitism]
+    if pop.best_genome is None or best.fitness > pop.best_genome.fitness: pop.best_genome = best
+    
+    # Let population evolve
+    pop.evolve()
+    
+    # End generation
+    pop.reporters.end_generation(population=pop.population,
+                                 species_set=pop.species,
+                                 logger=pop.log)
