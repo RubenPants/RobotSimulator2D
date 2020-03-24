@@ -7,6 +7,7 @@ import argparse
 import traceback
 
 from config import NeatConfig
+from main import blueprint, evaluate, trace, train
 from population.population import Population
 from process_killer import main as process_killer
 from utils.dictionary import *
@@ -15,10 +16,10 @@ from utils.dictionary import *
 def main(fitness,
          gru,
          reproduce,
-         blueprint=False,
-         evaluate=False,
-         trace=False,
-         train=False,
+         run_blueprint=False,
+         run_evaluate=False,
+         run_trace=False,
+         run_train=False,
          train_iterations=0,
          version=0,
          ):
@@ -28,10 +29,10 @@ def main(fitness,
     :param fitness: Fitness function used to evaluate the population
     :param gru: Enable GRU-mutations in the population
     :param reproduce: Have sexual reproduction
-    :param blueprint: Create a blueprint evaluation for the population for the first 5 games
-    :param evaluate: Evaluate the best genome of the population
-    :param trace: Create a trace evaluation for the population for the first 5 games
-    :param train: Train the population
+    :param run_blueprint: Create a blueprint evaluation for the population for the first 5 games
+    :param run_evaluate: Evaluate the best genome of the population
+    :param run_trace: Create a trace evaluation for the population for the first 5 games
+    :param run_train: Train the population
     :param train_iterations: Number of training generations
     :param version: Version of the model
     """
@@ -55,58 +56,41 @@ def main(fitness,
           f"\n\t> gru_enabled: {cfg.gru_enabled}" \
           f"\n\t> sexual_reproduction: {cfg.sexual_reproduction}" \
           f"\n\t> Saving under folder: {folder}" \
-          f"\n\t> Train: {train} ({train_iterations} iterations)" \
-          f"\n\t> Create blueprints: {blueprint}" \
-          f"\n\t> Create traces: {trace}\n"
+          f"\n\t> Train: {run_train} ({train_iterations} iterations)" \
+          f"\n\t> Create blueprints: {run_blueprint}" \
+          f"\n\t> Create traces: {run_trace}\n"
     pop.log(msg)
     
+    # Set games used for evaluation
+    games = [g for g in range(1, 6)]
+    
+    # Execute the requested segments
     try:
-        if train:
-            pop.log("\n===> TRAINING <===\n")
-            from environment.env_training import TrainingEnv
-            
-            # Train for 100 generations
-            trainer = TrainingEnv(game_config=pop.game_config)
-            trainer.evaluate_and_evolve(
-                    pop,
-                    n=train_iterations,
-                    # parallel=False,
+        if run_train:
+            train(
+                    population=pop,
+                    unused_cpu=0,
+                    iterations=train_iterations,
+                    debug=False,
             )
         
-        if blueprint:
-            pop.log("\n===> CREATING BLUEPRINTS <===\n")
-            from environment.env_visualizing import VisualizingEnv
-            
-            # Create the blueprints for first 5 games
-            visualizer = VisualizingEnv(game_config=pop.game_config)
-            games = [g for g in range(1, 6)]
-            pop.log(f"Creating blueprints for games: {games}")
-            visualizer.set_games(games)
-            visualizer.blueprint_genomes(pop)
-        
-        if trace:
-            pop.log("\n===> CREATING TRACES <===\n")
-            from environment.env_visualizing import VisualizingEnv
-            
-            # Create the blueprints for first 5 games
-            visualizer = VisualizingEnv(game_config=pop.game_config)
-            games = [g for g in range(1, 6)]
-            pop.log(f"Creating traces for games: {games}")
-            visualizer.set_games(games)
-            visualizer.trace_genomes(pop)
-        
-        if evaluate:
-            pop.log("\n===> EVALUATING <===\n")
-            from environment.env_evaluation import EvaluationEnv
-            
-            evaluator = EvaluationEnv(game_config=pop.game_config)
-            genomes = sorted([g for g in pop.population.values()],
-                             key=lambda x: x.fitness if x.fitness else 0,
-                             reverse=True)
-            evaluator.evaluate_genome_list(
-                    genome_list=genomes[:10],  # Evaluate the five best performing genomes
-                    pop=pop,
+        if run_blueprint:
+            blueprint(
+                    population=pop,
+                    games=games,
             )
+        
+        if run_trace:
+            trace(
+                    population=pop,
+                    games=games,
+            )
+        
+        if run_evaluate:
+            evaluate(
+                    population=pop,
+            )
+    
     except Exception as e:
         pop.log(traceback.format_exc(), print_result=False)
         raise e
@@ -131,10 +115,10 @@ if __name__ == '__main__':
             fitness=args.fitness,
             gru=bool(args.gru_enabled),
             reproduce=bool(args.reproduce),
-            blueprint=bool(args.blueprint),
-            evaluate=bool(args.evaluate),
-            trace=bool(args.trace),
-            train=bool(args.train),
+            run_blueprint=bool(args.blueprint),
+            run_evaluate=bool(args.evaluate),
+            run_trace=bool(args.trace),
+            run_train=bool(args.train),
             train_iterations=args.iterations,
             version=args.version,
     )

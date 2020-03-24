@@ -103,13 +103,13 @@ class NeatConfig:
         # Don't consider fitness_criterion and fitness_threshold  [def=True]
         self.no_fitness_termination: bool = True
         # Number of individuals in each generation  [def=128]  TODO
-        self.pop_size: int = 256
+        self.pop_size: int = 128
         
         # [DefaultReproduction]
         # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=3]
         self.elitism: int = 3
         # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.3]  TODO
-        self.parent_selection: float = 0.1
+        self.parent_selection: float = 0.3
         # Minimum number of genomes per species, keeping low prevents number of individuals blowing up  [def=10]  TODO
         self.min_species_size: int = 10
         # Sexual reproduction  [def=True]
@@ -156,10 +156,10 @@ class NeatConfig:
         self.enabled_mutate_rate: float = 0.05
         # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT_05]  TODO
         self.initial_connection = D_FULL_NODIRECT
-        # Probability of adding a node during mutation (each generation)  [def=0.01]  TODO
-        self.node_add_prob: float = 0.01
-        # Probability of removing a node during mutation (each generation)  [def=0.01]  TODO
-        self.node_delete_prob: float = 0.01
+        # Probability of adding a node during mutation (each generation)  [def=0.05]  TODO
+        self.node_add_prob: float = 0.05
+        # Probability of removing a node during mutation (each generation)  [def=0.05]  TODO
+        self.node_delete_prob: float = 0.05
         # Number of hidden nodes to add to each genome in the initial population  [def=0]  TODO
         self.num_hidden: int = 1
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
@@ -173,23 +173,23 @@ class NeatConfig:
         # The minimum allowed weight value, weights below this value will be clipped to this value  [def=-2]
         self.weight_min_value: float = -2.0
         # The standard deviation of the zero-centered gaussian from which a weight value mutation is drawn [def=0.2]TODO
-        self.weight_mutate_power: float = 0.1
+        self.weight_mutate_power: float = 0.2
         # Probability of a weight (connection) to mutate  [def=0.2]  TODO
         self.weight_mutate_rate: float = 0.2
         # Probability of assigning completely new value, based on weight_init_mean and weight_init_stdev  [def=0.05]
         self.weight_replace_rate: float = 0.05
         
         # [DefaultSpecies]
-        # Individuals whose genetic distance is less than this threshold are in the same specie  [def=2.0]  TODO
-        self.compatibility_threshold: float = 1.0
+        # Individuals whose genetic distance is less than this threshold are in the same specie  [def=3.0]  TODO
+        self.compatibility_threshold: float = 3.0
         # Remove a specie if it hasn't improved over this many number of generations  [def=15]
         self.max_stagnation: int = 15
         # Number of the best species that will be protected from stagnation  [def=2]  TODO
-        self.species_elitism: int = 1
+        self.species_elitism: int = 2
         # The function used to compute the species fitness  [def=D_MAX]
         self.species_fitness_func: str = D_MAX
         # Maximum number of species that can live along each other  [def=10]
-        self.species_max: int = 15
+        self.species_max: int = 10
         # Number of generations before a previous elite specie can become stagnant  [def=5]
         self.specie_stagnation: int = 5
         
@@ -214,14 +214,14 @@ class NeatConfig:
         self.gru_max_value: float = 2.0
         # The minimum allowed GRU value, values below this will be clipped  [def=-2]
         self.gru_min_value: float = -2.0
-        # The standard deviation of the zero-centered gaussian from which a GRU value mutation is drawn  [def=0.1]
-        self.gru_mutate_power: float = 0.1
+        # The standard deviation of the zero-centered gaussian from which a GRU value mutation is drawn  [def=0.05]
+        self.gru_mutate_power: float = 0.05
         # Probability of a GRU value to mutate  [def=0.2]  TODO
         self.gru_mutate_rate: float = 0.2
         # Probability of mutating a GRU node rather than a simple node  [def=0.6]  TODO
         self.gru_node_prob: float = 0.6
-        # Probability of assigning completely new value, based on gru_init_mean and gru_init_stdev  [def=0.05]
-        self.gru_replace_rate: float = 0.01
+        # Probability of assigning (single) random value in GRU, based on gru_init_mean and gru_init_stdev  [def=0.05]
+        self.gru_replace_rate: float = 0.05
         
         # [SelfAdaptive]  TODO
     

@@ -5,6 +5,7 @@
 ## TODO
 
 * Fault in distance-measure for GRU (check for rest)
+* Improve performance by having the choice not to evaluate parents (distance-only, fixed task)
 * Crossover (GRU) tinkers with other genomes! --> Test if this isn't also the case for mutation @full_weight_ih
 * Test on the mutation operators!
 * A2C fine-tuning of the weights?

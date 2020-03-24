@@ -10,6 +10,62 @@ from population.population import Population
 from process_killer import main as process_killer
 
 
+def blueprint(population: Population, games: list):
+    """Create a blueprint evaluation for the given population on the first 5 games."""
+    from environment.env_visualizing import VisualizingEnv
+    population.log("\n===> CREATING BLUEPRINTS <===\n")
+    visualizer = VisualizingEnv(game_config=population.game_config)
+    population.log(f"Creating blueprints for games: {games}")
+    visualizer.set_games(games)
+    visualizer.blueprint_genomes(pop=population)
+
+
+def evaluate(population: Population):
+    """Evaluate the given population on the evaluation game-set."""
+    from environment.env_evaluation import EvaluationEnv
+    population.log("\n===> EVALUATING <===\n")
+    evaluator = EvaluationEnv(game_config=population.game_config)
+    genomes = sorted([g for g in population.population.values()],
+                     key=lambda x: x.fitness if x.fitness else 0,
+                     reverse=True)
+    evaluator.evaluate_genome_list(
+            genome_list=genomes[:10],  # Evaluate the ten best performing genomes
+            pop=population,
+    )
+
+
+def live(game_id: int,
+         population: Population,
+         genome,
+         debug: bool = False,
+         ):
+    """Create a live visualization for the performance of the given genome."""
+    from environment.env_visualizing_live import LiveVisualizer
+    
+    print("\n===> STARTING LIVE DEMO <===\n")
+    print(f"Genome {genome.key} with size: {genome.size()}")
+    visualizer = LiveVisualizer(
+            pop=population,
+            debug=debug,
+            # speedup=1,
+    )
+    
+    visualizer.visualize(
+            genome=genome,
+            game_id=game_id,
+    )
+
+
+def trace(population: Population, games: list):
+    """Create a trace evaluation for the given population on the provided games."""
+    from environment.env_visualizing import VisualizingEnv
+    population.log("\n===> CREATING TRACES <===\n")
+    visualizer = VisualizingEnv(game_config=population.game_config)
+    population.log(f"Creating traces for games: {games}")
+    visualizer.set_games(games)
+    visualizer.trace_genomes(pop=population)
+
+
 def train(population: Population, unused_cpu, iterations, debug: bool = False):
     """Train the population on the requested number of iterations."""
     from environment.env_training import TrainingEnv
@@ -41,26 +97,6 @@ def train_same_games(games: list, population: Population, unused_cpu, iterations
     )
 
 
-def blueprint(population: Population, games: list):
-    """Create a blueprint evaluation for the given population on the first 5 games."""
-    from environment.env_visualizing import VisualizingEnv
-    population.log("\n===> CREATING BLUEPRINTS <===\n")
-    visualizer = VisualizingEnv(game_config=population.game_config)
-    population.log(f"Creating blueprints for games: {games}")
-    visualizer.set_games(games)
-    visualizer.blueprint_genomes(pop=population)
-
-
-def trace(population: Population, games: list):
-    """Create a trace evaluation for the given population on the provided games."""
-    from environment.env_visualizing import VisualizingEnv
-    population.log("\n===> CREATING TRACES <===\n")
-    visualizer = VisualizingEnv(game_config=population.game_config)
-    population.log(f"Creating traces for games: {games}")
-    visualizer.set_games(games)
-    visualizer.trace_genomes(pop=population)
-
-
 def trace_most_fit(population: Population, genome, games: list):
     """Create a trace evaluation for the given genome on the provided games."""
     from environment.env_visualizing import VisualizingEnv
@@ -71,20 +107,6 @@ def trace_most_fit(population: Population, genome, games: list):
     visualizer.trace_genomes(pop=population, given_genome=genome)
 
 
-def evaluate(population: Population):
-    """Evaluate the given population on the evaluation game-set."""
-    from environment.env_evaluation import EvaluationEnv
-    population.log("\n===> EVALUATING <===\n")
-    evaluator = EvaluationEnv(game_config=population.game_config)
-    genomes = sorted([g for g in population.population.values()],
-                     key=lambda x: x.fitness if x.fitness else 0,
-                     reverse=True)
-    evaluator.evaluate_genome_list(
-            genome_list=genomes[:10],  # Evaluate the five best performing genomes
-            pop=population,
-    )
-
-
 def visualize_genome(population: Population, genome, debug: bool = True):
     """Visualize the requested genome."""
     print("\n===> VISUALIZING GENOME <===\n")
@@ -92,28 +114,6 @@ def visualize_genome(population: Population, genome, debug: bool = True):
     population.visualize_genome(
             debug=debug,
             genome=genome,
-    )
-
-
-def live(game_id: int,
-         population: Population,
-         genome,
-         debug: bool = False,
-         ):
-    """Create a live visualization for the performance of the given genome."""
-    from environment.env_visualizing_live import LiveVisualizer
-    
-    print("\n===> STARTING LIVE DEMO <===\n")
-    print(f"Genome {genome.key} with size: {genome.size()}")
-    visualizer = LiveVisualizer(
-            pop=population,
-            debug=debug,
-            # speedup=1,
-    )
-    
-    visualizer.visualize(
-            genome=genome,
-            game_id=game_id,
     )
 
 
