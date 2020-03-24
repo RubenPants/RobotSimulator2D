@@ -7,14 +7,13 @@ Handles genomes (individuals in the population). A single genome has two types o
 """
 from __future__ import division, print_function
 
-import sys
 from random import choice, random, shuffle
 
 from neat.six_util import iteritems, iterkeys
 
 from environment.entities.robots import get_snapshot
 from population.utils.config.genome_config import DefaultGenomeConfig
-from population.utils.genome_util.genes import DefaultConnectionGene, DefaultNodeGene, GruNodeGene, OutputNodeGene
+from population.utils.genome_util.genes import DefaultConnectionGene, SimpleNodeGene, GruNodeGene, OutputNodeGene
 from population.utils.network_util.graphs import creates_cycle, required_for_output
 
 
@@ -40,7 +39,7 @@ class DefaultGenome(object):
     
     @classmethod
     def parse_config(cls, param_dict):
-        param_dict['node_gene_type'] = DefaultNodeGene
+        param_dict['node_gene_type'] = SimpleNodeGene
         param_dict['gru_node_gene_type'] = GruNodeGene
         param_dict['output_node_gene_type'] = OutputNodeGene
         param_dict['connection_gene_type'] = DefaultConnectionGene
@@ -138,14 +137,15 @@ class DefaultGenome(object):
         if random() < config.conn_add_prob: self.mutate_add_connection(config)
         if random() < config.conn_delete_prob: self.mutate_delete_connection()
         
-        # Mutate connection genes.
+        # Mutate connection genes
         for cg in self.connections.values():
             mut_enabled = cg.mutate(config)
             if mut_enabled is not None:
                 self.enable_connection(config=config, conn=cg) if mut_enabled else self.disable_connection(conn=cg)
         
-        # Mutate node genes (bias etc.).
-        for ng in self.nodes.values(): ng.mutate(config)
+        # Mutate node genes (bias etc.)
+        for ng in self.nodes.values():
+            ng.mutate(config)
     
     def mutate_add_node(self, config: DefaultGenomeConfig):
         """Add (or enable) a node as part of a mutation."""
@@ -233,7 +233,8 @@ class DefaultGenome(object):
             return
         
         # Avoid creating cycles.
-        if creates_cycle(list(iterkeys(self.connections)), key): return
+        if creates_cycle(list(iterkeys(self.connections)), key):
+            return
         
         # Create the new connection
         self.create_connection(config, in_node, out_node)

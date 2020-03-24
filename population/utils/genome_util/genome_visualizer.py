@@ -8,7 +8,7 @@ import numpy as np
 
 from graphviz import Digraph
 
-from population.utils.genome_util.genes import DefaultNodeGene, GruNodeGene
+from population.utils.genome_util.genes import SimpleNodeGene, GruNodeGene
 from population.utils.genome_util.genome import DefaultGenome
 from population.utils.network_util.graphs import required_for_output
 
@@ -93,7 +93,7 @@ def draw_net(config, genome: DefaultGenome, debug=False, filename=None, view=Tru
                 name += f'\nweight_ih={np.asarray(genome.nodes[key].gru_weight_ih.tolist()).round(3).tolist()}'
                 name += f'\nweight_hh={np.asarray(genome.nodes[key].gru_weight_hh.tolist()).round(3).tolist()}'
                 fillcolor = '#f5c484'  # Fancy orange
-            elif type(genome.nodes[key]) == DefaultNodeGene:
+            elif type(genome.nodes[key]) == SimpleNodeGene:
                 name = f'simple node={key}'
                 name += f'\nactivation={genome.nodes[key].activation}'
                 name += f'\nbias={round(genome.nodes[key].bias, 2)}'

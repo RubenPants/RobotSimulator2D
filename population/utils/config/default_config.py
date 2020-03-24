@@ -166,24 +166,24 @@ class Config(object):
         # Load in the parameters
         param_list_names = []
         for p in self.__params:
-            setattr(self, p.name, self.config.__dict__[p.name])
+            setattr(self, p.name, getattr(self.config, p.name))
             param_list_names.append(p.name)
         
         # Parse type sections:
         #  - Filter out the wanted parameters from the configs
         #  - Create a dictionary mapping the wanted parameters to their values (str format)
         #  - Initialize the needed entities
-        genome_params = self.config.__annotations__[genome_type.__name__]
-        genome_config = {k: str(v) for k, v in self.config.__dict__.items() if k in genome_params}
+        genome_params = self.config.DefaultGenome
+        genome_config = {param: str(getattr(self.config, param)) for param in genome_params}
         self.genome_config: DefaultGenomeConfig = genome_type.parse_config(genome_config)
         
-        specie_params = self.config.__annotations__[species_type.__name__]
-        species_config = {k: str(v) for k, v in self.config.__dict__.items() if k in specie_params}
+        specie_params = self.config.DefaultSpecies
+        species_config = {param: str(getattr(self.config, param)) for param in specie_params}
         self.species_config: DefaultClassConfig = species_type.parse_config(species_config)
         self.stagnation_config: DefaultClassConfig = stagnation_type.parse_config(species_config)  # TODO: Merge?
         
-        reproduction_params = self.config.__annotations__[reproduction_type.__name__]
-        reproduction_config = {k: str(v) for k, v in self.config.__dict__.items() if k in reproduction_params}
+        reproduction_params = self.config.DefaultReproduction
+        reproduction_config = {param: str(getattr(self.config, param)) for param in reproduction_params}
         self.reproduction_config: DefaultClassConfig = reproduction_type.parse_config(reproduction_config)
     
     def __str__(self):

@@ -1,6 +1,9 @@
 """
 attributes.py
 
+TODO: Delete this file!
+ It's ridiculous to create new objects each mutation! Make separate methods for it. (new attribute-specific folder)
+
 Deals with the attributes (variable parameters) of genes.
 """
 from random import choice, gauss, random, uniform
