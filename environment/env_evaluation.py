@@ -8,7 +8,7 @@ import multiprocessing as mp
 from neat.six_util import iteritems
 from tqdm import tqdm
 
-from config import GameConfig
+from config import Config
 from environment.entities.game import get_game
 from environment.env_training import get_multi_env
 from population.utils.visualizing.population_visualizer import create_blueprints
@@ -24,7 +24,7 @@ class EvaluationEnv:
         "games", "batch_size",
     )
     
-    def __init__(self, game_config: GameConfig):
+    def __init__(self, game_config: Config):
         """ The evaluator is given a set of genomes which it then evaluates using the MultiEnvironment. """
         # Load in current configuration
         self.game_config = game_config
@@ -41,7 +41,8 @@ class EvaluationEnv:
         :param games: List of integers
         """
         if not games:
-            self.games = [i + 1 for i in range(self.game_config.max_game_id, self.game_config.max_eval_game_id)]
+            self.games = [i + 1 for i in range(self.game_config.game.max_game_id,
+                                               self.game_config.game.max_eval_game_id)]
             self.batch_size = len(self.games)
         else:
             self.games = games
@@ -133,7 +134,7 @@ class EvaluationEnv:
 
 
 def create_answer(games: list):
-    cfg = GameConfig()
+    cfg = Config()
     answer = dict()
     answer['Percentage finished'] = round(100 * len([g for g in games if g[D_DONE]]) / len(games), 2)
     
@@ -141,7 +142,7 @@ def create_answer(games: list):
     answer['Average distance to target'] = round(sum([g[D_DIST_TO_TARGET] for g in games]) / len(games), 2)
     answer['Max distance to target'] = round(max([g[D_DIST_TO_TARGET] for g in games]), 2)
     
-    answer['Min time taken'] = round(min([g[D_STEPS] / cfg.fps for g in games]), 2)
-    answer['Average time taken'] = round(sum([g[D_STEPS] / cfg.fps for g in games]) / len(games), 2)
-    answer['Max time taken'] = round(max([g[D_STEPS] / cfg.fps for g in games]), 2)
+    answer['Min time taken'] = round(min([g[D_STEPS] / cfg.game.fps for g in games]), 2)
+    answer['Average time taken'] = round(sum([g[D_STEPS] / cfg.game.fps for g in games]) / len(games), 2)
+    answer['Max time taken'] = round(max([g[D_STEPS] / cfg.game.fps for g in games]), 2)
     return answer

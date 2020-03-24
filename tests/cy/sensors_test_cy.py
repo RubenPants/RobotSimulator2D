@@ -8,7 +8,7 @@ import unittest
 
 import numpy as np
 
-from config import GameConfig
+from config import Config
 from environment.entities.cy.game_cy import GameCy
 from environment.entities.cy.sensors_cy import ProximitySensorCy
 from utils.cy.line2d_cy import Line2dCy
@@ -193,6 +193,7 @@ class DeltaDistanceSensorTestCy(unittest.TestCase):
         # Update the sensors used to only include the delta-distance sensor
         game.player.sensors = dict()
         game.player.add_delta_distance_sensor()
+        game.player.add_distance_sensor()  # Last sensor must always be the distance sensor
         game.player.active_sensors = set(game.player.sensors.keys())
         
         # Drive forward for 10 simulated seconds
@@ -322,6 +323,7 @@ class ProximitySensorTestCy(unittest.TestCase):
         # Update sensors
         game.player.sensors = dict()
         game.player.add_proximity_sensor(0)  # 0°
+        game.player.add_distance_sensor()  # Last sensor must always be the distance sensor
         game.player.active_sensors = set(game.player.sensors.keys())
         
         for _ in range(100): game.step(l=1, r=1)
@@ -333,8 +335,8 @@ class ProximitySensorTestCy(unittest.TestCase):
 
 
 def get_game():
-    cfg = GameConfig()
-    cfg.sensor_ray_distance = RAY_DISTANCE
+    cfg = Config()
+    cfg.bot.ray_distance = RAY_DISTANCE
     return GameCy(game_id=0, config=cfg, silent=True, save_path="tests/games_db/", overwrite=True, noise=False)
 
 

@@ -13,7 +13,7 @@ cdef class MultiEnvironmentCy:
     cdef public make_net
     cdef public query_net
     cdef public game_config
-    cdef public neat_config
+    cdef public pop_config
     
     cpdef void eval_genome(self, genome, return_dict=?)
     

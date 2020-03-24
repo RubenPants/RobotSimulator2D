@@ -4,8 +4,7 @@
 
 ## TODO
 
-* Research: When are two nodes different? (e.g. random init with 1 hidden node, a lot of new nodes introduced!)
-* Fault in distance-measure for GRU (check for rest)
+* Research: How properly identify disjoint nodes (see NEAT paper!) --> disjoint determined based on connections?
 * Improve performance by having the choice not to evaluate parents (distance-only, fixed task)
 * Crossover (GRU) tinkers with other genomes! --> Test if this isn't also the case for mutation @full_weight_ih
 * Test on the mutation operators!

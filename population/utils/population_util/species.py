@@ -8,8 +8,8 @@ from itertools import count
 from neat.math_util import mean, stdev
 from neat.six_util import iteritems, iterkeys, itervalues
 
-from population.utils.config.default_config import ConfigParameter, DefaultClassConfig
-from utils.dictionary import D_MAX
+from config import Config
+from configs.genome_config import GenomeConfig
 
 
 class Species(object):
@@ -36,7 +36,7 @@ class Species(object):
 class GenomeDistanceCache(object):
     """Makes sure that redundant distance-computations will not occur. (e.g. d(1,2)==d(2,1))."""
     
-    def __init__(self, config):
+    def __init__(self, config: GenomeConfig):
         self.distances = dict()
         self.config = config
     
@@ -52,28 +52,17 @@ class GenomeDistanceCache(object):
         return d
 
 
-class DefaultSpecies(DefaultClassConfig):
+class DefaultSpecies:
     """ Encapsulates the default speciation scheme. """
     
-    def __init__(self, config, reporters):
+    def __init__(self, reporters):
         # pylint: disable=super-init-not-called
-        self.species_config = config
         self.reporters = reporters
         self.indexer = count(1)
         self.species = dict()
         self.genome_to_species = dict()
     
-    @classmethod
-    def parse_config(cls, param_dict):
-        return DefaultClassConfig(param_dict, [ConfigParameter('compatibility_threshold', float, 2.0),
-                                               ConfigParameter('max_stagnation', int, 15),
-                                               ConfigParameter('species_elitism', int, 2),
-                                               ConfigParameter('species_fitness_func', str, D_MAX),
-                                               ConfigParameter('species_max', int, 15),
-                                               ConfigParameter('specie_stagnation', int, 5),
-                                               ])
-    
-    def speciate(self, config, population, generation, logger=None):
+    def speciate(self, config: Config, population, generation, logger=None):
         """
         Place genomes into species by genetic similarity.
 
@@ -95,7 +84,7 @@ class DefaultSpecies(DefaultClassConfig):
                 unspeciated.remove(genome_id)
         
         # Find the best representatives for each existing species based on its remaining genomes (parents)
-        distances = GenomeDistanceCache(config.genome_config)  # Keeps current distances between genomes
+        distances = GenomeDistanceCache(config.genome)  # Keeps current distances between genomes
         new_representatives = dict()  # Updated representatives for each specie (least difference with previous)
         for specie_id, specie in iteritems(self.species):
             assert len(members[specie_id]) > 0  # Each specie must have its parents
@@ -135,8 +124,8 @@ class DefaultSpecies(DefaultClassConfig):
             smallest_distance, closest_specie_id = min(specie_distance, key=lambda x: x[0])
             
             # Check if distance falls within threshold and maximum number of species is not exceeded
-            if (smallest_distance < self.species_config.compatibility_threshold) or \
-                    (len(new_representatives) >= self.species_config.species_max):
+            if (smallest_distance < config.species.compatibility_threshold) or \
+                    (len(new_representatives) >= config.species.max_number):
                 members[closest_specie_id].add(genome_id)  # Add genome to closest specie
             else:  # Create new specie with genome exceeding threshold as representative
                 specie_id = next(self.indexer)

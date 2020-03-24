@@ -7,13 +7,13 @@ import os
 
 from tqdm import tqdm
 
-from config import GameConfig
+from config import Config
 from environment.entities.game import Game
 
 if __name__ == '__main__':
     os.chdir("../..")
-    config = GameConfig()
-    for g_id in tqdm(range(1, config.max_eval_game_id + 1)):
+    config = Config()
+    for g_id in tqdm(range(1, config.game.max_eval_game_id + 1)):
         try:
             game = Game(
                     game_id=g_id,

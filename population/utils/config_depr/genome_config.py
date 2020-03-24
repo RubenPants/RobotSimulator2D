@@ -24,8 +24,7 @@ class DefaultGenomeConfig(object):
     
     def __init__(self, params):
         # Placeholders
-        self.num_inputs: int = get_number_of_sensors()
-        self.num_hidden: int = None
+        self.num_inputs: int = get_number_of_sensors()  # TODO: implement this one
         self.num_outputs: int = None
         self.compatibility_disjoint_coefficient: float = None
         self.compatibility_weight_coefficient: float = None
@@ -36,14 +35,13 @@ class DefaultGenomeConfig(object):
         self.gru_enabled: bool = None
         self.gru_node_prob: float = None
         
-        # Create full set of available activation functions.
+        # Create full set of available activation functions.  # TODO: Needed!
         self.activation_defs = ActivationFunctionSet()
         # ditto for aggregation functions - name difference for backward compatibility
         self.aggregation_function_defs = AggregationFunctionSet()
         self.aggregation_defs = self.aggregation_function_defs
         
-        self._params = [
-            ConfigParameter('num_hidden', int),
+        self._params = [  # TODO: Literally stolen from main config file
             ConfigParameter('num_outputs', int),
             ConfigParameter('compatibility_disjoint_coefficient', float),
             ConfigParameter('compatibility_weight_coefficient', float),
@@ -65,7 +63,7 @@ class DefaultGenomeConfig(object):
             ConfigParameter('gru_replace_rate', float),
         ]
         
-        # Gather configuration data from the gene classes.
+        # Gather configuration data from the gene classes.  # TODO: Remove since fixed
         self.node_gene_type = params['node_gene_type']
         self._params += self.node_gene_type.get_config_params()
         self.output_node_gene_type = params['output_node_gene_type']
@@ -124,18 +122,6 @@ class DefaultGenomeConfig(object):
     
     def add_aggregation(self, name, func):
         self.aggregation_function_defs.add(name, func)
-    
-    def save(self, f):
-        if 'partial' in self.initial_connection:
-            if not (0 <= self.connection_fraction <= 1):
-                raise RuntimeError("'partial' connection value must be between 0.0 and 1.0, inclusive.")
-            f.write(f'initial_connection      = {self.initial_connection} {self.connection_fraction}\n')
-        else:
-            f.write(f'initial_connection      = {self.initial_connection}\n')
-        
-        assert self.initial_connection in self.allowed_connectivity
-        
-        write_pretty_params(f, self, [p for p in self._params if 'initial_connection' not in p.name])
     
     def get_new_node_key(self, node_dict):
         if self.node_indexer is None: self.node_indexer = count(max(list(iterkeys(node_dict))) + 1)

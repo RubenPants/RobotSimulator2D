@@ -1,9 +1,12 @@
 """
 attributes.py
 
+TODO: Delete this file!
+ It's ridiculous to create new objects each mutation! Make separate methods for it. (new attribute-specific folder)
+
 Deals with the attributes (variable parameters) of genes.
 """
-from random import choice, gauss, random, uniform
+from random import choice, gauss, random
 
 import numpy as np
 import torch
@@ -58,15 +61,7 @@ class FloatAttribute(BaseAttribute):
     def init_value(self, config):
         mean = getattr(config, self.init_mean_name)
         stdev = getattr(config, self.init_stdev_name)
-        init_type = getattr(config, self.init_type_name).lower()
-        
-        if ('gauss' in init_type) or ('normal' in init_type): return self.clamp(gauss(mean, stdev), config)
-        if 'uniform' in init_type:
-            min_value = max(getattr(config, self.min_value_name), (mean - (2 * stdev)))
-            max_value = min(getattr(config, self.max_value_name), (mean + (2 * stdev)))
-            return uniform(min_value, max_value)
-        
-        raise RuntimeError(f"Unknown init_type {getattr(config, self.init_type_name)!r} for {self.init_type_name!s}")
+        return self.clamp(gauss(mean, stdev), config)
     
     def mutate_value(self, value, config):
         # mutate_rate is usually no lower than replace_rate, and frequently higher - so put first for efficiency
@@ -90,15 +85,11 @@ class BoolAttribute(BaseAttribute):
     """Class for boolean attributes such as whether a connection is enabled or not."""
     
     _config_items = {"default":           [str, None],
-                     "mutate_rate":       [float, None],
-                     "rate_to_true_add":  [float, 0.0],
-                     "rate_to_false_add": [float, 0.0]}
+                     "mutate_rate":       [float, None],}
     
     def __init__(self, name, **default_dict):
         self.default_name = None  # Placeholder
         self.mutate_rate_name = None  # Placeholder
-        self.rate_to_false_add_name = None  # Placeholder
-        self.rate_to_true_add_name = None  # Placeholder
         super().__init__(name, **default_dict)
     
     def init_value(self, config):
@@ -115,11 +106,6 @@ class BoolAttribute(BaseAttribute):
     
     def mutate_value(self, value, config):
         mutate_rate = getattr(config, self.mutate_rate_name)
-        
-        if value:
-            mutate_rate += getattr(config, self.rate_to_false_add_name)
-        else:
-            mutate_rate += getattr(config, self.rate_to_true_add_name)
         
         if mutate_rate > 0:
             r = random()

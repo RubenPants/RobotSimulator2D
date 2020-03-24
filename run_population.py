@@ -6,7 +6,7 @@ Run a sequence of populations for each a different configuration.
 import argparse
 import traceback
 
-from config import NeatConfig
+from config import Config
 from main import blueprint, evaluate, trace, train
 from population.population import Population
 from process_killer import main as process_killer
@@ -38,23 +38,23 @@ def main(fitness,
     """
     # Let inputs apply to configuration
     folder = D_NEAT_GRU if gru else D_NEAT
-    cfg = NeatConfig()
-    cfg.fitness = fitness
-    cfg.gru_enabled = gru
-    cfg.sexual_reproduction = reproduce
+    cfg = Config()
+    cfg.evaluation.fitness = fitness
+    cfg.genome.gru_enabled = gru
+    cfg.reproduction.sexual = reproduce
     
     # Create the population
     pop = Population(
             version=version,
-            neat_config=cfg,
+            config=cfg,
             folder_name=folder,
     )
     
     # Give overview of population
     msg = f"\n===> RUNNING FOR THE FOLLOWING CONFIGURATION: <===" \
-          f"\n\t> fitness: {cfg.fitness}" \
-          f"\n\t> gru_enabled: {cfg.gru_enabled}" \
-          f"\n\t> sexual_reproduction: {cfg.sexual_reproduction}" \
+          f"\n\t> fitness: {cfg.evaluation.fitness}" \
+          f"\n\t> gru_enabled: {cfg.genome.gru_enabled}" \
+          f"\n\t> sexual_reproduction: {cfg.reproduction.sexual}" \
           f"\n\t> Saving under folder: {folder}" \
           f"\n\t> Train: {run_train} ({train_iterations} iterations)" \
           f"\n\t> Create blueprints: {run_blueprint}" \
@@ -69,6 +69,7 @@ def main(fitness,
         if run_train:
             train(
                     population=pop,
+                    game_config=cfg,
                     unused_cpu=0,
                     iterations=train_iterations,
                     debug=False,
@@ -77,18 +78,21 @@ def main(fitness,
         if run_blueprint:
             blueprint(
                     population=pop,
+                    game_config=cfg,
                     games=games,
             )
         
         if run_trace:
             trace(
                     population=pop,
+                    game_config=cfg,
                     games=games,
             )
         
         if run_evaluate:
             evaluate(
                     population=pop,
+                    game_config=cfg,
             )
     
     except Exception as e:
