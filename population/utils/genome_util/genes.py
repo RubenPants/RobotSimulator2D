@@ -13,7 +13,7 @@ from torch.nn import GRUCell
 
 from population.utils.genome_util.attributes import BoolAttribute, FloatAttribute, GruBiasAttribute, \
     GruWeightAttribute, StringAttribute
-from utils.dictionary import D_TANH
+from utils.dictionary import D_GELU, D_TANH
 
 
 class BaseGene(object):
@@ -141,9 +141,6 @@ class OutputNodeGene(BaseGene):
     def mutate(self, config):
         """ Perform the mutation operation. Prevent mutation to happen on the output's activation. """
         self.bias = FloatAttribute('bias').mutate_value(self.bias, config=config)
-        # for a in self._attributes:
-        #     v = getattr(self, a.name)
-        #     if a.name != D_ACTIVATION: setattr(self, a.name, a.mutate_value(v, config))
     
     def distance(self, other, config):
         """Only possible difference in output-nodes' distance is their bias."""
@@ -167,7 +164,8 @@ class GruNodeGene(BaseGene):
         self.gru_weight_hh = None
         self.gru_bias_ih = None
         self.gru_bias_hh = None
-        self.bias = 0  # No external bias applied
+        self.activation = D_GELU  # TODO: Make configurable
+        self.bias = 0  # Needed for feed-forward-network
         assert isinstance(key, int), f"OutputNodeGene key must be an int, not {key!r}"
         BaseGene.__init__(self, key)
     

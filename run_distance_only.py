@@ -7,7 +7,7 @@ on the train_same_games task, after which the traces of the best genome on each 
 import argparse
 import traceback
 
-from config import NeatConfig
+from config import NeatConfig, GameConfig
 from main import trace_most_fit, train_same_games
 from population.population import Population
 from process_killer import main as process_killer
@@ -29,26 +29,28 @@ def main(gru,
     """
     # Set the fixed configs
     folder = D_DISTANCE_ONLY
-    cfg = NeatConfig()
-    cfg.fitness = D_DISTANCE  # Always use the distance-fitness
-    cfg.duration = 40  # Only 40 seconds needed to reach the target
-    cfg.max_stagnation = 25  # Greater since improvement comes slow
+    neat_config = NeatConfig()
+    neat_config.fitness = D_DISTANCE  # Always use the distance-fitness
+    neat_config.max_stagnation = 25  # Greater since improvement comes slow
+    game_config = GameConfig()
+    game_config.duration = 50  # Limited time to find target, but just enough for fastest genomes
     
     # Let inputs apply to configuration
-    cfg.gru_enabled = gru
-    cfg.sexual_reproduction = reproduce
+    neat_config.gru_enabled = gru
+    neat_config.sexual_reproduction = reproduce
     
     # Create the population
     pop = Population(
             version=version,
-            neat_config=cfg,
+            game_config=game_config,
+            neat_config=neat_config,
             folder_name=folder,
     )
     
     # Give overview of population
     msg = f"\n===> RUNNING DISTANCE-ONLY FOR THE FOLLOWING CONFIGURATION: <===" \
-          f"\n\t> gru_enabled: {cfg.gru_enabled}" \
-          f"\n\t> sexual_reproduction: {cfg.sexual_reproduction}" \
+          f"\n\t> gru_enabled: {neat_config.gru_enabled}" \
+          f"\n\t> sexual_reproduction: {neat_config.sexual_reproduction}" \
           f"\n\t> Train for {train_iterations} iterations\n"
     pop.log(msg)
     
