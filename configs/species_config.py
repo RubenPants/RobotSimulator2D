@@ -24,6 +24,6 @@ class SpeciesConfig(BaseConfig):
         # The function used to compute the species fitness  [def=D_MAX]
         self.fitness_func: str = D_MAX
         # Maximum number of species that can live along each other  [def=10]
-        self.max_number: int = 10
+        self.max_number: int = 128
         # Remove a specie if it hasn't improved over this many number of generations  [def=15]
         self.stagnation: int = 15
