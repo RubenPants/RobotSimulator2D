@@ -246,7 +246,7 @@ class Game:
         return ax
 
 
-def get_boundary_walls(x_axis, y_axis):
+def get_boundary_walls(x_axis: int, y_axis: int):
     """Get a set of the boundary walls."""
     a = Vec2d(0, 0)
     b = Vec2d(x_axis, 0)

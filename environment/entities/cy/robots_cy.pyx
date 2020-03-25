@@ -57,9 +57,6 @@ cdef class MarXBotCy:
         self.create_delta_distance_sensor(cfg=game.bot_config)
         self.add_distance_sensor()
         
-        # Number of distance-sensors must always be equal to 1
-        assert self.n_distance == 1
-        
         # Set all the sensors as active initially
         self.active_sensors = set(self.sensors.keys())
     
@@ -99,7 +96,7 @@ cdef class MarXBotCy:
     cpdef float get_sensor_readings_distance(self):
         """Value of current distance-reading."""
         cdef DistanceSensorCy sensor
-        sensor = self.sensors[len(self.sensors) - 1]
+        sensor = self.sensors[len(self.sensors) - 1]  # Distance is always the last sensor
         return sensor.value * sensor.normalizer
     
     cpdef void reset(self):
