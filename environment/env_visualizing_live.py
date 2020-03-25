@@ -68,8 +68,8 @@ class LiveVisualizer:
         game.player.set_active_sensors(set(genome.connections.keys()))
         
         # Create space in which game will be played
-        window = pyglet.window.Window(game.x_axis * game.p2m,
-                                      game.y_axis * game.p2m,
+        window = pyglet.window.Window(game.game_config.x_axis * game.game_config.p2m,
+                                      game.game_config.y_axis * game.game_config.p2m,
                                       "Robot Simulator - Game {id:03d}".format(id=game_id),
                                       resizable=False,
                                       visible=True)
@@ -95,17 +95,17 @@ class LiveVisualizer:
         # Draw static objects - walls
         for wall in game.walls:
             wall_shape = pymunk.Segment(space.static_body,
-                                        a=wall.x * game.p2m,
-                                        b=wall.y * game.p2m,
-                                        radius=0.05 * game.p2m)  # 5cm walls
+                                        a=wall.x * game.game_config.p2m,
+                                        b=wall.y * game.game_config.p2m,
+                                        radius=0.05 * game.game_config.p2m)  # 5cm walls
             wall_shape.color = (0, 0, 0)
             space.add(wall_shape)
         
         # Draw static objects - target
         target_body = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
-        target_body.position = game.target * game.p2m
+        target_body.position = game.target * game.game_config.p2m
         target_shape = pymunk.Circle(body=target_body,
-                                     radius=game.bot_radius * game.p2m)
+                                     radius=game.bot_config.radius * game.game_config.p2m)
         target_shape.sensor = True
         target_shape.color = (0, 128, 0)
         space.add(target_body, target_shape)
@@ -113,12 +113,12 @@ class LiveVisualizer:
         # Init player²
         m = pymunk.moment_for_circle(mass=2,
                                      inner_radius=0,
-                                     outer_radius=game.bot_radius * game.p2m)
+                                     outer_radius=game.bot_config.radius * game.game_config.p2m)
         player_body = pymunk.Body(mass=1, moment=m)
-        player_body.position = game.player.pos * game.p2m
+        player_body.position = game.player.pos * game.game_config.p2m
         player_body.angle = game.player.angle
         player_shape = pymunk.Circle(body=player_body,
-                                     radius=game.bot_radius * game.p2m)
+                                     radius=game.bot_config.radius * game.game_config.p2m)
         player_shape.color = (255, 0, 0)
         space.add(player_body, player_shape)
         label = pyglet.text.Label(f'{self.time}',  # TODO: Creates error in WeakMethod after run (during termination)
@@ -134,11 +134,11 @@ class LiveVisualizer:
                 s = game.player.sensors[key]
                 if type(s) == ProximitySensor:
                     line = pymunk.Segment(space.static_body,
-                                          a=s.start_pos * game.p2m,
-                                          b=s.end_pos * game.p2m,
+                                          a=s.start_pos * game.game_config.p2m,
+                                          b=s.end_pos * game.game_config.p2m,
                                           radius=0.5)
                     line.sensor = True
-                    touch = ((s.start_pos - s.end_pos).get_length() < game.ray_distance - 0.05)
+                    touch = ((s.start_pos - s.end_pos).get_length() < game.bot_config.ray_distance - 0.05)
                     line.color = (100, 100, 100) if touch else (200, 200, 200)  # Brighten up ray if it makes contact
                     space.add(line)
         
@@ -150,7 +150,7 @@ class LiveVisualizer:
             space.debug_draw(options=options)
         
         def update_method(_):  # Input dt ignored
-            dt = 1 / game.fps
+            dt = 1 / game.game_config.fps
             self.time += dt
             label.text = str(int(self.time))
             
@@ -161,8 +161,8 @@ class LiveVisualizer:
                 if self.debug:
                     print("Passed time:", round(dt, 3))
                     print("Location: x={}, y={}".format(
-                            round(player_body.position.x / game.p2m, 2),
-                            round(player_body.position.y / game.p2m, 2)))
+                            round(player_body.position.x / game.game_config.p2m, 2),
+                            round(player_body.position.y / game.game_config.p2m, 2)))
                     print("Action: lw={l}, rw={r}".format(l=round(action[0][0], 3), r=round(action[0][1], 3)))
                     print("Observation:", [round(s, 3) for s in self.state])
                 
@@ -172,12 +172,12 @@ class LiveVisualizer:
                 self.state = obs[D_SENSOR_LIST]
                 
                 # Update space's player coordinates and angle
-                player_body.position = game.player.pos * game.p2m
+                player_body.position = game.player.pos * game.game_config.p2m
                 player_body.angle = game.player.angle
             space.step(dt)
         
         # Run the game
-        pyglet.clock.schedule_interval(update_method, 1.0 / (game.fps * self.speedup))
+        pyglet.clock.schedule_interval(update_method, 1.0 / (game.game_config.fps * self.speedup))
         pyglet.app.run()
 
 

@@ -55,7 +55,7 @@ class FloatAttribute(BaseAttribute):
         self.replace_rate_name = None  # Placeholder
         super().__init__(name, **default_dict)
     
-    def clamp(self, value, config):
+    def clamp(self, value, config):  # TODO: Use numpy's clip
         return max(min(value, getattr(config, self.max_value_name)), getattr(config, self.min_value_name))
     
     def init_value(self, config):

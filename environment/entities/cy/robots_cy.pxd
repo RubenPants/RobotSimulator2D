@@ -37,11 +37,11 @@ cdef class MarXBotCy:
     
     cpdef void add_proximity_sensor(self, float angle)
     
-    cpdef void create_angular_sensors(self)
+    cpdef void create_angular_sensors(self, cfg)
     
-    cpdef void create_delta_distance_sensor(self)
+    cpdef void create_delta_distance_sensor(self, cfg)
     
-    cpdef void create_proximity_sensors(self)
+    cpdef void create_proximity_sensors(self, cfg)
     
     cpdef void set_active_sensors(self, set connections)
 

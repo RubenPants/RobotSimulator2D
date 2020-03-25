@@ -23,8 +23,7 @@ class SimpleNode(unittest.TestCase):
 
 def get_simple_gene(key, config):
     """Create a random initialized gene."""
-    gene = SimpleNodeGene(key)
-    gene.init_attributes(config)
+    gene = SimpleNodeGene(key, config)
     return gene
 
 

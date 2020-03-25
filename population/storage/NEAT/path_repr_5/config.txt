@@ -1,0 +1,118 @@
+NEAT Configuration:
+	- fitness_criterion = max
+	- fitness_threshold = 1
+	- no_fitness_termination = True
+	- pop_size = 128
+	- elitism = 3
+	- parent_selection = 0.3
+	- min_species_size = 10
+	- sexual_reproduction = True
+	- activation_default = gelu
+	- activation_mutate_rate = 0.0
+	- activation_options = gelu
+	- aggregation_default = sum
+	- aggregation_mutate_rate = 0.0
+	- aggregation_options = sum
+	- bias_init_mean = 0.0
+	- bias_init_stdev = 1.0
+	- bias_max_value = 2.0
+	- bias_min_value = -2.0
+	- bias_mutate_power = 0.2
+	- bias_mutate_rate = 0.1
+	- bias_replace_rate = 0.05
+	- compatibility_disjoint_coefficient = 1.0
+	- compatibility_weight_coefficient = 0.5
+	- conn_add_prob = 0.05
+	- conn_delete_prob = 0.05
+	- enabled_default = True
+	- enabled_mutate_rate = 0.01
+	- initial_connection = partial_direct 0.5
+	- node_add_prob = 0.01
+	- node_delete_prob = 0.01
+	- num_hidden = 0
+	- num_outputs = 2
+	- weight_init_mean = 0.0
+	- weight_init_stdev = 1.0
+	- weight_max_value = 2.0
+	- weight_min_value = -2.0
+	- weight_mutate_power = 0.2
+	- weight_mutate_rate = 0.1
+	- weight_mutate_rate_gru = 0.1
+	- weight_replace_rate = 0.05
+	- compatibility_threshold = 2.0
+	- max_stagnation = 15
+	- species_elitism = 2
+	- species_fitness_func = max
+	- species_max = 15
+	- specie_stagnation = 5
+	- fitness = path
+	- fitness_comb = gmean
+	- nn_k = 3
+	- safe_zone = 1
+	- gru_enabled = False
+	- gru_mutate_rate = 0.4
+
+
+Population configuration:
+	Default genome configuration:
+		- num_hidden = 0
+		- num_outputs = 2
+		- compatibility_disjoint_coefficient = 1.0
+		- compatibility_weight_coefficient = 0.5
+		- conn_add_prob = 0.05
+		- conn_delete_prob = 0.05
+		- node_add_prob = 0.01
+		- node_delete_prob = 0.01
+		- structural_mutation_surer = default
+		- initial_connection = partial_direct
+		- gru_enabled = False
+		- gru_mutate_rate = 0.4
+		- weight_mutate_rate_gru = 0.1
+		- bias_init_mean = 0.0
+		- bias_init_stdev = 1.0
+		- bias_init_type = gaussian
+		- bias_replace_rate = 0.05
+		- bias_mutate_rate = 0.1
+		- bias_mutate_power = 0.2
+		- bias_max_value = 2.0
+		- bias_min_value = -2.0
+		- activation_default = gelu
+		- activation_options = ['gelu']
+		- activation_mutate_rate = 0.0
+		- aggregation_default = sum
+		- aggregation_options = ['sum']
+		- aggregation_mutate_rate = 0.0
+		- weight_init_mean = 0.0
+		- weight_init_stdev = 1.0
+		- weight_init_type = gaussian
+		- weight_replace_rate = 0.05
+		- weight_mutate_rate = 0.1
+		- weight_mutate_power = 0.2
+		- weight_max_value = 2.0
+		- weight_min_value = -2.0
+		- enabled_default = True
+		- enabled_mutate_rate = 0.01
+		- enabled_rate_to_true_add = 0.0
+		- enabled_rate_to_false_add = 0.0
+
+	Default species configuration:
+		- compatibility_threshold = 2.0
+		- max_stagnation = 15
+		- species_elitism = 2
+		- species_fitness_func = max
+		- species_max = 15
+		- specie_stagnation = 5
+
+	Default stagnation configuration:
+		- compatibility_threshold = 2.0
+		- max_stagnation = 15
+		- species_elitism = 2
+		- species_fitness_func = max
+		- species_max = 15
+		- specie_stagnation = 5
+
+	Default reproduction configuration:
+		- elitism = 3
+		- parent_selection = 0.3
+		- min_species_size = 10
+		- sexual_reproduction = True

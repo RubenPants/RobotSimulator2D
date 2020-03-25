@@ -23,6 +23,6 @@ class BaseConfig:
             result += f"\t> {param} = {getattr(self, param)}\n"
         return result
     
-    def update(self):
+    def update(self, main_config):
         """Update the parameters"""
         pass

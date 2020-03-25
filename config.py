@@ -39,4 +39,4 @@ class Config(BaseConfig):
     
     def update(self):
         for param in self.__slots__:
-            getattr(self, param).update()
+            getattr(self, param).update(self)

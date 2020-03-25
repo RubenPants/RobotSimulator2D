@@ -29,12 +29,12 @@ class GameWallCollisionCy(unittest.TestCase):
         game = get_game()
         
         # Drive forward for 100 seconds
-        for _ in range(50 * game.fps): game.step(l=1, r=1)
+        for _ in range(50 * game.game_config.fps): game.step(l=1, r=1)
         
         # Check if robot in fixed position
-        self.assertAlmostEqual(game.player.pos.x, int(game.x_axis) - 0.5, delta=EPSILON)
+        self.assertAlmostEqual(game.player.pos.x, int(game.game_config.x_axis) - 0.5, delta=EPSILON)
         self.assertAlmostEqual(game.player.pos.y,
-                               int(game.y_axis) - float(game.bot_radius),
+                               int(game.game_config.y_axis) - float(game.bot_config.radius),
                                delta=EPSILON)
     
     def test_wall_force_reverse(self):
@@ -46,13 +46,13 @@ class GameWallCollisionCy(unittest.TestCase):
         game = get_game()
         
         # Drive forward for 100 seconds
-        for _ in range(10 * game.fps):
+        for _ in range(10 * game.game_config.fps):
             game.step(l=-1, r=-1)
         
         # Check if robot in fixed position
-        self.assertAlmostEqual(game.player.pos.x, int(game.x_axis) - 0.5, delta=EPSILON)
-        self.assertAlmostEqual(game.player.pos.y, float(game.bot_radius), delta=EPSILON)
-        self.assertAlmostEqual(game.player.pos.y, float(game.bot_radius), delta=EPSILON)
+        self.assertAlmostEqual(game.player.pos.x, int(game.game_config.x_axis) - 0.5, delta=EPSILON)
+        self.assertAlmostEqual(game.player.pos.y, float(game.bot_config.radius), delta=EPSILON)
+        self.assertAlmostEqual(game.player.pos.y, float(game.bot_config.radius), delta=EPSILON)
 
 
 class GameDriveCy(unittest.TestCase):
@@ -67,11 +67,11 @@ class GameDriveCy(unittest.TestCase):
         game = get_game()
         
         # Keep spinning around
-        for _ in range(10 * game.fps):
+        for _ in range(10 * game.game_config.fps):
             game.step(l=-1, r=1)
         
         # Check if robot in fixed position
-        self.assertAlmostEqual(game.player.pos.x, int(game.x_axis) - 0.5, delta=EPSILON)
+        self.assertAlmostEqual(game.player.pos.x, int(game.game_config.x_axis) - 0.5, delta=EPSILON)
         self.assertAlmostEqual(game.player.pos.y, 0.5, delta=EPSILON)
     
     def test_remain_in_box(self):
@@ -93,7 +93,7 @@ class GameDriveCy(unittest.TestCase):
             game.player.angle = random() * np.pi
             
             # Run for one twenty seconds
-            for _ in range(20 * game.fps):
+            for _ in range(20 * game.game_config.fps):
                 l = random() * 1.5 - 0.5  # [-0.5..1]
                 r = random() * 1.5 - 0.5  # [-0.5..1]
                 game.step(l=l, r=r)

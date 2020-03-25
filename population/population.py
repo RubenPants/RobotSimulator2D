@@ -102,8 +102,8 @@ class Population:
         :param query_net_method: Method used to query actions of the genome-specific network
         """
         stagnation = DefaultStagnation(self.config.species, self.reporters)
-        self.reproduction = DefaultReproduction(self.reporters, stagnation)
         self.reporters = ReporterSet()
+        self.reproduction = DefaultReproduction(self.reporters, stagnation)
         
         # Fitness evaluation
         if self.config.evaluation.fitness_criterion == D_MAX:
@@ -146,7 +146,7 @@ class Population:
         
         # Write population configuration to file
         with open(f'population/storage/{self.folder_name}/{self}/config.txt', 'w') as f:
-            f.write(str(self.config))
+            f.write(self.config.read())
     
     def evolve(self):
         """

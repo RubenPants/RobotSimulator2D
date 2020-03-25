@@ -17,6 +17,7 @@ from utils.cy.line2d_cy cimport Line2dCy
 from utils.myutils import load_pickle, store_pickle
 from utils.cy.vec2d_cy cimport Vec2dCy
 
+
 cdef class GameCy:
     """
     A game environment is built up from the following segments:
@@ -25,15 +26,11 @@ cdef class GameCy:
         * target: Robot that must be reached by the robot
     """
     
-    __slots__ = (
-        "bot_driving_speed", "bot_radius", "bot_turning_speed",
-        "fps", "p2m", "x_axis", "y_axis",
-        "noise_time", "noise_angle", "noise_distance", "noise_proximity",
-        "ray_distance", "ray_distance_cum",
-        "target_reached",
-        "silent", "noise", "save_path",
-        "done", "id", "path", "player", "steps_taken", "target", "walls"
-    )
+    __slots__ = {
+        'bot_config', 'game_config', 'noise_config',
+        'silent', 'noise', 'save_path',
+        'done', 'id', 'path', 'player', 'steps_taken', 'target', 'walls',
+    }
     
     def __init__(self,
                  int game_id,
@@ -54,20 +51,9 @@ cdef class GameCy:
         :param silent: Do not print anything
         """
         # Set the game's configuration
-        self.bot_driving_speed = config.bot.driving_speed
-        self.bot_radius = config.bot.radius
-        self.bot_turning_speed = config.bot.turning_speed
-        self.fps = config.game.fps
-        self.p2m = config.game.p2m
-        self.x_axis = config.game.x_axis
-        self.y_axis = config.game.y_axis
-        self.noise_time = config.noise.time
-        self.noise_angle = config.noise.angle
-        self.noise_distance = config.noise.distance
-        self.noise_proximity = config.noise.proximity
-        self.ray_distance = config.bot.ray_distance
-        self.ray_distance_cum = config.bot.radius + config.bot.ray_distance
-        self.target_reached = config.game.target_reached
+        self.bot_config = config.bot
+        self.game_config = config.game
+        self.noise_config = config.noise
         
         # Environment specific parameters
         self.silent = silent  # True: Do not print out statistics
@@ -105,7 +91,7 @@ cdef class GameCy:
         """Get all the game-related parameters."""
         return {
             D_A_STAR:  self.path[self.player.init_pos[0], self.player.init_pos[1]],
-            D_FPS:     self.fps,
+            D_FPS:     self.game_config.fps,
             D_GAME_ID: self.id,
             D_PATH:    self.path,
             D_WALLS:   self.walls,
@@ -136,7 +122,7 @@ cdef class GameCy:
         cdef float dt
         
         # Progress the game
-        dt = 1.0 / self.fps + (abs(gauss(0, self.noise_time)) if self.noise else 0)
+        dt = 1.0 / self.game_config.fps + (abs(gauss(0, self.noise_config.time)) if self.noise else 0)
         return self.step_dt(dt=dt, l=l, r=r)
     
     cpdef step_dt(self, float dt, float l, float r):
@@ -158,7 +144,8 @@ cdef class GameCy:
         self.player.drive(dt, lw=l, rw=r)
         
         # Check if intersected with a wall, if so then set player back to old position
-        close_walls = {w for w in self.walls if w.close_by(pos=self.player.pos, r=self.ray_distance_cum)}
+        close_walls = {w for w in self.walls if w.close_by(pos=self.player.pos,
+                                                           r=self.bot_config.radius + self.bot_config.ray_distance)}
         for wall in close_walls:
             inter, _ = circle_line_intersection_cy(c=self.player.pos, r=self.player.radius, l=wall)
             if inter:
@@ -168,7 +155,7 @@ cdef class GameCy:
                 break
         
         # Check if target reached
-        if self.player.get_sensor_readings_distance() <= self.target_reached: self.done = True
+        if self.player.get_sensor_readings_distance() <= self.game_config.target_reached: self.done = True
         
         # Return the current observations
         return self.get_observation(close_walls)
@@ -178,11 +165,11 @@ cdef class GameCy:
     cpdef void create_empty_game(self):
         """Create an empty game that only contains the boundary walls."""
         # Create random set of walls
-        self.walls = get_boundary_walls(x_axis=self.x_axis, y_axis=self.y_axis)
-        self.target = Vec2dCy(0.5, self.y_axis - 0.5)
+        self.walls = get_boundary_walls(x_axis=self.game_config.x_axis, y_axis=self.game_config.y_axis)
+        self.target = Vec2dCy(0.5, self.game_config.y_axis - 0.5)
         self.player = MarXBotCy(game=self)
         self.set_player_init_angle(a=pi / 2)
-        self.set_player_init_pos(p=Vec2dCy(self.x_axis - 0.5, 0.5))
+        self.set_player_init_pos(p=Vec2dCy(self.game_config.x_axis - 0.5, 0.5))
         
         # Save the new game
         self.save()
@@ -206,11 +193,11 @@ cdef class GameCy:
         """Put the target on a random location."""
         r = random()
         if r < 1 / 5:  # 1/5th chance
-            self.target = Vec2dCy(self.x_axis - 0.5, self.y_axis - 0.5)  # Top right
+            self.target = Vec2dCy(self.game_config.x_axis - 0.5, self.game_config.y_axis - 0.5)  # Top right
         elif r < 2 / 5:  # 1/5th chance
             self.target = Vec2dCy(0.5, 0.5)  # Bottom left
         else:  # 3/5th chance
-            self.target = Vec2dCy(0.5, self.y_axis - 0.5)  # Top left
+            self.target = Vec2dCy(0.5, self.game_config.y_axis - 0.5)  # Top left
     
     # ---------------------------------------------> FUNCTIONAL METHODS <--------------------------------------------- #
     
@@ -262,11 +249,12 @@ cdef class GameCy:
         plt.plot(self.target.x, self.target.y, 'go')
         
         # Adjust the boundaries
-        plt.xlim(0, self.x_axis)
-        plt.ylim(0, self.y_axis)
+        plt.xlim(0, self.game_config.x_axis)
+        plt.ylim(0, self.game_config.y_axis)
         
         # Return the figure in its current state
         return ax
+
 
 cpdef set get_boundary_walls(int x_axis, int y_axis):
     """Get a set of the boundary walls."""
@@ -275,6 +263,7 @@ cpdef set get_boundary_walls(int x_axis, int y_axis):
     c = Vec2dCy(x_axis, y_axis)
     d = Vec2dCy(0, y_axis)
     return {Line2dCy(a, b), Line2dCy(b, c), Line2dCy(c, d), Line2dCy(d, a)}
+
 
 cpdef GameCy get_game_cy(int i, cfg=None):
     """

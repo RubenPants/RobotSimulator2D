@@ -5,6 +5,7 @@ Robots used to manoeuvre around in the Game-environment.
 """
 from numpy import pi, sqrt
 
+from configs.bot_config import BotConfig
 from environment.entities.sensors import AngularSensor, DeltaDistanceSensor, DistanceSensor, ProximitySensor
 from utils.vec2d import angle_to_vec, Vec2d
 
@@ -39,7 +40,7 @@ class MarXBot:
         self.angle: float = 0  # Current angle
         self.init_angle: float = 0  # Initial angle
         self.prev_angle: float = 0  # Previous angle
-        self.radius: float = r if r else game.bot_radius  # Radius of the bot
+        self.radius: float = r if r else game.bot_config.radius  # Radius of the bot
         
         # Container of all the sensors
         self.sensors: dict = dict()
@@ -51,9 +52,9 @@ class MarXBot:
         self.n_distance: int = 0
         
         # Create the sensors (fixed order!)
-        self.create_proximity_sensors()
-        self.create_angular_sensors()
-        self.create_delta_distance_sensor()
+        self.create_proximity_sensors(cfg=game.bot_config)
+        self.create_angular_sensors(cfg=game.bot_config)
+        self.create_delta_distance_sensor(cfg=game.bot_config)
         self.add_distance_sensor()
         
         # Number of distance-sensors must always be equal to 1
@@ -84,11 +85,11 @@ class MarXBot:
         self.prev_angle = self.angle
         
         # Update angle is determined by the speed of both wheels
-        self.angle += (rw - lw) * self.game.bot_turning_speed * dt
+        self.angle += (rw - lw) * self.game.bot_config.turning_speed * dt
         self.angle %= 2 * pi
         
         # Update position is the average of the two wheels times the maximum driving speed
-        self.pos += angle_to_vec(self.angle) * float((((lw + rw) / 2) * self.game.bot_driving_speed * dt))
+        self.pos += angle_to_vec(self.angle) * float((((lw + rw) / 2) * self.game.bot_config.driving_speed * dt))
     
     def get_sensor_readings(self, close_walls: set = None):
         """List of the current sensory-readings."""
@@ -134,7 +135,7 @@ class MarXBot:
         """Single distance sensor which determines distance between agent's center and target's center."""
         self.sensors[len(self.sensors)] = DistanceSensor(
                 sensor_id=len(self.sensors),
-                normalizer=sqrt((self.game.x_axis - 1) ** 2 + (self.game.y_axis - 1) ** 2),
+                normalizer=sqrt((self.game.game_config.x_axis - 1) ** 2 + (self.game.game_config.y_axis - 1) ** 2),
                 game=self.game)
         self.n_distance += 1
     
@@ -152,28 +153,28 @@ class MarXBot:
                 sensor_id=len(self.sensors),
                 game=self.game,
                 angle=angle,
-                pos_offset=self.game.bot_radius,
-                max_dist=self.game.ray_distance)
+                pos_offset=self.game.bot_config.radius,
+                max_dist=self.game.bot_config.ray_distance)
         self.n_proximity += 1
     
-    def create_angular_sensors(self):
+    def create_angular_sensors(self, cfg: BotConfig):
         """
         Two angular sensors that define the angle between the orientation the agent is heading and the agent towards the
         target 'in crows flight'. One measures this angle in clockwise, the other counterclockwise.
         """
-        for clockwise in get_angular_directions(): self.add_angular_sensors(clockwise=clockwise)
+        for clockwise in cfg.angular_dir: self.add_angular_sensors(clockwise=clockwise)
     
-    def create_delta_distance_sensor(self):
+    def create_delta_distance_sensor(self, cfg: BotConfig):
         """Add a delta-distance sensor which measures the difference in distance to the target each time-point."""
-        if get_delta_distance(): self.add_delta_distance_sensor()
+        if cfg.delta_dist_enabled: self.add_delta_distance_sensor()
     
-    def create_proximity_sensors(self):
+    def create_proximity_sensors(self, cfg: BotConfig):
         """
         13 proximity sensors, which measure the distance between the agent and an object, if this object is within 0.5
          meters of distance. The proximity sensors are not evenly spaced, since the fact that the robot has a front will
          be exploited. Sensors are added from the left-side of the drone to the right.
         """
-        for angle in get_proximity_angles(): self.add_proximity_sensor(angle=angle)
+        for angle in cfg.prox_angles: self.add_proximity_sensor(angle=angle)
     
     def set_active_sensors(self, connections: set):
         """
@@ -192,58 +193,25 @@ def get_active_sensors(connections: set, total_input_size: int):
     return used
 
 
-def get_angular_directions():
-    """Get the clockwise directions for the angular sensors."""
-    return []
-    # return [True, False]
-
-
-def get_delta_distance():
-    """Determine if the delta-distance sensor is used or not."""
-    return False
-    # return True
-
-
-def get_proximity_angles():
-    """Get the angles used for the proximity sensors."""
-    angles = []
-    """
-    # Left-side of the agent
-    angles.append(3 * pi / 4)  # 135° (counter-clockwise)
-    for i in range(5):  # 90° until 10° with hops of 20° (total of 5 sensors)
-        angles.append(pi / 2 - i * pi / 9)
-    
-    # Center
-    angles.append(0)  # 0°
-    
-    # Right-side of the agent
-    for i in range(5):  # -10° until -90° with hops of 20° (total of 5 sensors)
-        angles.append(-pi / 18 - i * pi / 9)
-    angles.append(-3 * pi / 4)  # -135° (clockwise)
-    # """
-    return angles
-
-
-def get_number_of_sensors():
+def get_number_of_sensors(cfg: BotConfig):
     """Get the number of sensors mounted on the robot."""
-    delta_distance = 1 if get_delta_distance() else 0
-    return len(get_proximity_angles()) + len(get_angular_directions()) + delta_distance + 1
+    return len(cfg.prox_angles) + len(cfg.angular_dir) + int(cfg.delta_dist_enabled) + 1
 
 
-def get_snapshot():
+def get_snapshot(cfg: BotConfig):
     """
     Get the snapshot of the current robot-configuration. This method mimics the 'Create the sensors' section in the
     MarXBot creation process.
     """
     sorted_names = []
     # Proximity sensors
-    for a in get_proximity_angles(): sorted_names.append(str(ProximitySensor(game=None, max_dist=1, angle=a)))
+    for a in cfg.prox_angles: sorted_names.append(str(ProximitySensor(game=None, max_dist=1, angle=a)))
     
     # Angular sensors
-    for cw in get_angular_directions(): sorted_names.append(str(AngularSensor(game=None, clockwise=cw)))
+    for cw in cfg.angular_dir: sorted_names.append(str(AngularSensor(game=None, clockwise=cw)))
     
     # Delta distance sensor
-    if get_delta_distance(): sorted_names.append(str(DeltaDistanceSensor(game=None)))
+    if cfg.delta_dist_enabled: sorted_names.append(str(DeltaDistanceSensor(game=None)))
     
     # Distance sensor
     sorted_names.append(str(DistanceSensor(game=None, normalizer=1)))

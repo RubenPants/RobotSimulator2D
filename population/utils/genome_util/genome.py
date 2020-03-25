@@ -11,9 +11,10 @@ from random import choice, random, shuffle
 
 from neat.six_util import iteritems, iterkeys
 
+from configs.bot_config import BotConfig
 from configs.genome_config import GenomeConfig
 from environment.entities.robots import get_snapshot
-from population.utils.genome_util.genes import DefaultConnectionGene, GruNodeGene, OutputNodeGene, SimpleNodeGene
+from population.utils.genome_util.genes import ConnectionGene, GruNodeGene, OutputNodeGene, SimpleNodeGene
 from population.utils.network_util.graphs import creates_cycle, required_for_output
 
 
@@ -37,7 +38,7 @@ class DefaultGenome(object):
         4. The input values are applied to the input pins unmodified.
     """
     
-    def __init__(self, key, num_outputs):
+    def __init__(self, key, num_outputs, bot_config: BotConfig):
         # Unique identifier for a genome instance.
         self.key = key
         
@@ -50,7 +51,7 @@ class DefaultGenome(object):
         self.fitness = None
         
         # Get snapshot of current robot configuration
-        self.robot_snapshot = get_snapshot()
+        self.robot_snapshot = get_snapshot(cfg=bot_config)
     
     def configure_new(self, config: GenomeConfig):
         """Configure a new genome based on the given configuration."""
@@ -99,10 +100,12 @@ class DefaultGenome(object):
             cg2 = p2.connections.get(key)
             if cg2 is None:
                 # Excess or disjoint gene: copy from the fittest parent.
-                self.connections[key] = cg1.copy()
+                self.connections[key] = cg1.copy(cfg=config)
             else:
                 # Homologous gene: combine genes from both parents.
-                self.connections[key] = cg1.crossover(cg2, ratio)
+                self.connections[key] = cg1.crossover(cfg=config,
+                                                      other=cg2,
+                                                      ratio=ratio)
         
         # Inherit node genes
         for key, ng1 in iteritems(p1.nodes):
@@ -110,10 +113,12 @@ class DefaultGenome(object):
             assert key not in self.nodes
             if ng2 is None:
                 # Extra gene: copy from the fittest parent
-                self.nodes[key] = ng1.copy()
+                self.nodes[key] = ng1.copy(cfg=config)
             else:
                 # Homologous gene: combine genes from both parents.
-                self.nodes[key] = ng1.crossover(ng2, ratio)
+                self.nodes[key] = ng1.crossover(cfg=config,
+                                                other=ng2,
+                                                ratio=ratio)
         
         # Make sure that all GRU-nodes are correctly configured (input_keys)
         self.update_gru_nodes(config)
@@ -186,8 +191,7 @@ class DefaultGenome(object):
         assert output_key >= 0  # output_key is not one of the inputs (sensor readings)
         assert input_key not in config.keys_output
         key = (input_key, output_key)
-        connection = DefaultConnectionGene(key)
-        connection.init_attributes(config)
+        connection = ConnectionGene(key, cfg=config)
         
         if weight:
             assert isinstance(weight, float)
@@ -231,19 +235,19 @@ class DefaultGenome(object):
             self.disable_connection(self.connections[key])
             del self.connections[key]
     
-    def enable_connection(self, config: GenomeConfig, conn: DefaultConnectionGene):
+    def enable_connection(self, config: GenomeConfig, conn: ConnectionGene):
         """Enable the connection, and ripple this through to its potential GRU cell."""
         conn.enabled = True
         if type(self.nodes[conn.key[1]]) == GruNodeGene:
             gru: GruNodeGene = self.nodes[conn.key[1]]
-            gru.add_input(config, k=conn.key[0])
+            gru.add_input_key(config, k=conn.key[0])
     
-    def disable_connection(self, conn: DefaultConnectionGene):
+    def disable_connection(self, conn: ConnectionGene):
         """Disable the connection, and ripple this through to its potential GRU cell."""
         conn.enabled = False
         if type(self.nodes[conn.key[1]]) == GruNodeGene:
             gru: GruNodeGene = self.nodes[conn.key[1]]
-            gru.remove_input(k=conn.key[0])
+            gru.remove_input_key(k=conn.key[0])
     
     def distance(self, other, config: GenomeConfig):
         """
@@ -317,20 +321,17 @@ class DefaultGenome(object):
     
     @staticmethod
     def create_node(config: GenomeConfig, node_id: int):
-        node = SimpleNodeGene(node_id)
-        node.init_attributes(config)
+        node = SimpleNodeGene(node_id, cfg=config)
         return node
     
     @staticmethod
     def create_output_node(config: GenomeConfig, node_id: int):
-        node = OutputNodeGene(node_id)
-        node.init_attributes(config)
+        node = OutputNodeGene(node_id, cfg=config)
         return node
     
     @staticmethod
     def create_gru_node(config: GenomeConfig, node_id: int):
-        node = GruNodeGene(node_id)
-        node.init_attributes(config)
+        node = GruNodeGene(node_id, cfg=config)
         return node
     
     def update_gru_nodes(self, config: GenomeConfig):
@@ -342,11 +343,11 @@ class DefaultGenome(object):
                 
                 # Remove older inputs that aren't inputs anymore
                 for k in reversed(node.input_keys):
-                    if k not in input_keys: node.remove_input(k)
+                    if k not in input_keys: node.remove_input_key(k)
                 
                 # Add new inputs that were not yet inputs
                 for k in input_keys:
-                    if k not in node.input_keys: node.add_input(config, k)
+                    if k not in node.input_keys: node.add_input_key(config, k)
                 
                 # Change in input_keys results in a change in weight_ih
                 node.update_weight_ih()
