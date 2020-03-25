@@ -50,7 +50,7 @@ def main(pop: Population, show: bool = True):
     # Save the result
     get_subfolder(f'population/storage/{pop.folder_name}/{pop}/', 'images')
     get_subfolder(f'population/storage/{pop.folder_name}/{pop}/images/', 'species')
-    plt.savefig(f'population/storage/{pop.folder_name}/{pop}/images/species/gen_{pop.generation}')
+    plt.savefig(f'population/storage/{pop.folder_name}/{pop}/images/species/elites_gen_{pop.generation}')
     if show:
         plt.show()
         plt.close()
@@ -60,8 +60,8 @@ if __name__ == '__main__':
     os.chdir("../../../")
     
     population = Population(
-            name='distance_2',
+            name='distance_repr_1',
             # version=1,
-            folder_name='DISTANCE-ONLY',
+            folder_name='test',
     )
     main(population)

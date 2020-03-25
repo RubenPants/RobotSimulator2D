@@ -52,9 +52,9 @@ if __name__ == '__main__':
     os.chdir("../../../")
     
     population = Population(
-            name='distance_2',
+            name='distance_repr_1',
             # version=1,
-            folder_name='DISTANCE-ONLY',
+            folder_name='test',
     )
     
     main(population)

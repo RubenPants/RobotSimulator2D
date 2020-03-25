@@ -62,7 +62,7 @@ class DefaultStagnation:
             #  generations. Elite species cannot become stagnant.
             if specie_id not in self.specie_elites:
                 stagnant_time = gen - specie.last_improved
-                is_stagnant = stagnant_time >= config.species.elite_stagnation
+                is_stagnant = stagnant_time >= config.species.elite_specie_stagnation
             
             # Append to the result
             result.append((specie_id, specie, is_stagnant))

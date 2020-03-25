@@ -98,18 +98,12 @@ class DefaultReproduction:
             #  candidates present in this specie
             msf = mean([m.fitness for m in itervalues(afs.members)])
             afs.adjusted_fitness = min((msf - min_fitness) / fitness_range, 1)
-        adjusted_fitness = [s.adjusted_fitness for s in remaining_species]
-        
-        # Compute the number of new members for each species in the new generation
-        previous_sizes = [len(s.members) for s in remaining_species]
-        min_species_size = config.reproduction.min_species_size
         
         # Minimum specie-size is defined by the number of elites and the minimal number of genomes in a population
-        min_species_size = max(min_species_size, config.reproduction.elitism)
-        spawn_amounts = self.compute_spawn(adjusted_fitness=adjusted_fitness,
-                                           previous_sizes=previous_sizes,
+        spawn_amounts = self.compute_spawn(adjusted_fitness=[s.adjusted_fitness for s in remaining_species],
+                                           previous_sizes=[len(s.members) for s in remaining_species],
                                            pop_size=config.reproduction.pop_size,
-                                           min_species_size=min_species_size)
+                                           min_species_size=max(config.species.min_size, config.reproduction.elitism))
         
         # Setup the next generation by filling in the new species with their elite, parents, and offspring
         new_population = dict()
