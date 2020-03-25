@@ -13,15 +13,13 @@ cdef class GameCy:
         * robot: The player manoeuvring in the environment
         * target: Robot that must be reached by the robot
     """
+    cdef public bot_config, game_config, noise_config
     cdef public bint done, noise, silent
     cdef public int id, steps_taken
     cdef public dict path
     cdef public set walls
     cdef public MarXBotCy player
     cdef public Vec2dCy target
-    cdef public float bot_driving_speed, bot_radius, bot_turning_speed
-    cdef public int batch, duration, max_game_id, max_eval_game_id, fps, p2m, x_axis, y_axis
-    cdef public float noise_time, noise_angle, noise_distance, noise_proximity, ray_distance, ray_distance_cum, target_reached
     cdef public str save_path
     
     # ------------------------------------------------> MAIN METHODS <------------------------------------------------ #

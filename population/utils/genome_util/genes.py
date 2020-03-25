@@ -54,7 +54,7 @@ class BaseGene(object):
         return new_gene
     
     @abstractmethod
-    def crossover(self, cfg: GenomeConfig, other, ratio: float = 0.5):
+    def crossover(self, cfg: GenomeConfig, other, ratio: float):
         """Create a new gene based on the current configuration and that of another (same-class) gene."""
         raise NotImplementedError(f"Crossover is not implemented for gene {self.key}")
     
@@ -92,7 +92,7 @@ class SimpleNodeGene(BaseGene):
     def __repr__(self):
         return f"SimpleNodeGene(bias={round(self.bias, 2)})"
     
-    def crossover(self, cfg: GenomeConfig, other, ratio: float = 0.5):
+    def crossover(self, cfg: GenomeConfig, other, ratio: float):
         assert self.__class__ == other.__class__ == SimpleNodeGene
         assert self.key == other.key
         new_gene = SimpleNodeGene(self.key, cfg=cfg)
@@ -138,7 +138,7 @@ class OutputNodeGene(BaseGene):
     def __repr__(self):
         return f"OutputNodeGene(bias={round(self.bias, 2)})"
     
-    def crossover(self, cfg: GenomeConfig, other, ratio: float = 0.5):
+    def crossover(self, cfg: GenomeConfig, other, ratio: float):
         assert self.__class__ == other.__class__ == OutputNodeGene
         assert self.key == other.key
         new_gene = OutputNodeGene(self.key, cfg=cfg)
@@ -195,7 +195,7 @@ class GruNodeGene(BaseGene):
     def __repr__(self):
         return f"GruNodeGene(inputs={self.input_keys!r})"
     
-    def crossover(self, cfg: GenomeConfig, other, ratio: float = 0.5):
+    def crossover(self, cfg: GenomeConfig, other, ratio: float):
         assert self.__class__ == other.__class__ == GruNodeGene
         assert self.key == other.key
         
@@ -257,7 +257,7 @@ class GruNodeGene(BaseGene):
         for i, k in enumerate(self.input_keys):
             self.weight_ih[:, i] = self.weight_ih_full[:, self.input_keys_full.index(k)]
     
-    def get_gru(self, mapping=None):  # TODO: Document weight_map
+    def get_gru(self, mapping=None):
         """Return a PyTorch GRUCell based on current configuration. The mapping denotes which columns to use."""
         self.update_weight_ih()
         if mapping is not None:
@@ -321,7 +321,7 @@ class ConnectionGene(BaseGene):
     def __repr__(self):
         return f"ConnectionGene(weight={round(self.weight, 2)}, enabled={self.enabled})"
     
-    def crossover(self, cfg: GenomeConfig, other, ratio: float = 0.5):
+    def crossover(self, cfg: GenomeConfig, other, ratio: float):
         assert self.__class__ == other.__class__ == ConnectionGene
         assert self.key == other.key
         new_gene = ConnectionGene(self.key, cfg=cfg)

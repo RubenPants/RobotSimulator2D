@@ -11,6 +11,7 @@ from random import choice, random, shuffle
 
 from neat.six_util import iteritems, iterkeys
 
+from configs.bot_config import BotConfig
 from configs.genome_config import GenomeConfig
 from environment.entities.robots import get_snapshot
 from population.utils.genome_util.genes import ConnectionGene, GruNodeGene, OutputNodeGene, SimpleNodeGene
@@ -37,7 +38,7 @@ class DefaultGenome(object):
         4. The input values are applied to the input pins unmodified.
     """
     
-    def __init__(self, key, num_outputs):
+    def __init__(self, key, num_outputs, bot_config: BotConfig):
         # Unique identifier for a genome instance.
         self.key = key
         
@@ -50,7 +51,7 @@ class DefaultGenome(object):
         self.fitness = None
         
         # Get snapshot of current robot configuration
-        self.robot_snapshot = get_snapshot()
+        self.robot_snapshot = get_snapshot(cfg=bot_config)
     
     def configure_new(self, config: GenomeConfig):
         """Configure a new genome based on the given configuration."""

@@ -69,6 +69,7 @@ class TrainingEnv:
         :param save_interval: Indicates how often a population gets saved
         """
         multi_env = get_multi_env(pop=pop, game_config=self.game_config)
+        saved = True
         for iteration in range(n):
             # Set random set of games
             self.sample_games(multi_env, pop.log)
@@ -81,7 +82,14 @@ class TrainingEnv:
                               )
             
             # Save the population
-            if (iteration + 1) % save_interval == 0: pop.save()
+            if (iteration + 1) % save_interval == 0:
+                pop.save()
+                saved = True
+            else:
+                saved = False
+        
+        # Make sure that last iterations saves
+        if not saved: pop.save()
     
     def evaluate_same_games_and_evolve(self,
                                        games: list,
@@ -105,6 +113,7 @@ class TrainingEnv:
         multi_env.set_games(games)
         
         # Iterate and evaluate over the games
+        saved = True
         for iteration in range(n):
             single_evaluation(multi_env=multi_env,
                               parallel=parallel,
@@ -113,7 +122,14 @@ class TrainingEnv:
                               )
             
             # Save the population
-            if (iteration + 1) % save_interval == 0: pop.save()
+            if (iteration + 1) % save_interval == 0:
+                pop.save()
+                saved = True
+            else:
+                saved = False
+        
+        # Make sure that last iterations saves
+        if not saved: pop.save()
     
     def sample_games(self, multi_env, logger=None):
         """

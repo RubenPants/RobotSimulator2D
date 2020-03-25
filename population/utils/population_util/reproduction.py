@@ -6,8 +6,8 @@ Handles creation of genomes, either from scratch or by sexual or asexual reprodu
 from __future__ import division
 
 import copy
-import random
 from itertools import count
+from random import choice, random
 
 from neat.math_util import mean
 from neat.six_util import iteritems, itervalues
@@ -37,7 +37,7 @@ class DefaultReproduction:
         new_genomes = dict()
         for i in range(num_genomes):
             key = next(self.genome_indexer)
-            g = DefaultGenome(key, num_outputs=config.genome.num_outputs)
+            g = DefaultGenome(key, num_outputs=config.genome.num_outputs, bot_config=config.bot)
             g.configure_new(config.genome)
             new_genomes[key] = g
             self.ancestors[key] = tuple()
@@ -165,18 +165,18 @@ class DefaultReproduction:
                 
                 # Init genome dummy (values are overwritten later)
                 gid = next(self.genome_indexer)
-                child: DefaultGenome = DefaultGenome(gid, num_outputs=config.genome.num_outputs)
+                child: DefaultGenome = DefaultGenome(gid, num_outputs=config.genome.num_outputs, bot_config=config.bot)
                 
                 # Choose the parents, note that if the parents are not distinct, crossover will produce a genetically
                 #  identical clone of the parent (but with a different ID)
-                parent1_id, parent1 = random.choice(parents)
-                parent2_id, parent2 = random.choice(parents)
-                if config.reproduction.sexual and (parent1_id != parent2_id):
-                    child.configure_crossover(config=config.genome, genome1=parent1, genome2=parent2)
+                p1_id, p1 = choice(parents)
+                p2_id, p2 = choice(parents)
+                if config.reproduction.sexual and (p1_id != p2_id) and random() < config.reproduction.sexual_prob:
+                    child.configure_crossover(config=config.genome, genome1=p1, genome2=p2)
                 else:
-                    parent2_id = parent1_id
-                    child.connections = copy.deepcopy(parent1.connections)
-                    child.nodes = copy.deepcopy(parent1.nodes)
+                    p2_id = p1_id
+                    child.connections = copy.deepcopy(p1.connections)
+                    child.nodes = copy.deepcopy(p1.nodes)
                 
                 # Keep mutating the child until it's valid
                 valid = False
@@ -197,6 +197,6 @@ class DefaultReproduction:
                 
                 # Add the child to the population
                 new_population[gid] = child
-                self.ancestors[gid] = (parent1_id, parent2_id)
+                self.ancestors[gid] = (p1_id, p2_id)
         
         return new_population

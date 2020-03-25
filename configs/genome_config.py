@@ -126,10 +126,10 @@ class GenomeConfig(BaseConfig):
         # Probability of assigning completely new value, based on weight_init_mean and weight_init_stdev  [def=0.05]
         self.weight_replace_rate: float = 0.05
     
-    def update(self):
+    def update(self, main_config):
         """Reload the current number of input sensors."""
         from environment.entities.robots import get_number_of_sensors
-        self.num_inputs: int = get_number_of_sensors()
+        self.num_inputs: int = get_number_of_sensors(cfg=main_config.bot)
         self.keys_input = [-i - 1 for i in range(self.num_inputs)]
         self.keys_output = [i for i in range(self.num_outputs)]
         
