@@ -5,7 +5,6 @@ Create visualizations for the genomes present in the population.
 """
 import os
 
-import numpy as np
 from graphviz import Digraph
 
 from configs.genome_config import GenomeConfig
@@ -82,24 +81,11 @@ def draw_net(config: GenomeConfig, genome: DefaultGenome, debug=False, filename=
     # Visualize hidden nodes
     for key in sorted(used_nodes):
         if key in inputs or key in outputs: continue
-        fillcolor = 'white'
+        fillcolor = 'white' if type(genome.nodes[key]) == SimpleNodeGene else '#f5c484'  # fancy orange
         if debug:
             if type(genome.nodes[key]) == GruNodeGene:
                 genome.update_gru_nodes(config)
-                name = f'GRU node={key}'
-                name += f'\ninputs_size={len(genome.nodes[key].input_keys)}'
-                name += f'\nbias_ih={np.asarray(genome.nodes[key].gru_bias_ih.tolist()).round(3).tolist()}'
-                name += f'\nbias_hh={np.asarray(genome.nodes[key].gru_bias_hh.tolist()).round(3).tolist()}'
-                name += f'\nweight_ih={np.asarray(genome.nodes[key].gru_weight_ih.tolist()).round(3).tolist()}'
-                name += f'\nweight_hh={np.asarray(genome.nodes[key].gru_weight_hh.tolist()).round(3).tolist()}'
-                fillcolor = '#f5c484'  # Fancy orange
-            elif type(genome.nodes[key]) == SimpleNodeGene:
-                name = f'simple node={key}'
-                name += f'\nactivation={genome.nodes[key].activation}'
-                name += f'\nbias={round(genome.nodes[key].bias, 2)}'
-                name += f'\naggregation={genome.nodes[key].aggregation}'
-            else:
-                raise Exception(f"Invalid hidden node (key={key}) of genome: \n{genome}")
+            name = str(genome.nodes[key])
         else:
             name = str(key)
         node_names.update({key: name})

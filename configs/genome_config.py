@@ -92,7 +92,7 @@ class GenomeConfig(BaseConfig):
         # Probability of a GRU value to mutate  [def=0.2]  TODO
         self.gru_mutate_rate: float = 0.2
         # Probability of mutating a GRU node rather than a simple node  [def=0.6]  TODO
-        self.gru_node_prob: float = 0.6
+        self.gru_node_prob: float = 1
         # Probability of assigning (single) random value in GRU, based on gru_init_mean and gru_init_stdev  [def=0.05]
         self.gru_replace_rate: float = 0.05
         # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT_05]  TODO
@@ -126,10 +126,10 @@ class GenomeConfig(BaseConfig):
         # Probability of assigning completely new value, based on weight_init_mean and weight_init_stdev  [def=0.05]
         self.weight_replace_rate: float = 0.05
     
-    def update(self):
+    def update(self, main_config):
         """Reload the current number of input sensors."""
         from environment.entities.robots import get_number_of_sensors
-        self.num_inputs: int = get_number_of_sensors()
+        self.num_inputs: int = get_number_of_sensors(cfg=main_config.bot)
         self.keys_input = [-i - 1 for i in range(self.num_inputs)]
         self.keys_output = [i for i in range(self.num_outputs)]
         

@@ -6,9 +6,9 @@ Robots used to manoeuvre around in the Game-environment.
 cimport numpy
 from numpy import pi, sqrt
 
-from environment.entities.robots import get_proximity_angles, get_angular_directions, get_delta_distance
 from sensors_cy cimport AngularSensorCy, DeltaDistanceSensorCy, DistanceSensorCy, ProximitySensorCy
 from utils.cy.vec2d_cy cimport angle_to_vec, Vec2dCy
+
 
 cdef class MarXBotCy:
     """The FootBot is the main bot used in this project. It is a simple circular robot with two wheels on its sides."""
@@ -40,7 +40,7 @@ cdef class MarXBotCy:
         self.angle = 0  # Current angle
         self.init_angle = 0  # Initial angle
         self.prev_angle = 0  # Previous angle
-        self.radius = r if r else game.bot_radius  # Radius of the bot
+        self.radius = r if r else game.bot_config.radius  # Radius of the bot
         
         # Container of all the sensors
         self.sensors = dict()
@@ -52,9 +52,9 @@ cdef class MarXBotCy:
         self.n_distance = 0
         
         # Create the sensors (fixed order!)
-        self.create_proximity_sensors()
-        self.create_angular_sensors()
-        self.create_delta_distance_sensor()
+        self.create_proximity_sensors(cfg=game.bot_config)
+        self.create_angular_sensors(cfg=game.bot_config)
+        self.create_delta_distance_sensor(cfg=game.bot_config)
         self.add_distance_sensor()
         
         # Number of distance-sensors must always be equal to 1
@@ -85,11 +85,11 @@ cdef class MarXBotCy:
         self.prev_angle = self.angle
         
         # Update angle is determined by the speed of both wheels
-        self.angle += (rw - lw) * self.game.bot_turning_speed * dt
+        self.angle += (rw - lw) * self.game.bot_config.turning_speed * dt
         self.angle %= 2 * pi
         
         # Update position is the average of the two wheels times the maximum driving speed
-        self.pos += angle_to_vec(self.angle) * float((((lw + rw) / 2) * self.game.bot_driving_speed * dt))
+        self.pos += angle_to_vec(self.angle) * float((((lw + rw) / 2) * self.game.bot_config.driving_speed * dt))
     
     cpdef list get_sensor_readings(self, set close_walls=None):
         """List of the current sensory-readings."""
@@ -135,7 +135,7 @@ cdef class MarXBotCy:
         """Single distance sensor which determines distance between agent's center and target's center."""
         self.sensors[len(self.sensors)] = DistanceSensorCy(
                 sensor_id=len(self.sensors),
-                normalizer=sqrt((self.game.x_axis - 1) ** 2 + (self.game.y_axis - 1) ** 2),
+                normalizer=sqrt((self.game.game_config.x_axis - 1) ** 2 + (self.game.game_config.y_axis - 1) ** 2),
                 game=self.game)
         self.n_distance += 1
     
@@ -153,30 +153,30 @@ cdef class MarXBotCy:
                 sensor_id=len(self.sensors),
                 game=self.game,
                 angle=angle,
-                pos_offset=self.game.bot_radius,
-                max_dist=self.game.ray_distance)
+                pos_offset=self.game.bot_config.radius,
+                max_dist=self.game.bot_config.ray_distance)
         self.n_proximity += 1
     
-    cpdef void create_angular_sensors(self):
+    cpdef void create_angular_sensors(self, cfg):
         """
         Two angular sensors that define the angle between the orientation the agent is heading and the agent towards the
         target 'in crows flight'. One measures this angle in clockwise, the other counterclockwise.
         """
         cdef bint clockwise
-        for clockwise in get_angular_directions(): self.add_angular_sensors(clockwise=clockwise)
+        for clockwise in cfg.angular_dir: self.add_angular_sensors(clockwise=clockwise)
     
-    cpdef void create_delta_distance_sensor(self):
+    cpdef void create_delta_distance_sensor(self, cfg):
         """Add a delta-distance sensor which measures the difference in distance to the target each time-point."""
-        if get_delta_distance(): self.add_delta_distance_sensor()
+        if cfg.delta_dist_enabled: self.add_delta_distance_sensor()
     
-    cpdef void create_proximity_sensors(self):
+    cpdef void create_proximity_sensors(self, cfg):
         """
         13 proximity sensors, which measure the distance between the agent and an object, if this object is within 0.5
          meters of distance. The proximity sensors are not evenly spaced, since the fact that the robot has a front will
          be exploited. Sensors are added from the left-side of the drone to the right.
         """
         cdef float angle
-        for angle in get_proximity_angles(): self.add_proximity_sensor(angle=angle)
+        for angle in cfg.prox_angles: self.add_proximity_sensor(angle=angle)
     
     cpdef void set_active_sensors(self, set connections):
         """
