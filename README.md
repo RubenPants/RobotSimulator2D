@@ -5,13 +5,10 @@
 ## TODO
 
 * Merge species_config and reproduction_config
-* Find out what the specie-distance is with the species in distance-only
-* Research: Add genome to closest specie, or add genome to first specie within threshold?
 * Research: How properly identify disjoint nodes (see NEAT paper!) --> disjoint determined based on connections?
 * Improve performance by having the choice not to evaluate parents (distance-only, fixed task)
 * Crossover (GRU) tinkers with other genomes! --> Test if this isn't also the case for mutation @full_weight_ih
 * Test on the mutation operators!
-* A2C fine-tuning of the weights?
 * Test all of the fitness-functions!
 * Self-adaptive NEAT?
 * Activation functions of hidden vs output nodes not taken into account! (hard-coded on tanh!)
