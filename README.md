@@ -4,6 +4,8 @@
 
 ## TODO
 
+* Find out what the specie-distance is with the species in distance-only
+* Research: Add genome to closest specie, or add genome to first specie within threshold?
 * Research: How properly identify disjoint nodes (see NEAT paper!) --> disjoint determined based on connections?
 * Improve performance by having the choice not to evaluate parents (distance-only, fixed task)
 * Crossover (GRU) tinkers with other genomes! --> Test if this isn't also the case for mutation @full_weight_ih
