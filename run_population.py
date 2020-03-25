@@ -7,7 +7,7 @@ import argparse
 import traceback
 
 from config import Config
-from main import blueprint, evaluate, trace, train
+from main import blueprint, evaluate, trace, trace_most_fit, train
 from population.population import Population
 from process_killer import main as process_killer
 from utils.dictionary import *
@@ -19,6 +19,7 @@ def main(fitness,
          run_blueprint=False,
          run_evaluate=False,
          run_trace=False,
+         run_trace_fit=False,
          run_train=False,
          train_iterations=0,
          version=0,
@@ -32,13 +33,18 @@ def main(fitness,
     :param run_blueprint: Create a blueprint evaluation for the population for the first 5 games
     :param run_evaluate: Evaluate the best genome of the population
     :param run_trace: Create a trace evaluation for the population for the first 5 games
+    :param run_trace_fit: Create a trace evaluation for the population's most fit genome on the first 5 games
     :param run_train: Train the population
     :param train_iterations: Number of training generations
     :param version: Version of the model
     """
-    # Let inputs apply to configuration
+    # Re-configure the config-file
     folder = D_NEAT_GRU if gru else D_NEAT
     cfg = Config()
+    cfg.game.duration = 100
+    cfg.reproduction.pop_size = 128
+    
+    # Let inputs apply to configuration
     cfg.evaluation.fitness = fitness
     cfg.genome.gru_enabled = gru
     cfg.reproduction.sexual = reproduce
@@ -89,6 +95,14 @@ def main(fitness,
                     games=games,
             )
         
+        if run_trace_fit:
+            trace_most_fit(
+                    population=pop,
+                    game_config=cfg,
+                    genome=pop.best_genome,
+                    games=games,
+            )
+        
         if run_evaluate:
             evaluate(
                     population=pop,
@@ -110,6 +124,7 @@ if __name__ == '__main__':
     parser.add_argument('--blueprint', type=int, default=0)
     parser.add_argument('--evaluate', type=int, default=0)
     parser.add_argument('--trace', type=int, default=0)
+    parser.add_argument('--trace_fit', type=int, default=0)
     parser.add_argument('--train', type=int, default=1)
     parser.add_argument('--iterations', type=int, default=10)
     parser.add_argument('--version', type=int, default=0)
@@ -122,6 +137,7 @@ if __name__ == '__main__':
             run_blueprint=bool(args.blueprint),
             run_evaluate=bool(args.evaluate),
             run_trace=bool(args.trace),
+            run_trace_fit=bool(args.trace_fit),
             run_train=bool(args.train),
             train_iterations=args.iterations,
             version=args.version,
