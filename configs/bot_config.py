@@ -3,6 +3,8 @@ bot_config.py
 
 MarXBot configuration file.
 """
+from numpy import pi
+
 from configs.base_config import BaseConfig
 
 
@@ -36,18 +38,17 @@ class BotConfig(BaseConfig):
 def get_proximity_angles():
     """Get the angles used for the proximity sensors."""
     angles = []
-    """
+    
     # Left-side of the agent
     angles.append(3 * pi / 4)  # 135° (counter-clockwise)
     for i in range(5):  # 90° until 10° with hops of 20° (total of 5 sensors)
         angles.append(pi / 2 - i * pi / 9)
-
+    
     # Center
     angles.append(0)  # 0°
-
+    
     # Right-side of the agent
     for i in range(5):  # -10° until -90° with hops of 20° (total of 5 sensors)
         angles.append(-pi / 18 - i * pi / 9)
     angles.append(-3 * pi / 4)  # -135° (clockwise)
-    # """
     return angles

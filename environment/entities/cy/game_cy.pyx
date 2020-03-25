@@ -17,6 +17,7 @@ from utils.cy.line2d_cy cimport Line2dCy
 from utils.myutils import load_pickle, store_pickle
 from utils.cy.vec2d_cy cimport Vec2dCy
 
+
 cdef class GameCy:
     """
     A game environment is built up from the following segments:
@@ -254,6 +255,7 @@ cdef class GameCy:
         # Return the figure in its current state
         return ax
 
+
 cpdef set get_boundary_walls(int x_axis, int y_axis):
     """Get a set of the boundary walls."""
     a = Vec2dCy(0, 0)
@@ -261,6 +263,7 @@ cpdef set get_boundary_walls(int x_axis, int y_axis):
     c = Vec2dCy(x_axis, y_axis)
     d = Vec2dCy(0, y_axis)
     return {Line2dCy(a, b), Line2dCy(b, c), Line2dCy(c, d), Line2dCy(d, a)}
+
 
 cpdef GameCy get_game_cy(int i, cfg=None):
     """
