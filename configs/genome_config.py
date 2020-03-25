@@ -92,7 +92,7 @@ class GenomeConfig(BaseConfig):
         # Probability of a GRU value to mutate  [def=0.2]  TODO
         self.gru_mutate_rate: float = 0.2
         # Probability of mutating a GRU node rather than a simple node  [def=0.6]  TODO
-        self.gru_node_prob: float = 0.6
+        self.gru_node_prob: float = 1
         # Probability of assigning (single) random value in GRU, based on gru_init_mean and gru_init_stdev  [def=0.05]
         self.gru_replace_rate: float = 0.05
         # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT_05]  TODO

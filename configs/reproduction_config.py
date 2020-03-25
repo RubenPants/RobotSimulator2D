@@ -21,6 +21,6 @@ class ReproductionConfig(BaseConfig):
         # Minimum number of genomes per species, keeping low prevents number of individuals blowing up  [def=10]  TODO
         self.min_species_size: int = 10
         # Number of individuals in each generation  [def=128]  TODO
-        self.pop_size: int = 128
+        self.pop_size: int = 10
         # Sexual reproduction  [def=True]
-        self.sexual: bool = False
+        self.sexual: bool = True

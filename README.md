@@ -4,6 +4,7 @@
 
 ## TODO
 
+* Save distance-only every 10gen (instead of each gen)
 * Find out what the specie-distance is with the species in distance-only
 * Research: Add genome to closest specie, or add genome to first specie within threshold?
 * Research: How properly identify disjoint nodes (see NEAT paper!) --> disjoint determined based on connections?

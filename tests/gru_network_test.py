@@ -66,10 +66,10 @@ class TestGruFeedForward(unittest.TestCase):
         for i, o in [(-1, 1), (1, 0)]:
             genome.create_connection(config=config.genome, input_key=i, output_key=o, weight=1.0)
         genome.update_gru_nodes(config=config.genome)
-        genome.nodes[1].gru_bias_ih[:] = torch.tensor([1, 1, 1], dtype=torch.float64)
-        genome.nodes[1].gru_bias_hh[:] = torch.tensor([1, 1, 1], dtype=torch.float64)
-        genome.nodes[1].gru_full_weight_ih[:] = torch.tensor([[1], [1], [1]], dtype=torch.float64)
-        genome.nodes[1].gru_weight_hh[:] = torch.tensor([[1], [1], [1]], dtype=torch.float64)
+        genome.nodes[1].bias_ih[:] = torch.tensor([1, 1, 1], dtype=torch.float64)
+        genome.nodes[1].bias_hh[:] = torch.tensor([1, 1, 1], dtype=torch.float64)
+        genome.nodes[1].weight_ih_full[:] = torch.tensor([[1], [1], [1]], dtype=torch.float64)
+        genome.nodes[1].weight_hh[:] = torch.tensor([[1], [1], [1]], dtype=torch.float64)
         if debug: print(genome)
         # Create a network
         net = make_net(genome=genome, genome_config=config.genome, game_config=config, bs=1)
@@ -77,10 +77,10 @@ class TestGruFeedForward(unittest.TestCase):
         # Query the network; single input in range [-1, 1]
         inputs = [random() * 2 - 1 for _ in range(100)]
         gru = torch.nn.GRUCell(1, 1)
-        gru.bias_ih[:] = genome.nodes[1].gru_bias_ih[:]
-        gru.bias_hh[:] = genome.nodes[1].gru_bias_hh[:]
-        gru.weight_ih[:] = genome.nodes[1].gru_weight_ih[:]
-        gru.weight_hh[:] = genome.nodes[1].gru_weight_hh[:]
+        gru.bias_ih[:] = torch.tensor(genome.nodes[1].bias_ih[:], dtype=torch.float64)
+        gru.bias_hh[:] = torch.tensor(genome.nodes[1].bias_hh[:], dtype=torch.float64)
+        gru.weight_ih[:] = torch.tensor(genome.nodes[1].weight_ih[:], dtype=torch.float64)
+        gru.weight_hh[:] = torch.tensor(genome.nodes[1].weight_hh[:], dtype=torch.float64)
         hidden_values = []
         hx = None
         for inp in inputs:

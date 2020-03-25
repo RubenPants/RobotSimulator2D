@@ -141,16 +141,16 @@ def single_evaluation(multi_env, parallel: bool, pop: Population, unused_cpu: in
     # Prepare the generation's reporters for the generation
     pop.reporters.start_generation(gen=pop.generation, logger=pop.log)
     
-    # Initialize the evaluation-pool
-    pool = mp.Pool(mp.cpu_count() - unused_cpu)
-    manager = mp.Manager()
-    return_dict = manager.dict()
-    
     # Fetch the dictionary of genomes
     genomes = list(iteritems(pop.population))
     
     if parallel:
         pbar = tqdm(total=len(genomes), desc="parallel training")
+        
+        # Initialize the evaluation-pool
+        pool = mp.Pool(mp.cpu_count() - unused_cpu)
+        manager = mp.Manager()
+        return_dict = manager.dict()
         
         def cb(*_):
             """Update progressbar after finishing a single genome's evaluation."""
@@ -171,6 +171,7 @@ def single_evaluation(multi_env, parallel: bool, pop: Population, unused_cpu: in
         )
         for i, genome in genomes: genome.fitness = fitness[i]
     else:
+        return_dict = dict()
         for genome in tqdm(genomes, desc="sequential training"):
             multi_env.eval_genome(genome, return_dict)
         fitness = calc_pop_fitness(

@@ -6,8 +6,9 @@ Handles node and connection genes.
 from abc import abstractmethod
 from copy import deepcopy
 
-import numpy as np
-from torch import cat, float64, tensor
+from numpy import concatenate as cat, zeros
+from numpy.linalg import norm
+from torch import float64, tensor
 from torch.nn import GRUCell
 
 from configs.genome_config import GenomeConfig
@@ -38,8 +39,8 @@ class BaseGene(object):
         assert isinstance(self.key, type(other.key)), f"Cannot compare keys {self.key!r} and {other.key!r}"
         return self.key < other.key
     
-    def copy(self):
-        new_gene = self.__class__(self.key)
+    def copy(self, cfg):
+        new_gene = self.__class__(self.key, cfg=cfg)
         for param in self.__slots__:
             attr = getattr(self, param)
             
@@ -54,6 +55,7 @@ class BaseGene(object):
     
     @abstractmethod
     def crossover(self, cfg: GenomeConfig, other, ratio: float = 0.5):
+        """Create a new gene based on the current configuration and that of another (same-class) gene."""
         raise NotImplementedError(f"Crossover is not implemented for gene {self.key}")
     
     @abstractmethod
@@ -66,14 +68,14 @@ class BaseGene(object):
 
 
 class SimpleNodeGene(BaseGene):
-    """Default node configuration, as specified by the Python-NEAT documentation."""
+    """Simple node configuration, as specified by the Python-NEAT documentation."""
     
     __slots__ = {
         'bias', 'activation', 'aggregation',
     }
     
     def __init__(self, key, cfg: GenomeConfig):
-        assert isinstance(key, int), f"DefaultNodeGene key must be an int, not {key!r}"
+        assert isinstance(key, int), f"SimpleNodeGene key must be an int, not {key!r}"
         BaseGene.__init__(self, key)
         
         # Initialize gene attributes
@@ -91,10 +93,13 @@ class SimpleNodeGene(BaseGene):
         return f"SimpleNodeGene(bias={round(self.bias, 2)})"
     
     def crossover(self, cfg: GenomeConfig, other, ratio: float = 0.5):
-        assert self.__class__ == other.__class__
-        self.activation = activation.cross(v1=self.activation, v2=other.activation, ratio=ratio)
-        self.aggregation = aggregation.cross(v1=self.aggregation, v2=other.aggregation, ratio=ratio)
-        self.bias = bias.cross(v1=self.bias, v2=other.bias, ratio=ratio)
+        assert self.__class__ == other.__class__ == SimpleNodeGene
+        assert self.key == other.key
+        new_gene = SimpleNodeGene(self.key, cfg=cfg)
+        new_gene.activation = activation.cross(v1=self.activation, v2=other.activation, ratio=ratio)
+        new_gene.aggregation = aggregation.cross(v1=self.aggregation, v2=other.aggregation, ratio=ratio)
+        new_gene.bias = bias.cross(v1=self.bias, v2=other.bias, ratio=ratio)
+        return new_gene
     
     def distance(self, other, cfg: GenomeConfig):
         d = abs(self.bias - other.bias)
@@ -134,9 +139,12 @@ class OutputNodeGene(BaseGene):
         return f"OutputNodeGene(bias={round(self.bias, 2)})"
     
     def crossover(self, cfg: GenomeConfig, other, ratio: float = 0.5):
-        assert self.__class__ == other.__class__
-        self.aggregation = aggregation.cross(v1=self.aggregation, v2=other.aggregation, ratio=ratio)
-        self.bias = bias.cross(v1=self.bias, v2=other.bias, ratio=ratio)
+        assert self.__class__ == other.__class__ == OutputNodeGene
+        assert self.key == other.key
+        new_gene = OutputNodeGene(self.key, cfg=cfg)
+        new_gene.aggregation = aggregation.cross(v1=self.aggregation, v2=other.aggregation, ratio=ratio)
+        new_gene.bias = bias.cross(v1=self.bias, v2=other.bias, ratio=ratio)
+        return new_gene
     
     def distance(self, other, cfg: GenomeConfig):
         """Only possible difference in output-nodes' distance is the bias."""
@@ -168,7 +176,7 @@ class GruNodeGene(BaseGene):
         self.bias_hh = gru.init(cfg)
         self.bias_ih = gru.init(cfg)
         self.input_keys: list = input_keys if input_keys else []
-        self.input_keys_full: list = input_keys if input_keys else []  # Full set of all seen input-keys
+        self.input_keys_full: list = input_keys_full if input_keys_full else []
         self.weight_hh = gru.init(cfg, input_size=1)
         self.weight_ih = None  # Updated via update_weight_ih
         self.weight_ih_full = gru.init(cfg, input_size=len(self.input_keys_full))
@@ -188,11 +196,12 @@ class GruNodeGene(BaseGene):
         return f"GruNodeGene(inputs={self.input_keys!r})"
     
     def crossover(self, cfg: GenomeConfig, other, ratio: float = 0.5):
-        assert self.__class__ == other.__class__
+        assert self.__class__ == other.__class__ == GruNodeGene
+        assert self.key == other.key
         
         # Initialize a randomized gene
         input_keys_full = sorted(set(self.input_keys_full + other.input_keys_full))
-        new_gene = self.__class__(self.key, input_keys=[], input_keys_full=input_keys_full)
+        new_gene = GruNodeGene(self.key, cfg=cfg, input_keys=[], input_keys_full=input_keys_full)
         assert new_gene.input_keys == []
         assert new_gene.input_keys_full == input_keys_full
         assert new_gene.weight_ih_full.shape == (3, len(input_keys_full))
@@ -219,18 +228,18 @@ class GruNodeGene(BaseGene):
     def distance(self, other, cfg: GenomeConfig):
         """Calculate the average distance between two GRU nodes, which is determined by its coefficients."""
         d = 0
-        d += np.linalg.norm(self.bias_ih - other.bias_ih)
-        d += np.linalg.norm(self.bias_hh - other.bias_hh)
-        d += np.linalg.norm(self.weight_hh - other.weight_hh)
+        d += norm(self.bias_ih - other.bias_ih)
+        d += norm(self.bias_hh - other.bias_hh)
+        d += norm(self.weight_hh - other.weight_hh)
         
         # Compare only same input keys
         key_set = sorted(set(self.input_keys + other.input_keys))
-        s = np.zeros((3, len(key_set)))
-        o = np.zeros((3, len(key_set)))
+        s = zeros((3, len(key_set)), dtype=float)
+        o = zeros((3, len(key_set)), dtype=float)
         for i, k in enumerate(key_set):
             if k in self.input_keys: s[:, i] = self.weight_ih_full[:, self.input_keys_full.index(k)]
             if k in other.input_keys: o[:, i] = other.weight_ih_full[:, other.input_keys_full.index(k)]
-        d += np.linalg.norm(s - o)
+        d += norm(s - o)
         if self.activation != other.activation: d += 1.0
         return (d / 4) * cfg.compatibility_weight_coefficient
     
@@ -244,22 +253,22 @@ class GruNodeGene(BaseGene):
     
     def update_weight_ih(self):
         """Update weight_ih to be conform with the current input_keys-set."""
-        self.weight_ih = tensor(np.zeros((3, len(self.input_keys))), dtype=float64)
+        self.weight_ih = zeros((3, len(self.input_keys)), dtype=float)
         for i, k in enumerate(self.input_keys):
             self.weight_ih[:, i] = self.weight_ih_full[:, self.input_keys_full.index(k)]
     
-    def get_gru(self, weight_map=None):  # TODO: Document weight_map
-        """Return a PyTorch GRUCell based on current configuration."""
+    def get_gru(self, mapping=None):  # TODO: Document weight_map
+        """Return a PyTorch GRUCell based on current configuration. The mapping denotes which columns to use."""
         self.update_weight_ih()
-        if weight_map is not None:
-            cell = GRUCell(input_size=len(weight_map[weight_map]), hidden_size=1)
-            cell.weight_ih[:] = self.weight_ih[:, weight_map]
+        if mapping is not None:
+            cell = GRUCell(input_size=len(mapping[mapping]), hidden_size=1)
+            cell.weight_ih[:] = tensor(self.weight_ih[:, mapping], dtype=float64)
         else:
             cell = GRUCell(input_size=len(self.input_keys), hidden_size=1)
-            cell.weight_ih[:] = self.weight_ih
-        cell.weight_hh[:] = self.weight_hh
-        cell.bias_ih[:] = self.bias_ih
-        cell.bias_hh[:] = self.bias_hh
+            cell.weight_ih[:] = tensor(self.weight_ih, dtype=float64)
+        cell.weight_hh[:] = tensor(self.weight_hh, dtype=float64)
+        cell.bias_ih[:] = tensor(self.bias_ih, dtype=float64)
+        cell.bias_hh[:] = tensor(self.bias_hh, dtype=float64)
         return cell
     
     def add_input_key(self, cfg: GenomeConfig, k: int):
@@ -276,7 +285,7 @@ class GruNodeGene(BaseGene):
             # Update weight_ih_full correspondingly by inserting random initialized tensor in correct position
             new_tensor = gru.init(cfg, input_size=1)
             assert new_tensor.shape == (3, 1)
-            self.weight_ih_full = cat((self.weight_ih_full[:, :i], new_tensor, self.weight_ih_full[:, i:]), dim=1)
+            self.weight_ih_full = cat((self.weight_ih_full[:, :i], new_tensor, self.weight_ih_full[:, i:]), axis=1)
         
         # Update input_keys (current key-set) analogously
         if k not in self.input_keys:
@@ -289,15 +298,15 @@ class GruNodeGene(BaseGene):
         if k in self.input_keys: self.input_keys.remove(k)
 
 
-class DefaultConnectionGene(BaseGene):
-    """Default connection configuration, as specified by the Python-NEAT documentation."""
+class ConnectionGene(BaseGene):
+    """Connection configuration, as specified by the Python-NEAT documentation."""
     
     __slots__ = {
         'enabled', 'weight',
     }
     
     def __init__(self, key, cfg: GenomeConfig):
-        assert isinstance(key, tuple), f"DefaultConnectionGene key must be a tuple, not {key!r}"
+        assert isinstance(key, tuple), f"ConnectionGene key must be a tuple, not {key!r}"
         BaseGene.__init__(self, key)
         
         # Initialize gene attributes
@@ -305,17 +314,20 @@ class DefaultConnectionGene(BaseGene):
         self.weight = conn_weight.init(cfg)
     
     def __str__(self):
-        return f"DefaultConnectionGene(\n" \
+        return f"ConnectionGene(\n" \
                f"\tenabled={self.enabled}\n" \
                f"\tweight={round(self.weight, 2)})"
     
     def __repr__(self):
-        return f"DefaultConnectionGene(weight={round(self.weight, 2)}, enabled={self.enabled})"
+        return f"ConnectionGene(weight={round(self.weight, 2)}, enabled={self.enabled})"
     
     def crossover(self, cfg: GenomeConfig, other, ratio: float = 0.5):
-        assert self.__class__ == other.__class__
-        self.enabled = conn_enabled.cross(v1=self.enabled, v2=other.enabled, ratio=ratio)
-        self.weight = conn_weight.cross(v1=self.weight, v2=other.weight, ratio=ratio)
+        assert self.__class__ == other.__class__ == ConnectionGene
+        assert self.key == other.key
+        new_gene = ConnectionGene(self.key, cfg=cfg)
+        new_gene.enabled = conn_enabled.cross(v1=self.enabled, v2=other.enabled, ratio=ratio)
+        new_gene.weight = conn_weight.cross(v1=self.weight, v2=other.weight, ratio=ratio)
+        return new_gene
     
     def distance(self, other, config):
         d = abs(self.weight - other.weight)

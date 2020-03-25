@@ -295,7 +295,7 @@ class FeedForwardNet:
             weight_map = np.asarray([k in input_keys + hidden_keys for k in node.input_keys])
             
             # Add the GRUCell and its corresponding mapping to the list of used GRUCells
-            grus.append(node.get_gru(weight_map=weight_map))
+            grus.append(node.get_gru(mapping=weight_map))
             assert len(mapping[mapping]) == grus[-1].input_size
             gru_map.append(mapping)
         

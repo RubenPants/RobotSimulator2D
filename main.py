@@ -144,17 +144,17 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     
     # Main methods
-    parser.add_argument('--train', type=bool, default=False)
+    parser.add_argument('--train', type=bool, default=True)
     parser.add_argument('--train_same', type=bool, default=True)
-    parser.add_argument('--blueprint', type=bool, default=False)
-    parser.add_argument('--trace', type=bool, default=False)
-    parser.add_argument('--trace_fit', type=bool, default=False)
+    parser.add_argument('--blueprint', type=bool, default=True)
+    parser.add_argument('--trace', type=bool, default=True)
+    parser.add_argument('--trace_fit', type=bool, default=True)
     parser.add_argument('--evaluate', type=bool, default=False)
     parser.add_argument('--genome', type=bool, default=False)
     parser.add_argument('--live', type=bool, default=False)
     
     # Extra arguments
-    parser.add_argument('--iterations', type=int, default=30)
+    parser.add_argument('--iterations', type=int, default=2)
     parser.add_argument('--unused_cpu', type=int, default=2)
     parser.add_argument('--debug', type=bool, default=False)
     args = parser.parse_args()
@@ -167,7 +167,7 @@ if __name__ == '__main__':
             # folder_name='DISTANCE-ONLY',
     )
     if not pop.best_genome: pop.best_genome = list(pop.population.values())[-1]
-    # pop.best_genome = list(pop.population.values())[1]  # TODO
+    pop.best_genome = list(pop.population.values())[7]  # TODO
     # pop.population = {k: v for k, v in pop.population.items() if k in [111]}  # TODO
     # pop.best_genome.update_gru_nodes(pop.config.genome_config)
     # pop.best_genome.mutate(config=pop.config.genome_config)
