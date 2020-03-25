@@ -146,7 +146,7 @@ class Population:
         
         # Write population configuration to file
         with open(f'population/storage/{self.folder_name}/{self}/config.txt', 'w') as f:
-            f.write(str(self.config))
+            f.write(self.config.read())
     
     def evolve(self):
         """

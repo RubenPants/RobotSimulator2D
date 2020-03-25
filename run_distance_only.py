@@ -31,8 +31,11 @@ def main(gru,
     folder = D_DISTANCE_ONLY
     config = Config()
     config.evaluation.fitness = D_DISTANCE  # Always use the distance-fitness
-    config.species.stagnation = 25  # Greater since improvement comes slow
     config.game.duration = 50  # Limited time to find target, but just enough for fastest genomes
+    config.reproduction.parent_selection = 0.2  # Great selective pressure
+    config.reproduction.pop_size = 128  # Large enough of a population
+    config.species.compatibility_threshold = 2.0  # Single node in difference would be enough (+has other connections)
+    config.species.stagnation = 25  # Greater since improvement comes slow
     
     # Let inputs apply to configuration
     config.genome.gru_enabled = gru
