@@ -33,8 +33,8 @@ def update_dict(full_path, new_dict):
         # Append new json
         with open(full_path, 'r') as f:
             original = json.load(f)
-        
-        original.update(new_dict)
+
+        original.update()
         with open(full_path, 'w') as f:
             json.dump(original, f, indent=2)
     else:

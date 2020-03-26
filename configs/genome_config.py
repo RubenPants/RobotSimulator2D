@@ -96,7 +96,7 @@ class GenomeConfig(BaseConfig):
         # Probability of assigning (single) random value in GRU, based on gru_init_mean and gru_init_stdev  [def=0.05]
         self.gru_replace_rate: float = 0.05
         # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT_05]  TODO
-        self.initial_connection = D_FULL_NODIRECT
+        self.initial_connection = D_PARTIAL_DIRECT_05
         # Input-keys, which are by convention negative starting from -1 and descending, set in update()  [def=/]
         self.keys_input = None
         # Output-keys, which start by convention from 0 and increment with each output, set in update()  [def=/]

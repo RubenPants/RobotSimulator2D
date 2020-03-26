@@ -209,7 +209,7 @@ def single_evaluation(multi_env, parallel: bool, pop: Population, unused_cpu: in
     
     # Update the population's best_genome
     genomes = sorted(pop.population.items(), key=lambda x: x[1].fitness, reverse=True)
-    pop.best_genome_hist[pop.generation] = genomes[:pop.config.reproduction.elitism]
+    pop.best_genome_hist[pop.generation] = genomes[:pop.config.population.genome_elitism]
     if pop.best_genome is None or best.fitness > pop.best_genome.fitness: pop.best_genome = best
     
     # Let population evolve
@@ -217,5 +217,6 @@ def single_evaluation(multi_env, parallel: bool, pop: Population, unused_cpu: in
     
     # End generation
     pop.reporters.end_generation(population=pop.population,
+                                 name=str(pop),
                                  species_set=pop.species,
                                  logger=pop.log)

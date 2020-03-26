@@ -9,17 +9,23 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 
 from population.population import Population
+from population.utils.visualizing.averaging_functions import EMA, Forward, SMA
 from utils.myutils import get_subfolder
 
 
-def main(pop: Population, show: bool = True):
+def main(pop: Population, func, window: int = 5, show: bool = True):
     """
     Visualize the elites of the given population. Each generation, the average fitness of the three stored elites is
     taken.
     
     :param pop: Population object
+    :param func: Function used to flatten the curve
+    :param window: Window-size used in the function
     :param show: Show the result
     """
+    # Fetch name based on used function
+    name = f'elites{"_EMA" if func == EMA else "_SMA" if func == SMA else ""}_gen_{pop.generation}'
+    
     ax = plt.figure().gca()
     max_gen = 0
     for specie_id, specie in pop.species_hist.items():
@@ -35,10 +41,15 @@ def main(pop: Population, show: bool = True):
         assert len(elite_fitness) == len(generations)
         
         # Plot the specie
-        plt.plot(generations, elite_fitness, label=f'specie {specie_id}')
+        plt.plot(generations, func(elite_fitness, window), label=f'specie {specie_id}')
     
     # Additional plot attributes
-    plt.title(f"Average elite fitness of population: {pop}")
+    if func == SMA:
+        plt.title(f"Specie fitness in population: {pop}\nSimple Moving Average (window={window})")
+    elif func == EMA:
+        plt.title(f"Specie fitness in population: {pop}\nExponential Moving Average (window={window})")
+    else:
+        plt.title(f"Specie  fitness in population: {pop}")
     plt.xlabel("generation")
     plt.ylabel("fitness of specie's elites")
     plt.legend()
@@ -50,7 +61,7 @@ def main(pop: Population, show: bool = True):
     # Save the result
     get_subfolder(f'population/storage/{pop.folder_name}/{pop}/', 'images')
     get_subfolder(f'population/storage/{pop.folder_name}/{pop}/images/', 'species')
-    plt.savefig(f'population/storage/{pop.folder_name}/{pop}/images/species/gen_{pop.generation}')
+    plt.savefig(f'population/storage/{pop.folder_name}/{pop}/images/species/{name}')
     if show:
         plt.show()
         plt.close()
@@ -60,8 +71,13 @@ if __name__ == '__main__':
     os.chdir("../../../")
     
     population = Population(
-            name='distance_2',
+            name='distance_repr_1',
             # version=1,
-            folder_name='DISTANCE-ONLY',
+            folder_name='test',
     )
-    main(population)
+    
+    for f in [Forward, SMA, EMA]:
+        main(
+                pop=population,
+                func=f,
+        )

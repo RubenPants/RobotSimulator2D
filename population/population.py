@@ -12,7 +12,7 @@ from scipy.stats import gmean
 
 from config import Config
 from population.utils.genome_util.genome import DefaultGenome
-from population.utils.genome_util.genome_visualizer import draw_net
+from population.utils.visualizing.genome_visualizer import draw_net
 from population.utils.network_util.feed_forward_net import make_net
 from population.utils.population_util.reproduction import DefaultReproduction
 from population.utils.population_util.species import DefaultSpecies
@@ -67,7 +67,7 @@ class Population:
         """
         self.config: Config = config if config else Config()
         self.name = name if name else f"{self.config.evaluation.fitness}" \
-                                      f"{f'_repr' if self.config.reproduction.sexual else ''}" \
+                                      f"{f'_repr' if self.config.population.crossover_enabled else ''}" \
                                       f"{f'_{version}' if version else ''}"
         self.folder_name = folder_name
         
@@ -101,7 +101,7 @@ class Population:
         :param make_net_method: Method used to create the genome-specific network
         :param query_net_method: Method used to query actions of the genome-specific network
         """
-        stagnation = DefaultStagnation(self.config.species, self.reporters)
+        stagnation = DefaultStagnation(self.config.population, self.reporters)
         self.reporters = ReporterSet()
         self.reproduction = DefaultReproduction(self.reporters, stagnation)
         
@@ -119,7 +119,7 @@ class Population:
         
         # Create a population from scratch, then partition into species
         self.population = self.reproduction.create_new(config=self.config,
-                                                       num_genomes=self.config.reproduction.pop_size)
+                                                       num_genomes=self.config.population.pop_size)
         self.species = DefaultSpecies(reporters=self.reporters)
         self.species.speciate(config=self.config,
                               population=self.population,
@@ -170,7 +170,7 @@ class Population:
             
             # If requested by the user, create a completely new population, otherwise raise an exception
             self.population = self.reproduction.create_new(config=self.config,
-                                                           num_genomes=self.config.reproduction.pop_size)
+                                                           num_genomes=self.config.population.pop_size)
         
         # Divide the new population into species
         self.species.speciate(config=self.config,
@@ -185,11 +185,11 @@ class Population:
         self.generation += 1
     
     def update_species_elites(self):
-        """Add for each of the current species their elite genome to the species_hist container."""
+        """Add for each of the current species their elite genomes to the species_hist container."""
         for specie_id, specie in self.species.species.items():
             elites = sorted(specie.members.values(), key=lambda m: m.fitness if m.fitness else 0, reverse=True)
             if specie_id not in self.species_hist: self.species_hist[specie_id] = dict()
-            self.species_hist[specie_id][self.generation] = elites[:self.config.reproduction.elitism]
+            self.species_hist[specie_id][self.generation] = elites[:self.config.population.genome_elitism]
     
     def visualize_genome(self, debug=False, genome=None, show: bool = True):
         """

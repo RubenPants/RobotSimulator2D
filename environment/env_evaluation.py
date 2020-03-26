@@ -12,7 +12,7 @@ from config import Config
 from environment.entities.game import get_game
 from environment.env_training import get_multi_env
 from population.utils.visualizing.population_visualizer import create_blueprints
-from utils.dictionary import D_DIST_TO_TARGET, D_DONE, D_STEPS
+from utils.dictionary import D_DIST_TO_TARGET, D_DONE, D_TIME_TAKEN
 from utils.myutils import get_subfolder
 
 
@@ -142,7 +142,7 @@ def create_answer(games: list):
     answer['Average distance to target'] = round(sum([g[D_DIST_TO_TARGET] for g in games]) / len(games), 2)
     answer['Max distance to target'] = round(max([g[D_DIST_TO_TARGET] for g in games]), 2)
     
-    answer['Min time taken'] = round(min([g[D_STEPS] / cfg.game.fps for g in games]), 2)
-    answer['Average time taken'] = round(sum([g[D_STEPS] / cfg.game.fps for g in games]) / len(games), 2)
-    answer['Max time taken'] = round(max([g[D_STEPS] / cfg.game.fps for g in games]), 2)
+    answer['Min time taken'] = round(min([g[D_TIME_TAKEN] for g in games]), 2)
+    answer['Average time taken'] = round(sum([g[D_TIME_TAKEN] for g in games]) / len(games), 2)
+    answer['Max time taken'] = round(max([g[D_TIME_TAKEN] for g in games]), 2)
     return answer

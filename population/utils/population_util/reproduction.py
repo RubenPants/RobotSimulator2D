@@ -98,25 +98,20 @@ class DefaultReproduction:
             #  candidates present in this specie
             msf = mean([m.fitness for m in itervalues(afs.members)])
             afs.adjusted_fitness = min((msf - min_fitness) / fitness_range, 1)
-        adjusted_fitness = [s.adjusted_fitness for s in remaining_species]
-        
-        # Compute the number of new members for each species in the new generation
-        previous_sizes = [len(s.members) for s in remaining_species]
-        min_species_size = config.reproduction.min_species_size
         
         # Minimum specie-size is defined by the number of elites and the minimal number of genomes in a population
-        min_species_size = max(min_species_size, config.reproduction.elitism)
-        spawn_amounts = self.compute_spawn(adjusted_fitness=adjusted_fitness,
-                                           previous_sizes=previous_sizes,
-                                           pop_size=config.reproduction.pop_size,
-                                           min_species_size=min_species_size)
+        spawn_amounts = self.compute_spawn(adjusted_fitness=[s.adjusted_fitness for s in remaining_species],
+                                           previous_sizes=[len(s.members) for s in remaining_species],
+                                           pop_size=config.population.pop_size,
+                                           min_species_size=max(config.population.min_specie_size,
+                                                                config.population.genome_elitism))
         
         # Setup the next generation by filling in the new species with their elite, parents, and offspring
         new_population = dict()
         species.species = dict()
         for spawn_amount, specie in zip(spawn_amounts, remaining_species):
             # If elitism is enabled, each species will always at least gets to retain its elites
-            spawn_amount = max(spawn_amount, config.reproduction.elitism)
+            spawn_amount = max(spawn_amount, config.population.genome_elitism)
             
             # The species has at least one member for the next generation, so retain it
             assert spawn_amount > 0
@@ -130,10 +125,10 @@ class DefaultReproduction:
             old_members.sort(reverse=True, key=lambda x: x[1].fitness)
             
             # Make sure that all a specie's elites are in the specie itself
-            if config.reproduction.elitism > 0:
+            if config.population.genome_elitism > 0:
                 # Add the current generation's elites to the population
                 new_elites = set()
-                for i, m in old_members[:config.reproduction.elitism]:
+                for i, m in old_members[:config.population.genome_elitism]:
                     new_population[i] = m
                     new_elites.add((i, m))
                     spawn_amount -= 1
@@ -152,8 +147,8 @@ class DefaultReproduction:
             
             # Only use the survival threshold fraction to use as parents for the next generation, use at least all the
             #  elite of a population as parents
-            reproduction_cutoff = max(round(config.reproduction.parent_selection * len(old_members)),
-                                      config.reproduction.elitism)
+            reproduction_cutoff = max(round(config.population.parent_selection * len(old_members)),
+                                      config.population.genome_elitism)
             
             # Use at least two parents no matter what the threshold fraction result is
             reproduction_cutoff = max(reproduction_cutoff, 2)
@@ -171,7 +166,8 @@ class DefaultReproduction:
                 #  identical clone of the parent (but with a different ID)
                 p1_id, p1 = choice(parents)
                 p2_id, p2 = choice(parents)
-                if config.reproduction.sexual and (p1_id != p2_id) and random() < config.reproduction.sexual_prob:
+                if config.population.crossover_enabled and (p1_id != p2_id) and \
+                        random() < config.population.crossover_prob:
                     child.configure_crossover(config=config.genome, genome1=p1, genome2=p2)
                 else:
                     p2_id = p1_id
