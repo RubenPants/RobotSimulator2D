@@ -60,8 +60,9 @@ def main(gru,
           f"\n\t> Train for {train_iterations} iterations\n"
     pop.log(msg)
     
-    # Set games used for evaluation
-    games = [99995, 99996, 99997, 99998, 99999]
+    # Set games used for evaluation; do not include 99997 since simply 'driving straight' would benefit here a lot!
+    # games = [99995, 99996, 99997, 99998, 99999]
+    games = [99995, 99996, 99998, 99999]
     
     # Execute the segments
     try:
