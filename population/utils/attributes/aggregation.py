@@ -23,7 +23,7 @@ def cross(v1, v2, ratio: float = 0.5):
 def init(cfg: GenomeConfig):
     """Put aggregation to specified aggregation in config, random aggregation chosen if not specified."""
     if cfg.aggregation_default.lower() in ('none', 'random'):
-        return choice(cfg.aggregation_options)
+        return choice(list(cfg.aggregation_options.keys()))
     return cfg.aggregation_default
 
 
@@ -34,5 +34,5 @@ def mutate(v, cfg: GenomeConfig):
     """
     r = random()
     if r < cfg.aggregation_mutate_rate:
-        return choice(cfg.aggregation_options)
+        return choice(list(cfg.aggregation_options.keys()))
     return v

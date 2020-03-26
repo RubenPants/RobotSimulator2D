@@ -175,8 +175,8 @@ class GruNodeGene(BaseGene):
         self.bias = 0  # Needed for feed-forward-network
         self.bias_hh = gru.init(cfg)
         self.bias_ih = gru.init(cfg)
-        self.input_keys: list = input_keys if input_keys else []
-        self.input_keys_full: list = input_keys_full if input_keys_full else []
+        self.input_keys: list = sorted(input_keys) if input_keys else []
+        self.input_keys_full: list = sorted(input_keys_full) if input_keys_full else []
         self.weight_hh = gru.init(cfg, input_size=1)
         self.weight_ih = None  # Updated via update_weight_ih
         self.weight_ih_full = gru.init(cfg, input_size=len(self.input_keys_full))
@@ -220,6 +220,7 @@ class GruNodeGene(BaseGene):
                 new_gene.weight_ih_full[:, i] = other.weight_ih_full[:, other.input_keys_full.index(k)]
         
         # Crossover the other attributes
+        new_gene.activation = activation.cross(self.activation, other.activation, ratio=ratio)
         new_gene.bias_hh = gru.cross_1d(self.bias_hh, other.bias_hh, ratio=ratio)
         new_gene.bias_ih = gru.cross_1d(self.bias_ih, other.bias_ih, ratio=ratio)
         new_gene.weight_hh = gru.cross_2d(self.weight_hh, other.weight_hh, ratio=ratio)

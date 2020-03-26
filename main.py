@@ -132,13 +132,15 @@ def trace_most_fit(population: Population,
 
 def visualize_genome(population: Population,
                      genome: DefaultGenome,
-                     debug: bool = True):
+                     debug: bool = True,
+                     show: bool = True):
     """Visualize the requested genome."""
     print("\n===> VISUALIZING GENOME <===\n")
     print(f"Genome {genome.key} with size: {genome.size()}")
     population.visualize_genome(
             debug=debug,
             genome=genome,
+            show=show
     )
 
 
