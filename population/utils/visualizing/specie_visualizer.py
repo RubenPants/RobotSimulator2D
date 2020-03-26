@@ -6,10 +6,10 @@ Visualization of a specie's elites.
 import os
 
 import matplotlib.pyplot as plt
-import numpy as np
 from matplotlib.ticker import MaxNLocator
 
 from population.population import Population
+from population.utils.visualizing.averaging_functions import EMA, Forward, SMA
 from utils.myutils import get_subfolder
 
 
@@ -65,31 +65,6 @@ def main(pop: Population, func, window: int = 5, show: bool = True):
     if show:
         plt.show()
         plt.close()
-
-
-def Forward(values, window: int = 5):
-    """Simply forwarding the values."""
-    return values
-
-
-def EMA(values, window: int = 5):
-    """Calculates the exponential moving average over a specified time-window."""
-    window = min(window, len(values) - 1)
-    weights = np.exp(np.linspace(-1., 0., window))
-    weights /= weights.sum()
-    ema = np.convolve(values, weights)[:len(values)]
-    ema[:window] = ema[window]
-    return ema
-
-
-def SMA(values, window: int = 5):
-    """Calculates the simple moving average."""
-    window = min(window, len(values) - 1)
-    weights = np.repeat(1., window) / window
-    sma = np.convolve(values, weights)[:len(values)]
-    sma[:window] = sma[window]
-    print(len(values), len(sma))
-    return sma
 
 
 if __name__ == '__main__':
