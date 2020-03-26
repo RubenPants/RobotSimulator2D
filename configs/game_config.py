@@ -16,14 +16,14 @@ class GameConfig(BaseConfig):
     def __init__(self):
         # Number of games on which a single genome is evaluated  [def=12]  TODO
         self.batch: int = 10
-        # Number of seconds it takes for one game to complete  [def=100]  TODO
+        # Number of seconds it takes for one game to complete  [def=60]  TODO
         self.duration: int = 60
         # Max ID of game (starting from 1)  [def=1000]
         self.max_game_id: int = 1000
         # Max ID of evaluation game (starting from max_id)  [def=1100]
         self.max_eval_game_id: int = 1100
-        # Number of frames each second  [def=20]  TODO
-        self.fps: int = 10
+        # Number of frames each second  [def=20]
+        self.fps: int = 20
         # Pixel-to-meters: number of pixels that represent one meter  [def=50]
         self.p2m: int = 50
         # Target is reached when within this range, expressed in meters  [def=0.5]

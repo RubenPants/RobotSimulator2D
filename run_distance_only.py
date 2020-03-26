@@ -35,6 +35,7 @@ def main(gru,
     config.bot.prox_angles = []  # No use of proximity-sensors
     config.evaluation.fitness = D_DISTANCE  # Always use the distance-fitness
     config.game.duration = 50  # Limited time to find target, but just enough for fastest genomes
+    config.game.fps = 10  # Minor changes during evaluation run, 10 fps suffices
     config.population.parent_selection = 0.2  # Great selective pressure
     config.population.pop_size = 128  # Large enough of a population
     config.population.compatibility_thr = 2.0  # Single node in difference would be enough (+has other connections)
@@ -80,7 +81,7 @@ def main(gru,
                 genome=pop.best_genome,
                 games=games,
         )
-
+        
         # Visualize the most fit genome's architecture
         visualize_genome(
                 population=pop,
