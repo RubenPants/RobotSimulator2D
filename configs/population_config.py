@@ -35,8 +35,8 @@ class PopulationConfig(BaseConfig):
         # Number of the best species that will be protected from stagnation  [def=1]
         self.specie_elitism: int = 1
         # Remove a specie if it hasn't improved over this many number of generations  [def=15]
-        self.specie_stagnation: int = 15
+        self.specie_stagnation: int = 25
         
         # TODO: Often used, hence placed outside of crowd
         # Number of individuals in each generation  [def=128]  TODO
-        self.pop_size: int = 128
+        self.pop_size: int = 32

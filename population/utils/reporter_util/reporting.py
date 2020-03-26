@@ -30,8 +30,8 @@ class ReporterSet(object):
     def start_generation(self, gen, logger=None):
         for r in self.reporters: r.start_generation(gen, logger=logger)
     
-    def end_generation(self, population, species_set, logger=None):
-        for r in self.reporters: r.end_generation(population, species_set, logger=logger)
+    def end_generation(self, population, name, species_set, logger=None):
+        for r in self.reporters: r.end_generation(population, name=name, species_set=species_set, logger=logger)
     
     def post_evaluate(self, population, species, best_genome, logger=None):
         for r in self.reporters: r.post_evaluate(population, species, best_genome, logger=logger)
@@ -58,7 +58,7 @@ class BaseReporter(object):
     def start_generation(self, generation, logger=None):
         pass
     
-    def end_generation(self, population, species_set, logger=None):
+    def end_generation(self, population, name, species_set, logger=None):
         pass
     
     def post_evaluate(self, population, species, best_genome, logger=None):
@@ -97,10 +97,10 @@ class StdOutReporter(BaseReporter):
         logger(msg) if logger else print(msg)
         self.generation_start_time = time.time()
     
-    def end_generation(self, population, species_set, logger=None):
+    def end_generation(self, population, name, species_set, logger=None):
         sids = list(iterkeys(species_set.species))
         sids.sort()
-        msg = f"\nPopulation '{population}' with {len(population):d} members in {len(species_set.species):d} species:" \
+        msg = f"\nPopulation '{name}' with {len(population):d} members in {len(species_set.species):d} species:" \
               f"\n\t specie    age    size    fitness    adj fit    stag " \
               f"\n\t========  =====  ======  =========  =========  ======"
         logger(msg) if logger else print(msg)

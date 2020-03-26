@@ -217,5 +217,6 @@ def single_evaluation(multi_env, parallel: bool, pop: Population, unused_cpu: in
     
     # End generation
     pop.reporters.end_generation(population=pop.population,
+                                 name=str(pop),
                                  species_set=pop.species,
                                  logger=pop.log)
