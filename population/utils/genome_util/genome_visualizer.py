@@ -97,7 +97,7 @@ def draw_net(config: GenomeConfig, genome: DefaultGenome, debug=False, filename=
         )
     
     # Add inputs to used_nodes (i.e. all inputs will always be visualized, even if they aren't used!)
-    used_nodes.update(inputs)
+    used_nodes.update()
     
     # Visualize connections
     for cg in used_conn.values():

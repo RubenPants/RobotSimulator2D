@@ -35,15 +35,15 @@ def main(gru,
     config.bot.prox_angles = []  # No use of proximity-sensors
     config.evaluation.fitness = D_DISTANCE  # Always use the distance-fitness
     config.game.duration = 50  # Limited time to find target, but just enough for fastest genomes
-    config.reproduction.parent_selection = 0.2  # Great selective pressure
-    config.reproduction.pop_size = 128  # Large enough of a population
-    config.species.compatibility_threshold = 2.0  # Single node in difference would be enough (+has other connections)
-    config.species.stagnation = 25  # Greater since improvement comes slow
+    config.population.parent_selection = 0.2  # Great selective pressure
+    config.population.pop_size = 128  # Large enough of a population
+    config.population.compatibility_thr = 2.0  # Single node in difference would be enough (+has other connections)
+    config.population.specie_stagnation = 25  # Greater since improvement comes slow
     config.update()
     
     # Let inputs apply to configuration
     config.genome.gru_enabled = gru
-    config.reproduction.sexual = reproduce
+    config.population.crossover_enabled = reproduce
     
     # Create the population
     pop = Population(
@@ -55,7 +55,7 @@ def main(gru,
     # Give overview of population
     msg = f"\n===> RUNNING DISTANCE-ONLY FOR THE FOLLOWING CONFIGURATION: <===" \
           f"\n\t> gru_enabled: {config.genome.gru_enabled}" \
-          f"\n\t> sexual_reproduction: {config.reproduction.sexual}" \
+          f"\n\t> sexual_reproduction: {config.population.crossover_enabled}" \
           f"\n\t> Train for {train_iterations} iterations\n"
     pop.log(msg)
     

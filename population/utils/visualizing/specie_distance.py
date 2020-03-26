@@ -6,9 +6,8 @@ Visualization of the distance between the current species.
 import os
 
 import matplotlib.pyplot as plt
-from matplotlib.ticker import MaxNLocator
-from numpy import zeros
 import seaborn as sns
+from numpy import zeros
 
 from population.population import Population
 from population.utils.population_util.species import GenomeDistanceCache

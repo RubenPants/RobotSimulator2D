@@ -14,7 +14,7 @@ do
 #  python3 run_population.py --version=$version --train=1 --iterations=$iter --reproduce=1 --gru_enabled=1 --fitness=distance --blueprint=$blueprint --evaluate=$eval --trace=$trace --trace_fit=$trace_fit;
 #  python3 run_population.py --version=$version --train=1 --iterations=$iter --reproduce=1 --gru_enabled=1 --fitness=diversity --blueprint=$blueprint --evaluate=$eval --trace=$trace --trace_fit=$trace_fit;
 #  python3 run_population.py --version=$version --train=1 --iterations=$iter --reproduce=1 --gru_enabled=1 --fitness=novelty --blueprint=$blueprint --evaluate=$eval --trace=$trace --trace_fit=$trace_fit;
-  python3 run_population.py --version=$version --train=1 --iterations=$iter --reproduce=1 --gru_enabled=1 --fitness=path --blueprint=$blueprint --evaluate=$eval --trace=$trace --trace_fit=$trace_fit;
+#  python3 run_population.py --version=$version --train=1 --iterations=$iter --reproduce=1 --gru_enabled=1 --fitness=path --blueprint=$blueprint --evaluate=$eval --trace=$trace --trace_fit=$trace_fit;
 
   # Asexual GRU
 #  python3 run_population.py --version=$version --train=1 --iterations=$iter --reproduce=0 --gru_enabled=1 --fitness=distance --blueprint=$blueprint --evaluate=$eval --trace=$trace --trace_fit=$trace_fit;
