@@ -84,7 +84,7 @@ class TestGruFeedForward(unittest.TestCase):
         hidden_values = []
         hx = None
         for inp in inputs:
-            hx = gru(torch.FloatTensor([[inp]]), hx)
+            hx = gru(torch.FloatTensor([[inp]]), hx)  # torch.tensor gives errors...
             hidden_values.append(hx)
         output_values = [tanh_activation(h) for h in hidden_values]
         

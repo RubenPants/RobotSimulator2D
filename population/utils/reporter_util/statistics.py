@@ -10,7 +10,6 @@ import csv
 from neat.math_util import mean, median2, stdev
 from neat.six_util import iteritems
 
-from config import Config
 from population.utils.reporter_util.reporting import BaseReporter
 
 

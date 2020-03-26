@@ -4,7 +4,8 @@
 
 ## TODO
 
-* Merge species_config and reproduction_config
+* Re-enable recurrent connections
+* Fitness that not only takes path (at the end) in account, but also normalized time taken to reach target
 * Research: How properly identify disjoint nodes (see NEAT paper!) --> disjoint determined based on connections?
 * Improve performance by having the choice not to evaluate parents (distance-only, fixed task)
 * Crossover (GRU) tinkers with other genomes! --> Test if this isn't also the case for mutation @full_weight_ih
