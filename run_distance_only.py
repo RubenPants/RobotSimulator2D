@@ -8,7 +8,7 @@ import argparse
 import traceback
 
 from config import Config
-from main import trace_most_fit, train_same_games
+from main import trace_most_fit, train_same_games, visualize_genome
 from population.population import Population
 from process_killer import main as process_killer
 from utils.dictionary import *
@@ -73,13 +73,19 @@ def main(gru,
                 debug=False,
         )
         
+        # Trace the most fit genome
         trace_most_fit(
                 population=pop,
                 game_config=config,
                 genome=pop.best_genome,
                 games=games,
         )
-    
+
+        # Visualize the most fit genome's architecture
+        visualize_genome(
+                population=pop,
+                genome=pop.best_genome,
+        )
     except Exception as e:
         pop.log(traceback.format_exc(), print_result=False)
         raise e

@@ -12,7 +12,7 @@ from scipy.stats import gmean
 
 from config import Config
 from population.utils.genome_util.genome import DefaultGenome
-from population.utils.genome_util.genome_visualizer import draw_net
+from population.utils.visualizing.genome_visualizer import draw_net
 from population.utils.network_util.feed_forward_net import make_net
 from population.utils.population_util.reproduction import DefaultReproduction
 from population.utils.population_util.species import DefaultSpecies
