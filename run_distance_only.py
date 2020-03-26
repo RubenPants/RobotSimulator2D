@@ -30,12 +30,19 @@ def main(gru,
     # Set the fixed configs
     folder = D_DISTANCE_ONLY
     config = Config()
+    
     config.bot.angular_dir = []  # No use of angular sensors
     config.bot.delta_dist_enabled = False  # No use of delta-distance sensor
     config.bot.prox_angles = []  # No use of proximity-sensors
+    
     config.evaluation.fitness = D_DISTANCE  # Always use the distance-fitness
+    
     config.game.duration = 50  # Limited time to find target, but just enough for fastest genomes
     config.game.fps = 10  # Minor changes during evaluation run, 10 fps suffices
+    
+    # config.genome.gru_min_value = -5  # Increase range of GRU-values
+    # config.genome.gru_max_value = 5  # Increase range of GRU-values
+    
     config.population.parent_selection = 0.2  # Great selective pressure
     config.population.pop_size = 128  # Large enough of a population
     config.population.compatibility_thr = 2.0  # Single node in difference would be enough (+has other connections)
