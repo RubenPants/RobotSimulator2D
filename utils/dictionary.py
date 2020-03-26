@@ -36,7 +36,9 @@ D_LINEAR = 'linear'
 
 # M
 D_MAX = 'max'
+D_MAX_ABS = 'max_abs'
 D_MEAN = 'mean'
+D_MEDIAN = 'median'
 D_MIN = 'min'
 
 # N
@@ -49,6 +51,7 @@ D_PARTIAL_DIRECT_01 = 'partial_direct 0.1'
 D_PARTIAL_DIRECT_05 = 'partial_direct 0.5'
 D_PATH = 'path'
 D_POS = 'position'
+D_PRODUCT = 'product'
 
 # R
 D_RELU = 'relu'

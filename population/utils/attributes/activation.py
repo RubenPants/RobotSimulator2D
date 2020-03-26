@@ -22,7 +22,7 @@ def cross(v1, v2, ratio: float = 0.5):
 def init(cfg: GenomeConfig):
     """Put activation to specified activation in config, random activation chosen if not specified."""
     if cfg.activation_default.lower() in ('none', 'random'):
-        return choice(cfg.activation_options)
+        return choice(list(cfg.activation_options.keys()))
     return cfg.activation_default
 
 
@@ -33,5 +33,5 @@ def mutate(v, cfg: GenomeConfig):
     """
     r = random()
     if r < cfg.activation_mutate_rate:
-        return choice(cfg.activation_options)
+        return choice(list(cfg.activation_options.keys()))
     return v

@@ -12,13 +12,13 @@ from scipy.stats import gmean
 
 from config import Config
 from population.utils.genome_util.genome import DefaultGenome
-from population.utils.visualizing.genome_visualizer import draw_net
 from population.utils.network_util.feed_forward_net import make_net
 from population.utils.population_util.reproduction import DefaultReproduction
 from population.utils.population_util.species import DefaultSpecies
 from population.utils.population_util.stagnation import DefaultStagnation
 from population.utils.reporter_util.reporting import ReporterSet, StdOutReporter
 from population.utils.reporter_util.statistics import StatisticsReporter
+from population.utils.visualizing.genome_visualizer import draw_net
 from utils.dictionary import *
 from utils.myutils import append_log, get_subfolder, load_pickle, store_pickle, update_dict
 
@@ -42,8 +42,8 @@ class Population:
     """ Container for each of the agent's control mechanisms. """
     
     __slots__ = {
-        'name', 'folder_name', 'best_genome', 'best_genome_hist', 'config', 'generation', 'make_net',
-        'population', 'query_net', 'reporters', 'reproduction', 'species', 'species_hist', 'fitness_criterion',
+        'name', 'folder_name', 'best_genome', 'best_genome_hist', 'config', 'generation', 'make_net', 'population',
+        'query_net', 'reporters', 'reproduction', 'species', 'species_hist', 'fitness_criterion', 'log_print'
     }
     
     def __init__(self,
@@ -51,6 +51,7 @@ class Population:
                  folder_name: str = "NEAT",
                  version: int = 0,
                  config: Config = None,
+                 log_print: bool = True,
                  make_net_method=make_net,
                  query_net_method=query_net,
                  ):
@@ -62,6 +63,7 @@ class Population:
         :param folder_name: Name of the folder to which the population belongs (NEAT, GRU-NEAT, ...)
         :param version: Version of the population, 0 if not versioned
         :param config: Main config file
+        :param log_print: Print during logging
         :param make_net_method: Method used to create a network based on a given genome
         :param query_net_method: Method used to query the action on the network, given a current state
         """
@@ -83,6 +85,7 @@ class Population:
         self.species: DefaultSpecies = None  # Container for all the species
         self.species_hist: dict = dict()  # Container for the elite player of each species at each generation
         self.fitness_criterion = None  # Function used for fitness-determination of the genomes
+        self.log_print: bool = log_print  # By default, print result during logging
         
         # Try to load the population, create new if not possible
         if not self.load():
@@ -287,13 +290,14 @@ class Population:
         except FileNotFoundError:
             return False
     
-    def log(self, inp, print_result: bool = True):
+    def log(self, inp, print_result: bool = None):
         """
         Append input to the population's log-file.
         
         :param inp: Input that must be logged, supported types: str, json, dict.
         :param print_result: Print out the result that will be logged.
         """
+        if print_result is None: print_result = self.log_print
         # Parse input
         if type(inp) == str:
             logged_inp = inp

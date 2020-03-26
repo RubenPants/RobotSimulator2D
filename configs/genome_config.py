@@ -5,11 +5,11 @@ Configuration file corresponding the creation and mutation of the genomes.
 """
 from itertools import count
 
-from neat.activations import ActivationFunctionSet
-from neat.aggregations import AggregationFunctionSet
 from neat.six_util import iterkeys
 
 from configs.base_config import BaseConfig
+from population.utils.network_util.activations import str_to_activation
+from population.utils.network_util.aggregations import str_to_aggregation
 from utils.dictionary import *
 
 
@@ -17,9 +17,9 @@ class GenomeConfig(BaseConfig):
     """Genome-specific configuration parameters."""
     
     __slots__ = {
-        'activation_default', 'activation_defs', 'activation_mutate_rate', 'activation_options', 'aggregation_default',
-        'aggregation_defs', 'aggregation_mutate_rate', 'aggregation_options', 'bias_init_mean', 'bias_init_stdev',
-        'bias_max_value', 'bias_min_value', 'bias_mutate_power', 'bias_mutate_rate', 'bias_replace_rate',
+        'activation_default', 'activation_mutate_rate', 'activation_options', 'aggregation_default',
+        'aggregation_mutate_rate', 'aggregation_options', 'bias_init_mean', 'bias_init_stdev', 'bias_max_value',
+        'bias_min_value', 'bias_mutate_power', 'bias_mutate_rate', 'bias_replace_rate',
         'compatibility_disjoint_coefficient', 'compatibility_weight_coefficient', 'conn_add_prob', 'conn_delete_prob',
         'conn_fraction', 'enabled_default', 'enabled_mutate_rate', 'gru_enabled', 'gru_init_mean',
         'gru_init_stdev', 'gru_max_value', 'gru_min_value', 'gru_mutate_power', 'gru_mutate_rate', 'gru_node_prob',
@@ -35,20 +35,16 @@ class GenomeConfig(BaseConfig):
     def __init__(self):
         # Initial node activation function  [def=D_GELU]
         self.activation_default: str = D_GELU
-        # List of all supported activation functions   [def=/]
-        self.activation_defs = ActivationFunctionSet()
         # Probability of changing the activation function  [def=0]
         self.activation_mutate_rate: float = 0.0
-        # All possible activation functions between whom can be switched during mutation  [def=D_GELU]
-        self.activation_options: str = D_GELU
+        # Dictionary of all possible activation functions between whom can be switched during mutation  [def=D_GELU]
+        self.activation_options: dict = str_to_activation
         # The default aggregation function attribute assigned to new nodes  [def=D_SUM]
         self.aggregation_default: str = D_SUM
-        # List of all supported aggregation functions  [def=/]
-        self.aggregation_defs = AggregationFunctionSet()
         # Probability of mutating towards another aggregation_option  [def=0]
         self.aggregation_mutate_rate: float = 0.0
         # Aggregation options between whom can be mutated  [def=D_SUM]
-        self.aggregation_options: str = D_SUM
+        self.aggregation_options: dict = str_to_aggregation
         # The mean of the gaussian distribution, used to select the bias attribute values for new nodes  [def=0]
         self.bias_init_mean: float = 0.0
         # Standard deviation of gaussian distribution, used to select the bias attribute values of new nodes  [def=1]
@@ -142,10 +138,10 @@ class GenomeConfig(BaseConfig):
         assert self.initial_connection in self.allowed_connectivity
     
     def add_activation(self, name, func):
-        self.activation_defs.add(name, func)
+        self.activation_options.update({name: func})
     
     def add_aggregation(self, name, func):
-        self.aggregation_defs.add(name, func)
+        self.aggregation_options.update({name: func})
     
     def get_new_node_key(self, node_dict):
         if self.node_indexer is None: self.node_indexer = count(max(list(iterkeys(node_dict))) + 1)

@@ -1,12 +1,28 @@
 """
-genome_test.py
+genome_crossover_test.py
 
 Test gene-specific operations.
 """
 import os
 import unittest
 
-from population.utils.genome_util.genes import SimpleNodeGene
+from population.utils.genome_util.genes import ConnectionGene, GruNodeGene, OutputNodeGene, SimpleNodeGene
+
+
+def get_connection_gene(key, config):
+    return ConnectionGene(key, config)
+
+
+def get_gru_node_gene(key, config):
+    return GruNodeGene(key, config)
+
+
+def get_output_node_gene(key, config):
+    return OutputNodeGene(key, config)
+
+
+def get_simple_node_gene(key, config):
+    return SimpleNodeGene(key, config)
 
 
 class SimpleNode(unittest.TestCase):
@@ -17,14 +33,7 @@ class SimpleNode(unittest.TestCase):
         # Folder must be root to load in make_net properly
         if os.getcwd().split('\\')[-1] == 'tests': os.chdir('..')
         
-        
         pass  # Dummy
-
-
-def get_simple_gene(key, config):
-    """Create a random initialized gene."""
-    gene = SimpleNodeGene(key, config)
-    return gene
 
 
 def get_config():
