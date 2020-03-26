@@ -100,7 +100,7 @@ class StdOutReporter(BaseReporter):
     def end_generation(self, population, species_set, logger=None):
         sids = list(iterkeys(species_set.species))
         sids.sort()
-        msg = f"\nPopulation of {len(population):d} members in {len(species_set.species):d} species:" \
+        msg = f"\nPopulation '{population}' with {len(population):d} members in {len(species_set.species):d} species:" \
               f"\n\t specie    age    size    fitness    adj fit    stag " \
               f"\n\t========  =====  ======  =========  =========  ======"
         logger(msg) if logger else print(msg)
