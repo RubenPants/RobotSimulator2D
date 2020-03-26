@@ -165,7 +165,7 @@ class GruNodeGene(BaseGene):
     }
     
     def __init__(self, key, cfg: GenomeConfig, input_keys=None, input_keys_full=None):
-        assert isinstance(key, int), f"OutputNodeGene key must be an int, not {key!r}"
+        assert isinstance(key, int), f"GruNodeGene key must be an int, not {key!r}"
         if input_keys and input_keys_full:
             for k in input_keys: assert k in input_keys_full
         BaseGene.__init__(self, key)

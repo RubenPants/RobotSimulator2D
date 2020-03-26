@@ -41,14 +41,12 @@ class DefaultGenome(object):
     def __init__(self, key, num_outputs, bot_config: BotConfig):
         # Unique identifier for a genome instance.
         self.key = key
-        
-        # (gene_key, gene) pairs for gene sets.
-        self.connections = dict()
-        self.nodes = dict()
-        self.num_outputs = num_outputs
-        
-        # Fitness results.
-        self.fitness = None
+
+        # Placeholders for the elementary parts of a genomes
+        self.connections: dict = dict()  # Container for all the connections present in the genome
+        self.nodes: dict = dict()  # Container for all the nodes (hidden and output)
+        self.num_outputs: int = num_outputs  # Number of outputs in the genome
+        self.fitness = None  # Container for the genome's fitness
         
         # Get snapshot of current robot configuration
         self.robot_snapshot = get_snapshot(cfg=bot_config)
