@@ -7,14 +7,13 @@ from neat.math_util import stat_functions
 from neat.six_util import iteritems
 
 from config import Config
-from configs.species_config import SpeciesConfig
+from configs.population_config import PopulationConfig
 
 
 class DefaultStagnation:
     """Keeps track of whether species are making progress and helps remove ones that are not."""
     
-    def __init__(self, config: SpeciesConfig, reporters):
-        # pylint: disable=super-init-not-called
+    def __init__(self, config: PopulationConfig, reporters):
         self.reporters = reporters
         self.specie_elites = dict()
         
@@ -43,12 +42,16 @@ class DefaultStagnation:
         # Sort the species in ascending fitness order
         species_data.sort(key=lambda x: x[1].fitness, reverse=True)
         
-        # Update the specie_elites (first increase stagnation by one, then reset counter for current elites)
+        # Update the elite species (first increase stagnation by one, then reset counter for current elites)
         for k in self.specie_elites.copy():
+            # Increase stagnation by one
             self.specie_elites[k] += 1
-            if self.specie_elites[k] > config.species.stagnation: self.specie_elites.pop(k)
+            
+            # Remove elite species that exceed the elite-stagnation threshold
+            if self.specie_elites[k] > config.population.elite_specie_stagnation: self.specie_elites.pop(k)
         for idx, (specie_id, _) in enumerate(species_data):
-            if idx < config.species.elitism:
+            # Reset the elite species back to zero
+            if idx < config.population.specie_elitism:
                 self.specie_elites[specie_id] = 0
             else:
                 break
@@ -61,8 +64,9 @@ class DefaultStagnation:
             # Check if the current specie belongs to one of the elite species over the last specie_stagnation
             #  generations. Elite species cannot become stagnant.
             if specie_id not in self.specie_elites:
+                # Check if non-elite specie has become stagnant
                 stagnant_time = gen - specie.last_improved
-                is_stagnant = stagnant_time >= config.species.elite_stagnation
+                is_stagnant = stagnant_time >= config.population.specie_stagnation
             
             # Append to the result
             result.append((specie_id, specie, is_stagnant))

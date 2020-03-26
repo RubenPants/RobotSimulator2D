@@ -9,15 +9,14 @@ from configs.evaluation_config import EvaluationConfig
 from configs.game_config import GameConfig
 from configs.genome_config import GenomeConfig
 from configs.noise_config import NoiseConfig
-from configs.reproduction_config import ReproductionConfig
-from configs.species_config import SpeciesConfig
+from configs.population_config import PopulationConfig
 
 
 class Config(BaseConfig):
     """The main config-file tossed around, which is a container for all the other config-files."""
     
     __slots__ = {
-        'bot', 'evaluation', 'game', 'genome', 'noise', 'reproduction', 'species',
+        'bot', 'evaluation', 'game', 'genome', 'noise', 'population',
     }
     
     def __init__(self):
@@ -26,8 +25,7 @@ class Config(BaseConfig):
         self.game: GameConfig = GameConfig()
         self.genome: GenomeConfig = GenomeConfig()
         self.noise: NoiseConfig = NoiseConfig()
-        self.reproduction: ReproductionConfig = ReproductionConfig()
-        self.species: SpeciesConfig = SpeciesConfig()
+        self.population: PopulationConfig = PopulationConfig()
         self.update()
     
     def read(self):
@@ -37,6 +35,6 @@ class Config(BaseConfig):
             result += f" > {getattr(self, param).read()}"
         return result
     
-    def update(self):
+    def update(self, **kwargs):
         for param in self.__slots__:
             getattr(self, param).update(self)

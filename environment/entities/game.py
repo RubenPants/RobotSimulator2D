@@ -84,7 +84,7 @@ class Game:
             D_DONE:           self.done,
             D_GAME_ID:        self.id,
             D_POS:            self.player.pos,
-            D_STEPS:          self.steps_taken
+            D_TIME_TAKEN:     self.steps_taken / self.game_config.fps,
         }
     
     def game_params(self):

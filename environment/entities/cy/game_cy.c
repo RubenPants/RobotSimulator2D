@@ -1740,7 +1740,6 @@ static const char __pyx_k_update[] = "update";
 static const char __pyx_k_x_axis[] = "x_axis";
 static const char __pyx_k_y_axis[] = "y_axis";
 static const char __pyx_k_D_ANGLE[] = "D_ANGLE";
-static const char __pyx_k_D_STEPS[] = "D_STEPS";
 static const char __pyx_k_D_WALLS[] = "D_WALLS";
 static const char __pyx_k_game_id[] = "game_id";
 static const char __pyx_k_step_dt[] = "step_dt";
@@ -1768,6 +1767,7 @@ static const char __pyx_k_game_config[] = "game_config";
 static const char __pyx_k_game_params[] = "game_params";
 static const char __pyx_k_load_pickle[] = "load_pickle";
 static const char __pyx_k_steps_taken[] = "steps_taken";
+static const char __pyx_k_D_TIME_TAKEN[] = "D_TIME_TAKEN";
 static const char __pyx_k_noise_config[] = "noise_config";
 static const char __pyx_k_pyx_checksum[] = "__pyx_checksum";
 static const char __pyx_k_ray_distance[] = "ray_distance";
@@ -1810,8 +1810,8 @@ static PyObject *__pyx_n_s_D_GAME_ID;
 static PyObject *__pyx_n_s_D_PATH;
 static PyObject *__pyx_n_s_D_POS;
 static PyObject *__pyx_n_s_D_SENSOR_LIST;
-static PyObject *__pyx_n_s_D_STEPS;
 static PyObject *__pyx_n_s_D_TARGET;
+static PyObject *__pyx_n_s_D_TIME_TAKEN;
 static PyObject *__pyx_n_s_D_WALLS;
 static PyObject *__pyx_kp_u_Existing_game_loaded_with_id;
 static PyObject *__pyx_n_s_FileNotFoundError;
@@ -2457,6 +2457,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_close(stru
   PyObject *__pyx_t_2 = NULL;
   PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
   __Pyx_RefNannySetupContext("close", 0);
   /* Check if called by wrapper */
   if (unlikely(__pyx_skip_dispatch)) ;
@@ -2552,7 +2553,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_close(stru
  *             D_DONE:           self.done,
  *             D_GAME_ID:        self.id,             # <<<<<<<<<<<<<<
  *             D_POS:            self.player.pos,
- *             D_STEPS:          self.steps_taken
+ *             D_TIME_TAKEN:     self.steps_taken / self.game_config.fps,
  */
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_D_GAME_ID); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -2566,7 +2567,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_close(stru
  *             D_DONE:           self.done,
  *             D_GAME_ID:        self.id,
  *             D_POS:            self.player.pos,             # <<<<<<<<<<<<<<
- *             D_STEPS:          self.steps_taken
+ *             D_TIME_TAKEN:     self.steps_taken / self.game_config.fps,
  *         }
  */
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_D_POS); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 86, __pyx_L1_error)
@@ -2577,17 +2578,23 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_close(stru
   /* "environment/entities/cy/game_cy.pyx":87
  *             D_GAME_ID:        self.id,
  *             D_POS:            self.player.pos,
- *             D_STEPS:          self.steps_taken             # <<<<<<<<<<<<<<
+ *             D_TIME_TAKEN:     self.steps_taken / self.game_config.fps,             # <<<<<<<<<<<<<<
  *         }
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_D_STEPS); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_D_TIME_TAKEN); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_self->steps_taken); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_t_3, __pyx_t_2) < 0) __PYX_ERR(0, 83, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->game_config, __pyx_n_s_fps); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_5 = __Pyx_PyNumber_Divide(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (PyDict_SetItem(__pyx_t_1, __pyx_t_3, __pyx_t_5) < 0) __PYX_ERR(0, 83, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_r = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
   goto __pyx_L0;
@@ -2606,6 +2613,7 @@ static PyObject *__pyx_f_11environment_8entities_2cy_7game_cy_6GameCy_close(stru
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
   __Pyx_AddTraceback("environment.entities.cy.game_cy.GameCy.close", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
@@ -9802,8 +9810,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_D_PATH, __pyx_k_D_PATH, sizeof(__pyx_k_D_PATH), 0, 0, 1, 1},
   {&__pyx_n_s_D_POS, __pyx_k_D_POS, sizeof(__pyx_k_D_POS), 0, 0, 1, 1},
   {&__pyx_n_s_D_SENSOR_LIST, __pyx_k_D_SENSOR_LIST, sizeof(__pyx_k_D_SENSOR_LIST), 0, 0, 1, 1},
-  {&__pyx_n_s_D_STEPS, __pyx_k_D_STEPS, sizeof(__pyx_k_D_STEPS), 0, 0, 1, 1},
   {&__pyx_n_s_D_TARGET, __pyx_k_D_TARGET, sizeof(__pyx_k_D_TARGET), 0, 0, 1, 1},
+  {&__pyx_n_s_D_TIME_TAKEN, __pyx_k_D_TIME_TAKEN, sizeof(__pyx_k_D_TIME_TAKEN), 0, 0, 1, 1},
   {&__pyx_n_s_D_WALLS, __pyx_k_D_WALLS, sizeof(__pyx_k_D_WALLS), 0, 0, 1, 1},
   {&__pyx_kp_u_Existing_game_loaded_with_id, __pyx_k_Existing_game_loaded_with_id, sizeof(__pyx_k_Existing_game_loaded_with_id), 0, 1, 0, 0},
   {&__pyx_n_s_FileNotFoundError, __pyx_k_FileNotFoundError, sizeof(__pyx_k_FileNotFoundError), 0, 0, 1, 1},

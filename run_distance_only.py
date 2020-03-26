@@ -8,7 +8,7 @@ import argparse
 import traceback
 
 from config import Config
-from main import trace_most_fit, train_same_games
+from main import trace_most_fit, train_same_games, visualize_genome
 from population.population import Population
 from process_killer import main as process_killer
 from utils.dictionary import *
@@ -30,20 +30,28 @@ def main(gru,
     # Set the fixed configs
     folder = D_DISTANCE_ONLY
     config = Config()
+    
     config.bot.angular_dir = []  # No use of angular sensors
     config.bot.delta_dist_enabled = False  # No use of delta-distance sensor
     config.bot.prox_angles = []  # No use of proximity-sensors
+    
     config.evaluation.fitness = D_DISTANCE  # Always use the distance-fitness
+    
     config.game.duration = 50  # Limited time to find target, but just enough for fastest genomes
-    config.reproduction.parent_selection = 0.2  # Great selective pressure
-    config.reproduction.pop_size = 128  # Large enough of a population
-    config.species.compatibility_threshold = 2.0  # Single node in difference would be enough (+has other connections)
-    config.species.stagnation = 25  # Greater since improvement comes slow
+    config.game.fps = 10  # Minor changes during evaluation run, 10 fps suffices
+    
+    # config.genome.gru_min_value = -5  # Increase range of GRU-values
+    # config.genome.gru_max_value = 5  # Increase range of GRU-values
+    
+    config.population.parent_selection = 0.2  # Great selective pressure
+    config.population.pop_size = 128  # Large enough of a population
+    config.population.compatibility_thr = 2.0  # Single node in difference would be enough (+has other connections)
+    config.population.specie_stagnation = 25  # Greater since improvement comes slow
     config.update()
     
     # Let inputs apply to configuration
     config.genome.gru_enabled = gru
-    config.reproduction.sexual = reproduce
+    config.population.crossover_enabled = reproduce
     
     # Create the population
     pop = Population(
@@ -55,12 +63,13 @@ def main(gru,
     # Give overview of population
     msg = f"\n===> RUNNING DISTANCE-ONLY FOR THE FOLLOWING CONFIGURATION: <===" \
           f"\n\t> gru_enabled: {config.genome.gru_enabled}" \
-          f"\n\t> sexual_reproduction: {config.reproduction.sexual}" \
+          f"\n\t> sexual_reproduction: {config.population.crossover_enabled}" \
           f"\n\t> Train for {train_iterations} iterations\n"
     pop.log(msg)
     
-    # Set games used for evaluation
-    games = [99995, 99996, 99997, 99998, 99999]
+    # Set games used for evaluation; do not include 99997 since simply 'driving straight' would benefit here a lot!
+    # games = [99995, 99996, 99997, 99998, 99999]
+    games = [99995, 99996, 99998, 99999]
     
     # Execute the segments
     try:
@@ -73,13 +82,19 @@ def main(gru,
                 debug=False,
         )
         
+        # Trace the most fit genome
         trace_most_fit(
                 population=pop,
                 game_config=config,
                 genome=pop.best_genome,
                 games=games,
         )
-    
+        
+        # Visualize the most fit genome's architecture
+        visualize_genome(
+                population=pop,
+                genome=pop.best_genome,
+        )
     except Exception as e:
         pop.log(traceback.format_exc(), print_result=False)
         raise e
