@@ -37,6 +37,6 @@ class PopulationConfig(BaseConfig):
         # Remove a specie if it hasn't improved over this many number of generations  [def=15]
         self.specie_stagnation: int = 25
         
-        # TODO: Often used, hence placed outside of crowd
+        # TODO: Often used, hence placed outside of parameter-crowd
         # Number of individuals in each generation  [def=128]  TODO
-        self.pop_size: int = 256
+        self.pop_size: int = 128
