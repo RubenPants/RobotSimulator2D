@@ -11,7 +11,7 @@ from numpy import mean
 from scipy.stats import gmean
 
 from config import Config
-from population.utils.genome_util.genome import DefaultGenome
+from population.utils.genome_util.genome import Genome
 from population.utils.network_util.feed_forward_net import make_net
 from population.utils.population_util.reproduction import DefaultReproduction
 from population.utils.population_util.species import DefaultSpecies
@@ -43,7 +43,7 @@ class Population:
     
     __slots__ = {
         'name', 'folder_name', 'best_genome', 'best_genome_hist', 'config', 'generation', 'make_net', 'population',
-        'query_net', 'reporters', 'reproduction', 'species', 'species_hist', 'fitness_criterion', 'log_print'
+        'query_net', 'reporters', 'reproduction', 'species', 'species_hist', 'fitness_criterion', 'log_print',
     }
     
     def __init__(self,
@@ -74,7 +74,7 @@ class Population:
         self.folder_name = folder_name
         
         # Placeholders
-        self.best_genome: DefaultGenome = None  # Current most fit genome
+        self.best_genome: Genome = None  # Current most fit genome
         self.best_genome_hist: dict = dict()  # Container for the best three genomes for each generation (sorted list)
         self.generation = 0  # Current generation of the population
         self.make_net = None  # Method to configure a PyTorch network

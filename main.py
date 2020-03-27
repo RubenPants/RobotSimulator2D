@@ -8,7 +8,7 @@ import traceback
 
 from config import Config
 from population.population import Population
-from population.utils.genome_util.genome import DefaultGenome
+from population.utils.genome_util.genome import Genome
 from process_killer import main as process_killer
 
 
@@ -42,7 +42,7 @@ def evaluate(population: Population,
 def live(game_id: int,
          population: Population,
          game_config: Config,
-         genome: DefaultGenome,
+         genome: Genome,
          debug: bool = False,
          ):
     """Create a live visualization for the performance of the given genome."""
@@ -119,7 +119,7 @@ def train_same_games(games: list,
 
 def trace_most_fit(population: Population,
                    game_config: Config,
-                   genome: DefaultGenome,
+                   genome: Genome,
                    games: list):
     """Create a trace evaluation for the given genome on the provided games."""
     from environment.env_visualizing import VisualizingEnv
@@ -131,7 +131,7 @@ def trace_most_fit(population: Population,
 
 
 def visualize_genome(population: Population,
-                     genome: DefaultGenome,
+                     genome: Genome,
                      debug: bool = True,
                      show: bool = True):
     """Visualize the requested genome."""

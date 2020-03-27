@@ -18,7 +18,7 @@ from population.utils.genome_util.genes import ConnectionGene, GruNodeGene, Outp
 from population.utils.network_util.graphs import creates_cycle, required_for_output
 
 
-class DefaultGenome(object):
+class Genome(object):
     """
     A genome for generalized neural networks.
 
@@ -41,7 +41,7 @@ class DefaultGenome(object):
     def __init__(self, key, num_outputs, bot_config: BotConfig):
         # Unique identifier for a genome instance.
         self.key = key
-
+        
         # Placeholders for the elementary parts of a genomes
         self.connections: dict = dict()  # Container for all the connections present in the genome
         self.nodes: dict = dict()  # Container for all the nodes (hidden and output)
@@ -246,54 +246,6 @@ class DefaultGenome(object):
         if type(self.nodes[conn.key[1]]) == GruNodeGene:
             gru: GruNodeGene = self.nodes[conn.key[1]]
             gru.remove_input_key(k=conn.key[0])
-    
-    def distance(self, other, config: GenomeConfig):
-        """
-        Returns the genetic distance between this genome and the other. This distance value is used to compute genome
-        compatibility for speciation.
-        """
-        # Compute node gene distance component.
-        node_distance = 0.0
-        if self.nodes or other.nodes:
-            disjoint_nodes = 0
-            for k2 in iterkeys(other.nodes):
-                if k2 not in self.nodes:
-                    disjoint_nodes += 1
-            
-            for k1, n1 in iteritems(self.nodes):
-                n2 = other.nodes.get(k1)
-                if n2 is None:
-                    disjoint_nodes += 1
-                else:
-                    node_distance += n1.distance(n2, config)  # Homologous genes compute their own distance value.
-            
-            # Determine the average node-distance
-            max_nodes = max(len(self.nodes), len(other.nodes))
-            node_distance = (node_distance + (config.compatibility_disjoint_coefficient * disjoint_nodes)) / max_nodes
-        
-        # Compute connection gene differences.
-        connection_distance = 0.0
-        if self.connections or other.connections:
-            disjoint_connections = 0
-            for k2 in iterkeys(other.connections):
-                if k2 not in self.connections:
-                    disjoint_connections += 1
-            
-            for k1, c1 in iteritems(self.connections):
-                c2 = other.connections.get(k1)
-                if c2 is None:
-                    disjoint_connections += 1
-                else:
-                    # Homologous genes compute their own distance value.
-                    connection_distance += c1.distance(c2, config)
-            
-            # Determine the average connection-distance
-            max_conn = max(len(self.connections), len(other.connections))
-            connection_distance = (connection_distance + (
-                    config.compatibility_disjoint_coefficient * disjoint_connections)) / max_conn
-        
-        distance = node_distance + connection_distance
-        return distance
     
     def size(self):
         """Returns genome 'complexity', taken to be (number of hidden nodes, number of enabled connections)"""

@@ -11,7 +11,7 @@ import torch
 
 from config import Config
 from population.population import query_net
-from population.utils.genome_util.genome import DefaultGenome
+from population.utils.genome_util.genome import Genome
 from population.utils.network_util.activations import tanh_activation
 from population.utils.network_util.feed_forward_net import make_net
 from utils.dictionary import *
@@ -30,7 +30,7 @@ def get_genome(outputs):
     cfg.update()
     
     # Create the genome
-    g = DefaultGenome(key=0, num_outputs=cfg.genome.num_outputs, bot_config=cfg.bot)
+    g = Genome(key=0, num_outputs=cfg.genome.num_outputs, bot_config=cfg.bot)
     g.configure_new(cfg.genome)
     return g, cfg
 
