@@ -7,6 +7,7 @@ import argparse
 import traceback
 
 from config import Config
+from configs.bot_config import get_proximity_angles
 from main import blueprint, evaluate, trace, trace_most_fit, train, visualize_genome
 from population.population import Population
 from process_killer import main as process_killer
@@ -34,9 +35,13 @@ def main(fitness,
     cfg.population.pop_size = 128
     
     # Let inputs apply to configuration
-    cfg.evaluation.fitness = fitness
+    cfg.bot.angular_dir = [True, False]
+    cfg.bot.delta_dist_enabled = False
+    cfg.bot.prox_angles = get_proximity_angles()
     cfg.genome.gru_enabled = gru
+    cfg.evaluation.fitness = fitness
     cfg.population.crossover_enabled = reproduce
+    cfg.update()
     
     # Create the population
     pop = Population(
