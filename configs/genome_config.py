@@ -132,9 +132,9 @@ class GenomeConfig(BaseConfig):
         self.keys_output = [i for i in range(self.num_outputs)]
         
         if 'partial' in self.initial_connection:
-            c, p = self.initial_connection.split()
-            self.initial_connection = c
-            self.conn_fraction = float(p)
+            # c, p = self.initial_connection.split()  # TODO: Fix (must be idempotent)
+            self.initial_connection = 'partial_direct'
+            self.conn_fraction = 0.5  # float(p)
             if not (0 <= self.conn_fraction <= 1):
                 raise RuntimeError("'partial' connection value must be between 0.0 and 1.0, inclusive.")
         assert self.initial_connection in self.allowed_connectivity

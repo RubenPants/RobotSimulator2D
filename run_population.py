@@ -109,7 +109,7 @@ if __name__ == '__main__':
     parser.add_argument('--fitness', type=str, default=D_DISTANCE)
     parser.add_argument('--gru_enabled', type=int, default=1)
     parser.add_argument('--reproduce', type=int, default=1)
-    parser.add_argument('--iterations', type=int, default=0)
+    parser.add_argument('--iterations', type=int, default=1)
     parser.add_argument('--version', type=int, default=0)
     args = parser.parse_args()
     
