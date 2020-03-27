@@ -114,14 +114,28 @@ class DefaultSpecies:
         # Report over the current species (distances)
         self.reporters.info(
                 f'Genetic distance:'
-                f'\n\t- Maximum: {max(itervalues(distances.distances)):.3f}'
-                f'\n\t- Mean: {mean(itervalues(distances.distances)):.3f}'
-                f'\n\t- Minimum: {min(itervalues(distances.distances)):.3f}'
-                f'\n\t- Standard deviation: {stdev(itervalues(distances.distances)):.3f}',
+                f'\n\t- Maximum: {max(itervalues(distances.distances)):.5f}'
+                f'\n\t- Mean: {mean(itervalues(distances.distances)):.5f}'
+                f'\n\t- Minimum: {min(itervalues(distances.distances)):.5f}'
+                f'\n\t- Standard deviation: {stdev(itervalues(distances.distances)):.5f}',
                 logger=logger,
                 print_result=False,
         )
-        print(f'Maximum genetic distance: {max(itervalues(distances.distances))}')  # Print reduced version
+        print(f'Maximum genetic distance: {round(max(itervalues(distances.distances)), 3)}')  # Print reduced version
+        
+        # Report over the most complex genome
+        most_complex = sorted([(g.size(), gid) for gid, g in population.items()], key=lambda x: x[0], reverse=True)[0]
+        gid = most_complex[1]
+        size = most_complex[0]
+        specie_id = self.genome_to_species[gid]
+        distance = distances(population[gid], self.species[specie_id].representative)
+        self.reporters.info(
+                f"Most complex genome '{gid}' "
+                f"of size {size} "
+                f"belongs to specie '{specie_id}' "
+                f"with distance to representative of {round(distance, 3)}",
+                logger=logger,
+        )
     
     def get_species_id(self, individual_id):
         return self.genome_to_species[individual_id]

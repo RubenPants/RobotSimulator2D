@@ -34,7 +34,7 @@ class Genome(object):
         1. Each output pin is connected only to the output of its own unique neuron by an implicit connection with
             weight one. This connection is permanently enabled.
         2. The output pin's key is always the same as the key for its associated neuron.
-        3. Output neurons can be modified but not deleted.
+        3. Output neurons can be modified but not disabled.
         4. The input values are applied to the input pins unmodified.
     """
     
@@ -124,9 +124,9 @@ class Genome(object):
     def mutate(self, config: GenomeConfig):
         """Mutates this genome."""
         if random() < config.node_add_prob: self.mutate_add_node(config)
-        if random() < config.node_delete_prob: self.mutate_delete_node(config)
+        if random() < config.node_disable_prob: self.mutate_disable_node(config)
         if random() < config.conn_add_prob: self.mutate_add_connection(config)
-        if random() < config.conn_delete_prob: self.mutate_delete_connection()
+        if random() < config.conn_disable_prob: self.mutate_disable_connection()
         
         # Mutate connection genes
         for cg in self.connections.values():
@@ -162,24 +162,21 @@ class Genome(object):
         self.create_connection(config=config, input_key=i, output_key=node_id, weight=1.0)
         self.create_connection(config=config, input_key=node_id, output_key=o, weight=conn_to_split.weight)
     
-    def mutate_delete_node(self, config: GenomeConfig):
-        """Delete (disable) a node as part of a mutation."""
-        # Do nothing if there are no non-output nodes.
+    def mutate_disable_node(self, config: GenomeConfig):
+        """Disable a node as part of a mutation, this is done by disabling all the node's adjacent connections."""
+        # Get a list of all possible nodes to deactivate (i.e. all the hidden, non-output, nodes)
         available_nodes = [k for k in iterkeys(self.nodes) if k not in config.keys_output]
         if not available_nodes:
             return
         
-        del_key = choice(available_nodes)
-        connections_to_delete = set()
-        for k, v in iteritems(self.connections):
-            if del_key in v.key:
-                connections_to_delete.add(v.key)
-        
-        for key in connections_to_delete:
+        # Find all the adjacent connections and disable those
+        disable_key = choice(available_nodes)
+        connections_to_disable = set()
+        for _, v in iteritems(self.connections):
+            if disable_key in v.key:
+                connections_to_disable.add(v.key)
+        for key in connections_to_disable:
             self.disable_connection(self.connections[key])
-            del self.connections[key]
-        
-        del self.nodes[del_key]
     
     def create_connection(self, config: GenomeConfig, input_key: int, output_key: int, weight: float = None):
         """Add a connection to the genome."""
@@ -219,19 +216,18 @@ class Genome(object):
             self.enable_connection(config=config, conn=self.connections[key])
             return
         
-        # Avoid creating cycles.
+        # Avoid creating cycles.  TODO: Do create cycles if recurrent=True!
         if creates_cycle(list(iterkeys(self.connections)), key):
             return
         
         # Create the new connection
         self.create_connection(config, in_node, out_node)
     
-    def mutate_delete_connection(self):
-        """Delete the connection as part of a mutation."""
+    def mutate_disable_connection(self):
+        """Disable the connection as part of a mutation."""
         if self.connections:
             key = choice(list(self.connections.keys()))
             self.disable_connection(self.connections[key])
-            del self.connections[key]
     
     def enable_connection(self, config: GenomeConfig, conn: ConnectionGene):
         """Enable the connection, and ripple this through to its potential GRU cell."""
@@ -242,10 +238,21 @@ class Genome(object):
     
     def disable_connection(self, conn: ConnectionGene):
         """Disable the connection, and ripple this through to its potential GRU cell."""
-        conn.enabled = False
-        if type(self.nodes[conn.key[1]]) == GruNodeGene:
-            gru: GruNodeGene = self.nodes[conn.key[1]]
-            gru.remove_input_key(k=conn.key[0])
+        # Test if other used connections remain when this connection is disabled
+        new_connections = self.connections.copy()
+        new_connections.pop(conn.key)
+        _, used_conn = required_for_output(
+                inputs={a for (a, _) in new_connections if a < 0},
+                outputs={i for i in range(self.num_outputs)},
+                connections=new_connections,
+        )
+        
+        # If perennial connections, then disable chosen connection
+        if len(used_conn) > 0:
+            conn.enabled = False
+            if type(self.nodes[conn.key[1]]) == GruNodeGene:
+                gru: GruNodeGene = self.nodes[conn.key[1]]
+                gru.remove_input_key(k=conn.key[0])
     
     def size(self):
         """Returns genome 'complexity', taken to be (number of hidden nodes, number of enabled connections)"""
@@ -255,6 +262,9 @@ class Genome(object):
                 outputs={i for i in range(self.num_outputs)},
                 connections=self.connections,
         )
+        if len(used_conn) == 0:
+            print("FUCK")
+            print((len(used_nodes) - (len(inputs) + self.num_outputs), len(used_conn)))
         return len(used_nodes) - (len(inputs) + self.num_outputs), len(used_conn)
     
     def __str__(self):
@@ -264,7 +274,7 @@ class Genome(object):
         for k, ng in sorted(self.nodes.items(), key=lambda x: x[0]):
             s += f"\t{k} - {repr(ng)!s}\n"
         s += "Connections:\n"
-        for k, cg in sorted(self.connections.items(), key=lambda x:x[0]):
+        for k, cg in sorted(self.connections.items(), key=lambda x: x[0]):
             if cg.enabled:
                 s += f"\t{k} - {repr(cg)!s}\n"
         return s

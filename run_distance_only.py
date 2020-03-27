@@ -43,9 +43,10 @@ def main(gru,
     config.genome.initial_connection = D_FULL_DIRECT
     # config.genome.gru_min_value = -5  # Increase range of GRU-values
     # config.genome.gru_max_value = 5  # Increase range of GRU-values
+    config.genome.gru_node_prob = 0.6
     
     config.population.parent_selection = 0.2  # Great selective pressure
-    config.population.pop_size = 128  # Large enough of a population
+    config.population.pop_size = 512  # Large enough of a population
     config.population.compatibility_thr = 2.0  # Single node in difference would be enough (+has other connections)
     config.population.specie_stagnation = 25  # Greater since improvement comes slow
     config.update()

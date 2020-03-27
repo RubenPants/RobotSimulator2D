@@ -20,10 +20,10 @@ class GenomeConfig(BaseConfig):
         'activation_default', 'activation_mutate_rate', 'activation_options', 'aggregation_default',
         'aggregation_mutate_rate', 'aggregation_options', 'bias_init_mean', 'bias_init_stdev', 'bias_max_value',
         'bias_min_value', 'bias_mutate_power', 'bias_mutate_rate', 'bias_replace_rate',
-        'compatibility_disjoint', 'compatibility_weight', 'conn_add_prob', 'conn_delete_prob',
+        'compatibility_disjoint', 'compatibility_weight', 'conn_add_prob', 'conn_disable_prob',
         'conn_fraction', 'enabled_default', 'enabled_mutate_rate', 'gru_enabled', 'gru_init_mean',
         'gru_init_stdev', 'gru_max_value', 'gru_min_value', 'gru_mutate_power', 'gru_mutate_rate', 'gru_node_prob',
-        'gru_replace_rate', 'initial_connection', 'keys_input', 'node_add_prob', 'node_delete_prob', 'node_indexer',
+        'gru_replace_rate', 'initial_connection', 'keys_input', 'node_add_prob', 'node_disable_prob', 'node_indexer',
         'num_inputs', 'num_outputs', 'keys_output', 'weight_init_mean', 'weight_init_stdev', 'weight_max_value',
         'weight_min_value', 'weight_mutate_power', 'weight_mutate_rate', 'weight_replace_rate'
     }
@@ -66,7 +66,7 @@ class GenomeConfig(BaseConfig):
         # Probability of adding a connection between existing nodes during mutation (each generation)  [def=0.1]  TODO
         self.conn_add_prob: float = 0.1
         # Probability of deleting an existing connection during mutation (each generation)  [def=0.1]  TODO
-        self.conn_delete_prob: float = 0.1
+        self.conn_disable_prob: float = 0.1
         # Denotes to which fraction the initial connectivity holds, parsed from self.initial_connection  [def=/]
         self.conn_fraction: float = 0
         # Enable the algorithm to disable (and re-enable) existing connections  [def=True]
@@ -88,11 +88,11 @@ class GenomeConfig(BaseConfig):
         # Probability of a GRU value to mutate  [def=0.2]  TODO
         self.gru_mutate_rate: float = 0.2
         # Probability of mutating a GRU node rather than a simple node  [def=0.6]  TODO
-        self.gru_node_prob: float = 1
+        self.gru_node_prob: float = 0.6
         # Probability of assigning (single) random value in GRU, based on gru_init_mean and gru_init_stdev  [def=0.05]
         self.gru_replace_rate: float = 0.05
         # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT_05]  TODO
-        self.initial_connection = D_PARTIAL_DIRECT_05
+        self.initial_connection = D_FULL_DIRECT
         # Input-keys, which are by convention negative starting from -1 and descending, set in update()  [def=/]
         self.keys_input = None
         # Output-keys, which start by convention from 0 and increment with each output, set in update()  [def=/]
@@ -100,7 +100,7 @@ class GenomeConfig(BaseConfig):
         # Probability of adding a node during mutation (each generation)  [def=0.05]  TODO
         self.node_add_prob: float = 0.05
         # Probability of removing a node during mutation (each generation)  [def=0.05]  TODO
-        self.node_delete_prob: float = 0.05
+        self.node_disable_prob: float = 0.05
         # Node-indexer helps with the generation of node-keys  [def=/]
         self.node_indexer = None
         # Number of inputs, which are the robot's sensors  [def=/]
