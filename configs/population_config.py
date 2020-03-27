@@ -39,4 +39,4 @@ class PopulationConfig(BaseConfig):
         
         # TODO: Often used, hence placed outside of crowd
         # Number of individuals in each generation  [def=128]  TODO
-        self.pop_size: int = 256
+        self.pop_size: int = 128
