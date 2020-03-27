@@ -175,8 +175,20 @@ class Genome(object):
         for _, v in iteritems(self.connections):
             if disable_key in v.key:
                 connections_to_disable.add(v.key)
-        for key in connections_to_disable:
-            self.disable_connection(self.connections[key])
+                
+        # Check if any connections left after disabling node
+        new_connections = self.connections.copy()
+        for k in connections_to_disable: new_connections.pop(k)
+        _, used_conn = required_for_output(
+                inputs={a for (a, _) in new_connections if a < 0},
+                outputs={i for i in range(self.num_outputs)},
+                connections=new_connections,
+        )
+        
+        # There are still connections left after disabling the nodes, disable connections for real
+        if len(used_conn) > 0:
+            for key in connections_to_disable:
+                self.disable_connection(self.connections[key], safe_disable=False)
     
     def create_connection(self, config: GenomeConfig, input_key: int, output_key: int, weight: float = None):
         """Add a connection to the genome."""
@@ -236,23 +248,25 @@ class Genome(object):
             gru: GruNodeGene = self.nodes[conn.key[1]]
             gru.add_input_key(config, k=conn.key[0])
     
-    def disable_connection(self, conn: ConnectionGene):
+    def disable_connection(self, conn: ConnectionGene, safe_disable: bool = True):
         """Disable the connection, and ripple this through to its potential GRU cell."""
         # Test if other used connections remain when this connection is disabled
-        new_connections = self.connections.copy()
-        new_connections.pop(conn.key)
-        _, used_conn = required_for_output(
-                inputs={a for (a, _) in new_connections if a < 0},
-                outputs={i for i in range(self.num_outputs)},
-                connections=new_connections,
-        )
+        if safe_disable:
+            new_connections = self.connections.copy()
+            new_connections.pop(conn.key)
+            _, used_conn = required_for_output(
+                    inputs={a for (a, _) in new_connections if a < 0},
+                    outputs={i for i in range(self.num_outputs)},
+                    connections=new_connections,
+            )
+            # If no used connections left after disabling, then do not disable
+            if len(used_conn) == 0: return
         
-        # If perennial connections, then disable chosen connection
-        if len(used_conn) > 0:
-            conn.enabled = False
-            if type(self.nodes[conn.key[1]]) == GruNodeGene:
-                gru: GruNodeGene = self.nodes[conn.key[1]]
-                gru.remove_input_key(k=conn.key[0])
+        # Perennial connections exist, disable chosen connection
+        conn.enabled = False
+        if type(self.nodes[conn.key[1]]) == GruNodeGene:
+            gru: GruNodeGene = self.nodes[conn.key[1]]
+            gru.remove_input_key(k=conn.key[0])
     
     def size(self):
         """Returns genome 'complexity', taken to be (number of hidden nodes, number of enabled connections)"""
