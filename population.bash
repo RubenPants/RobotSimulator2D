@@ -11,26 +11,26 @@ trace_fit=1;  # Trace only the most fit genome each iter generations
 for i in {1..10}
 do
   # Sexual GRU
-#  python3 run_population.py --version=$version --train=1 --iterations=$iter --reproduce=1 --gru_enabled=1 --fitness=distance --blueprint=$blueprint --evaluate=$eval --trace=$trace --trace_fit=$trace_fit;
-#  python3 run_population.py --version=$version --train=1 --iterations=$iter --reproduce=1 --gru_enabled=1 --fitness=diversity --blueprint=$blueprint --evaluate=$eval --trace=$trace --trace_fit=$trace_fit;
-#  python3 run_population.py --version=$version --train=1 --iterations=$iter --reproduce=1 --gru_enabled=1 --fitness=novelty --blueprint=$blueprint --evaluate=$eval --trace=$trace --trace_fit=$trace_fit;
-#  python3 run_population.py --version=$version --train=1 --iterations=$iter --reproduce=1 --gru_enabled=1 --fitness=path --blueprint=$blueprint --evaluate=$eval --trace=$trace --trace_fit=$trace_fit;
+#  python3 run_population.py --version=$version --iterations=$iter --reproduce=1 --gru_enabled=1 --fitness=distance;
+#  python3 run_population.py --version=$version --iterations=$iter --reproduce=1 --gru_enabled=1 --fitness=diversity;
+#  python3 run_population.py --version=$version --iterations=$iter --reproduce=1 --gru_enabled=1 --fitness=novelty;
+#  python3 run_population.py --version=$version --iterations=$iter --reproduce=1 --gru_enabled=1 --fitness=path;
 
   # Asexual GRU
-#  python3 run_population.py --version=$version --train=1 --iterations=$iter --reproduce=0 --gru_enabled=1 --fitness=distance --blueprint=$blueprint --evaluate=$eval --trace=$trace --trace_fit=$trace_fit;
-#  python3 run_population.py --version=$version --train=1 --iterations=$iter --reproduce=0 --gru_enabled=1 --fitness=diversity --blueprint=$blueprint --evaluate=$eval --trace=$trace --trace_fit=$trace_fit;
-#  python3 run_population.py --version=$version --train=1 --iterations=$iter --reproduce=0 --gru_enabled=1 --fitness=novelty --blueprint=$blueprint --evaluate=$eval --trace=$trace --trace_fit=$trace_fit;
-  python3 run_population.py --version=$version --train=1 --iterations=$iter --reproduce=0 --gru_enabled=1 --fitness=path --blueprint=$blueprint --evaluate=$eval --trace=$trace --trace_fit=$trace_fit;
+#  python3 run_population.py --version=$version --iterations=$iter --reproduce=0 --gru_enabled=1 --fitness=distance;
+#  python3 run_population.py --version=$version --iterations=$iter --reproduce=0 --gru_enabled=1 --fitness=diversity;
+#  python3 run_population.py --version=$version --iterations=$iter --reproduce=0 --gru_enabled=1 --fitness=novelty;
+  python3 run_population.py --version=$version --iterations=$iter --reproduce=0 --gru_enabled=1 --fitness=path;
 
   # Sexual non-GRU
-#  python3 run_population.py --version=$version --train=1 --iterations=$iter --reproduce=1 --gru_enabled=0 --fitness=distance --blueprint=$blueprint --evaluate=$eval --trace=$trace --trace_fit=$trace_fit;
-#  python3 run_population.py --version=$version --train=1 --iterations=$iter --reproduce=1 --gru_enabled=0 --fitness=diversity --blueprint=$blueprint --evaluate=$eval --trace=$trace --trace_fit=$trace_fit;
-#  python3 run_population.py --version=$version --train=1 --iterations=$iter --reproduce=1 --gru_enabled=0 --fitness=novelty --blueprint=$blueprint --evaluate=$eval --trace=$trace --trace_fit=$trace_fit;
-#  python3 run_population.py --version=$version --train=1 --iterations=$iter --reproduce=1 --gru_enabled=0 --fitness=path --blueprint=$blueprint --evaluate=$eval --trace=$trace --trace_fit=$trace_fit;
+#  python3 run_population.py --version=$version --iterations=$iter --reproduce=1 --gru_enabled=0 --fitness=distance;
+#  python3 run_population.py --version=$version --iterations=$iter --reproduce=1 --gru_enabled=0 --fitness=diversity;
+#  python3 run_population.py --version=$version --iterations=$iter --reproduce=1 --gru_enabled=0 --fitness=novelty;
+#  python3 run_population.py --version=$version --iterations=$iter --reproduce=1 --gru_enabled=0 --fitness=path;
 
   # Asexual non-GRU
-#  python3 run_population.py --version=$version --train=1 --iterations=$iter --reproduce=0 --gru_enabled=0 --fitness=distance --blueprint=$blueprint --evaluate=$eval --trace=$trace --trace_fit=$trace_fit;
-#  python3 run_population.py --version=$version --train=1 --iterations=$iter --reproduce=0 --gru_enabled=0 --fitness=diversity --blueprint=$blueprint --evaluate=$eval --trace=$trace --trace_fit=$trace_fit;
-#  python3 run_population.py --version=$version --train=1 --iterations=$iter --reproduce=0 --gru_enabled=0 --fitness=novelty --blueprint=$blueprint --evaluate=$eval --trace=$trace --trace_fit=$trace_fit;
-#  python3 run_population.py --version=$version --train=1 --iterations=$iter --reproduce=0 --gru_enabled=0 --fitness=path --blueprint=$blueprint --evaluate=$eval --trace=$trace --trace_fit=$trace_fit;
+#  python3 run_population.py --version=$version --iterations=$iter --reproduce=0 --gru_enabled=0 --fitness=distance;
+#  python3 run_population.py --version=$version --iterations=$iter --reproduce=0 --gru_enabled=0 --fitness=diversity;
+#  python3 run_population.py --version=$version --iterations=$iter --reproduce=0 --gru_enabled=0 --fitness=novelty;
+#  python3 run_population.py --version=$version --iterations=$iter --reproduce=0 --gru_enabled=0 --fitness=path;
 done
