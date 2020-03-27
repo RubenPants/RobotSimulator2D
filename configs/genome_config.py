@@ -69,7 +69,7 @@ class GenomeConfig(BaseConfig):
         self.conn_disable_prob: float = 0.1
         # Denotes to which fraction the initial connectivity holds, parsed from self.initial_connection  [def=/]
         self.conn_fraction: float = 0
-        # Enable the algorithm to disable (and re-enable) existing connections  [def=True]
+        # Initial enabled-state of a connection  [def=True]
         self.enabled_default: bool = True
         # The probability that mutation will replace the 'enabled status' of a connection  [def=0.05]
         self.enabled_mutate_rate: float = 0.05

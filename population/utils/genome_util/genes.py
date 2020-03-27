@@ -346,7 +346,9 @@ class ConnectionGene(BaseGene):
         """
         self.weight = conn_weight.mutate(self.weight, cfg=cfg)
         pre = self.enabled
-        self.enabled = conn_enabled.mutate(self.enabled, cfg=cfg)
-        if pre != self.enabled:
-            return self.enabled
+        
+        # Enabling connection (if allowed) is done by the genome itself
+        enabled = conn_enabled.mutate(self.enabled, cfg=cfg)
+        if pre != enabled:
+            return enabled
         return None

@@ -175,7 +175,7 @@ class Genome(object):
         for _, v in iteritems(self.connections):
             if disable_key in v.key:
                 connections_to_disable.add(v.key)
-                
+        
         # Check if any connections left after disabling node
         new_connections = self.connections.copy()
         for k in connections_to_disable: new_connections.pop(k)
@@ -276,10 +276,29 @@ class Genome(object):
                 outputs={i for i in range(self.num_outputs)},
                 connections=self.connections,
         )
-        if len(used_conn) == 0:
+        if len(used_conn) == 0:  # TODO: Delete if zero-connection problem is solved
             print("FUCK")
             print((len(used_nodes) - (len(inputs) + self.num_outputs), len(used_conn)))
         return len(used_nodes) - (len(inputs) + self.num_outputs), len(used_conn)
+    
+    def get_used_nodes(self):
+        """Get all of the nodes currently used by the genome."""
+        used_nodes, _ = required_for_output(
+                inputs={a for (a, _) in self.connections if a < 0},
+                outputs={i for i in range(self.num_outputs)},
+                connections=self.connections,
+        )
+        # used_nodes only is a set of node-IDs, transform this to a node-dictionary
+        return {nid: n for (nid, n) in self.nodes.items() if nid in used_nodes}
+    
+    def get_used_connections(self):
+        """Get all of the connections currently used by the genome."""
+        _, used_conn = required_for_output(
+                inputs={a for (a, _) in self.connections if a < 0},
+                outputs={i for i in range(self.num_outputs)},
+                connections=self.connections,
+        )
+        return used_conn
     
     def __str__(self):
         s = f"Key: {self.key}\n" \
