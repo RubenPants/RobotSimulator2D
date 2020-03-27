@@ -19,7 +19,7 @@ class PopulationConfig(BaseConfig):
         # Individuals whose genetic distance is less than this threshold are in the same specie  [def=2.0]  TODO
         self.compatibility_thr: float = 2.0
         # Sexual reproduction  [def=True]
-        self.crossover_enabled: bool = True
+        self.crossover_enabled: bool = False
         # Probability of having a crossover when crossover is enabled  [def=0.6]
         self.crossover_prob: float = 0.6
         # Number of generations before a previous elite specie can become stagnant  [def=5]
@@ -39,4 +39,4 @@ class PopulationConfig(BaseConfig):
         
         # TODO: Often used, hence placed outside of crowd
         # Number of individuals in each generation  [def=128]  TODO
-        self.pop_size: int = 32
+        self.pop_size: int = 256
