@@ -4,10 +4,9 @@
 
 ## TODO
 
-* Make the compatibility-threshold dynamic (i.e. such that a target-specie size is kept)
-* Check that there are always enabled connections after crossover
-* Zero-connections still possible... fuck
-* Research how to define distance between genomes (I think it's bullshit to divide between number of nodes)
+* Check if networks always work with only the enabled connections and nodes (never again that annoying compatibility bug!)
+* Make the compatibility-threshold dynamic (i.e. such that a target specie-size is kept)
+* Zero-connections still possible... fuck --> Solved now? (see TODO)
 * Re-enable recurrent connections  (disable cycle-check in genome)
 * Disable mutation towards no connections  --> and test!
 * Test input-keys in genome (GRU), what order are they? (should be sorted: -4, -1, 3, ...), reflects on sensor-input?

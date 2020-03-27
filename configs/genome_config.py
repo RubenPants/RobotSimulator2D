@@ -19,13 +19,13 @@ class GenomeConfig(BaseConfig):
     __slots__ = {
         'activation_default', 'activation_mutate_rate', 'activation_options', 'aggregation_default',
         'aggregation_mutate_rate', 'aggregation_options', 'bias_init_mean', 'bias_init_stdev', 'bias_max_value',
-        'bias_min_value', 'bias_mutate_power', 'bias_mutate_rate', 'bias_replace_rate',
-        'compatibility_disjoint', 'compatibility_weight', 'conn_add_prob', 'conn_disable_prob',
-        'conn_fraction', 'enabled_default', 'enabled_mutate_rate', 'gru_enabled', 'gru_init_mean',
-        'gru_init_stdev', 'gru_max_value', 'gru_min_value', 'gru_mutate_power', 'gru_mutate_rate', 'gru_node_prob',
-        'gru_replace_rate', 'initial_connection', 'keys_input', 'node_add_prob', 'node_disable_prob', 'node_indexer',
-        'num_inputs', 'num_outputs', 'keys_output', 'weight_init_mean', 'weight_init_stdev', 'weight_max_value',
-        'weight_min_value', 'weight_mutate_power', 'weight_mutate_rate', 'weight_replace_rate'
+        'bias_min_value', 'bias_mutate_power', 'bias_mutate_rate', 'bias_replace_rate', 'compatibility_disjoint',
+        'compatibility_weight', 'conn_add_prob', 'conn_disable_prob', 'conn_fraction', 'enabled_default',
+        'enabled_mutate_rate', 'gru_enabled', 'gru_init_mean', 'gru_init_stdev', 'gru_max_value', 'gru_min_value',
+        'gru_mutate_power', 'gru_mutate_rate', 'gru_node_prob', 'gru_replace_rate', 'initial_connection', 'keys_input',
+        'keys_output', 'node_add_prob', 'node_disable_prob', 'node_indexer', 'num_inputs', 'num_outputs',
+        'recurrent_conn', 'weight_init_mean', 'weight_init_stdev', 'weight_max_value', 'weight_min_value',
+        'weight_mutate_power', 'weight_mutate_rate', 'weight_replace_rate',
     }
     
     allowed_connectivity = ['unconnected', 'fs_neat_nohidden', 'fs_neat', 'fs_neat_hidden',
@@ -107,6 +107,8 @@ class GenomeConfig(BaseConfig):
         self.num_inputs: int = 0
         # Number of output nodes, which are the wheels: [left_wheel, right_wheel]  [def=2]
         self.num_outputs: int = 2
+        # Use recurrent connections (non-GRUs) in the network  [def=True]
+        self.recurrent_conn = True
         # Mean of the gaussian distribution used to select the weight attribute values for new connections  [def=0]
         self.weight_init_mean: float = 0.0
         # Standard deviation of the gaussian used to select the weight attributes values for new connections  [def=1]
