@@ -228,8 +228,8 @@ class Genome(object):
             self.enable_connection(config=config, conn=self.connections[key])
             return
         
-        # Avoid creating cycles.  TODO: Do create cycles if recurrent=True!
-        if creates_cycle(list(iterkeys(self.connections)), key):
+        # If recurrent connections aren't allowed, check if the new connection would create a cycle
+        if not config.recurrent_conn and creates_cycle(list(iterkeys(self.connections)), key):
             return
         
         # Create the new connection
