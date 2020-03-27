@@ -4,7 +4,11 @@
 
 ## TODO
 
-* Re-enable recurrent connections
+* Make the compatibility-threshold dynamic (i.e. such that a target-specie size is kept)
+* Check that there are always enabled connections after crossover
+* Zero-connections still possible... fuck
+* Research how to define distance between genomes (I think it's bullshit to divide between number of nodes)
+* Re-enable recurrent connections  (disable cycle-check in genome)
 * Disable mutation towards no connections  --> and test!
 * Test input-keys in genome (GRU), what order are they? (should be sorted: -4, -1, 3, ...), reflects on sensor-input?
 * Fitness that not only takes path (at the end) in account, but also normalized time taken to reach target
