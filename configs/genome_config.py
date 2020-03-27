@@ -71,7 +71,7 @@ class GenomeConfig(BaseConfig):
         self.conn_fraction: float = 0
         # Initial enabled-state of a connection  [def=True]
         self.enabled_default: bool = True
-        # The probability that mutation will replace the 'enabled status' of a connection  [def=0.05]
+        # The probability that mutation will replace the 'enabled status' of a connection  [def=0.05]  TODO: Remove
         self.enabled_mutate_rate: float = 0.05
         # Enable the genomes to mutate GRU nodes  [def=True]  TODO
         self.gru_enabled: bool = True
@@ -92,7 +92,7 @@ class GenomeConfig(BaseConfig):
         # Probability of assigning (single) random value in GRU, based on gru_init_mean and gru_init_stdev  [def=0.05]
         self.gru_replace_rate: float = 0.05
         # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT_05]  TODO
-        self.initial_connection = D_FULL_DIRECT
+        self.initial_connection = D_PARTIAL_DIRECT_05
         # Input-keys, which are by convention negative starting from -1 and descending, set in update()  [def=/]
         self.keys_input = None
         # Output-keys, which start by convention from 0 and increment with each output, set in update()  [def=/]
