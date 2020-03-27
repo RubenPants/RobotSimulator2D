@@ -44,10 +44,12 @@ class GenomeDistanceCache(object):
         # Distance between the genomes is not yet calculated, start with calculating node-distance
         #  The node-distance is defined by the distance between comparable nodes and the number of disjoint nodes
         node_distance = dict()  # Dictionary mapping nodes (genome0, genome1) to their distance
+        used_nodes0 = genome0.get_used_nodes()
+        used_nodes1 = genome1.get_used_nodes()
         
         # Get all the distances of the comparable nodes (does not contain duplicates)
-        for node0_id, node0 in genome0.nodes.items():
-            for node1_id, node1 in genome1.nodes.items():
+        for node0_id, node0 in used_nodes0.items():
+            for node1_id, node1 in used_nodes1.items():
                 comp, dist = self.node_cache(
                         node0=node0,
                         node1=node1,
@@ -59,45 +61,50 @@ class GenomeDistanceCache(object):
         
         # Get all the disjoint nodes, these are the nodes not present in node_distance (were not comparable)
         disjoint_nodes = 0
-        for node0_id in genome0.nodes.keys():
+        for node0_id in used_nodes0.keys():
             if not {node0_id for (a, _) in node_distance.keys() if a == node0_id}:
                 disjoint_nodes += 1
-        for node1_id in genome1.nodes.keys():
+        for node1_id in used_nodes1.keys():
             if not {node1_id for (_, b) in node_distance.keys() if b == node1_id}:
                 disjoint_nodes += 1
         
-        # The final node-distance is equal to the sum of the comparable nodes' distances, plus the number of disjoint
-        #  nodes times the disjoint coefficient. This all is then normalized by dividing in by the maximum number of
-        #  nodes present in one of the genomes.
-        distance += (sum(node_distance.values()) + (self.config.compatibility_disjoint * disjoint_nodes)) / \
-                    max(len(genome0.nodes), len(genome1.nodes))
+        # The final node-distance is equal to linear sum of the average distance of the comparable nodes with the number
+        #  of disjoint/excess nodes that are divided by the total number of nodes from the larger gene
+        max_nodes = max(len(used_nodes0), len(used_nodes1))
+        if node_distance:
+            distance += sum(node_distance.values()) / len(node_distance)
+        distance += (self.config.compatibility_disjoint * disjoint_nodes) / max_nodes
         
         # The distance between connections is computed likewise
         conn_distance = dict()  # Dictionary mapping connections (genome0, genome1) to their distance
+        used_conn0 = genome0.get_used_connections()
+        used_conn1 = genome1.get_used_connections()
         
         # Get all the distances of the comparable connections (does not contain duplicates)
-        for conn0_id, conn0 in genome0.connections.items():
-            for conn1_id, conn1 in genome1.connections.items():
+        for conn0_id, conn0 in used_conn0.items():
+            for conn1_id, conn1 in used_conn1.items():
                 if not (conn0.enabled and conn1.enabled): continue  # Only compare enabled connections
                 if self.node_cache.map_conn_key(conn0_id) == self.node_cache.map_conn_key(conn1_id):
                     conn_distance[conn0_id, conn1_id] = conn0.distance(conn1, cfg=self.config)
         
         # Get all the disjoint connections, these are the connections not present in conn_distance (were not comparable)
         disjoint_connections = 0
-        for conn0_id, conn0 in genome0.connections.items():
+        for conn0_id, conn0 in used_conn0.items():
             if not conn0.enabled: continue  # Only compare enabled connections
             if not {conn0_id for (a, _) in conn_distance.keys() if a == conn0_id}:
                 disjoint_connections += 1
-        for conn1_id, conn1 in genome1.connections.items():
+        for conn1_id, conn1 in used_conn1.items():
             if not conn1.enabled: continue  # Only compare enabled connections
             if not {conn1_id for (_, b) in conn_distance.keys() if b == conn1_id}:
                 disjoint_connections += 1
         
-        # The final connection-distance is equal to the sum of the comparable connections' distances, plus the number of
-        #  disjoint connections times the disjoint coefficient. This all is then normalized by dividing in by the
-        #  maximum number of connections present in one of the genomes.
-        distance += (sum(conn_distance.values()) + (self.config.compatibility_disjoint * disjoint_connections)) / \
-                    max(len(genome0.connections), len(genome1.connections))
+        # The final connection-distance is equal to linear sum of the average weight-difference of the comparable
+        #  connections with the number of disjoint/excess connections that are divided by the total number of
+        #  connections from the larger gene
+        max_conn = max(len(used_conn0), len(used_conn1))
+        if conn_distance:
+            distance += sum(conn_distance.values()) / len(conn_distance)
+        distance += (self.config.compatibility_disjoint * disjoint_connections) / max_conn
         
         # Save and return the final distance
         self.distances[g0, g1] = distance
