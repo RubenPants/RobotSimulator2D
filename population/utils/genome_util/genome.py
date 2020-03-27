@@ -258,12 +258,15 @@ class Genome(object):
         return len(used_nodes) - (len(inputs) + self.num_outputs), len(used_conn)
     
     def __str__(self):
-        s = f"Key: {self.key}\nFitness: {self.fitness}\nNodes:"
-        for k, ng in iteritems(self.nodes): s += f"\n\t{k} {ng!s}"
-        s += "\nConnections:"
-        connections = list(self.connections.values())
-        connections.sort()
-        for c in connections: s += "\n\t" + str(c)
+        s = f"Key: {self.key}\n" \
+            f"Fitness: {self.fitness}\n" \
+            f"Nodes:\n"
+        for k, ng in sorted(self.nodes.items(), key=lambda x: x[0]):
+            s += f"\t{k} - {repr(ng)!s}\n"
+        s += "Connections:\n"
+        for k, cg in sorted(self.connections.items(), key=lambda x:x[0]):
+            if cg.enabled:
+                s += f"\t{k} - {repr(cg)!s}\n"
         return s
     
     def __repr__(self):

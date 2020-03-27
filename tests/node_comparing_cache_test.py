@@ -24,7 +24,7 @@ def get_connections(receiving_key: int, sending_keys: set, cfg: GenomeConfig):
 
 
 class Distance(unittest.TestCase):
-    """Test if the distance-measure is computed correctly"""
+    """Test if the distance-measure is computed correctly."""
     
     def test_different_type(self):
         """> Test if False is returned when comparing nodes of different type."""
@@ -165,7 +165,7 @@ class Distance(unittest.TestCase):
 
 
 class Parameters(unittest.TestCase):
-    """Test if the distance-measure is computed correctly"""
+    """Test if the parameters are set correctly."""
     
     def test_distance_failure(self):
         """> Test if the distance-parameter is updated correctly after unsuccessful read."""
@@ -228,7 +228,7 @@ class Parameters(unittest.TestCase):
 
 
 class Indexer(unittest.TestCase):
-    """Test if the distance-measure is computed correctly"""
+    """Test if the indexer functions correctly."""
     
     def test_increasing_nodes(self):
         """> Test if the index-parameter keeps increasing with each newly fed node."""
@@ -262,7 +262,7 @@ class Indexer(unittest.TestCase):
 
 
 class Reset(unittest.TestCase):
-    """Test if the distance-measure is computed correctly"""
+    """Test if the reset-function works correctly."""
     
     def test_clean_start(self):
         """> Test if the restart indeed removes all the parameters."""

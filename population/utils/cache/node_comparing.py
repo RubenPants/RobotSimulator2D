@@ -109,11 +109,12 @@ class NodeComparingCache:
         # Convert all v2 occurrences into v1's
         for k, v in self.index_map.items():
             # Share the same internal representation
-            if v == v2: self.index_map[k] = v1
+            if v == v2:
+                self.index_map[k] = v1
             
-            # Given node is now comparable with both the merged nodes  TODO: Needs testing!
-            self.comparable[(key1, k) if (key1 <= k) else (k, key1)] = True
-            self.comparable[(key2, k) if (key2 <= k) else (k, key2)] = True
+                # Given node is now comparable with both the merged nodes
+                self.comparable[(key1, k) if (key1 <= k) else (k, key1)] = True
+                self.comparable[(key2, k) if (key2 <= k) else (k, key2)] = True
     
     def reset(self):
         """Reset the cache's parameters."""
