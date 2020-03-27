@@ -5,6 +5,8 @@
 ## TODO
 
 * Re-enable recurrent connections
+* Test input-keys in genome (GRU), what order are they? (should be sorted: -4, -1, 3, ...), reflects on sensor-input?
+* 'enable_node' when a add_node mutation happens on a connection that is already split
 * Fitness that not only takes path (at the end) in account, but also normalized time taken to reach target
 * Research: How properly identify disjoint nodes (see NEAT paper!) --> disjoint determined based on connections?
 * Improve performance by having the choice not to evaluate parents (distance-only, fixed task)

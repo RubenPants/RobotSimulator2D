@@ -13,7 +13,8 @@ from neat.math_util import mean
 from neat.six_util import iteritems, itervalues
 
 from config import Config
-from population.utils.genome_util.genome import DefaultGenome
+from population.utils.cache.genome_distance import GenomeDistanceCache
+from population.utils.genome_util.genome import Genome
 from population.utils.population_util.species import DefaultSpecies
 from population.utils.population_util.stagnation import DefaultStagnation
 from population.utils.reporter_util.reporting import ReporterSet
@@ -37,7 +38,7 @@ class DefaultReproduction:
         new_genomes = dict()
         for i in range(num_genomes):
             key = next(self.genome_indexer)
-            g = DefaultGenome(key, num_outputs=config.genome.num_outputs, bot_config=config.bot)
+            g = Genome(key, num_outputs=config.genome.num_outputs, bot_config=config.bot)
             g.configure_new(config.genome)
             new_genomes[key] = g
             self.ancestors[key] = tuple()
@@ -160,7 +161,7 @@ class DefaultReproduction:
                 
                 # Init genome dummy (values are overwritten later)
                 gid = next(self.genome_indexer)
-                child: DefaultGenome = DefaultGenome(gid, num_outputs=config.genome.num_outputs, bot_config=config.bot)
+                child: Genome = Genome(gid, num_outputs=config.genome.num_outputs, bot_config=config.bot)
                 
                 # Choose the parents, note that if the parents are not distinct, crossover will produce a genetically
                 #  identical clone of the parent (but with a different ID)
@@ -186,8 +187,9 @@ class DefaultReproduction:
                         continue  # Continue the while-loop
                     
                     # Check if the genome is already in the population (i.e. did not mutate)
+                    distances = GenomeDistanceCache(config=config.genome)
                     for genome in new_population.values():
-                        if child.distance(genome, config=config.genome) == 0:
+                        if distances(genome0=child, genome1=genome) == 0:
                             valid = False
                             break  # Break the for-loop
                 

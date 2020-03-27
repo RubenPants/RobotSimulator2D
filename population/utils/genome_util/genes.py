@@ -105,7 +105,7 @@ class SimpleNodeGene(BaseGene):
         d = abs(self.bias - other.bias)
         if self.activation != other.activation: d += 1.0
         if self.aggregation != other.aggregation: d += 1.0  # Normally, aggregation is always equal to 'sum'
-        return d * cfg.compatibility_weight_coefficient
+        return d * cfg.compatibility_weight
     
     def mutate(self, cfg: GenomeConfig):
         self.activation = activation.mutate(self.activation, cfg=cfg)
@@ -148,7 +148,7 @@ class OutputNodeGene(BaseGene):
     
     def distance(self, other, cfg: GenomeConfig):
         """Only possible difference in output-nodes' distance is the bias."""
-        return abs(self.bias - other.bias) * cfg.compatibility_weight_coefficient
+        return abs(self.bias - other.bias) * cfg.compatibility_weight
     
     def mutate(self, cfg: GenomeConfig):
         """Mutation is not possible on the activation."""
@@ -165,7 +165,7 @@ class GruNodeGene(BaseGene):
     }
     
     def __init__(self, key, cfg: GenomeConfig, input_keys=None, input_keys_full=None):
-        assert isinstance(key, int), f"OutputNodeGene key must be an int, not {key!r}"
+        assert isinstance(key, int), f"GruNodeGene key must be an int, not {key!r}"
         if input_keys and input_keys_full:
             for k in input_keys: assert k in input_keys_full
         BaseGene.__init__(self, key)
@@ -175,8 +175,8 @@ class GruNodeGene(BaseGene):
         self.bias = 0  # Needed for feed-forward-network
         self.bias_hh = gru.init(cfg)
         self.bias_ih = gru.init(cfg)
-        self.input_keys: list = input_keys if input_keys else []
-        self.input_keys_full: list = input_keys_full if input_keys_full else []
+        self.input_keys: list = sorted(input_keys) if input_keys else []
+        self.input_keys_full: list = sorted(input_keys_full) if input_keys_full else []
         self.weight_hh = gru.init(cfg, input_size=1)
         self.weight_ih = None  # Updated via update_weight_ih
         self.weight_ih_full = gru.init(cfg, input_size=len(self.input_keys_full))
@@ -220,6 +220,7 @@ class GruNodeGene(BaseGene):
                 new_gene.weight_ih_full[:, i] = other.weight_ih_full[:, other.input_keys_full.index(k)]
         
         # Crossover the other attributes
+        new_gene.activation = activation.cross(self.activation, other.activation, ratio=ratio)
         new_gene.bias_hh = gru.cross_1d(self.bias_hh, other.bias_hh, ratio=ratio)
         new_gene.bias_ih = gru.cross_1d(self.bias_ih, other.bias_ih, ratio=ratio)
         new_gene.weight_hh = gru.cross_2d(self.weight_hh, other.weight_hh, ratio=ratio)
@@ -241,7 +242,7 @@ class GruNodeGene(BaseGene):
             if k in other.input_keys: o[:, i] = other.weight_ih_full[:, other.input_keys_full.index(k)]
         d += norm(s - o)
         if self.activation != other.activation: d += 1.0
-        return (d / 4) * cfg.compatibility_weight_coefficient
+        return (d / 4) * cfg.compatibility_weight
     
     def mutate(self, cfg: GenomeConfig):
         self.activation = activation.mutate(self.activation, cfg=cfg)
@@ -329,10 +330,10 @@ class ConnectionGene(BaseGene):
         new_gene.weight = conn_weight.cross(v1=self.weight, v2=other.weight, ratio=ratio)
         return new_gene
     
-    def distance(self, other, config):
+    def distance(self, other, cfg):
         d = abs(self.weight - other.weight)
         if self.enabled != other.enabled: d += 1.0
-        return d * config.compatibility_weight_coefficient
+        return d * cfg.compatibility_weight
     
     def mutate(self, cfg: GenomeConfig):
         """

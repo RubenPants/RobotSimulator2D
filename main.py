@@ -8,7 +8,7 @@ import traceback
 
 from config import Config
 from population.population import Population
-from population.utils.genome_util.genome import DefaultGenome
+from population.utils.genome_util.genome import Genome
 from process_killer import main as process_killer
 
 
@@ -42,7 +42,7 @@ def evaluate(population: Population,
 def live(game_id: int,
          population: Population,
          game_config: Config,
-         genome: DefaultGenome,
+         genome: Genome,
          debug: bool = False,
          ):
     """Create a live visualization for the performance of the given genome."""
@@ -119,7 +119,7 @@ def train_same_games(games: list,
 
 def trace_most_fit(population: Population,
                    game_config: Config,
-                   genome: DefaultGenome,
+                   genome: Genome,
                    games: list):
     """Create a trace evaluation for the given genome on the provided games."""
     from environment.env_visualizing import VisualizingEnv
@@ -131,14 +131,16 @@ def trace_most_fit(population: Population,
 
 
 def visualize_genome(population: Population,
-                     genome: DefaultGenome,
-                     debug: bool = True):
+                     genome: Genome,
+                     debug: bool = True,
+                     show: bool = True):
     """Visualize the requested genome."""
     print("\n===> VISUALIZING GENOME <===\n")
     print(f"Genome {genome.key} with size: {genome.size()}")
     population.visualize_genome(
             debug=debug,
             genome=genome,
+            show=show
     )
 
 
@@ -146,17 +148,17 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     
     # Main methods
-    parser.add_argument('--train', type=bool, default=False)
+    parser.add_argument('--train', type=bool, default=True)
     parser.add_argument('--train_same', type=bool, default=False)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--trace', type=bool, default=False)
-    parser.add_argument('--trace_fit', type=bool, default=False)
+    parser.add_argument('--trace_fit', type=bool, default=True)
     parser.add_argument('--evaluate', type=bool, default=False)
-    parser.add_argument('--genome', type=bool, default=False)
+    parser.add_argument('--genome', type=bool, default=True)
     parser.add_argument('--live', type=bool, default=False)
     
     # Extra arguments
-    parser.add_argument('--iterations', type=int, default=2)
+    parser.add_argument('--iterations', type=int, default=20)
     parser.add_argument('--unused_cpu', type=int, default=2)
     parser.add_argument('--debug', type=bool, default=False)
     args = parser.parse_args()
@@ -178,8 +180,8 @@ if __name__ == '__main__':
     
     # Set the blueprint and traces games
     # chosen_games = [0] * 10  # Different (random) initializations!
-    chosen_games = [g for g in range(1, 6)]
-    # chosen_games = [99995, 99996, 99997, 99998, 99999]
+    # chosen_games = [g for g in range(1, 6)]
+    chosen_games = [99995, 99996, 99998, 99999]
     
     # Chosen genome used for genome-evaluation
     chosen_genome = None

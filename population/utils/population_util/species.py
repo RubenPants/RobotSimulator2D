@@ -9,7 +9,7 @@ from neat.math_util import mean, stdev
 from neat.six_util import iteritems, iterkeys, itervalues
 
 from config import Config
-from configs.genome_config import GenomeConfig
+from population.utils.cache.genome_distance import GenomeDistanceCache
 
 
 class Species(object):
@@ -31,25 +31,6 @@ class Species(object):
     
     def get_fitnesses(self):
         return [m.fitness for m in itervalues(self.members)]
-
-
-class GenomeDistanceCache(object):
-    """Makes sure that redundant distance-computations will not occur. (e.g. d(1,2)==d(2,1))."""
-    
-    def __init__(self, config: GenomeConfig):
-        self.distances = dict()
-        self.config = config
-    
-    def __call__(self, genome0, genome1):
-        """Calculate the genetic distances between two genomes and store in cache if not yet present."""
-        g0 = genome0.key
-        g1 = genome1.key
-        if g0 > g1: g0, g1 = g1, g0  # Lowest key is always first, removes redundant distance checks
-        d = self.distances.get((g0, g1))  # Safe-get, returns result or None if key does not exist
-        if d is None:
-            d = genome0.distance(genome1, self.config)
-            self.distances[g0, g1] = d
-        return d
 
 
 class DefaultSpecies:
