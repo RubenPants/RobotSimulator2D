@@ -27,7 +27,7 @@ from config import Config
 from configs.genome_config import GenomeConfig
 from environment.entities.robots import get_active_sensors
 from population.utils.genome_util.genes import GruNodeGene
-from population.utils.genome_util.genome import DefaultGenome
+from population.utils.genome_util.genome import Genome
 from population.utils.network_util.activations import relu_activation, tanh_activation
 from population.utils.network_util.graphs import required_for_output
 from population.utils.network_util.shared import dense_from_coo
@@ -311,7 +311,7 @@ class FeedForwardNet:
         )
 
 
-def make_net(genome: DefaultGenome, genome_config: GenomeConfig, game_config: Config, bs=1, initial_read: list = None):
+def make_net(genome: Genome, genome_config: GenomeConfig, game_config: Config, bs=1, initial_read: list = None):
     """
     Create the "brains" of the candidate, based on its genetic wiring.
 

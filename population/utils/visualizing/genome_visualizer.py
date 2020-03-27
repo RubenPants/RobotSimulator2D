@@ -10,14 +10,14 @@ from graphviz import Digraph
 
 from configs.genome_config import GenomeConfig
 from population.utils.genome_util.genes import GruNodeGene, SimpleNodeGene
-from population.utils.genome_util.genome import DefaultGenome
+from population.utils.genome_util.genome import Genome
 from population.utils.network_util.graphs import required_for_output
 
 # Add graphviz to path if on Windows
 if sys.platform == 'win32': os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/'
 
 
-def draw_net(config: GenomeConfig, genome: DefaultGenome, debug=False, filename=None, view=True):
+def draw_net(config: GenomeConfig, genome: Genome, debug=False, filename=None, view=True):
     """
     Visualize the structure of one genome.
     

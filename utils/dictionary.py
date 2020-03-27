@@ -27,6 +27,7 @@ D_GAME_ID = 'game_id'
 D_GAUSS = 'gauss'
 D_GELU = 'gelu'
 D_GMEAN = 'gmean'
+D_GRU = 'gru'
 
 # I
 D_IDENTITY = 'identity'
@@ -59,6 +60,7 @@ D_RELU = 'relu'
 # S
 D_SENSOR_LIST = 'sensor_list'
 D_SIGMOID = 'sigmoid'
+D_SIMPLE = 'simple'
 D_SIN = 'sin'
 D_SUM = 'sum'
 

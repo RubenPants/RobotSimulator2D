@@ -20,7 +20,7 @@ class GenomeConfig(BaseConfig):
         'activation_default', 'activation_mutate_rate', 'activation_options', 'aggregation_default',
         'aggregation_mutate_rate', 'aggregation_options', 'bias_init_mean', 'bias_init_stdev', 'bias_max_value',
         'bias_min_value', 'bias_mutate_power', 'bias_mutate_rate', 'bias_replace_rate',
-        'compatibility_disjoint_coefficient', 'compatibility_weight_coefficient', 'conn_add_prob', 'conn_delete_prob',
+        'compatibility_disjoint', 'compatibility_weight', 'conn_add_prob', 'conn_delete_prob',
         'conn_fraction', 'enabled_default', 'enabled_mutate_rate', 'gru_enabled', 'gru_init_mean',
         'gru_init_stdev', 'gru_max_value', 'gru_min_value', 'gru_mutate_power', 'gru_mutate_rate', 'gru_node_prob',
         'gru_replace_rate', 'initial_connection', 'keys_input', 'node_add_prob', 'node_delete_prob', 'node_indexer',
@@ -60,9 +60,9 @@ class GenomeConfig(BaseConfig):
         # The probability that mutation will replace the bias of a node with a completely random value  [def=0.05]
         self.bias_replace_rate: float = 0.05
         # Full weight of disjoint and excess nodes on determining genomic distance  [def=1.0]  # TODO: Separate for GRU?
-        self.compatibility_disjoint_coefficient: float = 1.0
+        self.compatibility_disjoint: float = 1.0
         # Coefficient for each weight or bias difference contribution to the genomic distance  [def=0.5]
-        self.compatibility_weight_coefficient: float = 0.5
+        self.compatibility_weight: float = 0.5
         # Probability of adding a connection between existing nodes during mutation (each generation)  [def=0.1]  TODO
         self.conn_add_prob: float = 0.1
         # Probability of deleting an existing connection during mutation (each generation)  [def=0.1]  TODO

@@ -12,7 +12,7 @@ from config import Config
 from environment.entities.game import get_game
 from environment.env_multi import get_multi_env
 from population.population import Population
-from population.utils.genome_util.genome import DefaultGenome
+from population.utils.genome_util.genome import Genome
 from population.utils.visualizing.population_visualizer import create_blueprints, create_traces
 from utils.myutils import get_subfolder
 
@@ -89,7 +89,7 @@ class VisualizingEnv:
                           gen=pop.generation,
                           save_path=get_subfolder(f'population/storage/{pop.folder_name}/{pop}/', 'images'))
     
-    def trace_genomes(self, pop: Population, given_genome: DefaultGenome = None):
+    def trace_genomes(self, pop: Population, given_genome: Genome = None):
         """
         Create blueprints that contain the walking-traces for all the requested mazes.
 
