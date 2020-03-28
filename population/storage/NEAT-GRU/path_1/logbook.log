@@ -13116,3 +13116,113 @@ Traceback (most recent call last):
     clip_f((1 - paths[g_index][round(pos[0], 1), round(pos[1], 1)] / a_stars[g_index]) ** 2)
 KeyError: (13.4, 1.4)
 
+
+Population 'path_1' loaded successfully! Current generation: 340
+
+===> SAME GAME TRAINING <===
+
+Repetitive evaluating games: [99995, 99996, 99998, 99999]
+
+********** Running generation 340 **********
+
+Traceback (most recent call last):
+  File "C:/Users/Ruben/Documents/Projects/RobotSimulator2D/main.py", line 209, in <module>
+    debug=args.debug,
+  File "C:/Users/Ruben/Documents/Projects/RobotSimulator2D/main.py", line 116, in train_same_games
+    save_interval=10,  # Lower saving interval due to slow progress
+  File "C:\Users\Ruben\Documents\Projects\RobotSimulator2D\environment\env_training.py", line 121, in evaluate_same_games_and_evolve
+    unused_cpu=self.unused_cpu,
+  File "C:\Users\Ruben\Documents\Projects\RobotSimulator2D\environment\env_training.py", line 186, in single_evaluation
+    generation=pop.generation,
+  File "C:\Users\Ruben\Documents\Projects\RobotSimulator2D\population\utils\population_util\fitness_functions.py", line 48, in calc_pop_fitness
+    generation=generation,
+  File "C:\Users\Ruben\Documents\Projects\RobotSimulator2D\population\utils\population_util\fitness_functions.py", line 96, in fitness_per_game
+    game_params=game_params,
+  File "C:\Users\Ruben\Documents\Projects\RobotSimulator2D\population\utils\population_util\fitness_functions.py", line 228, in fitness_path
+    fitness[k] = [get_score(o[D_POS], g_index=i, reached=o[D_DONE]) for i, o in enumerate(v)]
+  File "C:\Users\Ruben\Documents\Projects\RobotSimulator2D\population\utils\population_util\fitness_functions.py", line 228, in <listcomp>
+    fitness[k] = [get_score(o[D_POS], g_index=i, reached=o[D_DONE]) for i, o in enumerate(v)]
+  File "C:\Users\Ruben\Documents\Projects\RobotSimulator2D\population\utils\population_util\fitness_functions.py", line 223, in get_score
+    clip_f((1 - paths[g_index][round(pos[0], 1), round(pos[1], 1)] / a_stars[g_index]) ** 2)
+KeyError: (13.4, 1.4)
+
+
+Population 'path_1' loaded successfully! Current generation: 340
+
+===> SAME GAME TRAINING <===
+
+Repetitive evaluating games: [529, 156, 395, 18, 901, 436, 416, 76, 825, 696]
+
+********** Running generation 340 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.58555
+	-       mean fitness: 0.26558
+	-      worst fitness: 0.00004
+	- standard deviation: 0.19528
+Best genome overview:
+	- fitness: 0.58555
+	- size (hid, conn): (2, 13)
+	- genome id: 34485
+	- belongs to specie: 32
+Genetic distance:
+	- Maximum: 4.86318
+	- Mean: 1.93817
+	- Minimum: 0.00000
+	- Standard deviation: 0.88367
+Most complex genome '35183' of size (5, 12) belongs to specie '38' with distance to representative of 0.78
+
+Population 'path_1' with 125 members in 7 species:
+	 specie    age    size    fitness    adj fit    stag    repr size 
+	========  =====  ======  =========  =========  ======  ===========
+	   30      66      26     0.54241    0.62481     38      (1, 12)  
+	   32      58      18     0.58555    0.49008     38      (2, 13)  
+	   34      44      14     0.39041    0.36375     9       (2, 17)  
+	   37      36      22     0.53091    0.50884     10      (1, 11)  
+	   38      35      10     0.20519    0.16749     1       (3, 7)   
+	   39      33      11     0.21021    0.18861     10      (2, 11)  
+	   40      30      24     0.53511    0.52208     10      (1, 10)  
+
+Generation time: 561.162 sec  (119.565 average)
+Population 'path_1' saved! Current generation: 341
+
+Population 'path_1' loaded successfully! Current generation: 341
+
+===> SAME GAME TRAINING <===
+
+Repetitive evaluating games: [529, 156, 395, 18, 901, 436, 416, 76, 825, 696]
+
+********** Running generation 341 **********
+
+Full population's fitness overview:
+	-       best fitness: 0.60262
+	-       mean fitness: 0.29193
+	-      worst fitness: 0.00004
+	- standard deviation: 0.19595
+Best genome overview:
+	- fitness: 0.60262
+	- size (hid, conn): (1, 14)
+	- genome id: 35116
+	- belongs to specie: 30
+Genetic distance:
+	- Maximum: 4.38826
+	- Mean: 1.91438
+	- Minimum: 0.00000
+	- Standard deviation: 0.78864
+Most complex genome '35282' of size (4, 12) belongs to specie '38' with distance to representative of 0.72
+
+Population 'path_1' with 124 members in 7 species:
+	 specie    age    size    fitness    adj fit    stag    repr size 
+	========  =====  ======  =========  =========  ======  ===========
+	   30      67      23     0.60262    0.60541     39      (1, 14)  
+	   32      59      23     0.58562    0.58161     39      (2, 13)  
+	   34      45      15     0.40366    0.38701     10      (2, 17)  
+	   37      37      19     0.53091    0.45777     11      (1, 11)  
+	   38      36      9      0.21980    0.16473     2       (3, 7)   
+	   39      34      10     0.19186    0.20503     11      (2, 13)  
+	   40      31      25     0.53511    0.62285     11      (1, 9)   
+
+Generation time: 125.321 sec  (125.031 average)
+Population 'path_1' saved! Current generation: 342
+
+Population 'path_1' loaded successfully! Current generation: 342

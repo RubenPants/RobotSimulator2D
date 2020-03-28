@@ -182,7 +182,8 @@ if __name__ == '__main__':
     # Set the blueprint and traces games
     # chosen_games = [0] * 10  # Different (random) initializations!
     # chosen_games = [g for g in range(1, 6)]
-    chosen_games = [99995, 99996, 99998, 99999]
+    # chosen_games = [99995, 99996, 99998, 99999]
+    chosen_games = [529, 156, 395, 18, 901, 436, 416, 76, 825, 696]
     
     # Chosen genome used for genome-evaluation
     chosen_genome = None

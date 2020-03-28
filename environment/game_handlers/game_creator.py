@@ -31,7 +31,7 @@ from tqdm import tqdm
 from config import Config
 from environment.entities.game import Game
 from environment.entities.robots import MarXBot
-from utils.dictionary import D_A_STAR
+from utils.dictionary import D_A_STAR, D_PATH
 from utils.line2d import Line2d
 from utils.vec2d import Vec2d
 
@@ -195,7 +195,6 @@ class Maze:
                     filled_tiles.remove((x_max, y_min))
                     filled_tiles.remove((x_max, y_max))
                 except KeyError:
-                    # TODO: This is (perhaps?) due to door-creation of two neighbouring rooms of different size
                     raise MazeMalfunctionException("Error in wall-creation, created non-square rooms")
                 
                 # Remove tiles that are not suited for a door
@@ -299,11 +298,11 @@ class Maze:
         
         # Find distance to target
         if visualize: self.visualize_extend(maze=maze_expanded)
-        if target_pos == Vec2d(maze.cfg.game.x_axis - 0.5, maze.cfg.game.y_axis - 0.5):
-            target = (x_tiles - 6, y_tiles - 6)
-        elif target_pos == Vec2d(0.5, 0.5):
-            target = (5, 5)
-        elif target_pos == Vec2d(0.5, maze.cfg.game.y_axis - 0.5):
+        if target_pos == Vec2d(maze.cfg.game.x_axis / 2, maze.cfg.game.y_axis - 0.5):  # Top center
+            target = (x_tiles // 2, y_tiles - 6)
+        elif target_pos == Vec2d(0.5, maze.cfg.game.y_axis / 2):  # Center left
+            target = (5, y_tiles // 2)
+        elif target_pos == Vec2d(0.5, maze.cfg.game.y_axis - 0.5):  # Top left
             target = (5, y_tiles - 6)
         else:
             raise Exception("Invalid target_pos input")
@@ -333,8 +332,16 @@ class Maze:
         for row in range(1, y_tiles - 1):
             for col in range(1, x_tiles - 1):
                 if row % 11 == 0 or col % 11 == 0: continue
-                # Note the maze_expanded[col, row] which is a bug rippled through whole project (everywhere switched!)
                 values.append((((row - row // 11) / 10, (col - col // 11) / 10), maze_expanded[col, row]))
+        
+        # Copy the 0.1 to 0 values  (normally, a bot is never on a 0.0 path, but just to be sure)
+        for row in range(1, y_tiles - 1):
+            if row % 11 == 0: continue
+            values.append((((row - row // 11) / 10, 0.0), maze_expanded[1, row]))
+        for col in range(1, x_tiles - 1):
+            if col % 11 == 0: continue
+            values.append(((0.0, (col - col // 11) / 10), maze_expanded[col, 1]))
+        values.append(((0.0, 0.0), maze_expanded[1, 1]))
         if visualize:
             self.visualize_extend(maze=maze_expanded)
             print("Coordinate (fitness) values:")
@@ -634,7 +641,11 @@ def create_custom_game(cfg: Config, overwrite=False):
     game.target = Vec2d(0.5, cfg.game.y_axis - 0.5)
     
     # Set game path
-    path = dict()
+    p = dict()  # TODO!
+    for x in range(0, cfg.game.x_axis + 1):  # TODO!
+        for y in range(0, cfg.game.x_axis + 1):  # TODO!
+            pass  # TODO!
+    path = dict()  # TODO: Update!
     for x in range(cfg.game.x_axis):
         for y in range(cfg.game.y_axis):
             path[(x + 0.5, y + 0.5)] = Line2d(game.target, Vec2d(x + 0.5, y + 0.5)).get_length()
@@ -750,6 +761,12 @@ if __name__ == '__main__':
                 game.step(0, 0)
                 if game.game_params()[D_A_STAR] == 0:
                     raise MazeMalfunctionException("Start position not connected with target position")
+                path = game.game_params()[D_PATH]
+                for i in range(0, 140 + 1):
+                    for j in range(0, 140 + 1):
+                        key = (i / 10, j / 10)
+                        if key not in path:
+                            raise MazeMalfunctionException("Key in path missing")
             except MazeMalfunctionException:
                 print(f"Faulty created game: {g_id}, please manually redo this one")
                 os.remove(f"environment/games_db/game_{g_id:05d}")

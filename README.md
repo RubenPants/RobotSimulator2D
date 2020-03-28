@@ -18,6 +18,7 @@
 
 ### Extra
 
+* Evaluate not with only the current elites, but also those of previous (1, 2?) generations
 * Make the compatibility-threshold dynamic (i.e. such that a target specie-size is kept)
 * Test input-keys in genome (GRU), what order are they? (should be sorted: -4, -1, 3, ...), reflects on sensor-input?
 * Improve performance by having the choice not to evaluate parents (distance-only, fixed task)
