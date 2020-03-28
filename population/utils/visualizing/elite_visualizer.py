@@ -63,9 +63,10 @@ if __name__ == '__main__':
     os.chdir("../../../")
     
     population = Population(
-            name='distance_repr_1',
+            name='path_1',
             # version=1,
-            folder_name='test',
+            # folder_name='test',
+            folder_name='NEAT-GRU',
     )
 
     for f in [Forward, SMA, EMA]:

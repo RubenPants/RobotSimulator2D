@@ -26,7 +26,7 @@ def main(pop: Population, func, window: int = 5, show: bool = True):
     # Fetch name based on used function
     name = f'elites{"_EMA" if func == EMA else "_SMA" if func == SMA else ""}_gen_{pop.generation}'
     
-    ax = plt.figure().gca()
+    ax = plt.figure(figsize=(20, 10)).gca()
     max_gen = 0
     for specie_id, specie in pop.species_hist.items():
         # Fetch specie-data
@@ -52,7 +52,9 @@ def main(pop: Population, func, window: int = 5, show: bool = True):
         plt.title(f"Specie  fitness in population: {pop}")
     plt.xlabel("generation")
     plt.ylabel("fitness of specie's elites")
-    plt.legend()
+    box = ax.get_position()
+    ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
+    plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))  # Forces to use only integers
     plt.yticks([i / 10 for i in range(11)])  # Fitness expressed in range of 0..1 (hops of 0.1)
     plt.grid(axis='y')
@@ -71,9 +73,10 @@ if __name__ == '__main__':
     os.chdir("../../../")
     
     population = Population(
-            name='distance_repr_1',
+            name='path_1',
             # version=1,
-            folder_name='test',
+            # folder_name='test',
+            folder_name='NEAT-GRU',
     )
     
     for f in [Forward, SMA, EMA]:

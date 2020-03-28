@@ -158,17 +158,18 @@ if __name__ == '__main__':
     parser.add_argument('--live', type=bool, default=False)
     
     # Extra arguments
-    parser.add_argument('--iterations', type=int, default=10)
+    parser.add_argument('--iterations', type=int, default=1)
     parser.add_argument('--unused_cpu', type=int, default=2)
     parser.add_argument('--debug', type=bool, default=False)
     args = parser.parse_args()
     
     # Setup the population
     pop = Population(
-            # name='distance_3',
-            version=1,
-            folder_name='test',
+            name='path_1',
+            # version=1,
+            # folder_name='test',
             # folder_name='DISTANCE-ONLY',
+            folder_name='NEAT-GRU',
     )
     if not pop.best_genome: pop.best_genome = list(pop.population.values())[-1]
     # pop.best_genome = list(pop.population.values())[0]  # TODO

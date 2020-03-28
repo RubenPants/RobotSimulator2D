@@ -6,6 +6,7 @@
 
 ### Urgent
 
+* Visualizing GRU-nodes bug (architecture)
 * Check if networks always work with only the enabled connections and nodes (never again that annoying compatibility bug!)
 * Fitness that not only takes path (at the end) in account, but also normalized time taken to reach target
 * Test all of the fitness-functions!
