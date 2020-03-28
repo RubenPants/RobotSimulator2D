@@ -3,6 +3,7 @@ distance.py
 
 Visualization for the distance fitness-function.
 """
+import os
 from math import sqrt
 
 import matplotlib.pyplot as plt
@@ -11,6 +12,7 @@ from numpy import clip
 from config import GameConfig
 
 # Load in needed objects
+os.chdir('../../../../')
 cfg = GameConfig()
 diagonal = sqrt(cfg.x_axis ** 2 + cfg.y_axis ** 2)
 
@@ -42,6 +44,6 @@ plt.ylabel("Fitness")
 plt.legend()
 plt.tight_layout()
 plt.grid(axis='x')
-plt.savefig('distance_fitness.png')
+plt.savefig('population/utils/visualizing/fitness_visualizations/images/distance_fitness.png')
 plt.show()
 plt.close()

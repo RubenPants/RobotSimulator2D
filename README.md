@@ -6,9 +6,7 @@
 
 ### Urgent
 
-* Redo the basic games
 * Safe-buffer around fitness tracking? (if failure, log and do not proceed generation! Do proceed training however)
-* Visualizing GRU-nodes bug (architecture)
 * Check if networks always work with only the enabled connections and nodes (never again that annoying compatibility bug!)
 * Fitness that not only takes path (at the end) in account, but also normalized time taken to reach target
 * Test all of the fitness-functions!
@@ -20,6 +18,7 @@
 
 ### Extra
 
+* Normalize angular-sensors (needed?)
 * Evaluate not with only the current elites, but also those of previous (1, 2?) generations
 * Make the compatibility-threshold dynamic (i.e. such that a target specie-size is kept)
 * Test input-keys in genome (GRU), what order are they? (should be sorted: -4, -1, 3, ...), reflects on sensor-input?

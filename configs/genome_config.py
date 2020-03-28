@@ -92,7 +92,7 @@ class GenomeConfig(BaseConfig):
         # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT]  TODO
         self.initial_conn = D_PARTIAL_DIRECT
         # Denotes to which fraction the initial connection holds (only if 'partial')  [def=0.1]
-        self.initial_conn_frac: float = 0.1
+        self.initial_conn_frac: float = 0.2
         # Input-keys, which are by convention negative starting from -1 and descending, set in update()  [def=/]
         self.keys_input = None
         # Output-keys, which start by convention from 0 and increment with each output, set in update()  [def=/]
