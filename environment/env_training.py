@@ -192,7 +192,7 @@ def single_evaluation(multi_env, parallel: bool, pop: Population, unused_cpu: in
         )
         for i, genome in genomes: genome.fitness = fitness[i]
     except Exception as e:  # TODO: Fix! Sometimes KeyError in fitness (path problem)
-        print(f"Exception at fitness calculation: \n{e}")
+        pop.log(f"Exception at fitness calculation: \n{e}")
         # Set fitness to zero for genomes that have no fitness set yet
         for i, genome in genomes:
             if not genome.fitness: genome.fitness = 0.0

@@ -14,8 +14,8 @@ class GameConfig(BaseConfig):
     }
     
     def __init__(self):
-        # Number of games on which a single genome is evaluated  [def=12]  TODO
-        self.batch: int = 10
+        # Number of games on which a single genome is evaluated  [def=16]  TODO
+        self.batch: int = 16
         # Number of seconds it takes for one game to complete  [def=60]  TODO
         self.duration: int = 60
         # Max ID of game (starting from 1)  [def=1000]
