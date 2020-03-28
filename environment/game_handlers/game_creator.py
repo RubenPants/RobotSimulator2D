@@ -298,10 +298,10 @@ class Maze:
         
         # Find distance to target
         if visualize: self.visualize_extend(maze=maze_expanded)
-        if target_pos == Vec2d(maze.cfg.game.x_axis / 2, maze.cfg.game.y_axis - 0.5):  # Top center
-            target = (x_tiles // 2, y_tiles - 6)
-        elif target_pos == Vec2d(0.5, maze.cfg.game.y_axis / 2):  # Center left
-            target = (5, y_tiles // 2)
+        if target_pos == Vec2d(maze.cfg.game.x_axis / 2 - 0.5, maze.cfg.game.y_axis - 0.5):  # Top center
+            target = (x_tiles // 2 - 6, y_tiles - 6)
+        elif target_pos == Vec2d(0.5, maze.cfg.game.y_axis / 2 - 0.5):  # Center left
+            target = (5, y_tiles // 2 - 6)
         elif target_pos == Vec2d(0.5, maze.cfg.game.y_axis - 0.5):  # Top left
             target = (5, y_tiles - 6)
         else:
@@ -731,8 +731,8 @@ if __name__ == '__main__':
     if args.custom:
         create_custom_game(cfg=config, overwrite=args.overwrite)
     else:
-        # for g_id in tqdm(range(1, nr_games + 1), desc="Generating Mazes"):
-        for g_id in tqdm([-1]):
+        for g_id in tqdm(range(1, nr_games + 1), desc="Generating Mazes"):
+        # for g_id in tqdm([49, 552, ]):
             maze = None
             while not maze:
                 try:
@@ -767,6 +767,7 @@ if __name__ == '__main__':
                         key = (i / 10, j / 10)
                         if key not in path:
                             raise MazeMalfunctionException("Key in path missing")
-            except MazeMalfunctionException:
+            except MazeMalfunctionException as e:
                 print(f"Faulty created game: {g_id}, please manually redo this one")
+                print(e)
                 os.remove(f"environment/games_db/game_{g_id:05d}")

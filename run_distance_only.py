@@ -36,6 +36,7 @@ def main(gru,
     config.bot.prox_angles = []  # No use of proximity-sensors
     
     config.evaluation.fitness = D_DISTANCE  # Always use the distance-fitness
+    config.evaluation.fitness_comb = D_MIN  # Worst performing game is indicator for overall performance
     
     config.game.duration = 50  # Limited time to find target, but just enough for fastest genomes
     config.game.fps = 10  # Minor changes during evaluation run, 10 fps suffices

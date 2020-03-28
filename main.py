@@ -149,13 +149,13 @@ if __name__ == '__main__':
     
     # Main methods
     parser.add_argument('--train', type=bool, default=False)
-    parser.add_argument('--train_same', type=bool, default=True)
+    parser.add_argument('--train_same', type=bool, default=False)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--trace', type=bool, default=False)
     parser.add_argument('--trace_fit', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
     parser.add_argument('--genome', type=bool, default=False)
-    parser.add_argument('--live', type=bool, default=False)
+    parser.add_argument('--live', type=bool, default=True)
     
     # Extra arguments
     parser.add_argument('--iterations', type=int, default=1)
@@ -165,11 +165,11 @@ if __name__ == '__main__':
     
     # Setup the population
     pop = Population(
-            name='path_1',
-            # version=1,
-            # folder_name='test',
+            # name='path_1',
+            version=1,
+            folder_name='test',
             # folder_name='DISTANCE-ONLY',
-            folder_name='NEAT-GRU',
+            # folder_name='NEAT-GRU',
     )
     if not pop.best_genome: pop.best_genome = list(pop.population.values())[-1]
     # pop.best_genome = list(pop.population.values())[0]  # TODO
@@ -232,7 +232,7 @@ if __name__ == '__main__':
                              )
         
         if args.live:
-            live(game_id=3,
+            live(game_id=1,
                  population=pop,
                  game_config=config,
                  genome=chosen_genome if chosen_genome else pop.best_genome,

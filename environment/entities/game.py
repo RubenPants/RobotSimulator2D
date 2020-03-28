@@ -187,9 +187,9 @@ class Game:
         """Put the target on a random location."""
         r = random()
         if r < 1 / 5:  # 1/5th chance
-            self.target = Vec2d(self.game_config.x_axis / 2, self.game_config.y_axis - 0.5)  # Top center
+            self.target = Vec2d(self.game_config.x_axis / 2 - 0.5, self.game_config.y_axis - 0.5)  # Top center
         elif r < 2 / 5:  # 1/5th chance
-            self.target = Vec2d(0.5, self.game_config.y_axis / 2)  # Center left
+            self.target = Vec2d(0.5, self.game_config.y_axis / 2 - 0.5)  # Center left
         else:  # 3/5th chance
             self.target = Vec2d(0.5, self.game_config.y_axis - 0.5)  # Top left
     
