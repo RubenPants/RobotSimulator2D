@@ -32,12 +32,13 @@ def main(fitness,
     # Re-configure the config-file
     folder = D_NEAT_GRU if gru else D_NEAT
     cfg = Config()
-    cfg.population.pop_size = 128
-    
-    # Let inputs apply to configuration
     cfg.bot.angular_dir = [True, False]
     cfg.bot.delta_dist_enabled = False
     cfg.bot.prox_angles = get_proximity_angles()
+    cfg.game.duration = 60  # 60 seconds should be enough to reach each of the targets
+    cfg.population.pop_size = 128
+    
+    # Let inputs apply to configuration
     cfg.genome.gru_enabled = gru
     cfg.evaluation.fitness = fitness
     cfg.population.crossover_enabled = reproduce
