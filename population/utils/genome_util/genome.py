@@ -180,7 +180,7 @@ class Genome(object):
         
         # Check if any connections left after disabling node
         for k in connections_to_disable: used_connections.pop(k)
-        _, used_conn = required_for_output(
+        _, _, _, used_conn = required_for_output(
                 inputs={a for (a, _) in used_connections if a < 0},
                 outputs={i for i in range(self.num_outputs)},
                 connections=used_connections,
@@ -268,28 +268,28 @@ class Genome(object):
     
     def size(self):
         """Returns genome 'complexity', taken to be (number of hidden nodes, number of enabled connections)"""
-        inputs = {a for (a, _) in self.connections if a < 0}
-        used_nodes, used_conn = required_for_output(
+        inputs = {a for (a, _) in self.connections.keys() if a < 0}
+        _, used_hid, _, used_conn = required_for_output(
                 inputs=inputs,
                 outputs={i for i in range(self.num_outputs)},
                 connections=self.connections,
         )
-        return len(used_nodes) - (len(inputs) + self.num_outputs), len(used_conn)
+        return len(used_hid), len(used_conn)
     
     def get_used_nodes(self):
         """Get all of the nodes currently used by the genome."""
-        used_nodes, _ = required_for_output(
+        used_inp, used_hid, used_out, _ = required_for_output(
                 inputs={a for (a, _) in self.connections if a < 0},
                 outputs={i for i in range(self.num_outputs)},
                 connections=self.connections,
         )
         # used_nodes only is a set of node-IDs, transform this to a node-dictionary
-        return {nid: n for (nid, n) in self.nodes.items() if nid in used_nodes}
+        return {nid: n for (nid, n) in self.nodes.items() if nid in (used_inp | used_hid | used_out)}
     
     def get_used_connections(self):
         """Get all of the connections currently used by the genome."""
         connections = self.connections.copy()
-        _, used_conn = required_for_output(
+        _, _, _, used_conn = required_for_output(
                 inputs={a for (a, _) in connections if a < 0},
                 outputs={i for i in range(self.num_outputs)},
                 connections=connections,

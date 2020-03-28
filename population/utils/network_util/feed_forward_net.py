@@ -207,11 +207,12 @@ class FeedForwardNet:
         used_input = {a for a in get_active_sensors(connections=genome.get_used_connections(),
                                                     total_input_size=genome_config.num_inputs)}
         used_input_keys = {a - genome_config.num_inputs for a in used_input}
-        used_nodes, used_conn = required_for_output(
+        used_inp, used_hid, used_out, used_conn = required_for_output(
                 inputs=used_input_keys,
                 outputs=set(genome_config.keys_output),
                 connections=genome.connections
         )
+        used_nodes = used_inp | used_hid | used_out
         if initial_read: assert len(used_input) == len(initial_read)
         
         # Get a list of all the (used) input, (used) hidden, and output keys

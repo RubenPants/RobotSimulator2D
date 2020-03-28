@@ -105,6 +105,8 @@ class GameDrive(unittest.TestCase):
 
 def get_game():
     cfg = Config()
+    cfg.game.fps = 60
+    cfg.update()
     return Game(game_id=0, config=cfg, silent=True, save_path="tests/games_db/", overwrite=True)
 
 

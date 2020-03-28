@@ -151,22 +151,22 @@ if __name__ == '__main__':
     # Main methods
     parser.add_argument('--train', type=bool, default=False)
     parser.add_argument('--train_same', type=bool, default=True)
-    parser.add_argument('--blueprint', type=bool, default=True)
-    parser.add_argument('--trace', type=bool, default=True)
+    parser.add_argument('--blueprint', type=bool, default=False)
+    parser.add_argument('--trace', type=bool, default=False)
     parser.add_argument('--trace_fit', type=bool, default=True)
-    parser.add_argument('--evaluate', type=bool, default=True)
+    parser.add_argument('--evaluate', type=bool, default=False)
     parser.add_argument('--genome', type=bool, default=True)
     parser.add_argument('--live', type=bool, default=False)
     
     # Extra arguments
-    parser.add_argument('--iterations', type=int, default=1)
+    parser.add_argument('--iterations', type=int, default=10)
     parser.add_argument('--unused_cpu', type=int, default=2)
-    parser.add_argument('--debug', type=bool, default=True)
+    parser.add_argument('--debug', type=bool, default=False)
     args = parser.parse_args()
     
     # Setup the population
     pop = Population(
-            name='path_2',
+            name='distance_2',
             # version=1,
             folder_name='test',
             # folder_name='DISTANCE-ONLY',

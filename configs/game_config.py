@@ -22,8 +22,8 @@ class GameConfig(BaseConfig):
         self.max_game_id: int = 1000
         # Max ID of evaluation game (starting from max_id)  [def=1100]
         self.max_eval_game_id: int = 1100
-        # Number of frames each second  [def=20]
-        self.fps: int = 20
+        # Number of frames each second  [def=20]  TODO
+        self.fps: int = 10
         # Pixel-to-meters: number of pixels that represent one meter  [def=50]
         self.p2m: int = 50
         # Target is reached when within this range, expressed in meters  [def=0.5]
