@@ -179,12 +179,11 @@ class Genome(object):
                 connections_to_disable.add(v.key)
         
         # Check if any connections left after disabling node
-        new_connections = used_connections.copy()
-        for k in connections_to_disable: new_connections.pop(k)
+        for k in connections_to_disable: used_connections.pop(k)
         _, used_conn = required_for_output(
-                inputs={a for (a, _) in new_connections if a < 0},
+                inputs={a for (a, _) in used_connections if a < 0},
                 outputs={i for i in range(self.num_outputs)},
-                connections=new_connections,
+                connections=used_connections,
         )
         
         # There are still connections left after disabling the nodes, disable connections for real
@@ -257,8 +256,8 @@ class Genome(object):
         assert key in self.connections
         # Test if other used connections remain when this connection is disabled
         if safe_disable:
-            connections = self.get_used_connections().copy()
-            connections.pop(key)
+            connections = self.get_used_connections()
+            if key in connections: connections.pop(key)
             if len(connections) == 0: return
         
         # Perennial connections exist, disable chosen connection
@@ -289,10 +288,11 @@ class Genome(object):
     
     def get_used_connections(self):
         """Get all of the connections currently used by the genome."""
+        connections = self.connections.copy()
         _, used_conn = required_for_output(
-                inputs={a for (a, _) in self.connections if a < 0},
+                inputs={a for (a, _) in connections if a < 0},
                 outputs={i for i in range(self.num_outputs)},
-                connections=self.connections,
+                connections=connections,
         )
         return used_conn
     
