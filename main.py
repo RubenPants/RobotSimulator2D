@@ -172,7 +172,7 @@ if __name__ == '__main__':
             # folder_name='NEAT-GRU',
     )
     if not pop.best_genome: pop.best_genome = list(pop.population.values())[-1]
-    pop.best_genome = list(pop.population.values())[-1]  # TODO
+    # pop.best_genome = list(pop.population.values())[-1]  # TODO
     # pop.population = {k: v for k, v in pop.population.items() if k in [111]}  # TODO
     # pop.best_genome.update_gru_nodes(pop.config.genome_config)
     # pop.best_genome.mutate(config=pop.config.genome_config)

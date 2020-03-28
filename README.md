@@ -6,6 +6,7 @@
 
 ### Urgent
 
+* Redo the basic games
 * Safe-buffer around fitness tracking? (if failure, log and do not proceed generation! Do proceed training however)
 * Visualizing GRU-nodes bug (architecture)
 * Check if networks always work with only the enabled connections and nodes (never again that annoying compatibility bug!)

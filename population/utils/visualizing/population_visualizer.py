@@ -3,6 +3,8 @@ population_visualizer.py
 
 Visualize the behaviour of a complete population.
 """
+from math import cos, sin
+
 import matplotlib.pyplot as plt
 
 from utils.dictionary import D_GAME_ID, D_POS
@@ -22,6 +24,13 @@ def create_blueprints(final_observations: dict, games: list, gen: int, save_path
     for g in games:
         # Get the game's blueprint
         g.get_blueprint()
+        
+        # Add arrow to indicate initial direction of robot
+        x = g.player.init_pos[0]
+        y = g.player.init_pos[1]
+        dx = cos(g.player.init_angle)
+        dy = sin(g.player.init_angle)
+        plt.arrow(x, y, dx, dy, head_width=0.1, length_includes_head=True)
         
         # Get all the final positions of the agents
         positions = []

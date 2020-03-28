@@ -642,14 +642,10 @@ def create_custom_game(cfg: Config, overwrite=False):
     
     # Set game path
     p = dict()  # TODO!
-    for x in range(0, cfg.game.x_axis + 1):  # TODO!
-        for y in range(0, cfg.game.x_axis + 1):  # TODO!
-            pass  # TODO!
-    path = dict()  # TODO: Update!
-    for x in range(cfg.game.x_axis):
-        for y in range(cfg.game.y_axis):
-            path[(x + 0.5, y + 0.5)] = Line2d(game.target, Vec2d(x + 0.5, y + 0.5)).get_length()
-    game.path = path
+    for x in range(0, cfg.game.x_axis * 10 + 1):  # TODO!
+        for y in range(0, cfg.game.x_axis * 10 + 1):  # TODO!
+            p[(x / 10, y / 10)] = Line2d(game.target, Vec2d(x / 10, y / 10)).get_length()
+    game.path = p
     
     # Create random player
     game.player = MarXBot(game=game)
@@ -712,7 +708,7 @@ if __name__ == '__main__':
     Create game, option to choose from custom or auto-generated.
     """
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument('--custom', type=bool, default=False)
+    parser.add_argument('--custom', type=bool, default=True)
     parser.add_argument('--overwrite', type=bool, default=True)
     parser.add_argument('--nr_games', type=int, default=None)
     parser.add_argument('--visualize', type=bool, default=False)
@@ -732,7 +728,7 @@ if __name__ == '__main__':
         create_custom_game(cfg=config, overwrite=args.overwrite)
     else:
         for g_id in tqdm(range(1, nr_games + 1), desc="Generating Mazes"):
-        # for g_id in tqdm([49, 552, ]):
+        # for g_id in tqdm([-1]):
             maze = None
             while not maze:
                 try:
