@@ -38,5 +38,5 @@ class PopulationConfig(BaseConfig):
         self.specie_stagnation: int = 25
         
         # TODO: Often used, hence placed outside of parameter-crowd
-        # Number of individuals in each generation  [def=128]  TODO
-        self.pop_size: int = 128
+        # Number of individuals in each generation  [def=128]
+        self.pop_size: int = 16

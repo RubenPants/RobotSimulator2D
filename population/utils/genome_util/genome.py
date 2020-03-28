@@ -57,24 +57,24 @@ class Genome(object):
         for node_key in config.keys_output: self.nodes[node_key] = self.create_output_node(config, node_key)
         
         # Add connections based on initial connectivity type
-        if 'fs_neat' in config.initial_connection:
-            if config.initial_connection == 'fs_neat_nohidden':
+        if 'fs_neat' in config.initial_conn:
+            if config.initial_conn == 'fs_neat_nohidden':
                 self.connect_fs_neat_nohidden(config)
-            elif config.initial_connection == 'fs_neat_hidden':
+            elif config.initial_conn == 'fs_neat_hidden':
                 self.connect_fs_neat_hidden(config)
             else:
                 self.connect_fs_neat_nohidden(config)
-        elif 'full' in config.initial_connection:
-            if config.initial_connection == 'full_nodirect':
+        elif 'full' in config.initial_conn:
+            if config.initial_conn == 'full_nodirect':
                 self.connect_full_nodirect(config)
-            elif config.initial_connection == 'full_direct':
+            elif config.initial_conn == 'full_direct':
                 self.connect_full_direct(config)
             else:
                 self.connect_full_nodirect(config)
-        elif 'partial' in config.initial_connection:
-            if config.initial_connection == 'partial_nodirect':
+        elif 'partial' in config.initial_conn:
+            if config.initial_conn == 'partial_nodirect':
                 self.connect_partial_nodirect(config)
-            elif config.initial_connection == 'partial_direct':
+            elif config.initial_conn == 'partial_direct':
                 self.connect_partial_direct(config)
             else:
                 self.connect_partial_nodirect(config)
@@ -403,19 +403,19 @@ class Genome(object):
     
     def connect_partial_nodirect(self, config: GenomeConfig):
         """Create a partially-connected genome, with (unless no hidden nodes) no direct input-output connections."""
-        assert 0 <= config.conn_fraction <= 1
+        assert 0 <= config.initial_conn_frac <= 1
         all_connections = self.compute_full_connections(config, False)
         shuffle(all_connections)
-        num_to_add = int(round(len(all_connections) * config.conn_fraction))
+        num_to_add = int(round(len(all_connections) * config.initial_conn_frac))
         for input_id, output_id in all_connections[:num_to_add]:
             self.create_connection(config, input_id, output_id)
     
     def connect_partial_direct(self, config: GenomeConfig):
         """Create a partially-connected genome, including (possibly) direct input-output connections.
         """
-        assert 0 <= config.conn_fraction <= 1
+        assert 0 <= config.initial_conn_frac <= 1
         all_connections = self.compute_full_connections(config, True)
         shuffle(all_connections)
-        num_to_add = int(round(len(all_connections) * config.conn_fraction))
+        num_to_add = int(round(len(all_connections) * config.initial_conn_frac))
         for input_id, output_id in all_connections[:num_to_add]:
             self.create_connection(config, input_id, output_id)

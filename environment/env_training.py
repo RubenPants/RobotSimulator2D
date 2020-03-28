@@ -5,6 +5,8 @@ Train and evaluate the population on a random batch of training games.
 """
 import multiprocessing as mp
 import sys
+import traceback
+import warnings
 from random import sample
 
 from neat.six_util import iteritems, itervalues
@@ -191,8 +193,9 @@ def single_evaluation(multi_env, parallel: bool, pop: Population, unused_cpu: in
                 generation=pop.generation,
         )
         for i, genome in genomes: genome.fitness = fitness[i]
-    except Exception as e:  # TODO: Fix! Sometimes KeyError in fitness (path problem)
-        pop.log(f"Exception at fitness calculation: \n{e}")
+    except Exception:  # TODO: Fix! Sometimes KeyError in fitness (path problem)
+        pop.log(f"Exception at fitness calculation: \n{traceback.format_exc()}", print_result=False)
+        warnings.warn(f"Exception at fitness calculation: \n{traceback.format_exc()}")
         # Set fitness to zero for genomes that have no fitness set yet
         for i, genome in genomes:
             if not genome.fitness: genome.fitness = 0.0

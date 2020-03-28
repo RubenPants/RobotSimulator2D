@@ -25,7 +25,7 @@ def get_genome(outputs):
     # Get the configuration
     cfg = Config()
     cfg.genome.num_outputs = outputs
-    cfg.genome.initial_connection = D_FULL_NODIRECT  # input -> hidden -> output
+    cfg.genome.initial_conn = D_FULL_NODIRECT  # input -> hidden -> output
     cfg.genome.gru_enabled = False  # Only simple hidden nodes allowed
     cfg.update()
     

@@ -320,7 +320,7 @@ def get_config():
     cfg.genome.compatibility_disjoint = 1  # Easier to calculate with
     cfg.genome.compatibility_weight = 1  # Easier to calculate with
     cfg.genome.num_outputs = 2
-    cfg.genome.initial_connection = D_FULL_DIRECT  # Otherwise errors due to limited number of initial nodes
+    cfg.genome.initial_conn = D_FULL_DIRECT  # Otherwise errors due to limited number of initial nodes
     
     cfg.update()
     return cfg

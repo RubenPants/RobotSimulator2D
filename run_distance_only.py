@@ -41,7 +41,7 @@ def main(gru,
     config.game.duration = 50  # Limited time to find target, but just enough for fastest genomes
     config.game.fps = 10  # Minor changes during evaluation run, 10 fps suffices
     
-    config.genome.initial_connection = D_FULL_DIRECT
+    config.genome.initial_conn = D_FULL_DIRECT
     # config.genome.gru_min_value = -5  # Increase range of GRU-values
     # config.genome.gru_max_value = 5  # Increase range of GRU-values
     config.genome.gru_node_prob = 0.6

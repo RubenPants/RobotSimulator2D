@@ -48,8 +48,7 @@ D_NEAT_GRU = 'NEAT-GRU'
 D_NOVELTY = 'novelty'
 
 # P
-D_PARTIAL_DIRECT_01 = 'partial_direct 0.1'
-D_PARTIAL_DIRECT_05 = 'partial_direct 0.5'
+D_PARTIAL_DIRECT = 'partial_direct'
 D_PATH = 'path'
 D_POS = 'position'
 D_PRODUCT = 'product'

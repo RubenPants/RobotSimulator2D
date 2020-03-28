@@ -24,7 +24,7 @@ def get_genome(outputs):
     """Create a simple feedforward neuron."""  # Get the configuration
     cfg = Config()
     cfg.genome.num_outputs = outputs
-    cfg.genome.initial_connection = D_FULL_NODIRECT  # input -> hidden -> output
+    cfg.genome.initial_conn = D_FULL_NODIRECT  # input -> hidden -> output
     cfg.genome.gru_enabled = True  # Only simple hidden nodes allowed
     cfg.genome.gru_node_prob = 1.0  # Force that all hidden nodes will be GRUs
     cfg.update()
