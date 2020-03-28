@@ -36,7 +36,9 @@ def main(fitness,
     cfg.bot.delta_dist_enabled = False
     cfg.bot.prox_angles = get_proximity_angles()
     cfg.game.duration = 60  # 60 seconds should be enough to reach each of the targets
-    cfg.population.pop_size = 128
+    cfg.game.fps = 20
+    cfg.population.pop_size = 256
+    cfg.population.compatibility_thr = 3.0
     
     # Let inputs apply to configuration
     cfg.genome.gru_enabled = gru

@@ -12,7 +12,8 @@ class PopulationConfig(BaseConfig):
     
     __slots__ = {
         'compatibility_thr', 'crossover_enabled', 'crossover_prob', 'elite_specie_stagnation', 'fitness_func',
-        'genome_elitism', 'min_specie_size', 'parent_selection', 'pop_size', 'specie_elitism', 'specie_stagnation'
+        'genome_elitism', 'min_specie_size', 'parent_selection', 'pop_size', 'specie_count_max', 'specie_count_min',
+        'specie_count_target', 'specie_elitism', 'specie_stagnation',
     }
     
     def __init__(self):
@@ -26,17 +27,38 @@ class PopulationConfig(BaseConfig):
         self.elite_specie_stagnation: int = 5
         # The function used to compute the species fitness  [def=D_MAX]
         self.fitness_func: str = D_MAX
-        # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=3]
-        self.genome_elitism: int = 3
+        # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=2]
+        self.genome_elitism: int = 2
         # Minimum number of genomes per species, keeping low prevents number of individuals blowing up  [def=10]  TODO
-        self.min_specie_size: int = 5
+        self.min_specie_size: int = 10
         # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.3]  TODO
         self.parent_selection: float = 0.3
-        # Number of the best species that will be protected from stagnation  [def=1]
-        self.specie_elitism: int = 1
+        # Maximum number of species  [def=20]
+        self.specie_count_max = 20
+        # Minimum number of species  [def=5]
+        self.specie_count_min = 5
+        # Target number of species  [def=10]
+        self.specie_count_target = 10
+        # Number of the best species that will be protected from stagnation  [def=2]
+        self.specie_elitism: int = 2
         # Remove a specie if it hasn't improved over this many number of generations  [def=15]
         self.specie_stagnation: int = 25
         
         # TODO: Often used, hence placed outside of parameter-crowd
         # Number of individuals in each generation  [def=128]
-        self.pop_size: int = 16
+        self.pop_size: int = 256
+    
+    def get_compatibility_threshold(self, n_species: int):
+        """Get the compatibility threshold based on the current number of species."""
+        # Return the default threshold when number of species is lower than or equal to the target number
+        if n_species <= self.specie_count_target:
+            return self.compatibility_thr
+        
+        # Linear scale between thr and thr*2 based on target and max specie count
+        if n_species < self.specie_count_max:
+            f = 1 + (n_species - self.specie_count_target) / (self.specie_count_max - self.specie_count_target)
+            assert 1.0 <= f <= 2.0
+            return self.compatibility_thr * f
+        
+        # Assign all the genomes to the closest species ones the maximum specie count is met
+        return float("inf")
