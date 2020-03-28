@@ -10,6 +10,9 @@ D_ABS = 'abs'
 D_ANGLE = 'angle'
 D_AVG = 'avg'
 
+# C
+D_CUBE = 'cube'
+
 # D
 D_DIST_TO_TARGET = 'distance_to_target'
 D_DISTANCE = 'distance'
@@ -61,6 +64,7 @@ D_SENSOR_LIST = 'sensor_list'
 D_SIGMOID = 'sigmoid'
 D_SIMPLE = 'simple'
 D_SIN = 'sin'
+D_SQUARE = 'square'
 D_SUM = 'sum'
 
 # T
