@@ -6,6 +6,7 @@
 
 ### Urgent
 
+* Test on enabled connections (i.e. test if disabled connections are indeed not taken into account)
 * Safe-buffer around fitness tracking? (if failure, log and do not proceed generation! Do proceed training however)
 * Check if networks always work with only the enabled connections and nodes (never again that annoying compatibility bug!)
 * Fitness that not only takes path (at the end) in account, but also normalized time taken to reach target

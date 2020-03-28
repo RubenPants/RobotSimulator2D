@@ -32,7 +32,12 @@ class GenomeDistanceCache(object):
             * They share the same key
             * They have the exact same type and inputs
         """
+        # Used parameters
         distance = 0
+        used_nodes0 = genome0.get_used_nodes()
+        used_nodes1 = genome1.get_used_nodes()
+        used_conn0 = genome0.get_used_connections()
+        used_conn1 = genome1.get_used_connections()
         
         # Lowest key is always first, removes redundant distance checks
         g0, g1 = (genome0.key, genome1.key) if (genome0.key <= genome1.key) else (genome1.key, genome0.key)
@@ -44,8 +49,6 @@ class GenomeDistanceCache(object):
         # Distance between the genomes is not yet calculated, start with calculating node-distance
         #  The node-distance is defined by the distance between comparable nodes and the number of disjoint nodes
         node_distance = dict()  # Dictionary mapping nodes (genome0, genome1) to their distance
-        used_nodes0 = genome0.get_used_nodes()
-        used_nodes1 = genome1.get_used_nodes()
         
         # Get all the distances of the comparable nodes (does not contain duplicates)
         for node0_id, node0 in used_nodes0.items():
@@ -53,8 +56,8 @@ class GenomeDistanceCache(object):
                 comp, dist = self.node_cache(
                         node0=node0,
                         node1=node1,
-                        conn0=genome0.connections,
-                        conn1=genome1.connections,
+                        conn0=used_conn0,
+                        conn1=used_conn1,
                         cfg=self.config,
                 )
                 if comp: node_distance[node0_id, node1_id] = dist
@@ -77,8 +80,6 @@ class GenomeDistanceCache(object):
         
         # The distance between connections is computed likewise
         conn_distance = dict()  # Dictionary mapping connections (genome0, genome1) to their distance
-        used_conn0 = genome0.get_used_connections()
-        used_conn1 = genome1.get_used_connections()
         
         # Get all the distances of the comparable connections (does not contain duplicates)
         for conn0_id, conn0 in used_conn0.items():

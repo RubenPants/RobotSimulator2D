@@ -65,7 +65,7 @@ class LiveVisualizer:
         """
         # Create the requested game
         game: Game = get_game(game_id, cfg=self.game_config)
-        game.player.set_active_sensors(set(genome.connections.keys()))
+        game.player.set_active_sensors(set(genome.get_used_connections().keys()))
         
         # Create space in which game will be played
         window = pyglet.window.Window(game.game_config.x_axis * game.game_config.p2m,

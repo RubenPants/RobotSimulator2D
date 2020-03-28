@@ -53,13 +53,14 @@ def draw_net(config: GenomeConfig, genome: Genome, debug=False, filename=None, v
         inputs.add(key)
         name = node_names.get(key)
         color = '#e3e3e3' if key in active else '#9e9e9e'
-        dot.node(
-                name,
-                style='filled',
-                shape='box',
-                fillcolor=node_colors.get(key, color),
-                pos=f"{index * 20},0!"
-        )
+        if debug or key in active:
+            dot.node(
+                    name,
+                    style='filled',
+                    shape='box',
+                    fillcolor=node_colors.get(key, color),
+                    pos=f"{index * 20},0!"
+            )
     
     # Visualize output nodes
     outputs = set()

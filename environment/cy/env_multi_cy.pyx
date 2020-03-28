@@ -49,6 +49,7 @@ cdef class MultiEnvironmentCy:
         :param return_dict: Dictionary used to return observations corresponding the genome
         """
         cdef int genome_id, step_num, max_steps
+        cdef set used_connections
         cdef list games, states, finished
         cdef set used_sensors
         cdef np.ndarray a, actions
@@ -56,10 +57,11 @@ cdef class MultiEnvironmentCy:
         
         # Split up genome by id and genome itself
         genome_id, genome = genome
+        used_connections = set(genome.get_used_connections().keys())
         
         # Initialize the games on which the genome is tested
         games = [get_game_cy(g, cfg=self.game_config) for g in self.games]
-        for g in games: g.player.set_active_sensors(set(genome.connections.keys()))  # Set active-sensors
+        for g in games: g.player.set_active_sensors(used_connections)  # Set active-sensors
         
         # Ask for each of the games the starting-state
         states = [g.reset()[D_SENSOR_LIST] for g in games]
@@ -115,16 +117,18 @@ cdef class MultiEnvironmentCy:
         :param return_dict: Dictionary used to return the traces corresponding the genome-game combination
         """
         cdef int genome_id, step_num, max_steps
+        cdef set used_connections
         cdef list games, states, traces
         cdef set used_sensors
         cdef np.ndarray a, actions
         
         # Split up genome by id and genome itself
         genome_id, genome = genome
+        used_connections = set(genome.get_used_connections().keys())
         
         # Initialize the games on which the genome is tested
         games = [get_game_cy(g, cfg=self.game_config) for g in self.games]
-        for g in games: g.player.set_active_sensors(set(genome.connections.keys()))  # Set active-sensors
+        for g in games: g.player.set_active_sensors(used_connections)  # Set active-sensors
         
         # Ask for each of the games the starting-state
         states = [g.reset()[D_SENSOR_LIST] for g in games]

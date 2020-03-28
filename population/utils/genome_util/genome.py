@@ -129,10 +129,10 @@ class Genome(object):
         if random() < config.conn_disable_prob: self.mutate_disable_connection()
         
         # Mutate connection genes
-        for cg in self.connections.values():
+        for cid, cg in self.connections.items():
             mut_enabled = cg.mutate(config)
             if mut_enabled is not None:
-                self.enable_connection(config=config, conn=cg) if mut_enabled else self.disable_connection(conn=cg)
+                self.enable_connection(config=config, key=cid) if mut_enabled else self.disable_connection(key=cid)
         
         # Mutate node genes (bias etc.)
         for ng in self.nodes.values():
@@ -140,10 +140,11 @@ class Genome(object):
     
     def mutate_add_node(self, config: GenomeConfig):
         """Add (or enable) a node as part of a mutation."""
-        if not self.connections: return
+        used_connections = self.get_used_connections()
+        if not used_connections: return
         
         # Choose a random connection to split
-        conn_to_split = choice(list(self.connections.values()))
+        conn_to_split = choice(list(used_connections.values()))
         node_id = config.get_new_node_key(self.nodes)
         
         # Choose type of node to mutate to and add the node, must be done before adding the connection!
@@ -157,7 +158,7 @@ class Genome(object):
         # Disable this connection and create two new connections joining its nodes via the given node. The first
         # connection will simply forward its inputs (i.e. weight=1.0), whereas the second connection tries to mimic the
         # original (split) connection.
-        self.disable_connection(conn_to_split)
+        self.disable_connection(key=conn_to_split.key)
         i, o = conn_to_split.key
         self.create_connection(config=config, input_key=i, output_key=node_id, weight=1.0)
         self.create_connection(config=config, input_key=node_id, output_key=o, weight=conn_to_split.weight)
@@ -166,18 +167,19 @@ class Genome(object):
         """Disable a node as part of a mutation, this is done by disabling all the node's adjacent connections."""
         # Get a list of all possible nodes to deactivate (i.e. all the hidden, non-output, nodes)
         available_nodes = [k for k in iterkeys(self.nodes) if k not in config.keys_output]
+        used_connections = self.get_used_connections()
         if not available_nodes:
             return
         
         # Find all the adjacent connections and disable those
         disable_key = choice(available_nodes)
         connections_to_disable = set()
-        for _, v in iteritems(self.connections):
+        for _, v in iteritems(used_connections):
             if disable_key in v.key:
                 connections_to_disable.add(v.key)
         
         # Check if any connections left after disabling node
-        new_connections = self.connections.copy()
+        new_connections = used_connections.copy()
         for k in connections_to_disable: new_connections.pop(k)
         _, used_conn = required_for_output(
                 inputs={a for (a, _) in new_connections if a < 0},
@@ -188,7 +190,7 @@ class Genome(object):
         # There are still connections left after disabling the nodes, disable connections for real
         if len(used_conn) > 0:
             for key in connections_to_disable:
-                self.disable_connection(self.connections[key], safe_disable=False)
+                self.disable_connection(key=key, safe_disable=False)
     
     def create_connection(self, config: GenomeConfig, input_key: int, output_key: int, weight: float = None):
         """Add a connection to the genome."""
@@ -204,8 +206,8 @@ class Genome(object):
             assert isinstance(weight, float)
             connection.weight = weight
         
-        self.enable_connection(config=config, conn=connection)
         self.connections[key] = connection
+        self.enable_connection(config=config, key=key)
     
     def mutate_add_connection(self, config: GenomeConfig):
         """
@@ -222,14 +224,14 @@ class Genome(object):
         possible_inputs = [i for i in possible_outputs + config.keys_input if i not in config.keys_output]
         in_node = choice(possible_inputs)
         
-        # Don't duplicate connections
+        # If recurrent connections aren't allowed, check if the new connection would create a cycle
         key = (in_node, out_node)
-        if key in self.connections:
-            self.enable_connection(config=config, conn=self.connections[key])
+        if not config.recurrent_conn and creates_cycle(list(iterkeys(self.get_used_connections())), key):
             return
         
-        # If recurrent connections aren't allowed, check if the new connection would create a cycle
-        if not config.recurrent_conn and creates_cycle(list(iterkeys(self.connections)), key):
+        # Don't duplicate connections
+        if key in self.connections:
+            self.enable_connection(config=config, key=key)
             return
         
         # Create the new connection
@@ -237,36 +239,33 @@ class Genome(object):
     
     def mutate_disable_connection(self):
         """Disable the connection as part of a mutation."""
-        if self.connections:
-            key = choice(list(self.connections.keys()))
-            self.disable_connection(self.connections[key])
+        used_connections = self.get_used_connections()
+        if used_connections:
+            key = choice(list(used_connections.keys()))
+            self.disable_connection(key=key)
     
-    def enable_connection(self, config: GenomeConfig, conn: ConnectionGene):
+    def enable_connection(self, config: GenomeConfig, key: tuple):
         """Enable the connection, and ripple this through to its potential GRU cell."""
-        conn.enabled = True
-        if type(self.nodes[conn.key[1]]) == GruNodeGene:
-            gru: GruNodeGene = self.nodes[conn.key[1]]
-            gru.add_input_key(config, k=conn.key[0])
+        assert key in self.connections
+        self.connections[key].enabled = True
+        if type(self.nodes[key[1]]) == GruNodeGene:
+            gru: GruNodeGene = self.nodes[key[1]]
+            gru.add_input_key(config, k=key[0])
     
-    def disable_connection(self, conn: ConnectionGene, safe_disable: bool = True):
+    def disable_connection(self, key: tuple, safe_disable: bool = True):
         """Disable the connection, and ripple this through to its potential GRU cell."""
+        assert key in self.connections
         # Test if other used connections remain when this connection is disabled
         if safe_disable:
-            new_connections = self.connections.copy()
-            new_connections.pop(conn.key)
-            _, used_conn = required_for_output(
-                    inputs={a for (a, _) in new_connections if a < 0},
-                    outputs={i for i in range(self.num_outputs)},
-                    connections=new_connections,
-            )
-            # If no used connections left after disabling, then do not disable
-            if len(used_conn) == 0: return
+            connections = self.get_used_connections().copy()
+            connections.pop(key)
+            if len(connections) == 0: return
         
         # Perennial connections exist, disable chosen connection
-        conn.enabled = False
-        if type(self.nodes[conn.key[1]]) == GruNodeGene:
-            gru: GruNodeGene = self.nodes[conn.key[1]]
-            gru.remove_input_key(k=conn.key[0])
+        self.connections[key].enabled = False
+        if type(self.nodes[key[1]]) == GruNodeGene:
+            gru: GruNodeGene = self.nodes[key[1]]
+            gru.remove_input_key(k=key[0])
     
     def size(self):
         """Returns genome 'complexity', taken to be (number of hidden nodes, number of enabled connections)"""
@@ -276,9 +275,6 @@ class Genome(object):
                 outputs={i for i in range(self.num_outputs)},
                 connections=self.connections,
         )
-        if len(used_conn) == 0:  # TODO: Delete if zero-connection problem is solved
-            print("FUCK")
-            print((len(used_nodes) - (len(inputs) + self.num_outputs), len(used_conn)))
         return len(used_nodes) - (len(inputs) + self.num_outputs), len(used_conn)
     
     def get_used_nodes(self):
@@ -304,16 +300,17 @@ class Genome(object):
         s = f"Key: {self.key}\n" \
             f"Fitness: {self.fitness}\n" \
             f"Nodes:\n"
-        for k, ng in sorted(self.nodes.items(), key=lambda x: x[0]):
+        for k, ng in sorted(self.get_used_nodes().items(), key=lambda x: x[0]):
             s += f"\t{k} - {repr(ng)!s}\n"
         s += "Connections:\n"
-        for k, cg in sorted(self.connections.items(), key=lambda x: x[0]):
-            if cg.enabled:
-                s += f"\t{k} - {repr(cg)!s}\n"
+        for k, cg in sorted(self.get_used_connections().items(), key=lambda x: x[0]):
+            s += f"\t{k} - {repr(cg)!s}\n"
         return s
     
     def __repr__(self):
-        return f"DefaultGenome(key={self.key}, n_nodes={len(self.nodes)}, n_connections={len(self.connections)})"
+        return f"DefaultGenome(key={self.key}, " \
+               f"n_nodes={len(self.get_used_nodes())}, " \
+               f"n_connections={len(self.get_used_connections())})"
     
     @staticmethod
     def create_node(config: GenomeConfig, node_id: int):
@@ -335,7 +332,7 @@ class Genome(object):
         for (key, node) in self.nodes.items():
             if type(node) == GruNodeGene:
                 # Get all the input-keys
-                input_keys = set(a for (a, b) in self.connections.keys() if b == key)
+                input_keys = set(a for (a, b) in self.get_used_connections().keys() if b == key)
                 
                 # Remove older inputs that aren't inputs anymore
                 for k in reversed(node.input_keys):

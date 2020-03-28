@@ -179,12 +179,12 @@ class DefaultReproduction:
                 valid = False
                 while not valid:
                     child.mutate(config.genome)
-                    valid = True
                     
                     # Check if the genome contains any connections
-                    if len({c for c in child.connections.values() if c.enabled}) == 0:
+                    valid = True
+                    if len(child.get_used_connections()) == 0:
                         valid = False
-                        continue  # Continue the while-loop
+                        continue  # Continue the while-loop (i.e. mutate again)
                     
                     # Check if the genome is already in the population (i.e. did not mutate)
                     distances = GenomeDistanceCache(config=config.genome)

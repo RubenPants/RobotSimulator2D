@@ -52,10 +52,11 @@ class MultiEnvironment:
         """
         # Split up genome by id and genome itself
         genome_id, genome = genome
+        used_connections = set(genome.get_used_connections().keys())
         
         # Initialize the games on which the genome is tested
         games = [get_game(g, cfg=self.game_config) for g in self.games]
-        for g in games: g.player.set_active_sensors(set(genome.connections.keys()))  # Set active-sensors
+        for g in games: g.player.set_active_sensors(used_connections)  # Set active-sensors
         
         # Ask for each of the games the starting-state
         states = [g.reset()[D_SENSOR_LIST] for g in games]
@@ -112,10 +113,11 @@ class MultiEnvironment:
         """
         # Split up genome by id and genome itself
         genome_id, genome = genome
+        used_connections = set(genome.get_used_connections().keys())
         
         # Initialize the games on which the genome is tested
         games = [get_game(g, cfg=self.game_config) for g in self.games]
-        for g in games: g.player.set_active_sensors(set(genome.connections.keys()))  # Set active-sensors
+        for g in games: g.player.set_active_sensors(used_connections)  # Set active-sensors
         
         # Ask for each of the games the starting-state
         states = [g.reset()[D_SENSOR_LIST] for g in games]
