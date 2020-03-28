@@ -36,7 +36,7 @@ def main(gru,
     config.bot.prox_angles = []  # No use of proximity-sensors
     
     config.evaluation.fitness = D_DISTANCE  # Always use the distance-fitness
-    config.evaluation.fitness_comb = D_MIN  # Worst performing game is indicator for overall performance
+    config.evaluation.fitness_comb = D_GMEAN  # Worst performing game is indicator for overall performance
     
     config.game.duration = 50  # Limited time to find target, but just enough for fastest genomes
     config.game.fps = 10  # Minor changes during evaluation run, 10 fps suffices
@@ -70,9 +70,8 @@ def main(gru,
           f"\n\t> Train for {train_iterations} iterations\n"
     pop.log(msg)
     
-    # Set games used for evaluation; do not include 99997 since its solution is simply driving straight
-    # games = [99995, 99996, 99997, 99998, 99999]
-    games = [99995, 99996, 99998, 99999]
+    # Set games used for evaluation
+    games = [99995, 99996, 99997, 99998, 99999]
     
     # Execute the segments
     try:

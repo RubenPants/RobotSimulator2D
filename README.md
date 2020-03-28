@@ -6,7 +6,6 @@
 
 ### Urgent
 
-* Safe-buffer around fitness tracking? (if failure, log and do not proceed generation! Do proceed training however)
 * Fitness that not only takes path (at the end) in account, but also normalized time taken to reach target
 * Test all of the fitness-functions!
 * Activation functions of hidden vs output nodes not taken into account! (hard-coded on tanh!) --> See CPPNs
