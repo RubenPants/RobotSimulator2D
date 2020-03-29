@@ -123,14 +123,22 @@ class FeedForwardNet:
         
         # Initialize the network on maximum sensory inputs
         if initial_read:
-            for _ in range(self.n_hidden):  # Worst case: path-length equals number of hidden nodes
+            for _ in range(self.n_hidden + 20):  # GRUs need a little bit of warmth to start up
                 # Code below is straight up stolen from 'activate(self, inputs)'
                 with torch.no_grad():
                     inputs = torch.tensor([initial_read] * self.bs, dtype=self.dtype)
                     output_inputs = self.in2out.mm(inputs.t()).t()
+                    for i, gru_idx in enumerate(self.gru_idx):
+                        self.gru_cache[:, i] = torch.cat((self.in2hid[gru_idx] * inputs,
+                                                          self.hid2hid[gru_idx] * self.hidden_act), dim=1)
                     self.hidden_act = self.hidden_act_f(self.in2hid.mm(inputs.t()).t() +
                                                         self.hid2hid.mm(self.hidden_act.t()).t() +
                                                         self.hidden_biases)
+                    for i, gru_idx in enumerate(self.gru_idx):
+                        self.gru_state[:, i] = self.grus[i](
+                                self.gru_cache[:, i][self.gru_map[i]].reshape(self.bs, self.grus[i].input_size),
+                                self.gru_state[:, i])
+                        self.hidden_act[:, gru_idx] = self.gru_state[:, i, 0]
                     output_inputs += self.hid2out.mm(self.hidden_act.t()).t()
                     self.output_act = self.output_act_f(output_inputs + self.output_biases)
     
@@ -173,8 +181,7 @@ class FeedForwardNet:
                 for i, gru_idx in enumerate(self.gru_idx):
                     self.gru_state[:, i] = self.grus[i](
                             self.gru_cache[:, i][self.gru_map[i]].reshape(self.bs, self.grus[i].input_size),
-                            self.gru_state[:, i],
-                    )
+                            self.gru_state[:, i])
                     self.hidden_act[:, gru_idx] = self.gru_state[:, i, 0]
                 
                 # 3) Propagate hidden-values to the outputs
@@ -299,7 +306,7 @@ class FeedForwardNet:
             grus.append(node.get_gru(mapping=weight_map))
             assert len(mapping[mapping]) == grus[-1].input_size
             gru_map.append(mapping)
-            
+        
         # Get the used activations  # TODO: Not configurable
         hidden_activation = genome_config.activation_options[genome_config.activation_default]
         output_activation = genome_config.activation_options[D_TANH]
