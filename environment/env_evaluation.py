@@ -134,7 +134,6 @@ class EvaluationEnv:
 
 
 def create_answer(games: list):
-    cfg = Config()
     answer = dict()
     answer['Percentage finished'] = round(100 * len([g for g in games if g[D_DONE]]) / len(games), 2)
     

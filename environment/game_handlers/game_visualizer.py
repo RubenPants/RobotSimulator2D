@@ -5,6 +5,7 @@ This method is purely used to visualize the game-maps (used in the thesis). This
 folder to make sure the visualizations are saved properly.
 """
 import os
+from math import cos, sin
 
 import matplotlib as mpl
 import matplotlib.colors as clr
@@ -23,7 +24,16 @@ def game_blueprint(game):
     
     :param game: Game object
     """
+    # Get game's blueprint
     game.get_blueprint()
+    
+    # Add arrow to indicate initial direction of robot
+    x = game.player.init_pos[0]
+    y = game.player.init_pos[1]
+    dx = cos(game.player.init_angle)
+    dy = sin(game.player.init_angle)
+    plt.arrow(x, y, dx, dy, head_width=0.1, length_includes_head=True)
+    
     plt.title("Blueprint - Game {id:05d}".format(id=game.id))
     plt.savefig(f'environment/visualizations/blueprint_game{game.id:05d}')
     plt.close()
@@ -64,11 +74,11 @@ def path_heatmap(game):
 if __name__ == '__main__':
     os.chdir("../..")
     cfg = Config()
-    # Load the game
-    # for g_id in [531, 648, 708, 756, 826]:
+    # for g_id in [0]:
     for g_id in tqdm(range(1, 11)):
+        # Load the game
         g = get_game(g_id, cfg=cfg)
         
         # Create visualizations
         game_blueprint(g)
-        path_heatmap(g)
+        # path_heatmap(g)

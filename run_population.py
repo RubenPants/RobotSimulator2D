@@ -7,6 +7,7 @@ import argparse
 import traceback
 
 from config import Config
+from configs.bot_config import get_proximity_angles
 from main import blueprint, evaluate, trace, trace_most_fit, train, visualize_genome
 from population.population import Population
 from process_killer import main as process_killer
@@ -31,12 +32,19 @@ def main(fitness,
     # Re-configure the config-file
     folder = D_NEAT_GRU if gru else D_NEAT
     cfg = Config()
-    cfg.population.pop_size = 128
+    cfg.bot.angular_dir = [True, False]
+    cfg.bot.delta_dist_enabled = False
+    cfg.bot.prox_angles = get_proximity_angles()
+    cfg.game.duration = 60  # 60 seconds should be enough to reach each of the targets
+    cfg.game.fps = 20
+    cfg.population.pop_size = 256
+    cfg.population.compatibility_thr = 3.0
     
     # Let inputs apply to configuration
-    cfg.evaluation.fitness = fitness
     cfg.genome.gru_enabled = gru
+    cfg.evaluation.fitness = fitness
     cfg.population.crossover_enabled = reproduce
+    cfg.update()
     
     # Create the population
     pop = Population(
@@ -104,7 +112,7 @@ if __name__ == '__main__':
     parser.add_argument('--fitness', type=str, default=D_DISTANCE)
     parser.add_argument('--gru_enabled', type=int, default=1)
     parser.add_argument('--reproduce', type=int, default=1)
-    parser.add_argument('--iterations', type=int, default=10)
+    parser.add_argument('--iterations', type=int, default=1)
     parser.add_argument('--version', type=int, default=0)
     args = parser.parse_args()
     

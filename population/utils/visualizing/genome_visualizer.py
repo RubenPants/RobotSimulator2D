@@ -40,7 +40,7 @@ def draw_net(config: GenomeConfig, genome: Genome, debug=False, filename=None, v
     dot.attr(overlap='false')
     
     # Get the used hidden nodes and all used connections
-    used_nodes, used_conn = required_for_output(
+    used_inp_nodes, used_hid_nodes, used_outp_nodes, used_conn = required_for_output(
             inputs=set(config.keys_input),
             outputs=set(config.keys_output),
             connections=genome.connections
@@ -53,13 +53,14 @@ def draw_net(config: GenomeConfig, genome: Genome, debug=False, filename=None, v
         inputs.add(key)
         name = node_names.get(key)
         color = '#e3e3e3' if key in active else '#9e9e9e'
-        dot.node(
-                name,
-                style='filled',
-                shape='box',
-                fillcolor=node_colors.get(key, color),
-                pos=f"{index * 20},0!"
-        )
+        if debug or key in active:
+            dot.node(
+                    name,
+                    style='filled',
+                    shape='box',
+                    fillcolor=node_colors.get(key, color),
+                    pos=f"{index * 20},0!"
+            )
     
     # Visualize output nodes
     outputs = set()
@@ -76,12 +77,12 @@ def draw_net(config: GenomeConfig, genome: Genome, debug=False, filename=None, v
                 shape='box',
                 fillcolor=node_colors.get(key, '#bdc5ff'),
                 pos=f"{(num_inputs - 5) * 10 + index * 100}, "
-                    f"{200 + (len(used_nodes) - len(node_names)) * (50 if debug else 20)}!",
+                    f"{200 + len(used_hid_nodes) * (50 if debug else 20)}!",
         )
     
     # Visualize hidden nodes
-    for key in sorted(used_nodes):
-        if key in inputs or key in outputs: continue
+    for key in sorted(used_hid_nodes):
+        assert (key not in inputs) and (key not in outputs)
         fillcolor = 'white' if type(genome.nodes[key]) == SimpleNodeGene else '#f5c484'  # fancy orange
         if debug:
             if type(genome.nodes[key]) == GruNodeGene:
@@ -98,7 +99,7 @@ def draw_net(config: GenomeConfig, genome: Genome, debug=False, filename=None, v
         )
     
     # Add inputs to used_nodes (i.e. all inputs will always be visualized, even if they aren't used!)
-    used_nodes.update()
+    used_nodes = (used_inp_nodes | used_hid_nodes | used_outp_nodes)
     
     # Visualize connections
     for cg in used_conn.values():

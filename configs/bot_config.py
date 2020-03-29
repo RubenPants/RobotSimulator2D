@@ -28,11 +28,11 @@ class BotConfig(BaseConfig):
         
         # Sensor-configurations
         # The clockwise directions for the angular sensors  [def=[True, False]]
-        self.angular_dir = []  # [True, False] TODO
+        self.angular_dir = [True, False]
         # The delta-distance sensor  [def=False]
         self.delta_dist_enabled = False
         # Angles used for the proximity-sensors  [def=/]
-        self.prox_angles = []  # get_proximity_angles() TODO
+        self.prox_angles = get_proximity_angles()
 
 
 def get_proximity_angles():

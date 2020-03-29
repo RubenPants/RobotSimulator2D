@@ -20,12 +20,12 @@ class GenomeConfig(BaseConfig):
         'activation_default', 'activation_mutate_rate', 'activation_options', 'aggregation_default',
         'aggregation_mutate_rate', 'aggregation_options', 'bias_init_mean', 'bias_init_stdev', 'bias_max_value',
         'bias_min_value', 'bias_mutate_power', 'bias_mutate_rate', 'bias_replace_rate', 'compatibility_disjoint',
-        'compatibility_weight', 'conn_add_prob', 'conn_disable_prob', 'conn_fraction', 'enabled_default',
+        'compatibility_weight', 'conn_add_prob', 'conn_disable_prob', 'enabled_default',
         'enabled_mutate_rate', 'gru_enabled', 'gru_init_mean', 'gru_init_stdev', 'gru_max_value', 'gru_min_value',
-        'gru_mutate_power', 'gru_mutate_rate', 'gru_node_prob', 'gru_replace_rate', 'initial_connection', 'keys_input',
-        'keys_output', 'node_add_prob', 'node_disable_prob', 'node_indexer', 'num_inputs', 'num_outputs',
-        'recurrent_conn', 'weight_init_mean', 'weight_init_stdev', 'weight_max_value', 'weight_min_value',
-        'weight_mutate_power', 'weight_mutate_rate', 'weight_replace_rate',
+        'gru_mutate_power', 'gru_mutate_rate', 'gru_node_prob', 'gru_replace_rate', 'initial_conn',
+        'initial_conn_frac', 'keys_input', 'keys_output', 'node_add_prob', 'node_disable_prob', 'node_indexer',
+        'num_inputs', 'num_outputs', 'recurrent_conn', 'weight_init_mean', 'weight_init_stdev', 'weight_max_value',
+        'weight_min_value', 'weight_mutate_power', 'weight_mutate_rate', 'weight_replace_rate',
     }
     
     allowed_connectivity = ['unconnected', 'fs_neat_nohidden', 'fs_neat', 'fs_neat_hidden',
@@ -67,11 +67,9 @@ class GenomeConfig(BaseConfig):
         self.conn_add_prob: float = 0.1
         # Probability of deleting an existing connection during mutation (each generation)  [def=0.1]  TODO
         self.conn_disable_prob: float = 0.1
-        # Denotes to which fraction the initial connectivity holds, parsed from self.initial_connection  [def=/]
-        self.conn_fraction: float = 0
         # Initial enabled-state of a connection  [def=True]
         self.enabled_default: bool = True
-        # The probability that mutation will replace the 'enabled status' of a connection  [def=0.05]
+        # The probability that mutation will replace the 'enabled status' of a connection  [def=0.05]  TODO: Remove
         self.enabled_mutate_rate: float = 0.05
         # Enable the genomes to mutate GRU nodes  [def=True]  TODO
         self.gru_enabled: bool = True
@@ -84,15 +82,17 @@ class GenomeConfig(BaseConfig):
         # The minimum allowed GRU value, values below this will be clipped  [def=-2]
         self.gru_min_value: float = -2.0
         # The standard deviation of the zero-centered gaussian from which a GRU value mutation is drawn  [def=0.05]
-        self.gru_mutate_power: float = 0.05
+        self.gru_mutate_power: float = 0.5
         # Probability of a GRU value to mutate  [def=0.2]  TODO
-        self.gru_mutate_rate: float = 0.2
+        self.gru_mutate_rate: float = 0.3
         # Probability of mutating a GRU node rather than a simple node  [def=0.6]  TODO
         self.gru_node_prob: float = 0.6
         # Probability of assigning (single) random value in GRU, based on gru_init_mean and gru_init_stdev  [def=0.05]
         self.gru_replace_rate: float = 0.05
-        # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT_05]  TODO
-        self.initial_connection = D_FULL_DIRECT
+        # Initial connectivity of newly-created genomes  [def=D_PARTIAL_DIRECT]  TODO
+        self.initial_conn = D_PARTIAL_DIRECT
+        # Denotes to which fraction the initial connection holds (only if 'partial')  [def=0.1]
+        self.initial_conn_frac: float = 0.2
         # Input-keys, which are by convention negative starting from -1 and descending, set in update()  [def=/]
         self.keys_input = None
         # Output-keys, which start by convention from 0 and increment with each output, set in update()  [def=/]
@@ -130,14 +130,7 @@ class GenomeConfig(BaseConfig):
         self.num_inputs: int = get_number_of_sensors(cfg=main_config.bot)
         self.keys_input = [-i - 1 for i in range(self.num_inputs)]
         self.keys_output = [i for i in range(self.num_outputs)]
-        
-        if 'partial' in self.initial_connection:
-            c, p = self.initial_connection.split()
-            self.initial_connection = c
-            self.conn_fraction = float(p)
-            if not (0 <= self.conn_fraction <= 1):
-                raise RuntimeError("'partial' connection value must be between 0.0 and 1.0, inclusive.")
-        assert self.initial_connection in self.allowed_connectivity
+        assert self.initial_conn in self.allowed_connectivity
     
     def add_activation(self, name, func):
         self.activation_options.update({name: func})

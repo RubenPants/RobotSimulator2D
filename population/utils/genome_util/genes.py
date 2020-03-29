@@ -6,7 +6,7 @@ Handles node and connection genes.
 from abc import abstractmethod
 from copy import deepcopy
 
-from numpy import concatenate as cat, zeros
+from numpy import concatenate as cat, round, zeros
 from numpy.linalg import norm
 from torch import float64, tensor
 from torch.nn import GRUCell
@@ -185,12 +185,16 @@ class GruNodeGene(BaseGene):
         self.update_weight_ih()
     
     def __str__(self):
+        bias_hh = str(round(self.bias_hh, 2)).replace('\n', ',')  # replace does not work inside string format
+        bias_ih = str(round(self.bias_ih, 2)).replace('\n', ',')
+        weight_hh = str(round(self.weight_hh, 2)).replace('\n', ',')
+        weight_ih = str(round(self.weight_ih, 2)).replace('\n', ',')
         return f"GruNodeGene(\n" \
-               f"\tbias_hh={[round(float(x), 2) for x in self.bias_hh]},\n" \
-               f"\tbias_ih={[round(float(x), 2) for x in self.bias_ih]},\n" \
+               f"\tbias_hh={bias_hh},\n" \
+               f"\tbias_ih={bias_ih},\n" \
                f"\tinput_keys={self.input_keys},\n" \
-               f"\tweight_hh={[round(float(x), 2) for x in self.weight_hh]},\n" \
-               f"\tweight_ih={[round(float(x), 2) for x in self.weight_ih]})"
+               f"\tweight_hh={weight_hh},\n" \
+               f"\tweight_ih={weight_ih})"
     
     def __repr__(self):
         return f"GruNodeGene(inputs={self.input_keys!r})"

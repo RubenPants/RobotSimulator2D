@@ -217,15 +217,17 @@ def fitness_path(game_observations: dict, game_params: list):
     paths = [g[D_PATH] for g in game_params]
     a_stars = [g[D_A_STAR] for g in game_params]
     
-    def get_score(pos, g_index, reached=False):
-        """Get a score for the given distance."""
-        return 1 if reached else \
-            clip_f((1 - paths[g_index][round(pos[0], 1), round(pos[1], 1)] / a_stars[g_index]) ** 2)
+    def get_score(pos, gi, reached=False):
+        """Get a score for the given path-position."""
+        if reached:
+            return 1
+        temp = paths[gi][round(pos[0], 1), round(pos[1], 1)] / a_stars[gi]
+        return (clip_f(1 - temp) + clip_f(1 - temp) ** 2) / 2
     
     # Calculate the score
     fitness = dict()
     for k, v in game_observations.items():  # Iterate over the candidates
-        fitness[k] = [get_score(o[D_POS], g_index=i, reached=o[D_DONE]) for i, o in enumerate(v)]
+        fitness[k] = [get_score(o[D_POS], gi=i, reached=o[D_DONE]) for i, o in enumerate(v)]
     return fitness
 
 

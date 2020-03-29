@@ -38,6 +38,7 @@ def main(pop: Population, show: bool = True):
     plt.title(f"Distance between elite representatives at generation {pop.generation}")
     plt.xlabel("specie")
     plt.ylabel("specie")
+    plt.tick_params(labelbottom='on', labeltop='on', labelleft='on', labelright='on')
     plt.tight_layout()
     
     # Save the result
@@ -53,8 +54,9 @@ if __name__ == '__main__':
     os.chdir("../../../")
     
     population = Population(
-            name='distance_repr_1',
+            name='path_1',
             # version=1,
-            folder_name='test',
+            # folder_name='test',
+            folder_name='NEAT-GRU',
     )
     main(population)

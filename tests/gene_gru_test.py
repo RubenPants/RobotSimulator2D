@@ -15,7 +15,7 @@ def get_config(num_outputs=1):
     """Create and return the config object."""
     cfg = Config()
     cfg.genome.num_outputs = num_outputs
-    cfg.genome.initial_connection = "full_nodirect"  # input->hidden and hidden->output
+    cfg.genome.initial_conn = "full_nodirect"  # input->hidden and hidden->output
     cfg.update()
     return cfg
 

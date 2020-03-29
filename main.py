@@ -10,6 +10,7 @@ from config import Config
 from population.population import Population
 from population.utils.genome_util.genome import Genome
 from process_killer import main as process_killer
+from utils.dictionary import *
 
 
 def blueprint(population: Population,
@@ -152,9 +153,9 @@ if __name__ == '__main__':
     parser.add_argument('--train_same', type=bool, default=True)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--trace', type=bool, default=False)
-    parser.add_argument('--trace_fit', type=bool, default=False)
+    parser.add_argument('--trace_fit', type=bool, default=True)
     parser.add_argument('--evaluate', type=bool, default=False)
-    parser.add_argument('--genome', type=bool, default=False)
+    parser.add_argument('--genome', type=bool, default=True)
     parser.add_argument('--live', type=bool, default=False)
     
     # Extra arguments
@@ -165,14 +166,17 @@ if __name__ == '__main__':
     
     # Setup the population
     pop = Population(
-            # name='distance_3',
-            version=1,
+            name='distance_2',
+            # version=1,
             folder_name='test',
             # folder_name='DISTANCE-ONLY',
+            # folder_name='NEAT-GRU',
     )
+    
+    # Potentially modify the population
     if not pop.best_genome: pop.best_genome = list(pop.population.values())[-1]
-    # pop.best_genome = list(pop.population.values())[0]  # TODO
-    # pop.population = {k: v for k, v in pop.population.items() if k in [111]}  # TODO
+    # pop.best_genome = list(pop.population.values())[-1]
+    # pop.population = {k: v for k, v in pop.population.items() if k in [111]}
     # pop.best_genome.update_gru_nodes(pop.config.genome_config)
     # pop.best_genome.mutate(config=pop.config.genome_config)
     # pop.best_genome.update_gru_nodes(pop.config.genome_config)
@@ -189,6 +193,8 @@ if __name__ == '__main__':
     
     # Load in current config-file
     config = Config()
+    config.evaluation.fitness_comb = D_MIN
+    config.update()
     
     try:
         if args.train:
@@ -230,7 +236,7 @@ if __name__ == '__main__':
                              )
         
         if args.live:
-            live(game_id=3,
+            live(game_id=99995,
                  population=pop,
                  game_config=config,
                  genome=chosen_genome if chosen_genome else pop.best_genome,

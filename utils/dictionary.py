@@ -10,6 +10,9 @@ D_ABS = 'abs'
 D_ANGLE = 'angle'
 D_AVG = 'avg'
 
+# C
+D_CUBE = 'cube'
+
 # D
 D_DIST_TO_TARGET = 'distance_to_target'
 D_DISTANCE = 'distance'
@@ -48,8 +51,7 @@ D_NEAT_GRU = 'NEAT-GRU'
 D_NOVELTY = 'novelty'
 
 # P
-D_PARTIAL_DIRECT_01 = 'partial_direct 0.1'
-D_PARTIAL_DIRECT_05 = 'partial_direct 0.5'
+D_PARTIAL_DIRECT = 'partial_direct'
 D_PATH = 'path'
 D_POS = 'position'
 D_PRODUCT = 'product'
@@ -62,6 +64,7 @@ D_SENSOR_LIST = 'sensor_list'
 D_SIGMOID = 'sigmoid'
 D_SIMPLE = 'simple'
 D_SIN = 'sin'
+D_SQUARE = 'square'
 D_SUM = 'sum'
 
 # T

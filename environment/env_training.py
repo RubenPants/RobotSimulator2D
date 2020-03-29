@@ -5,6 +5,8 @@ Train and evaluate the population on a random batch of training games.
 """
 import multiprocessing as mp
 import sys
+import traceback
+import warnings
 from random import sample
 
 from neat.six_util import iteritems, itervalues
@@ -177,19 +179,13 @@ def single_evaluation(multi_env, parallel: bool, pop: Population, unused_cpu: in
         pool.close()  # Close the pool
         pool.join()  # Postpone continuation until everything is finished
         pbar.close()  # Close the progressbar
-        
-        # Calculate the fitness from the given return_dict
-        fitness = calc_pop_fitness(
-                fitness_config=pop.config.evaluation,
-                game_observations=return_dict,
-                game_params=multi_env.get_game_params(),
-                generation=pop.generation,
-        )
-        for i, genome in genomes: genome.fitness = fitness[i]
     else:
         return_dict = dict()
         for genome in tqdm(genomes, desc="sequential training"):
             multi_env.eval_genome(genome, return_dict)
+    
+    # Calculate the fitness from the given return_dict
+    try:
         fitness = calc_pop_fitness(
                 fitness_config=pop.config.evaluation,
                 game_observations=return_dict,
@@ -197,6 +193,12 @@ def single_evaluation(multi_env, parallel: bool, pop: Population, unused_cpu: in
                 generation=pop.generation,
         )
         for i, genome in genomes: genome.fitness = fitness[i]
+    except Exception:  # TODO: Fix! Sometimes KeyError in fitness (path problem)
+        pop.log(f"Exception at fitness calculation: \n{traceback.format_exc()}", print_result=False)
+        warnings.warn(f"Exception at fitness calculation: \n{traceback.format_exc()}")
+        # Set fitness to zero for genomes that have no fitness set yet
+        for i, genome in genomes:
+            if not genome.fitness: genome.fitness = 0.0
     
     # Gather and report statistics
     best = None

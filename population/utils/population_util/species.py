@@ -81,7 +81,7 @@ class DefaultSpecies:
             for sid, rid in iteritems(new_representatives):
                 rep = population[rid]
                 d = distances(rep, genome)
-                if d < config.population.compatibility_thr:
+                if d < config.population.get_compatibility_threshold(n_species=len(new_representatives)):
                     candidates.append((d, sid))
             
             if candidates:  # There are species close enough; add genome to most similar specie

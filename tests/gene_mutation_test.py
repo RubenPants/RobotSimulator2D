@@ -489,7 +489,7 @@ class Connection(unittest.TestCase):
         gene = get_connection_gene((-1, 0), cfg)
         init_enabled = gene.enabled
         for _ in range(100):
-            gene.mutate(cfg)
+            gene.enabled = gene.mutate(cfg)
             if gene.enabled != init_enabled:
                 changed = True
                 break

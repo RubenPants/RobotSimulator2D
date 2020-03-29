@@ -36,17 +36,17 @@ def main(gru,
     config.bot.prox_angles = []  # No use of proximity-sensors
     
     config.evaluation.fitness = D_DISTANCE  # Always use the distance-fitness
+    config.evaluation.fitness_comb = D_GMEAN  # Worst performing game is indicator for overall performance
     
     config.game.duration = 50  # Limited time to find target, but just enough for fastest genomes
     config.game.fps = 10  # Minor changes during evaluation run, 10 fps suffices
     
-    config.genome.initial_connection = D_FULL_DIRECT
-    # config.genome.gru_min_value = -5  # Increase range of GRU-values
-    # config.genome.gru_max_value = 5  # Increase range of GRU-values
+    config.genome.initial_conn = D_FULL_DIRECT
+    config.genome.gru_mutate_power = 0.1
     config.genome.gru_node_prob = 0.6
     
     config.population.parent_selection = 0.2  # Great selective pressure
-    config.population.pop_size = 512  # Large enough of a population
+    config.population.pop_size = 256  # Large enough of a population
     config.population.compatibility_thr = 2.0  # Single node in difference would be enough (+has other connections)
     config.population.specie_stagnation = 25  # Greater since improvement comes slow
     config.update()
@@ -69,9 +69,8 @@ def main(gru,
           f"\n\t> Train for {train_iterations} iterations\n"
     pop.log(msg)
     
-    # Set games used for evaluation; do not include 99997 since simply 'driving straight' would benefit here a lot!
-    # games = [99995, 99996, 99997, 99998, 99999]
-    games = [99995, 99996, 99998, 99999]
+    # Set games used for evaluation
+    games = [99995, 99996, 99997, 99998, 99999]
     
     # Execute the segments
     try:
