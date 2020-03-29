@@ -31,6 +31,7 @@ def main(pop: Population, func, window: int = 5, show: bool = True):
     for specie_id, specie in pop.species_hist.items():
         # Fetch specie-data
         history = sorted(specie.items(), key=lambda x: x[0])
+        if len(history) < 5: continue
         generations, elite_list = zip(*history)
         
         # Update max_gen

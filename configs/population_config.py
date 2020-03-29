@@ -17,8 +17,8 @@ class PopulationConfig(BaseConfig):
     }
     
     def __init__(self):
-        # Individuals whose genetic distance is less than this threshold are in the same specie  [def=4.0]  TODO
-        self.compatibility_thr: float = 4.
+        # Individuals whose genetic distance is less than this threshold are in the same specie  [def=3.0]  TODO
+        self.compatibility_thr: float = 3.
         # Sexual reproduction  [def=True]
         self.crossover_enabled: bool = False
         # Probability of having a crossover when crossover is enabled  [def=0.6]

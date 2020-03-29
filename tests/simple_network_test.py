@@ -12,7 +12,7 @@ import torch
 from config import Config
 from population.population import query_net
 from population.utils.genome_util.genome import Genome
-from population.utils.network_util.activations import relu_activation, tanh_activation
+from population.utils.network_util.activations import sigmoid_activation, tanh_activation
 from population.utils.network_util.feed_forward_net import make_net
 from utils.dictionary import *
 
@@ -106,7 +106,7 @@ class TestFeedForward(unittest.TestCase):
         
         # Query the network; single input in range [-1, 1]
         inputs = [random() * 2 - 1 for _ in range(100)]
-        hidden_values = [relu_activation(torch.tensor(i, dtype=torch.float64)) for i in inputs]
+        hidden_values = [sigmoid_activation(torch.tensor(i, dtype=torch.float64)) for i in inputs]
         output_values = [tanh_activation(h) for h in hidden_values]
         
         # Query the network for the values
@@ -149,9 +149,9 @@ class TestFeedForward(unittest.TestCase):
         
         # Query the network; single input in range [-1, 1]
         inputs = [random() * 2 - 1 for _ in range(100)]
-        hidden1_values = [relu_activation(torch.tensor(i, dtype=torch.float64)) for i in inputs]
-        hidden2_values = [torch.tensor(0, dtype=torch.float64)] + \
-                         [relu_activation(i) for i in hidden1_values[:-1]]
+        hidden1_values = [sigmoid_activation(torch.tensor(i, dtype=torch.float64)) for i in inputs]
+        hidden2_values = [sigmoid_activation(torch.tensor(0, dtype=torch.float64))] + \
+                         [sigmoid_activation(i) for i in hidden1_values[:-1]]
         output_values = [tanh_activation(h) for h in hidden2_values]
         
         # Query the network for the values
@@ -239,7 +239,8 @@ class TestFeedForward(unittest.TestCase):
         
         # Query the network; only positive inputs (since relu simply forwards if positive)
         inputs = [random() for _ in range(100)]
-        output_values = [tanh_activation(torch.tensor(2 * i, dtype=torch.float64)) for i in inputs]
+        hidden_values = [sigmoid_activation(torch.tensor(i, dtype=torch.float64)) for i in inputs]
+        output_values = [tanh_activation(2 * h) for h in hidden_values]
         
         # Query the network for the values
         for idx, inp in enumerate(inputs):

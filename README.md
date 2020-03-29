@@ -4,10 +4,15 @@
 
 ## MAIN IDEAS
 
-* Focus on the no-bearing task
+* Focus on the no-bearing task!
     * I have the feeling that the other task is somewhat solved, where the no-bearing task definitely is not
-* Recreate the maze to be more performant for the no-bearing task (i.e. no wall detection etc), possibility for drone to go negative
-* Possible to update the GRU-weights (in NEAT) with the help of local learning rules? (adaptively learn during its lifetime to improve weight updates)
+* Recreate the maze to be more performing for the no-bearing task (i.e. no wall detection etc), possibility for drone to go negative
+* Possible to update the GRU-weights (in NEAT) with the help of local (plastic) learning rules? (adaptively learn during its lifetime to improve weight updates)
+* Treat the difference in distance as a form of back-propagation (error)? --> Reward-system as seen in RL as A2C
+
+### GRU learning rule
+Update a GRU's weights based on its current value, the value fed into the GRU and the result it obtained (i.e. difference in distance over the step)
+
 
 ## TODO
 
@@ -17,6 +22,7 @@
     Not so good, apparently...
 * Split excess gene to excess node and excess connections (node should have a larger weight)
 
+* Only start a new specie if far away enough AND different nodes and connections then other representatives (key-based check via node-mapper)
 * Redo crossover to follow the competing convention problem!
 * Bug in crossover! (I think due to the GRU?)
 * Fitness that not only takes path (at the end) in account, but also normalized time taken to reach target
