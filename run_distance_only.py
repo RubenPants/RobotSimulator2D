@@ -51,10 +51,11 @@ def main(gru,
     config.genome.weight_mutate_rate = .4
     
     config.population.parent_selection = .2
-    config.population.pop_size = 256  # Large enough of a population
+    config.population.pop_size = 512  # Large enough of a population
+    config.population.min_specie_size = 32  # Enough room for improvement within the specie
     config.population.compatibility_thr = 2.0  # Single node in difference would be enough (+has other connections)
     config.population.specie_elitism = 1  # Only prevent the specie carrying the elite from stagnating
-    config.population.specie_stagnation = 25  # Greater since improvement comes slow
+    config.population.specie_stagnation = 30  # Relative great since improvement comes slow
     config.update()
     
     # Let inputs apply to configuration

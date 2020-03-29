@@ -28,9 +28,9 @@ class PopulationConfig(BaseConfig):
         # The function used to compute the species fitness  [def=D_MAX]
         self.fitness_func: str = D_MAX
         # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=2]
-        self.genome_elitism: int = 2
+        self.genome_elitism: int = 1
         # Minimum number of genomes per species, keeping low prevents number of individuals blowing up  [def=16]  TODO
-        self.min_specie_size: int = 16
+        self.min_specie_size: int = 32
         # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.2]  TODO
         self.parent_selection: float = 0.2
         # Maximum number of species  [def=15]
@@ -40,19 +40,19 @@ class PopulationConfig(BaseConfig):
         # Target number of species  [def=10]
         self.specie_count_target = 10
         # Number of the best species that will be protected from stagnation  [def=2]
-        self.specie_elitism: int = 1
-        # Remove a specie if it hasn't improved over this many number of generations  [def=15]
-        self.specie_stagnation: int = 25
+        self.specie_elitism: int = 2
+        # Remove a specie if it hasn't improved over this many number of generations  [def=15]  TODO
+        self.specie_stagnation: int = 30
         
         # TODO: Often used, hence placed outside of parameter-crowd
         # Number of individuals in each generation  [def=256]
-        self.pop_size: int = 256
+        self.pop_size: int = 512
     
     def get_compatibility_threshold(self, n_species: int):
         """Get the compatibility threshold based on the current number of species."""
         # Lower the compatibility threshold when less than minimal number of species
         if n_species < self.specie_count_min:
-            return max(1.5, self.compatibility_thr / 2)
+            return max(1.5, self.compatibility_thr * 2 / 3)
         
         # Return the default threshold when number of species is lower than or equal to the target number
         if n_species <= self.specie_count_target:
