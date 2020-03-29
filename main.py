@@ -166,10 +166,10 @@ if __name__ == '__main__':
     
     # Setup the population
     pop = Population(
-            name='distance_2',
+            name='delta_distance_2',
             # version=1,
-            folder_name='test',
-            # folder_name='DISTANCE-ONLY',
+            # folder_name='test',
+            folder_name='DISTANCE-ONLY',
             # folder_name='NEAT-GRU',
     )
     

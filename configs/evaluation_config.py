@@ -16,7 +16,7 @@ class EvaluationConfig(BaseConfig):
     
     def __init__(self):
         # Fitness functions [distance, diversity, novelty, path]  TODO
-        self.fitness: str = D_PATH
+        self.fitness: str = D_DISTANCE
         # Function to combine the fitness-values across different games, choices are: min, avg, max, gmean  [def=gmean]
         self.fitness_comb: str = D_GMEAN
         # The function used to compute the termination criterion from the set of genome fitness [def=D_MAX]

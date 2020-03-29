@@ -18,7 +18,7 @@ class PopulationConfig(BaseConfig):
     
     def __init__(self):
         # Individuals whose genetic distance is less than this threshold are in the same specie  [def=2.0]  TODO
-        self.compatibility_thr: float = 2.0
+        self.compatibility_thr: float = 3.0
         # Sexual reproduction  [def=True]
         self.crossover_enabled: bool = False
         # Probability of having a crossover when crossover is enabled  [def=0.6]
@@ -32,7 +32,7 @@ class PopulationConfig(BaseConfig):
         # Minimum number of genomes per species, keeping low prevents number of individuals blowing up  [def=10]  TODO
         self.min_specie_size: int = 10
         # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.3]  TODO
-        self.parent_selection: float = 0.3
+        self.parent_selection: float = 0.4
         # Maximum number of species  [def=20]
         self.specie_count_max = 20
         # Minimum number of species  [def=5]
