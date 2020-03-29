@@ -6,6 +6,7 @@
 
 ### Urgent
 
+* Bug in crossover! (I think due to the GRU?)
 * Fitness that not only takes path (at the end) in account, but also normalized time taken to reach target
 * Test all of the fitness-functions!
 * Activation functions of hidden vs output nodes not taken into account! (hard-coded on tanh!) --> See CPPNs

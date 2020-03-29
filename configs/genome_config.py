@@ -82,9 +82,9 @@ class GenomeConfig(BaseConfig):
         # The minimum allowed GRU value, values below this will be clipped  [def=-2]
         self.gru_min_value: float = -2.0
         # The standard deviation of the zero-centered gaussian from which a GRU value mutation is drawn  [def=0.05]
-        self.gru_mutate_power: float = 0.05
+        self.gru_mutate_power: float = 0.5
         # Probability of a GRU value to mutate  [def=0.2]  TODO
-        self.gru_mutate_rate: float = 0.2
+        self.gru_mutate_rate: float = 0.3
         # Probability of mutating a GRU node rather than a simple node  [def=0.6]  TODO
         self.gru_node_prob: float = 0.6
         # Probability of assigning (single) random value in GRU, based on gru_init_mean and gru_init_stdev  [def=0.05]

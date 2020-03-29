@@ -42,8 +42,7 @@ def main(gru,
     config.game.fps = 10  # Minor changes during evaluation run, 10 fps suffices
     
     config.genome.initial_conn = D_FULL_DIRECT
-    config.genome.gru_min_value = -5  # Increase range of GRU-values
-    config.genome.gru_max_value = 5  # Increase range of GRU-values
+    config.genome.gru_mutate_power = 0.1
     config.genome.gru_node_prob = 0.6
     
     config.population.parent_selection = 0.2  # Great selective pressure
