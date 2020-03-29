@@ -29,11 +29,11 @@ class PopulationConfig(BaseConfig):
         self.fitness_func: str = D_MAX
         # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=2]
         self.genome_elitism: int = 2
-        # Minimum number of genomes per species, keeping low prevents number of individuals blowing up  [def=10]  TODO
-        self.min_specie_size: int = 32
-        # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.3]  TODO
+        # Minimum number of genomes per species, keeping low prevents number of individuals blowing up  [def=16]  TODO
+        self.min_specie_size: int = 16
+        # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.2]  TODO
         self.parent_selection: float = 0.2
-        # Maximum number of species  [def=20]
+        # Maximum number of species  [def=15]
         self.specie_count_max = 15
         # Minimum number of species  [def=5]
         self.specie_count_min = 5
@@ -45,8 +45,8 @@ class PopulationConfig(BaseConfig):
         self.specie_stagnation: int = 25
         
         # TODO: Often used, hence placed outside of parameter-crowd
-        # Number of individuals in each generation  [def=128]
-        self.pop_size: int = 512
+        # Number of individuals in each generation  [def=256]
+        self.pop_size: int = 32
     
     def get_compatibility_threshold(self, n_species: int):
         """Get the compatibility threshold based on the current number of species."""

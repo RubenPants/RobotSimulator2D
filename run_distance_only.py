@@ -8,7 +8,7 @@ import argparse
 import traceback
 
 from config import Config
-from main import trace_most_fit, train_same_games, visualize_genome
+from main import trace_most_fit, train_same_games, training_overview, visualize_genome
 from population.population import Population
 from process_killer import main as process_killer
 from utils.dictionary import *
@@ -41,24 +41,18 @@ def main(gru,
     config.game.duration = 50  # Limited time to find target, but just enough for fastest genomes
     config.game.fps = 10  # Minor changes during evaluation run, 10 fps suffices
     
-    config.genome.bias_max_value = 5
-    config.genome.bias_min_value = -5
-    config.genome.compatibility_disjoint = 1.25
-    config.genome.compatibility_weight = 1
-    config.genome.gru_max_value = 5
-    config.genome.gru_min_value = -5
-    config.genome.gru_mutate_power = 0.5
-    config.genome.gru_mutate_rate = 0.3
-    config.genome.gru_node_prob = 0.6
+    config.genome.compatibility_disjoint = 1.
+    config.genome.compatibility_weight = .5
+    config.genome.gru_mutate_power = .1
+    config.genome.gru_mutate_rate = .2
+    config.genome.gru_node_prob = .6
     config.genome.initial_conn = D_FULL_DIRECT
-    config.genome.weight_mutate_power = 0.5
-    config.genome.weight_mutate_rate = 0.5
-    config.genome.weight_max_value = 5
-    config.genome.weight_min_value = -5
+    config.genome.weight_mutate_power = .2
+    config.genome.weight_mutate_rate = .4
     
-    config.population.parent_selection = 0.4
+    config.population.parent_selection = .2
     config.population.pop_size = 256  # Large enough of a population
-    config.population.compatibility_thr = 3.0  # Single node in difference would be enough (+has other connections)
+    config.population.compatibility_thr = 2.0  # Single node in difference would be enough (+has other connections)
     config.population.specie_elitism = 1  # Only prevent the specie carrying the elite from stagnating
     config.population.specie_stagnation = 25  # Greater since improvement comes slow
     config.update()
@@ -93,6 +87,11 @@ def main(gru,
                 unused_cpu=0,
                 iterations=train_iterations,
                 debug=False,
+        )
+        
+        # Create an overview of the training process
+        training_overview(
+                population=pop,
         )
         
         # Trace the most fit genome

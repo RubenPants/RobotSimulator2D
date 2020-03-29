@@ -8,7 +8,7 @@ import traceback
 
 from config import Config
 from configs.bot_config import get_proximity_angles
-from main import blueprint, evaluate, trace, trace_most_fit, train, visualize_genome
+from main import blueprint, evaluate, trace, trace_most_fit, train, training_overview, visualize_genome
 from population.population import Population
 from process_killer import main as process_killer
 from utils.dictionary import *
@@ -73,6 +73,11 @@ def main(fitness,
                 unused_cpu=0,
                 iterations=train_iterations,
                 debug=False,
+        )
+        
+        # Create an overview of the training process
+        training_overview(
+                population=pop,
         )
         
         # Evaluate the trained population

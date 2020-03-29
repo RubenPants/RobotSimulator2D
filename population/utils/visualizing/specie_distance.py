@@ -54,9 +54,9 @@ if __name__ == '__main__':
     os.chdir("../../../")
     
     population = Population(
-            name='path_1',
+            name='delta_distance_2',
             # version=1,
-            # folder_name='test',
-            folder_name='NEAT-GRU',
+            folder_name='test',
+            # folder_name='NEAT-GRU',
     )
     main(population)
