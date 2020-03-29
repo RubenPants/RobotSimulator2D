@@ -59,6 +59,7 @@ def main(gru,
     config.population.parent_selection = 0.4
     config.population.pop_size = 256  # Large enough of a population
     config.population.compatibility_thr = 3.0  # Single node in difference would be enough (+has other connections)
+    config.population.specie_elitism = 1  # Only prevent the specie carrying the elite from stagnating
     config.population.specie_stagnation = 25  # Greater since improvement comes slow
     config.update()
     

@@ -10,7 +10,6 @@ from config import Config
 from population.population import Population
 from population.utils.genome_util.genome import Genome
 from process_killer import main as process_killer
-from utils.dictionary import *
 
 
 def blueprint(population: Population,
@@ -159,7 +158,7 @@ if __name__ == '__main__':
     parser.add_argument('--live', type=bool, default=False)
     
     # Extra arguments
-    parser.add_argument('--iterations', type=int, default=10)
+    parser.add_argument('--iterations', type=int, default=100)
     parser.add_argument('--unused_cpu', type=int, default=2)
     parser.add_argument('--debug', type=bool, default=False)
     args = parser.parse_args()
@@ -174,7 +173,7 @@ if __name__ == '__main__':
     )
     
     # Potentially modify the population
-    if not pop.best_genome: pop.best_genome = list(pop.population.values())[-1]
+    if not pop.best_genome: pop.best_genome = list(pop.population.values())[0]
     # pop.best_genome = list(pop.population.values())[-1]
     # pop.population = {k: v for k, v in pop.population.items() if k in [111]}
     # pop.best_genome.update_gru_nodes(pop.config.genome_config)
@@ -185,7 +184,7 @@ if __name__ == '__main__':
     # Set the blueprint and traces games
     # chosen_games = [0] * 10  # Different (random) initializations!
     # chosen_games = [g for g in range(1, 6)]
-    chosen_games = [99995, 99996, 99998, 99999]
+    chosen_games = [99995, 99996, 99997, 99998, 99999]
     
     # Chosen genome used for genome-evaluation
     chosen_genome = None
@@ -193,8 +192,6 @@ if __name__ == '__main__':
     
     # Load in current config-file
     config = Config()
-    config.evaluation.fitness_comb = D_MIN
-    config.update()
     
     try:
         if args.train:

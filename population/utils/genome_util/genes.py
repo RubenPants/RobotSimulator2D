@@ -85,6 +85,7 @@ class SimpleNodeGene(BaseGene):
     
     def __str__(self):
         return f"SimpleNodeGene(\n" \
+               f"\tkey={self.key}\n" \
                f"\tactivation={self.activation}\n" \
                f"\taggregation={self.aggregation},\n" \
                f"\tbias={round(self.bias, 2)})"
@@ -131,6 +132,7 @@ class OutputNodeGene(BaseGene):
     
     def __str__(self):
         return f"OutputNodeGene(\n" \
+               f"\tkey={self.key}\n" \
                f"\tactivation={self.activation}\n" \
                f"\taggregation={self.aggregation},\n" \
                f"bias={round(self.bias, 2)})"
@@ -190,6 +192,7 @@ class GruNodeGene(BaseGene):
         weight_hh = str(round(self.weight_hh, 2)).replace('\n', ',')
         weight_ih = str(round(self.weight_ih, 2)).replace('\n', ',')
         return f"GruNodeGene(\n" \
+               f"\tkey={self.key}\n" \
                f"\tbias_hh={bias_hh},\n" \
                f"\tbias_ih={bias_ih},\n" \
                f"\tinput_keys={self.input_keys},\n" \
@@ -320,6 +323,7 @@ class ConnectionGene(BaseGene):
     
     def __str__(self):
         return f"ConnectionGene(\n" \
+               f"\tkey={self.key}\n" \
                f"\tenabled={self.enabled}\n" \
                f"\tweight={round(self.weight, 2)})"
     
