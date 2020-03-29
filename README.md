@@ -6,6 +6,7 @@
 
 ### Urgent
 
+* Redo crossover to follow the competing convention problem!
 * Bug in crossover! (I think due to the GRU?)
 * Fitness that not only takes path (at the end) in account, but also normalized time taken to reach target
 * Test all of the fitness-functions!
