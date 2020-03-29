@@ -122,7 +122,7 @@ class FeedForwardNet:
         self.output_act = torch.zeros(self.bs, self.n_outputs, dtype=self.dtype)
         
         # Initialize the network on maximum sensory inputs
-        if initial_read:
+        if initial_read and self.n_hidden > 0:
             for _ in range(self.n_hidden + 20):  # GRUs need a little bit of warmth to start up
                 # Code below is straight up stolen from 'activate(self, inputs)'
                 with torch.no_grad():

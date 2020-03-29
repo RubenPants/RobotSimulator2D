@@ -7,9 +7,6 @@ functionality such as its configuration and methods used to persist the populati
 import re
 from glob import glob
 
-from numpy import mean
-from scipy.stats import gmean
-
 from config import Config
 from population.utils.genome_util.genome import Genome
 from population.utils.network_util.feed_forward_net import make_net
@@ -19,7 +16,6 @@ from population.utils.population_util.stagnation import DefaultStagnation
 from population.utils.reporter_util.reporting import ReporterSet, StdOutReporter
 from population.utils.reporter_util.statistics import StatisticsReporter
 from population.utils.visualizing.genome_visualizer import draw_net
-from utils.dictionary import *
 from utils.myutils import append_log, get_subfolder, load_pickle, store_pickle, update_dict
 
 
@@ -43,7 +39,7 @@ class Population:
     
     __slots__ = {
         'name', 'folder_name', 'best_genome', 'best_genome_hist', 'config', 'generation', 'make_net', 'population',
-        'query_net', 'reporters', 'reproduction', 'species', 'species_hist', 'fitness_criterion', 'log_print',
+        'query_net', 'reporters', 'reproduction', 'species', 'species_hist', 'log_print',
     }
     
     def __init__(self,
@@ -84,7 +80,6 @@ class Population:
         self.reproduction: DefaultReproduction = None  # Reproduction mechanism of the population
         self.species: DefaultSpecies = None  # Container for all the species
         self.species_hist: dict = dict()  # Container for the elite player of each species at each generation
-        self.fitness_criterion = None  # Function used for fitness-determination of the genomes
         self.log_print: bool = log_print  # By default, print result during logging
         
         # Try to load the population, create new if not possible
@@ -107,18 +102,6 @@ class Population:
         stagnation = DefaultStagnation(self.config.population, self.reporters)
         self.reporters = ReporterSet()
         self.reproduction = DefaultReproduction(self.reporters, stagnation)
-        
-        # Fitness evaluation
-        if self.config.evaluation.fitness_criterion == D_MAX:
-            self.fitness_criterion = max
-        elif self.config.evaluation.fitness_criterion == D_MIN:
-            self.fitness_criterion = min
-        elif self.config.evaluation.fitness_criterion == D_MEAN:
-            self.fitness_criterion = mean
-        elif self.config.evaluation.fitness_criterion == D_GMEAN:
-            self.fitness_criterion = gmean
-        else:
-            raise RuntimeError(f"Unexpected fitness_criterion: {self.config.evaluation.fitness_criterion!r}")
         
         # Create a population from scratch, then partition into species
         self.population = self.reproduction.create_new(config=self.config,
@@ -276,7 +259,6 @@ class Population:
             self.best_genome = pop.best_genome
             self.best_genome_hist = pop.best_genome_hist
             self.config = pop.config
-            self.fitness_criterion = pop.fitness_criterion
             self.generation = pop.generation
             self.make_net = pop.make_net
             self.population = pop.population
