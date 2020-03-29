@@ -19,6 +19,7 @@ if __name__ == '__main__':
     os.system("pip3 install tqdm")
     os.system("pip3 install pylint")
     os.system("pip3 install psutil")
+    os.system("pip3 install seaborn")
     if sys.platform == 'linux' or sys.platform == 'darwin':  # Linux or Mac
         os.system("pip3 install torch torchvision")
     elif sys.platform == 'win32':  # Windows

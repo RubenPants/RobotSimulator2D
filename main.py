@@ -10,7 +10,6 @@ from config import Config
 from population.population import Population
 from population.utils.genome_util.genome import Genome
 from process_killer import main as process_killer
-from utils.dictionary import *
 
 
 def blueprint(population: Population,
@@ -131,6 +130,15 @@ def trace_most_fit(population: Population,
     visualizer.trace_genomes(pop=population, given_genome=genome)
 
 
+def training_overview(population: Population):
+    """Give an overview of the population's training process."""
+    print("\n===> CREATING TRAINING OVERVIEW <===\n")
+    from population.utils.visualizing.population_visualizer import create_training_overview
+    create_training_overview(
+            pop=population,
+    )
+
+
 def visualize_genome(population: Population,
                      genome: Genome,
                      debug: bool = True,
@@ -145,28 +153,30 @@ def visualize_genome(population: Population,
     )
 
 
+# TODO: Start of main
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     
     # Main methods
     parser.add_argument('--train', type=bool, default=False)
-    parser.add_argument('--train_same', type=bool, default=True)
+    parser.add_argument('--train_same', type=bool, default=False)
+    parser.add_argument('--train_overview', type=bool, default=False)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--trace', type=bool, default=False)
-    parser.add_argument('--trace_fit', type=bool, default=True)
+    parser.add_argument('--trace_fit', type=bool, default=False)
     parser.add_argument('--evaluate', type=bool, default=False)
-    parser.add_argument('--genome', type=bool, default=True)
+    parser.add_argument('--genome', type=bool, default=False)
     parser.add_argument('--live', type=bool, default=False)
     
     # Extra arguments
-    parser.add_argument('--iterations', type=int, default=10)
+    parser.add_argument('--iterations', type=int, default=1)
     parser.add_argument('--unused_cpu', type=int, default=2)
     parser.add_argument('--debug', type=bool, default=False)
     args = parser.parse_args()
     
     # Setup the population
     pop = Population(
-            name='distance_2',
+            name='delta_distance_2',
             # version=1,
             folder_name='test',
             # folder_name='DISTANCE-ONLY',
@@ -174,7 +184,7 @@ if __name__ == '__main__':
     )
     
     # Potentially modify the population
-    if not pop.best_genome: pop.best_genome = list(pop.population.values())[-1]
+    if not pop.best_genome: pop.best_genome = list(pop.population.values())[0]
     # pop.best_genome = list(pop.population.values())[-1]
     # pop.population = {k: v for k, v in pop.population.items() if k in [111]}
     # pop.best_genome.update_gru_nodes(pop.config.genome_config)
@@ -185,7 +195,7 @@ if __name__ == '__main__':
     # Set the blueprint and traces games
     # chosen_games = [0] * 10  # Different (random) initializations!
     # chosen_games = [g for g in range(1, 6)]
-    chosen_games = [99995, 99996, 99998, 99999]
+    chosen_games = [99995, 99996, 99997, 99998, 99999]
     
     # Chosen genome used for genome-evaluation
     chosen_genome = None
@@ -193,8 +203,6 @@ if __name__ == '__main__':
     
     # Load in current config-file
     config = Config()
-    config.evaluation.fitness_comb = D_MIN
-    config.update()
     
     try:
         if args.train:
@@ -214,6 +222,9 @@ if __name__ == '__main__':
                              debug=args.debug,
                              )
         
+        if args.train_overview:
+            training_overview(population=pop)
+        
         if args.blueprint:
             blueprint(population=pop, game_config=config, games=chosen_games)
         
@@ -232,7 +243,7 @@ if __name__ == '__main__':
         if args.genome:
             visualize_genome(population=pop,
                              genome=chosen_genome if chosen_genome else pop.best_genome,
-                             debug=True,  # TODO: args.debug
+                             debug=True,
                              )
         
         if args.live:

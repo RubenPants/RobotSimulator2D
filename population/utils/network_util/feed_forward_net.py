@@ -28,9 +28,9 @@ from configs.genome_config import GenomeConfig
 from environment.entities.robots import get_active_sensors
 from population.utils.genome_util.genes import GruNodeGene
 from population.utils.genome_util.genome import Genome
-from population.utils.network_util.activations import relu_activation, tanh_activation
 from population.utils.network_util.graphs import required_for_output
 from population.utils.network_util.shared import dense_from_coo
+from utils.dictionary import D_TANH
 
 
 class FeedForwardNet:
@@ -40,9 +40,9 @@ class FeedForwardNet:
                  hid2hid, hid2out,
                  hidden_biases, output_biases,
                  grus, gru_map,
+                 hidden_activation, output_activation,  # TODO: Make configurable?
                  game_config: Config,
                  batch_size=1,
-                 hidden_activation=relu_activation, output_activation=tanh_activation,  # TODO: Make configurable?
                  initial_read: list = None,
                  dtype=torch.float64,
                  ):
@@ -59,10 +59,10 @@ class FeedForwardNet:
         :param hid2out: Connections from hidden nodes towards the outputs
         :param grus: List of GRUCell objects (length equals len(gru_idx))
         :param gru_map: Boolean matrix mapping raw inputs to inputs used by GRUCell for a single batch
-        :param game_config: GameConfig object
-        :param batch_size: Needed to setup network-dimensions
         :param hidden_activation: The default hidden-node activation function (squishing)
         :param output_activation: The default output-node activation function (squishing)
+        :param game_config: GameConfig object
+        :param batch_size: Needed to setup network-dimensions
         :param initial_read: Initial sensory-input used to warm-up the network (no warm-up if None)
         :param dtype: Value-type used in the tensors
         """
@@ -299,6 +299,10 @@ class FeedForwardNet:
             grus.append(node.get_gru(mapping=weight_map))
             assert len(mapping[mapping]) == grus[-1].input_size
             gru_map.append(mapping)
+            
+        # Get the used activations  # TODO: Not configurable
+        hidden_activation = genome_config.activation_options[genome_config.activation_default]
+        output_activation = genome_config.activation_options[D_TANH]
         
         return FeedForwardNet(
                 input_idx=input_idx, hidden_idx=hidden_idx, gru_idx=gru_idx, output_idx=output_idx,
@@ -309,6 +313,7 @@ class FeedForwardNet:
                 game_config=game_config,
                 batch_size=batch_size,
                 initial_read=initial_read,
+                hidden_activation=hidden_activation, output_activation=output_activation,
         )
 
 

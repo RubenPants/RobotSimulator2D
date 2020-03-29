@@ -6,12 +6,13 @@ Words used across the project, sorted in alphabetical order.
 
 # A
 D_A_STAR = 'A*'
-D_ABS = 'abs'
 D_ANGLE = 'angle'
 D_AVG = 'avg'
 
 # C
-D_CUBE = 'cube'
+D_CLAMPED_ABS = 'clamped_abs'
+D_CLAMPED_LINEAR = 'clamped_linear'
+D_COS = 'cos'
 
 # D
 D_DIST_TO_TARGET = 'distance_to_target'
@@ -19,6 +20,10 @@ D_DISTANCE = 'distance'
 D_DISTANCE_ONLY = 'DISTANCE-ONLY'
 D_DIVERSITY = 'diversity'
 D_DONE = 'done'
+
+# E
+D_EXP = 'exp'
+D_EXP_ABS = 'exp_abs'
 
 # F
 D_FPS = 'fps'
@@ -28,12 +33,11 @@ D_FULL_NODIRECT = 'full_nodirect'
 # G
 D_GAME_ID = 'game_id'
 D_GAUSS = 'gauss'
-D_GELU = 'gelu'
 D_GMEAN = 'gmean'
 D_GRU = 'gru'
 
-# I
-D_IDENTITY = 'identity'
+# H
+D_HAT = 'hat'
 
 # L
 D_LINEAR = 'linear'
@@ -56,15 +60,11 @@ D_PATH = 'path'
 D_POS = 'position'
 D_PRODUCT = 'product'
 
-# R
-D_RELU = 'relu'
-
 # S
 D_SENSOR_LIST = 'sensor_list'
 D_SIGMOID = 'sigmoid'
 D_SIMPLE = 'simple'
 D_SIN = 'sin'
-D_SQUARE = 'square'
 D_SUM = 'sum'
 
 # T

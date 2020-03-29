@@ -26,13 +26,13 @@ class BotConfig(BaseConfig):
         # Maximal turning speed of the robot expressed in radians per second  [def=3.53~=0.6/0.17]
         self.turning_speed: float = 3.53
         
-        # Sensor-configurations
+        # Sensor-configurations  TODO
         # The clockwise directions for the angular sensors  [def=[True, False]]
-        self.angular_dir = [True, False]
+        self.angular_dir = []  # [True, False]
         # The delta-distance sensor  [def=False]
-        self.delta_dist_enabled = False
+        self.delta_dist_enabled = True
         # Angles used for the proximity-sensors  [def=/]
-        self.prox_angles = get_proximity_angles()
+        self.prox_angles = []  # get_proximity_angles()
 
 
 def get_proximity_angles():

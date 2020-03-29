@@ -7,6 +7,10 @@ from math import cos, sin
 
 import matplotlib.pyplot as plt
 
+from population.utils.visualizing.averaging_functions import EMA, Forward, SMA
+from population.utils.visualizing.elites_visualizer import main as elite_visualizer
+from population.utils.visualizing.specie_distance import main as specie_distance
+from population.utils.visualizing.specie_visualizer import main as specie_visualizer
 from utils.dictionary import D_GAME_ID, D_POS
 from utils.myutils import get_subfolder
 
@@ -84,3 +88,26 @@ def create_traces(traces: dict, games: list, gen: int, save_path: str, save_name
         game_path = get_subfolder(save_path, 'game{id:05d}'.format(id=g.id))
         plt.savefig(f'{game_path}{save_name}_gen{gen:05d}')
         plt.close()
+
+
+def create_training_overview(pop):
+    """Create overview-plots of a population's training history."""
+    # Visualize the population elites and for each specie its elites
+    for f in [Forward, SMA, EMA]:
+        elite_visualizer(
+                pop=pop,
+                func=f,
+                show=False,
+        )
+        
+        specie_visualizer(
+                pop=pop,
+                func=f,
+                show=False,
+        )
+    
+    # Visualize the specie-distance of the current species
+    specie_distance(
+            pop=pop,
+            show=False,
+    )
