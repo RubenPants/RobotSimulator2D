@@ -309,3 +309,7 @@ class Population:
         
         # Append the string to the file
         append_log(logged_inp, f'population/storage/{self.folder_name}/{self}/logbook.log')
+    
+    def inject_genome(self, genome: Genome):
+        """Inject the given genome into the population."""
+        self.population[genome.key] = genome

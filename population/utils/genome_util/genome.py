@@ -16,6 +16,7 @@ from configs.genome_config import GenomeConfig
 from environment.entities.robots import get_snapshot
 from population.utils.genome_util.genes import ConnectionGene, GruNodeGene, OutputNodeGene, SimpleNodeGene
 from population.utils.network_util.graphs import creates_cycle, required_for_output
+from utils.myutils import load_pickle, store_pickle
 
 
 class Genome(object):
@@ -416,3 +417,18 @@ class Genome(object):
         num_to_add = int(round(len(all_connections) * config.initial_conn_frac))
         for input_id, output_id in all_connections[:num_to_add]:
             self.create_connection(config, input_id, output_id)
+    
+    def save(self, path=None):
+        """Method to solely save the genome."""
+        if path is None: path = f'genome{self.key}'
+        store_pickle(self, path)
+    
+    def load(self, path):
+        """Load in a genome."""
+        genome = load_pickle(path)
+        self.key = genome.key
+        self.connections = genome.connections
+        self.nodes = genome.nodes
+        self.num_outputs = genome.num_outputs
+        self.fitness = genome.fitness
+        self.robot_snapshot = genome.robot_snapshot

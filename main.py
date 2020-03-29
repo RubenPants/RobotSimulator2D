@@ -176,7 +176,7 @@ if __name__ == '__main__':
     
     # Setup the population
     pop = Population(
-            name='delta_distance_2',
+            name='distance_3',
             # version=1,
             # folder_name='test',
             folder_name='DISTANCE-ONLY',
@@ -185,6 +185,7 @@ if __name__ == '__main__':
     
     # Potentially modify the population
     if not pop.best_genome: pop.best_genome = list(pop.population.values())[0]
+    pop.best_genome = pop.population[46882]
     # pop.best_genome = list(pop.population.values())[-1]
     # pop.population = {k: v for k, v in pop.population.items() if k in [111]}
     # pop.best_genome.update_gru_nodes(pop.config.genome_config)
