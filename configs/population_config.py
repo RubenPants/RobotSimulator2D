@@ -46,7 +46,7 @@ class PopulationConfig(BaseConfig):
         
         # TODO: Often used, hence placed outside of parameter-crowd
         # Number of individuals in each generation  [def=256]
-        self.pop_size: int = 32
+        self.pop_size: int = 256
     
     def get_compatibility_threshold(self, n_species: int):
         """Get the compatibility threshold based on the current number of species."""
