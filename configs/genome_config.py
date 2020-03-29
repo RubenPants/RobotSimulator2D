@@ -64,9 +64,9 @@ class GenomeConfig(BaseConfig):
         # Coefficient for each weight or bias difference contribution to the genomic distance  [def=0.5]
         self.compatibility_weight: float = .5
         # Probability of adding a connection between existing nodes during mutation (each generation)  [def=0.1]  TODO
-        self.conn_add_prob: float = .05
+        self.conn_add_prob: float = .1
         # Probability of deleting an existing connection during mutation (each generation)  [def=0.1]  TODO
-        self.conn_disable_prob: float = .05
+        self.conn_disable_prob: float = .1
         # Initial enabled-state of a connection  [def=True]
         self.enabled_default: bool = True
         # The probability that mutation will replace the 'enabled status' of a connection  [def=0.05]  TODO: Remove
@@ -98,9 +98,9 @@ class GenomeConfig(BaseConfig):
         # Output-keys, which start by convention from 0 and increment with each output, set in update()  [def=/]
         self.keys_output = None
         # Probability of adding a node during mutation (each generation)  [def=0.05]  TODO
-        self.node_add_prob: float = 0.01
+        self.node_add_prob: float = 0.05
         # Probability of removing a node during mutation (each generation)  [def=0.05]  TODO
-        self.node_disable_prob: float = 0.01
+        self.node_disable_prob: float = 0.05
         # Node-indexer helps with the generation of node-keys  [def=/]
         self.node_indexer = None
         # Number of inputs, which are the robot's sensors  [def=/]

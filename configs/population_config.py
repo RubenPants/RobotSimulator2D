@@ -18,7 +18,7 @@ class PopulationConfig(BaseConfig):
     
     def __init__(self):
         # Individuals whose genetic distance is less than this threshold are in the same specie  [def=2.0]  TODO
-        self.compatibility_thr: float = 2.0
+        self.compatibility_thr: float = 2.
         # Sexual reproduction  [def=True]
         self.crossover_enabled: bool = False
         # Probability of having a crossover when crossover is enabled  [def=0.6]
@@ -50,6 +50,10 @@ class PopulationConfig(BaseConfig):
     
     def get_compatibility_threshold(self, n_species: int):
         """Get the compatibility threshold based on the current number of species."""
+        # Lower the compatibility threshold when less than minimal number of species
+        if n_species < self.specie_count_min:
+            return max(1.5, self.compatibility_thr / 2)
+        
         # Return the default threshold when number of species is lower than or equal to the target number
         if n_species <= self.specie_count_target:
             return self.compatibility_thr

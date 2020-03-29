@@ -56,7 +56,7 @@ def main(pop: Population, func, window: int = 5, show: bool = True):
     plt.savefig(f'population/storage/{pop.folder_name}/{pop}/images/elites/{name}')
     if show:
         plt.show()
-        plt.close()
+    plt.close()
 
 
 if __name__ == '__main__':

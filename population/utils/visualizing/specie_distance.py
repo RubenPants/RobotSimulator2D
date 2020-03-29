@@ -47,7 +47,7 @@ def main(pop: Population, show: bool = True):
     plt.savefig(f'population/storage/{pop.folder_name}/{pop}/images/species/distances_gen_{pop.generation}')
     if show:
         plt.show()
-        plt.close()
+    plt.close()
 
 
 if __name__ == '__main__':
