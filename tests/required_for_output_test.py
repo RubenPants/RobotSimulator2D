@@ -23,7 +23,8 @@ def get_config():
     cfg.bot.delta_dist_enabled = False
     
     # Genomes have two outputs
-    cfg.genome.compatibility_disjoint = 1  # Easier to calculate with
+    cfg.genome.compatibility_disjoint_conn = 1  # Easier to calculate with
+    cfg.genome.compatibility_disjoint_node = 1  # Easier to calculate with
     cfg.genome.compatibility_weight = 1  # Easier to calculate with
     cfg.genome.num_outputs = 2
     cfg.genome.initial_conn = D_FULL_DIRECT  # Otherwise errors due to limited number of initial nodes

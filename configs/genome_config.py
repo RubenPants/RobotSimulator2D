@@ -19,8 +19,8 @@ class GenomeConfig(BaseConfig):
     __slots__ = {
         'activation_default', 'activation_mutate_rate', 'activation_options', 'aggregation_default',
         'aggregation_mutate_rate', 'aggregation_options', 'bias_init_mean', 'bias_init_stdev', 'bias_max_value',
-        'bias_min_value', 'bias_mutate_power', 'bias_mutate_rate', 'bias_replace_rate', 'compatibility_disjoint',
-        'compatibility_weight', 'conn_add_prob', 'conn_disable_prob', 'enabled_default',
+        'bias_min_value', 'bias_mutate_power', 'bias_mutate_rate', 'bias_replace_rate', 'compatibility_disjoint_conn',
+        'compatibility_disjoint_node', 'compatibility_weight', 'conn_add_prob', 'conn_disable_prob', 'enabled_default',
         'enabled_mutate_rate', 'gru_enabled', 'gru_init_mean', 'gru_init_stdev', 'gru_max_value', 'gru_min_value',
         'gru_mutate_power', 'gru_mutate_rate', 'gru_node_prob', 'gru_replace_rate', 'initial_conn',
         'initial_conn_frac', 'keys_input', 'keys_output', 'node_add_prob', 'node_disable_prob', 'node_indexer',
@@ -59,10 +59,12 @@ class GenomeConfig(BaseConfig):
         self.bias_mutate_rate: float = .2
         # The probability that mutation will replace the bias of a node with a completely random value  [def=0.05]
         self.bias_replace_rate: float = .05
-        # Full weight of disjoint and excess nodes on determining genomic distance  [def=1.0]  # TODO: Separate for GRU?
-        self.compatibility_disjoint: float = 1.0
+        # Weight of disjoint and excess connections on the genomic distance  [def=1.5]
+        self.compatibility_disjoint_conn: float = 1.5
+        # Weight of disjoint and excess nodes on the genomic distance  [def=2.0]
+        self.compatibility_disjoint_node: float = 2.
         # Coefficient for each weight or bias difference contribution to the genomic distance  [def=0.5]
-        self.compatibility_weight: float = .5
+        self.compatibility_weight: float = 1.
         # Probability of adding a connection between existing nodes during mutation (each generation)  [def=0.05]  TODO
         self.conn_add_prob: float = .05
         # Probability of deleting an existing connection during mutation (each generation)  [def=0.05]  TODO

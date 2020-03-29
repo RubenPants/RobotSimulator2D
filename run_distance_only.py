@@ -41,8 +41,9 @@ def main(gru,
     config.game.duration = 50  # Limited time to find target, but just enough for fastest genomes
     config.game.fps = 10  # Minor changes during evaluation run, 10 fps suffices
     
-    config.genome.compatibility_disjoint = 1.
-    config.genome.compatibility_weight = .5
+    config.genome.compatibility_disjoint_conn = 1.5
+    config.genome.compatibility_disjoint_node = 2.
+    config.genome.compatibility_weight = 1.
     config.genome.gru_mutate_power = .1
     config.genome.gru_mutate_rate = .2
     config.genome.gru_node_prob = .6
@@ -53,7 +54,7 @@ def main(gru,
     config.population.parent_selection = .2
     config.population.pop_size = 512  # Large enough of a population
     config.population.min_specie_size = 32  # Enough room for improvement within the specie
-    config.population.compatibility_thr = 2.0  # Single node in difference would be enough (+has other connections)
+    config.population.compatibility_thr = 4.0  # Single node in difference would be enough (+has other connections)
     config.population.specie_elitism = 1  # Only prevent the specie carrying the elite from stagnating
     config.population.specie_stagnation = 30  # Relative great since improvement comes slow
     config.update()

@@ -317,8 +317,9 @@ def get_config():
     cfg.bot.delta_dist_enabled = False
     
     # Genomes have two outputs
-    cfg.genome.compatibility_disjoint = 1  # Easier to calculate with
-    cfg.genome.compatibility_weight = 1  # Easier to calculate with
+    # cfg.genome.compatibility_disjoint_conn = 1  # Easier to calculate with
+    # cfg.genome.compatibility_disjoint_node = 1  # Easier to calculate with
+    # cfg.genome.compatibility_weight = 1  # Easier to calculate with
     cfg.genome.num_outputs = 2
     cfg.genome.initial_conn = D_FULL_DIRECT  # Otherwise errors due to limited number of initial nodes
     
@@ -420,8 +421,8 @@ class DifferentGenome(unittest.TestCase):
         #  2 identical nodes (outputs)
         #  5 disjoint connections (1 completely removed, 2x2 others connected to different genes)
         #  1 identical connection
-        node_distance = (2 + 2 * 0) / 3
-        conn_distance = (5 * cfg.genome.compatibility_disjoint + 1 * 0) / 4
+        node_distance = (2 * cfg.genome.compatibility_disjoint_node + 2 * 0) / 3
+        conn_distance = (5 * cfg.genome.compatibility_disjoint_conn + 1 * 0) / 4
         self.assertEqual(result, node_distance + conn_distance)
 
 
@@ -452,8 +453,8 @@ class DifferentDeepGenome(unittest.TestCase):
         #  2 identical nodes (outputs)
         #  9 disjoint connections
         #  1 identical connection
-        node_distance = (6 + 2 * 0) / 5
-        conn_distance = (9 * cfg.genome.compatibility_disjoint + 1 * 0) / 6
+        node_distance = (6 * cfg.genome.compatibility_disjoint_node + 2 * 0) / 5
+        conn_distance = (9 * cfg.genome.compatibility_disjoint_conn + 1 * 0) / 6
         self.assertEqual(result, node_distance + conn_distance)
         
         # Check if all different representations
@@ -485,8 +486,8 @@ class DifferentDeepGenome(unittest.TestCase):
         #  3 identical nodes (outputs)
         #  7 disjoint connections (1 completely removed, 2x2 others connected to different genes)
         #  2 identical connections
-        node_distance = (4 + 3 * 0) / 5
-        conn_distance = (7 * cfg.genome.compatibility_disjoint + 2 * 0) / 6
+        node_distance = (4 * cfg.genome.compatibility_disjoint_node + 3 * 0) / 5
+        conn_distance = (7 * cfg.genome.compatibility_disjoint_conn + 2 * 0) / 6
         self.assertEqual(result, node_distance + conn_distance)
         
         # Check if all different representations
@@ -518,8 +519,8 @@ class DifferentDeepGenome(unittest.TestCase):
         #  4 identical nodes (outputs)
         #  5 disjoint connections (1 completely removed, 2x2 others connected to different genes)
         #  4 identical connections
-        node_distance = (2 + 4 * 0) / 5
-        conn_distance = (5 * cfg.genome.compatibility_disjoint + 4 * 0) / 6
+        node_distance = (2 * cfg.genome.compatibility_disjoint_node + 4 * 0) / 5
+        conn_distance = (5 * cfg.genome.compatibility_disjoint_conn + 4 * 0) / 6
         self.assertEqual(result, node_distance + conn_distance)
         
         # Check if all different representations

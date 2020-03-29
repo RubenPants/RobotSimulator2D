@@ -76,7 +76,7 @@ class GenomeDistanceCache(object):
         max_nodes = max(len(used_nodes0), len(used_nodes1))
         if node_distance:
             distance += sum(node_distance.values()) / len(node_distance)
-        distance += (self.config.compatibility_disjoint * disjoint_nodes) / max_nodes
+        distance += (self.config.compatibility_disjoint_node * disjoint_nodes) / max_nodes
         
         # The distance between connections is computed likewise
         conn_distance = dict()  # Dictionary mapping connections (genome0, genome1) to their distance
@@ -105,7 +105,7 @@ class GenomeDistanceCache(object):
         max_conn = max(len(used_conn0), len(used_conn1))
         if conn_distance:
             distance += sum(conn_distance.values()) / len(conn_distance)
-        distance += (self.config.compatibility_disjoint * disjoint_connections) / max_conn
+        distance += (self.config.compatibility_disjoint_conn * disjoint_connections) / max_conn
         
         # Save and return the final distance
         self.distances[g0, g1] = distance

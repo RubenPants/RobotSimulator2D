@@ -2,6 +2,13 @@
  Custom low-level robot simulator.
 
 
+## MAIN IDEAS
+
+* Focus on the no-bearing task
+    * I have the feeling that the other task is somewhat solved, where the no-bearing task definitely is not
+* Recreate the maze to be more performant for the no-bearing task (i.e. no wall detection etc), possibility for drone to go negative
+* Possible to update the GRU-weights (in NEAT) with the help of local learning rules? (adaptively learn during its lifetime to improve weight updates)
+
 ## TODO
 
 ### Urgent
