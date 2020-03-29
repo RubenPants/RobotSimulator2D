@@ -6,6 +6,10 @@
 
 ### Urgent
 
+* Take the elite (same-maze problem) and evaluate its mutations, similar in performance or radically different?
+    Not so good, apparently...
+* Split excess gene to excess node and excess connections (node should have a larger weight)
+
 * Redo crossover to follow the competing convention problem!
 * Bug in crossover! (I think due to the GRU?)
 * Fitness that not only takes path (at the end) in account, but also normalized time taken to reach target

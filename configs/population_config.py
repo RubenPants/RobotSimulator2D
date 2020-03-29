@@ -32,7 +32,7 @@ class PopulationConfig(BaseConfig):
         # Minimum number of genomes per species, keeping low prevents number of individuals blowing up  [def=16]  TODO
         self.min_specie_size: int = 32
         # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.2]  TODO
-        self.parent_selection: float = 0.2
+        self.parent_selection: float = 0.4
         # Maximum number of species  [def=15]
         self.specie_count_max = 15
         # Minimum number of species  [def=5]
@@ -42,7 +42,7 @@ class PopulationConfig(BaseConfig):
         # Number of the best species that will be protected from stagnation  [def=2]
         self.specie_elitism: int = 2
         # Remove a specie if it hasn't improved over this many number of generations  [def=15]  TODO
-        self.specie_stagnation: int = 30
+        self.specie_stagnation: int = 15
         
         # TODO: Often used, hence placed outside of parameter-crowd
         # Number of individuals in each generation  [def=256]

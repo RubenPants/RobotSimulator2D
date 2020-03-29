@@ -5,6 +5,7 @@ Run a single population on one or more of the provided functionalities.
 """
 import argparse
 import traceback
+from copy import deepcopy
 
 from config import Config
 from population.population import Population
@@ -159,13 +160,13 @@ if __name__ == '__main__':
     
     # Main methods
     parser.add_argument('--train', type=bool, default=False)
-    parser.add_argument('--train_same', type=bool, default=True)
-    parser.add_argument('--train_overview', type=bool, default=True)
+    parser.add_argument('--train_same', type=bool, default=False)
+    parser.add_argument('--train_overview', type=bool, default=False)
     parser.add_argument('--blueprint', type=bool, default=False)
     parser.add_argument('--trace', type=bool, default=False)
     parser.add_argument('--trace_fit', type=bool, default=True)
     parser.add_argument('--evaluate', type=bool, default=False)
-    parser.add_argument('--genome', type=bool, default=True)
+    parser.add_argument('--genome', type=bool, default=False)
     parser.add_argument('--live', type=bool, default=False)
     
     # Extra arguments
@@ -176,7 +177,7 @@ if __name__ == '__main__':
     
     # Setup the population
     pop = Population(
-            name='distance_3',
+            name='test',
             # version=1,
             # folder_name='test',
             folder_name='DISTANCE-ONLY',
@@ -185,7 +186,9 @@ if __name__ == '__main__':
     
     # Potentially modify the population
     if not pop.best_genome: pop.best_genome = list(pop.population.values())[0]
-    # pop.best_genome = pop.population[46882]
+    # pop.best_genome = deepcopy(pop.population[-10])
+    # pop.best_genome.mutate(config=pop.config.genome)
+    # pop.best_genome.key = 0
     # pop.best_genome = list(pop.population.values())[-1]
     # pop.population = {k: v for k, v in pop.population.items() if k in [111]}
     # pop.best_genome.update_gru_nodes(pop.config.genome_config)

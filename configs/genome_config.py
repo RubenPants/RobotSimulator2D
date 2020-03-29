@@ -56,7 +56,7 @@ class GenomeConfig(BaseConfig):
         # The standard deviation of the zero-centered gaussian from which a bias value mutation is drawn  [def=0.2] TODO
         self.bias_mutate_power: float = .1
         # The probability that mutation will change the bias of a node by adding a random value  [def=0.2]  TODO
-        self.bias_mutate_rate: float = .4
+        self.bias_mutate_rate: float = .2
         # The probability that mutation will replace the bias of a node with a completely random value  [def=0.05]
         self.bias_replace_rate: float = .05
         # Full weight of disjoint and excess nodes on determining genomic distance  [def=1.0]  # TODO: Separate for GRU?
@@ -84,7 +84,7 @@ class GenomeConfig(BaseConfig):
         # The standard deviation of the zero-centered gaussian from which a GRU value mutation is drawn  [def=0.05]
         self.gru_mutate_power: float = .05
         # Probability of a GRU value to mutate  [def=0.2]  TODO
-        self.gru_mutate_rate: float = .4
+        self.gru_mutate_rate: float = .2
         # Probability of mutating a GRU node rather than a simple node  [def=0.6]  TODO
         self.gru_node_prob: float = 0.6
         # Probability of assigning (single) random value in GRU, based on gru_init_mean and gru_init_stdev  [def=0.05]
@@ -120,7 +120,7 @@ class GenomeConfig(BaseConfig):
         # The standard deviation of the zero-centered gaussian from which a weight value mutation is drawn [def=0.2]TODO
         self.weight_mutate_power: float = 0.1
         # Probability of a weight (connection) to mutate  [def=0.2]  TODO
-        self.weight_mutate_rate: float = 0.4
+        self.weight_mutate_rate: float = 0.2
         # Probability of assigning completely new value, based on weight_init_mean and weight_init_stdev  [def=0.05]
         self.weight_replace_rate: float = 0.05
     

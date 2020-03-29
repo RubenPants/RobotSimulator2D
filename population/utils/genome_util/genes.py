@@ -150,7 +150,9 @@ class OutputNodeGene(BaseGene):
     
     def distance(self, other, cfg: GenomeConfig):
         """Only possible difference in output-nodes' distance is the bias."""
-        return abs(self.bias - other.bias) * cfg.compatibility_weight
+        d = abs(self.bias - other.bias)
+        if self.aggregation != other.aggregation: d += 1
+        return d * cfg.compatibility_weight
     
     def mutate(self, cfg: GenomeConfig):
         """Mutation is not possible on the activation."""
@@ -248,8 +250,9 @@ class GruNodeGene(BaseGene):
             if k in self.input_keys: s[:, i] = self.weight_ih_full[:, self.input_keys_full.index(k)]
             if k in other.input_keys: o[:, i] = other.weight_ih_full[:, other.input_keys_full.index(k)]
         d += norm(s - o)
+        d /= 4  # Divide by four since the average node weight-difference should be calculated
         if self.activation != other.activation: d += 1.0
-        return (d / 4) * cfg.compatibility_weight
+        return d * cfg.compatibility_weight
     
     def mutate(self, cfg: GenomeConfig):
         self.activation = activation.mutate(self.activation, cfg=cfg)
