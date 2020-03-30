@@ -5,6 +5,7 @@ Visualization of a specie's elites.
 """
 import os
 
+import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 
@@ -13,11 +14,11 @@ from population.utils.visualizing.averaging_functions import EMA, Forward, SMA
 from utils.myutils import get_subfolder
 
 
-def main(pop: Population, func, window: int = 5, show: bool = True):
+def specie_elite_fitness(pop: Population, func, window: int = 5, show: bool = True):
     """
     Visualize the elites of the given population. Each generation, the average fitness of the three stored elites is
     taken.
-    
+
     :param pop: Population object
     :param func: Function used to flatten the curve
     :param window: Window-size used in the function
@@ -70,18 +71,70 @@ def main(pop: Population, func, window: int = 5, show: bool = True):
     plt.close()
 
 
+def specie_representatives(pop: Population, show: bool = True):
+    """Show for each of the current species their representative's architecture."""
+    species = pop.species.species
+    elite_id = dict()
+    for sid, s in sorted(species.items()):
+        elite_id[sid] = s.representative.key
+        pop.visualize_genome(
+                debug=False,  # Keep the networks simple
+                genome=s.representative,
+                show=False,
+        )
+    
+    hor = min(len(elite_id), 5)
+    vert = max(len(elite_id) % 5 + 1, 1)
+    plt.figure(figsize=(5 * hor, 5 * vert))
+    plt.tight_layout()
+    for i, (sid, eid) in enumerate(elite_id.items()):
+        plt.subplot(vert, hor, i + 1)
+        img = mpimg.imread(f'population/storage/{pop.folder_name}/{pop}/images/architectures/genome_{eid:05d}.png')
+        plt.imshow(img)
+        plt.title(f'Specie {sid}')
+        plt.axis('off')
+    
+    # Save the result
+    get_subfolder(f'population/storage/{pop.folder_name}/{pop}/', 'images')
+    get_subfolder(f'population/storage/{pop.folder_name}/{pop}/images/', 'species')
+    plt.savefig(f'population/storage/{pop.folder_name}/{pop}/images/species/specie_architectures.png',
+                bbox_inches='tight')
+    if show:
+        plt.show()
+    plt.close()
+
+
+def main(pop: Population, window: int = 5, show: bool = True):
+    """Display for each specie its elites' performance, and their architecture (different images)."""
+    for f in [Forward, SMA, EMA]:
+        specie_elite_fitness(
+                pop=pop,
+                func=f,
+                window=window,
+                show=show,
+        )
+    
+    specie_representatives(
+            pop=pop,
+            show=show,
+    )
+
+
 if __name__ == '__main__':
     os.chdir("../../../")
     
     population = Population(
-            name='delta_distance_2',
+            name='distance_3',
             # version=1,
-            folder_name='test',
+            # folder_name='test',
+            folder_name='DISTANCE-ONLY',
             # folder_name='NEAT-GRU',
     )
     
-    for f in [Forward, SMA, EMA]:
-        main(
-                pop=population,
-                func=f,
-        )
+    specie_representatives(
+            pop=population,
+    )
+    
+    # main(
+    #         pop=population,
+    # )

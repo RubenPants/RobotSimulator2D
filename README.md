@@ -8,17 +8,19 @@
     * I have the feeling that the other task is somewhat solved, where the no-bearing task definitely is not
 * Recreate the maze to be more performing for the no-bearing task (i.e. no wall detection etc), possibility for drone to go negative
 * Possible to update the GRU-weights (in NEAT) with the help of local (plastic) learning rules? (adaptively learn during its lifetime to improve weight updates)
-* Treat the difference in distance as a form of back-propagation (error)? --> Reward-system as seen in RL as A2C
 
 ### GRU learning rule
 Update a GRU's weights based on its current value, the value fed into the GRU and the result it obtained (i.e. difference in distance over the step)
 
+### Co-evolving NEAT
+* Co-evolving NEAT:
+    * CPPN for the weights
+    * NEAT for the locations in the network, a specie is determined by a genome's architecture (or only #nodes)
 
 ## TODO
 
 ### Urgent
 
-* Constraint the node-output to be within -1..1, let weights vary between -3..3
 * Take the elite (same-maze problem) and evaluate its mutations, similar in performance or radically different?
     Not so good, apparently...
 * Split excess gene to excess node and excess connections (node should have a larger weight)

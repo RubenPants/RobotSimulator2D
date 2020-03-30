@@ -64,11 +64,27 @@ class DefaultSpecies:
                 d = distances(s.representative, genome)
                 candidates.append((d, genome))
             
-            # The new representative is the genome closest to the current representative
-            _, new_repr = min(candidates, key=lambda x: x[0])
-            new_representatives[sid] = new_repr.key
-            members[sid] = [new_repr.key]
-            unspeciated.remove(new_repr.key)
+            # Sort the genomes based on their distance towards the specie
+            sorted_repr = sorted(candidates, key=lambda x: x[0])
+            
+            # Go through closest genomes to find first with different architecture than other specie's representative
+            added = False
+            for _, new_repr in sorted_repr:
+                match = [sid for sid, rid in new_representatives.items() if
+                         distances.get_disjoint_genes(population[rid], new_repr) == (0, 0)]
+                if len(match) == 0:
+                    new_representatives[sid] = new_repr.key
+                    members[sid] = [new_repr.key]
+                    unspeciated.remove(new_repr.key)
+                    added = True
+                    break
+            
+            # If no new representative found that is unique, add the closest
+            if not added:
+                new_repr = sorted_repr[0][1]
+                new_representatives[sid] = new_repr.key
+                members[sid] = [new_repr.key]
+                unspeciated.remove(new_repr.key)
         
         # Partition the population into species based on their genetic similarity
         while unspeciated:
@@ -77,11 +93,18 @@ class DefaultSpecies:
             genome = population[gid]
             
             # Check if a specie already exists with the same architecture, if so, add the genome to this specie
-            architecture_match = [sid for sid, rid in new_representatives.items() if
-                                  distances.get_disjoint_genes(population[rid], genome) == (0, 0)]
-            if architecture_match:
-                assert len(architecture_match) == 1  # At most one identical specie
-                members[architecture_match[0]].append(gid)
+            match = [sid for sid, rid in new_representatives.items() if
+                     distances.get_disjoint_genes(population[rid], genome) == (0, 0)]
+            if match:
+                # Append to closest specie
+                if len(match) == 1:
+                    members[match[0]].append(gid)
+                    continue
+                else:
+                    temp = sorted([(distances(population[new_representatives[sid]], genome), sid) for sid in match],
+                                  key=lambda x: x[0])  # Sort on minimal distance
+                    members[temp[0][1]].append(gid)
+                    continue
             
             # Find the species with the most similar representative
             specie_distance = []
