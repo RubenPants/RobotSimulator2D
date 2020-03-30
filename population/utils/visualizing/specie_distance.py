@@ -26,6 +26,7 @@ def main(pop: Population, show: bool = True):
     cache = GenomeDistanceCache(config=pop.config.genome)
     temp = [(s.key, s.representative) for s in pop.species.species.values()]
     species, representatives = zip(*sorted(temp, key=lambda x: x[0]))
+    cache.warm_up({r.key: r for r in representatives})
     distances = zeros((len(representatives),) * 2)  # Square matrix
     for row, r1 in enumerate(representatives):
         for col, r2 in enumerate(representatives):
