@@ -68,7 +68,7 @@ class DefaultReproduction:
         spawn_amounts = [max(min_species_size, int(round(n * norm))) for n in spawn_amounts]
         return spawn_amounts
     
-    def reproduce(self, config: Config, species: DefaultSpecies, generation: int, logger=None):  # TODO: Go over everything below!
+    def reproduce(self, config: Config, species: DefaultSpecies, generation: int, logger=None):
         """Handles creation of genomes, either from scratch or by sexual or asexual reproduction from parents."""
         # Check which species to keep and which to remove
         remaining_fitness = []
@@ -96,10 +96,8 @@ class DefaultReproduction:
         fitness_range = max(0.1, max_fitness - min_fitness)
         for afs in remaining_species:
             # Compute adjusted fitness, which is the normalized mean specie fitness (msf) divided by the number of
-            #  candidates present in this specie. Note that a specie is only represented by its parents
-            fitnesses = sorted([m.fitness for m in afs.members.values()], reverse=True)
-            msf = mean(fitnesses[:int(len(afs.members) * max(config.population.parent_selection,
-                                                             config.population.genome_elitism))])
+            #  candidates present in this specie
+            msf = mean([m.fitness for m in itervalues(afs.members)])
             afs.adjusted_fitness = min((msf - min_fitness) / fitness_range, 1)
         
         # Minimum specie-size is defined by the number of elites and the minimal number of genomes in a population

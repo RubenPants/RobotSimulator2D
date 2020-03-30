@@ -12,6 +12,12 @@
 ### GRU learning rule
 Update a GRU's weights based on its current value, the value fed into the GRU and the result it obtained (i.e. difference in distance over the step)
 
+* Compare :
+    * NEAT (no-recurrent connections)
+    * NEAT with recurrent connections
+    * NEAT-GRU
+    * Plastic NEAT-GRU
+
 ### Co-evolving NEAT
 * Co-evolving NEAT:
     * CPPN for the weights

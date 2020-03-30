@@ -78,10 +78,12 @@ def required_for_output(inputs: set, outputs: set, connections: dict):
             used_conn = {(a, b): c for (a, b), c in used_conn.items() if (a in used_nodes and b in used_nodes)}
             not_recurrent_used_conn = {(a, b): c for (a, b), c in used_conn.items() if a != b}
     
-    # Network is invalid if no connections remain or the outputs are not connected anymore
+    # Network is invalid if no connections remain or none of the inputs or outputs are connected anymore
     used_nodes = set(a for (a, _) in used_conn.keys())
     used_nodes.update({b for (_, b) in used_conn.keys()})
-    if (not used_conn) or (not any([i in used_nodes for i in outputs])):
+    if (not used_conn) or \
+            (not any([i in used_nodes for i in outputs])) or \
+            (not any([i in used_nodes for i in inputs])):
         return set(), set(), outputs, {}
     
     # All the outputs should always be considered 'used nodes'
