@@ -22,6 +22,8 @@ def main(pop: Population, window: int = 5, show: bool = True):
     :param window: Window-size used in the function
     :param show: Show the result
     """
+    get_subfolder(f'population/storage/{pop.folder_name}/{pop}/', 'images')
+    get_subfolder(f'population/storage/{pop.folder_name}/{pop}/images/', 'elites')
     for func in [Forward, SMA, EMA]:
         # Fetch name based on used function
         name = f'{"EMA_" if func == EMA else "SMA_" if func == SMA else ""}gen_{pop.generation}'
@@ -51,8 +53,6 @@ def main(pop: Population, window: int = 5, show: bool = True):
         plt.tight_layout()
         
         # Save the result
-        get_subfolder(f'population/storage/{pop.folder_name}/{pop}/', 'images')
-        get_subfolder(f'population/storage/{pop.folder_name}/{pop}/images/', 'elites')
         plt.savefig(f'population/storage/{pop.folder_name}/{pop}/images/elites/{name}')
         if show:
             plt.show()

@@ -185,7 +185,6 @@ if __name__ == '__main__':
     
     # Potentially modify the population
     if not pop.best_genome: pop.best_genome = list(pop.population.values())[0]
-    # pop.best_genome = deepcopy(pop.population[-10])
     # pop.best_genome.mutate(config=pop.config.genome)
     # pop.best_genome.key = 0
     # pop.best_genome = list(pop.population.values())[-1]

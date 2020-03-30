@@ -63,8 +63,6 @@ def specie_elite_fitness(pop: Population, func, window: int = 5, show: bool = Tr
     plt.tight_layout()
     
     # Save the result
-    get_subfolder(f'population/storage/{pop.folder_name}/{pop}/', 'images')
-    get_subfolder(f'population/storage/{pop.folder_name}/{pop}/images/', 'species')
     plt.savefig(f'population/storage/{pop.folder_name}/{pop}/images/species/{name}')
     if show:
         plt.show()
@@ -89,14 +87,12 @@ def specie_representatives(pop: Population, show: bool = True):
     plt.tight_layout()
     for i, (sid, eid) in enumerate(elite_id.items()):
         plt.subplot(vert, hor, i + 1)
-        img = mpimg.imread(f'population/storage/{pop.folder_name}/{pop}/images/architectures/genome_{eid:05d}.png')
+        img = mpimg.imread(f'population/storage/{pop.folder_name}/{pop}/images/architectures/genome_{eid}.png')
         plt.imshow(img)
         plt.title(f'Specie {sid}')
         plt.axis('off')
     
     # Save the result
-    get_subfolder(f'population/storage/{pop.folder_name}/{pop}/', 'images')
-    get_subfolder(f'population/storage/{pop.folder_name}/{pop}/images/', 'species')
     plt.savefig(f'population/storage/{pop.folder_name}/{pop}/images/species/specie_architectures.png',
                 bbox_inches='tight')
     if show:
@@ -106,6 +102,8 @@ def specie_representatives(pop: Population, show: bool = True):
 
 def main(pop: Population, window: int = 5, show: bool = True):
     """Display for each specie its elites' performance, and their architecture (different images)."""
+    get_subfolder(f'population/storage/{pop.folder_name}/{pop}/', 'images')
+    get_subfolder(f'population/storage/{pop.folder_name}/{pop}/images/', 'species')
     for f in [Forward, SMA, EMA]:
         specie_elite_fitness(
                 pop=pop,

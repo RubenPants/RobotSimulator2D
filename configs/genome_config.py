@@ -66,7 +66,7 @@ class GenomeConfig(BaseConfig):
         # Coefficient for each weight or bias difference contribution to the genomic distance  [def=0.5]
         self.compatibility_weight: float = 1.
         # Probability of adding a connection between existing nodes during mutation (each generation)  [def=0.05]  TODO
-        self.conn_add_prob: float = .06
+        self.conn_add_prob: float = .08
         # Probability of deleting an existing connection during mutation (each generation)  [def=0.05]  TODO
         self.conn_disable_prob: float = .04
         # Initial enabled-state of a connection  [def=True]
@@ -86,7 +86,7 @@ class GenomeConfig(BaseConfig):
         # The standard deviation of the zero-centered gaussian from which a GRU value mutation is drawn  [def=0.05]
         self.gru_mutate_power: float = .05
         # Probability of a GRU value to mutate  [def=0.2]  TODO
-        self.gru_mutate_rate: float = .4
+        self.gru_mutate_rate: float = .2
         # Probability of mutating a GRU node rather than a simple node  [def=0.6]  TODO
         self.gru_node_prob: float = 0.6
         # Probability of assigning (single) random value in GRU, based on gru_init_mean and gru_init_stdev  [def=0.05]
