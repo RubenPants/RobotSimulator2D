@@ -82,7 +82,7 @@ def specie_representatives(pop: Population, show: bool = True):
         )
     
     hor = min(len(elite_id), 5)
-    vert = max(len(elite_id) % 5 + 1, 1)
+    vert = max(len(elite_id) // 5 + 1, 1)
     plt.figure(figsize=(5 * hor, 5 * vert))
     plt.tight_layout()
     for i, (sid, eid) in enumerate(elite_id.items()):
@@ -93,8 +93,10 @@ def specie_representatives(pop: Population, show: bool = True):
         plt.axis('off')
     
     # Save the result
-    plt.savefig(f'population/storage/{pop.folder_name}/{pop}/images/species/specie_architectures.png',
-                bbox_inches='tight')
+    plt.savefig(
+            f'population/storage/{pop.folder_name}/{pop}/images/species/representatives_gen{population.generation}.png',
+            bbox_inches='tight'
+    )
     if show:
         plt.show()
     plt.close()
