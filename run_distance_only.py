@@ -44,17 +44,17 @@ def main(gru,
     config.genome.compatibility_disjoint_conn = 1.5
     config.genome.compatibility_disjoint_node = 2.
     config.genome.compatibility_weight = 1.
-    config.genome.gru_mutate_power = .1
+    config.genome.gru_mutate_power = .05
     config.genome.gru_mutate_rate = .2
     config.genome.gru_node_prob = .6
     config.genome.initial_conn = D_FULL_DIRECT
-    config.genome.weight_mutate_power = .2
+    config.genome.weight_mutate_power = .1
     config.genome.weight_mutate_rate = .4
     
     config.population.parent_selection = .2
     config.population.pop_size = 512  # Large enough of a population
     config.population.min_specie_size = 32  # Enough room for improvement within the specie
-    config.population.compatibility_thr = 4.0  # Single node in difference would be enough (+has other connections)
+    config.population.compatibility_thr = 3.0  # Single node in difference would be enough (+has other connections)
     config.population.specie_elitism = 1  # Only prevent the specie carrying the elite from stagnating
     config.population.specie_stagnation = 30  # Relative great since improvement comes slow
     config.update()
@@ -91,11 +91,6 @@ def main(gru,
                 debug=False,
         )
         
-        # Create an overview of the training process
-        training_overview(
-                population=pop,
-        )
-        
         # Trace the most fit genome
         trace_most_fit(
                 population=pop,
@@ -108,6 +103,11 @@ def main(gru,
         visualize_genome(
                 population=pop,
                 genome=pop.best_genome,
+        )
+        
+        # Create an overview of the training process
+        training_overview(
+                population=pop,
         )
     except Exception as e:
         pop.log(traceback.format_exc(), print_result=False)

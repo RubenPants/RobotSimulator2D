@@ -75,11 +75,6 @@ def main(fitness,
                 debug=False,
         )
         
-        # Create an overview of the training process
-        training_overview(
-                population=pop,
-        )
-        
         # Evaluate the trained population
         blueprint(
                 population=pop,
@@ -104,6 +99,9 @@ def main(fitness,
         visualize_genome(
                 population=pop,
                 genome=pop.best_genome,
+        )
+        training_overview(
+                population=pop,
         )
     except Exception as e:
         pop.log(traceback.format_exc(), print_result=False)

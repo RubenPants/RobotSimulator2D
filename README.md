@@ -18,6 +18,7 @@ Update a GRU's weights based on its current value, the value fed into the GRU an
 
 ### Urgent
 
+* Constraint the node-output to be within -1..1, let weights vary between -3..3
 * Take the elite (same-maze problem) and evaluate its mutations, similar in performance or radically different?
     Not so good, apparently...
 * Split excess gene to excess node and excess connections (node should have a larger weight)

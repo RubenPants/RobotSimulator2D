@@ -15,7 +15,7 @@ def visualize_function(f, name: str, save: bool = True):
     """Visualize the given function."""
     x = []
     y = []
-    for i in range(-200, 200):
+    for i in range(-350, 350):
         x.append(i / 100)
         y.append(f(torch.tensor(i / 100, dtype=torch.float64)))
     

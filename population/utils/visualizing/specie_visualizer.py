@@ -31,14 +31,14 @@ def main(pop: Population, func, window: int = 5, show: bool = True):
     for specie_id, specie in pop.species_hist.items():
         # Fetch specie-data
         history = sorted(specie.items(), key=lambda x: x[0])
-        if len(history) < 5: continue
+        if len(history) < window: continue
         generations, elite_list = zip(*history)
         
         # Update max_gen
         if generations[-1] > max_gen: max_gen = generations[-1]
         
         # Average the elite-fitness
-        elite_fitness = [sum([e.fitness for e in e_list]) / len(e_list) for e_list in elite_list]
+        elite_fitness = [sum([e.fitness for e in e_list if e.fitness]) / len(e_list) for e_list in elite_list]
         assert len(elite_fitness) == len(generations)
         
         # Plot the specie
