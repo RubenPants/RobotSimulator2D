@@ -33,14 +33,12 @@ def specie_elite_fitness(pop: Population, func, window: int = 5, show: bool = Tr
         # Fetch specie-data
         history = sorted(specie.items(), key=lambda x: x[0])
         if len(history) < window: continue
-        generations, elite_list = zip(*history)
+        generations, elite_fitness = zip(*history)
+        elite_fitness = [g[0].fitness if g[0].fitness else 0 for g in elite_fitness]  # TODO: Delete
+        assert len(elite_fitness) == len(generations)
         
         # Update max_gen
         if generations[-1] > max_gen: max_gen = generations[-1]
-        
-        # Average the elite-fitness
-        elite_fitness = [sum([e.fitness for e in e_list if e.fitness]) / len(e_list) for e_list in elite_list]
-        assert len(elite_fitness) == len(generations)
         
         # Plot the specie
         plt.plot(generations, func(elite_fitness, window), label=f'specie {specie_id}')
@@ -94,7 +92,7 @@ def specie_representatives(pop: Population, show: bool = True):
     
     # Save the result
     plt.savefig(
-            f'population/storage/{pop.folder_name}/{pop}/images/species/representatives_gen{population.generation}.png',
+            f'population/storage/{pop.folder_name}/{pop}/images/species/representatives_gen{pop.generation}.png',
             bbox_inches='tight'
     )
     if show:

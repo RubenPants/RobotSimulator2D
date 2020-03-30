@@ -64,7 +64,7 @@ class GenomeConfig(BaseConfig):
         # Weight of disjoint and excess nodes on the genomic distance  [def=2.0]
         self.compatibility_disjoint_node: float = 2.
         # Coefficient for each weight or bias difference contribution to the genomic distance  [def=0.5]
-        self.compatibility_weight: float = 1.
+        self.compatibility_weight: float = .5
         # Probability of adding a connection between existing nodes during mutation (each generation)  [def=0.05]  TODO
         self.conn_add_prob: float = .05
         # Probability of deleting an existing connection during mutation (each generation)  [def=0.05]  TODO

@@ -106,7 +106,7 @@ def draw_net(config: GenomeConfig, genome: Genome, debug=False, filename=None, v
         sending_node, receiving_node = cg.key
         if sending_node in used_nodes and receiving_node in used_nodes:
             color = 'green' if cg.weight > 0 else 'red'
-            width = str(0.1 + abs(cg.weight * 5))
+            width = str(0.1 + abs(cg.weight) / config.weight_max_value * 5)
             dot.edge(
                     node_names.get(sending_node),
                     node_names.get(receiving_node),

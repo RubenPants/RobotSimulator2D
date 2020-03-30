@@ -113,7 +113,7 @@ class Population:
                               logger=self.log)
         
         # Add to each of the species its elites
-        self.update_species_elites()
+        self.update_species_fitness_hist()
         
         # Create network method containers
         self.make_net = make_net_method
@@ -165,17 +165,17 @@ class Population:
                               logger=self.log)
         
         # Add to each of the species its elites
-        self.update_species_elites()
+        self.update_species_fitness_hist()
         
         # Increment generation count
         self.generation += 1
     
-    def update_species_elites(self):
-        """Add for each of the current species their elite genomes to the species_hist container."""
+    def update_species_fitness_hist(self):
+        """Add for each of the current species their fitness score."""
         for specie_id, specie in self.species.species.items():
-            elites = sorted(specie.members.values(), key=lambda m: m.fitness if m.fitness else 0, reverse=True)
             if specie_id not in self.species_hist: self.species_hist[specie_id] = dict()
-            self.species_hist[specie_id][self.generation] = elites[:self.config.population.genome_elitism]
+            max_fitness = max({m.fitness if m.fitness else 0 for m in specie.members.values()})
+            self.species_hist[specie_id][self.generation] = max_fitness
     
     def visualize_genome(self, debug=False, genome=None, show: bool = True):
         """
