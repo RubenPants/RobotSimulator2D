@@ -30,7 +30,7 @@ class PopulationConfig(BaseConfig):
         # Number of most fit individuals per specie that are preserved as-is from one generation to the next  [def=2]
         self.genome_elitism: int = 1
         # Minimum number of genomes per species, keeping low prevents number of individuals blowing up  [def=16]  TODO
-        self.min_specie_size: int = 16
+        self.min_specie_size: int = 32
         # The fraction for each species allowed to reproduce each generation (parent selection)  [def=0.2]  TODO
         self.parent_selection: float = 0.2
         # Maximum number of species  [def=15]
