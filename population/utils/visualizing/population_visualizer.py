@@ -7,7 +7,7 @@ from math import cos, sin
 
 import matplotlib.pyplot as plt
 
-from population.utils.visualizing.elites_visualizer import main as elite_visualizer
+from population.utils.visualizing.elite_visualizer import main as elite_visualizer
 from population.utils.visualizing.specie_distance import main as specie_distance
 from population.utils.visualizing.specie_visualizer import main as specie_visualizer
 from utils.dictionary import D_GAME_ID, D_POS

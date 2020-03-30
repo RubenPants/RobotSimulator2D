@@ -34,7 +34,6 @@ def specie_elite_fitness(pop: Population, func, window: int = 5, show: bool = Tr
         history = sorted(specie.items(), key=lambda x: x[0])
         if len(history) < window: continue
         generations, elite_fitness = zip(*history)
-        elite_fitness = [g[0].fitness if g[0].fitness else 0 for g in elite_fitness]  # TODO: Delete
         assert len(elite_fitness) == len(generations)
         
         # Update max_gen
