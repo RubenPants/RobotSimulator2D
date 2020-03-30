@@ -13,6 +13,7 @@ class GenomeDistanceCache(object):
     
     def __init__(self, config: GenomeConfig):
         self.distances = dict()
+        self.kwargs = dict()  # Extra information about the distance-measure for the node
         self.config = config
         self.node_cache = NodeComparingCache()
     
@@ -109,7 +110,18 @@ class GenomeDistanceCache(object):
         
         # Save and return the final distance
         self.distances[g0, g1] = distance
+        self.kwargs[g0, g1] = (disjoint_nodes, disjoint_connections)
         return distance
+    
+    def get_disjoint_genes(self, genome0, genome1):
+        """Get the disjoint genes of two given genomes. Return tuple (disjoint_nodes, disjoint_connections)"""
+        # Lowest key is always first, removes redundant distance checks
+        g0, g1 = (genome0.key, genome1.key) if (genome0.key <= genome1.key) else (genome1.key, genome0.key)
+        
+        # If key not present, then this means that the distance-measure is not yet determined
+        if (g0, g1) not in self.kwargs:
+            self(genome0, genome1)
+        return self.kwargs[g0, g1]
     
     def warm_up(self, genome_dict: dict):
         """

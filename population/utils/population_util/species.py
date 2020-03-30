@@ -76,15 +76,25 @@ class DefaultSpecies:
             gid = unspeciated.pop()
             genome = population[gid]
             
+            # Check if a specie already exists with the same architecture, if so, add the genome to this specie
+            architecture_match = [sid for sid, rid in new_representatives.items() if
+                                  distances.get_disjoint_genes(population[rid], genome) == (0, 0)]
+            if architecture_match:
+                assert len(architecture_match) == 1  # At most one identical specie
+                members[architecture_match[0]].append(gid)
+            
             # Find the species with the most similar representative
+            specie_distance = []
             candidates = []
             for sid, rid in iteritems(new_representatives):
                 rep = population[rid]
                 d = distances(rep, genome)
+                specie_distance.append((d, sid))
                 if d < config.population.get_compatibility_threshold(n_species=len(new_representatives)):
                     candidates.append((d, sid))
             
-            if candidates:  # There are species close enough; add genome to most similar specie
+            # There are species close enough; add genome to most similar specie
+            if candidates:
                 _, sid = min(candidates, key=lambda x: x[0])
                 members[sid].append(gid)
             else:  # No specie is similar enough, create new specie with this genome as its representative
