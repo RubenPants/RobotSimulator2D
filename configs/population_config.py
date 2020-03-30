@@ -39,10 +39,10 @@ class PopulationConfig(BaseConfig):
         self.specie_count_min = 5
         # Target number of species  [def=10]
         self.specie_count_target = 10
-        # Number of the best species that will be protected from stagnation  [def=2]
-        self.specie_elitism: int = 2
-        # Remove a specie if it hasn't improved over this many number of generations  [def=15]  TODO
-        self.specie_stagnation: int = 15
+        # Number of the best species that will be protected from stagnation  [def=1]
+        self.specie_elitism: int = 1
+        # Remove a specie if it hasn't improved over this many number of generations  [def=25]  TODO
+        self.specie_stagnation: int = 25
         
         # TODO: Often used, hence placed outside of parameter-crowd
         # Number of individuals in each generation  [def=256]
