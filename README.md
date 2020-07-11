@@ -17,7 +17,11 @@ This section addresses the main differences between this (intermediate) project 
 
 ### Networks
 In this project, it is only possible to evolve RNNs which support the GRU cell, whereas EvolvableRNN supports several 
-other recurrent units, as well as an improved implementation of these networks. 
+other recurrent units, as well as an improved implementation of these networks. The figure below shows a network that
+has no hidden nodes.
+<p align="center">
+  <img src="https://github.com/RubenPants/RobotSimulator2D/blob/master/population/storage/NEAT-GRU/path_2/images/architectures/genome_9593.png"/>
+</p>
 
 ### Environment
 The EvolvableRNN environment uses a sparse environment that lacks obstacles. In other words, its environments only 
