@@ -1,5 +1,5 @@
 # Robot Simulator 2D
- Custom low-level robot simulator.
+Custom low-level robot simulator.
 
 
 ## MAIN IDEAS

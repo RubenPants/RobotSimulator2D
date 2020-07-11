@@ -1,0 +1,14 @@
+# TODO: install PyTorch: https://pytorch.org/
+cython
+graphviz
+matplotlib
+neat
+neat-python
+pyglet
+pymunk
+pytest
+scipy
+tqdm
+pylint
+psutil
+seaborn
