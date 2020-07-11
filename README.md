@@ -3,7 +3,8 @@ Custom low-level robot simulator, which evaluates evolved Recurrent Neural Netwo
 environment. This repository was the initial repo of my Master's thesis. However, due to a change in focus, I created a 
 new repository called *EvolvableRNN* (https://github.com/RubenPants/EvolvableRNN), which builds further on this repo. In
 other words, this repository is unfinished. If you are interested in how the networks are RNNs are evolved via NEAT, 
-then please refer to the EvolvableRNN repository.
+then please refer to the EvolvableRNN repository. On the other hand, the environment creation, which is discarded in 
+EvolvableRNN, is still interesting, hence I left this project on my GitHub.
 
 
 ## Project Overview
