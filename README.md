@@ -1,95 +1,49 @@
-# Robot Simulator 2D
-Custom low-level robot simulator.
+# RobotSimulator2D [deprecated]
+Custom low-level robot simulator, which evaluates evolved Recurrent Neural Networks (RNN) in a room-like maze 
+environment. This repository was the initial repo of my Master's thesis. However, due to a change in focus, I created a 
+new repository called *EvolvableRNN* (https://github.com/RubenPants/EvolvableRNN), which builds further on this repo. In
+other words, this repository is unfinished. If you are interested in how the networks are RNNs are evolved via NEAT, 
+then please refer to the EvolvableRNN repository.
 
 
-## MAIN IDEAS
-
-* Focus on the no-bearing task!
-    * I have the feeling that the other task is somewhat solved, where the no-bearing task definitely is not
-* Recreate the maze to be more performing for the no-bearing task (i.e. no wall detection etc), possibility for drone to go negative
-* Possible to update the GRU-weights (in NEAT) with the help of local (plastic) learning rules? (adaptively learn during its lifetime to improve weight updates)
-
-### GRU learning rule
-Update a GRU's weights based on its current value, the value fed into the GRU and the result it obtained (i.e. difference in distance over the step)
-
-* Compare :
-    * NEAT (no-recurrent connections)
-    * NEAT with recurrent connections
-    * NEAT-GRU
-    * Plastic NEAT-GRU
-
-### Co-evolving NEAT
-* Co-evolving NEAT:
-    * CPPN for the weights
-    * NEAT for the locations in the network, a specie is determined by a genome's architecture (or only #nodes)
-
-## TODO
-
-### Urgent
-
-* Go over reproduce's mean fitness function
-* Take the elite (same-maze problem) and evaluate its mutations, similar in performance or radically different?
-    Not so good, apparently...
-* Split excess gene to excess node and excess connections (node should have a larger weight)
-
-* Only start a new specie if far away enough AND different nodes and connections then other representatives (key-based check via node-mapper)
-* Redo crossover to follow the competing convention problem!
-* Bug in crossover! (I think due to the GRU?)
-* Fitness that not only takes path (at the end) in account, but also normalized time taken to reach target
-* Test all of the fitness-functions!
-* Activation functions of hidden vs output nodes not taken into account! (hard-coded on tanh!) --> See CPPNs
-
-* NEAT and variants implementation:
-    * Implement Hyper-NEAT
-    * Implement adaptive Hyper-NEAT
-
-### Extra
-
-* Normalize angular-sensors (needed?)
-* Evaluate not with only the current elites, but also those of previous (1, 2?) generations
-* Make the compatibility-threshold dynamic (i.e. such that a target specie-size is kept)
-* Test input-keys in genome (GRU), what order are they? (should be sorted: -4, -1, 3, ...), reflects on sensor-input?
-* Improve performance by having the choice not to evaluate parents (distance-only, fixed task)
-* Self-adaptive NEAT?
-* Test the mutation operators!
-* Update fitness functions to be more conform to that of James
+## Project Overview
+The `main.py` file (root directory) contains all the supported functionality to evolve and evaluate populations of RNNs.
+Since this project mostly resembles the *EvolvableRNN*, please refer to https://github.com/RubenPants/EvolvableRNN for
+a detailed explanation on each of the project's functionality.
 
 
+## Differences with EvolvableRNN
+This section addresses the main differences between this (intermediate) project and the finished EvolvableRNN project.
 
+### Networks
+In this project, it is only possible to evolve RNNs which support the GRU cell, whereas EvolvableRNN supports several 
+other recurrent units, as well as an improved implementation of these networks. 
 
-## Game Environment
+### Environment
+The EvolvableRNN environment uses a sparse environment that lacks obstacles. In other words, its environments only 
+consist of a single agent (robot) and a single target to which the robot should navigate to. This project, however, has
+as environments mazes (in the form of an indoor single level ground plan), which the robot should navigate in order to
+reach its target. This implies that the environment of this project is far more sophisticated than that of EvolvableRNN.
 
-The game environment is heavily inspired by OpenAI's *gym* environments. Each OpenAI gym has the following methods:
+The figure below shows an example of such a maze environment.
+<p align="center">
+  <img src="https://github.com/RubenPants/RobotSimulator2D/blob/master/environment/visualizations/blueprint_game00002.png"/>
+</p>
 
-* `make` Create a new environment
-* `reset` Prepare the environment for a new session
-* `render` Visualize the current state
-* `step` Progress the game by one and return current state
-* `close` Stop the game and return final statistics
+### Sensory Inputs
+Where EvolvableRNN only considers the distance between the robot and its target, the sensory implementation in this
+repository has a wider variety of sensors to choose from. Not only the distance towards the target is supported, but
+also proximity sensors to sense obstacles, as well as a bearing sensor that indicates the relative direction towards the
+target. The combination of such sensors make that it is possible for a population to navigate the environment 
+successfully, as the figure below shows.
+<p align="center">
+  <img src="https://github.com/RubenPants/RobotSimulator2D/blob/master/population/storage/NEAT-GRU/path_2/images/game00002/trace_gen00100.png"/>
+</p>
 
-These are translated to my implementation as follows (respectively):
-
-* `__init__` The game initialization functions as the `make` method.
-* `reset` Same functionality.
-* `render` Sequentially update the game whilst visualizing it. Since Pyglet doesn't handle Threads well, the agent must be given to the game.
-* `step` Same functionality.
-* `close` Unused.
-
-### Step
-
-The `step` call returns four values:
-
-* `observation` Environment-specific object representing the observation of the environment (e.g. sensor readings).
-* `reward` Amount of reward achieved by the previous action.
-* `done` Boolean that says whether or not it's time to reset the environment again. If True, this indicates that the episode has terminated.
-* `info` Diagnostic information useful for debugging, but may not be used by the agent.
-
-![environment_loop](img/openai_environment_loop.png)
-
-### Reset
-
-The whole process gets started by calling `reset`,which returns an initial `observation`.
-
-## CyEntities
-
-Do the build inside of each cy-folder. This build file is responsible for moving all the cy-files to the correct folder!
+### Heatmap Visualisations
+To help improve the fitness calculation of the networks, a heatmap is created for each environment representing the A*
+distance (which includes the fact that the robot cannot travel through a wall) to the target. An example is shown in the
+image below.
+<p align="center">
+  <img src="https://github.com/RubenPants/RobotSimulator2D/blob/master/environment/visualizations/heatmap_game00002.png"/>
+</p>

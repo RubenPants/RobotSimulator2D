@@ -185,18 +185,8 @@ if __name__ == '__main__':
     
     # Potentially modify the population
     if not pop.best_genome: pop.best_genome = list(pop.population.values())[0]
-    # pop.best_genome.mutate(config=pop.config.genome)
-    # pop.best_genome.key = 0
-    # pop.best_genome = list(pop.population.values())[-1]
-    # pop.population = {k: v for k, v in pop.population.items() if k in [111]}
-    # pop.best_genome.update_gru_nodes(pop.config.genome_config)
-    # pop.best_genome.mutate(config=pop.config.genome_config)
-    # pop.best_genome.update_gru_nodes(pop.config.genome_config)
-    # print(pop.best_genome)
     
     # Set the blueprint and traces games
-    # chosen_games = [0] * 10  # Different (random) initializations!
-    # chosen_games = [g for g in range(1, 6)]
     chosen_games = [99995, 99996, 99997, 99998, 99999]
     
     # Chosen genome used for genome-evaluation
